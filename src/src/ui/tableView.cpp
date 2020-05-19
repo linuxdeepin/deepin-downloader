@@ -1,0 +1,107 @@
+
+
+#include "tableView.h"
+#include <QDebug>
+#include <QScrollBar>
+#include <QMouseEvent>
+#include <QHeaderView>
+#include <QModelIndex>
+#include "tableModel.h"
+
+TableView::TableView(int Flag)
+    :QTableView ()
+{
+    m_pTableModel=new TableModel(Flag);
+    m_iTableFlag=Flag;
+    initUI();
+    setTestData();
+}
+void TableView::initUI()
+{
+    this->setModel(m_pTableModel);
+    //this->setLineWidth(0);
+    this->setFrameShape(QFrame::NoFrame);
+    this->setMinimumWidth(636);
+    this->setMouseTracking(true);
+
+    //this->setMaximumWidth(2000);
+    this->verticalHeader()->hide();
+    //this->verticalHeader()->setDefaultSectionSize(56);
+
+
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+    setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //setSelectionMode(QAbstractItemView::ExtendedSelection);
+    setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+    setAlternatingRowColors(true);
+    setShowGrid(false);
+
+    setSelectionMode(QAbstractItemView::SingleSelection);
+
+
+}
+void TableView::initConnections()
+{
+
+}
+void TableView::initTableView()
+{
+
+}
+
+void TableView::setTestData()
+{
+    m_pTableModel->setData(m_pTableModel->index(0,0), "ceshi.txt",TableModel::FileName);
+    m_pTableModel->setData(m_pTableModel->index(0,0), "1024k",TableModel::TotalLength);
+    m_pTableModel->setData(m_pTableModel->index(0,0), "10%",TableModel::Percent);
+}
+TableModel* TableView::get_tableViewModel()
+{
+    return m_pTableModel;
+}
+
+void TableView::reset(bool switched)
+{
+    QModelIndex idx= this->selectionModel()->currentIndex();
+    int size=QTableView::verticalScrollBar()->value();
+    QTableView::reset();
+
+    this->selectRow(idx.row());
+    if(switched)
+        size=0;
+    QTableView::verticalScrollBar()->setValue(size);
+}
+
+void TableView::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button()==Qt::LeftButton)
+    {
+
+          setCurrentIndex(QModelIndex());
+           QTableView::mousePressEvent(event);
+           QModelIndex index=currentIndex();
+           if(index.row()<0&&index.column()<0)
+               return;
+    }
+
+}
+void TableView::mouseMoveEvent(QMouseEvent *event)
+{
+    QModelIndex idx = this->indexAt(event->pos());
+    emit signal_hoverChanged(idx);
+}
+
+void TableView::leaveEvent(QEvent *event)
+{
+    this->reset();
+    emit signal_hoverChanged(QModelIndex());
+}
+void TableView::keyPressEvent(QKeyEvent *event)
+{
+    if(event->modifiers()==Qt::ControlModifier&&event->key() == Qt::Key_C)
+    {
+        return;
+    }
+    QWidget::keyPressEvent(event);
+}
