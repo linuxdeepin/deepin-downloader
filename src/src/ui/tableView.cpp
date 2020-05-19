@@ -6,19 +6,16 @@
 #include <QMouseEvent>
 #include <QHeaderView>
 #include <QModelIndex>
-#include "tableModel.h"
 
 TableView::TableView(int Flag)
     :QTableView ()
 {
-    m_pTableModel=new TableModel(Flag);
     m_iTableFlag=Flag;
     initUI();
     setTestData();
 }
 void TableView::initUI()
 {
-    this->setModel(m_pTableModel);
     //this->setLineWidth(0);
     this->setFrameShape(QFrame::NoFrame);
     this->setMinimumWidth(636);
@@ -52,14 +49,9 @@ void TableView::initTableView()
 
 void TableView::setTestData()
 {
-    m_pTableModel->setData(m_pTableModel->index(0,0), "ceshi.txt",TableModel::FileName);
-    m_pTableModel->setData(m_pTableModel->index(0,0), "1024k",TableModel::TotalLength);
-    m_pTableModel->setData(m_pTableModel->index(0,0), "10%",TableModel::Percent);
+
 }
-TableModel* TableView::get_tableViewModel()
-{
-    return m_pTableModel;
-}
+
 
 void TableView::reset(bool switched)
 {
