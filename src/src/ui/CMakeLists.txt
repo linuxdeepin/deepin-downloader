@@ -8,7 +8,6 @@ ADD_DEFINITIONS(-DUI_LIB )
 set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainframe.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tableView.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/tableModel.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/topButton.h
 )
 
@@ -20,7 +19,6 @@ QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
 add_library(ui SHARED
        mainframe.cpp
        tableView.cpp
-       tableModel.cpp
        topButton.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${qrc_files}
