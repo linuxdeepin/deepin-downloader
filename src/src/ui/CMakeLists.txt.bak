@@ -4,6 +4,7 @@ include_directories( ${PROJECT_SOURCE_DIR}/src/include/ui)
 #预定义宏，主要用于dll导出
 ADD_DEFINITIONS(-DUI_LIB )
 
+
 #需要moc(加Q_OBJECT)的头文件 
 set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainframe.h
