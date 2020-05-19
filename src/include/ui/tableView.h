@@ -5,13 +5,11 @@
 
 #include <QTableView>
 
-class TableModel;
 class TableView:public QTableView
 {
     Q_OBJECT
 public:
     TableView(int Flag);
-    TableModel *get_tableViewModel();
     void reset(bool switched=false);
    // RecycleTableViewModel* get_recycletableViewModel();
 
@@ -33,7 +31,6 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
 private:
-    TableModel *m_pTableModel;
     int m_iTableFlag;
 
 };
