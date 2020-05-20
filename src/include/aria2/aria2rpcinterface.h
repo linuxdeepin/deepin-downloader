@@ -25,11 +25,10 @@ public:
     void addTorrent(QString strTorrentFile,QMap<QString,QVariant> opt,QString strId);//添加bt文件
     void addMetalink(QString strMetalink,QMap<QString,QVariant> opt,QString strId);//添加磁力链地址
     void pause();//暂停
-    void pauseAll();//
+    void pauseAll();//暂停所有
+    void unPause();//取消暂停
+    void unPauseAll();//取消所有暂停
     void remove();//移除
-
-    Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
-
 
 
 
@@ -55,6 +54,11 @@ public:
     static const QString basePath;//下载器安装目录
 private:
     static Aria2RPCInterface *_pInstance;
+
+
+public:
+    Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
+
 
 
 };

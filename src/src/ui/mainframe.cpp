@@ -19,6 +19,7 @@ MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
 {
     init();
+    initAria2();
 }
 
 void MainFrame::init()

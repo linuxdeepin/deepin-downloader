@@ -8,7 +8,7 @@
 
 //#ln /usr/bin/aria2c /usr/share/uos-downloadmanager/uos-aria2c
 const QString Aria2RPCInterface::basePath = "/usr/share/uos-downloadmanager/";// /usr/bin/
-const QString Aria2RPCInterface::aria2cCmd = "uos-aria2c";// aria2c
+const QString Aria2RPCInterface::aria2cCmd = "nfs-aria2c";// aria2c
 
 Aria2RPCInterface *Aria2RPCInterface::_pInstance = new Aria2RPCInterface;
 Aria2RPCInterface *Aria2RPCInterface::Instance()
@@ -257,7 +257,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
             temp += line.trimmed();
         }
     }
-
+    return  btInfo;
 
 }
 

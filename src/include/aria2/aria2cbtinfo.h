@@ -1,6 +1,8 @@
 #ifndef ARIA2CBTINFO_H
 #define ARIA2CBTINFO_H
 #include <QObject>
+
+
 class Aria2cBtFileInfo{
 public:
     int index;//文件索引,从1开始

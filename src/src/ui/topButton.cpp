@@ -33,7 +33,7 @@ void TopButton::Init()
 
     m_pStartDownloadBtn = new DIconButton(this);
     m_pStartDownloadBtn->setFixedSize(36,36);
-    m_pStartDownloadBtn->setIcon(QIcon::fromTheme("./images/ndm_icon_start_11px.svg"));
+    m_pStartDownloadBtn->setIcon(QIcon::fromTheme("./images/list_icon_start_normal.png"));
     m_pStartDownloadBtn->setEnabled(false);
 
     m_pDeleteDownloadBtn = new DIconButton(this);
