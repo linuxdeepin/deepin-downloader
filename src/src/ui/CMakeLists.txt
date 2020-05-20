@@ -13,6 +13,10 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainframe.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tableView.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/topButton.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/newtaskwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodelegate.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodialog.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/btinfotableview.h
 )
 
 #添加资源文件
@@ -28,6 +32,10 @@ add_library(ui SHARED
        mainframe.cpp
        tableView.cpp
        topButton.cpp
+       newtaskwidget.cpp
+       btinfodelegate.cpp
+       btinfodialog.cpp
+       btinfotableview.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${qrc_files}
 )
