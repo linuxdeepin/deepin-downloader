@@ -12,13 +12,14 @@
 #include "aria2rpcinterface.h"
 #include "tableView.h"
 #include "topButton.h"
-
+#include "aria2rpcinterface.h"
 
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
 {
     init();
+    initAria2();
 }
 
 void MainFrame::init()
@@ -193,9 +194,10 @@ MainFrame::~MainFrame()
 //初始化aria2
 void MainFrame::initAria2()
 {
-    //aria2c = new Aria2cInterface(this);
+    Aria2RPCInterface::Instance()->init();//启动aria2c
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_success(QString, QJsonObject)), this, SLOT(slotRpcSuccess(QString, QJsonObject)));
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_error(QString, QString, int)), this, SLOT(slotRpcError(QString, QString, int)));
+
 }
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
