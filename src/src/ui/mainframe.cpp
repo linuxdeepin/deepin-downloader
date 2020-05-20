@@ -9,8 +9,10 @@
 #include <DMenu>
 #include <DLabel>
 #include <DTitlebar>
+#include "aria2rpcinterface.h"
 #include "tableView.h"
 #include "topButton.h"
+
 
 
 MainFrame::MainFrame(QWidget *parent) :
