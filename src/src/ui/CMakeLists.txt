@@ -15,6 +15,10 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/topButton.h
 )
 
+#添加资源文件
+set(QRC_SOURCE_FILES images.qrc)
+qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
+
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
 QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
 
@@ -36,6 +40,4 @@ else()
     target_link_libraries(ui libaria2.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
     message("ui release")
 endif()
-
-
 
