@@ -5,7 +5,15 @@
 #include <DLabel>
 #include <DListView>
 #include <QSystemTrayIcon>
+
+#include <DTitlebar>
+#include <DIconButton>
+#include <DApplication>
+#include <QJsonObject>
+
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
+DTK_USE_NAMESPACE
 
 class TableView;
 class QStackedWidget;
@@ -19,6 +27,7 @@ public:
 
     void init();
     ~MainFrame();
+
 private slots:
     void onActivated(QSystemTrayIcon::ActivationReason);
     void closeEvent(QCloseEvent *event);
@@ -40,6 +49,13 @@ private:
     QStandardItem * m_pDownloadFinish_item;
     QStandardItem * m_pRecycle_item;
     QSystemTrayIcon * m_pSystemTray;
+
+private:
+    void initAria2();//初始化aria2
+private slots:
+    void slotRPCSuccess(QString method, QJsonObject json);//处理rpc成功返回的信息
+    void slotRPCError(QString method, QString id, int);//处理返回的错误信息
+
 };
 
 #endif // MAINFRAME_H
