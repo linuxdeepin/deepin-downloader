@@ -11,7 +11,7 @@
 #include <DTitlebar>
 #include "tableView.h"
 #include "topButton.h"
-
+#include "aria2rpcinterface.h"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)

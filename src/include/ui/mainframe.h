@@ -11,6 +11,10 @@
 #include <DApplication>
 #include <QJsonObject>
 
+
+
+DWIDGET_USE_NAMESPACE
+
 class TableView;
 class QStackedWidget;
 class TopButton;
