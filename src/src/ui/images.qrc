@@ -1,0 +1,49 @@
+<RCC>
+    <qresource prefix="/btn">
+        <file alias="advance_normal_dark.svg">images/btn/dark/advance_normal_dark.svg</file>
+        <file alias="bases_dark.svg">images/btn/dark/bases_normal_dark.svg</file>
+        <file alias="download_normal_dark.svg">images/btn/dark/download_normal_dark.svg</file>
+        <file alias="list_delete_dark.svg">images/btn/dark/list_delete_normal_dark.svg</file>
+        <file alias="list_download__dark.svg">images/btn/dark/list_download_normal_dark.svg</file>
+        <file alias="notification_normal_dark.svg">images/btn/dark/notification_normal_dark.svg</file>
+        <file alias="print_done_dark.svg">images/btn/dark/print_done_normal_dark.svg</file>
+        <file alias="take_over_dark.svg">images/btn/dark/take_over_normal_dark.svg</file>
+        <file alias="advance_normal_light.svg">images/btn/light/advance_normal_light.svg</file>
+        <file alias="bases_light.svg">images/btn/light/bases_normal_light.svg</file>
+        <file alias="download_normal_light.svg">images/btn/light/download_normal_light.svg</file>
+        <file alias="list_delete_light.svg">images/btn/light/list_delete_normal.svg</file>
+        <file alias="list_download__light.svg">images/btn/light/list_download_normal.svg</file>
+        <file alias="notification_normal_light.svg">images/btn/light/notification_normal_light.svg</file>
+        <file alias="print_done_light.svg">images/btn/light/print_done_normal.svg</file>
+        <file alias="take_over_light.svg">images/btn/light/take_over_normal_light.svg</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>images/icon/downloader1.svg</file>
+        <file>images/icon/downloader2.svg</file>
+        <file>images/icon/downloader3.svg</file>
+        <file>images/icon/downloader4.svg</file>
+        <file>images/icon/downloader5.svg</file>
+        <file>images/icon/downloader6.svg</file>
+        <file>images/icon/downloader7.svg</file>
+        <file>images/icon/downloader8.svg</file>
+        <file>images/icon/downloader9.svg</file>
+    </qresource>
+    <qresource prefix="/tab">
+        <file alias="again_dark.svg">images/tab/dark/list_icon_again_normal_dark.svg</file>
+        <file alias="bt_dark.svg">images/tab/dark/list_icon_bt_normal_dark.svg</file>
+        <file alias="cancel_dark.svg">images/tab/dark/list_icon_cancel_normal_dark.svg</file>
+        <file alias="delete_dark.svg">images/tab/dark/list_icon_delete_normal_dark.svg</file>
+        <file alias="file_dark.svg">images/tab/dark/list_icon_file_normal_dark.svg</file>
+        <file alias="folder_dark.svg">images/tab/dark/list_icon_folder_normal_dark.svg</file>
+        <file alias="pause_dark.svg">images/tab/dark/list_icon_pause_normal_dark.svg</file>
+        <file alias="start_dark.svg">images/tab/dark/list_icon_start_normal_dark.svg</file>
+        <file alias="again_light.svg">images/tab/light/list_icon_again_normal_light.svg</file>
+        <file alias="bt_light.svg">images/tab/light/list_icon_bt_normal_light.svg</file>
+        <file alias="cancel_light.svg">images/tab/light/list_icon_cancel_normal_light.svg</file>
+        <file alias="delete_light.svg">images/tab/light/list_icon_delete_normal_light.svg</file>
+        <file alias="file_light.svg">images/tab/light/list_icon_file_normal_light.svg</file>
+        <file alias="folder_light.svg">images/tab/light/list_icon_folder_normal_light.svg</file>
+        <file alias="pause_light.svg">images/tab/light/list_icon_pause_normal_light.svg</file>
+        <file alias="start_light.svg">images/tab/light/list_icon_start_normal_light.svg</file>
+    </qresource>
+</RCC>
