@@ -11,9 +11,10 @@
 #include <DApplication>
 #include <QJsonObject>
 
-
-
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
+DTK_USE_NAMESPACE
+
 
 class TableView;
 class QStackedWidget;

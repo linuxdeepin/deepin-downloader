@@ -55,14 +55,14 @@ void TableView::setTestData()
 
 void TableView::reset(bool switched)
 {
-    QModelIndex idx= this->selectionModel()->currentIndex();
-    int size=QTableView::verticalScrollBar()->value();
-    QTableView::reset();
+//    QModelIndex idx= this->selectionModel()->currentIndex();
+//    int size=QTableView::verticalScrollBar()->value();
+//    QTableView::reset();
 
-    this->selectRow(idx.row());
-    if(switched)
-        size=0;
-    QTableView::verticalScrollBar()->setValue(size);
+//    this->selectRow(idx.row());
+//    if(switched)
+//        size=0;
+//    QTableView::verticalScrollBar()->setValue(size);
 }
 
 void TableView::mousePressEvent(QMouseEvent *event)
