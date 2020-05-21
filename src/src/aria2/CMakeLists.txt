@@ -18,6 +18,7 @@ QT5_WRAP_CPP (DWM_ARIA_HEADERS_MOC ${DWM_ARIA_HEADERS})
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
 add_library(aria2 SHARED
     aria2rpcinterface.cpp
+    aria2cbtinfo.cpp
     ${DWM_ARIA_HEADERS_MOC}
 )
 

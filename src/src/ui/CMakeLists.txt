@@ -14,6 +14,10 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/tableView.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tableModel.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/topButton.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/newtaskwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodelegate.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodialog.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/btinfotableview.h
 )
 
 
@@ -34,6 +38,10 @@ add_library(ui SHARED
        tableView.cpp
        tableModel.cpp
        topButton.cpp
+       newtaskwidget.cpp
+       btinfodelegate.cpp
+       btinfodialog.cpp
+       btinfotableview.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
 )

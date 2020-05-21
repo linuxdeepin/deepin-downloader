@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QJsonObject>
+#include "aria2cbtinfo.h"
 
 class Aria2RPCInterface : public QObject
 {
@@ -21,13 +22,14 @@ public:
     QString getConfigFilePath();//获得配置文件路径
     bool checkAria2cFile();//检查aria2c文件
     void addUri(QString strUri,QMap<QString,QVariant> opt,QString strId);//添加uri地址
-    void addTorrent();//添加bt文件
-    void addMetalink();//添加磁力链地址
+    void addTorrent(QString strTorrentFile,QMap<QString,QVariant> opt,QString strId);//添加bt文件
+    void addMetalink(QString strMetalink,QMap<QString,QVariant> opt,QString strId);//添加磁力链地址
     void pause();//暂停
-    void pauseAll();//
+    void pauseAll();//暂停所有
+    void unPause();//取消暂停
+    void unPauseAll();//取消所有暂停
     void remove();//移除
 
-    void getBtInfo();//得到bt文件信息
 
 
 private:
@@ -52,6 +54,11 @@ public:
     static const QString basePath;//下载器安装目录
 private:
     static Aria2RPCInterface *_pInstance;
+
+
+public:
+    Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
+
 
 
 };
