@@ -23,9 +23,13 @@ set (UDLC_UI_HEADERS
 
 )
 
+
+file(GLOB_RECURSE QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images.qrc)
 #添加资源文件
 set(QRC_SOURCE_FILES images.qrc)
 qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
+
+
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
 QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
@@ -44,7 +48,7 @@ add_library(ui SHARED
        settingswidget.cpp
        basicsettingwidget.cpp
        ${UDLC_UI_HEADERS_MOC}
-       ${qrc_files}
+       ${QRC_FILES}
 )
 
 #依赖库
