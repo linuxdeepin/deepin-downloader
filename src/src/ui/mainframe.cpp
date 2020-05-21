@@ -6,6 +6,7 @@
 #include <QSystemTrayIcon>
 #include <QHeaderView>
 #include <QCloseEvent>
+#include <QDesktopWidget>
 #include <DMenu>
 #include <DLabel>
 #include <DTitlebar>
@@ -13,17 +14,27 @@
 #include "tableView.h"
 #include "topButton.h"
 #include "aria2rpcinterface.h"
-
+#include "newtaskwidget.h"
+#include "settingswidget.h"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
 {
     init();
     initAria2();
+    initConnection();
 }
 
 void MainFrame::init()
 {
+
+    // 添加设置界面
+    DMenu *pSettingsMenu = new DMenu;
+    m_pSettingAction = new QAction(tr("设置"), this);
+    pSettingsMenu->addAction(m_pSettingAction);
+    titlebar()->setMenu(pSettingsMenu);
+
+
     this->setTitlebarShadowEnabled(true);
 
     m_pToolBar = new TopButton(this);
@@ -120,9 +131,9 @@ void MainFrame::init()
     m_pLeft_list->setFont(font);
     QStandardItemModel* pLeftList_model = new QStandardItemModel(this);
 
-    m_pDownloading_item = new QStandardItem(QIcon::fromTheme("ndm_list_downloading"), tr("下载中"));
-    m_pDownloadFinish_item = new QStandardItem(QIcon::fromTheme("ndm_print_done"), tr("下载完成"));
-    m_pRecycle_item = new QStandardItem(QIcon::fromTheme("ndm_list_delete"), tr("回收站"));
+    m_pDownloading_item = new QStandardItem(QIcon(":/btn/download_normal_light.svg"), tr("下载中"));
+    m_pDownloadFinish_item = new QStandardItem(QIcon(":/btn/print_done_light.svg"), tr("下载完成"));
+    m_pRecycle_item = new QStandardItem(QIcon(":/btn/list_delete_light.svg"), tr("回收站"));
     m_pDownloading_item->setBackground(QColor(255, 255, 255));
     m_pDownloadFinish_item->setBackground(QColor(255, 255, 255));
     m_pRecycle_item->setBackground(QColor(255, 255, 255));
@@ -141,21 +152,61 @@ void MainFrame::init()
 
     m_pRightStackwidget->setCurrentIndex(0);
 
-    QIcon tryIcon = QIcon(":/icons/deepin/builtin/light/icons/ndm_preferencesystem_24px.svg");
-    m_pSystemTray = new QSystemTrayIcon(this);
-    m_pSystemTray->setIcon(tryIcon);
-    m_pSystemTray->setToolTip(tr("Download Manager"));
+    initTray();
+}
 
-    QAction *pQuitAct = new QAction(tr("退出"), this);
-    connect(pQuitAct, SIGNAL(triggered()), this, SLOT(on_tray_quit_click()));
+void MainFrame::initTray()
+{
+    QIcon tryIcon = QIcon(":/icons/images/icon/downloader5.svg");
+        m_pSystemTray = new QSystemTrayIcon(this);
+        m_pSystemTray->setIcon(tryIcon);
+        m_pSystemTray->setToolTip(tr("下载器"));
 
-    QMenu* pTrayMenu = new QMenu(this);
-    pTrayMenu->addAction(pQuitAct);
-    connect(m_pSystemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this,
-            SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
-    m_pSystemTray->setContextMenu(pTrayMenu);
-    m_pSystemTray->show();
+        QAction *pShowMainAct = new QAction(tr("显示主界面"), this);
 
+        QAction *pNewDownloadAct = new QAction(tr("新建任务"), this);
+        QAction *pStartAllAct = new QAction(tr("开始全部任务"), this);
+        QAction *pPauseAllAct = new QAction(tr("暂停全部任务"), this);
+        QAction *pShutdownAct = new QAction(tr("关机"), this);
+        QAction *pSleepAct = new QAction(tr("休眠"), this);
+        QAction *pQuiteAct = new QAction(tr("退出下载器"), this);
+        QMenu *pAfterDownloadMenu = new QMenu(tr("下载完成后"), this);
+        pAfterDownloadMenu->addAction(pShutdownAct);
+        pAfterDownloadMenu->addAction(pSleepAct);
+        pAfterDownloadMenu->addAction(pQuiteAct);
+
+        QAction *pShowAct = new QAction(tr("显示"), this);
+        QAction *pShowOnDownloadAct = new QAction(tr("下载时显示"), this);
+        QAction *pHideAct = new QAction(tr("隐藏"), this);
+        QMenu *pTraySetMenu = new QMenu(tr("托盘设置"), this);
+        pTraySetMenu->addAction(pShowAct);
+        pTraySetMenu->addAction(pShowOnDownloadAct);
+        pTraySetMenu->addAction(pHideAct);
+
+        QAction *pQuitAct = new QAction(tr("退出"), this);
+
+
+        QMenu* pTrayMenu = new QMenu(this);
+        pTrayMenu->addAction(pShowMainAct);
+        pTrayMenu->addAction(pNewDownloadAct);
+        pTrayMenu->addAction(pStartAllAct);
+        pTrayMenu->addAction(pPauseAllAct);
+        pTrayMenu->addMenu(pAfterDownloadMenu);
+        pTrayMenu->addMenu(pTraySetMenu);
+        pTrayMenu->addAction(pQuitAct);
+
+        //连接信号与槽
+        connect(pShowMainAct, &QAction::triggered, [=](){this->show();});
+        connect(pQuitAct, &QAction::triggered, [=](){qApp->quit();});
+        connect(m_pSystemTray, &QSystemTrayIcon::activated, this, &MainFrame::onActivated);
+        m_pSystemTray->setContextMenu(pTrayMenu);
+        m_pSystemTray->show();
+}
+
+void MainFrame::initConnection()
+{
+    connect(m_pToolBar, &TopButton::newDownloadBtnClicked, this, &MainFrame::onNewBtnClicked);
+    connect(m_pSettingAction,&QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -198,6 +249,22 @@ void MainFrame::initAria2()
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_success(QString, QJsonObject)), this, SLOT(slotRpcSuccess(QString, QJsonObject)));
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_error(QString, QString, int)), this, SLOT(slotRpcError(QString, QString, int)));
 
+}
+
+void MainFrame::onNewBtnClicked()
+{
+
+    newTaskWidget *pNewTaskWidget = new newTaskWidget(" ");
+    pNewTaskWidget->exec();
+}
+
+void MainFrame::onSettingsMenuClicked()
+{
+    SettingsWidget *pSettingWidget = new  SettingsWidget;
+    QDesktopWidget *pDeskWdg = QApplication::desktop();
+    QRect rctAvaild = pDeskWdg->availableGeometry();
+    pSettingWidget->move((rctAvaild.width() - pSettingWidget->width()) / 2, (rctAvaild.height() - pSettingWidget->height()) / 2);
+    pSettingWidget->show();
 }
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)

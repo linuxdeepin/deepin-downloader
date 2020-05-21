@@ -13,7 +13,7 @@ void TopButton::Init()
     mainHlayout->setContentsMargins(0,6,0,10);
     mainHlayout->setSpacing(10);
     m_pIconLable = new DLabel;
-    QIcon logo_icon=QIcon::fromTheme("ndm_preferencesystem");
+    QIcon logo_icon=QIcon(":/icons/images/icon/downloader5.svg");
     m_pIconLable->setPixmap(logo_icon.pixmap(32,32));
     m_pIconLable->setFixedSize(36,36);
     m_pSearchEdit =new DSearchEdit();
@@ -22,23 +22,23 @@ void TopButton::Init()
     //searchEdit->setFixedSize(350,36);
     m_pNewDownloadBtn = new DIconButton(this);
     m_pNewDownloadBtn->setFixedSize(36,36);
-    QPixmap p = QPixmap("./images/ndm_newdownload_11px.svg");
-    m_pNewDownloadBtn->setIcon(QIcon(p));
+    m_pNewDownloadBtn->setIcon(QIcon::fromTheme(":/tab/pause_light.svg"));
 
     m_pPauseDownloadBtn = new DIconButton(this);
     //pauseDownloadBtn->setFixedSize(36,36);
-    m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("./images/ndm_list_icon_pause_11px.svg"));
+
+    m_pPauseDownloadBtn->setIcon(QIcon(":/tab/pause_light.svg"));
     m_pPauseDownloadBtn->setEnabled(false);
     m_pPauseDownloadBtn->setGeometry(90,0,36,36);
 
     m_pStartDownloadBtn = new DIconButton(this);
     m_pStartDownloadBtn->setFixedSize(36,36);
-    m_pStartDownloadBtn->setIcon(QIcon::fromTheme("./images/list_icon_start_normal.png"));
+    m_pStartDownloadBtn->setIcon(QIcon(":/tab/start_light.svg"));
     m_pStartDownloadBtn->setEnabled(false);
 
     m_pDeleteDownloadBtn = new DIconButton(this);
     m_pDeleteDownloadBtn->setFixedSize(36,36);
-    m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("./images/ndm_list_icon_delete_11px.svg"));
+    m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme(":/tab/delete_light"));
     m_pDeleteDownloadBtn->setEnabled(false);
 
     mainHlayout->addSpacing(5);
