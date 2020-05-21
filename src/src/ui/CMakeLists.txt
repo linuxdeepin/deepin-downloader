@@ -18,6 +18,10 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodialog.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfotableview.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/monitoringsettingwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/settingswidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/basicsettingwidget.h
+
 )
 
 
@@ -42,6 +46,9 @@ add_library(ui SHARED
        btinfodelegate.cpp
        btinfodialog.cpp
        btinfotableview.cpp
+       monitoringsettingwidget.cpp
+       settingswidget.cpp
+       basicsettingwidget.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
 )
