@@ -2,10 +2,10 @@
 #ifndef TABLEVIEWMODEL_H
 #define TABLEVIEWMODEL_H
 
-
+#include "global.h"
 #include <QAbstractTableModel>
 
-
+using namespace Global;
 class TableModel:public QAbstractTableModel
 {
     Q_OBJECT
