@@ -19,19 +19,47 @@ class TableView;
 class QStackedWidget;
 class TopButton;
 class QSystemTrayIcon;
+
+/**
+ * @class MainFrame
+ * @brief 主界面类
+*/
 class MainFrame : public Dtk::Widget::DMainWindow
 {
     Q_OBJECT
 public:
     explicit MainFrame(QWidget *parent = Q_NULLPTR);
 
+    /**
+     * @brief 界面初始化
+    */
     void init();
+    /**
+     * @brief 右下角托盘初始化
+    */
+    void initTray();
     ~MainFrame();
 
 private slots:
-    void onActivated(QSystemTrayIcon::ActivationReason);
-    void closeEvent(QCloseEvent *event);
+    /**
+     * @brief 点击托盘图表的槽函数
+     * @param reason 激活原因
+     */
+    void onActivated(QSystemTrayIcon::ActivationReason reason);
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
     void on_tray_quit_click();
+    void slotRPCSuccess(QString method, QJsonObject json);//处理rpc成功返回的信息
+    void slotRPCError(QString method, QString id, int);//处理返回的错误信息
+private:
+    void initAria2();//初始化aria2
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void closeEvent(QCloseEvent *event);
 private:
     TopButton *m_pToolBar;
     TableView* m_pTableView;
@@ -49,13 +77,6 @@ private:
     QStandardItem * m_pDownloadFinish_item;
     QStandardItem * m_pRecycle_item;
     QSystemTrayIcon * m_pSystemTray;
-
-private:
-    void initAria2();//初始化aria2
-private slots:
-    void slotRPCSuccess(QString method, QJsonObject json);//处理rpc成功返回的信息
-    void slotRPCError(QString method, QString id, int);//处理返回的错误信息
-
 };
 
 #endif // MAINFRAME_H

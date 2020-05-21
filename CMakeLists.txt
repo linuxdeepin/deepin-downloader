@@ -30,9 +30,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 
+find_package(Qt5Svg REQUIRED)
+
+target_link_libraries( ${APP_NAME} Qt5::Svg )
+
 #应用qt库
 set(QT Core Gui Widgets Network DBus Sql)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
+
+
 
 #应用DTK库
 set(DTK Widget Core Gui Wm)
