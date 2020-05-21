@@ -6,6 +6,7 @@
 #include <QSystemTrayIcon>
 #include <QHeaderView>
 #include <QCloseEvent>
+#include <QDesktopWidget>
 #include <DMenu>
 #include <DLabel>
 #include <DTitlebar>
@@ -259,8 +260,11 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onSettingsMenuClicked()
 {
-    SettingsWidget *pWidget = new  SettingsWidget;
-    pWidget->show();
+    SettingsWidget *pSettingWidget = new  SettingsWidget;
+    QDesktopWidget *pDeskWdg = QApplication::desktop();
+    QRect rctAvaild = pDeskWdg->availableGeometry();
+    pSettingWidget->move((rctAvaild.width() - pSettingWidget->width()) / 2, (rctAvaild.height() - pSettingWidget->height()) / 2);
+    pSettingWidget->show();
 }
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
