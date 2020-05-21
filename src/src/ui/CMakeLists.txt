@@ -13,6 +13,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainframe.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tableView.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tableModel.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/headerView.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/global.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/topButton.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/newtaskwidget.h
@@ -42,6 +43,7 @@ add_library(ui SHARED
        mainframe.cpp
        tableView.cpp
        tableModel.cpp
+       headerView.cpp
        topButton.cpp
        newtaskwidget.cpp
        btinfodelegate.cpp
