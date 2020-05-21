@@ -31,14 +31,7 @@ class MainFrame : public Dtk::Widget::DMainWindow
 public:
     explicit MainFrame(QWidget *parent = Q_NULLPTR);
 
-    /**
-     * @brief 界面初始化
-    */
-    void init();
-    /**
-     * @brief 右下角托盘初始化
-    */
-    void initTray();
+
     ~MainFrame();
 
 private slots:
@@ -52,10 +45,31 @@ private slots:
      * @param event 事件类型
      */
     void on_tray_quit_click();
+    /**
+     * @brief 新建任务按钮槽函数
+    */
+    void onNewBtnClicked();
+    /**
+     * @brief 设置按钮槽函数
+    */
+    void onSettingsMenuClicked();
     void slotRPCSuccess(QString method, QJsonObject json);//处理rpc成功返回的信息
     void slotRPCError(QString method, QString id, int);//处理返回的错误信息
 private:
     void initAria2();//初始化aria2
+
+    /**
+     * @brief 界面初始化
+    */
+    void init();
+    /**
+     * @brief 右下角托盘初始化
+    */
+    void initTray();
+    /**
+     * @brief 新建连接
+    */
+    void initConnection();
     /**
      * @brief mainwidow关闭事件
      * @param event 事件类型
@@ -78,6 +92,8 @@ private:
     QStandardItem * m_pDownloadFinish_item;
     QStandardItem * m_pRecycle_item;
     QSystemTrayIcon * m_pSystemTray;
+
+    QAction* m_pSettingAction;
 };
 
 #endif // MAINFRAME_H

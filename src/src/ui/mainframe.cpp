@@ -13,17 +13,27 @@
 #include "tableView.h"
 #include "topButton.h"
 #include "aria2rpcinterface.h"
-
+#include "newtaskwidget.h"
+#include "settingswidget.h"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
 {
     init();
     initAria2();
+    initConnection();
 }
 
 void MainFrame::init()
 {
+
+    // 添加设置界面
+    DMenu *pSettingsMenu = new DMenu;
+    m_pSettingAction = new QAction(tr("设置"), this);
+    pSettingsMenu->addAction(m_pSettingAction);
+    titlebar()->setMenu(pSettingsMenu);
+
+
     this->setTitlebarShadowEnabled(true);
 
     m_pToolBar = new TopButton(this);
@@ -192,6 +202,12 @@ void MainFrame::initTray()
         m_pSystemTray->show();
 }
 
+void MainFrame::initConnection()
+{
+    connect(m_pToolBar, &TopButton::newDownloadBtnClicked, this, &MainFrame::onNewBtnClicked);
+    connect(m_pSettingAction,&QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
+}
+
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason == QSystemTrayIcon::ActivationReason::Trigger) {
@@ -232,6 +248,19 @@ void MainFrame::initAria2()
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_success(QString, QJsonObject)), this, SLOT(slotRpcSuccess(QString, QJsonObject)));
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_error(QString, QString, int)), this, SLOT(slotRpcError(QString, QString, int)));
 
+}
+
+void MainFrame::onNewBtnClicked()
+{
+
+    newTaskWidget *pNewTaskWidget = new newTaskWidget(" ");
+    pNewTaskWidget->exec();
+}
+
+void MainFrame::onSettingsMenuClicked()
+{
+    SettingsWidget *pWidget = new  SettingsWidget;
+    pWidget->show();
 }
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
