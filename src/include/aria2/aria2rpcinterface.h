@@ -46,9 +46,14 @@ public:
      *@brief 获得默认的下载路径
      *@return
      */
-    QString getDefaultDownLoadDir(){return this->defaultDownloadPath();}
+    QString getDefaultDownLoadDir() ;//{return this->defaultDownloadPath();}
 
-    void setConfigFilePath(QString strPath);//设置配置文件路径
+    /**
+     *@brief 设置配置文件路径
+     *@param strPath
+     *@return
+     */
+    void setConfigFilePath(QString strPath);
 
     QString getConfigFilePath();//获得配置文件路径
 
