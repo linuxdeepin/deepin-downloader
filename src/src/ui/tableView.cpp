@@ -6,17 +6,20 @@
 #include <QMouseEvent>
 #include <QHeaderView>
 #include <QModelIndex>
+#include "tableModel.h"
 
 TableView::TableView(int Flag)
-    :QTableView ()
+    :QTableView (), m_pTableModel(new TableModel(0))
 {
     m_iTableFlag=Flag;
+
     initUI();
     setTestData();
 }
 void TableView::initUI()
 {
     //this->setLineWidth(0);
+    setModel(m_pTableModel);
     this->setFrameShape(QFrame::NoFrame);
     this->setMinimumWidth(636);
     this->setMouseTracking(true);
@@ -24,7 +27,7 @@ void TableView::initUI()
     //this->setMaximumWidth(2000);
     this->verticalHeader()->hide();
     //this->verticalHeader()->setDefaultSectionSize(56);
-
+    connect(m_pTableModel,&TableModel::tableView_allChecked_or_allUnchecked,this,&TableView::get_tableview_allchecked);
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -52,17 +55,23 @@ void TableView::setTestData()
 
 }
 
+TableModel* TableView::get_tableViewModel()
+{
+    return m_pTableModel;
+}
+
+
 
 void TableView::reset(bool switched)
 {
-//    QModelIndex idx= this->selectionModel()->currentIndex();
-//    int size=QTableView::verticalScrollBar()->value();
-//    QTableView::reset();
+    QModelIndex idx= this->selectionModel()->currentIndex();
+    int size=QTableView::verticalScrollBar()->value();
+    QTableView::reset();
 
-//    this->selectRow(idx.row());
-//    if(switched)
-//        size=0;
-//    QTableView::verticalScrollBar()->setValue(size);
+    this->selectRow(idx.row());
+    if(switched)
+        size=0;
+    QTableView::verticalScrollBar()->setValue(size);
 }
 
 void TableView::mousePressEvent(QMouseEvent *event)

@@ -1,4 +1,3 @@
-
 #include "tableModel.h"
 #include <QDebug>
 
