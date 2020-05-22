@@ -54,17 +54,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="255"/>
-        <source>Select Downlod to Dir</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="319"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="311"/>
         <source>Selected Files:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="319"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="311"/>
         <source>,Total </source>
         <translation type="unfinished"></translation>
     </message>
