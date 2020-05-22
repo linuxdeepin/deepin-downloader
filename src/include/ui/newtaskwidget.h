@@ -17,7 +17,10 @@
 
 DWIDGET_USE_NAMESPACE
 
-
+/**
+ * @class newTaskWidget
+ * @brief 新建任务类
+*/
 
 class  newTaskWidget :public DDialog
 {
@@ -26,21 +29,22 @@ public:
     explicit newTaskWidget(QString path, DDialog *parent=0);
     ~newTaskWidget();
 private:
-    void initUi();
+    void initUi();      //初始化ui
 
 
 private slots:
-    void openfileDialog();
-    void onCancelBtnClicked();
-    void onSureBtnClicked();
+
+    void openfileDialog();  //打开选择文件窗口
+    void onCancelBtnClicked();  //关闭窗口
+    void onSureBtnClicked();    //确定下载
 
 
 protected:
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);        // 拖拽处理函数
+    void dropEvent(QDropEvent *event);                  // 拖拽释放处理函数
 
 private:
-    QString m_savePath;
+    QString m_savePath;                 //当前保存文件路径
 };
 
 

@@ -250,14 +250,6 @@ int BtInfoDialog::exec()
     return DDialog::exec();
 }
 
-void BtInfoDialog::slot_btnSelectDir()
-{
-    QString dir = DFileDialog::getExistingDirectory(nullptr, tr("Select Downlod to Dir"), this->m_defaultDownloadDir);
-    if(dir != "") {
-        this->m_editDir->setText(dir);
-      //  this->labelCapacityFree->setText(tr("Free:") + Aria2cInterface::getCapacityFree(dir));
-    }
-}
 
 void BtInfoDialog::slot_btnOK()
 {
