@@ -276,6 +276,9 @@ void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
     {
         QString id = json.value("id").toString();
         QString gId = json.value("result").toString();
+
+        //DataItem* pDataItem =
+
     }
 }
 

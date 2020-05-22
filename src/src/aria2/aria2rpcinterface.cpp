@@ -166,6 +166,23 @@ QString Aria2RPCInterface::getConfigFilePath()
 //添加uri地址
 void Aria2RPCInterface::addUri(QString strUri,QMap<QString,QVariant> opt,QString strId)
 {
+    //如果为迅雷链接
+    QString uri = strUri;
+    if(strUri.startsWith("thunder://")) {
+        QString oUir = strUri.mid(strUri.indexOf("thunder://") + 9+1);
+        uri = QString(QByteArray::fromBase64(oUir.toLatin1()));
+        uri = uri.mid(2, uri.length() - 4);//AA[URI]ZZ
+    }
+    strUri = uri;
+
+    QJsonArray jArray,jInner;//定义QJsonArray 变量
+    jInner.append(strUri);//将uri 装入jInner
+    jArray.append(jInner);//
+
+    QJsonDocument doc = QJsonDocument::fromVariant(QVariant(opt));
+    QJsonObject optJson = doc.object();
+    jArray.append(optJson);
+    callRPC(ARIA2C_METHOD_ADD_URI,jArray,strId);
 
 }
 

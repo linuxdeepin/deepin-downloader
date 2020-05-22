@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" sourcelanguage="en_US">
 <context>
     <name>BtInfoDialog</name>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="86"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="90"/>
         <source>Magnet/Torrent Files Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="131"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="135"/>
         <source>Check All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="137"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="141"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="143"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="147"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="149"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="153"/>
         <source>Picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="155"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="159"/>
         <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="179"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="183"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="207"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="211"/>
         <source>File Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="209"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="213"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="210"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="214"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="251"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="255"/>
         <source>Select Downlod to Dir</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="315"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="319"/>
         <source>Selected Files:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="315"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="319"/>
         <source>,Total </source>
         <translation type="unfinished"></translation>
     </message>
@@ -313,7 +313,7 @@
     <message>
         <location filename="../src/src/ui/settings.cpp" line="441"/>
         <source>Speed limit period</source>
-        <translation type="unfinished">限速时段</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings.cpp" line="441"/>

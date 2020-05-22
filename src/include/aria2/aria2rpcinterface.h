@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QJsonObject>
 #include "aria2cbtinfo.h"
+#include "aria2const.h"
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QtNetwork/QNetworkAccessManager>
