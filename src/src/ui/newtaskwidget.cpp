@@ -35,7 +35,7 @@ void newTaskWidget::initUi()
     _textUrl->setReadOnly(false);
     _textUrl->setAcceptDrops(false);
     _textUrl->setPlaceholderText(tr("please input download address or drag file to here"));
-   _textUrl->setFixedSize(QSize(454,154));
+    _textUrl->setFixedSize(QSize(454,154));
     QPalette _pal;
     _pal.setColor(QPalette::Base, QColor(0,0,0,20));
     _textUrl->setPalette(_pal);
