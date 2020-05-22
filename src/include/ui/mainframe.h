@@ -53,10 +53,20 @@ private slots:
      * @brief 设置按钮槽函数
     */
     void onSettingsMenuClicked();
-    void slotRPCSuccess(QString method, QJsonObject json);//处理rpc成功返回的信息
-    void slotRPCError(QString method, QString id, int);//处理返回的错误信息
+    /**
+     * @brief 处理rpc成功返回的信息
+    */
+    void slotRPCSuccess(QString method, QJsonObject json);
+    /**
+     * @brief 处理返回的错误信息
+    */
+    void slotRPCError(QString method, QString id, int);
 private:
-    void initAria2();//初始化aria2
+
+    /**
+     * @brief 初始化aria2
+    */
+    void initAria2();
 
     /**
      * @brief 界面初始化
