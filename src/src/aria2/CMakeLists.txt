@@ -24,7 +24,7 @@ add_library(aria2 SHARED
 
 #依赖库
 if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    target_link_libraries(aria2 liblogd.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
+    target_link_libraries(aria2 liblogd.so Qt5::Core Qt5::Widgets Qt5::Network libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
 else()
-    target_link_libraries(aria2 liblog.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
+    target_link_libraries(aria2 liblog.so Qt5::Core Qt5::Widgets Qt5::Network libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
 endif()

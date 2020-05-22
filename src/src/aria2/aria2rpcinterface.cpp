@@ -261,3 +261,64 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
 
 }
 
+
+void Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
+{
+    QJsonObject json;
+    json.insert("jsonrpc",2.0);
+    if(id==""){
+        json.insert("id",method);
+    }
+    else {
+        json.insert("id",id);
+    }
+    json.insert("method",method);
+    if(!params.isEmpty()){
+        json.insert("params",params);
+    }
+    this->sendMessage(json,method);
+}
+
+void Aria2RPCInterface::callRPC(QString method, QString id)
+{
+    callRPC(method,QJsonArray(),id);
+}
+
+
+void Aria2RPCInterface::sendMessage(QJsonObject jsonObj,const QString &method)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager;//定义网络对象
+    if(!jsonObj.isEmpty()){//json如果不为空
+        QNetworkRequest *requset = new  QNetworkRequest;//定义请求对象
+        requset->setUrl(QUrl(this->rpcServer));//设置服务器的uri
+        requset->setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+        manager->post(*requset,QJsonDocument(jsonObj).toJson());//post信息到服务器
+
+        //调用返回的信息
+        QObject::connect(manager,
+                         &QNetworkAccessManager::finished,
+                         this,
+                         [=](QNetworkReply* reply){
+            this->rpcRequestReply(reply,method,jsonObj.value("id").toString());//调用出来函数
+            manager->deleteLater();//删除
+            manager->destroyed();
+        });
+    }
+}
+
+void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply,const QString &method,const QString id)
+{
+    int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(); //请求返回的属性值
+    if(code == 200){//返回正常
+        QByteArray buf = reply->readAll();//获取信息
+        QJsonDocument doc = QJsonDocument::fromJson(buf);//转换为json格式
+        QJsonObject obj = doc.object();
+        emit signalRPCSuccess(method,obj);
+    }
+    else {//错误
+        emit signalRPCError(method,id,code);
+    }
+
+    reply->deleteLater();
+    reply->destroyed();
+}
