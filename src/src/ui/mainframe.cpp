@@ -11,11 +11,13 @@
 #include <DLabel>
 #include <DTitlebar>
 #include "aria2rpcinterface.h"
+#include "aria2const.h"
 #include "tableView.h"
 #include "topButton.h"
 #include "aria2rpcinterface.h"
 #include "newtaskwidget.h"
 #include "settingswidget.h"
+#include "log.h"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
@@ -242,13 +244,14 @@ MainFrame::~MainFrame()
 
 }
 
-//初始化aria2
+
 void MainFrame::initAria2()
 {
     Aria2RPCInterface::Instance()->init();//启动aria2c
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_success(QString, QJsonObject)), this, SLOT(slotRpcSuccess(QString, QJsonObject)));
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_error(QString, QString, int)), this, SLOT(slotRpcError(QString, QString, int)));
 
+    qDebug() << "MainFrame initAria2 Finished";
 }
 
 void MainFrame::onNewBtnClicked()
@@ -269,7 +272,11 @@ void MainFrame::onSettingsMenuClicked()
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
 {
-
+    if(method == ARIA2C_METHOD_ADD_URI)
+    {
+        QString id = json.value("id").toString();
+        QString gId = json.value("result").toString();
+    }
 }
 
 void MainFrame::slotRPCError(QString method, QString id, int error)

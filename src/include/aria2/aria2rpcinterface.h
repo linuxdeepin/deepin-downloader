@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QJsonObject>
 #include "aria2cbtinfo.h"
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 
 class Aria2RPCInterface : public QObject
 {
@@ -73,8 +77,31 @@ public:
 
 
 
-private:
 
+private:
+    /**
+     *@brief 调用RPC
+     *@param method 调用的方法 params  该方法对应的参数   id
+     *
+     *@return
+     */
+    void callRPC(QString method, QJsonArray params, QString id = "");
+    void callRPC(QString method, QString id = "");//
+
+    /**
+     *@brief 发送请求
+     *@param jsonObj json包 method请求的方法
+     *
+     *@return
+     */
+    void sendMessage(QJsonObject jsonObj,const QString &method);
+    /**
+     *@brief 请求的返回
+     *@param reply网络对象 method 方法 id
+     *
+     *@return
+     */
+    void rpcRequestReply(QNetworkReply *reply,const QString &method,const QString id);
 private:
     //QString cmd = "/usr/bin/aria2c";//aria2c程序路径 -> 已改成public static变量
     QString rpcPort = "88888";//rpc端口
