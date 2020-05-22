@@ -24,6 +24,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/monitoringsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settingswidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/basicsettingwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/clipboardtimer.h
 
 )
 
@@ -53,6 +54,7 @@ add_library(ui SHARED
        monitoringsettingwidget.cpp
        settingswidget.cpp
        basicsettingwidget.cpp
+       clipboardtimer.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
 )

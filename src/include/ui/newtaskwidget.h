@@ -11,10 +11,11 @@
 #include <DSuggestButton>
 #include <DFileDialog>
 #include <QSizePolicy>
+#include <QDropEvent>
+#include <QMimeData>
 #include "btinfodialog.h"
 
 DWIDGET_USE_NAMESPACE
-
 
 
 
@@ -32,6 +33,11 @@ private slots:
     void openfileDialog();
     void onCancelBtnClicked();
     void onSureBtnClicked();
+
+
+protected:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
 
 private:
     QString m_savePath;
