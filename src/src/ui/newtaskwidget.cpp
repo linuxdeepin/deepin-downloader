@@ -1,4 +1,4 @@
-#include <newtaskwidget.h>
+#include "newtaskwidget.h"
 
 newTaskWidget::newTaskWidget(QString path, DDialog *parent):
     m_savePath(path),
@@ -19,7 +19,7 @@ void newTaskWidget::initUi()
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
-    QIcon tryIcon=QIcon(":/ndm_preferencesystem_24px.svg");
+    QIcon tryIcon=QIcon(":/icons/images/icon/downloader2.svg")  ;
     this->setIcon(tryIcon);
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMinMaxButtonsHint);
     this->setTitle(tr("New download task"));
@@ -48,7 +48,7 @@ void newTaskWidget::initUi()
     layout->setMargin(0);
     layout->setContentsMargins(0,0,10,0);
     DIconButton *_iconBtn= new DIconButton(_boxBtn);
-    QIcon _tryIcon=QIcon(":/ndm_bt_11px.svg");
+    QIcon _tryIcon=QIcon(":/tab/folder_light.svg");
     _iconBtn->setIcon(_tryIcon);
     _iconBtn->setIconSize(QSize(18,15));
     _iconBtn->setFixedSize(QSize(40,35));
@@ -110,4 +110,59 @@ void newTaskWidget::onCancelBtnClicked()
 void newTaskWidget::onSureBtnClicked()
 {
 
+}
+
+void newTaskWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    if(event->mimeData()->hasUrls()) //数据中是否包含URL
+    {
+        event->acceptProposedAction(); //如果是则接受动作
+    }
+    else
+        event->ignore();
+}
+
+
+void newTaskWidget::dropEvent(QDropEvent *event)
+{
+
+    const QMimeData *mineData=event->mimeData();//获取MIME数据
+    if(mineData->hasUrls())                     //如数据中包含URL
+    {
+        QList<QUrl>urlList=mineData->urls();    //获取URL列表
+        if(urlList.isEmpty())return ;
+        QString fileName;
+        for(int i=0;i<urlList.size();++i)
+        {
+            fileName=urlList.at(i).toString();
+
+
+        if(fileName.isEmpty())return;
+
+        if(!fileName.isEmpty())                 //若文件路径不为空
+        {
+            if(fileName.startsWith("file:")&&fileName.endsWith(".torrent"))
+            {
+                fileName=fileName.right(fileName.length()-6);
+
+                BtInfoDialog *dialog = new BtInfoDialog(fileName,m_savePath);//torrent文件路径
+                int ret = dialog->exec();
+                if(ret == QDialog::Accepted) {
+                    QMap<QString,QVariant> opt;
+                    opt.insert("dir",dialog->getSaveto());
+                    opt.insert("select-file",dialog->getSelected());
+                    QString infoName=dialog->getName();
+                   // QString infoHash=dialog->getBtInfo().infoHash;
+                   // emit DownloadTorrent_sig(fileName,opt,infoName,infoHash);
+                    this->close();
+                }
+                delete dialog;
+             }
+            else
+            {
+                 //textBrowser->append(fileName);
+            }
+        }
+       }
+    }
 }

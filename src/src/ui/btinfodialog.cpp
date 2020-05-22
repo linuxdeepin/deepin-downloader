@@ -8,6 +8,8 @@
 #include <DFileDialog>
 #include <DMessageBox>
 #include <QPixmap>
+#include "aria2rpcinterface.h"
+
 
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
     :DDialog ()
@@ -16,7 +18,7 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
     this->m_defaultDownloadDir = bt_last_save_path;
     this->setFixedSize(500, 525);
 
-    this->setIcon(QIcon::fromTheme("ndm_preferencesystem"));
+    this->setIcon(QIcon::fromTheme(":/icons/images/icon/downloader3.svg"));
     initUI();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::slot_paletteTypeChanged);
 }
@@ -25,7 +27,7 @@ BtInfoDialog::~BtInfoDialog() {
     delete m_model;
     delete m_delegate;
 
-    delete m_tableView;
+    //delete m_tableView;
 
     delete m_btnOK;
 
@@ -74,10 +76,12 @@ QString BtInfoDialog::getName()
 
 void BtInfoDialog::initUI()
 {
-   // info = Aria2cInterface::getBtInfo(this->torrentFile);
+   m_ariaInfo = Aria2RPCInterface::Instance()->getBtInfo(m_torrentFile);
+   // Aria2RPCInterface::getBtInfo(this->m_torrentFile);
+   //  = Aria2RPCInterface::getBtInfo(this->m_torrentFile);
     //
-   // this->setTitle(" ");
-    //this->setWindowTitle(tr("Magnet/Torrent Files Select"));
+    this->setTitle(" ");
+    this->setWindowTitle(tr(""));
 
     this->m_labelTitle = new DLabel(this);
     this->m_labelTitle->setFixedSize(this->width(), 30);
@@ -210,17 +214,17 @@ void BtInfoDialog::initUI()
     m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));
     m_model->setHeaderData(4, Qt::Horizontal, "index");
 
-//    for(int i = 0; i < info.files.length();i++) {
-//        Aria2cBtFile file = info.files.at(i);
-//        QList<QStandardItem*> list;
-//        list << new QStandardItem("1");
-//        list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
-//        list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
-//        list << new QStandardItem(file.length);
-//        list << new QStandardItem(QString::number(file.index));
-//        list << new QStandardItem(QString::number(file.lengthBytes));
-//        this->model->appendRow(list);
-//    }
+    for(int i = 0; i < m_ariaInfo.files.length();i++) {
+        Aria2cBtFileInfo file = m_ariaInfo.files.at(i);
+        QList<QStandardItem*> list;
+        list << new QStandardItem("1");
+        list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
+        list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
+        list << new QStandardItem(file.length);
+        list << new QStandardItem(QString::number(file.index));
+        list << new QStandardItem(QString::number(file.lengthBytes));
+        this->m_model->appendRow(list);
+    }
 
     this->m_tableView->setColumnHidden(1, true);
     this->m_tableView->setColumnHidden(4, true);

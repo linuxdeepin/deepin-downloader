@@ -15,10 +15,13 @@
 #include <DCheckBox>
 #include <QStandardPaths>
 #include "dfilechooseredit.h"
+#include "aria2cbtinfo.h"
 
 #include "btinfotableview.h"
 
+
 DWIDGET_USE_NAMESPACE
+
 
 /**
  * @brief The BtInfoDialog class
@@ -109,6 +112,8 @@ private:
     DCheckBox *m_checkAudio;
     DCheckBox *m_checkPicture;
     DCheckBox *m_checkOther;
+    Aria2cBtInfo m_ariaInfo;
+
 
 public slots:
     void slot_btnSelectDir();
