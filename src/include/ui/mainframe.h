@@ -61,6 +61,15 @@ private slots:
      * @brief 处理返回的错误信息
     */
     void slotRPCError(QString method, QString id, int);
+    /**
+     * @brief 剪切板数据改变，需要新建任务
+    */
+    void onClipboardDataChanged();
+    /**
+     * @brief 切换显示列表
+     * @param index 节点
+    */
+    void onListClicked(const QModelIndex &index);
 private:
 
     /**
@@ -85,6 +94,11 @@ private:
      * @param event 事件类型
      */
     void closeEvent(QCloseEvent *event);
+    /**
+     * @brief 新建下载任务
+     * @param url 下载地址
+     */
+    void createNewTask(QString url);
 private:
     TopButton *m_pToolBar;
     TableView* m_pTableView;
@@ -102,7 +116,7 @@ private:
     QStandardItem * m_pDownloadFinish_item;
     QStandardItem * m_pRecycle_item;
     QSystemTrayIcon * m_pSystemTray;
-
+    QClipboard * m_pClipboard;
     QAction* m_pSettingAction;
 };
 
