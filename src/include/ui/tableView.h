@@ -6,6 +6,7 @@
 
 
 class TableModel;
+class ItemDelegate;
 /**
  * @class TableView
  * @brief 下载条目列表
@@ -66,6 +67,8 @@ protected:
 private:
     int m_iTableFlag;
     TableModel *m_pTableModel;
+    ItemDelegate *m_pItemdegegate;
+    int Table_Flag;
 };
 
 #endif // TABLEVIEW_H
