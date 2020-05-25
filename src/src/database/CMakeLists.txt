@@ -9,6 +9,7 @@ ADD_DEFINITIONS(-DATABASE_LIB )
 set (DWM_DATABASE_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/database/database.h
     ${PROJECT_SOURCE_DIR}/src/include/database/dbinstance.h
+    ${PROJECT_SOURCE_DIR}/src/include/database/dbdefine.h
 )
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
