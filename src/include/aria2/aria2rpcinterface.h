@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QJsonObject>
 #include "aria2cbtinfo.h"
+#include "aria2const.h"
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QtNetwork/QNetworkAccessManager>
@@ -74,8 +75,115 @@ public:
     void unPause();//取消暂停
     void unPauseAll();//取消所有暂停
     void remove();//移除
+    /**
+     * @brief tellStatus 获取下载状态
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回指定下载的当前状态
+     * result为一个JsonObject，包含类似map键值，详见aria2文档
+     */
+    void tellStatus(QString gId, QString id = "");
 
+    /**
+     * @brief tellStatus 获取下载状态 可指定需要的返回字段
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param keys 指定需要的返回字段列表，参数详见aria2文档
+     * [status|totalLength|completedLength|uploadLength|bitfield|downloadSpeed|uploadSpeed|...]
+     * 示例代码：
+     * QStringList keys;
+     * keys<<"gid"<<"status"<<"totalLength"<<"completedLength"<<"downloadSpeed";
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回指定下载的当前状态
+     * result为一个JsonObject，包含类似map键值，详见aria2文档
+     */
+    void tellStatus(QString gId, QStringList keys, QString id = "");
+    /**
+     * @brief pause 暂停指定下载 active/waiting状态将变为paused
+     * @param gId GID
+     * @param id 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
+     * 默认为method名，详见aria2cconst.h常量
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
+    void pause(QString gId, QString id = "");
 
+    /**
+     * @brief forcePause 强制暂停 active/waiting状态将变为paused
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param id 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
+     * 默认为method名，详见aria2cconst.h常量
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
+    void forcePause(QString gId, QString id = "");
+    /**
+     * @brief pauseAll 全部暂停 active/waiting状态将变为paused
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回 "OK"
+     * {id:"", jsonrpc:"2.0", result:"ok"}
+     * QString ok = json.value("result").toString();
+     */
+    void pauseAll(QString id = "");//
+
+    /**
+     * @brief forcePauseAll 强制全部暂停
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回 "OK"
+     * {id:"", jsonrpc:"2.0", result:"ok"}
+     * QString ok = json.value("result").toString();
+     */
+    void forcePauseAll(QString id = "");
+    /**
+     * @brief unpause 恢复指定GID下载 paused状态变为waiting
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
+    void unpause(QString gId, QString id = "");
+
+    /**
+     * @brief unpauseAll 全部恢复下载
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回 "OK"
+     * {id:"", jsonrpc:"2.0", result:"ok"}
+     * QString ok = json.value("result").toString();
+     */
+    void unpauseAll(QString id = "");
+
+    /**
+     * @brief remove 移除指定下载。下载状态会变为removed。
+     * 注意，实验表明并不会删除下载的文件。
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
+    void remove(QString gId, QString id = "");
+
+    /**
+     * @brief forceRemove 强制移除,不会做后处理
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
+    void forceRemove(QString gId, QString id = "");
 
 
 private:
