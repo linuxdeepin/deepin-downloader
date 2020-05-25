@@ -358,3 +358,54 @@ void Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
     ja.append(ka);
     callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
 }
+
+
+void Aria2RPCInterface::pause(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_PAUSE, ja, id);
+}
+
+void Aria2RPCInterface::forcePause(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_FORCE_PAUSE, ja, id);
+}
+
+void Aria2RPCInterface::pauseAll(QString id)
+{
+    callRPC(ARIA2C_METHOD_PAUSE_ALL, id);
+}
+
+void Aria2RPCInterface::forcePauseAll(QString id)
+{
+    callRPC(ARIA2C_METHOD_FORCE_PAUSE_ALL, id);
+}
+
+void Aria2RPCInterface::unpause(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_UNPAUSE, ja, id);
+}
+
+void Aria2RPCInterface::unpauseAll(QString id)
+{
+    callRPC(ARIA2C_METHOD_UNPAUSE_ALL, id);
+}
+
+void Aria2RPCInterface::remove(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_REMOVE, ja, id);
+}
+
+void Aria2RPCInterface::forceRemove(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
+}
