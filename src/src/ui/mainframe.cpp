@@ -6,7 +6,9 @@
 #include <QSystemTrayIcon>
 #include <QHeaderView>
 #include <QCloseEvent>
+#include <QApplication>
 #include <QDesktopWidget>
+#include <QClipboard>
 #include <DMenu>
 #include <DLabel>
 #include <DTitlebar>
@@ -32,11 +34,11 @@ void MainFrame::init()
 
     // 添加设置界面
     DMenu *pSettingsMenu = new DMenu;
-    m_pSettingAction = new QAction(tr("设置"), this);
+    m_pSettingAction = new QAction(tr("setting"), this);
     pSettingsMenu->addAction(m_pSettingAction);
     titlebar()->setMenu(pSettingsMenu);
 
-
+    setMinimumSize(838, 636);
     this->setTitlebarShadowEnabled(true);
 
     m_pToolBar = new TopButton(this);
@@ -81,7 +83,7 @@ void MainFrame::init()
     QColor   color = QColor(192, 198, 212, 76);
     font_p.setColor(QPalette::WindowText, color);
     m_pNoTask_label->setFont(lable_font);
-    m_pNoTask_label->setText(tr("暂无下载的任务"));
+    m_pNoTask_label->setText(tr("current no task"));
     m_pNoTask_label->setAlignment(Qt::AlignHCenter);
 
     pNoTask_WidgetLayout->addWidget(m_pNoTask_label);
@@ -91,7 +93,7 @@ void MainFrame::init()
     m_pNoTask_tip_Label->setFont(noTask_tip_Label_font);
     QPalette noTask_tip_Label_p;
     noTask_tip_Label_p.setColor(QPalette::WindowText, QColor(65, 77, 104, 70));
-    m_pNoTask_tip_Label->setText(tr("可点击添加按钮新建下载任务"));
+    m_pNoTask_tip_Label->setText(tr("you can click button to start new task"));
     m_pNoTask_tip_Label->setAlignment(Qt::AlignHCenter);
     m_pNoTask_tip_Label->setPalette(noTask_tip_Label_p);
     pNoTask_WidgetLayout->addWidget(m_pNoTask_tip_Label);
@@ -133,9 +135,9 @@ void MainFrame::init()
     m_pLeft_list->setFont(font);
     QStandardItemModel* pLeftList_model = new QStandardItemModel(this);
 
-    m_pDownloading_item = new QStandardItem(QIcon(":/btn/download_normal_light.svg"), tr("下载中"));
-    m_pDownloadFinish_item = new QStandardItem(QIcon(":/btn/print_done_light.svg"), tr("下载完成"));
-    m_pRecycle_item = new QStandardItem(QIcon(":/btn/list_delete_light.svg"), tr("回收站"));
+    m_pDownloading_item = new QStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("downloading"));
+    m_pDownloadFinish_item = new QStandardItem(QIcon::fromTheme("dcc_print_done"), tr("finish"));
+    m_pRecycle_item = new QStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("recycle"));
     m_pDownloading_item->setBackground(QColor(255, 255, 255));
     m_pDownloadFinish_item->setBackground(QColor(255, 255, 255));
     m_pRecycle_item->setBackground(QColor(255, 255, 255));
@@ -154,6 +156,7 @@ void MainFrame::init()
 
     m_pRightStackwidget->setCurrentIndex(0);
 
+    m_pClipboard = QApplication::clipboard();        //获取当前剪切板
     initTray();
 }
 
@@ -209,6 +212,8 @@ void MainFrame::initConnection()
 {
     connect(m_pToolBar, &TopButton::newDownloadBtnClicked, this, &MainFrame::onNewBtnClicked);
     connect(m_pSettingAction,&QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
+    connect(m_pClipboard, &QClipboard::dataChanged,this,&MainFrame::onClipboardDataChanged);
+    connect(m_pLeft_list, &DListView::clicked, this, &MainFrame::onListClicked);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -233,6 +238,12 @@ void MainFrame::closeEvent(QCloseEvent *event)
     this->hide();
     event->ignore();
 }
+
+void MainFrame::createNewTask(QString url)
+{
+    newTaskWidget *pNewTaskWidget = new newTaskWidget(url);
+    pNewTaskWidget->exec();
+}
 void MainFrame::on_tray_quit_click()
 {
     //save_data_before_close();
@@ -256,9 +267,7 @@ void MainFrame::initAria2()
 
 void MainFrame::onNewBtnClicked()
 {
-
-    newTaskWidget *pNewTaskWidget = new newTaskWidget(" ");
-    pNewTaskWidget->exec();
+    createNewTask("");
 }
 
 void MainFrame::onSettingsMenuClicked()
@@ -282,6 +291,40 @@ void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
 void MainFrame::slotRPCError(QString method, QString id, int error)
 {
 
+}
+
+void MainFrame::onClipboardDataChanged()
+{
+    QString text = m_pClipboard->text();
+    if( (-1 != text.indexOf("ftp:")) || (-1 != text.indexOf("http:")) || (-1 != text.indexOf("https:")) || (-1 != text.indexOf("magnet:"))){
+         createNewTask(text);
+    }
+}
+
+void MainFrame::onListClicked(const QModelIndex &index)
+{
+    if((index.row() == 0) || (index.row() == 1)) {
+        m_pRightStackwidget->setCurrentIndex(0);
+        m_pTableView->horizontalHeader()->reset();
+        bool switched = true;
+        m_pTableView->reset(switched);
+        if(index.row() == 1) {
+            m_pTableView->verticalHeader()->setDefaultSectionSize(30);
+            m_pNoTask_Widget->show();
+            m_pNoTask_label->setText(tr("current no download finish task"));
+            m_pNoTask_tip_Label->hide();
+        } else {
+            m_pTableView->verticalHeader()->setDefaultSectionSize(56);
+            m_pNoTask_label->setText(tr("current no download task"));
+            m_pNoTask_Widget->show();
+            m_pNoTask_tip_Label->show();
+        }
+    } else {
+        m_pRightStackwidget->setCurrentIndex(1);
+        m_pNoTask_Widget->show();
+        m_pNoTask_label->setText(tr("current no delete files"));
+        m_pNoTask_tip_Label->hide();
+    }
 }
 
 

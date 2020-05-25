@@ -64,7 +64,7 @@ void SettingsWidget::initUI()
     QVBoxLayout *pLeftLayout = new QVBoxLayout(m_pLeftWidget);
     pLeftLayout->setContentsMargins(5,0,5,0);
 
-    m_pBasicSettings= new QStandardItem(QIcon::fromTheme(":/btn/bases_light.svg"),tr(" 基本设置"));
+    m_pBasicSettings= new QStandardItem(QIcon::fromTheme("dcc_bases_normal"),tr(" 基本设置"));
     m_pMonitoringSettings= new QStandardItem(QIcon::fromTheme(":/btn/take_over_light.svg"),tr(" 接管设置"));
     m_pDownloadsSettings= new QStandardItem(QIcon::fromTheme(":/btn/download_normal_light.svg"),tr(" 下载设置"));
     m_pNotifications= new QStandardItem(QIcon::fromTheme(":/btn/notification_normal_light.svg"),tr(" 通知提醒"));
