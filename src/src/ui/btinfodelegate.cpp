@@ -51,8 +51,7 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         checkBoxStyle.rect.setWidth(15);
 
         QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, m_checkBtn);
-    /*}
-    else if(index.column() == 0) {*/
+
         QString ext = index.model()->data(index.model()->index(index.row(), 2)).toString();
         QFileIconProvider prov;
         QString tempFilePath = QDir::tempPath() + QDir::separator() + QCoreApplication::applicationName() + "_temp.";
@@ -72,7 +71,6 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->setPen(Qt::darkGray);
         QString text = painter->fontMetrics().elidedText(index.data().toString(), Qt::ElideRight, option.rect.width() - 25);
         painter->drawText(option.rect.x() + 5, option.rect.y() + 28, text);
-        //QStyledItemDelegate::paint(painter,option,index);
     }
     painter->restore();
 }
