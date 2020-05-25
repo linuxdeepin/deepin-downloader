@@ -13,7 +13,7 @@ void TopButton::Init()
     mainHlayout->setContentsMargins(0,6,0,10);
     mainHlayout->setSpacing(10);
     m_pIconLable = new DLabel;
-    QIcon logo_icon=QIcon(":/icons/images/icon/downloader5.svg");
+    QIcon logo_icon=QIcon(":icons/icon/downloader5.svg");
     m_pIconLable->setPixmap(logo_icon.pixmap(32,32));
     m_pIconLable->setFixedSize(36,36);
     m_pSearchEdit =new DSearchEdit();
@@ -52,7 +52,7 @@ void TopButton::Init()
 
     mainHlayout->addWidget(m_pSearchEdit);
     //mainHlayout->addStretch();
-
+    qDebug() << "asdwasdw";
 }
 
 void TopButton::InitConnections()

@@ -70,6 +70,11 @@ private slots:
      * @param index 节点
     */
     void onListClicked(const QModelIndex &index);
+    /**
+     * @brief 主题改变
+     * @param type 颜色类型
+    */
+    void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
 private:
 
     /**
@@ -100,8 +105,11 @@ private:
      */
     void createNewTask(QString url);
 private:
+    enum tableView_flag{
+        downloading,recycle
+    };
     TopButton *m_pToolBar;
-    TableView* m_pTableView;
+    TableView *m_pDownLoadingTableView, *m_pDownLoadedTableView, *m_pRecycleTableView;
     QWidget *m_pLeftWidget;
     QWidget *m_pRight_Widget;
     QWidget *m_pNoTask_Widget;
@@ -112,12 +120,12 @@ private:
     QLabel  *m_pTask_Num;
     DListView *m_pLeft_list;
 
-    QStandardItem * m_pDownloading_item;
-    QStandardItem * m_pDownloadFinish_item;
-    QStandardItem * m_pRecycle_item;
-    QSystemTrayIcon * m_pSystemTray;
-    QClipboard * m_pClipboard;
-    QAction* m_pSettingAction;
+    QStandardItem *m_pDownloading_item;
+    QStandardItem *m_pDownloadFinish_item;
+    QStandardItem *m_pRecycle_item;
+    QSystemTrayIcon *m_pSystemTray;
+    QClipboard *m_pClipboard;
+    QAction *m_pSettingAction;
 };
 
 #endif // MAINFRAME_H
