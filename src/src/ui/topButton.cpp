@@ -22,23 +22,23 @@ void TopButton::Init()
     //searchEdit->setFixedSize(350,36);
     m_pNewDownloadBtn = new DIconButton(this);
     m_pNewDownloadBtn->setFixedSize(36,36);
-    m_pNewDownloadBtn->setIcon(QIcon::fromTheme(":/tab/pause_light.svg"));
+    m_pNewDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
 
     m_pPauseDownloadBtn = new DIconButton(this);
     //pauseDownloadBtn->setFixedSize(36,36);
 
-    m_pPauseDownloadBtn->setIcon(QIcon(":/tab/pause_light.svg"));
+    m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pPauseDownloadBtn->setEnabled(false);
     m_pPauseDownloadBtn->setGeometry(90,0,36,36);
 
     m_pStartDownloadBtn = new DIconButton(this);
     m_pStartDownloadBtn->setFixedSize(36,36);
-    m_pStartDownloadBtn->setIcon(QIcon(":/tab/start_light.svg"));
+    m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_pStartDownloadBtn->setEnabled(false);
 
     m_pDeleteDownloadBtn = new DIconButton(this);
     m_pDeleteDownloadBtn->setFixedSize(36,36);
-    m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme(":/tab/delete_light"));
+    m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_pDeleteDownloadBtn->setEnabled(false);
 
     mainHlayout->addSpacing(5);
