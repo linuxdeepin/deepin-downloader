@@ -24,15 +24,27 @@
 #include <QStyledItemDelegate>
 
 class QProgressBar;
+/**
+ * @class ItemDelegate
+ * @brief 列表代理类
+*/
 class ItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:    
     ItemDelegate(QObject *parent = nullptr,int Flag=0);
     ~ItemDelegate();
-
+    /**
+     * @brief 绘图事件
+     */
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    /**
+     * @brief 大小
+     */
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    /**
+     * @brief 开始编辑前调用
+     */
     bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index);
 private:
     int Table_Flag;

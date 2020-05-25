@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "itemdelegate.h"
+#include "itemDelegate.h"
 
 
 #include <QStandardItemModel>
@@ -34,8 +34,8 @@
 #include <DCheckBox>
 #include <DGuiApplicationHelper>
 
-#include "tableview.h"
-#include "tableviewmodel.h"
+#include "tableView.h"
+#include "tableModel.h"
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
