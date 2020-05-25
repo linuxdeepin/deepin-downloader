@@ -6,19 +6,20 @@
 #include <QModelIndex>
 #include "tableModel.h"
 #include "headerView.h"
+#include "itemDelegate.h"
 
 TableView::TableView(int Flag)
     :QTableView (), m_pTableModel(new TableModel(0))
 {
     m_iTableFlag=Flag;
-
     initUI();
     setTestData();
 }
 void TableView::initUI()
 {
-    //this->setLineWidth(0);
     setModel(m_pTableModel);
+    m_pItemdegegate= new ItemDelegate(this,Table_Flag);
+    setItemDelegate(m_pItemdegegate);
     setFrameShape(QFrame::NoFrame);
     setMinimumWidth(636);
     setMouseTracking(true);
@@ -27,6 +28,7 @@ void TableView::initUI()
     verticalHeader()->hide();
     //this->verticalHeader()->setDefaultSectionSize(56);
     connect(m_pTableModel,&TableModel::tableView_allChecked_or_allUnchecked,this,&TableView::get_tableview_allchecked);
+    connect(this, &TableView::signal_hoverChanged, m_pItemdegegate, &ItemDelegate::slot_hoverChanged);
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
