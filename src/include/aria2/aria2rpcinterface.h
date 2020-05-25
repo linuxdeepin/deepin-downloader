@@ -75,7 +75,30 @@ public:
     void unPause();//取消暂停
     void unPauseAll();//取消所有暂停
     void remove();//移除
+    /**
+     * @brief tellStatus 获取下载状态
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回指定下载的当前状态
+     * result为一个JsonObject，包含类似map键值，详见aria2文档
+     */
+    void tellStatus(QString gId, QString id = "");
 
+    /**
+     * @brief tellStatus 获取下载状态 可指定需要的返回字段
+     * @param gId GID aria2c生成的下载唯一标示
+     * @param keys 指定需要的返回字段列表，参数详见aria2文档
+     * [status|totalLength|completedLength|uploadLength|bitfield|downloadSpeed|uploadSpeed|...]
+     * 示例代码：
+     * QStringList keys;
+     * keys<<"gid"<<"status"<<"totalLength"<<"completedLength"<<"downloadSpeed";
+     * @param id 同其它方法参数
+     *
+     * signal_success信号中异步返回指定下载的当前状态
+     * result为一个JsonObject，包含类似map键值，详见aria2文档
+     */
+    void tellStatus(QString gId, QStringList keys, QString id = "");
 
 
 

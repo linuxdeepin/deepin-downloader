@@ -339,3 +339,22 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply,const QString &meth
     reply->deleteLater();
     reply->destroyed();
 }
+
+void Aria2RPCInterface::tellStatus(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
+}
+
+void Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    QJsonArray ka;
+    foreach(QString k, keys) {
+        ka.append(k);
+    }
+    ja.append(ka);
+    callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
+}
