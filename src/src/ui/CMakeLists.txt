@@ -40,9 +40,9 @@ set (UDLC_UI_HEADERS
 )
 
 
-file(GLOB_RECURSE QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images.qrc)
+file(GLOB_RECURSE QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
 #添加资源文件
-set(QRC_SOURCE_FILES images.qrc)
+set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
 qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 
 
