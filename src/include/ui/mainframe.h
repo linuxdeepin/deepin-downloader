@@ -29,7 +29,7 @@ class TableView;
 class QStackedWidget;
 class TopButton;
 class QSystemTrayIcon;
-
+class SettingsWidget;
 /**
  * @class MainFrame
  * @brief 主界面类
@@ -84,6 +84,8 @@ private slots:
      * @param type 颜色类型
     */
     void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
+
+    void get_header_stateChanged(bool i);
 private:
 
     /**
@@ -103,6 +105,23 @@ private:
      * @brief 新建连接
     */
     void initConnection();
+    /**
+     * @brief 初始化三个列表，读数据库
+    */
+    void init_tableData();
+    /**
+     * @brief 刷新列表
+     * @param index 节点
+     * @param isClearSelection 是否清除
+    */
+    void refreshTableView(const int &index, bool isClearSelection = false);
+
+    /**
+     * @brief 设置任务数
+     * @param num 个数
+    */
+    void setTask_Num(int num);
+
     /**
      * @brief mainwidow关闭事件
      * @param event 事件类型
@@ -135,6 +154,13 @@ private:
     QSystemTrayIcon *m_pSystemTray;
     QClipboard *m_pClipboard;
     QAction *m_pSettingAction;
+    SettingsWidget *m_pSettingWidget;
+    int m_iCcurrentListviewRow;
+    int m_iDownloadingHeaderCheckStatus=0;
+    int m_iFinishHeaderCheckStatus=0;
+
+signals:
+     void switch_table_signal();
 };
 
 #endif // MAINFRAME_H

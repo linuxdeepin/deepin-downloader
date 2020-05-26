@@ -117,6 +117,12 @@ void TableView::mousePressEvent(QMouseEvent *event)
     }
 
 }
+
+TableModel* TableView::getTableModel()
+{
+    return m_pTableModel;
+}
+
 void TableView::mouseMoveEvent(QMouseEvent *event)
 {
     QModelIndex idx = this->indexAt(event->pos());

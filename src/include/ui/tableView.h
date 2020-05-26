@@ -26,8 +26,11 @@ class TableView:public QTableView
 public:
     TableView(int Flag);
     void reset(bool switched=false);
-   // RecycleTableViewModel* get_recycletableViewModel();
-
+    /**
+     * @brief 获取model
+     * @return model
+    */
+    TableModel* getTableModel();
 
 private:
     /**
