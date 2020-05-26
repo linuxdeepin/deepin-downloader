@@ -20,6 +20,8 @@
 #include <DApplication>
 #include <QJsonObject>
 
+#include "settings.h"
+
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
@@ -154,6 +156,9 @@ private:
     QSystemTrayIcon *m_pSystemTray;
     QClipboard *m_pClipboard;
     QAction *m_pSettingAction;
+
+    Settings *m_pSettings;
+
     SettingsWidget *m_pSettingWidget;
     int m_iCcurrentListviewRow;
     int m_iDownloadingHeaderCheckStatus=0;
@@ -161,6 +166,7 @@ private:
 
 signals:
      void switch_table_signal();
+
 };
 
 #endif // MAINFRAME_H

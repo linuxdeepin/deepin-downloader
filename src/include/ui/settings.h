@@ -1,33 +1,18 @@
-/* -*- Mode: C++; indent-tabs-mode: nil; tab-width: 4 -*-
- * -*- coding: utf-8 -*-
- *
- * Copyright (C) 2011 ~ 2018 Deepin, Inc.
- *
- * Author:     Wang Yong <wangyong@deepin.com>
- * Maintainer: Rekols    <rekols@foxmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+/**
+* @file settings.h
+* @brief 设置类，主要实现调用json文件，生成配置文件；创建自定义的控件窗口
+* @author yuandandan  <yuandandan@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 12:25
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "dsettingsdialog.h"
-#include "describeinputbox.h"
-#include "timesectioncontrol.h"
-#include "dfilechooseredit.h"
-#include "messagebox.h"
+#include <QObject>
+#include <DDialog>
+#include <DSettingsDialog>
+#include <DSettingsWidgetFactory>
 #include <qsettingbackend.h>
 #include <QSettings>
 #include <QPointer>
@@ -37,45 +22,67 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
+/**
+ * @class Settings
+ * @brief 设置类
+*/
 class Settings : public QObject
 {
     Q_OBJECT
-
 public:
-     Settings(QWidget *parent = 0);
-     ~Settings();
+    explicit Settings(QObject *parent = nullptr);
 
+    /**
+     * @brief 创建下载目录窗口
+     * @param obj option对象
+     */
     static QWidget *createFileChooserEditHandle(QObject *obj);
-    static QWidget * createDescribeMaxDownloadNumInputBoxHandle(QObject *obj);
-    static QWidget *createDescribeInputBoxHandle(QObject *obj);
-    static QWidget *createdescribeUploadInputBoxHandle(QObject *obj);
-    static QWidget *createTimeSectionControlBoxHandle(QObject *obj);
-    static QWidget * createSettingsLabelHandle(QObject *obj);
 
+    /**
+     * @brief 创建HTTP下载类型窗口
+     * @param obj option对象
+     */
+    static QWidget *createHttpDownloadEditHandle(QObject *obj);
 
+    /**
+     * @brief 创建BT下载类型窗口
+     * @param obj option对象
+     */
+    static QWidget *createBTDownloadEditHandle(QObject *obj);
 
-    DSettings *settings;
+    /**
+     * @brief 创建磁力链接下载类型窗口
+     * @param obj option对象
+     */
+    static QWidget *createMagneticDownloadEditHandle(QObject *obj);
+
+    /**
+     * @brief 创建下载托盘窗口
+     * @param obj option对象
+     */
+    static QWidget *createDownloadTraySettingHandle(QObject *obj);
+
+    /**
+     * @brief 创建下载磁盘缓存窗口
+     * @param obj option对象
+     */
+    static QWidget *createDownloadDiskCacheSettiingHandle(QObject *obj);
+
+    /**
+     * @brief 创建下载设置窗口
+     * @param obj option对象
+     */
+    static QWidget *createDownloadSpeedLimitSettiingHandle(QObject *obj);
+
+    DSettings *m_pSettings;
 
 signals:
-    void get_download_limitspeed_changed(QString download_limitspeed);
-    void get_upload_limitspeed_changed(QString upload_limitspeed);
-    void get_disckCacheNum_changed(QString upload_limitspeed);
-    void clear_lineEdit_signal();
-    void get_speedLimit_period_changed(QString speed_limitperiod);
-    void radioButton_changed(QVariant value);
-    void get_max_downloadnum_changed(QString maxNum);
-    void get_poweron_changed(int poweronStatus);
 
+public slots:
 
 private:
-
-    Dtk::Core::QSettingBackend *m_backend;
-
-    QString m_configPath;
-    bool m_userChangeKey = false;
-
-
-
+    Dtk::Core::QSettingBackend *m_pBackend;
+    QString m_configPath; // 配置文件路径
 
 };
 

@@ -1,29 +1,14 @@
-/* -*- Mode: C++; indent-tabs-mode: nil; tab-width: 4 -*-
- * -*- coding: utf-8 -*-
- *
- * Copyright (C) 2011 ~ 2018 Deepin, Inc.
- *
- * Author:     Wang Yong <wangyong@deepin.com>
- * Maintainer: Rekols    <rekols@foxmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+/**
+* @file settings.cpp
+* @brief 设置类，主要实现调用json文件，生成配置文件；创建自定义的控件窗口
+* @author yuandandan  <yuandandan@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 13:39
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
 #include "settings.h"
+
 #include "dthememanager.h"
-#include "savepathfilechooser.h"
-#include "settingslabel.h"
 #include <DSettings>
 #include <DSettingsGroup>
 #include <DSettingsWidgetFactory>
@@ -37,10 +22,17 @@
 #include <QDir>
 #include <QStandardPaths>
 
+#include "filesavepathchooser.h"
+#include "settinginfoinputwidget.h"
+#include "itemselectionwidget.h"
+#include "groupselectionwidget.h"
+#include "downloadsettingwidget.h"
 
-/***
-  *判断一个字符串是否为纯数字
-  */
+/**
+ * @brief 判断字符串是否为纯数字
+ * @param src 字符串
+ * @return 返回0表示是纯数字，否则返回-1
+ */
 int isDigitStr(QString src)
 {
     QByteArray ba = src.toLatin1();//QString 转换为 char*
@@ -57,436 +49,416 @@ int isDigitStr(QString src)
         return 0;
     }
 }
-Settings::Settings(QWidget *parent)
-    : QObject(parent)
+
+Settings::Settings(QObject *parent) : QObject(parent)
 {
     m_configPath = QString("%1/%2/%3/config.conf")
         .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
         .arg(qApp->organizationName())
         .arg(qApp->applicationName());
 
-    m_backend = new QSettingBackend(m_configPath);
+    m_pBackend = new QSettingBackend(m_configPath);
 
-    settings = DSettings::fromJsonFile(":/resources/json/settings.json");
-    settings->setBackend(m_backend);
-    auto downloadlimitSpeed = settings->option("downloadsettings.downloadMode.maximumDownloadSpeedLimit");
+    m_pSettings = DSettings::fromJsonFile(":/json/settings");
+    m_pSettings->setBackend( m_pBackend );
 
-    connect(downloadlimitSpeed, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                if(isDigitStr(value.toString())==0)
-                {
-                    if(value.toInt() >=100 && value.toInt() <= 102400)
-                    {
-                         emit get_download_limitspeed_changed(value.toString());
-                    }
-                }
+    // 初始化同时下载最大任务数
+    auto maxDownloadTaskOption = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
+    QStringList values;
+    QStringList keys;
+    keys << "1" << "2" << "3" << "4" << "5";
+    values << "1个" << "2个" << "3个" << "4个" << "5个";
+    QMap<QString, QVariant> mapData;
 
-            }
+    mapData.insert("keys", keys);
+    mapData.insert("values", values);
+    maxDownloadTaskOption->setData("items", mapData);
 
-            downloadlimitSpeed->setValue(value);
-
-        });
-
-    auto maximumUploadSpeedLimit = settings->option("downloadsettings.downloadMode.maximumUploadSpeedLimit");
-
-    connect(maximumUploadSpeedLimit, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                if(isDigitStr(value.toString())==0)
-                {
-
-                   emit get_upload_limitspeed_changed(value.toString());
-
-                }
-                else {
-                    emit get_upload_limitspeed_changed("32");
-                }
-            }
-
-        });
-
-    //下载磁盘缓存值更变
-    auto disckcacheNum = settings->option("AdvancedSetting.downloadDiskCache.disckcacheNum");
-    connect(disckcacheNum, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                QString cacheNum ;
-                switch (value.toInt()) {
-                    case 0:
-                        cacheNum = "128";
-                        break;
-                    case 1:
-                        cacheNum = "256";
-                        break;
-                    case 2:
-                        cacheNum = "512";
-                        break;
-                    default:
-                        cacheNum = "256";
-                        break;
-                }
-
-                emit get_disckCacheNum_changed(cacheNum);
-
-            }
-
-        });
-
-
-    //限制时间变化
-    auto speedLimitPeriod = settings->option("downloadsettings.downloadMode.speedLimitPeriod");
-    connect(speedLimitPeriod, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                emit get_speedLimit_period_changed(value.toString());
-
-            }
-
-        });
-
-    //最大下载数变化
-    auto maxDownloadNum = settings->option("downloadsettings.downloadMode.maxDownloadNum");
-    connect(maxDownloadNum, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                emit get_max_downloadnum_changed(value.toString());
-
-            }
-
-        });
+    if (maxDownloadTaskOption->value().toString().isEmpty())
+    {
+        maxDownloadTaskOption->setValue("5");
+    }
 
     // 开机启动
-    auto poweron_switchbutton = settings->option("basic.select_multiple.poweron_switchbutton");
+    auto poweron_switchbutton = m_pSettings->option("Basic.Start.PowerOn");
     connect(poweron_switchbutton, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
             if(!value.isNull())
             {
-                emit get_poweron_changed(value.toInt());
+
 
             }
 
         });
-
-
-
-
-
-
-
 }
 
-
-Settings::~Settings()
-{
-}
-
-QWidget * Settings::createSettingsLabelHandle(QObject *obj)
-{
-    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-    QString diskCacheInfo = tr("The larger the disk cache, the faster the download speed \n and the more computer resources are consumed.");
-    SettingsLabel * diskCacheLabel = new SettingsLabel(diskCacheInfo);
-
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, diskCacheLabel);
-
-     return optionWidget;
-}
-//设置默认下载路径
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-    int iCurrentSelect = 2;
-    QString file_path ;
-    if (!option->value().toString().isEmpty())
+
+    int nCurrentSelect = 2;
+    QString strDownloadPath;
+
+    if(option->value().toString().isEmpty())
     {
-       QString current_value = option->value().toString();
-       if(current_value.contains("auto;"))
-       {
-           iCurrentSelect = 1 ;
-           file_path = current_value.section(QString(';'),1,1);
-           if(file_path.isEmpty())
-           {
-               file_path =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-           }
-       }
-       else {
-           file_path = current_value.section(QString(';'),1,1);
-           if(file_path.isEmpty())
-           {
-               file_path =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-           }
-       }
+        strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
     }
     else
     {
-        file_path = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-    }
-
-    SavePathFileChooser * savePathFileChooser = new SavePathFileChooser(iCurrentSelect,file_path);
-
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, savePathFileChooser);
-
-    connect(savePathFileChooser, &SavePathFileChooser::textChanged, savePathFileChooser, [=] (QVariant var) {
-
-        QString current_value = var.toString();
-        QString option_value = option->value().toString();
-        if(current_value=="custom;" &&!option_value.isEmpty())
+        QString strCurrentValue = option->value().toString();
+        if(strCurrentValue.contains("auto;"))
         {
-            QString old_file_path = option_value.section(QString(';'),1,1);
-            if(!old_file_path.isEmpty())
+            nCurrentSelect = 1;
+            QStringList lstCurrentValue = strCurrentValue.split(';');
+            if(lstCurrentValue.count() > 1)
             {
-                current_value = "custom;" + old_file_path;
-                option->setValue(current_value);
+                strDownloadPath = lstCurrentValue.at(1);
+                if(strDownloadPath.isEmpty())
+                {
+                    strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
+                }
             }
         }
-        else {
+        else
+        {
+            QStringList lstCurrentValue = strCurrentValue.split(';');
+            if(lstCurrentValue.count() > 1)
+            {
+                strDownloadPath = lstCurrentValue.at(1);
+                if(strDownloadPath.isEmpty())
+                {
+                    strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
+                }
+            }
+        }
+    }
+
+    FileSavePathChooser *pFileSavePathChooser = new FileSavePathChooser(nCurrentSelect, strDownloadPath);
+
+    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pFileSavePathChooser);
+
+    connect(pFileSavePathChooser, &FileSavePathChooser::textChanged, pFileSavePathChooser, [=] (QVariant var) {
+
+        QString strCurrentValue = var.toString();
+        QString strOptionValue = option->value().toString();
+
+        if(strCurrentValue == "custom;" && !strOptionValue.isEmpty())
+        {
+            QString strOldPath = strOptionValue.section(QString(';'),1,1);
+            if(!strOldPath.isEmpty())
+            {
+                strCurrentValue = "custom;" + strOldPath;
+                option->setValue(strCurrentValue);
+            }
+        }
+        else
+        {
              option->setValue(var.toString());
         }
-
-
     });
 
-    connect(option, &DSettingsOption::valueChanged, savePathFileChooser, [=] (QVariant var) {
+    connect(option, &DSettingsOption::valueChanged, pFileSavePathChooser, [=] (QVariant var) {
         if(!var.toString().isEmpty())
         {
-            QString current_value = var.toString();
-            if(current_value.contains("custom;"))
+            QString strCurrentValue = var.toString();
+            if(strCurrentValue.contains("custom;"))
             {
-                savePathFileChooser->setSelectRadio("custom");
+                pFileSavePathChooser->setCurrentSelectRadioButton(2);
             }
-            QString current_file_path = current_value.section(QString(';'),1,1);
-            if(current_file_path.isEmpty())
+            QString strCurrentPath = strCurrentValue.section(QString(';'),1,1);
+            if(strCurrentPath.isEmpty())
             {
-                current_file_path =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
+                strCurrentPath =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
             }
-            savePathFileChooser->setSelectPath(current_file_path);
-
-
-
+            pFileSavePathChooser->setLineEditText(strCurrentPath);
         }
-
-
-
     });
-
 
     return optionWidget;
 }
 
-//设置最大下载文件数
-QWidget *Settings::createDescribeMaxDownloadNumInputBoxHandle(QObject *obj)
+QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-    DescribeInputBox *describeInputBox;
-    if (option->value().toString().isEmpty())
+
+    ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget();
+    pItemSelectionWidget->setLabelText("HTTP下载");
+    pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+
+    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
+
+    connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
+        option->setValue(var.toString());
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pItemSelectionWidget, [=] (QVariant var) {
+        if(!var.toString().isEmpty())
+        {
+            pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+        }
+    });
+
+    return optionWidget;
+}
+
+QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget();
+    pItemSelectionWidget->setLabelText("BT下载");
+    pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+
+    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
+
+    connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
+        option->setValue(var.toString());
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pItemSelectionWidget, [=] (QVariant var) {
+        if(!var.toString().isEmpty())
+        {
+            pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+        }
+    });
+
+    return optionWidget;
+}
+
+QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget();
+    pItemSelectionWidget->setLabelText("磁力链接下载");
+    pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+
+    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
+
+    connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
+        option->setValue(var.toString());
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pItemSelectionWidget, [=] (QVariant var) {
+        if(!var.toString().isEmpty())
+        {
+            pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+        }
+    });
+
+    return optionWidget;
+}
+
+QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    QStringList lstItemName;
+    lstItemName << "显示"  << "下载时显示"  << "隐藏";
+
+    QString strCurrentSelected = option->value().toString();
+    if(strCurrentSelected.isEmpty())
     {
-        describeInputBox = new DescribeInputBox(tr("Max download num"),tr("individual"),tr("(1-20)"));
+        if(lstItemName.count() > 0)
+        {
+            strCurrentSelected = lstItemName.at(0);
+        }
+    }
+
+    GroupSelectionWidget *pGroupSelectionWidget = new GroupSelectionWidget(lstItemName);
+    pGroupSelectionWidget->setLabelIsHide(true);
+    pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
+
+    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pGroupSelectionWidget);
+
+    connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
+        QString strCurrentValue = var.toString();
+        if(strCurrentValue.isEmpty())
+        {
+            if(lstItemName.count() > 0)
+            {
+                strCurrentValue = lstItemName.at(0);
+            }
+        }
+        option->setValue(strCurrentValue);
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pGroupSelectionWidget, [=] (QVariant var) {
+        if(!var.toString().isEmpty())
+        {
+            QString strCurrentSelected = option->value().toString();
+            if(strCurrentSelected.isEmpty())
+            {
+                if(lstItemName.count() > 0)
+                {
+                    strCurrentSelected = lstItemName.at(0);
+                }
+            }
+            pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
+        }
+    });
+
+    return optionWidget;
+}
+
+QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    QStringList lstItemName;
+    lstItemName << "128"  << "256"  << "512";
+
+    QString strCurrentSelected = option->value().toString();
+    if(strCurrentSelected.isEmpty())
+    {
+        if(lstItemName.count() > 0)
+        {
+            strCurrentSelected = lstItemName.at(0);
+        }
+    }
+
+    GroupSelectionWidget *pGroupSelectionWidget = new GroupSelectionWidget(lstItemName);
+    pGroupSelectionWidget->setLabelText("磁盘缓存越大，下载速度越快，占用电脑资源越多");
+    pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
+
+    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pGroupSelectionWidget);
+
+    connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
+        QString strCurrentValue = var.toString();
+        if(strCurrentValue.isEmpty())
+        {
+            if(lstItemName.count() > 0)
+            {
+                strCurrentValue = lstItemName.at(0);
+            }
+        }
+        option->setValue(strCurrentValue);
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pGroupSelectionWidget, [=] (QVariant var) {
+        if(!var.toString().isEmpty())
+        {
+            QString strCurrentSelected = option->value().toString();
+            if(strCurrentSelected.isEmpty())
+            {
+                if(lstItemName.count() > 0)
+                {
+                    strCurrentSelected = lstItemName.at(0);
+                }
+            }
+            pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
+        }
+    });
+
+    return optionWidget;
+}
+
+QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    int nCurrentSelect = 2;
+    QString strMaxDownloadSpeedLimit;
+    QString strMaxUploadSpeedLimit;
+    QString strStartTime;
+    QString strEndTime;
+
+    if(option->value().toString().isEmpty())
+    {
+        strMaxDownloadSpeedLimit = "10240";
+        strMaxUploadSpeedLimit = "32";
+        strStartTime = "08:00:00";
+        strEndTime = "17:00:00";
     }
     else
     {
-       describeInputBox = new DescribeInputBox(tr("Max download num"),tr("individual"),tr("(1-20)"),option->value().toString());
+        QString strCurrentValue = option->value().toString();
+        if(strCurrentValue.contains("fullspeed;"))
+        {
+            nCurrentSelect = 1;
+        }
+        QStringList lstCurrentValue = strCurrentValue.split(';');
+        if(lstCurrentValue.count() > 4)
+        {
+            strMaxDownloadSpeedLimit = lstCurrentValue.at(1);
+            strMaxUploadSpeedLimit = lstCurrentValue.at(2);
+            strStartTime = lstCurrentValue.at(3);
+            strEndTime = lstCurrentValue.at(4);
+        }
     }
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, describeInputBox);
 
-    connect(describeInputBox,&DescribeInputBox::get_textChanged,option,[=] (const QString &text) {
+    DownloadSettingWidget *pDownloadSettingWidget = new DownloadSettingWidget();
+    pDownloadSettingWidget->setCurrentSelectRadioButton(nCurrentSelect);
+    pDownloadSettingWidget->setMaxDownloadSpeedLimit(strMaxDownloadSpeedLimit);
+    pDownloadSettingWidget->setMaxUploadSpeedLimit(strMaxUploadSpeedLimit);
+    pDownloadSettingWidget->setStartTime(strStartTime);
+    pDownloadSettingWidget->setEndTime(strEndTime);
 
-        if(isDigitStr(text)==0)
+    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pDownloadSettingWidget);
+
+    connect(pDownloadSettingWidget, &DownloadSettingWidget::speedLimitInfoChanged, pDownloadSettingWidget, [=] (QVariant var) {
+        QString strCurrentValue = var.toString();
+        QStringList lstCurrentValue = strCurrentValue.split(';');
+        if(lstCurrentValue.count() > 4)
         {
-            if(text.toInt() >=1 && text.toInt() <= 20)
+            QString strMaxDownloadSpeedLimit = lstCurrentValue.at(1);
+            QString strMaxUploadSpeedLimit = lstCurrentValue.at(2);
+            if(strMaxDownloadSpeedLimit.toInt() >= 100 && strMaxDownloadSpeedLimit.toInt() <= 102400
+                    && strMaxUploadSpeedLimit.toInt() >= 16 && strMaxUploadSpeedLimit.toInt() <= 5120)
             {
-                option->setValue(text);
+                option->setValue(strCurrentValue);
             }
-
         }
-
-
     });
-    connect(option, &DSettingsOption::valueChanged, describeInputBox, [=] (QVariant text) {
 
-        if(isDigitStr(text.toString())==0)
+    connect(option, &DSettingsOption::valueChanged, pDownloadSettingWidget, [=] (QVariant var) {
+        if(!var.toString().isEmpty())
         {
-            if(text.toInt() >=1 && text.toInt() <= 20)
+            QString strCurrentValue = option->value().toString();
+            int nCurrentSelect = 2;
+            QString strMaxDownloadSpeedLimit;
+            QString strMaxUploadSpeedLimit;
+            QString strStartTime;
+            QString strEndTime;
+
+            if(strCurrentValue.isEmpty())
             {
-                option->setValue(text);
-                describeInputBox->setLineEditValue(text.toString());
+                strMaxDownloadSpeedLimit = "10240";
+                strMaxUploadSpeedLimit = "32";
+                strStartTime = "08:00:00";
+                strEndTime = "17:00:00";
             }
+            else
+            {
+                if(strCurrentValue.contains("fullspeed;"))
+                {
+                    nCurrentSelect = 1;
+                }
+
+                QStringList lstCurrentValue = strCurrentValue.split(';');
+                if(lstCurrentValue.count() > 4)
+                {
+                    strMaxDownloadSpeedLimit = lstCurrentValue.at(1);
+                    strMaxUploadSpeedLimit = lstCurrentValue.at(2);
+                    strStartTime = lstCurrentValue.at(3);
+                    strEndTime = lstCurrentValue.at(4);
+                }
+            }
+
+            pDownloadSettingWidget->setCurrentSelectRadioButton(nCurrentSelect);
+            pDownloadSettingWidget->setMaxDownloadSpeedLimit(strMaxDownloadSpeedLimit);
+            pDownloadSettingWidget->setMaxUploadSpeedLimit(strMaxUploadSpeedLimit);
+            pDownloadSettingWidget->setStartTime(strStartTime);
+            pDownloadSettingWidget->setEndTime(strEndTime);
         }
-
-
-        });
-    int minValid = 1;
-    int maxValid = 20;
-    describeInputBox->setValid(minValid,maxValid);
+    });
 
     return optionWidget;
 }
-QWidget *Settings::createDescribeInputBoxHandle(QObject *obj)
-{
-    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-    DescribeInputBox *describeInputBox;
-
-    if (option->value().toString().isEmpty())
-    {
-        describeInputBox = new DescribeInputBox(tr("Max download speed limit"),tr("KB/s"),tr("(100-102400)"));
-       // describeInputBox = new DescribeInputBox(tr(" "),tr("KB/s"),tr("(100-102400)"));
-    }
-    else
-    {
-        describeInputBox = new DescribeInputBox(tr("Max download speed limit"),tr("KB/s"),tr("(100-102400)"),option->value().toString());
-        //describeInputBox = new DescribeInputBox(tr(""),tr("KB/s"),tr("(100-102400)"),option->value().toString());
-    }
-
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, describeInputBox);
-
-    connect(describeInputBox,&DescribeInputBox::get_textChanged,option,[=] (const QString &text) {
 
 
-        if(isDigitStr(text)==0)
-        {
-            if(text.toInt() >=100 && text.toInt() <= 102400)
-            {
-                option->setValue(text);
-            }
-
-        }
-
-        });
-
-    connect(option, &DSettingsOption::valueChanged, describeInputBox, [=] (QVariant var) {
-            describeInputBox->setLineEditValue(var.toString());
-        });
-    int minValid = 100;
-    int maxValid = 102400;
-    describeInputBox->setValid(minValid,maxValid);
-
-    return optionWidget;
-
-}
-
-//创建描述加输入框加描述控件
-QWidget *Settings::createdescribeUploadInputBoxHandle(QObject *obj)
-{
-    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-    DescribeInputBox *describeInputBox;
-    if (option->value().toString().isEmpty())
-    {
-        describeInputBox = new DescribeInputBox(tr("Max upload speed limit"),tr("KB/s"),tr("(16-5120)"));
-    }
-    else
-    {
-       describeInputBox = new DescribeInputBox(tr("Max upload speed limit"),tr("KB/s"),tr("(16-5120)"),option->value().toString());
-    }
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, describeInputBox);
-
-    connect(describeInputBox,&DescribeInputBox::get_textChanged,option,[=] (const QString &text) {
-
-        if(isDigitStr(text)==0)
-        {
-            if(text.toInt() >=16 && text.toInt() <= 5120)
-            {
-                option->setValue(text);
-            }
-
-        }
 
 
-    });
-    connect(option, &DSettingsOption::valueChanged, describeInputBox, [=] (QVariant text) {
-
-        if(isDigitStr(text.toString())==0)
-        {
-            if(text.toInt() >=16 && text.toInt() <= 5120)
-            {
-                option->setValue(text);
-                describeInputBox->setLineEditValue(text.toString());
-            }
-        }
 
 
-        });
-    int minValid = 16;
-    int maxValid = 5120;
-    describeInputBox->setValid(minValid,maxValid);
 
-    return optionWidget;
-
-}
-//创建时间段控件
-QWidget *Settings::createTimeSectionControlBoxHandle(QObject *obj)
-{
-    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-    QTime *startTime , *endTime;
-    QString  userInfo ;
-    QString allTimeInfo ;
-    startTime = new QTime;
-    endTime = new QTime;
-    if (option->value().toString().isEmpty())
-    {
-        startTime->setHMS(8,0,0);
-        endTime->setHMS(17,30,0);
-        userInfo = "8,0,0;17:30:0";
-    }
-    else {
-        userInfo = option->value().toString();
-        QString userInfoStartTime = userInfo.section(QString(';'),0,0);
-        QString userInfoEndTime = userInfo.section(QString(';'),1,1);
-        startTime->setHMS(userInfoStartTime.section(QString(','),0,0).toInt(),
-                          userInfoStartTime.section(QString(','),1,1).toInt(),
-                          userInfoStartTime.section(QString(','),2,2).toInt());
-
-        endTime->setHMS(userInfoEndTime.section(QString(','),0,0).toInt(),
-                          userInfoEndTime.section(QString(','),1,1).toInt(),
-                          userInfoEndTime.section(QString(','),2,2).toInt());
-
-    }
-    TimeSectionControl *timeSectionControl = new TimeSectionControl(tr("Speed limit period"),tr("To"),startTime,endTime);
-
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, timeSectionControl);
-
-    connect(timeSectionControl,&TimeSectionControl::get_startTimeChanged,option,[=] (const QTime &setTime) {
-
-
-    startTime->setHMS(setTime.hour(),setTime.minute(),setTime.second()) ;
-
-    option->setValue(QString::number(startTime->hour()) +"," +
-                QString::number(startTime->minute())+ "," +
-                QString::number(startTime->second()) +";" +
-                QString::number(endTime->hour()) + "," +
-                QString::number(endTime->minute())+ ","+
-                QString::number(endTime->second()));
-
-
-    });
-
-    connect(timeSectionControl,&TimeSectionControl::get_endTimeChanged,option,[=] (const QTime &setTime) {
-       endTime->setHMS(setTime.hour(),setTime.minute(),setTime.second());
-       option->setValue(QString::number(startTime->hour()) +"," +
-                   QString::number(startTime->minute())+ "," +
-                   QString::number(startTime->second()) +";" +
-                   QString::number(endTime->hour()) + "," +
-                   QString::number(endTime->minute())+ ","+
-                   QString::number(endTime->second()));
-
-    });
-
-    connect(option, &DSettingsOption::valueChanged, timeSectionControl, [=] (QVariant var) {
-            if(var.toString()!="")
-            {
-                QString timeInfo = var.toString();
-                QString userInfoStartTime = timeInfo.section(QString(';'),0,0);
-                QString userInfoEndTime = timeInfo.section(QString(';'),1,1);
-                startTime->setHMS(userInfoStartTime.section(QString(','),0,0).toInt(),
-                                  userInfoStartTime.section(QString(','),1,1).toInt(),
-                                  userInfoStartTime.section(QString(','),2,2).toInt());
-
-                endTime->setHMS(userInfoEndTime.section(QString(','),0,0).toInt(),
-                                  userInfoEndTime.section(QString(','),1,1).toInt(),
-                                  userInfoEndTime.section(QString(','),2,2).toInt());
-
-                timeSectionControl->setTimeZone(startTime,endTime);
-            }
-
-        });
-
-    return optionWidget;
-}
 

@@ -37,6 +37,10 @@
         <file>icon/downloader7.svg</file>
         <file>icon/downloader8.svg</file>
         <file>icon/downloader9.svg</file>
-        <file>icon/folder.svg</file>
+        <file alias="checked">icon/checked.svg</file>
+        <file alias="unchecked">icon/unchecked.svg</file>
+    </qresource>
+    <qresource prefix="/json">
+        <file alias="settings">json/settings.json</file>
     </qresource>
 </RCC>

@@ -37,6 +37,12 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settingswidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/basicsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/clipboardtimer.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/downloadsettingwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/filesavepathchooser.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/groupselectionwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/itemselectionwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/settinginfoinputwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/settings.h
 
 )
 
@@ -67,9 +73,15 @@ add_library(ui SHARED
        settingswidget.cpp
        basicsettingwidget.cpp
        clipboardtimer.cpp
+       downloadsettingwidget.cpp
+       filesavepathchooser.cpp
+       groupselectionwidget.cpp
+       itemselectionwidget.cpp
+       settinginfoinputwidget.cpp
+       settings.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
-       ${QM_FILES}
+ #      ${QM_FILES}
 )
 
 #依赖库
