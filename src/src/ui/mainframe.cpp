@@ -31,6 +31,7 @@ MainFrame::MainFrame(QWidget *parent) :
 
 void MainFrame::init()
 {
+    m_pSettings = new Settings;
 
     // 添加设置界面
     DMenu *pSettingsMenu = new DMenu;
@@ -281,11 +282,24 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onSettingsMenuClicked()
 {
-    SettingsWidget *pSettingWidget = new  SettingsWidget;
-    QDesktopWidget *pDeskWdg = QApplication::desktop();
-    QRect rctAvaild = pDeskWdg->availableGeometry();
-    pSettingWidget->move((rctAvaild.width() - pSettingWidget->width()) / 2, (rctAvaild.height() - pSettingWidget->height()) / 2);
-    pSettingWidget->show();
+//    SettingsWidget *pSettingWidget = new  SettingsWidget;
+//    QDesktopWidget *pDeskWdg = QApplication::desktop();
+//    QRect rctAvaild = pDeskWdg->availableGeometry();
+//    pSettingWidget->move((rctAvaild.width() - pSettingWidget->width()) / 2, (rctAvaild.height() - pSettingWidget->height()) / 2);
+//    pSettingWidget->show();
+
+    DSettingsDialog *pSettingsDialog = new DSettingsDialog(this);
+    pSettingsDialog->widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("httpdownload", Settings::createHttpDownloadEditHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("btdownload", Settings::createBTDownloadEditHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("magneticdownload", Settings::createMagneticDownloadEditHandle);
+//    pSettingsDialog->widgetFactory()->registerWidget("downloadtraysetting", Settings::createDownloadTraySettingHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("downloaddiskcachesetting", Settings::createDownloadDiskCacheSettiingHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting", Settings::createDownloadSpeedLimitSettiingHandle);
+    pSettingsDialog->updateSettings( m_pSettings->m_pSettings );
+    pSettingsDialog->exec();
+    delete pSettingsDialog;
+    m_pSettings->m_pSettings->sync();
 }
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)

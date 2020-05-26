@@ -5,28 +5,23 @@
         <file>texts/dcc_newdownload_11px.svg</file>
         <file>texts/dcc_list_icon_delete_11px.svg</file>
         <file>texts/dcc_bt_11px.svg</file>
-
         <file>actions/dcc_list_downloading_11px.svg</file>
         <file>actions/dcc_print_done_11px.svg</file>
         <file>actions/dcc_list_delete_11px.svg</file>
-
         <file>actions/dcc_advance_normal_11px.svg</file>
         <file>actions/dcc_bases_normal_11px.svg</file>
         <file>actions/dcc_notification_normal_11px.svg</file>
         <file>actions/dcc_take_over_normal_11px.svg</file>
     </qresource>
-    
     <qresource prefix="/icons/deepin/builtin/dark">
         <file>texts/dcc_list_icon_pause_11px.svg</file>
         <file>texts/dcc_icon_start_11px.svg</file>
         <file>texts/dcc_newdownload_11px.svg</file>
         <file>texts/dcc_list_icon_delete_11px.svg</file>
         <file>texts/dcc_bt_11px.svg</file>
-
         <file>actions/dcc_list_downloading_dark_11px.svg</file>
         <file>actions/dcc_list_delete_dark_11px.svg</file>
         <file>actions/dcc_print_done_dark_11px.svg</file>
-
         <file>actions/dcc_advance_normal_dark_11px.svg</file>
         <file>actions/dcc_bases_normal_dark_11px.svg</file>
         <file>actions/dcc_notification_normal_dark_11px.svg</file>
@@ -42,5 +37,10 @@
         <file>icon/downloader7.svg</file>
         <file>icon/downloader8.svg</file>
         <file>icon/downloader9.svg</file>
+        <file alias="checked">icon/checked.svg</file>
+        <file alias="unchecked">icon/unchecked.svg</file>
+    </qresource>
+    <qresource prefix="/json">
+        <file alias="settings">json/settings.json</file>
     </qresource>
 </RCC>
