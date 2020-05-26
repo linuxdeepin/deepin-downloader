@@ -8,10 +8,14 @@
 #include <QtSql/qsqldatabase.h>
 #include <QtSql/qsqlerror.h>
 
-/*
- * @class DataBase
- * @brief 链接数据库单例类
- */
+/**
+* @file %{CurrentDocument:database.h}
+* @brief
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
+*/
 
 const QString DATABASE_VERISON = "1";       //数据库版本
 const QString UOS_DOWNLOAD_DATABASE_FILENAME = "uos-downloadmanager-task"+DATABASE_VERISON+".db";   //数据库名字
@@ -21,15 +25,37 @@ const QString UOS_DOWNLOAD_DATABASE_OLD_FILENAME = "uos-downloadmanager-task.db"
 class DataBase
 {
 public:
-    static DataBase &Instance();    //打开数据库
+    /**
+     * @brief 获取数据库类指针
+     * @return 数据库类指针
+     */
+    static DataBase &Instance();
+    /**
+     * @brief 关闭数据库
+     */
     static void close();
+    /**
+     * @brief 获取数据库类中 QSqlDatabase
+     * @return 已打开数据库类
+     */
     QSqlDatabase &getDB();
 
 
 private:
-    DataBase();         //禁止构造函数
-    DataBase(const DataBase&){};//禁止拷贝构造函数
-    DataBase & operator=(const DataBase &){ return *this; };//禁止赋值拷贝构造函数
+    /**
+     * @brief 私有默认构造，禁止外部构造
+     */
+    DataBase();
+    /**
+     * @brief 私有拷贝构造，禁止外部构造
+     */
+    DataBase(const DataBase&){};
+    /**
+     * @brief 私有赋值构造，禁止外部构造
+     */
+    DataBase & operator=(const DataBase &){ return *this; };
+
+private:
     QSqlDatabase m_db;
 };
 

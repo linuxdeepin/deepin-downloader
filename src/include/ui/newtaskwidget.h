@@ -16,10 +16,13 @@
 #include "btinfodialog.h"
 
 DWIDGET_USE_NAMESPACE
-
 /**
- * @class newTaskWidget
- * @brief 新建任务类
+* @file %{CurrentDocument:newtaskwidget.h}
+* @brief 新建任务类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
 
 class  newTaskWidget :public DDialog
@@ -29,20 +32,35 @@ public:
     explicit newTaskWidget(QString path, DDialog *parent=0);
     ~newTaskWidget();
 private:
-    void initUi();      //初始化ui
-
+    /**
+     * @brief 初始化ui
+     */
+    void initUi();
 
 private slots:
-
-    void openfileDialog();  //打开选择文件窗口
-    void onCancelBtnClicked();  //关闭窗口
-    void onSureBtnClicked();    //确定下载
-
-
+    /**
+     * @brief 打开选择文件窗口按钮
+     */
+    void openfileDialog();
+    /**
+     * @brief 关闭窗口按钮
+     */
+    void onCancelBtnClicked();
+    /**
+     * @brief 确定下载按钮
+     */
+    void onSureBtnClicked();
 protected:
-    void dragEnterEvent(QDragEnterEvent *event);        // 拖拽处理函数
-    void dropEvent(QDropEvent *event);                  // 拖拽释放处理函数
-
+    /**
+     * @brief 拖拽处理函数
+     * @param event 拖拽事件
+    */
+    void dragEnterEvent(QDragEnterEvent *event);
+    /**
+     * @brief 拖拽释放处理函数
+     * @param event 拖拽事件
+    */
+    void dropEvent(QDropEvent *event);
 private:
     QString m_savePath;                 //当前保存文件路径
 };
