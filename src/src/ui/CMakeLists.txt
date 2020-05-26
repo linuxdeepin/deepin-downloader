@@ -86,10 +86,10 @@ add_library(ui SHARED
 
 #依赖库
 if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    target_link_libraries(ui libaria2d.so libdatabased.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
+    target_link_libraries(ui libaria2d.so libdatabased.so Qt5::Core Qt5::Widgets Qt5::Svg libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
     message("ui debug")
 else()
-    target_link_libraries(ui libaria2.so libdatabase.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
+    target_link_libraries(ui libaria2.so libdatabase.so Qt5::Core Qt5::Widgets Qt5::Svg libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
     message("ui release")
 endif()
 
