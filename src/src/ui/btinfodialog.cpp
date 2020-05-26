@@ -90,7 +90,7 @@ void BtInfoDialog::initUI()
     this->m_labelTitle->setText(tr("Magnet/Torrent Files Select"));
 
     this->m_folderIcon = new DLabel(this);
-    this->m_folderIcon->setPixmap(QPixmap(":/icons/deepin/builtin/light/icons/folder.svg"));///usr/share/icons/bloom/places/32/folder.svg
+    this->m_folderIcon->setPixmap(QPixmap(":/icons/icon/folder.svg"));///usr/share/icons/bloom/places/32/folder.svg
     this->m_folderIcon->move(45, 92);
 
     //下载信息名称

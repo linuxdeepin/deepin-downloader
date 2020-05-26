@@ -55,6 +55,16 @@ bool DBInstance::delTask(QString _taskId)
          _q.close();
          return false;
      }
+     _sql.clear();
+     _sql.prepare("delete from  url_info where task_id=?;");
+     _sql.addBindValue(_taskId);
+     if(!_sql.exec())
+     {
+         QSqlError error = _sql.lastError();
+         qWarning()<<"Delete url_info failed : " << error;
+         _q.close();
+         return false;
+     }
     _q.close();
     return true;
 }
@@ -75,7 +85,23 @@ bool DBInstance::delAllTask()
        _q.close();
        return false;
    }
-    _q.close();
+   _sql.clear();
+   _sql.prepare("delete from download_task_status;");
+   if(!_sql.exec())
+   {
+       qWarning()<<"Delete download_task failed : " << _sql.lastError();
+       _q.close();
+       return false;
+   }
+   _sql.clear();
+   _sql.prepare("delete from url_info;");
+   if(!_sql.exec())
+   {
+       qWarning()<<"Delete download_task failed : " << _sql.lastError();
+       _q.close();
+       return false;
+   }
+
     return  true;
 }
 
@@ -172,8 +198,32 @@ bool DBInstance::getAllTask(QList<S_Task> & _taskList)
     return true;
 }
 
-bool DBInstance::isExistUrl()
+bool DBInstance::isExistUrl(QString url, bool &ret)
 {
+    ret = false;
+    QSqlDatabase _q = DataBase::Instance().getDB();
+    if(!_q.open())
+    {
+        qDebug()<<_q.lastError();
+        return  false;
+    }
+    QSqlQuery _sql;
+    QString  select_all_sql ="select count(*)  from download_task,download_task_status where download_task.url='"+url+"' and download_task.task_id=download_task_status.task_id;";
+    _sql.prepare(select_all_sql);
+    if(!_sql.exec())
+    {
+        qWarning()<<"select download_task,download_task_status failed : " << _sql.lastError();
+        return false;
+    }
+    while(_sql.next())
+    {
+
+       if(_sql.value(0).toInt() >=1)
+       {
+           ret = true;
+       }
+    }
+    _q.close();
     return true;
 }
 
@@ -300,31 +350,6 @@ bool DBInstance::getAllTaskStatus(QList<S_Task_Status> & _taskList)
     _q.close();
     return true;
 }
-bool DBInstance::delTaskStatusById(QString _taskid)
-{
-    delTask(_taskid);
-
-}
-bool DBInstance::delAllTaskStatus()
-{
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if(!_q.open())
-    {
-        qDebug()<<_q.lastError();
-        _q.close();
-        return  false;
-    }
-    QSqlQuery _sql;
-    _sql.prepare("delete  from download_task_status ;");
-    if(!_sql.exec())
-    {
-        qWarning()<<"delete download_task_status failed : " << _sql.lastError();
-        _q.close();
-        return false;
-    }
-    _q.close();
-    return true;
-}
 
 bool DBInstance::addUrl(S_Url_Info _url)
 {
@@ -432,45 +457,5 @@ bool DBInstance::getAllUrl(QList<S_Url_Info> &_urlList)
     _q.close();
     return true;
 }
-bool DBInstance::delUrlById(QString _urlId)
-{
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if(!_q.open())
-    {
-        qDebug()<<_q.lastError();
-        return  false;
-    }
-    QSqlQuery _sql;
-    _sql.prepare("delete from  url_info where task_id=?;");
-    _sql.addBindValue(_urlId);
-    if(!_sql.exec())
-    {
-        qDebug()<< _sql.lastError();
-        _q.close();
-        return false;
-    }
-    _q.close();
-    return true;
-}
-bool DBInstance::delAllUrl()
-{
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if(!_q.open())
-    {
-        qDebug()<<_q.lastError();
-        return  false;
-    }
-    QSqlQuery _sql;
-    _sql.prepare("delete from  url_info ;");
-    if(!_sql.exec())
-    {
-        qDebug()<< _sql.lastError();
-        _q.close();
-        return false;
-    }
-    _q.close();
-    return true;
 
-
-}
 

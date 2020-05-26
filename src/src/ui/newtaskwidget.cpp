@@ -19,7 +19,7 @@ void newTaskWidget::initUi()
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
-    QIcon tryIcon=QIcon(":/icons/images/icon/downloader2.svg")  ;
+    QIcon tryIcon=QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"))  ;
     this->setIcon(tryIcon);
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMinMaxButtonsHint);
     this->setTitle(tr("New download task"));
@@ -48,7 +48,7 @@ void newTaskWidget::initUi()
     layout->setMargin(0);
     layout->setContentsMargins(0,0,10,0);
     DIconButton *_iconBtn= new DIconButton(_boxBtn);
-    QIcon _tryIcon=QIcon(":/tab/folder_light.svg");
+    QIcon _tryIcon=QIcon(QIcon::fromTheme("dcc_bt"));
     _iconBtn->setIcon(_tryIcon);
     _iconBtn->setIconSize(QSize(18,15));
     _iconBtn->setFixedSize(QSize(40,35));
