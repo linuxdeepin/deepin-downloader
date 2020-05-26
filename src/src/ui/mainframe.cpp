@@ -276,8 +276,8 @@ MainFrame::~MainFrame()
 void MainFrame::initAria2()
 {
     Aria2RPCInterface::Instance()->init();//启动aria2c
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_success(QString, QJsonObject)), this, SLOT(slotRpcSuccess(QString, QJsonObject)));
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_error(QString, QString, int)), this, SLOT(slotRpcError(QString, QString, int)));
+    connect(Aria2RPCInterface::Instance(), SIGNAL(signalRPCSuccess(QString, QJsonObject)), this, SLOT(slotRpcSuccess(QString, QJsonObject)));
+    connect(Aria2RPCInterface::Instance(), SIGNAL(signalRPCError(QString, QString, int)), this, SLOT(slotRpcError(QString, QString, int)));
 
     qDebug() << "MainFrame initAria2 Finished";
 }
@@ -302,6 +302,10 @@ void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
     {
         QString id = json.value("id").toString();
         QString gId = json.value("result").toString();
+
+        //根据ID从下载列表是否存在下载任务,如果不存在创建任务,如果存在更新任务状态
+    //    DataItem* pFindData = downloading_tableview->get_tableViewModel()->find(id);
+
     }
 }
 

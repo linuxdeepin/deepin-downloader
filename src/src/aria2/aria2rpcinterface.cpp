@@ -166,6 +166,23 @@ QString Aria2RPCInterface::getConfigFilePath()
 //添加uri地址
 void Aria2RPCInterface::addUri(QString strUri,QMap<QString,QVariant> opt,QString strId)
 {
+    //如果为迅雷链接
+    QString uri = strUri;
+    if(strUri.startsWith("thunder://")) {
+        QString oUir = strUri.mid(strUri.indexOf("thunder://") + 9+1);
+        uri = QString(QByteArray::fromBase64(oUir.toLatin1()));
+        uri = uri.mid(2, uri.length() - 4);//AA[URI]ZZ
+    }
+    strUri = uri;
+
+    QJsonArray jArray,jInner;//定义QJsonArray 变量
+    jInner.append(strUri);//将uri 装入jInner
+    jArray.append(jInner);//
+
+    QJsonDocument doc = QJsonDocument::fromVariant(QVariant(opt));
+    QJsonObject optJson = doc.object();
+    jArray.append(optJson);
+    callRPC(ARIA2C_METHOD_ADD_URI,jArray,strId);
 
 }
 
@@ -321,4 +338,74 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply,const QString &meth
 
     reply->deleteLater();
     reply->destroyed();
+}
+
+void Aria2RPCInterface::tellStatus(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
+}
+
+void Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    QJsonArray ka;
+    foreach(QString k, keys) {
+        ka.append(k);
+    }
+    ja.append(ka);
+    callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
+}
+
+
+void Aria2RPCInterface::pause(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_PAUSE, ja, id);
+}
+
+void Aria2RPCInterface::forcePause(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_FORCE_PAUSE, ja, id);
+}
+
+void Aria2RPCInterface::pauseAll(QString id)
+{
+    callRPC(ARIA2C_METHOD_PAUSE_ALL, id);
+}
+
+void Aria2RPCInterface::forcePauseAll(QString id)
+{
+    callRPC(ARIA2C_METHOD_FORCE_PAUSE_ALL, id);
+}
+
+void Aria2RPCInterface::unpause(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_UNPAUSE, ja, id);
+}
+
+void Aria2RPCInterface::unpauseAll(QString id)
+{
+    callRPC(ARIA2C_METHOD_UNPAUSE_ALL, id);
+}
+
+void Aria2RPCInterface::remove(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_REMOVE, ja, id);
+}
+
+void Aria2RPCInterface::forceRemove(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
 }

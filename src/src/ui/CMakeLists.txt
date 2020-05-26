@@ -9,6 +9,17 @@ link_directories(${CMAKE_BINARY_DIR}/lib)
 #预定义宏，主要用于dll导出
 ADD_DEFINITIONS(-DUI_LIB )
 
+
+#生成qm文件
+set(TS_FILES  ${CMAKE_CURRENT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager.ts")
+
+qt5_create_translation(QM_FILES
+    ${PROJECT_SOURCE_DIR}
+    ${TS_FILES}
+    OPTIONS -source-language en_US -no-obsolete)
+
+
+
 #需要moc(加Q_OBJECT)的头文件 
 set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainframe.h
@@ -36,7 +47,6 @@ set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
 qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 
 
-
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
 QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
 
@@ -59,14 +69,15 @@ add_library(ui SHARED
        clipboardtimer.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
+       ${QM_FILES}
 )
 
 #依赖库
 if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    target_link_libraries(ui libaria2d.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
+    target_link_libraries(ui libaria2d.so libdatabased.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
     message("ui debug")
 else()
-    target_link_libraries(ui libaria2.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
+    target_link_libraries(ui libaria2.so libdatabase.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
     message("ui release")
 endif()
 
