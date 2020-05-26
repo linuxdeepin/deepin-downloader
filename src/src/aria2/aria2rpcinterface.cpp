@@ -153,14 +153,14 @@ QString Aria2RPCInterface::getDefaultDownLoadDir()
 //设置配置文件路径
 void Aria2RPCInterface::setConfigFilePath(QString strPath)
 {
-
+    configPath = strPath;
 }
 
 //获得配置文件路径
 QString Aria2RPCInterface::getConfigFilePath()
 {
 
-    return "";
+   return configPath;
 }
 
 
@@ -437,7 +437,7 @@ void Aria2RPCInterface::forceRemove(QString gId, QString id)
     callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
 }
 
-void Aria2cInterface::getFiles(QString gId, QString id)
+void Aria2RPCInterface::getFiles(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
