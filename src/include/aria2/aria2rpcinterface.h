@@ -1,3 +1,12 @@
+/**
+* @file %{CurrentDocument:aria2rpcinterface.h}
+* @brief
+* @author denglinglong  <denglinglong@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:11:55}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
+*/
+
 #ifndef ARIA2RPCINTERFACE_H
 #define ARIA2RPCINTERFACE_H
 
@@ -63,18 +72,63 @@ public:
     QString getConfigFilePath();//获得配置文件路径
 
     bool checkAria2cFile();//检查aria2c文件
-
+    /**
+     * @brief addUri 添加下载 HTTP(S)/FTP/BitTorrent Magnet 链接 ，
+     * @param uri 链接
+     * @param opt QMap<QString, QVariant> 下载参数，配置仅应用于本次下载
+     * 参数详见aria2c文档
+     * 示例代码
+     * QMap<QString, QVariant> opt;
+     * //dir 指定文件存储的路径
+     * opt.insert("dir", dir);
+     * //max-download-limit 指定最大下载速度（字节/秒）速度值可以追加K或者M
+     * opt.insert("max-download-limit", "100K");
+     *
+     * @param id 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
+     * 默认为method名，详见aria2const.h常量
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
     void addUri(QString strUri,QMap<QString,QVariant> opt,QString strId);//添加uri地址
-
+    /**
+     * @brief addTorrent 添加下载Torrent
+     * @param torrentFile torrent种子文件路径
+     * @param opt QMap<QString, QVariant> 下载参数，配置仅应用于本次下载
+     * 参数详见aria2c文档
+     * 示例代码
+     * QMap<QString, QVariant> opt;
+     * //dir 指定文件存储的路径
+     * opt.insert("dir", dir);
+     * //seed-time bt下载完成后做种上传的时间。默认为0不做种。如果不为0，下载会一直处于active状态儿不会完成。
+     * opt.insert("seed-time", 0);
+     * //max-upload-limit 指定最大上传速度（字节/秒）速度值可以追加K或者M
+     * opt.insert("max-upload-limit", "100K");
+     * //max-download-limit 指定最大下载速度（字节/秒）速度值可以追加K或者M
+     *
+     * @param id 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
+     * 默认为method名，详见aria2const.h常量
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
     void addTorrent(QString strTorrentFile,QMap<QString,QVariant> opt,QString strId);//添加bt文件
 
-    void addMetalink(QString strMetalink,QMap<QString,QVariant> opt,QString strId);//添加磁力链地址
+    /**
+     * @brief addMetalink 添加Metalink
+     * @param metalinkFile metalink种子文件路径
+     * @param opt 同addTorrent
+     * @param id 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
+     * 默认为method名，详见aria2const.h常量
+     *
+     * signal_success信号中异步返回本次下载的GID
+     * {id:"", jsonrpc:"2.0", result:"gid"}
+     * QString gId = json.value("result").toString();
+     */
+    void addMetalink(QString strMetalink,QMap<QString,QVariant> opt,QString strId);//
 
-    void pause();//暂停
-    void pauseAll();//暂停所有
-    void unPause();//取消暂停
-    void unPauseAll();//取消所有暂停
-    void remove();//移除
     /**
      * @brief tellStatus 获取下载状态
      * @param gId GID aria2c生成的下载唯一标示
@@ -185,6 +239,14 @@ public:
      */
     void forceRemove(QString gId, QString id = "");
 
+    /**
+     * @brief getFiles 获取文件列表
+     * @param gId
+     * @param id
+     *
+     * signal_success信号中异步返回,参数详见aria2文档
+     */
+    void getFiles(QString gId, QString id = "");
 
 private:
     /**
@@ -210,6 +272,8 @@ private:
      *@return
      */
     void rpcRequestReply(QNetworkReply *reply,const QString &method,const QString id);
+
+    QString fileToBase64(QString filePath);//文件转base64
 private:
     //QString cmd = "/usr/bin/aria2c";//aria2c程序路径 -> 已改成public static变量
     QString rpcPort = "88888";//rpc端口

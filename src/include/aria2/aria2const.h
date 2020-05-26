@@ -1,3 +1,12 @@
+/**
+* @file %{CurrentDocument:aria2const.h}
+* @brief
+* @author denglinglong  <denglinglong@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:yyyy-MM-dd} %{CurrentTime:hh:mm}
+* @copyright 2020-%{CurrentDate:yyyy} Uniontech Technology Co., Ltd.
+*/
+
 #ifndef ARIA2CONST_H
 #define ARIA2CONST_H
 
