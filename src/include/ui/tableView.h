@@ -1,3 +1,12 @@
+/**
+* @file tableView.h
+* @brief 下载条目列表
+* @author zhaoyue  <zhaoyue@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 09:41
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #ifndef TABLEVIEW_H
 #define TABLEVIEW_H
 
@@ -17,8 +26,11 @@ class TableView:public QTableView
 public:
     TableView(int Flag);
     void reset(bool switched=false);
-   // RecycleTableViewModel* get_recycletableViewModel();
-
+    /**
+     * @brief 获取model
+     * @return model
+    */
+    TableModel* getTableModel();
 
 private:
     /**
