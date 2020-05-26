@@ -1,3 +1,12 @@
+/**
+* @file mainframe.h
+* @brief 主界面类
+* @author zhaoyue  <zhaoyue@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 09:37
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
 

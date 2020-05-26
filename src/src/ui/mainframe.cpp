@@ -1,5 +1,13 @@
-#include "mainframe.h"
+/**
+* @file mainframe.cpp
+* @brief 主界面类
+* @author zhaoyue  <zhaoyue@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 09:40
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
 
+#include "mainframe.h"
 #include <QLayout>
 #include <QAction>
 #include <QStackedWidget>

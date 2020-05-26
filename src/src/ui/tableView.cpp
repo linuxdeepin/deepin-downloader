@@ -1,3 +1,12 @@
+/**
+* @file tableView.cpp
+* @brief 下载条目列表
+* @author zhaoyue  <zhaoyue@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 09:41
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #include "tableView.h"
 #include <QDebug>
 #include <QScrollBar>
