@@ -1,6 +1,7 @@
 #cmake 最小版本要求
 cmake_minimum_required(VERSION 3.1.0)
 
+
 #工程名
 project(downloadmanager)
 
@@ -30,9 +31,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 
+find_package(Qt5Svg REQUIRED)
+
+target_link_libraries( ${APP_NAME} Qt5::Svg )
+
 #应用qt库
-set(QT Core Gui Widgets Network DBus Sql)
+set(QT Core Gui Widgets Network DBus Sql LinguistTools)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
+
+
 
 #应用DTK库
 set(DTK Widget Core Gui Wm)
