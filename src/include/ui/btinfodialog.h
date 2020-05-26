@@ -28,17 +28,6 @@ DWIDGET_USE_NAMESPACE
  * @brief BT窗口类
 */
 
-/* 使用示例：
-    QString file = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "File(*.torrent)");
-    if(file != "") {
-        BtInfoDialog *dialog = new BtInfoDialog(file);//torrent文件路径
-        int ret = dialog->exec();
-        if(ret == QDialog::Accepted) {
-            //tood aria2c.addTorrent(file, otp);
-        }
-        delete dialog;
-    }
- */
 
 class BtInfoDialog : public DDialog
 {
@@ -56,13 +45,13 @@ public:
 
     /**
      * @brief getSaveto 获取选择的下载到路径
-     * @return
+     * @return 选择的下载到路径
      */
     QString getSaveto();
 
     /**
      * @brief getName 获取bt信息下载名称
-     * @return
+     * @return bt信息下载名称
      */
     QString getName();
 

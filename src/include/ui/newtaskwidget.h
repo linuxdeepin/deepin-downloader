@@ -29,20 +29,35 @@ public:
     explicit newTaskWidget(QString path, DDialog *parent=0);
     ~newTaskWidget();
 private:
-    void initUi();      //初始化ui
-
+    /**
+     * @brief 初始化ui
+     */
+    void initUi();
 
 private slots:
-
-    void openfileDialog();  //打开选择文件窗口
-    void onCancelBtnClicked();  //关闭窗口
-    void onSureBtnClicked();    //确定下载
-
-
+    /**
+     * @brief 打开选择文件窗口按钮
+     */
+    void openfileDialog();
+    /**
+     * @brief 关闭窗口按钮
+     */
+    void onCancelBtnClicked();
+    /**
+     * @brief 确定下载按钮
+     */
+    void onSureBtnClicked();
 protected:
-    void dragEnterEvent(QDragEnterEvent *event);        // 拖拽处理函数
-    void dropEvent(QDropEvent *event);                  // 拖拽释放处理函数
-
+    /**
+     * @brief 拖拽处理函数
+     * @param event 拖拽事件
+    */
+    void dragEnterEvent(QDragEnterEvent *event);
+    /**
+     * @brief 拖拽释放处理函数
+     * @param event 拖拽事件
+    */
+    void dropEvent(QDropEvent *event);
 private:
     QString m_savePath;                 //当前保存文件路径
 };

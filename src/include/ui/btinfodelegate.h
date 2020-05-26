@@ -24,10 +24,27 @@ public:
     BtInfoDelegate(DDialog* dialog);
     ~BtInfoDelegate();
 
-    void setHoverColor(QBrush c);   //设置颜色
+    /**
+     * @brief 设置选择行颜色
+     * @param c 颜色
+     */
+    void setHoverColor(QBrush c);
 
 protected:
+    /**
+     * @brief 重写绘画事件
+     * @param painter 画笔
+     * @param option 视图小部件中绘制项的参数
+     * @param index 数据模型中的数据
+     */
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;      //绘制事件
+    /**
+     * @brief 响应按钮事件 - 划过、按下
+     * @param event 事件
+     * @param model 模型
+     * @param option 视图小部件中绘制项的参数
+     * @param index 数据模型中的数据
+     */
     bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);   // 响应按钮事件 - 划过、按下
 
 private:
@@ -37,6 +54,10 @@ private:
     QBrush hoverColor = QColor(0,0,0,13);
 
 public slots:
+    /**
+     * @brief 选择行变动槽函数
+     * @param index 当前选择行
+     */
     void slot_hoverChanged(const QModelIndex &index);       //获取tableview类中当前选择行
 };
 
