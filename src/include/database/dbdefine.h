@@ -3,6 +3,15 @@
 #include <QString>
 #include <QDateTime>
 
+/**
+* @file %{CurrentDocument:dbdefine.h}
+* @brief
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
+*/
+
 struct S_Task_Status
 {
     QString m_task_id; //任务id，主键唯一标识

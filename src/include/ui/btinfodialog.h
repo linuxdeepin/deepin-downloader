@@ -22,12 +22,14 @@
 
 DWIDGET_USE_NAMESPACE
 
-
 /**
- * @class BtInfoDialog
- * @brief BT窗口类
+* @file %{CurrentDocument:btinfodialog.h}
+* @brief BT窗口类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
-
 
 class BtInfoDialog : public DDialog
 {
@@ -90,7 +92,6 @@ private:
     DLabel *m_labelFileSize;         //总大小标签
     DLabel *m_labelCapacityFree;    //下载路径所在分区剩余磁盘容量
     DLabel *m_folderIcon;           //文件icon
-
     DLabel *m_labelInfoName;        //下载信息名称
     DFileChooserEdit *m_editDir;    //选择下载路径窗口
 
@@ -103,15 +104,38 @@ private:
 
 
 public slots:
+    /**
+     * @brief 确定按钮
+     */
     void slot_btnOK();          //确定按钮
+    /**
+     * @brief 全选按钮
+     */
     void slot_checkAll();       //全选按钮
+    /**
+     * @brief 视频按钮
+     */
     void slot_checkVideo();     //视频按钮
+    /**
+     * @brief 视频按钮
+     */
     void slot_checkAudio();     //音频按钮
+    /**
+     * @brief 视频按钮
+     */
     void slot_checkPicture();   //图片按钮
+    /**
+     * @brief 视频按钮
+     */
     void slot_checkOther();     //其他按钮
-    void slot_filechoosed(const QString &); //选择下载路径
-
-    void slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type);    //跟随dtk主题变化
+    /**
+     * @brief 选择下载路径
+     */
+    void slot_filechoosed(const QString &);
+    /**
+     * @brief 随dtk主题变化
+     */
+    void slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type);
 
 };
 

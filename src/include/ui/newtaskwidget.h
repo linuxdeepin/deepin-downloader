@@ -16,10 +16,13 @@
 #include "btinfodialog.h"
 
 DWIDGET_USE_NAMESPACE
-
 /**
- * @class newTaskWidget
- * @brief 新建任务类
+* @file %{CurrentDocument:newtaskwidget.h}
+* @brief 新建任务类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
 
 class  newTaskWidget :public DDialog

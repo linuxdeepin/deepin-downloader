@@ -5,15 +5,14 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
 
-/*
- * @class DBInstance
- * @brief 数据库接口库
- *
- * 使用示例：
- * DataBase为单例模式
- * 在DBInstance类中写数据库接口，在外部进行调用
-   DBInstance::addTask(_Task);
- */
+/**
+* @file %{CurrentDocument:dbinstance.h}
+* @brief 数据库接口库
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
+*/
 
 class DBInstance
 {
