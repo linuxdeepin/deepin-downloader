@@ -1,3 +1,12 @@
+/**
+* @file topButton.cpp
+* @brief 顶部按钮和搜索框
+* @author zhaoyue  <zhaoyue@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 09:41
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #include "topButton.h"
 #include <QDebug>
 TopButton::TopButton(QWidget *parent) : QWidget(parent)

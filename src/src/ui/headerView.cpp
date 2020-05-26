@@ -1,3 +1,12 @@
+/**
+* @file headerView.cpp
+* @brief 表头
+* @author zhaoyue  <zhaoyue@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 09:44
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #include "headerView.h"
 #include <QDebug>
 HeaderView::HeaderView(Qt::Orientation orientation, QWidget * parent)
