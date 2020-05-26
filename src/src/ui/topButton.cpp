@@ -1,3 +1,12 @@
+/**
+* @file topButton.cpp
+* @brief 顶部按钮和搜索框
+* @author zhaoyue  <zhaoyue@uniontech.com>
+* @version 1.0.0
+* @date 2020-05-26 09:41
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #include "topButton.h"
 #include <QDebug>
 TopButton::TopButton(QWidget *parent) : QWidget(parent)
@@ -13,7 +22,7 @@ void TopButton::Init()
     mainHlayout->setContentsMargins(0,6,0,10);
     mainHlayout->setSpacing(10);
     m_pIconLable = new DLabel;
-    QIcon logo_icon=QIcon(":/icons/images/icon/downloader5.svg");
+    QIcon logo_icon=QIcon(":icons/icon/downloader5.svg");
     m_pIconLable->setPixmap(logo_icon.pixmap(32,32));
     m_pIconLable->setFixedSize(36,36);
     m_pSearchEdit =new DSearchEdit();
@@ -52,7 +61,7 @@ void TopButton::Init()
 
     mainHlayout->addWidget(m_pSearchEdit);
     //mainHlayout->addStretch();
-
+    qDebug() << "asdwasdw";
 }
 
 void TopButton::InitConnections()
