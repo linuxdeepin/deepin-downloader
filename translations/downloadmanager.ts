@@ -93,7 +93,7 @@
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="113"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="121"/>
         <source>0 task</source>
         <translation type="unfinished"></translation>
     </message>
@@ -103,112 +103,112 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="86"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="94"/>
         <source>current no task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="96"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="104"/>
         <source>you can click button to start new task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="138"/>
-        <source>downloading</source>
+        <location filename="../src/src/ui/mainframe.cpp" line="146"/>
+        <source>download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="139"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="147"/>
         <source>finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="140"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="148"/>
         <source>recycle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="168"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="176"/>
         <source>下载器</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="170"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="178"/>
         <source>显示主界面</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="172"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="180"/>
         <source>新建任务</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="173"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="181"/>
         <source>开始全部任务</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="174"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="182"/>
         <source>暂停全部任务</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="175"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="183"/>
         <source>关机</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="176"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="184"/>
         <source>休眠</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="177"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="185"/>
         <source>退出下载器</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="178"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="186"/>
         <source>下载完成后</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="183"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="191"/>
         <source>显示</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="184"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="192"/>
         <source>下载时显示</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="185"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="193"/>
         <source>隐藏</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="186"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="194"/>
         <source>托盘设置</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="191"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="199"/>
         <source>退出</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="318"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="327"/>
         <source>current no download finish task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="322"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="331"/>
         <source>current no download task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="329"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="338"/>
         <source>current no delete files</source>
         <translation type="unfinished"></translation>
     </message>

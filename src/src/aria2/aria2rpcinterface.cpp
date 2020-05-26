@@ -1,3 +1,4 @@
+
 #include "aria2rpcinterface.h"
 #include <QProcess>
 
@@ -189,8 +190,34 @@ void Aria2RPCInterface::addUri(QString strUri,QMap<QString,QVariant> opt,QString
 //添加bt文件
 void Aria2RPCInterface::addTorrent(QString strTorrentFile,QMap<QString,QVariant> opt,QString strId)
 {
+    QString torrentB64Str = fileToBase64(strTorrentFile);//把bt文件转成base64编码
+    QJsonArray ja;
+    ja.append(torrentB64Str);
+    ja.append(QJsonArray());
+
+    QJsonDocument doc = QJsonDocument::fromVariant(QVariant(opt));
+    QJsonObject optJson = doc.object();
+    ja.append(optJson);
+
+    callRPC(ARIA2C_METHOD_ADD_TORRENT,ja,strId);
 
 }
+
+//添加磁力链地址
+void Aria2RPCInterface::addMetalink(QString strMetalink,QMap<QString,QVariant> opt,QString strId)
+{
+
+}
+
+QString Aria2RPCInterface::fileToBase64(QString filePath)
+{
+    QFile file(filePath);
+    file.open(QIODevice::ReadOnly);
+    QByteArray ba = file.readAll();
+    QString b64Str = ba.toBase64();
+    return b64Str;
+}
+
 
 //获取bt文件信息
 Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
@@ -409,3 +436,11 @@ void Aria2RPCInterface::forceRemove(QString gId, QString id)
     ja.append(gId);
     callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
 }
+
+void Aria2cInterface::getFiles(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_GET_FILES, ja, id);
+}
+
