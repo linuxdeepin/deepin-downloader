@@ -1,10 +1,10 @@
 /**
-* @file %{CurrentDocument:aria2rpcinterface.h}
-* @brief
+* @file aria2rpcinterface.h
+* @brief aria2 rpc 接口类
 * @author denglinglong  <denglinglong@uniontech.com>
 * @version 1.0.0
-* @date %{CurrentDate:2020-05-26} %{CurrentTime:11:55}
-* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
+* @date 2020-05-26 11:55
+* @copyright 2020-2020Uniontech Technology Co., Ltd.
 */
 
 #ifndef ARIA2RPCINTERFACE_H
