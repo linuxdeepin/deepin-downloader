@@ -48,7 +48,7 @@ ItemDelegate::~ItemDelegate()
 void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 
-    if(index.row() == this->hoverRow) {
+     if(index.row() == this->hoverRow) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder());//QColor(0,0,0,13)QColor(255,255,255,26)
     }
     const QRect rect(option.rect);
@@ -63,6 +63,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     painter->setPen(QColor("#414D68"));
     if (isSelected) {
             painter->setPen(QColor("#FFFFFF"));
+            painter->setBrush(QBrush("#0081FF"));
     }
     if(column==0)
     {
@@ -103,6 +104,9 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
         if (isSelected) {
             painter->setPen(QColor("#FFFFFF"));
+            painter->setBrush(QBrush("#0081FF"));
+            painter->drawRect(rect);
+
         }
 
         QRect rect=textRect;
@@ -143,7 +147,6 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         const QRect rect_text = rect.marginsRemoved(QMargins(25, 2, 0, 5));
         QString name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(), Qt::ElideRight, textRect.width() - 10);
         painter->drawText(rect_text, Qt::AlignVCenter|Qt::AlignLeft, name);
-
     }
     else if (column == 2)
     {
@@ -157,6 +160,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
         if (isSelected) {
             painter->setPen(QColor("#FFFFFF"));
+            painter->setBrush(QBrush("#0081FF"));
+            painter->drawRect(rect);
         }
          const QString size = index.data(TableModel::Size).toString();
          painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter|Qt::AlignLeft, size);
@@ -183,6 +188,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                // painter->setPen(QColor("8AA1B4"));
                 if (isSelected) {
                     painter->setPen(QColor("#FFFFFF"));
+                    painter->setBrush(QBrush("#0081FF"));
+                    painter->drawRect(rect);
                 }
                 painter->setFont(font);
                 QRect sizeRect = textRect;
@@ -278,6 +285,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
         if (isSelected) {
             painter->setPen(QColor("#FFFFFF"));
+            painter->setBrush(QBrush("#0081FF"));
+            painter->drawRect(rect);
         }
          const QString time= index.data(TableModel::Time).toString();
          painter->drawText(textRect, Qt::AlignVCenter|Qt::AlignLeft, time);

@@ -87,7 +87,14 @@ private slots:
     */
     void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
-    void get_header_stateChanged(bool i);
+    /**
+     * @brief 表头状态改变
+     * @param  i：节点
+    */
+    void getHeaderStatechanged(bool i);
+
+
+    void slotContextMenu(QPoint pos);
 private:
 
     /**
@@ -160,7 +167,7 @@ private:
     Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
-    int m_iCcurrentListviewRow;
+    int m_iCurrentListviewRow;
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
 

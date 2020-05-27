@@ -49,7 +49,7 @@ void MainFrame::init()
     m_pSettings = new Settings;
 
 
-    m_iCcurrentListviewRow = 0;
+    m_iCurrentListviewRow = 0;
 
     // 添加设置界面
     DMenu *pSettingsMenu = new DMenu;
@@ -75,13 +75,13 @@ void MainFrame::init()
 
 
     m_pDownLoadingTableView = new TableView(downloading);
-    m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
+    //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
     m_pDownLoadingTableView->setColumnHidden(4, true);
-    connect(m_pDownLoadingTableView, &TableView::header_stateChanged, this, &MainFrame::get_header_stateChanged);
+    connect(m_pDownLoadingTableView, &TableView::header_stateChanged, this, &MainFrame::getHeaderStatechanged);
     connect(this, &MainFrame::switch_table_signal, m_pDownLoadingTableView, &TableView::clear_header_check);
     m_pRecycleTableView = new TableView(recycle);
     m_pRecycleTableView->verticalHeader()->setDefaultSectionSize(30);
-    connect(m_pRecycleTableView, &TableView::header_stateChanged,  this, &MainFrame::get_header_stateChanged);
+    connect(m_pRecycleTableView, &TableView::header_stateChanged,  this, &MainFrame::getHeaderStatechanged);
     connect(this, &MainFrame::switch_table_signal, m_pRecycleTableView, &TableView::clear_header_check);
 
     m_pRecycleTableView->setColumnHidden(3, true);
@@ -243,6 +243,8 @@ void MainFrame::initConnection()
     connect(m_pClipboard, &QClipboard::dataChanged,this,&MainFrame::onClipboardDataChanged);
     connect(m_pLeft_list, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::getPalettetypechanged);
+    connect(m_pDownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::slotContextMenu);
+    connect(m_pRecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::slotContextMenu);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -386,7 +388,7 @@ void MainFrame::init_tableData()
     }
     refreshTableView(0);
 
-    setTask_Num(m_iCcurrentListviewRow);
+    setTask_Num(m_iCurrentListviewRow);
 }
 
 void MainFrame::refreshTableView(const int &index, bool isClearSelection)
@@ -399,7 +401,7 @@ void MainFrame::refreshTableView(const int &index, bool isClearSelection)
 
         // 联动工具栏按钮 begin
         int chkedCnt = 0;
-        if(m_iCcurrentListviewRow == 0) {
+        if(m_iCurrentListviewRow == 0) {
             QList<DataItem *> selectList = m_pDownLoadingTableView->getTableModel()->renderList();
             for(int i = 0; i < selectList.size(); i++) {
                 if(selectList.at(i)->Ischecked) {
@@ -564,7 +566,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_pNoTask_label->setText(tr("current no download finish task"));
             m_pNoTask_tip_Label->hide();
         } else {
-            m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
+            //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
             m_pNoTask_label->setText(tr("current no download task"));
             m_pNoTask_Widget->show();
             m_pNoTask_tip_Label->show();
@@ -639,46 +641,46 @@ void MainFrame::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
     }
 }
 
-void MainFrame::get_header_stateChanged(bool i)
+void MainFrame::getHeaderStatechanged(bool i)
 {
     // ToolBar禁用按钮联动：表头全选复选框状体变化 begin
-    int cnt = (m_iCcurrentListviewRow == 2 ? m_pRecycleTableView->getTableModel()->rowCount(QModelIndex())
+    int cnt = (m_iCurrentListviewRow == 2 ? m_pRecycleTableView->getTableModel()->rowCount(QModelIndex())
                : m_pDownLoadingTableView->getTableModel()->rowCount(QModelIndex()));
 
     if(cnt > 0) {
-        if(m_iCcurrentListviewRow == 0) {
-            this->m_pToolBar->enableStartBtn(i);
-            this->m_pToolBar->enablePauseBtn(i);
-            this->m_pToolBar->enableDeleteBtn(i);
+        if(m_iCurrentListviewRow == 0) {
+            m_pToolBar->enableStartBtn(i);
+            m_pToolBar->enablePauseBtn(i);
+            m_pToolBar->enableDeleteBtn(i);
         } else {
-            this->m_pToolBar->enableStartBtn(false);
-            this->m_pToolBar->enablePauseBtn(false);
-            this->m_pToolBar->enableDeleteBtn(i);
+            m_pToolBar->enableStartBtn(false);
+            m_pToolBar->enablePauseBtn(false);
+            m_pToolBar->enableDeleteBtn(i);
         }
     } else {
-        this->m_pToolBar->enableStartBtn(false);
-        this->m_pToolBar->enablePauseBtn(false);
-        this->m_pToolBar->enableDeleteBtn(false);
+        m_pToolBar->enableStartBtn(false);
+        m_pToolBar->enablePauseBtn(false);
+        m_pToolBar->enableDeleteBtn(false);
     }
 
     // end
-    if((m_iCcurrentListviewRow == 0) || (m_iCcurrentListviewRow == 1)) {
+    if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
         QList<DataItem *> render_list = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int j = 0; j < render_list.size(); j++) {
             DataItem *data = render_list.at(j);
             if(!i) {
-                if(m_iCcurrentListviewRow == 0) {
+                if(m_iCurrentListviewRow == 0) {
                     m_iDownloadingHeaderCheckStatus = 0;
                 }
-                if(m_iCcurrentListviewRow == 1) {
+                if(m_iCurrentListviewRow == 1) {
                     m_iFinishHeaderCheckStatus = 0;
                 }
                 data->Ischecked = false;
             } else {
-                if(m_iCcurrentListviewRow == 0) {
+                if(m_iCurrentListviewRow == 0) {
                     m_iDownloadingHeaderCheckStatus = 2;
                 }
-                if(m_iCcurrentListviewRow == 1) {
+                if(m_iCurrentListviewRow == 1) {
                     m_iFinishHeaderCheckStatus = 2;
                 }
                 data->Ischecked = true;
@@ -699,5 +701,150 @@ void MainFrame::get_header_stateChanged(bool i)
             m_pRecycleTableView->reset();
         }
     }
+}
+
+void MainFrame::slotContextMenu(QPoint pos)
+{
+    int chkedCnt = 0;
+
+    if(m_iCurrentListviewRow == 2) {
+        QList<DelDataItem *> recyleList = m_pRecycleTableView->getTableModel()->recyleList();
+        for(int i = 0; i < recyleList.size(); i++) {
+            if(recyleList.at(i)->Ischecked) {
+                chkedCnt++;
+            }
+        }
+    } else {
+        QList<DataItem *> selectList = m_pDownLoadingTableView->getTableModel()->renderList();
+        for(int i = 0; i < selectList.size(); i++) {
+            if(selectList.at(i)->Ischecked) {
+                chkedCnt++;
+            }
+        }
+    }
+    if(chkedCnt == 0) {
+        return;
+    }
+
+    int activeCount = 0;
+    int pauseCount = 0;
+    int renamCount = 0;
+    int errorCount = 0;
+    QMenu *delmenlist = new QMenu(this);
+    if(m_iCurrentListviewRow == 0) {
+        QList<DataItem *> selectList = m_pDownLoadingTableView->getTableModel()->renderList();
+        for(int i = 0; i < selectList.size(); ++i) {
+            if(selectList.at(i)->Ischecked == 1) {
+                DataItem *data = selectList.at(i);
+                if(data->status == Global::Status::Active) {
+                    ++activeCount;
+                }
+                if((data->status == Global::Status::Paused) || (data->status == Global::Status::Lastincomplete)) {
+                    ++pauseCount;
+                }
+                if(data->status == Global::Status::Error) {
+                    ++errorCount;
+                }
+            }
+        }
+        if(pauseCount > 0) {
+            QAction *pActionStart = new QAction();
+            pActionStart->setText(tr("start"));
+            delmenlist->addAction(pActionStart);
+            //connect(pActionStart, &QAction::triggered, this, &MainFrame::onStartDownloadBtnClicked);
+        }
+        if(activeCount > 0) {
+            QAction *pActionPause = new QAction();
+            pActionPause->setText(tr("pause"));
+            delmenlist->addAction(pActionPause);
+            //connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
+        }
+        if(errorCount > 0) {
+            QAction *pActionredownload = new QAction();
+            pActionredownload->setText(tr("Redownload"));
+            delmenlist->addAction(pActionredownload);
+            //connect(pActionredownload, &QAction::triggered, this, &MainFrame::redownload_Action);
+        }
+        delmenlist->addSeparator();
+    }
+    if(m_iCurrentListviewRow == 2) {
+        QAction *returned_to_origin = new QAction();
+        returned_to_origin->setText(tr("return to origin"));
+        delmenlist->addAction(returned_to_origin);
+        //connect(returned_to_origin, &QAction::triggered, this, &MainFrame::returnTo_origin_Action);
+    }
+    if((m_iCurrentListviewRow == 1) || (m_iCurrentListviewRow == 2)) {
+        QAction *pActionopenFile = new QAction();
+        pActionopenFile->setText(tr("Open"));
+        delmenlist->addAction(pActionopenFile);
+        //connect(pActionopenFile, &QAction::triggered, this, &MainFrame::open_file_Action);
+    }
+    QAction *pActionopenFoler = new QAction();
+    pActionopenFoler->setText(tr("Open folder"));
+    delmenlist->addAction(pActionopenFoler);
+    //connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::open_Folder_Action);
+
+
+    //    if(m_iCcurrentListviewRow==0||m_iCcurrentListviewRow==1)
+    //    {
+    //        QAction *pAction_move_to_directory= new QAction();
+    //        pAction_move_to_directory->setText(tr("move to directory"));
+    //        delmenlist->addAction(pAction_move_to_directory);
+    //        connect(pAction_move_to_directory,&QAction::triggered,this,
+    // &MainWindow::moveTo_directory_Action);
+
+    //    }
+    if(m_iCurrentListviewRow == 0) {
+        delmenlist->addSeparator();
+    }
+    if(m_iCurrentListviewRow == 1) {
+        QList<DataItem *> selectList = m_pDownLoadingTableView->getTableModel()->renderList();
+        for(int i = 0; i < selectList.size(); ++i) {
+            if(selectList.at(i)->Ischecked == 1) {
+                DataItem *data = selectList.at(i);
+                if(data->status == Global::Status::Complete) {
+                    ++renamCount;
+                }
+            }
+        }
+
+        if(renamCount == 1) {
+            QAction *pAction_rename = new QAction();
+            pAction_rename->setText(tr("rename"));
+            delmenlist->addAction(pAction_rename);
+            delmenlist->addSeparator();
+            //connect(pAction_rename, &QAction::triggered, this, &MainFrame::rename_Action);
+        }
+    }
+    if((m_iCurrentListviewRow == 1) || (m_iCurrentListviewRow == 2)) {
+        QAction *pActionredownload = new QAction();
+        pActionredownload->setText(tr("Redownload"));
+        delmenlist->addAction(pActionredownload);
+        //connect(pActionredownload, &QAction::triggered, this, &MainFrame::redownload_Action);
+    }
+    QAction *pAction_copy_download_url = new QAction();
+    pAction_copy_download_url->setText(tr("Copy Download Url"));
+    delmenlist->addAction(pAction_copy_download_url);
+    delmenlist->addSeparator();
+    //connect(pAction_copy_download_url, &QAction::triggered, this, &MainFrame::copy_download_url_Action);
+    if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
+        QAction *pActiondel_downloading = new QAction();
+        pActiondel_downloading->setText(tr("Delete"));
+        delmenlist->addAction(pActiondel_downloading);
+        //connect(pActiondel_downloading, &QAction::triggered, this, &MainFrame::del_downloading_Action);
+    }
+    QAction *pAction_delete_permanently = new QAction();
+    pAction_delete_permanently->setText(tr("Delete permanently"));
+    delmenlist->addAction(pAction_delete_permanently);
+    //connect(pAction_delete_permanently, &QAction::triggered, this, &MainFrame::delete_permanently_Action);
+    if(m_iCurrentListviewRow == 2) {
+        QAction *pAction_clear_recycle = new QAction();
+        pAction_clear_recycle->setText(tr("Clear"));
+        delmenlist->addAction(pAction_clear_recycle);
+        //connect(pAction_clear_recycle, &QAction::triggered, this, &MainFrame::clear_recycle_Action);
+    }
+
+    delmenlist->exec(QCursor::pos());
+    delete  delmenlist;
 }
 
