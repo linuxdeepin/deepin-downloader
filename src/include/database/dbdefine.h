@@ -23,7 +23,7 @@ struct S_Task_Status
     int m_percent;
     int m_totalFromSource; //获取的下载文件大小
     QDateTime m_finish_time; //完成时间
-} ;
+};
 
 struct S_Task
 {

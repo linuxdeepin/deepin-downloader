@@ -78,11 +78,11 @@ void MainFrame::init()
     //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
     m_pDownLoadingTableView->setColumnHidden(4, true);
     connect(m_pDownLoadingTableView, &TableView::header_stateChanged, this, &MainFrame::getHeaderStatechanged);
-    connect(this, &MainFrame::switch_table_signal, m_pDownLoadingTableView, &TableView::clear_header_check);
+    connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::clear_header_check);
     m_pRecycleTableView = new TableView(recycle);
     m_pRecycleTableView->verticalHeader()->setDefaultSectionSize(30);
     connect(m_pRecycleTableView, &TableView::header_stateChanged,  this, &MainFrame::getHeaderStatechanged);
-    connect(this, &MainFrame::switch_table_signal, m_pRecycleTableView, &TableView::clear_header_check);
+    connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::clear_header_check);
 
     m_pRecycleTableView->setColumnHidden(3, true);
     setAcceptDrops(true);
@@ -245,6 +245,9 @@ void MainFrame::initConnection()
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::getPalettetypechanged);
     connect(m_pDownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::slotContextMenu);
     connect(m_pRecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::slotContextMenu);
+    connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::clear_header_check);
+    connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::clear_header_check);
+    connect(this, &MainFrame::tableChanged, m_pToolBar, &TopButton::get_table_changed);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -388,7 +391,7 @@ void MainFrame::init_tableData()
     }
     refreshTableView(0);
 
-    setTask_Num(m_iCurrentListviewRow);
+    setTaskNum(m_iCurrentListviewRow);
 }
 
 void MainFrame::refreshTableView(const int &index, bool isClearSelection)
@@ -435,7 +438,7 @@ void MainFrame::refreshTableView(const int &index, bool isClearSelection)
     m_pDownLoadingTableView->update();
 }
 
-void MainFrame::setTask_Num(int num)
+void MainFrame::setTaskNum(int num)
 {
     QList<DataItem *> data_list = m_pDownLoadingTableView->getTableModel()->dataList();
     QList<DataItem *> render_list = m_pDownLoadingTableView->getTableModel()->renderList();
@@ -555,17 +558,22 @@ void MainFrame::onClipboardDataChanged()
 
 void MainFrame::onListClicked(const QModelIndex &index)
 {
+    m_iCurrentListviewRow = index.row();
+    QString DownloadTask_Lable_Text;
     if((index.row() == 0) || (index.row() == 1)) {
         m_pRightStackwidget->setCurrentIndex(0);
+        refreshTableView(index.row());
         m_pDownLoadingTableView->horizontalHeader()->reset();
         bool switched = true;
         m_pDownLoadingTableView->reset(switched);
         if(index.row() == 1) {
+            connect(m_pDownLoadingTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(get_doubleClicked(QModelIndex)));
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(30);
             m_pNoTask_Widget->show();
             m_pNoTask_label->setText(tr("current no download finish task"));
             m_pNoTask_tip_Label->hide();
         } else {
+            disconnect(m_pDownLoadingTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(get_doubleClicked(QModelIndex)));
             //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
             m_pNoTask_label->setText(tr("current no download task"));
             m_pNoTask_Widget->show();
@@ -577,6 +585,16 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_pNoTask_label->setText(tr("current no delete files"));
         m_pNoTask_tip_Label->hide();
     }
+    clearTableItemCheckStatus();
+
+    emit switchTableSignal();
+
+    setTaskNum(m_iCurrentListviewRow);
+
+    // search begin
+    slotSearchEditTextChanged(this->m_pToolBar->getSearchText());
+    emit tableChanged(index.row());
+
 }
 
 void MainFrame::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
@@ -847,4 +865,58 @@ void MainFrame::slotContextMenu(QPoint pos)
     delmenlist->exec(QCursor::pos());
     delete  delmenlist;
 }
+void MainFrame::clearTableItemCheckStatus()
+{
+    if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
+        QList<DataItem *> render_list = m_pDownLoadingTableView->getTableModel()->renderList();
+        for(int j = 0; j < render_list.size(); j++) {
+            DataItem *data = render_list.at(j);
+            data->Ischecked = false;
+            m_pDownLoadingTableView->reset();
+        }
+    } else {
+        QList<DelDataItem *> recycle_list = m_pRecycleTableView->getTableModel()->recyleList();
+        for(int j = 0; j < recycle_list.size(); j++) {
+            DelDataItem *data = recycle_list.at(j);
+            data->Ischecked = false;
+            m_pRecycleTableView->reset();
+        }
+    }
+}
+void MainFrame::slotSearchEditTextChanged(QString text)
+{
+    m_searchContent = text;
+    TableModel *dtModel = this->m_pDownLoadingTableView->getTableModel();
+    TableModel *rtModel = this->m_pRecycleTableView->getTableModel();
+    if(text == "") {
+        for(int i = 0; i < dtModel->rowCount(QModelIndex()); i++) {
+            this->m_pDownLoadingTableView->setRowHidden(i, false);
+            dtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
+        }
+        for(int i = 0; i < rtModel->rowCount(QModelIndex()); i++) {
+            this->m_pRecycleTableView->setRowHidden(i, false);
+            rtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
+        }
+    } else {
+        for(int i = 0; i < dtModel->rowCount(QModelIndex()); i++) {
+            this->m_pDownLoadingTableView->setRowHidden(i, false);
+            QString fileName = dtModel->data(dtModel->index(i, 1), TableModel::FileName).toString();
+            if(!fileName.contains(text, Qt::CaseInsensitive)) {
+                this->m_pDownLoadingTableView->setRowHidden(i, true);
+            }
+            dtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
+        }
 
+        for(int i = 0; i < rtModel->rowCount(QModelIndex()); i++) {
+            this->m_pRecycleTableView->setRowHidden(i, false);
+            QString fileName = rtModel->data(rtModel->index(i, 1), TableModel::FileName).toString();
+            if(!fileName.contains(text, Qt::CaseInsensitive)) {
+                this->m_pRecycleTableView->setRowHidden(i, true);
+            }
+            rtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
+        }
+    }
+    this->m_pDownLoadingTableView->reset();
+    this->m_pRecycleTableView->reset();
+    setTaskNum(m_iCurrentListviewRow);
+}
