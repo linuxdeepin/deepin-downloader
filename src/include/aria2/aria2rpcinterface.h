@@ -360,6 +360,11 @@ private:
 
 
 public:
+    /**
+     * @brief getBtInfo  获取torrent信息
+     * @param strTorrentPath  bt文件路径
+     * @return Aria2cBtInfo
+     */
     Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
 
 
