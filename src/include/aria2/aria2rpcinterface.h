@@ -339,7 +339,7 @@ private:
     QString fileToBase64(QString filePath);//文件转base64
 private:
     //QString cmd = "/usr/bin/aria2c";//aria2c程序路径 -> 已改成public static变量
-    QString rpcPort = "88888";//rpc端口
+    QString rpcPort = "18600";//rpc端口
     QString rpcServer = "http://localhost:" + rpcPort + "/jsonrpc";//rpc服务器地址
     QString defaultDownloadPath;//默认下载路径
     QString configPath = "";
