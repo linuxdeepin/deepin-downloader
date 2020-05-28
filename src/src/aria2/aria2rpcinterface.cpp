@@ -94,7 +94,6 @@ bool Aria2RPCInterface::startUp()
 //检查aria2c文件
 bool Aria2RPCInterface::checkAria2cFile()
 {
-
     QFile file(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd);
     return file.exists();
 }
@@ -185,6 +184,15 @@ void Aria2RPCInterface::addUri(QString strUri,QMap<QString,QVariant> opt,QString
     jArray.append(optJson);
     callRPC(ARIA2C_METHOD_ADD_URI,jArray,strId);
 
+}
+
+void Aria2RPCInterface::addNewUri(QString uri,QString savepath,QString strId)
+{
+    QMap<QString, QVariant> opt;
+    opt.insert("dir", savepath);
+    addUri(uri,opt,strId);
+
+    qDebug()<<"Add new rui";
 }
 
 //添加bt文件
@@ -444,3 +452,125 @@ void Aria2RPCInterface::getFiles(QString gId, QString id)
     callRPC(ARIA2C_METHOD_GET_FILES, ja, id);
 }
 
+void Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QString id)
+{
+    QJsonArray ja;
+    QJsonDocument doc = QJsonDocument::fromVariant(QVariant(options));
+    QJsonObject optJson = doc.object();
+    ja.append(optJson);
+    callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);
+}
+
+void Aria2RPCInterface::modify_config_file(QString config_item, QString value)
+{
+    QString strAll;
+    QStringList strList;
+
+    QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
+        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+        .arg(qApp->organizationName())
+        .arg(qApp->applicationName());
+
+    QFile readFile(m_aria2configPath);
+    if(readFile.open((QIODevice::ReadOnly|QIODevice::Text)))
+    {
+        QTextStream stream(&readFile);
+        strAll=stream.readAll();
+    }
+    readFile.close();
+    QFile writeFile(m_aria2configPath);
+    if(writeFile.open(QIODevice::WriteOnly|QIODevice::Text))
+    {
+        QTextStream stream(&writeFile);
+        strList=strAll.split("\n");
+        for(int i=0;i<strList.count();i++)
+        {
+            if(strList.at(i).contains(config_item))
+            {
+                QString tempStr=strList.at(i);
+                tempStr.replace(0,tempStr.length(),value);
+                stream<<tempStr<<'\n';
+            }
+            else {
+                if(i==strList.count()-1)
+                {
+                    //最后一行不需要换行
+                    stream<<strList.at(i);
+                }
+                else
+                {
+                    stream<<strList.at(i)<<'\n';
+                }
+            }
+        }
+    }
+    writeFile.close();
+}
+
+//同时下载的最大数
+void Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
+{
+    QMap<QString, QVariant> opt;
+    QString value = "max-concurrent-downloads=" + maxDownload;
+    modify_config_file("max-concurrent-downloads=", value);
+    opt.insert("max-concurrent-downloads",maxDownload);
+    changeGlobalOption(opt);
+    qDebug()<<"set max download num:"<<maxDownload;
+}
+
+
+//最大下载速度  最大上传速度
+void Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed)
+{
+    QMap<QString, QVariant> opt;
+    QString down_speed = downloadSpeed+"K";
+    opt.insert("max-overall-download-limit",down_speed);
+
+    QString upload_speed = uploadSpeed + "K";
+    opt.insert("max-overall-upload-limit",upload_speed);
+    changeGlobalOption(opt);
+}
+
+
+void Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)
+{
+    QMap<QString, QVariant> opt;
+    QString cacheNum = disckCacheNum+"M";
+    opt.insert("disk-cache",cacheNum);
+    changeGlobalOption(opt);
+    QString value = "disk-cache=" + cacheNum;
+    modify_config_file("disk-cache=", value);
+
+    qDebug()<<"set disk cache num:"<<disckCacheNum;
+}
+
+//设置最大总体下载速度
+void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadlimitSpeed)
+{
+    QMap<QString, QVariant> opt;
+
+    QString speed = downloadlimitSpeed+"K";
+
+     opt.insert("max-overall-download-limit",speed);
+     changeGlobalOption(opt);
+
+    QString value = "max-overall-download-limit=" + speed;
+    modify_config_file("max-overall-download-limit=", value);
+
+    qDebug()<<"set download limit speed:"<<downloadlimitSpeed;
+}
+
+//设置最大总体上传速度
+void Aria2RPCInterface::setUploadLimitSpeed(QString UploadlimitSpeed)
+{
+    QMap<QString, QVariant> opt;
+    QString speed = UploadlimitSpeed+"K";
+    opt.insert("max-overall-upload-limit",speed);
+    changeGlobalOption(opt);
+
+
+    QString value = "max-overall-upload-limit=" + speed;
+    modify_config_file("max-overall-upload-limit=", value);
+
+    qDebug()<<"set upload limit speed:"<<UploadlimitSpeed;
+}
