@@ -752,6 +752,7 @@ void MainFrame::getNewDowloadUrl(QString url, QString savePath)
         DBInstance::addTask(_task);
         Aria2RPCInterface::Instance()->addNewUri(_task.m_url,savePath,_task.m_task_id);
     }
+
     m_pNoTask_Widget->hide();
     //定时器打开
 }
