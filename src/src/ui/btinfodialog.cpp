@@ -76,7 +76,7 @@ QString BtInfoDialog::getName()
 
 void BtInfoDialog::initUI()
 {
-   m_ariaInfo = Aria2RPCInterface::Instance()->getBtInfo(m_torrentFile);
+    m_ariaInfo = Aria2RPCInterface::Instance()->getBtInfo(m_torrentFile);
    // Aria2RPCInterface::getBtInfo(this->m_torrentFile);
    //  = Aria2RPCInterface::getBtInfo(this->m_torrentFile);
     //
