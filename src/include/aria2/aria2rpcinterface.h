@@ -84,7 +84,7 @@ public:
      * //max-download-limit 指定最大下载速度（字节/秒）速度值可以追加K或者M
      * opt.insert("max-download-limit", "100K");
      *
-     * @param id 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
+     * @param strId 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
      * 默认为method名，详见aria2const.h常量
      *
      * signal_success信号中异步返回本次下载的GID
@@ -92,6 +92,16 @@ public:
      * QString gId = json.value("result").toString();
      */
     void addUri(QString strUri,QMap<QString,QVariant> opt,QString strId);//添加uri地址
+
+    /**
+     * @brief addNewUri 添加下载 HTTP(S)/FTP/BitTorrent Magnet 链接 ，
+     * @param uri 链接
+     * @param savepath  下载路径
+     * @param strId     Gid
+     */
+    void addNewUri(QString uri,QString savepath,QString strId);
+
+
     /**
      * @brief addTorrent 添加下载Torrent
      * @param torrentFile torrent种子文件路径
@@ -248,6 +258,59 @@ public:
      */
     void getFiles(QString gId, QString id = "");
 
+    /**
+     * @brief modify_config_file 写入配置文件
+     * @param config_item 配置项
+     * @param value 配置值
+     *
+     * signal_success信号中异步返回，参数结构见aria2文档
+     */
+    void modify_config_file(QString config_item, QString value);
+
+    /**
+     * @brief changeGlobalOption 变更全局配置
+     * @param options 配置项键值map
+     * @param id
+     *
+     * signal_success信号中异步返回，参数结构见aria2文档
+     */
+    void changeGlobalOption(QMap<QString, QVariant> options, QString id = "");
+
+    /**
+     * @brief setMaxDownloadNum 设置最大任务数
+     * @param maxDownload
+     *
+     * 调用changeglobaloption设置,参数详见aria2文档
+     */
+    void setMaxDownloadNum(QString maxDownload);
+    /**
+     * @brief setDownloadUploadSpeed 下载和上传速度的设置
+     * @param downloadSpeed 下载速度
+     * @param uploadSpeed   上传速度
+     *
+     */
+    void setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed);
+    /**
+     * @brief SetDisckCacheNum 设置磁盘缓存大小
+     * @param diskCacheNum 缓存大小
+     *
+     */
+    void SetDisckCacheNum(QString disckCacheNum);
+
+    /**
+     * @brief setDownloadLimitSpeed 设置最大下载速度
+     * @param downloadlimitSpeed
+     *
+     */
+    void setDownloadLimitSpeed(QString downloadlimitSpeed);
+
+    /**
+     * @brief setUploadLimitSpeed 设置最大上传速度
+     * @param UploadlimitSpeed
+     *
+     */
+    void setUploadLimitSpeed(QString UploadlimitSpeed);
+
 private:
     /**
      *@brief 调用RPC
@@ -297,6 +360,11 @@ private:
 
 
 public:
+    /**
+     * @brief getBtInfo  获取torrent信息
+     * @param strTorrentPath  bt文件路径
+     * @return Aria2cBtInfo
+     */
     Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
 
 
