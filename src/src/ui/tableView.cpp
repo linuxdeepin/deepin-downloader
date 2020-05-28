@@ -18,7 +18,7 @@
 #include "itemDelegate.h"
 
 TableView::TableView(int Flag)
-    :QTableView (), m_pTableModel(new TableModel(0))
+    :QTableView (), m_pTableModel(new TableModel(Flag))
 {
     m_iTableFlag=Flag;
     initUI();
@@ -36,8 +36,7 @@ void TableView::initUI()
     //this->setMaximumWidth(2000);
     verticalHeader()->hide();
     //this->verticalHeader()->setDefaultSectionSize(56);
-    connect(m_pTableModel,&TableModel::tableView_allChecked_or_allUnchecked,this,&TableView::get_tableview_allchecked);
-    connect(this, &TableView::signal_hoverChanged, m_pItemdegegate, &ItemDelegate::slot_hoverChanged);
+
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -60,6 +59,13 @@ void TableView::initUI()
     pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
     setColumnWidth(0, 20);
+
+    connect(pHeaderView,&HeaderView::get_stateChanged,this,&TableView::header_stateChanged);
+    connect(this,&TableView::clear_header_check,pHeaderView,&HeaderView::get_clear_header_check);
+    connect(m_pTableModel,&TableModel::tableView_allChecked_or_allUnchecked,this,&TableView::get_tableview_allchecked);
+    connect(this,&TableView::get_tableview_allchecked,pHeaderView,&HeaderView::get_checkall_signals);
+    connect(this, &TableView::signal_hoverChanged, m_pItemdegegate, &ItemDelegate::slot_hoverChanged);
+
 }
 void TableView::initConnections()
 {
@@ -80,15 +86,11 @@ void TableView::setTestData()
     data->taskId = "{8ffd889b-c0f9-4413-bf11-e98fe9ffc707}";
     data->createTime = "2020-05-22 15:39:14";
     data->Ischecked = false;
-    get_tableViewModel()->append(data);
-    TableModel *dtModel = get_tableViewModel();
+    getTableModel()->append(data);
+    TableModel *dtModel = getTableModel();
     setRowHidden(dtModel->rowCount(QModelIndex()), true);
 }
 
-TableModel* TableView::get_tableViewModel()
-{
-    return m_pTableModel;
-}
 
 
 
