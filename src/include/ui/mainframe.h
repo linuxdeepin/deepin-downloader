@@ -87,7 +87,21 @@ private slots:
     */
     void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
-    void get_header_stateChanged(bool i);
+    /**
+     * @brief 表头状态改变
+     * @param  i：节点
+    */
+    void getHeaderStatechanged(bool i);
+
+    /**
+     * @brief 设置右键菜单
+    */
+    void slotContextMenu(QPoint pos);
+
+    /**
+     * @brief 查找的文本改变
+    */
+    void slotSearchEditTextChanged(QString text);
 private:
 
     /**
@@ -122,7 +136,7 @@ private:
      * @brief 设置任务数
      * @param num 个数
     */
-    void setTask_Num(int num);
+    void setTaskNum(int num);
 
     /**
      * @brief mainwidow关闭事件
@@ -134,6 +148,11 @@ private:
      * @param url 下载地址
      */
     void createNewTask(QString url);
+
+    /**
+     * @brief 清除item的选中状态
+     */
+    void clearTableItemCheckStatus();
 private:
     enum tableView_flag{
         downloading,recycle
@@ -160,12 +179,13 @@ private:
     Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
-    int m_iCcurrentListviewRow;
+    int m_iCurrentListviewRow;
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
-
+    QString m_searchContent;
 signals:
-     void switch_table_signal();
+     void switchTableSignal();
+     void tableChanged(int index);
 
 };
 

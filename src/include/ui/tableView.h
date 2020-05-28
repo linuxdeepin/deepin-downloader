@@ -49,10 +49,6 @@ private:
      * @brief 增加测试数据
     */
     void setTestData();
-    /**
-     * @brief 获取TableModel指针
-    */
-    TableModel* get_tableViewModel();
 signals:
     void get_datachanged();
     void header_stateChanged(bool checked);
