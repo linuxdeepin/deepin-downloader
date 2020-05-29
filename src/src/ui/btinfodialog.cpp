@@ -253,43 +253,39 @@ int BtInfoDialog::exec()
 
 void BtInfoDialog::slot_btnOK()
 {
-    //qDebug()<<Aria2cInterface::getCapacityFree(editDir->text());
-    long free = Aria2cInterface::getCapacityFreeByte(editDir->text());//KB
-    long total = 0;//选中文件总大小（字节）
+    if(this->getSelected().isNull())
+    {
+        qDebug()<<"Please Select Download Files!";
+        return;
+    }
+
+    long _free = Aria2RPCInterface::Instance()->getCapacityFreeByte(m_editDir->text());
+    long _total = 0;//选中文件总大小（字节）
     for(int i = 0;i < m_model->rowCount();i++) {
         if(m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 5)).toString().toLong();
+            _total += m_model->data(m_model->index(i, 5)).toString().toLong();
         }
     }
-    //qDebug()<<free<<total/1024;
-//    if(free < (total / 1024)) {//剩余空间比较 KB
-//        MessageBox *msg = new MessageBox(Warnings);
-//        msg->set_warning_MsgBox(tr("Disk capacity is not enough!"), tr("sure"));//磁盘容量不足！
-//        msg->exec();
-//        return;
-//    }
-    if(this->getSelected() != "") {
-        QString save_path=m_editDir->text();
-        QString config_path=QString("%1/%2/%3/last_save_path")
-                .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                .arg(qApp->organizationName())
-                .arg(qApp->applicationName());
-        QFile file;
-        file.setFileName(config_path);
-        bool isOK = file.open(QIODevice::WriteOnly);
-        if (isOK == true)
-        {
-            file.write(save_path.toStdString().data());
-        }
-        file.close();
-        this->close();
-        this->accept();
+    if(_free < (_total / 1024)) {//剩余空间比较 KB
+        qDebug()<<"Disk capacity is not enough!";
+        return;
     }
-    else {
-//        MessageBox *msg = new MessageBox(Warnings);
-//        msg->set_warning_MsgBox(tr("Please Select Download Files!"), tr("sure"));
-//        msg->exec();
+    QString save_path=m_editDir->text();
+    QString config_path=QString("%1/%2/%3/last_save_path")
+            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+            .arg(qApp->organizationName())
+            .arg(qApp->applicationName());
+    QFile file;
+    file.setFileName(config_path);
+    bool isOK = file.open(QIODevice::WriteOnly);
+    if (isOK == true)
+    {
+        file.write(save_path.toStdString().data());
     }
+    file.close();
+    this->close();
+    this->accept();
+
 }
 
 void BtInfoDialog::slot_checkAll()

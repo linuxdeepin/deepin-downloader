@@ -1064,5 +1064,44 @@ void MainFrame::slotSearchEditTextChanged(QString text)
 
 void MainFrame::getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash)
 {
+    QString _selectedNum=opt.value("select-file").toString();
+    if(_selectedNum.isNull())
+    {
+        qDebug()<<"select is null";
+        return;
+    }
+    //数据库是否已存在相同的地址
+    QList<S_Url_Info> _urlList;
+    DBInstance::getAllUrl(_urlList);
+    for (int i = 0; i < _urlList.size(); i++)
+    {
+        if((_urlList[i].m_infoHash==infoHash) && (_urlList[i].m_selectedNum==_selectedNum))
+        {
+            qDebug()<<"has the same download!";
+            return;
+        }
+    }
+    //将任务添加如task表中
+    S_Task _task;
+    QString _strId = QUuid::createUuid().toString();
+    _task.m_task_id = _strId;
+    _task.m_gid = "";
+    _task.m_gid_index = 0;
+    _task.m_url = infoName;
+    _task.m_create_time = QDateTime::currentDateTime();
+    DBInstance::addTask(_task);
 
+    //将任务添加如url_info表中
+     S_Url_Info _urlInfo;
+     _urlInfo.m_task_id = _strId;
+     _urlInfo.m_url = "";
+     _urlInfo.m_download_type = "torrent";
+     _urlInfo.m_seedFile = btPath;
+     _urlInfo.m_selectedNum = _selectedNum;
+     _urlInfo.m_infoHash = "";
+     DBInstance::addUrl(_urlInfo);
+
+     //开始下载
+     Aria2RPCInterface::Instance()->addTorrent(btPath, opt, _strId);
+     //定时器打开
 }
