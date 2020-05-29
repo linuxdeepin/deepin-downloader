@@ -143,6 +143,99 @@ Settings::Settings(QObject *parent) : QObject(parent)
                 emit poweronChanged(value.toBool());
             }
         });
+
+    // 实现剪切板和接管下载类型关联
+    auto optionClipBoard = m_pSettings->option("Monitoring.MonitoringObject.ClipBoard");
+    auto optionHttpDownload = m_pSettings->option("Monitoring.MonitoringDownloadType.HttpDownload");
+    auto optionBTDownload = m_pSettings->option("Monitoring.MonitoringDownloadType.BTDownload");
+    auto optionMagneticDownload = m_pSettings->option("Monitoring.MonitoringDownloadType.MagneticDownload");
+
+    // 剪切板状态改变
+    connect(optionClipBoard, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
+            if(!value.isNull())
+            {
+                if(value.toBool() == true)
+                {
+                    if(optionHttpDownload->value().toBool() == false
+                            && optionBTDownload->value().toBool() == false
+                            && optionMagneticDownload->value().toBool() == false)
+                    {
+                        optionHttpDownload->setValue(true);
+                        optionBTDownload->setValue(true);
+                        optionMagneticDownload->setValue(true);
+                    }
+                }
+                else
+                {
+                    optionHttpDownload->setValue(false);
+                    optionBTDownload->setValue(false);
+                    optionMagneticDownload->setValue(false);
+                }
+            }
+        });
+
+    // Http下载状态改变
+    connect(optionHttpDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
+            if(!value.isNull())
+            {
+                if(value.toBool() == true)
+                {
+                    if(optionClipBoard->value().toBool() == false)
+                    {
+                        optionClipBoard->setValue(true);
+                    }
+                }
+                else
+                {
+                    if(optionBTDownload->value().toBool() == false && optionMagneticDownload->value().toBool() == false)
+                    {
+                        optionClipBoard->setValue(false);
+                    }
+                }
+            }
+        });
+
+    // BT下载状态改变
+    connect(optionBTDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
+            if(!value.isNull())
+            {
+                if(value.toBool() == true)
+                {
+                    if(optionClipBoard->value().toBool() == false)
+                    {
+                        optionClipBoard->setValue(true);
+                    }
+                }
+                else
+                {
+                    if(optionHttpDownload->value().toBool() == false && optionMagneticDownload->value().toBool() == false)
+                    {
+                        optionClipBoard->setValue(false);
+                    }
+                }
+            }
+        });
+
+    // 磁力链接下载状态改变
+    connect(optionMagneticDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
+            if(!value.isNull())
+            {
+                if(value.toBool() == true)
+                {
+                    if(optionClipBoard->value().toBool() == false)
+                    {
+                        optionClipBoard->setValue(true);
+                    }
+                }
+                else
+                {
+                    if(optionHttpDownload->value().toBool() == false && optionBTDownload->value().toBool() == false)
+                    {
+                        optionClipBoard->setValue(false);
+                    }
+                }
+            }
+        });
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
