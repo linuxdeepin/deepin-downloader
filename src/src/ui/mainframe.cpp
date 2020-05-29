@@ -248,6 +248,7 @@ void MainFrame::initConnection()
     connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::clear_header_check);
     connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::clear_header_check);
     connect(this, &MainFrame::tableChanged, m_pToolBar, &TopButton::get_table_changed);
+    connect(m_pToolBar, &TopButton::getSearchEditTextChange, this, &MainFrame::slotSearchEditTextChanged);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
