@@ -337,9 +337,11 @@ private:
     void rpcRequestReply(QNetworkReply *reply,const QString &method,const QString id);
 
     QString fileToBase64(QString filePath);//文件转base64
+
+    QString processThunderUri(QString thunder);//如果是迅雷链接会解密处理，否则原样返回
 private:
     //QString cmd = "/usr/bin/aria2c";//aria2c程序路径 -> 已改成public static变量
-    QString rpcPort = "88888";//rpc端口
+    QString rpcPort = "16800";//rpc端口
     QString rpcServer = "http://localhost:" + rpcPort + "/jsonrpc";//rpc服务器地址
     QString defaultDownloadPath;//默认下载路径
     QString configPath = "";
@@ -367,7 +369,19 @@ public:
      */
     Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
 
+    /**
+     * @brief getCapacityFree 获取指定路径所在分区的磁盘剩余容量
+     * @param path
+     * @return
+     */
+    QString getCapacityFree(QString path);
 
+    /**
+     * @brief getCapacityFreeByte 获取指定路径所在分区的磁盘剩余容量(字节)
+     * @param path
+     * @return
+     */
+    long getCapacityFreeByte(QString path);
 
 };
 

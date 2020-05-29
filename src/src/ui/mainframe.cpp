@@ -276,6 +276,7 @@ void MainFrame::closeEvent(QCloseEvent *event)
 void MainFrame::createNewTask(QString url)
 {
     newTaskWidget *pNewTaskWidget = new newTaskWidget(url);
+    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl);
     pNewTaskWidget->exec();
 }
 void MainFrame::on_tray_quit_click()
@@ -532,15 +533,74 @@ void MainFrame::onSettingsMenuClicked()
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
 {
-    if(method == ARIA2C_METHOD_ADD_URI)
-    {
-        QString id = json.value("id").toString();
-        QString gId = json.value("result").toString();
+//    if(method == ARIA2C_METHOD_ADD_URI
+//            || method == ARIA2C_METHOD_ADD_TORRENT
+//            || method == ARIA2C_METHOD_ADD_METALINK)
+//    {
+//        QString id=json.value("id").toString();
+//        QString gId = json.value("result").toString();
 
-        //根据ID从下载列表是否存在下载任务,如果不存在创建任务,如果存在更新任务状态
-    //    DataItem* pFindData = downloading_tableview->get_tableViewModel()->find(id);
+//        //判断下载列表中是否有这条记录
+//        DataItem*  finddata=downloading_tableview->get_tableViewModel()->find(id);
+//        if(finddata!=nullptr)//如果没有
+//        {
+//            finddata->gid=gId;
+//            finddata->taskId=id;
+//            QDateTime finish_time=QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+//            Tb_Donwload_Task_Status get_status;
+//            Tb_Donwload_Task_Status *download_status = new Tb_Donwload_Task_Status(finddata->taskId,Global::Status::Active,QDateTime::currentDateTime(),finddata->completedLength,finddata->speed,finddata->totalLength,finddata->percent,finddata->total,finish_time);
 
-    }
+//            if(get_status.getTbDownloadStatusByTaskId(finddata->taskId)!= NULL)
+//            {
+//                download_status->updateTbDownloadStatusByTaskId(download_status);
+//            }
+//            else
+//            {
+//                download_status->addTbDownloadTaskStatus(download_status);
+//            }
+//            finddata->status=Global::Status::Active;
+//        }
+//        else//如果有
+//        {
+//            //获取下载信息
+//            //aria2c->tellStatus(gId, gId);
+//            Aria2RPCInterface::Instance()->getFiles(gId, id);
+//            DataItem *data = new DataItem;
+//            data->taskId=id;
+//            data->gid = gId;
+//            data->Ischecked=0;
+//            QDateTime time=QDateTime::currentDateTime();
+//            data->createTime=time.toString("yyyy-MM-dd hh:mm:ss");
+
+//            Tb_Task *get_task_info;
+//            Tb_Task task_info;
+//            get_task_info=task_info.getTbTaskByTaskId(id);
+//            Tb_Task *task ;
+//            if(get_task_info!=NULL)
+//            {
+
+//                task= new Tb_Task(get_task_info->task_id,gId,0,get_task_info->url,get_task_info->download_path,get_task_info->download_filename,time);
+//                task_info.updateTbTaskByTaskId(task);
+//                data->fileName=get_task_info->download_filename;
+
+//            }
+//            else
+//            {
+//                task= new Tb_Task(id, gId, 0, "", "","Unknow", time);
+//                task_info.addTbTask(task);
+//            }
+//            downloading_tableview->get_tableViewModel()->append(data);
+//            if(this->g_search_content!="" && !data->fileName.contains(this->g_search_content))
+//            {
+//                TableViewModel* dtModel = this->downloading_tableview->get_tableViewModel();
+//                downloading_tableview->setRowHidden(dtModel->rowCount(QModelIndex()),true);
+
+
+//            }
+//          }
+//        refreshTableView(current_listview_row);
+//    }
+
 }
 
 void MainFrame::slotRPCError(QString method, QString id, int error)
@@ -719,6 +779,85 @@ void MainFrame::getHeaderStatechanged(bool i)
             m_pRecycleTableView->reset();
         }
     }
+}
+
+void MainFrame::getNewDowloadUrl(QString url, QString savePath)
+{
+    QStringList _urlList = url.split("\n");
+    _urlList = _urlList.toSet().toList();   //url去重
+    bool _isExitsUrl = false;
+    //判断url是否在数据中已存在
+    for (int i = 0;i < _urlList.size(); i++)
+    {
+        DBInstance::isExistUrl(_urlList[i],_isExitsUrl);
+        if(_isExitsUrl)
+        {
+            _urlList.removeAt(i);
+            --i;
+        }
+    }
+    if(_urlList.isEmpty())
+    {
+        qDebug()<<"url is NUll";
+        return;
+    }
+    //将url加入数据库和aria
+    S_Task _task;
+    QMap<QString, QVariant> opt;
+    opt.insert("dir", savePath);
+    for (int i = 0; i < _urlList.size(); i++)
+    {
+        _task = getUrlToName(_urlList[i], savePath);
+        DBInstance::addTask(_task);
+        Aria2RPCInterface::Instance()->addNewUri(_task.m_url,savePath,_task.m_task_id);
+    }
+
+    m_pNoTask_Widget->hide();
+    //定时器打开
+}
+
+S_Task MainFrame::getUrlToName(QString url, QString savePath)
+{
+    //获取url文件名
+    QString _fileName;
+    if(url.startsWith("magnet") && url.contains("&"))
+    {
+        _fileName = url.split("&")[0];
+        if(_fileName.contains("btih:"))
+        {
+            _fileName=_fileName.split("btih:")[1]+".torrent";
+        }
+        else
+        {
+            _fileName=url.right(40);
+        }
+    }
+    else
+    {
+         _fileName=QString(url).right(url.length() - url.lastIndexOf('/') - 1);
+    }
+
+    //对url进行转码
+    if(!_fileName.contains(QRegExp("[\\x4e00-\\x9fa5]+")))
+    {
+        const QByteArray _byte=_fileName.toLatin1();
+        QString _decode=QUrl::fromPercentEncoding(_byte);
+        if(_decode.contains("?"))
+        {
+            _decode=_decode.split("?")[0];
+        }
+        _fileName=_decode;
+    }
+
+    S_Task _task;
+    _task.m_task_id = QUuid::createUuid().toString();
+    _task.m_gid = "";
+    _task.m_gid_index = 0;
+    _task.m_url = url;
+    _task.m_download_path = savePath + "/" +_fileName;
+    _task.m_download_filename = _fileName;
+    _task.m_create_time = QDateTime::currentDateTime();
+    return _task;
 }
 
 void MainFrame::slotContextMenu(QPoint pos)
@@ -919,4 +1058,5 @@ void MainFrame::slotSearchEditTextChanged(QString text)
     this->m_pDownLoadingTableView->reset();
     this->m_pRecycleTableView->reset();
     setTaskNum(m_iCurrentListviewRow);
+
 }
