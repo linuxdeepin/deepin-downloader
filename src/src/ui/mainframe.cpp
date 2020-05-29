@@ -277,6 +277,7 @@ void MainFrame::closeEvent(QCloseEvent *event)
 void MainFrame::createNewTask(QString url)
 {
     newTaskWidget *pNewTaskWidget = new newTaskWidget(url);
+    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl);
     pNewTaskWidget->exec();
 }
 void MainFrame::on_tray_quit_click()
@@ -722,6 +723,85 @@ void MainFrame::getHeaderStatechanged(bool i)
     }
 }
 
+void MainFrame::getNewDowloadUrl(QString url, QString savePath)
+{
+    QStringList _urlList = url.split("\n");
+    _urlList = _urlList.toSet().toList();   //url去重
+    bool _isExitsUrl = false;
+    //判断url是否在数据中已存在
+    for (int i = 0;i < _urlList.size(); i++)
+    {
+        DBInstance::isExistUrl(_urlList[i],_isExitsUrl);
+        if(_isExitsUrl)
+        {
+            _urlList.removeAt(i);
+            --i;
+        }
+    }
+    if(_urlList.isEmpty())
+    {
+        qDebug()<<"url is NUll";
+        return;
+    }
+    //将url加入数据库和aria
+    S_Task _task;
+    QMap<QString, QVariant> opt;
+    opt.insert("dir", savePath);
+    for (int i = 0; i < _urlList.size(); i++)
+    {
+        _task = getUrlToName(_urlList[i], savePath);
+        DBInstance::addTask(_task);
+        Aria2RPCInterface::Instance()->addNewUri(_task.m_url,savePath,_task.m_task_id);
+    }
+
+    m_pNoTask_Widget->hide();
+    //定时器打开
+}
+
+S_Task MainFrame::getUrlToName(QString url, QString savePath)
+{
+    //获取url文件名
+    QString _fileName;
+    if(url.startsWith("magnet") && url.contains("&"))
+    {
+        _fileName = url.split("&")[0];
+        if(_fileName.contains("btih:"))
+        {
+            _fileName=_fileName.split("btih:")[1]+".torrent";
+        }
+        else
+        {
+            _fileName=url.right(40);
+        }
+    }
+    else
+    {
+         _fileName=QString(url).right(url.length() - url.lastIndexOf('/') - 1);
+    }
+
+    //对url进行转码
+    if(!_fileName.contains(QRegExp("[\\x4e00-\\x9fa5]+")))
+    {
+        const QByteArray _byte=_fileName.toLatin1();
+        QString _decode=QUrl::fromPercentEncoding(_byte);
+        if(_decode.contains("?"))
+        {
+            _decode=_decode.split("?")[0];
+        }
+        _fileName=_decode;
+    }
+
+    S_Task _task;
+    _task.m_task_id = QUuid::createUuid().toString();
+    _task.m_gid = "";
+    _task.m_gid_index = 0;
+    _task.m_url = url;
+    _task.m_download_path = savePath + "/" +_fileName;
+    _task.m_download_filename = _fileName;
+    _task.m_create_time = QDateTime::currentDateTime();
+    return _task;
+}
+
 void MainFrame::slotContextMenu(QPoint pos)
 {
     int chkedCnt = 0;
@@ -920,4 +1000,5 @@ void MainFrame::slotSearchEditTextChanged(QString text)
     this->m_pDownLoadingTableView->reset();
     this->m_pRecycleTableView->reset();
     setTaskNum(m_iCurrentListviewRow);
+
 }

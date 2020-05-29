@@ -166,23 +166,16 @@ QString Aria2RPCInterface::getConfigFilePath()
 //添加uri地址
 void Aria2RPCInterface::addUri(QString strUri,QMap<QString,QVariant> opt,QString strId)
 {
-    //如果为迅雷链接
-    QString uri = strUri;
-    if(strUri.startsWith("thunder://")) {
-        QString oUir = strUri.mid(strUri.indexOf("thunder://") + 9+1);
-        uri = QString(QByteArray::fromBase64(oUir.toLatin1()));
-        uri = uri.mid(2, uri.length() - 4);//AA[URI]ZZ
-    }
-    strUri = uri;
-
-    QJsonArray jArray,jInner;//定义QJsonArray 变量
-    jInner.append(strUri);//将uri 装入jInner
-    jArray.append(jInner);//
+    strUri = processThunderUri(strUri);//处理迅雷链接
+    QJsonArray ja, inner;
+    inner.append(strUri);//可支持多个URI
+    ja.append(inner);
 
     QJsonDocument doc = QJsonDocument::fromVariant(QVariant(opt));
     QJsonObject optJson = doc.object();
-    jArray.append(optJson);
-    callRPC(ARIA2C_METHOD_ADD_URI,jArray,strId);
+    ja.append(optJson);
+
+    callRPC(ARIA2C_METHOD_ADD_URI, ja, strId);
 
 }
 
@@ -192,7 +185,7 @@ void Aria2RPCInterface::addNewUri(QString uri,QString savepath,QString strId)
     opt.insert("dir", savepath);
     addUri(uri,opt,strId);
 
-    qDebug()<<"Add new rui";
+    qDebug()<<"Add new uri";
 }
 
 //添加bt文件
@@ -317,18 +310,18 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
 void Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
 {
     QJsonObject json;
-    json.insert("jsonrpc",2.0);
-    if(id==""){
-        json.insert("id",method);
+    json.insert("jsonrpc", "2.0");
+    if(id == "") {
+        json.insert("id", method);
     }
     else {
-        json.insert("id",id);
+        json.insert("id", id);
     }
-    json.insert("method",method);
-    if(!params.isEmpty()){
-        json.insert("params",params);
+    json.insert("method", method);
+    if(!params.isEmpty()) {
+        json.insert("params", params);
     }
-    this->sendMessage(json,method);
+    this->sendMessage(json, method);
 }
 
 void Aria2RPCInterface::callRPC(QString method, QString id)
@@ -340,6 +333,7 @@ void Aria2RPCInterface::callRPC(QString method, QString id)
 void Aria2RPCInterface::sendMessage(QJsonObject jsonObj,const QString &method)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager;//定义网络对象
+
     if(!jsonObj.isEmpty()){//json如果不为空
         QNetworkRequest *requset = new  QNetworkRequest;//定义请求对象
         requset->setUrl(QUrl(this->rpcServer));//设置服务器的uri
@@ -574,3 +568,14 @@ void Aria2RPCInterface::setUploadLimitSpeed(QString UploadlimitSpeed)
 
     qDebug()<<"set upload limit speed:"<<UploadlimitSpeed;
 }
+
+QString Aria2RPCInterface::processThunderUri(QString thunder) {
+    QString uri = thunder;
+    if(thunder.startsWith("thunder://")) {
+        QString oUir = thunder.mid(thunder.indexOf("thunder://") + 9+1);
+        uri = QString(QByteArray::fromBase64(oUir.toLatin1()));
+        uri = uri.mid(2, uri.length() - 4);//AA[URI]ZZ
+    }
+    return uri;
+}
+
