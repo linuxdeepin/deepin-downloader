@@ -533,15 +533,74 @@ void MainFrame::onSettingsMenuClicked()
 
 void MainFrame::slotRPCSuccess(QString method, QJsonObject json)
 {
-    if(method == ARIA2C_METHOD_ADD_URI)
-    {
-        QString id = json.value("id").toString();
-        QString gId = json.value("result").toString();
+//    if(method == ARIA2C_METHOD_ADD_URI
+//            || method == ARIA2C_METHOD_ADD_TORRENT
+//            || method == ARIA2C_METHOD_ADD_METALINK)
+//    {
+//        QString id=json.value("id").toString();
+//        QString gId = json.value("result").toString();
 
-        //根据ID从下载列表是否存在下载任务,如果不存在创建任务,如果存在更新任务状态
-    //    DataItem* pFindData = downloading_tableview->get_tableViewModel()->find(id);
+//        //判断下载列表中是否有这条记录
+//        DataItem*  finddata=downloading_tableview->get_tableViewModel()->find(id);
+//        if(finddata!=nullptr)//如果没有
+//        {
+//            finddata->gid=gId;
+//            finddata->taskId=id;
+//            QDateTime finish_time=QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+//            Tb_Donwload_Task_Status get_status;
+//            Tb_Donwload_Task_Status *download_status = new Tb_Donwload_Task_Status(finddata->taskId,Global::Status::Active,QDateTime::currentDateTime(),finddata->completedLength,finddata->speed,finddata->totalLength,finddata->percent,finddata->total,finish_time);
 
-    }
+//            if(get_status.getTbDownloadStatusByTaskId(finddata->taskId)!= NULL)
+//            {
+//                download_status->updateTbDownloadStatusByTaskId(download_status);
+//            }
+//            else
+//            {
+//                download_status->addTbDownloadTaskStatus(download_status);
+//            }
+//            finddata->status=Global::Status::Active;
+//        }
+//        else//如果有
+//        {
+//            //获取下载信息
+//            //aria2c->tellStatus(gId, gId);
+//            Aria2RPCInterface::Instance()->getFiles(gId, id);
+//            DataItem *data = new DataItem;
+//            data->taskId=id;
+//            data->gid = gId;
+//            data->Ischecked=0;
+//            QDateTime time=QDateTime::currentDateTime();
+//            data->createTime=time.toString("yyyy-MM-dd hh:mm:ss");
+
+//            Tb_Task *get_task_info;
+//            Tb_Task task_info;
+//            get_task_info=task_info.getTbTaskByTaskId(id);
+//            Tb_Task *task ;
+//            if(get_task_info!=NULL)
+//            {
+
+//                task= new Tb_Task(get_task_info->task_id,gId,0,get_task_info->url,get_task_info->download_path,get_task_info->download_filename,time);
+//                task_info.updateTbTaskByTaskId(task);
+//                data->fileName=get_task_info->download_filename;
+
+//            }
+//            else
+//            {
+//                task= new Tb_Task(id, gId, 0, "", "","Unknow", time);
+//                task_info.addTbTask(task);
+//            }
+//            downloading_tableview->get_tableViewModel()->append(data);
+//            if(this->g_search_content!="" && !data->fileName.contains(this->g_search_content))
+//            {
+//                TableViewModel* dtModel = this->downloading_tableview->get_tableViewModel();
+//                downloading_tableview->setRowHidden(dtModel->rowCount(QModelIndex()),true);
+
+
+//            }
+//          }
+//        refreshTableView(current_listview_row);
+//    }
+
 }
 
 void MainFrame::slotRPCError(QString method, QString id, int error)

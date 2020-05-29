@@ -369,7 +369,19 @@ public:
      */
     Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
 
+    /**
+     * @brief getCapacityFree 获取指定路径所在分区的磁盘剩余容量
+     * @param path
+     * @return
+     */
+    QString getCapacityFree(QString path);
 
+    /**
+     * @brief getCapacityFreeByte 获取指定路径所在分区的磁盘剩余容量(字节)
+     * @param path
+     * @return
+     */
+    long getCapacityFreeByte(QString path);
 
 };
 
