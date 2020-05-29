@@ -277,6 +277,7 @@ void MainFrame::createNewTask(QString url)
 {
     newTaskWidget *pNewTaskWidget = new newTaskWidget(url);
     connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl);
+    connect(pNewTaskWidget, &newTaskWidget::newDownLoadTorrent, this, &MainFrame::getNewDownloadTorrent);
     pNewTaskWidget->exec();
 }
 void MainFrame::on_tray_quit_click()
@@ -999,5 +1000,10 @@ void MainFrame::slotSearchEditTextChanged(QString text)
     this->m_pDownLoadingTableView->reset();
     this->m_pRecycleTableView->reset();
     setTaskNum(m_iCurrentListviewRow);
+
+}
+
+void MainFrame::getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash)
+{
 
 }

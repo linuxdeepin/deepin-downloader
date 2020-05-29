@@ -8,7 +8,6 @@
 #include <DFileDialog>
 #include <DMessageBox>
 #include <QPixmap>
-#include "aria2rpcinterface.h"
 
 
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
@@ -254,7 +253,8 @@ int BtInfoDialog::exec()
 void BtInfoDialog::slot_btnOK()
 {
     //qDebug()<<Aria2cInterface::getCapacityFree(editDir->text());
-    long free = Aria2cInterface::getCapacityFreeByte(editDir->text());//KB
+    //long free = Aria2cInterface::getCapacityFreeByte(editDir->text());//KB
+   // Aria2RPCInterface::ge
     long total = 0;//选中文件总大小（字节）
     for(int i = 0;i < m_model->rowCount();i++) {
         if(m_model->data(m_model->index(i, 0)).toString() == "1") {

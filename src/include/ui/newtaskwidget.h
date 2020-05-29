@@ -64,6 +64,7 @@ protected:
 
 signals:
     void NewDownload_sig(QString url,QString save_path);
+    void newDownLoadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
 
 private:
     QString m_savePath;                 //当前保存文件路径

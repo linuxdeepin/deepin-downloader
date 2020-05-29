@@ -95,6 +95,9 @@ private slots:
      * @param savePath 保存路径
     */
     void getNewDowloadUrl(QString url, QString savePath);
+
+
+    void getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
     /**
      * @brief 表头状态改变
      * @param  i：节点

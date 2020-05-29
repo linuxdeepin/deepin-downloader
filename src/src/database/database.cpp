@@ -4,7 +4,7 @@ DataBase::DataBase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     QString _dataBasePath =qApp->applicationDirPath();
-    QFileInfo * databaseFile = new QFileInfo(_dataBasePath+"/"+UOS_DOWNLOAD_DATABASE_OLD_FILENAME);
+    QFileInfo * databaseFile = new QFileInfo(UOS_DONWLOAD_DATABASE_PATH+UOS_DOWNLOAD_DATABASE_OLD_FILENAME);
      //如果数据库文件不存在
      if(!databaseFile->isFile())
      {
@@ -20,7 +20,7 @@ DataBase::DataBase()
      }
 
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(_dataBasePath+"/"+UOS_DOWNLOAD_DATABASE_OLD_FILENAME);
+    m_db.setDatabaseName(UOS_DONWLOAD_DATABASE_PATH+UOS_DOWNLOAD_DATABASE_OLD_FILENAME);
 
 }
 

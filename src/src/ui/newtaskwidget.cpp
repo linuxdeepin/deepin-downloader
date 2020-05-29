@@ -91,12 +91,11 @@ void newTaskWidget::openfileDialog()
         BtInfoDialog *_dialog = new BtInfoDialog(_btFile,m_savePath);//torrent文件路径
         if(_dialog->exec() == QDialog::Accepted) {
             QMap<QString,QVariant> opt;
-//            opt.insert("dir",dialog->getSaveto());
-//            opt.insert("select-file",dialog->getSelected());
-//            QString infoName=dialog->getName();
-//            QString infoHash=dialog->getBtInfo().infoHash;
-//            emit DownloadTorrent_sig(file,opt,infoName,infoHash);
-              this->close();
+            QString _infoName;
+            QString _infoHash;
+            _dialog->getBtInfo(opt, _infoName, _infoHash);
+            emit newDownLoadTorrent(_btFile,opt,_infoName,_infoHash);
+            this->close();
         }
         delete _dialog;
 //    }
