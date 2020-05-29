@@ -1087,7 +1087,9 @@ void MainFrame::getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,
     _task.m_task_id = _strId;
     _task.m_gid = "";
     _task.m_gid_index = 0;
-    _task.m_url = infoName;
+    _task.m_url = "";
+    _task.m_download_path = "";
+    _task.m_download_filename = infoName;
     _task.m_create_time = QDateTime::currentDateTime();
     DBInstance::addTask(_task);
 
@@ -1096,12 +1098,12 @@ void MainFrame::getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,
      _urlInfo.m_task_id = _strId;
      _urlInfo.m_url = "";
      _urlInfo.m_download_type = "torrent";
-     _urlInfo.m_seedFile = btPath;
+     _urlInfo.m_seedFile = btName;
      _urlInfo.m_selectedNum = _selectedNum;
      _urlInfo.m_infoHash = "";
      DBInstance::addUrl(_urlInfo);
 
      //开始下载
-     Aria2RPCInterface::Instance()->addTorrent(btPath, opt, _strId);
+     Aria2RPCInterface::Instance()->addTorrent(btName, opt, _strId);
      //定时器打开
 }
