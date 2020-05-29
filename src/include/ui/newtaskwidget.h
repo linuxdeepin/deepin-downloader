@@ -61,8 +61,15 @@ protected:
      * @param event 拖拽事件
     */
     void dropEvent(QDropEvent *event);
+
+signals:
+    void NewDownload_sig(QString url,QString save_path);
+
 private:
     QString m_savePath;                 //当前保存文件路径
+
+    DTextEdit *m_texturl;               //url文本框
+
 };
 
 

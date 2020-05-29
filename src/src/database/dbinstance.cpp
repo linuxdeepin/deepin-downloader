@@ -208,7 +208,8 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
         return  false;
     }
     QSqlQuery _sql;
-    QString  select_all_sql ="select count(*)  from download_task,download_task_status where download_task.url='"+url+"' and download_task.task_id=download_task_status.task_id;";
+    QString  select_all_sql ="select count(*)  from download_task where download_task.url='"+url+"' ;";
+    qDebug()<<select_all_sql;
     _sql.prepare(select_all_sql);
     if(!_sql.exec())
     {

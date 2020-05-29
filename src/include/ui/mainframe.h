@@ -19,6 +19,7 @@
 #include <DIconButton>
 #include <DApplication>
 #include <QJsonObject>
+#include <QUuid>
 
 #include "settings.h"
 
@@ -32,6 +33,7 @@ class QStackedWidget;
 class TopButton;
 class QSystemTrayIcon;
 class SettingsWidget;
+class S_Task;
 /**
  * @class MainFrame
  * @brief 主界面类
@@ -88,6 +90,12 @@ private slots:
     void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
     /**
+     * @brief 收到新建任务url
+     * @param url 收到url地址
+     * @param savePath 保存路径
+    */
+    void getNewDowloadUrl(QString url, QString savePath);
+    /**
      * @brief 表头状态改变
      * @param  i：节点
     */
@@ -102,6 +110,7 @@ private slots:
      * @brief 查找的文本改变
     */
     void slotSearchEditTextChanged(QString text);
+
 private:
 
     /**
@@ -150,9 +159,17 @@ private:
     void createNewTask(QString url);
 
     /**
+     * @brief 解析url，得到url名字
+     * @param url 下载地址
+     * @return 解析后Task结构体
+     */
+    S_Task getUrlToName(QString url, QString savePaht);
+
+    /**
      * @brief 清除item的选中状态
      */
     void clearTableItemCheckStatus();
+
 private:
     enum tableView_flag{
         downloading,recycle

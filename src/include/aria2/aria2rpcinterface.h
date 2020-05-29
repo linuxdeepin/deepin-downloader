@@ -337,9 +337,11 @@ private:
     void rpcRequestReply(QNetworkReply *reply,const QString &method,const QString id);
 
     QString fileToBase64(QString filePath);//文件转base64
+
+    QString processThunderUri(QString thunder);//如果是迅雷链接会解密处理，否则原样返回
 private:
     //QString cmd = "/usr/bin/aria2c";//aria2c程序路径 -> 已改成public static变量
-    QString rpcPort = "18600";//rpc端口
+    QString rpcPort = "16800";//rpc端口
     QString rpcServer = "http://localhost:" + rpcPort + "/jsonrpc";//rpc服务器地址
     QString defaultDownloadPath;//默认下载路径
     QString configPath = "";
