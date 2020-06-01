@@ -8,7 +8,7 @@
 #define AIRA_CONFIG_PATH "/usr/share/uos-downloadmanager/config/aria2.conf"
 
 //#ln /usr/bin/aria2c /usr/share/uos-downloadmanager/uos-aria2c
-const QString Aria2RPCInterface::basePath = "/usr/share/uos-downloadmanager/";// /usr/bin/
+const QString Aria2RPCInterface::basePath = "/usr/share/uos-downloadmanager/";
 const QString Aria2RPCInterface::aria2cCmd = "nfs-aria2c";// aria2c
 
 Aria2RPCInterface *Aria2RPCInterface::_pInstance = new Aria2RPCInterface;
@@ -185,7 +185,7 @@ void Aria2RPCInterface::addNewUri(QString uri,QString savepath,QString strId)
     opt.insert("dir", savepath);
     addUri(uri,opt,strId);
 
-    qDebug()<<"Add new uri";
+    qDebug()<<"Add new uri"<<uri;
 }
 
 //添加bt文件
@@ -579,3 +579,70 @@ QString Aria2RPCInterface::processThunderUri(QString thunder) {
     return uri;
 }
 
+QString Aria2RPCInterface::getCapacityFree(QString path)
+{
+    QProcess *proc = new QProcess;
+    QStringList opt;
+    opt << "-c";
+    opt << "df -h " + path;
+    proc->start("/bin/bash", opt);
+    proc->waitForFinished();
+    QByteArray rt = proc->readAllStandardOutput();
+    proc->close();
+    delete proc;
+
+    QString free = "0B";
+    QStringList lt = QString(rt).split("\n");
+    if(lt.length() >= 2) {
+        QString line = lt.at(1);
+        QString temp;
+        QStringList tpl;
+        for(int i = 0;i <line.length();i++) {
+            if(line[i] != ' ') {
+                temp.append(line[i]);
+            }
+            else {
+                if(temp != "") {
+                    tpl.append(temp);
+                    temp = "";
+                }
+            }
+        }
+        free = tpl[3];
+    }
+    return free + "B";
+}
+
+long Aria2RPCInterface::getCapacityFreeByte(QString path)
+{
+    QProcess *proc = new QProcess;
+    QStringList opt;
+    opt << "-c";
+    opt << "df " + path;
+    proc->start("/bin/bash", opt);
+    proc->waitForFinished();
+    QByteArray rt = proc->readAllStandardOutput();
+    proc->close();
+    delete proc;
+
+    QString free = "0";
+    QStringList lt = QString(rt).split("\n");
+    if(lt.length() >= 2) {
+        QString line = lt.at(1);
+        QString temp;
+        QStringList tpl;
+        for(int i = 0;i <line.length();i++) {
+            if(line[i] != ' ') {
+                temp.append(line[i]);
+            }
+            else {
+                if(temp != "") {
+                    tpl.append(temp);
+                    temp = "";
+                }
+            }
+        }
+        free = tpl[3];
+    }
+    return free.toLong();
+}

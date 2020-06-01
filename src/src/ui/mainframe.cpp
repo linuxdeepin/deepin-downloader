@@ -33,6 +33,7 @@
 #include "tableModel.h"
 #include "log.h"
 #include "global.h"
+#include "clipboardtimer.h"
 //#include "messagebox.h"
 #include "../database/dbinstance.h"
 
@@ -187,7 +188,7 @@ void MainFrame::init()
 
     m_pRightStackwidget->setCurrentIndex(0);
 
-    m_pClipboard = QApplication::clipboard();        //获取当前剪切板
+    m_pClipboard = new ClipboardTimer;       //获取当前剪切板
     initTray();
 }
 
@@ -244,7 +245,7 @@ void MainFrame::initConnection()
 {
     connect(m_pToolBar, &TopButton::newDownloadBtnClicked, this, &MainFrame::onNewBtnClicked);
     connect(m_pSettingAction,&QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
-    connect(m_pClipboard, &QClipboard::dataChanged,this,&MainFrame::onClipboardDataChanged);
+    connect(m_pClipboard, &ClipboardTimer::sendClipboardText,this,&MainFrame::onClipboardDataChanged);
     connect(m_pLeft_list, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::getPalettetypechanged);
     connect(m_pDownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::slotContextMenu);
@@ -280,11 +281,11 @@ void MainFrame::closeEvent(QCloseEvent *event)
 
 void MainFrame::createNewTask(QString url)
 {
-    newTaskWidget *pNewTaskWidget = new newTaskWidget(url);
-    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl);
+    static newTaskWidget *pNewTaskWidget = new newTaskWidget(url);
+    //connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl);
     pNewTaskWidget->exec();
 }
-void MainFrame::on_tray_quit_click()
+void MainFrame::onTrayQuitClick()
 {
     //save_data_before_close();
     qApp->quit();
@@ -536,13 +537,87 @@ void MainFrame::onSettingsMenuClicked()
 
 }
 
+//void MainFrame::slotRPCSuccess(QJsonObject json)
+//{
+//    if(method == ARIA2C_METHOD_ADD_URI
+//            || method == ARIA2C_METHOD_ADD_TORRENT
+//            || method == ARIA2C_METHOD_ADD_METALINK)
+//    {
+//        QString id=json.value("id").toString();
+//        QString gId = json.value("result").toString();
 
-void MainFrame::onClipboardDataChanged()
+//        //判断下载列表中是否有这条记录
+//        DataItem*  finddata=downloading_tableview->get_tableViewModel()->find(id);
+//        if(finddata!=nullptr)//如果没有
+//        {
+//            finddata->gid=gId;
+//            finddata->taskId=id;
+//            QDateTime finish_time=QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+//            Tb_Donwload_Task_Status get_status;
+//            Tb_Donwload_Task_Status *download_status = new Tb_Donwload_Task_Status(finddata->taskId,Global::Status::Active,QDateTime::currentDateTime(),finddata->completedLength,finddata->speed,finddata->totalLength,finddata->percent,finddata->total,finish_time);
+
+//            if(get_status.getTbDownloadStatusByTaskId(finddata->taskId)!= NULL)
+//            {
+//                download_status->updateTbDownloadStatusByTaskId(download_status);
+//            }
+//            else
+//            {
+//                download_status->addTbDownloadTaskStatus(download_status);
+//            }
+//            finddata->status=Global::Status::Active;
+//        }
+//        else//如果有
+//        {
+//            //获取下载信息
+//            //aria2c->tellStatus(gId, gId);
+//            Aria2RPCInterface::Instance()->getFiles(gId, id);
+//            DataItem *data = new DataItem;
+//            data->taskId=id;
+//            data->gid = gId;
+//            data->Ischecked=0;
+//            QDateTime time=QDateTime::currentDateTime();
+//            data->createTime=time.toString("yyyy-MM-dd hh:mm:ss");
+
+//            Tb_Task *get_task_info;
+//            Tb_Task task_info;
+//            get_task_info=task_info.getTbTaskByTaskId(id);
+//            Tb_Task *task ;
+//            if(get_task_info!=NULL)
+//            {
+
+//                task= new Tb_Task(get_task_info->task_id,gId,0,get_task_info->url,get_task_info->download_path,get_task_info->download_filename,time);
+//                task_info.updateTbTaskByTaskId(task);
+//                data->fileName=get_task_info->download_filename;
+
+//            }
+//            else
+//            {
+//                task= new Tb_Task(id, gId, 0, "", "","Unknow", time);
+//                task_info.addTbTask(task);
+//            }
+//            downloading_tableview->get_tableViewModel()->append(data);
+//            if(this->g_search_content!="" && !data->fileName.contains(this->g_search_content))
+//            {
+//                TableViewModel* dtModel = this->downloading_tableview->get_tableViewModel();
+//                downloading_tableview->setRowHidden(dtModel->rowCount(QModelIndex()),true);
+
+
+//            }
+//          }
+//        refreshTableView(current_listview_row);
+//    }
+
+//}
+
+//void MainFrame::slotRPCError(QString id, int error)
+//{
+
+//}
+
+
+void MainFrame::onClipboardDataChanged(QString url)
 {
-    QString text = m_pClipboard->text();
-    if( (-1 != text.indexOf("ftp:")) || (-1 != text.indexOf("http:")) || (-1 != text.indexOf("https:")) || (-1 != text.indexOf("magnet:"))){
-         createNewTask(text);
-    }
+    createNewTask(url);
 }
 
 void MainFrame::onListClicked(const QModelIndex &index)
@@ -1126,7 +1201,7 @@ void MainFrame::getNewdowloadSlot(QString url, QString savepath)
         }
         if(sameUrl > 0) {
             QString warning_msg = tr("has ") + QString::number(sameUrl) + tr(" the same download");
-            show_Warning_MsgBox(warning_msg, sameUrl, repeat_url_list);
+            showWarningMsgbox(warning_msg, sameUrl, repeat_url_list);
         }
     }
 }
@@ -1170,11 +1245,11 @@ QString MainFrame::formatDownloadSpeed(long size)
     return result;
 }
 
-void MainFrame::show_Warning_MsgBox(QString title, int sameurl_count, QList<QString> same_url_list)
+void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList)
 {
 //    MessageBox *msg = new MessageBox(Warnings);
 
-//    msg->set_warning_MsgBox(title, tr("sure"), "", sameurl_count, same_url_list);
+//    msg->set_warning_MsgBox(title, tr("sure"), "", sameUrlCount, sameUrlList);
 //    msg->exec();
 }
 
@@ -1224,7 +1299,331 @@ QString   MainFrame::getDownloadSavepathFromConfig()
     return path;
 }
 
-void MainFrame::Deal_Notificaiton_Settings(QString statusStr, QString fileName)
+void MainFrame::aria2MethodAdd(QJsonObject json)
+{
+    QString id = json.value("id").toString();
+    QString gId = json.value("result").toString();
+
+    DataItem *finddata = m_pDownLoadingTableView->getTableModel()->find(id);
+    if(finddata != nullptr) {
+        finddata->gid = gId;
+        finddata->taskId = id;
+        QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+        S_Task_Status  get_status;
+        S_Task_Status *download_status = new S_Task_Status(finddata->taskId,
+                                                                               Global::Status::Active,
+                                                                               QDateTime::currentDateTime(),
+                                                                               finddata->completedLength,
+                                                                               finddata->speed,
+                                                                               finddata->totalLength,
+                                                                               finddata->percent,
+                                                                               finddata->total,
+                                                                               finish_time);
+
+
+        S_Task_Status task;
+        DBInstance::getTaskStatusById(finddata->taskId, task);
+        if(task.m_task_id != "") {
+            DBInstance::updateTaskStatusById(*download_status);
+        } else {
+            DBInstance::addTaskStatus(*download_status);
+        }
+        finddata->status = Global::Status::Active;
+    } else {
+        // 获取下载信息
+        // aria2c->tellStatus(gId, gId);
+        Aria2RPCInterface::Instance()->getFiles(gId, id);
+        DataItem *data = new DataItem;
+        data->taskId = id;
+        data->gid = gId;
+        data->Ischecked = 0;
+        QDateTime time = QDateTime::currentDateTime();
+        data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
+
+        S_Task get_task_info;
+        S_Task  task_info;
+        DBInstance::getTaskByID(id, get_task_info);
+        S_Task *task;
+        if(get_task_info.m_task_id != "") {
+            task = new S_Task(get_task_info.m_task_id,
+                               gId,
+                               0,
+                               get_task_info.m_url,
+                               get_task_info.m_download_path,
+                               get_task_info.m_download_filename,
+                               time);
+            DBInstance::updateTaskByID(*task);
+            data->fileName = get_task_info.m_download_filename;
+        } else {
+            task = new S_Task(id, gId, 0, "", "", "Unknow", time);
+            DBInstance::addTask(*task);
+        }
+        m_pDownLoadingTableView->getTableModel()->append(data);
+        if((m_searchContent != "") && !data->fileName.contains(m_searchContent)) {
+            TableModel *dtModel = this->m_pDownLoadingTableView->getTableModel();
+            m_pDownLoadingTableView->setRowHidden(dtModel->rowCount(QModelIndex()), true);
+        }
+    }
+    refreshTableView(m_iCurrentListviewRow);
+}
+
+void MainFrame::aria2MethodStatusChanged(QJsonObject json)
+{
+    QJsonObject result = json.value("result").toObject();
+    QJsonObject bittorrent = result.value("bittorrent").toObject();
+    QString     mode;
+    QString     bittorrent_name;
+    QString     taskId = json.value("id").toString();
+    QString     bittorrent_dir = "";
+
+    if(!bittorrent.isEmpty()) {
+        mode = bittorrent.value("mode").toString();
+        if(mode == "multi") {
+            bittorrent_dir = result.value("dir").toString();
+        }
+        QJsonObject btInfo = bittorrent.value("info").toObject();
+        bittorrent_name = btInfo.value("name").toString();
+        QString infoHash = result.value("infoHash").toString();
+        S_Url_Info  tb_url_info;
+        S_Url_Info get_url_info;
+        DBInstance::getUrlById(taskId, get_url_info);
+        if(get_url_info.m_task_id != "") {
+            if(get_url_info.m_infoHash.isEmpty()) {
+                S_Url_Info *url_info = new S_Url_Info(get_url_info.m_task_id,
+                                                        get_url_info.m_url,
+                                                        get_url_info.m_download_type,
+                                                        get_url_info.m_seedFile,
+                                                        get_url_info.m_selectedNum,
+                                                        infoHash);
+                DBInstance::updateUrlById(*url_info);
+            }
+        }
+    }
+    QJsonArray files = result.value("files").toArray();
+
+    QString filePath;
+    QString fileUri;
+    for(int i = 0; i < files.size(); ++i) {
+        QJsonObject file = files[i].toObject();
+        filePath = file.value("path").toString();
+        QJsonArray uri = file.value("uris").toArray();
+        for(int j = 0; j < uri.size(); ++j) {
+            QJsonObject uriObject = uri[j].toObject();
+            fileUri = uriObject.value("uri").toString();
+        }
+    }
+
+    QString gId = result.value("gid").toString();
+
+    long totalLength = result.value("totalLength").toString().toLong();         //
+                                                                                // 字节
+    long completedLength = result.value("completedLength").toString().toLong(); //
+                                                                                // 字节
+    long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //
+                                                                                // 字节/每秒
+    QString fileName = getFileName(filePath);
+    QString statusStr = result.value("status").toString();
+
+    int percent = 0;
+    int status = 0;
+
+    if((completedLength != 0) && (totalLength != 0)) {
+        double temp_percent = completedLength * 100.0 / totalLength;
+        percent = temp_percent;
+        if((percent < 0) || (percent > 100)) {
+            percent = 0;
+        }
+        if(completedLength == totalLength) {
+            statusStr = "complete";
+        }
+    }
+
+    if(statusStr == "active") {
+        status = Global::Status::Active;
+    } else if(statusStr == "waiting") {
+        status = Global::Status::Waiting;
+    } else if(statusStr == "paused") {
+        status = Global::Status::Paused;
+    } else if(statusStr == "error") {
+        status = Global::Status::Error;
+        dealNotificaitonSettings(statusStr, fileName);
+    } else if(statusStr == "complete") {
+        status = Global::Status::Complete;
+
+        //下载文件为种子文件
+        if(fileName.endsWith(".torrent")) {
+            emit signalAutoDownloadBt(filePath);
+        }
+
+        //下载文件为磁链种子文件
+        QString infoHash = result.value("infoHash").toString();
+        if(filePath.startsWith("[METADATA]")) {
+            QString dir = result.value("dir").toString();
+
+            emit signalAutoDownloadBt(dir + "/" + infoHash + ".torrent");
+            fileName = infoHash + ".torrent";
+        }
+
+        //
+        dealNotificaitonSettings(statusStr, fileName);
+    } else if(statusStr == "removed") {
+        status = Global::Status::Removed;
+    }
+
+    DataItem *data = m_pDownLoadingTableView->getTableModel()->find(taskId);
+    if(data == nullptr) {
+        return;
+    }
+    data->gid = gId;
+    data->totalLength = formatFileSize(totalLength);
+    data->completedLength = formatFileSize(completedLength);
+    data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
+
+    if(bittorrent.isEmpty()) {
+        if(!fileName.isEmpty() && (data->fileName != fileName)) {
+            data->fileName = fileName;
+        }
+
+        //                if(data->fileName==QObject::tr("Unknown"))
+        //                {
+        //                    data->fileName = (fileName.isEmpty()) ?
+        // Global::UNKNOWN : fileName;
+        //                }
+        data->status = status;
+    } else {
+        // data->fileName = (bittorrent_name.isEmpty()) ? Global::UNKNOWN :
+        // bittorrent_name;
+        if(mode == "multi") {
+            filePath = bittorrent_dir + "/" + bittorrent_name;
+        }
+        if((totalLength != 0) && (totalLength == completedLength)) {
+            data->status = Complete;
+            dealNotificaitonSettings("complete", filePath);
+        } else {
+            data->status = status;
+        }
+
+        fileUri = "";
+    }
+    data->percent = percent;
+    data->total = totalLength;
+    if(filePath != "") {
+        data->savePath = filePath;
+    } else {
+        data->savePath = getDownloadSavepathFromConfig();
+    }
+
+    data->url = fileUri;
+    data->time = "";
+
+    if((totalLength != completedLength) && (totalLength != 0) &&
+       (data->status == Global::Status::Active)) {
+        QTime t(0, 0, 0);
+        t = t.addSecs((totalLength - completedLength * 1.0) / downloadSpeed);
+        data->time = t.toString("mm:ss");
+    } else if((totalLength == 0) && (data->status == Global::Status::Active)) {
+        data->time = ("--:--");
+    } else {
+        if(data->time == "") {
+            data->time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+        }
+
+        //              updatetimer->stop();
+    }
+    S_Task  task;
+    S_Task get_task;
+    DBInstance::getTaskByID(data->taskId, get_task);
+    if(get_task.m_task_id != "") {
+        if(get_task.m_url != "") {
+            data->url = get_task.m_url;
+        }
+    }
+
+    m_pDownLoadingTableView->update();
+    m_pDownLoadingTableView->reset();
+    S_Task_Status  task_status;
+    S_Task_Status get_task_status;
+    DBInstance::getTaskStatusById(data->taskId, get_task_status);
+
+    QDateTime get_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+    S_Task_Status *save_task_status = new S_Task_Status(data->taskId,
+                                                                            data->status,
+                                                                            get_time,
+                                                                            data->completedLength,
+                                                                            data->speed,
+                                                                            data->totalLength,
+                                                                            data->percent,
+                                                                            data->total,
+                                                                            get_time);
+    if(get_task_status.m_task_id != "") {
+        DBInstance::addTaskStatus(*save_task_status);
+    } else {
+        if(get_task_status.m_download_status != data->status) {
+            DBInstance::updateTaskStatusById(*save_task_status);
+        }
+    }
+    refreshTableView(m_iCurrentListviewRow);
+    if((data->status == Complete) && (this->m_searchContent != "")) {
+        slotSearchEditTextChanged(this->m_searchContent);
+    }
+}
+
+void MainFrame::aria2MethodShutdown(QJsonObject json)
+{
+    QString result = json.value("result").toString();
+    if(result == "OK") {
+        m_bShutdownOk = true;
+        qDebug() << "close downloadmanager";
+        this->close();
+        DApplication::exit();
+    }
+}
+
+void MainFrame::aria2MethodGetFiles(QJsonObject json)
+{
+    QString   id = json.value("id").toString();
+    DataItem *data = m_pDownLoadingTableView->getTableModel()->find(id);
+    if(data == nullptr) {// id等于gid
+        data = new DataItem();
+        QJsonArray  ja = json.value("result").toArray();
+        QJsonObject jo = ja.at(0).toObject();
+        data->totalLength = jo.value("length").toString().toLong(); // 文件大小
+        data->savePath = jo.value("path").toString();               //下载路径，带文件名
+        data->fileName = data->savePath.mid(data->savePath.lastIndexOf('/') + 1);
+        QJsonArray uris = jo.value("uris").toArray();
+        data->url = uris.at(0).toObject().value("uri").toString();  //下载链接
+        data->taskId = id;
+        m_pDownLoadingTableView->getTableModel()->append(data);
+    }
+    m_pDownLoadingTableView->reset();
+    refreshTableView(m_iCurrentListviewRow);
+}
+
+void MainFrame::aria2MethodUnpause(QJsonObject json)
+{
+    QString gId = json.value("result").toString();
+    QString taskId = json.value("id").toString();
+
+    DataItem *data = m_pDownLoadingTableView->getTableModel()->find(taskId);
+    if(data != nullptr) {
+        data->status = Global::Status::Active;
+        refreshTableView(m_iCurrentListviewRow);
+    }
+}
+
+void MainFrame::aria2MethodForceRemove(QJsonObject json)
+{
+    QString id = json.value("id").toString();
+    if(id.startsWith("REDOWNLOAD_")) { // 重新下载前的移除完成后
+        QStringList sp = id.split("_");
+        QString     taskId = sp.at(2);
+        int rd = sp.at(1).toInt();
+        QThread::msleep(500);
+        emit signalRedownload(taskId, rd);
+    }
+}
+
+void MainFrame::dealNotificaitonSettings(QString statusStr, QString fileName)
 {
     // 获取免打扰模式值
     QVariant undisturbed_mode_switchbutton = m_pSettings->m_pSettings->getOption(
@@ -1266,314 +1665,18 @@ void MainFrame::slotRpcSuccess(QString method, QJsonObject json)
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
-        QString id = json.value("id").toString();
-        QString gId = json.value("result").toString();
-
-        DataItem *finddata = m_pDownLoadingTableView->getTableModel()->find(id);
-        if(finddata != nullptr) {
-            finddata->gid = gId;
-            finddata->taskId = id;
-            QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-            S_Task_Status  get_status;
-            S_Task_Status *download_status = new S_Task_Status(finddata->taskId,
-                                                                                   Global::Status::Active,
-                                                                                   QDateTime::currentDateTime(),
-                                                                                   finddata->completedLength,
-                                                                                   finddata->speed,
-                                                                                   finddata->totalLength,
-                                                                                   finddata->percent,
-                                                                                   finddata->total,
-                                                                                   finish_time);
-
-
-            S_Task_Status task;
-            DBInstance::getTaskStatusById(finddata->taskId, task);
-            if(task.m_task_id != "") {
-                DBInstance::updateTaskStatusById(*download_status);
-            } else {
-                DBInstance::addTaskStatus(*download_status);
-            }
-            finddata->status = Global::Status::Active;
-        } else {
-            // 获取下载信息
-            // aria2c->tellStatus(gId, gId);
-            Aria2RPCInterface::Instance()->getFiles(gId, id);
-            DataItem *data = new DataItem;
-            data->taskId = id;
-            data->gid = gId;
-            data->Ischecked = 0;
-            QDateTime time = QDateTime::currentDateTime();
-            data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
-
-            S_Task get_task_info;
-            S_Task  task_info;
-            DBInstance::getTaskByID(id, get_task_info);
-            S_Task *task;
-            if(get_task_info.m_task_id != "") {
-                task = new S_Task(get_task_info.m_task_id,
-                                   gId,
-                                   0,
-                                   get_task_info.m_url,
-                                   get_task_info.m_download_path,
-                                   get_task_info.m_download_filename,
-                                   time);
-                DBInstance::updateTaskByID(*task);
-                data->fileName = get_task_info.m_download_filename;
-            } else {
-                task = new S_Task(id, gId, 0, "", "", "Unknow", time);
-                DBInstance::addTask(*task);
-            }
-            m_pDownLoadingTableView->getTableModel()->append(data);
-            if((m_searchContent != "") && !data->fileName.contains(m_searchContent)) {
-                TableModel *dtModel = this->m_pDownLoadingTableView->getTableModel();
-                m_pDownLoadingTableView->setRowHidden(dtModel->rowCount(QModelIndex()), true);
-            }
-        }
-        refreshTableView(m_iCurrentListviewRow);
+        aria2MethodAdd(json);
     } else if(method == ARIA2C_METHOD_TELL_STATUS) {
-        QJsonObject result = json.value("result").toObject();
-        QJsonObject bittorrent = result.value("bittorrent").toObject();
-        QString     mode;
-        QString     bittorrent_name;
-        QString     taskId = json.value("id").toString();
-        QString     bittorrent_dir = "";
-
-        if(!bittorrent.isEmpty()) {
-            mode = bittorrent.value("mode").toString();
-            if(mode == "multi") {
-                bittorrent_dir = result.value("dir").toString();
-            }
-            QJsonObject btInfo = bittorrent.value("info").toObject();
-            bittorrent_name = btInfo.value("name").toString();
-            QString infoHash = result.value("infoHash").toString();
-            S_Url_Info  tb_url_info;
-            S_Url_Info get_url_info;
-            DBInstance::getUrlById(taskId, get_url_info);
-            if(get_url_info.m_task_id != "") {
-                if(get_url_info.m_infoHash.isEmpty()) {
-                    S_Url_Info *url_info = new S_Url_Info(get_url_info.m_task_id,
-                                                            get_url_info.m_url,
-                                                            get_url_info.m_download_type,
-                                                            get_url_info.m_seedFile,
-                                                            get_url_info.m_selectedNum,
-                                                            infoHash);
-                    DBInstance::updateUrlById(*url_info);
-                }
-            }
-        }
-        QJsonArray files = result.value("files").toArray();
-
-        QString filePath;
-        QString fileUri;
-        for(int i = 0; i < files.size(); ++i) {
-            QJsonObject file = files[i].toObject();
-            filePath = file.value("path").toString();
-            QJsonArray uri = file.value("uris").toArray();
-            for(int j = 0; j < uri.size(); ++j) {
-                QJsonObject uriObject = uri[j].toObject();
-                fileUri = uriObject.value("uri").toString();
-            }
-        }
-
-        QString gId = result.value("gid").toString();
-
-        long totalLength = result.value("totalLength").toString().toLong();         //
-                                                                                    // 字节
-        long completedLength = result.value("completedLength").toString().toLong(); //
-                                                                                    // 字节
-        long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //
-                                                                                    // 字节/每秒
-        QString fileName = getFileName(filePath);
-        QString statusStr = result.value("status").toString();
-
-        int percent = 0;
-        int status = 0;
-
-        if((completedLength != 0) && (totalLength != 0)) {
-            double temp_percent = completedLength * 100.0 / totalLength;
-            percent = temp_percent;
-            if((percent < 0) || (percent > 100)) {
-                percent = 0;
-            }
-            if(completedLength == totalLength) {
-                statusStr = "complete";
-            }
-        }
-
-        if(statusStr == "active") {
-            status = Global::Status::Active;
-        } else if(statusStr == "waiting") {
-            status = Global::Status::Waiting;
-        } else if(statusStr == "paused") {
-            status = Global::Status::Paused;
-        } else if(statusStr == "error") {
-            status = Global::Status::Error;
-            Deal_Notificaiton_Settings(statusStr, fileName);
-        } else if(statusStr == "complete") {
-            status = Global::Status::Complete;
-
-            //下载文件为种子文件
-            if(fileName.endsWith(".torrent")) {
-                emit signalAutoDownloadBt(filePath);
-            }
-
-            //下载文件为磁链种子文件
-            QString infoHash = result.value("infoHash").toString();
-            if(filePath.startsWith("[METADATA]")) {
-                QString dir = result.value("dir").toString();
-
-                emit signalAutoDownloadBt(dir + "/" + infoHash + ".torrent");
-                fileName = infoHash + ".torrent";
-            }
-
-            //
-            Deal_Notificaiton_Settings(statusStr, fileName);
-        } else if(statusStr == "removed") {
-            status = Global::Status::Removed;
-        }
-
-        DataItem *data = m_pDownLoadingTableView->getTableModel()->find(taskId);
-        if(data == nullptr) {
-            return;
-        }
-        data->gid = gId;
-        data->totalLength = formatFileSize(totalLength);
-        data->completedLength = formatFileSize(completedLength);
-        data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
-
-        if(bittorrent.isEmpty()) {
-            if(!fileName.isEmpty() && (data->fileName != fileName)) {
-                data->fileName = fileName;
-            }
-
-            //                if(data->fileName==QObject::tr("Unknown"))
-            //                {
-            //                    data->fileName = (fileName.isEmpty()) ?
-            // Global::UNKNOWN : fileName;
-            //                }
-            data->status = status;
-        } else {
-            // data->fileName = (bittorrent_name.isEmpty()) ? Global::UNKNOWN :
-            // bittorrent_name;
-            if(mode == "multi") {
-                filePath = bittorrent_dir + "/" + bittorrent_name;
-            }
-            if((totalLength != 0) && (totalLength == completedLength)) {
-                data->status = Complete;
-                Deal_Notificaiton_Settings("complete", filePath);
-            } else {
-                data->status = status;
-            }
-
-            fileUri = "";
-        }
-        data->percent = percent;
-        data->total = totalLength;
-        if(filePath != "") {
-            data->savePath = filePath;
-        } else {
-            data->savePath = getDownloadSavepathFromConfig();
-        }
-
-        data->url = fileUri;
-        data->time = "";
-
-        if((totalLength != completedLength) && (totalLength != 0) &&
-           (data->status == Global::Status::Active)) {
-            QTime t(0, 0, 0);
-            t = t.addSecs((totalLength - completedLength * 1.0) / downloadSpeed);
-            data->time = t.toString("mm:ss");
-        } else if((totalLength == 0) && (data->status == Global::Status::Active)) {
-            data->time = ("--:--");
-        } else {
-            if(data->time == "") {
-                data->time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-            }
-
-            //              updatetimer->stop();
-        }
-        S_Task  task;
-        S_Task get_task;
-        DBInstance::getTaskByID(data->taskId, get_task);
-        if(get_task.m_task_id != "") {
-            if(get_task.m_url != "") {
-                data->url = get_task.m_url;
-            }
-        }
-
-        m_pDownLoadingTableView->update();
-        m_pDownLoadingTableView->reset();
-        S_Task_Status  task_status;
-        S_Task_Status get_task_status;
-        DBInstance::getTaskStatusById(data->taskId, get_task_status);
-
-        QDateTime get_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
-        S_Task_Status *save_task_status = new S_Task_Status(data->taskId,
-                                                                                data->status,
-                                                                                get_time,
-                                                                                data->completedLength,
-                                                                                data->speed,
-                                                                                data->totalLength,
-                                                                                data->percent,
-                                                                                data->total,
-                                                                                get_time);
-        if(get_task_status.m_task_id != "") {
-            DBInstance::addTaskStatus(*save_task_status);
-        } else {
-            if(get_task_status.m_download_status != data->status) {
-                DBInstance::updateTaskStatusById(*save_task_status);
-            }
-        }
-        refreshTableView(m_iCurrentListviewRow);
-        if((data->status == Complete) && (this->m_searchContent != "")) {
-            slotSearchEditTextChanged(this->m_searchContent);
-        }
+        aria2MethodStatusChanged(json);
     } else if(method == ARIA2C_METHOD_SHUTDOWN) {
-        QString result = json.value("result").toString();
-        if(result == "OK") {
-            m_bShutdownOk = true;
-            qDebug() << "close downloadmanager";
-            this->close();
-            DApplication::exit();
-        }
+        aria2MethodShutdown(json);
     } else if(method == ARIA2C_METHOD_GET_FILES) {
-        QString   id = json.value("id").toString();
-        DataItem *data = m_pDownLoadingTableView->getTableModel()->find(id);
-        if(data == nullptr) {// id等于gid
-            data = new DataItem();
-            QJsonArray  ja = json.value("result").toArray();
-            QJsonObject jo = ja.at(0).toObject();
-            data->totalLength = jo.value("length").toString().toLong(); // 文件大小
-            data->savePath = jo.value("path").toString();               //下载路径，带文件名
-            data->fileName = data->savePath.mid(data->savePath.lastIndexOf('/') + 1);
-            QJsonArray uris = jo.value("uris").toArray();
-            data->url = uris.at(0).toObject().value("uri").toString();  //下载链接
-            data->taskId = id;
-            m_pDownLoadingTableView->getTableModel()->append(data);
-        }
-        m_pDownLoadingTableView->reset();
-        refreshTableView(m_iCurrentListviewRow);
-
-        // aria2c->tellStatus(id);
+        aria2MethodGetFiles(json);
     } else if(method == ARIA2C_METHOD_UNPAUSE) {
-        QString gId = json.value("result").toString();
-        QString taskId = json.value("id").toString();
-
-        DataItem *data = m_pDownLoadingTableView->getTableModel()->find(taskId);
-        if(data != nullptr) {
-            data->status = Global::Status::Active;
-            refreshTableView(m_iCurrentListviewRow);
-        }
+        aria2MethodUnpause(json);
     }
     else if(method == ARIA2C_METHOD_FORCE_REMOVE) {
-        QString id = json.value("id").toString();
-        if(id.startsWith("REDOWNLOAD_")) { // 重新下载前的移除完成后
-            QStringList sp = id.split("_");
-            QString     taskId = sp.at(2);
-            int rd = sp.at(1).toInt();
-            QThread::msleep(500);
-            emit signalRedownload(taskId, rd);
-        }
+        aria2MethodForceRemove(json);
     }
 }
 

@@ -16,13 +16,10 @@
 #include "btinfodialog.h"
 
 DWIDGET_USE_NAMESPACE
+
 /**
-* @file %{CurrentDocument:newtaskwidget.h}
-* @brief 新建任务类
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
-* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
+ * @class newTaskWidget
+ * @brief 新建任务类
 */
 
 class  newTaskWidget :public DDialog
@@ -61,15 +58,8 @@ protected:
      * @param event 拖拽事件
     */
     void dropEvent(QDropEvent *event);
-
-signals:
-    void NewDownload_sig(QString url,QString save_path);
-
 private:
     QString m_savePath;                 //当前保存文件路径
-
-    DTextEdit *m_texturl;               //url文本框
-
 };
 
 

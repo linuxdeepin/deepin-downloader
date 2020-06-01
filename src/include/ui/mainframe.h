@@ -34,6 +34,7 @@ class TopButton;
 class QSystemTrayIcon;
 class SettingsWidget;
 class S_Task;
+class ClipboardTimer;
 /**
  * @class MainFrame
  * @brief 主界面类
@@ -57,7 +58,7 @@ private slots:
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
-    void on_tray_quit_click();
+    void onTrayQuitClick();
     /**
      * @brief 新建任务按钮槽函数
     */
@@ -67,7 +68,7 @@ private slots:
     */
     void onSettingsMenuClicked();
     /**
-     * @brief 处理rpc成功返回的信息
+     * @brief 处理rpc返回的信息
      * @param method: aria2调用的接口名称
      * @param json： 字符串
     */
@@ -85,7 +86,7 @@ private slots:
     /**
      * @brief 剪切板数据改变，需要新建任务
     */
-    void onClipboardDataChanged();
+    void onClipboardDataChanged(QString url);
     /**
      * @brief 切换显示列表
      * @param index 节点
@@ -187,7 +188,7 @@ private:
     /**
      * @brief 显示报警窗口
      */
-    void show_Warning_MsgBox(QString title, int sameurl_count, QList<QString> same_url_list);
+    void showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList);
 
     /**
      * @brief 获取url中的文件名称
@@ -198,7 +199,7 @@ private:
     /**
      * @brief 处理设置界面通知设置函数
      */
-    void Deal_Notificaiton_Settings(QString statusStr, QString fileName);
+    void dealNotificaitonSettings(QString statusStr, QString fileName);
 
     /**
      * @brief 格式化文件大小 （1B1KB1MB1GB）
@@ -217,32 +218,32 @@ private:
     /**
      * @brief aria2下载事件
      */
-    void aria2MethodAdd(QString method, QJsonObject json);
+    void aria2MethodAdd(QJsonObject json);
 
     /**
      * @brief aria2状态改变事件
      */
-    void aria2MethodStatusChanged(QString method, QJsonObject json);
+    void aria2MethodStatusChanged(QJsonObject json);
 
     /**
      * @brief aria2关闭事件
      */
-    void aria2MethodShutdown(QString method, QJsonObject json);
+    void aria2MethodShutdown(QJsonObject json);
 
     /**
      * @brief aria2获取文件事件
      */
-    void aria2MethodGetFiles(QString method, QJsonObject json);
+    void aria2MethodGetFiles(QJsonObject json);
 
     /**
      * @brief aria2继续下载事件
      */
-    void aria2MethodUnpause(QString method, QJsonObject json);
+    void aria2MethodUnpause(QJsonObject json);
 
     /**
      * @brief aria2强制删除事件
      */
-    void aria2MethodForceRemove(QString method, QJsonObject json);
+    void aria2MethodForceRemove(QJsonObject json);
 private:
     enum tableView_flag{
         downloading,recycle
@@ -263,7 +264,7 @@ private:
     QStandardItem *m_pDownloadFinish_item;
     QStandardItem *m_pRecycle_item;
     QSystemTrayIcon *m_pSystemTray;
-    QClipboard *m_pClipboard;
+    ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
     QTimer *m_pUpdatetimer;
     Settings *m_pSettings;
