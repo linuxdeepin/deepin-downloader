@@ -31,7 +31,7 @@ void GroupSelectionWidget::initUI()
     for(int i = 0; i < m_lstItemName.count(); i++)
     {
         ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget;
-        pItemSelectionWidget->setLabelText(tr("%1").arg(m_lstItemName.at(i)));
+        pItemSelectionWidget->setLabelText(m_lstItemName.at(i));
         pItemSelectionWidget->setObjectName(m_lstItemName.at(i));
         connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, this, &GroupSelectionWidget::itemCheckedSlot);
         if(i == 0)

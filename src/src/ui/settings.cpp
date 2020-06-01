@@ -77,8 +77,8 @@ Settings::Settings(QObject *parent) : QObject(parent)
     auto maxDownloadTaskOption = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
     QStringList values;
     QStringList keys;
-    keys << "1" << "2" << "3" << "4" << "5";
-    values << "1个" << "2个" << "3个" << "4个" << "5个";
+    keys << "3" << "5" << "10" << "20";
+    values << "3" << "5" << "10" << "20";
     QMap<QString, QVariant> mapData;
 
     mapData.insert("keys", keys);
@@ -328,7 +328,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget();
-    pItemSelectionWidget->setLabelText("HTTP下载");
+    pItemSelectionWidget->setLabelText(tr("HTTP")); // HTTP下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
     QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
@@ -352,7 +352,7 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget();
-    pItemSelectionWidget->setLabelText("BT下载");
+    pItemSelectionWidget->setLabelText(tr("BitTorrent")); // BT下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
     QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
@@ -376,7 +376,7 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget();
-    pItemSelectionWidget->setLabelText("磁力链接下载");
+    pItemSelectionWidget->setLabelText(tr("Magnet URI scheme")); // 磁力链接下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
     QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
@@ -452,7 +452,7 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QStringList lstItemName;
-    lstItemName << "128"  << "256"  << "512";
+    lstItemName << tr("128")  << tr("256")  << tr("512");
 
     QString strCurrentSelected = option->value().toString();
     if(strCurrentSelected.isEmpty())
@@ -464,7 +464,7 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     }
 
     GroupSelectionWidget *pGroupSelectionWidget = new GroupSelectionWidget(lstItemName);
-    pGroupSelectionWidget->setLabelText("磁盘缓存越大，下载速度越快，占用电脑资源越多");
+    pGroupSelectionWidget->setLabelText(tr("More disk cache, faster download speed and more computer consume")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
     pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
 
     QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pGroupSelectionWidget);
