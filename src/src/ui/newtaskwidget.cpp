@@ -1,12 +1,13 @@
 #include "newtaskwidget.h"
 
-newTaskWidget::newTaskWidget(QString path, DDialog *parent):
-    m_savePath(path),
+newTaskWidget::newTaskWidget(DDialog *parent):
     DDialog(parent)
 {
-    m_savePath = QCoreApplication::applicationDirPath();
+    m_savePath = Settings::getInstance()->getDownloadSavePath();
     initUi();
-
+    MessageBox *_m = new MessageBox();
+    _m->setReName("rename","cancel", "ok", "111");
+    _m->exec();
 }
 
 newTaskWidget::~newTaskWidget()
@@ -103,7 +104,7 @@ void newTaskWidget::openfileDialog()
 
 void newTaskWidget::onCancelBtnClicked()
 {
-    this->close();
+    this->hide();
 }
 
 void newTaskWidget::onSureBtnClicked()
@@ -129,7 +130,7 @@ void newTaskWidget::onSureBtnClicked()
     file.close();
 
     emit NewDownload_sig(_strUrl,m_savePath);
-    this->close();
+    this->hide();
 }
 
 void newTaskWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -184,4 +185,10 @@ void newTaskWidget::dropEvent(QDropEvent *event)
         }
        }
     }
+}
+
+void newTaskWidget::setUrlEidt(QString url)
+{
+    m_texturl->clear();
+    m_texturl->setText(url);
 }

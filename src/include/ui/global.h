@@ -69,7 +69,13 @@ namespace Global {
         Active = 0, Waiting, Paused, Error, Complete, Removed,Lastincomplete
     };
     enum Msgbox_type{
-        NewDownloding=0, Warnings,Delete,ReDownload,ReName,Clear,RepeatDownload
+        NewDownloding=0,
+        Warnings = 1,
+        Delete = 2,
+        ReDownload = 3,
+        ReName = 4 ,
+        Clear = 5 ,
+        RepeatDownload = 6
     };
 
 

@@ -14,6 +14,8 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include "btinfodialog.h"
+#include "settings.h"
+#include "messagebox.h"
 
 DWIDGET_USE_NAMESPACE
 /**
@@ -29,8 +31,14 @@ class  newTaskWidget :public DDialog
 {
     Q_OBJECT
 public:
-    explicit newTaskWidget(QString path, DDialog *parent=0);
+    explicit newTaskWidget(DDialog *parent=0);
     ~newTaskWidget();
+
+    /**
+     * @brief 设置url框内容
+     * @param url
+    */
+    void setUrlEidt(QString url);
 private:
     /**
      * @brief 初始化ui
