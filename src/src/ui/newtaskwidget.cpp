@@ -1,10 +1,9 @@
 #include "newtaskwidget.h"
 
-newTaskWidget::newTaskWidget(QString path, DDialog *parent):
-    m_savePath(path),
+newTaskWidget::newTaskWidget(DDialog *parent):
     DDialog(parent)
 {
-
+    m_savePath = Settings::getInstance()->getDownloadSavePath();
     initUi();
 
 }
@@ -30,16 +29,16 @@ void newTaskWidget::initUi()
     _msgLab->setText(_msg);
     this->addContent(_msgLab,Qt::AlignHCenter);
     this->addSpacing(15);
-    DTextEdit *_textUrl= new DTextEdit(this);
+    m_texturl= new DTextEdit(this);
 
-    _textUrl->setReadOnly(false);
-    _textUrl->setAcceptDrops(false);
-    _textUrl->setPlaceholderText(tr("please input download address or drag file to here"));
-    _textUrl->setFixedSize(QSize(454,154));
+    m_texturl->setReadOnly(false);
+    m_texturl->setAcceptDrops(false);
+    m_texturl->setPlaceholderText(tr("please input download address or drag file to here"));
+    m_texturl->setFixedSize(QSize(454,154));
     QPalette _pal;
     _pal.setColor(QPalette::Base, QColor(0,0,0,20));
-    _textUrl->setPalette(_pal);
-    this->addContent(_textUrl);
+    m_texturl->setPalette(_pal);
+    this->addContent(m_texturl);
     this->addSpacing(15);
 
 
@@ -87,29 +86,49 @@ void newTaskWidget::initUi()
 void newTaskWidget::openfileDialog()
 {
     QString _btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "File(*.torrent)");
-  //  if(_btFile != "") {
+    if(_btFile != "") {
         BtInfoDialog *_dialog = new BtInfoDialog(_btFile,m_savePath);//torrent文件路径
         if(_dialog->exec() == QDialog::Accepted) {
             QMap<QString,QVariant> opt;
-//            opt.insert("dir",dialog->getSaveto());
-//            opt.insert("select-file",dialog->getSelected());
-//            QString infoName=dialog->getName();
-//            QString infoHash=dialog->getBtInfo().infoHash;
-//            emit DownloadTorrent_sig(file,opt,infoName,infoHash);
-              this->close();
+            QString _infoName;
+            QString _infoHash;
+            _dialog->getBtInfo(opt, _infoName, _infoHash);
+            emit newDownLoadTorrent(_btFile,opt,_infoName,_infoHash);
+            this->close();
         }
         delete _dialog;
-//    }
+    }
 }
 
 void newTaskWidget::onCancelBtnClicked()
 {
-
+    this->close();
 }
 
 void newTaskWidget::onSureBtnClicked()
 {
+    QString _strUrl = m_texturl->toPlainText();
+    if(_strUrl.isEmpty())
+    {
+        qDebug()<<"url is NUll";
+        return;
+    }
+    //将当前保存路径，放入配置文件中
+    QString config_path=QString("%1/%2/%3/last_save_path")
+            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+            .arg(qApp->organizationName())
+            .arg(qApp->applicationName());
+    QFile file;
+    file.setFileName(config_path);
+    bool isOK = file.open(QIODevice::WriteOnly);
+    if (isOK == true)
+    {
+        file.write(m_savePath.toStdString().data());
+    }
+    file.close();
 
+    emit NewDownload_sig(_strUrl,m_savePath);
+    this->close();
 }
 
 void newTaskWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -145,18 +164,17 @@ void newTaskWidget::dropEvent(QDropEvent *event)
             {
                 fileName=fileName.right(fileName.length()-6);
 
-                BtInfoDialog *dialog = new BtInfoDialog(fileName,m_savePath);//torrent文件路径
-                int ret = dialog->exec();
+                BtInfoDialog *_dialog = new BtInfoDialog(fileName,m_savePath);//torrent文件路径
+                int ret = _dialog->exec();
                 if(ret == QDialog::Accepted) {
                     QMap<QString,QVariant> opt;
-                    opt.insert("dir",dialog->getSaveto());
-                    opt.insert("select-file",dialog->getSelected());
-                    QString infoName=dialog->getName();
-                   // QString infoHash=dialog->getBtInfo().infoHash;
-                   // emit DownloadTorrent_sig(fileName,opt,infoName,infoHash);
+                    QString _infoName;
+                    QString _infoHash;
+                    _dialog->getBtInfo(opt, _infoName, _infoHash);
+                    emit newDownLoadTorrent(fileName,opt,_infoName,_infoHash);
                     this->close();
                 }
-                delete dialog;
+                delete _dialog;
              }
             else
             {
@@ -165,4 +183,10 @@ void newTaskWidget::dropEvent(QDropEvent *event)
         }
        }
     }
+}
+
+void newTaskWidget::setUrl(QString url)
+{
+    m_texturl->clear();
+    m_texturl->setText(url);
 }
