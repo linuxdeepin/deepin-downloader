@@ -1,3 +1,12 @@
+/**
+* @file btinfodialog.h
+* @brief BT窗口类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date 2020-06-01 16:00
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #ifndef BTINFODIALOG_H
 #define BTINFODIALOG_H
 
@@ -16,20 +25,10 @@
 #include <QStandardPaths>
 #include "dfilechooseredit.h"
 #include "aria2cbtinfo.h"
-
+#include "aria2rpcinterface.h"
 #include "btinfotableview.h"
 
-
 DWIDGET_USE_NAMESPACE
-
-/**
-* @file %{CurrentDocument:btinfodialog.h}
-* @brief BT窗口类
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
-* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
-*/
 
 class BtInfoDialog : public DDialog
 {
@@ -67,6 +66,14 @@ public:
      * @return
      */
     int exec() override;
+
+    /**
+     * @brief getUrlInfo 获取bt信息
+     * @param opt bt基本信息
+     * @param infoName 文件名字
+     * @param infoHash 文件hash值
+     */
+    void getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash);
 
 private:
     void initUI();//初始化UI

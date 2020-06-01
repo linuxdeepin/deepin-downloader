@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     CheckFreeDisk();
     //创建新日志
     CreateNewLog();
-    qInstallMessageHandler(customLogMessageHandler);
+    //qInstallMessageHandler(customLogMessageHandler);
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;

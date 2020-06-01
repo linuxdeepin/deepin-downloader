@@ -1,10 +1,9 @@
 #include "newtaskwidget.h"
 
-newTaskWidget::newTaskWidget(QString path, DDialog *parent):
-    m_savePath(path),
+newTaskWidget::newTaskWidget(DDialog *parent):
     DDialog(parent)
 {
-    m_savePath = QCoreApplication::applicationDirPath();
+    m_savePath = Settings::getInstance()->getDownloadSavePath();
     initUi();
 
 }
@@ -87,19 +86,18 @@ void newTaskWidget::initUi()
 void newTaskWidget::openfileDialog()
 {
     QString _btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "File(*.torrent)");
-  //  if(_btFile != "") {
+    if(_btFile != "") {
         BtInfoDialog *_dialog = new BtInfoDialog(_btFile,m_savePath);//torrent文件路径
         if(_dialog->exec() == QDialog::Accepted) {
             QMap<QString,QVariant> opt;
-//            opt.insert("dir",dialog->getSaveto());
-//            opt.insert("select-file",dialog->getSelected());
-//            QString infoName=dialog->getName();
-//            QString infoHash=dialog->getBtInfo().infoHash;
-//            emit DownloadTorrent_sig(file,opt,infoName,infoHash);
-              this->close();
+            QString _infoName;
+            QString _infoHash;
+            _dialog->getBtInfo(opt, _infoName, _infoHash);
+            emit newDownLoadTorrent(_btFile,opt,_infoName,_infoHash);
+            this->close();
         }
         delete _dialog;
-//    }
+    }
 }
 
 void newTaskWidget::onCancelBtnClicked()
@@ -166,18 +164,17 @@ void newTaskWidget::dropEvent(QDropEvent *event)
             {
                 fileName=fileName.right(fileName.length()-6);
 
-                BtInfoDialog *dialog = new BtInfoDialog(fileName,m_savePath);//torrent文件路径
-                int ret = dialog->exec();
+                BtInfoDialog *_dialog = new BtInfoDialog(fileName,m_savePath);//torrent文件路径
+                int ret = _dialog->exec();
                 if(ret == QDialog::Accepted) {
                     QMap<QString,QVariant> opt;
-                    opt.insert("dir",dialog->getSaveto());
-                    opt.insert("select-file",dialog->getSelected());
-                    QString infoName=dialog->getName();
-                   // QString infoHash=dialog->getBtInfo().infoHash;
-                   // emit DownloadTorrent_sig(fileName,opt,infoName,infoHash);
+                    QString _infoName;
+                    QString _infoHash;
+                    _dialog->getBtInfo(opt, _infoName, _infoHash);
+                    emit newDownLoadTorrent(fileName,opt,_infoName,_infoHash);
                     this->close();
                 }
-                delete dialog;
+                delete _dialog;
              }
             else
             {
@@ -186,4 +183,10 @@ void newTaskWidget::dropEvent(QDropEvent *event)
         }
        }
     }
+}
+
+void newTaskWidget::setUrl(QString url)
+{
+    m_texturl->clear();
+    m_texturl->setText(url);
 }

@@ -1,3 +1,12 @@
+/**
+* @file newtaskwidget.h
+* @brief 新建任务类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date 2020-06-01 16:01
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #ifndef NEWTASKWIDGET_H
 #define NEWTASKWIDGET_H
 
@@ -14,23 +23,18 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include "btinfodialog.h"
+#include "settings.h"
 
 DWIDGET_USE_NAMESPACE
-/**
-* @file %{CurrentDocument:newtaskwidget.h}
-* @brief 新建任务类
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
-* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
-*/
 
 class  newTaskWidget :public DDialog
 {
     Q_OBJECT
 public:
-    explicit newTaskWidget(QString path, DDialog *parent=0);
+    explicit newTaskWidget(DDialog *parent=0);
     ~newTaskWidget();
+
+    void setUrl(QString url);
 private:
     /**
      * @brief 初始化ui
@@ -64,6 +68,7 @@ protected:
 
 signals:
     void NewDownload_sig(QString url,QString save_path);
+    void newDownLoadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
 
 private:
     QString m_savePath;                 //当前保存文件路径
