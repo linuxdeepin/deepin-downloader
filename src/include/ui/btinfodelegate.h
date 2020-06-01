@@ -1,3 +1,12 @@
+/**
+* @file btinfodelegate.h
+* @brief bt窗口中表格item代理类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date 2020-06-01 16:00
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #ifndef BTINFODELEGATE_H
 #define BTINFODELEGATE_H
 
@@ -11,15 +20,6 @@
 #include <QDir>
 
 DWIDGET_USE_NAMESPACE
-
-/**
-* @file %{CurrentDocument:btinfodelegate.h}
-* @brief bt窗口中表格item代理类
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
-* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
-*/
 
 class BtInfoDelegate : public QStyledItemDelegate
 {
