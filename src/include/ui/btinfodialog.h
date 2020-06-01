@@ -16,7 +16,7 @@
 #include <QStandardPaths>
 #include "dfilechooseredit.h"
 #include "aria2cbtinfo.h"
-
+#include "aria2rpcinterface.h"
 #include "btinfotableview.h"
 
 
@@ -67,6 +67,14 @@ public:
      * @return
      */
     int exec() override;
+
+    /**
+     * @brief getUrlInfo 获取bt信息
+     * @param opt bt基本信息
+     * @param infoName 文件名字
+     * @param infoHash 文件hash值
+     */
+    void getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash);
 
 private:
     void initUI();//初始化UI

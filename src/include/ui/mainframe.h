@@ -104,6 +104,19 @@ private slots:
      * @param savePath 保存路径
     */
     void getNewDowloadUrl(QString url, QString savePath);
+
+
+    /**
+     * @brief 收到新建任务orrent
+     * @param btName 文件路径
+     * @param opt  下载参数
+     * opt.insert("dir",下载到指定目录);
+     × opt.insert("select-file",选中下载的文件索引集合);
+     * @param savePath 保存路径
+     * @param infoName 文件名字
+     * @param infoName 文件hash值
+    */
+    void getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
     /**
      * @brief 表头状态改变
      * @param  i：节点
