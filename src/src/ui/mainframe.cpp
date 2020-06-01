@@ -167,9 +167,9 @@ void MainFrame::init()
     m_pLeft_list->setFont(font);
     QStandardItemModel* pLeftList_model = new QStandardItemModel(this);
 
-    m_pDownloading_item = new QStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("download"));
-    m_pDownloadFinish_item = new QStandardItem(QIcon::fromTheme("dcc_print_done"), tr("finish"));
-    m_pRecycle_item = new QStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("recycle"));
+    m_pDownloading_item = new QStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
+    m_pDownloadFinish_item = new QStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
+    m_pRecycle_item = new QStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
     m_pDownloading_item->setBackground(QColor(255, 255, 255));
     m_pDownloadFinish_item->setBackground(QColor(255, 255, 255));
     m_pRecycle_item->setBackground(QColor(255, 255, 255));
