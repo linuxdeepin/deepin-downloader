@@ -54,30 +54,87 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="311"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="307"/>
         <source>Selected Files:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/btinfodialog.cpp" line="311"/>
+        <location filename="../src/src/ui/btinfodialog.cpp" line="307"/>
         <source>,Total </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadSettingWidget</name>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="24"/>
+        <source>全速下载</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="25"/>
+        <source>限速下载</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="30"/>
+        <source>最大下载限速</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="31"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="37"/>
+        <source>KB/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="32"/>
+        <source>(100-102400)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="33"/>
+        <source>10240</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="36"/>
+        <source>最大上传限速</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="38"/>
+        <source>(16-5120)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="39"/>
+        <source>32</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GroupSelectionWidget</name>
+    <message>
+        <location filename="../src/src/ui/groupselectionwidget.cpp" line="34"/>
+        <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ItemDelegate</name>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="200"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="207"/>
         <source>paused</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="212"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="219"/>
         <source>download error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="218"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="225"/>
         <source>Surplus </source>
         <translation type="unfinished"></translation>
     </message>
@@ -93,94 +150,231 @@
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="135"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="146"/>
         <source>0 task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="51"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="62"/>
         <source>setting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="119"/>
         <source>current no task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="118"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="129"/>
         <source>you can click button to start new task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="160"/>
-        <source>download</source>
+        <location filename="../src/src/ui/mainframe.cpp" line="171"/>
+        <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="161"/>
-        <source>finish</source>
+        <location filename="../src/src/ui/mainframe.cpp" line="172"/>
+        <source>Completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="162"/>
-        <source>recycle</source>
+        <location filename="../src/src/ui/mainframe.cpp" line="173"/>
+        <source>Trash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="190"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="203"/>
         <source>下载器</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="192"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="205"/>
         <source>显示主界面</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="194"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="206"/>
         <source>新建任务</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="195"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="207"/>
         <source>开始全部任务</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="196"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="208"/>
         <source>暂停全部任务</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="213"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="209"/>
         <source>退出</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="454"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="459"/>
         <source> item tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="470"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="484"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="475"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="489"/>
         <source> files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="544"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="625"/>
         <source>current no download finish task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="548"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="630"/>
         <source>current no download task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="555"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="637"/>
         <source>current no delete files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="901"/>
+        <source>start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="907"/>
+        <source>pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="913"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="970"/>
+        <source>Redownload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="921"/>
+        <source>return to origin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="927"/>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="932"/>
+        <source>Open folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="962"/>
+        <source>rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="975"/>
+        <source>Copy Download Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="981"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="986"/>
+        <source>Delete permanently</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="991"/>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1236"/>
+        <source>has </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1236"/>
+        <source> the same download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1685"/>
+        <source> download error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1687"/>
+        <source> download complete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageBox</name>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="12"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="47"/>
+        <source>Are you soure to delete this download task?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="49"/>
+        <source>After deleting,the local file will be deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="56"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="76"/>
+        <source>delete local file at the same time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="59"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="77"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="62"/>
+        <source>Delete permanently</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="65"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="78"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="73"/>
+        <source>Are you soure to clear all tasks in recycle bin?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="86"/>
+        <source>rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <source>file name can not containts &apos;\&apos; or &apos;/&apos; </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -230,75 +424,6 @@
     <message>
         <location filename="../src/src/downloadmanager/main.cpp" line="22"/>
         <source>This is a download manage application.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Settings</name>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="186"/>
-        <source>The larger the disk cache, the faster the download speed 
- and the more computer resources are consumed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="282"/>
-        <location filename="../src/src/ui/settings.cpp" line="286"/>
-        <source>Max download num</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="282"/>
-        <location filename="../src/src/ui/settings.cpp" line="286"/>
-        <source>individual</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="282"/>
-        <location filename="../src/src/ui/settings.cpp" line="286"/>
-        <source>(1-20)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="329"/>
-        <location filename="../src/src/ui/settings.cpp" line="334"/>
-        <source>Max download speed limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="329"/>
-        <location filename="../src/src/ui/settings.cpp" line="334"/>
-        <location filename="../src/src/ui/settings.cpp" line="372"/>
-        <location filename="../src/src/ui/settings.cpp" line="376"/>
-        <source>KB/s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="329"/>
-        <location filename="../src/src/ui/settings.cpp" line="334"/>
-        <source>(100-102400)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="372"/>
-        <location filename="../src/src/ui/settings.cpp" line="376"/>
-        <source>Max upload speed limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="372"/>
-        <location filename="../src/src/ui/settings.cpp" line="376"/>
-        <source>(16-5120)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="441"/>
-        <source>Speed limit period</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings.cpp" line="441"/>
-        <source>To</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -364,33 +489,33 @@
 <context>
     <name>newTaskWidget</name>
     <message>
-        <location filename="../src/src/ui/newtaskwidget.cpp" line="25"/>
+        <location filename="../src/src/ui/newtaskwidget.cpp" line="24"/>
         <source>New download task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/newtaskwidget.cpp" line="27"/>
+        <location filename="../src/src/ui/newtaskwidget.cpp" line="26"/>
         <source>When you add multiple download links, 
  please make sure each row has one link.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/newtaskwidget.cpp" line="37"/>
+        <location filename="../src/src/ui/newtaskwidget.cpp" line="36"/>
         <source>please input download address or drag file to here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/newtaskwidget.cpp" line="68"/>
+        <location filename="../src/src/ui/newtaskwidget.cpp" line="67"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/newtaskwidget.cpp" line="75"/>
+        <location filename="../src/src/ui/newtaskwidget.cpp" line="74"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/newtaskwidget.cpp" line="89"/>
+        <location filename="../src/src/ui/newtaskwidget.cpp" line="88"/>
         <source>Choose Torrent File</source>
         <translation type="unfinished"></translation>
     </message>
