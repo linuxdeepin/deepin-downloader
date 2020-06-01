@@ -1,3 +1,12 @@
+/**
+* @file btinfotableview.h
+* @brief BT窗口中tableview类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date 2020-06-01 16:00
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #ifndef BTINFOTABLEVIEW_H
 #define BTINFOTABLEVIEW_H
 
@@ -5,16 +14,6 @@
 #include <DHeaderView>
 
 DWIDGET_USE_NAMESPACE
-
-/**
-* @file %{CurrentDocument:btinfotableview.h}
-* @brief BT窗口中tableview类
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
-* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
-*/
-
 
 class BtInfoTableView : public DTableView
 {

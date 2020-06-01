@@ -1,14 +1,18 @@
+/**
+* @file clipboardtimer.h
+* @brief 剪切板托管类
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date 2020-06-01 16:01
+* @copyright 2020-2020 Uniontech Technology Co., Ltd.
+*/
+
 #ifndef CLIPBOARDTIMER_H
 #define CLIPBOARDTIMER_H
 #include <DObject>
 #include <QClipboard>
 #include <QObject>
 #include <QApplication>
-
-/**
- * @class ClipboardTimer
- * @brief 剪切板托管类
-*/
 
 class ClipboardTimer : public QObject
 {
