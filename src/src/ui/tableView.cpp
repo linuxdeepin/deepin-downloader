@@ -22,7 +22,7 @@ TableView::TableView(int Flag)
 {
     m_iTableFlag=Flag;
     initUI();
-    setTestData();
+    //setTestData();
 }
 void TableView::initUI()
 {
