@@ -15,7 +15,6 @@
 #include <QMimeData>
 #include "btinfodialog.h"
 #include "settings.h"
-#include "messagebox.h"
 
 DWIDGET_USE_NAMESPACE
 /**
@@ -34,11 +33,7 @@ public:
     explicit newTaskWidget(DDialog *parent=0);
     ~newTaskWidget();
 
-    /**
-     * @brief 设置url框内容
-     * @param url
-    */
-    void setUrlEidt(QString url);
+    void setUrl(QString url);
 private:
     /**
      * @brief 初始化ui

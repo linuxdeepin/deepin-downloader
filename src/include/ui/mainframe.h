@@ -34,6 +34,7 @@ class TopButton;
 class QSystemTrayIcon;
 class SettingsWidget;
 class S_Task;
+class ClipboardTimer;
 /**
  * @class MainFrame
  * @brief 主界面类
@@ -57,7 +58,7 @@ private slots:
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
-    void on_tray_quit_click();
+    void onTrayQuitClick();
     /**
      * @brief 新建任务按钮槽函数
     */
@@ -67,17 +68,25 @@ private slots:
     */
     void onSettingsMenuClicked();
     /**
-     * @brief 处理rpc成功返回的信息
+     * @brief 处理rpc返回的信息
+     * @param method: aria2调用的接口名称
+     * @param json： 字符串
     */
-    void slotRPCSuccess(QString method, QJsonObject json);
+    void slotRpcSuccess(QString method, QJsonObject json);
+
+
     /**
-     * @brief 处理返回的错误信息
+     * @brief 处理rpc返回错误的信息
+     * @param method: aria2调用的接口名称
+     * @param id： 唯一id
+     * @param error： 错误号
     */
-    void slotRPCError(QString method, QString id, int);
+    void slotRpcError(QString method, QString id, int error);
+
     /**
      * @brief 剪切板数据改变，需要新建任务
     */
-    void onClipboardDataChanged();
+    void onClipboardDataChanged(QString url);
     /**
      * @brief 切换显示列表
      * @param index 节点
@@ -124,6 +133,12 @@ private slots:
     */
     void slotSearchEditTextChanged(QString text);
 
+    /**
+     * @brief 开始下载新任务槽函数
+     *  @param url： 地址
+     *  @param savepath： 保存路径
+    */
+    void getNewdowloadSlot(QString url, QString savepath);
 private:
 
     /**
@@ -146,7 +161,7 @@ private:
     /**
      * @brief 初始化三个列表，读数据库
     */
-    void init_tableData();
+    void initTabledata();
     /**
      * @brief 刷新列表
      * @param index 节点
@@ -183,6 +198,65 @@ private:
      */
     void clearTableItemCheckStatus();
 
+    /**
+     * @brief 显示报警窗口
+     */
+    void showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList);
+
+    /**
+     * @brief 获取url中的文件名称
+     * @param url 下载地址
+     */
+    QString getFileName(const QString &url);
+
+    /**
+     * @brief 处理设置界面通知设置函数
+     */
+    void dealNotificaitonSettings(QString statusStr, QString fileName);
+
+    /**
+     * @brief 格式化文件大小 （1B1KB1MB1GB）
+     */
+    QString formatFileSize(long size);
+    /**
+     * @brief 格式化下载速度（1B1KB1MB1GB  /S）
+     */
+    QString formatDownloadSpeed(long size);
+
+    /**
+     * @brief 从配置文件中获取下载路径
+     */
+    QString   getDownloadSavepathFromConfig();
+
+    /**
+     * @brief aria2下载事件
+     */
+    void aria2MethodAdd(QJsonObject json);
+
+    /**
+     * @brief aria2状态改变事件
+     */
+    void aria2MethodStatusChanged(QJsonObject json);
+
+    /**
+     * @brief aria2关闭事件
+     */
+    void aria2MethodShutdown(QJsonObject json);
+
+    /**
+     * @brief aria2获取文件事件
+     */
+    void aria2MethodGetFiles(QJsonObject json);
+
+    /**
+     * @brief aria2继续下载事件
+     */
+    void aria2MethodUnpause(QJsonObject json);
+
+    /**
+     * @brief aria2强制删除事件
+     */
+    void aria2MethodForceRemove(QJsonObject json);
 private:
     enum tableView_flag{
         downloading,recycle
@@ -203,9 +277,9 @@ private:
     QStandardItem *m_pDownloadFinish_item;
     QStandardItem *m_pRecycle_item;
     QSystemTrayIcon *m_pSystemTray;
-    QClipboard *m_pClipboard;
+    ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
-
+    QTimer *m_pUpdatetimer;
     Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
@@ -213,10 +287,13 @@ private:
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
     QString m_searchContent;
+    bool m_bShutdownOk = false;
 signals:
      void switchTableSignal();
      void tableChanged(int index);
 
+     void signalAutoDownloadBt(QString btFilePath);
+     void signalRedownload(QString taskId, int rd);
 };
 
 #endif // MAINFRAME_H

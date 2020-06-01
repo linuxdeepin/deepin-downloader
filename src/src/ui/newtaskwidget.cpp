@@ -5,9 +5,7 @@ newTaskWidget::newTaskWidget(DDialog *parent):
 {
     m_savePath = Settings::getInstance()->getDownloadSavePath();
     initUi();
-    MessageBox *_m = new MessageBox();
-    _m->setReName("rename","cancel", "ok", "111");
-    _m->exec();
+
 }
 
 newTaskWidget::~newTaskWidget()
@@ -104,7 +102,7 @@ void newTaskWidget::openfileDialog()
 
 void newTaskWidget::onCancelBtnClicked()
 {
-    this->hide();
+    this->close();
 }
 
 void newTaskWidget::onSureBtnClicked()
@@ -130,7 +128,7 @@ void newTaskWidget::onSureBtnClicked()
     file.close();
 
     emit NewDownload_sig(_strUrl,m_savePath);
-    this->hide();
+    this->close();
 }
 
 void newTaskWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -187,7 +185,7 @@ void newTaskWidget::dropEvent(QDropEvent *event)
     }
 }
 
-void newTaskWidget::setUrlEidt(QString url)
+void newTaskWidget::setUrl(QString url)
 {
     m_texturl->clear();
     m_texturl->setText(url);
