@@ -18,6 +18,8 @@
 #include <QJsonDocument>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
+#include <QCryptographicHash>
+
 
 class Aria2RPCInterface : public QObject
 {
@@ -310,6 +312,13 @@ public:
      *
      */
     void setUploadLimitSpeed(QString UploadlimitSpeed);
+
+    /**
+     * @brief getBtToMetalink bt文件转磁力链
+     * @param strFileName bt文件名
+     *
+     */
+    QString getBtToMetalink(QString strFilePath);
 
 private:
     /**

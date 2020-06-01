@@ -646,3 +646,26 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
     }
     return free.toLong();
 }
+
+QString Aria2RPCInterface::getBtToMetalink(QString strFilePath)
+{
+
+    QString strMetaLink = "";//磁力链
+
+
+    QFile file(strFilePath); //strFilePath文件的绝对路径
+    if(file.open(QIODevice::ReadOnly)) //只读方式打开
+    {
+        QCryptographicHash hash(QCryptographicHash::Sha1);
+        if(!file.atEnd())
+        {
+            hash.addData(file.readAll());
+            QString  stHashValue;
+            stHashValue.append(hash.result().toHex());
+            return stHashValue;
+        }
+    }
+
+
+    return  strMetaLink;
+}
