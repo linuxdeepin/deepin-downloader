@@ -43,7 +43,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/itemselectionwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settinginfoinputwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings.h
-
+    ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
 )
 
 
@@ -79,9 +79,10 @@ add_library(ui SHARED
        itemselectionwidget.cpp
        settinginfoinputwidget.cpp
        settings.cpp
+       messagebox.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
- #      ${QM_FILES}
+       ${QM_FILES}
 )
 
 #依赖库
