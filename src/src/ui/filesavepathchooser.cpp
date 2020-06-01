@@ -27,8 +27,8 @@ FileSavePathChooser::FileSavePathChooser(int nCurrentSelect, const QString &strD
 void FileSavePathChooser::initUI()
 {
     m_pFileChooserEdit = new DFileChooserEdit;
-    m_pAutoLastPathRadioButton = new DRadioButton("自动修改为上次使用的目录");
-    m_pCustomsPathRadioButton = new DRadioButton("设置默认目录");
+    m_pAutoLastPathRadioButton = new DRadioButton(tr("Automatically changes to the last used directory")); // 自动修改为上次使用的目录
+    m_pCustomsPathRadioButton = new DRadioButton(tr("Default directory")); // 设置默认目录
     m_pFileChooserEdit->lineEdit()->setReadOnly(true);
     m_pFileChooserEdit->lineEdit()->setClearButtonEnabled(false);
     m_pFileChooserEdit->setFileMode(QFileDialog::FileMode::DirectoryOnly);
