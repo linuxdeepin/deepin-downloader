@@ -10,7 +10,8 @@
 
 #include <QHBoxLayout>
 
-SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent) : QWidget(parent)
+SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent)
+    : QWidget(parent)
 {
     initUI();
     initConnections();
@@ -68,7 +69,7 @@ void SettingInfoInputWidget::setLineEditIsDisabled(bool bIsDisabled)
     m_pLineEdit->setDisabled(bIsDisabled);
 }
 
-void SettingInfoInputWidget::setValid(int nMinValid ,int nMaxValid)
+void SettingInfoInputWidget::setValid(int nMinValid, int nMaxValid)
 {
     QIntValidator *validator = new QIntValidator(nMinValid, nMaxValid, this);
     m_pLineEdit->lineEdit()->setValidator(validator);
@@ -80,4 +81,3 @@ QString SettingInfoInputWidget::getLineEditText()
 
     return strText;
 }
-

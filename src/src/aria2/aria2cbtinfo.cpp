@@ -7,10 +7,8 @@
 * @copyright 2020-2020Uniontech Technology Co., Ltd.
 */
 
-
 #include "aria2cbtinfo.h"
 
 Aria2cBtInfo::Aria2cBtInfo()
 {
-
 }

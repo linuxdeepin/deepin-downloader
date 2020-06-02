@@ -18,16 +18,17 @@
 #include "itemDelegate.h"
 
 TableView::TableView(int Flag)
-    :QTableView (), m_pTableModel(new TableModel(Flag))
+    : QTableView()
+    , m_pTableModel(new TableModel(Flag))
 {
-    m_iTableFlag=Flag;
+    m_iTableFlag = Flag;
     initUI();
     //setTestData();
 }
 void TableView::initUI()
 {
     setModel(m_pTableModel);
-    m_pItemdegegate= new ItemDelegate(this,Table_Flag);
+    m_pItemdegegate = new ItemDelegate(this, Table_Flag);
     setItemDelegate(m_pItemdegegate);
     setFrameShape(QFrame::NoFrame);
     setMinimumWidth(636);
@@ -36,7 +37,6 @@ void TableView::initUI()
     //this->setMaximumWidth(2000);
     verticalHeader()->hide();
     //this->verticalHeader()->setDefaultSectionSize(56);
-
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -48,11 +48,11 @@ void TableView::initUI()
 
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-    HeaderView *pHeaderView = new  HeaderView(Qt::Horizontal,this);
+    HeaderView *pHeaderView = new HeaderView(Qt::Horizontal, this);
     setHorizontalHeader(pHeaderView);
     pHeaderView->setDefaultSectionSize(20);
     pHeaderView->setSortIndicatorShown(false);
-    pHeaderView->setDefaultAlignment( Qt::AlignVCenter|Qt::AlignLeft);
+    pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     pHeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
     pHeaderView->setSectionResizeMode(1, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
@@ -60,20 +60,17 @@ void TableView::initUI()
     pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
     setColumnWidth(0, 20);
 
-    connect(pHeaderView,&HeaderView::get_stateChanged,this,&TableView::header_stateChanged);
-    connect(this,&TableView::clear_header_check,pHeaderView,&HeaderView::get_clear_header_check);
-    connect(m_pTableModel,&TableModel::tableView_allChecked_or_allUnchecked,this,&TableView::get_tableview_allchecked);
-    connect(this,&TableView::get_tableview_allchecked,pHeaderView,&HeaderView::get_checkall_signals);
+    connect(pHeaderView, &HeaderView::get_stateChanged, this, &TableView::header_stateChanged);
+    connect(this, &TableView::clear_header_check, pHeaderView, &HeaderView::get_clear_header_check);
+    connect(m_pTableModel, &TableModel::tableView_allChecked_or_allUnchecked, this, &TableView::get_tableview_allchecked);
+    connect(this, &TableView::get_tableview_allchecked, pHeaderView, &HeaderView::get_checkall_signals);
     connect(this, &TableView::signal_hoverChanged, m_pItemdegegate, &ItemDelegate::slot_hoverChanged);
-
 }
 void TableView::initConnections()
 {
-
 }
 void TableView::initTableView()
 {
-
 }
 
 void TableView::setTestData()
@@ -91,36 +88,30 @@ void TableView::setTestData()
     setRowHidden(dtModel->rowCount(QModelIndex()), true);
 }
 
-
-
-
 void TableView::reset(bool switched)
 {
-    QModelIndex idx= this->selectionModel()->currentIndex();
-    int size=QTableView::verticalScrollBar()->value();
+    QModelIndex idx = this->selectionModel()->currentIndex();
+    int size = QTableView::verticalScrollBar()->value();
     QTableView::reset();
 
     this->selectRow(idx.row());
-    if(switched)
-        size=0;
+    if (switched)
+        size = 0;
     QTableView::verticalScrollBar()->setValue(size);
 }
 
 void TableView::mousePressEvent(QMouseEvent *event)
 {
-    if(event->button()==Qt::LeftButton)
-    {
-
-          setCurrentIndex(QModelIndex());
-           QTableView::mousePressEvent(event);
-           QModelIndex index=currentIndex();
-           if(index.row()<0&&index.column()<0)
-               return;
+    if (event->button() == Qt::LeftButton) {
+        setCurrentIndex(QModelIndex());
+        QTableView::mousePressEvent(event);
+        QModelIndex index = currentIndex();
+        if (index.row() < 0 && index.column() < 0)
+            return;
     }
-
 }
 
-TableModel* TableView::getTableModel()
+TableModel *TableView::getTableModel()
 {
     return m_pTableModel;
 }
@@ -138,8 +129,7 @@ void TableView::leaveEvent(QEvent *event)
 }
 void TableView::keyPressEvent(QKeyEvent *event)
 {
-    if(event->modifiers()==Qt::ControlModifier&&event->key() == Qt::Key_C)
-    {
+    if (event->modifiers() == Qt::ControlModifier && event->key() == Qt::Key_C) {
         return;
     }
     QWidget::keyPressEvent(event);

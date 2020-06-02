@@ -44,4 +44,7 @@
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>
     </qresource>
+    <qresource prefix="/qm">
+        <file>qm/downloadmanager.qm</file>
+    </qresource>
 </RCC>

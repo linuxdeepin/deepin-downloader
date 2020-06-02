@@ -27,7 +27,6 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
-
 class TableView;
 class QStackedWidget;
 class TopButton;
@@ -44,7 +43,6 @@ class MainFrame : public Dtk::Widget::DMainWindow
     Q_OBJECT
 public:
     explicit MainFrame(QWidget *parent = Q_NULLPTR);
-
 
     ~MainFrame();
 
@@ -73,7 +71,6 @@ private slots:
      * @param json： 字符串
     */
     void slotRpcSuccess(QString method, QJsonObject json);
-
 
     /**
      * @brief 处理rpc返回错误的信息
@@ -105,7 +102,6 @@ private slots:
     */
     void getNewDowloadUrl(QString url, QString savePath);
 
-
     /**
      * @brief 收到新建任务orrent
      * @param btName 文件路径
@@ -116,7 +112,7 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    void getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+    void getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash);
     /**
      * @brief 表头状态改变
      * @param  i：节点
@@ -139,8 +135,8 @@ private slots:
      *  @param savepath： 保存路径
     */
     void getNewdowloadSlot(QString url, QString savepath);
-private:
 
+private:
     /**
      * @brief 初始化aria2
     */
@@ -226,7 +222,7 @@ private:
     /**
      * @brief 从配置文件中获取下载路径
      */
-    QString   getDownloadSavepathFromConfig();
+    QString getDownloadSavepathFromConfig();
 
     /**
      * @brief aria2下载事件
@@ -257,9 +253,11 @@ private:
      * @brief aria2强制删除事件
      */
     void aria2MethodForceRemove(QJsonObject json);
+
 private:
-    enum tableView_flag{
-        downloading,recycle
+    enum tableView_flag {
+        downloading,
+        recycle
     };
     TopButton *m_pToolBar;
     TableView *m_pDownLoadingTableView, *m_pDownLoadedTableView, *m_pRecycleTableView;
@@ -270,7 +268,7 @@ private:
     QLabel *m_pNoTask_tip_Label;
     QStackedWidget *m_pRightStackwidget;
     QWidget *m_pTask_Num_Widget;
-    QLabel  *m_pTask_Num;
+    QLabel *m_pTask_Num;
     DListView *m_pLeft_list;
 
     QStandardItem *m_pDownloading_item;
@@ -284,16 +282,16 @@ private:
 
     SettingsWidget *m_pSettingWidget;
     int m_iCurrentListviewRow;
-    int m_iDownloadingHeaderCheckStatus=0;
-    int m_iFinishHeaderCheckStatus=0;
+    int m_iDownloadingHeaderCheckStatus = 0;
+    int m_iFinishHeaderCheckStatus = 0;
     QString m_searchContent;
     bool m_bShutdownOk = false;
 signals:
-     void switchTableSignal();
-     void tableChanged(int index);
+    void switchTableSignal();
+    void tableChanged(int index);
 
-     void signalAutoDownloadBt(QString btFilePath);
-     void signalRedownload(QString taskId, int rd);
+    void signalAutoDownloadBt(QString btFilePath);
+    void signalRedownload(QString taskId, int rd);
 };
 
 #endif // MAINFRAME_H

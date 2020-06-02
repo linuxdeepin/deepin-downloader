@@ -59,7 +59,7 @@ public:
      * @brief 设置行编辑器数值输入范围
      * @param minValid 最小输入值；nMaxValid 最大输入值
      */
-    void setValid(int nMinValid ,int nMaxValid);
+    void setValid(int nMinValid, int nMaxValid);
 
     /**
      * @brief 获取行编辑器数值
@@ -79,7 +79,6 @@ private slots:
     void lineEditTextChangedSlot(const QString &strText);
 
 private:
-
     /**
      * @brief 初始化界面
      */

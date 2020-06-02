@@ -27,14 +27,15 @@
 
 DWIDGET_USE_NAMESPACE
 
-class  newTaskWidget :public DDialog
+class newTaskWidget : public DDialog
 {
     Q_OBJECT
 public:
-    explicit newTaskWidget(DDialog *parent=0);
+    explicit newTaskWidget(DDialog *parent = 0);
     ~newTaskWidget();
 
     void setUrl(QString url);
+
 private:
     /**
      * @brief 初始化ui
@@ -54,6 +55,7 @@ private slots:
      * @brief 确定下载按钮
      */
     void onSureBtnClicked();
+
 protected:
     /**
      * @brief 拖拽处理函数
@@ -67,15 +69,13 @@ protected:
     void dropEvent(QDropEvent *event);
 
 signals:
-    void NewDownload_sig(QString url,QString save_path);
-    void newDownLoadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+    void NewDownload_sig(QString url, QString save_path);
+    void newDownLoadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash);
 
 private:
-    QString m_savePath;                 //当前保存文件路径
+    QString m_savePath; //当前保存文件路径
 
-    DTextEdit *m_texturl;               //url文本框
-
+    DTextEdit *m_texturl; //url文本框
 };
-
 
 #endif // NEWTASKWIDGET_H

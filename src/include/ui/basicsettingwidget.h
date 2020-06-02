@@ -17,7 +17,7 @@ signals:
 
 public slots:
     void radioButtonClickSlot();
-//    void lineEditTextChanged(const QString &strText);
+    //    void lineEditTextChanged(const QString &strText);
 
 private:
     // 初始化界面

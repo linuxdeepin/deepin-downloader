@@ -11,7 +11,8 @@
 #include <QHBoxLayout>
 #include <QDebug>
 
-ItemSelectionWidget::ItemSelectionWidget(QWidget *parent) : QWidget(parent)
+ItemSelectionWidget::ItemSelectionWidget(QWidget *parent)
+    : QWidget(parent)
 {
     initUI();
     initConnections();
@@ -20,7 +21,7 @@ ItemSelectionWidget::ItemSelectionWidget(QWidget *parent) : QWidget(parent)
 // 初始化界面
 void ItemSelectionWidget::initUI()
 {
-//    setStyleSheet("background:rgba(211, 211, 211, 1)");
+    //    setStyleSheet("background:rgba(211, 211, 211, 1)");
 
     m_pLabel = new DLabel("HTTP下载");
     m_pCheckBox = new DCheckBox;
@@ -44,12 +45,9 @@ void ItemSelectionWidget::initConnections()
 
 void ItemSelectionWidget::checkBoxstateChangedSlot(int nState)
 {
-    if(nState == 0)
-    {
+    if (nState == 0) {
         emit checkBoxIsChecked(false);
-    }
-    else if(nState == 2)
-    {
+    } else if (nState == 2) {
         emit checkBoxIsChecked(true);
     }
 }
@@ -73,4 +71,3 @@ void ItemSelectionWidget::setBlockSignals(bool block)
 {
     m_pCheckBox->blockSignals(block);
 }
-

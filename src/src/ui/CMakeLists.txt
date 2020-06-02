@@ -10,18 +10,6 @@ link_directories(${CMAKE_BINARY_DIR}/lib)
 ADD_DEFINITIONS(-DUI_LIB )
 
 
-#生成qm文件
-set(TS_FILES  ${CMAKE_CURRENT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager.ts")
-file(GLOB_RECURSE TS_SOURCES "*.cpp" "*.h" "*.ui")
-qt5_create_translation(QM_FILES ${TS_FILES} ${TS_SOURCES})
-
-#qt5_create_translation(QM_FILES
-#    ${PROJECT_SOURCE_DIR}
-#    ${TS_FILES}
-#    OPTIONS -source-language en_US -no-obsolete)
-
-
-
 #需要moc(加Q_OBJECT)的头文件 
 set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainframe.h
@@ -48,8 +36,16 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
 )
 
+#生成qm文件
+set(TS_FILES  ${CMAKE_CURRENT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager.ts")
+#file(GLOB_RECURSE TS_SOURCES "*.cpp" "*.h" "*.ui")
+#qt5_create_translation(QM_FILES ${TS_FILES} ${TS_SOURCES})
+qt5_create_translation(QM_FILES
+    ${PROJECT_SOURCE_DIR}
+    ${TS_FILES}
+    OPTIONS -source-language en_US -no-obsolete)
 
-file(GLOB_RECURSE QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
+#file(GLOB_RECURSE QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
 #添加资源文件
 set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
 qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})

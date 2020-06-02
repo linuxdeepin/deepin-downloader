@@ -22,8 +22,7 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
-struct S_DownloadSettings
-{
+struct S_DownloadSettings {
     QString m_strType; // 下载类型，限速下载为1,全速下载为0
     QString m_strMaxDownload; // 最大下载限速
     QString m_strMaxUpload; // 最大上传限速
@@ -259,7 +258,6 @@ private:
     static Settings *s_pInstance;
     Dtk::Core::QSettingBackend *m_pBackend;
     QString m_configPath; // 配置文件路径
-
 };
 
 #endif // SETTINGS_H

@@ -1,18 +1,17 @@
 #include "log.h"
 
-
 static int s_logLevel = QtDebugMsg;
-static quint64 _logDaysRemain=DEFALT_REMAIN_TIME;
+static quint64 _logDaysRemain = DEFALT_REMAIN_TIME;
 static int _rotateSize = MAXLOGSIZE;
 static quint64 _remainDisk = DEFALT_REMAIN_SIZE;
 
-void setLogPath(const QString & path)
+void setLogPath(const QString &path)
 {
     s_logPath = path;
 }
 void setLogDir(const QString &dir)
 {
-    _logDir=dir;
+    _logDir = dir;
 }
 void setLogLevel(int level)
 {
@@ -22,8 +21,7 @@ void setLogLevel(int level)
 bool static ensureDirExist(const QString &dirPath)
 {
     QDir dir(dirPath);
-    if (dir.exists())
-    {
+    if (dir.exists()) {
         return true;
     }
 
@@ -41,13 +39,11 @@ void CheckLogTime()
 {
     auto curTime = QDateTime::currentDateTime();
     auto logList = GetLogList();
-    for (int i = 0; i < logList.size() - 1; ++i)
-    {
+    for (int i = 0; i < logList.size() - 1; ++i) {
         auto logInfo = logList[i];
         auto createdTime = logInfo.created();
         auto elapseDays = createdTime.daysTo(curTime);
-        if (elapseDays > _logDaysRemain)
-        {
+        if (elapseDays > _logDaysRemain) {
             auto logPath = logInfo.absoluteFilePath();
             QDir dir;
             dir.remove(logPath);
@@ -57,33 +53,29 @@ void CheckLogTime()
 quint64 GetDiskFreeSpace()
 {
     QStorageInfo storage = QStorageInfo::root();
-    storage.refresh();  //获得最新磁盘信息
+    storage.refresh(); //获得最新磁盘信息
 
     if (storage.isReadOnly())
         qDebug() << "isReadOnly:" << storage.isReadOnly();
     else {
         qDebug() << "name:" << storage.name();
         qDebug() << "fileSystemType:" << storage.fileSystemType();
-        qDebug() << "size:" << storage.bytesTotal()/1000/1000 << "MB";
-        qDebug() << "availableSize:" << storage.bytesAvailable()/1000/1000 << "MB";
-
-       }
-    return  (quint64)storage.bytesAvailable();
+        qDebug() << "size:" << storage.bytesTotal() / 1000 / 1000 << "MB";
+        qDebug() << "availableSize:" << storage.bytesAvailable() / 1000 / 1000 << "MB";
+    }
+    return (quint64)storage.bytesAvailable();
 }
 void CheckFreeDisk()
 {
     auto freeSpace = GetDiskFreeSpace();
 
-    if (freeSpace < _remainDisk)
-    {
+    if (freeSpace < _remainDisk) {
         auto logList = GetLogList();
-        for (int i=0; i<logList.size()-1; ++i)
-        {
+        for (int i = 0; i < logList.size() - 1; ++i) {
             QDir dir;
             dir.remove(logList[i].absolutePath());
             freeSpace = GetDiskFreeSpace();
-            if (freeSpace > _remainDisk)
-            {
+            if (freeSpace > _remainDisk) {
                 break;
             }
         }
@@ -100,8 +92,7 @@ bool CheckRotateTimePoint()
     auto curLogCreateDate = curLogInfo.created();
     auto curDate = QDateTime::currentDateTime();
     auto dayElapse = curLogCreateDate.daysTo(curDate);
-    if (dayElapse >= 1)
-    {
+    if (dayElapse >= 1) {
         return true;
     }
 
@@ -114,8 +105,7 @@ void CloseLog()
 
 void WriteVersion()
 {
-    if (CheckRotateSize() || CheckRotateTimePoint())
-    {
+    if (CheckRotateSize() || CheckRotateTimePoint()) {
         CloseLog();
         CreateNewLog();
     }
@@ -130,7 +120,7 @@ void WriteVersion()
 
     QTextStream ts(&outFile);
     auto appName = QCoreApplication::applicationName();
-    auto version= QCoreApplication::applicationVersion();
+    auto version = QCoreApplication::applicationVersion();
     ts << appName << " " << version << endl;
     outFile.close();
     s_logMutex.unlock();
@@ -138,7 +128,7 @@ void WriteVersion()
 void CreateNewLog()
 {
     auto appName = QCoreApplication::applicationName();
-    auto version= QCoreApplication::applicationVersion();
+    auto version = QCoreApplication::applicationVersion();
     auto curTime = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmsszzz");
     auto logName = _logDir + appName + "_" + curTime + ".log";
     _logFile.setFileName(logName);
@@ -148,16 +138,14 @@ void CreateNewLog()
     WriteVersion();
 }
 
-void customLogMessageHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
+void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, const QString &msg)
 {
-    if (type < s_logLevel)
-    {
+    if (type < s_logLevel) {
         return;
     }
 
     QString logInfo;
-    switch(type)
-    {
+    switch (type) {
     case QtDebugMsg:
         logInfo = QString("Debug:");
         break;
@@ -187,5 +175,4 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext& ctx, cons
     ts << message.toUtf8() << endl;
     outFile.close();
     s_logMutex.unlock();
-
 }

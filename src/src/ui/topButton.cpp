@@ -9,7 +9,8 @@
 
 #include "topButton.h"
 #include <QDebug>
-TopButton::TopButton(QWidget *parent) : QWidget(parent)
+TopButton::TopButton(QWidget *parent)
+    : QWidget(parent)
 {
     Init();
     InitConnections();
@@ -17,20 +18,19 @@ TopButton::TopButton(QWidget *parent) : QWidget(parent)
 
 void TopButton::Init()
 {
-
     QHBoxLayout *mainHlayout = new QHBoxLayout(this);
-    mainHlayout->setContentsMargins(0,6,0,10);
+    mainHlayout->setContentsMargins(0, 6, 0, 10);
     mainHlayout->setSpacing(10);
     m_pIconLable = new DLabel;
-    QIcon logo_icon=QIcon(":icons/icon/downloader5.svg");
-    m_pIconLable->setPixmap(logo_icon.pixmap(32,32));
-    m_pIconLable->setFixedSize(36,36);
-    m_pSearchEdit =new DSearchEdit();
+    QIcon logo_icon = QIcon(":icons/icon/downloader5.svg");
+    m_pIconLable->setPixmap(logo_icon.pixmap(32, 32));
+    m_pIconLable->setFixedSize(36, 36);
+    m_pSearchEdit = new DSearchEdit();
     m_pSearchEdit->setMinimumWidth(350);
     m_pSearchEdit->setFixedHeight(36);
     //searchEdit->setFixedSize(350,36);
     m_pNewDownloadBtn = new DIconButton(this);
-    m_pNewDownloadBtn->setFixedSize(36,36);
+    m_pNewDownloadBtn->setFixedSize(36, 36);
     m_pNewDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
 
     m_pPauseDownloadBtn = new DIconButton(this);
@@ -38,15 +38,15 @@ void TopButton::Init()
 
     m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pPauseDownloadBtn->setEnabled(false);
-    m_pPauseDownloadBtn->setGeometry(90,0,36,36);
+    m_pPauseDownloadBtn->setGeometry(90, 0, 36, 36);
 
     m_pStartDownloadBtn = new DIconButton(this);
-    m_pStartDownloadBtn->setFixedSize(36,36);
+    m_pStartDownloadBtn->setFixedSize(36, 36);
     m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_pStartDownloadBtn->setEnabled(false);
 
     m_pDeleteDownloadBtn = new DIconButton(this);
-    m_pDeleteDownloadBtn->setFixedSize(36,36);
+    m_pDeleteDownloadBtn->setFixedSize(36, 36);
     m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_pDeleteDownloadBtn->setEnabled(false);
 
@@ -72,32 +72,24 @@ void TopButton::InitConnections()
     connect(m_pDeleteDownloadBtn, &DIconButton::clicked, this, &TopButton::deleteDownloadBtnClicked);
 
     connect(m_pSearchEdit, &DSearchEdit::focusChanged, this, &TopButton::getSearchEditFocus);
-    connect(m_pSearchEdit,&DSearchEdit::textChanged,this,&TopButton::getSearchEditTextChange);
+    connect(m_pSearchEdit, &DSearchEdit::textChanged, this, &TopButton::getSearchEditTextChange);
 }
-
 
 void TopButton::get_table_changed(int index)
 {
-    if(index==1||index==2)
-    {
+    if (index == 1 || index == 2) {
         m_pStartDownloadBtn->setEnabled(false);
         m_pPauseDownloadBtn->setEnabled(false);
         m_pDeleteDownloadBtn->setEnabled(false);
-        if(index==2)
-        {
+        if (index == 2) {
             m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("ndm_recycel_delete"));
-        }
-        else {
+        } else {
             m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("ndm_list_icon_delete"));
         }
-    }
-    else
-    {
+    } else {
         m_pStartDownloadBtn->setEnabled(false);
         m_pPauseDownloadBtn->setEnabled(false);
         m_pDeleteDownloadBtn->setEnabled(false);
         m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("ndm_list_icon_delete"));
-
-
     }
 }

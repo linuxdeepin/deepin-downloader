@@ -7,10 +7,8 @@
 * @copyright 2020-2020 Uniontech Technology Co., Ltd.
 */
 
-
 #ifndef ITEMDELEGATE_H
 #define ITEMDELEGATE_H
-
 
 #include <QStyledItemDelegate>
 
@@ -22,8 +20,8 @@ class QProgressBar;
 class ItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
-public:    
-    ItemDelegate(QObject *parent = nullptr,int Flag=0);
+public:
+    ItemDelegate(QObject *parent = nullptr, int Flag = 0);
     ~ItemDelegate();
     /**
      * @brief 绘图事件
@@ -36,16 +34,16 @@ public:
     /**
      * @brief 开始编辑前调用
      */
-    bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index);
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);
+
 private:
     int Table_Flag;
-     QProgressBar *progressbar;
-     int hoverRow;
-     QPixmap *bg;
-     QPixmap *front;
+    QProgressBar *progressbar;
+    int hoverRow;
+    QPixmap *bg;
+    QPixmap *front;
 public slots:
-     void slot_hoverChanged(const QModelIndex &index);
-
+    void slot_hoverChanged(const QModelIndex &index);
 };
 
 #endif

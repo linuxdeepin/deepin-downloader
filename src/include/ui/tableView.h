@@ -10,9 +10,7 @@
 #ifndef TABLEVIEW_H
 #define TABLEVIEW_H
 
-
 #include <QTableView>
-
 
 class TableModel;
 class ItemDelegate;
@@ -20,17 +18,17 @@ class ItemDelegate;
  * @class TableView
  * @brief 下载条目列表
 */
-class TableView:public QTableView
+class TableView : public QTableView
 {
     Q_OBJECT
 public:
     TableView(int Flag);
-    void reset(bool switched=false);
+    void reset(bool switched = false);
     /**
      * @brief 获取model
      * @return model
     */
-    TableModel* getTableModel();
+    TableModel *getTableModel();
 
 private:
     /**
@@ -55,6 +53,7 @@ signals:
     void clear_header_check();
     void get_tableview_allchecked(bool checked);
     void signal_hoverChanged(const QModelIndex &index);
+
 protected:
     /**
      * @brief 鼠标按下事件
@@ -72,6 +71,7 @@ protected:
      * @brief 键盘按下事件
     */
     void keyPressEvent(QKeyEvent *event);
+
 private:
     int m_iTableFlag;
     TableModel *m_pTableModel;

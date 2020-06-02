@@ -15,7 +15,6 @@
 #include <DSearchEdit>
 #include <DLabel>
 
-
 #include <QWidget>
 
 DWIDGET_USE_NAMESPACE
@@ -66,6 +65,7 @@ public:
 
 public slots:
     void get_table_changed(int index);
+
 private:
     /**
      * @brief 初始化界面
@@ -101,6 +101,7 @@ signals:
      * @brief 搜索框内容改变信号
     */
     void getSearchEditTextChange(QString text);
+
 private:
     DLabel *m_pIconLable;
     DIconButton *m_pNewDownloadBtn;

@@ -48,3 +48,4 @@ find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
 #加载子模块
 add_subdirectory(src)
+add_subdirectory(translations)
