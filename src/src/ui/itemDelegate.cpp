@@ -36,8 +36,8 @@ ItemDelegate::ItemDelegate(QObject *parent,int Flag)
 {
      Table_Flag=Flag;
      //progressbar = new QProgressBar;
-     bg = new QPixmap(":/icons/bar-bg.png");
-     front = new QPixmap(":/icons/bar-front.png");
+     bg = new QPixmap(":/icons/icon/bar-bg.png");
+     front = new QPixmap(":/icons/icon/bar-front.png");
 
 }
 
