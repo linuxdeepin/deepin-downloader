@@ -64,7 +64,7 @@ QString BtInfoDialog::getSelected()
 
 QString BtInfoDialog::getSaveto()
 {
-    return this->m_editDir->text().split("    ")[0];
+    return this->m_editDir->text();
 }
 
 QString BtInfoDialog::getName()
@@ -77,9 +77,6 @@ QString BtInfoDialog::getName()
 void BtInfoDialog::initUI()
 {
     m_ariaInfo = Aria2RPCInterface::Instance()->getBtInfo(m_torrentFile);
-   // Aria2RPCInterface::getBtInfo(this->m_torrentFile);
-   //  = Aria2RPCInterface::getBtInfo(this->m_torrentFile);
-    //
     this->setTitle(" ");
     this->setWindowTitle(tr(""));
 
@@ -106,11 +103,14 @@ void BtInfoDialog::initUI()
     pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     this->m_labelFileSize = new DLabel(this);
     this->m_labelFileSize->setAlignment(Qt::AlignRight);
+    QString _size = Aria2RPCInterface::Instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
+    m_labelFileSize->setText(QString(tr("Total :")+ _size));
     this->m_labelFileSize->setFont(font2);
     this->m_labelFileSize->setPalette(pal);
 
     //选中文件数
     this->m_labelSelectedFileNum = new DLabel(this);
+    this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(m_ariaInfo.files.size())).arg(_size));
     this->m_labelSelectedFileNum->setFont(font2);
     this->m_labelSelectedFileNum->setPalette(pal);
 
@@ -118,52 +118,56 @@ void BtInfoDialog::initUI()
     this->m_widget = new DWidget(this);
     this->m_tableView = new BtInfoTableView(m_widget);
     this->m_tableView->setMouseTracking(true);
-    this->m_widget->setGeometry(15, 142, 471, 255);
+    this->m_widget->setGeometry(15, 142, 471, 235);
     this->m_widget->setAutoFillBackground(true);
 
     QVBoxLayout *vb = new QVBoxLayout(m_widget);
-    vb->setContentsMargins(10, 0, 10, 6);
+    vb->setContentsMargins(10, 0, 10, 5);
     vb->addWidget(m_tableView);
     QHBoxLayout *hb = new QHBoxLayout();
     hb->addWidget(m_labelSelectedFileNum, Qt::AlignLeft);
+    hb->addStretch();
     hb->addWidget(m_labelFileSize, Qt::AlignRight);
-    vb->addLayout(hb);
+ //   hb->setGeometry(1);
+    hb->setGeometry(QRect(15,381,471,20));
+//    vb->addLayout(hb);
 
     //Checkbox
     this->m_checkAll = new DCheckBox(this);
     this->m_checkAll->setGeometry(15, 401, 95, 29);
-    this->m_checkAll->setText(tr("Check All"));
+    this->m_checkAll->setText(tr("All"));
     this->m_checkAll->setChecked(true);
     connect(this->m_checkAll, SIGNAL(clicked()), this, SLOT(slot_checkAll()));
 
     this->m_checkVideo = new DCheckBox(this);
     this->m_checkVideo->setGeometry(105, 401, 95, 29);
-    this->m_checkVideo->setText(tr("Video"));
+    this->m_checkVideo->setText(tr("Videos"));
     this->m_checkVideo->setChecked(true);
     connect(this->m_checkVideo, SIGNAL(clicked()), this, SLOT(slot_checkVideo()));
 
-    this->m_checkAudio = new DCheckBox(this);
-    this->m_checkAudio->setGeometry(195, 401, 95, 29);
-    this->m_checkAudio->setText(tr("Audio"));
-    this->m_checkAudio->setChecked(true);
-    connect(this->m_checkAudio, SIGNAL(clicked()), this, SLOT(slot_checkAudio()));
-
     this->m_checkPicture = new DCheckBox(this);
-    this->m_checkPicture->setGeometry(285, 401, 95, 29);
-    this->m_checkPicture->setText(tr("Picture"));
+    this->m_checkPicture->setGeometry(195, 401, 95, 29);
+    this->m_checkPicture->setText(tr("Pictures"));
     this->m_checkPicture->setChecked(true);
     connect(this->m_checkPicture, SIGNAL(clicked()), this, SLOT(slot_checkPicture()));
 
+    this->m_checkAudio = new DCheckBox(this);
+    this->m_checkAudio->setGeometry(285, 401, 95, 29);
+    this->m_checkAudio->setText(tr("Music"));
+    this->m_checkAudio->setChecked(true);
+    connect(this->m_checkAudio, SIGNAL(clicked()), this, SLOT(slot_checkAudio()));
+
     this->m_checkOther = new DCheckBox(this);
-    this->m_checkOther->setGeometry(375, 401, 95, 29);
+    this->m_checkOther->setGeometry(375, 401, 95, 29);    //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
     this->m_checkOther->setText(tr("Other"));
     this->m_checkOther->setChecked(true);
     connect(this->m_checkOther, SIGNAL(clicked()), this, SLOT(slot_checkOther()));
 
     //下载路径所在分区剩余磁盘容量
     this->m_labelCapacityFree = new DLabel();
-    //this->labelCapacityFree->setGeometry(350, 363, 86, 23);
- //   this->labelCapacityFree->setText(tr("Free:") + Aria2cInterface::getCapacityFree(this->defaultDownloadDir));
+    this->m_labelCapacityFree->setGeometry(350, 363, 86, 23);
+    QString _freeSize = Aria2RPCInterface::Instance()->getCapacityFree(this->m_defaultDownloadDir);
+    this->m_labelCapacityFree->setText(tr("Free space:") + _freeSize);
     this->m_labelCapacityFree->setPalette(pal);
     this->m_labelCapacityFree->setFont(font2);
 
@@ -260,7 +264,7 @@ void BtInfoDialog::slot_btnOK()
         return;
     }
 
-    long _free = Aria2RPCInterface::Instance()->getCapacityFreeByte(m_editDir->text().split("   ")[0]);
+    long _free = Aria2RPCInterface::Instance()->getCapacityFreeByte(m_editDir->text());
     long _total = 0;//选中文件总大小（字节）
     for(int i = 0;i < m_model->rowCount();i++) {
         if(m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -271,7 +275,7 @@ void BtInfoDialog::slot_btnOK()
         qDebug()<<"Disk capacity is not enough!";
         return;
     }
-    QString save_path=m_editDir->text().split("   ")[0];
+    QString save_path=m_editDir->text();
     QString config_path=QString("%1/%2/%3/last_save_path")
             .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
             .arg(qApp->organizationName())
@@ -296,7 +300,9 @@ void BtInfoDialog::slot_checkAll()
         for(int i = 0;i < m_model->rowCount();i++) {
             m_model->setData(m_model->index(i, 0), "1");
         }
-        //this->labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(model->rowCount()) + tr(",Total ") + Aria2cInterface::bytesFormat(this->info.totalLengthByets));
+
+        QString _size = Aria2RPCInterface::Instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
+        this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(m_model->rowCount())).arg(_size));
         this->m_checkVideo->setCheckState(Qt::Checked);
         this->m_checkAudio->setCheckState(Qt::Checked);
         this->m_checkPicture->setCheckState(Qt::Checked);
@@ -305,7 +311,7 @@ void BtInfoDialog::slot_checkAll()
     else if(state == Qt::Unchecked) {
         for(int i = 0;i < m_model->rowCount();i++) {
             m_model->setData(m_model->index(i, 0), "0");
-            this->m_labelSelectedFileNum->setText(tr("Selected Files:") + "0" + tr(",Total ") + "0B");
+            this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(0)).arg("0GB"));
         }
         this->m_checkVideo->setCheckState(Qt::Unchecked);
         this->m_checkAudio->setCheckState(Qt::Unchecked);
@@ -353,8 +359,9 @@ void BtInfoDialog::slot_checkVideo()
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
             cnt++;
         }
-    }//Aria2cInterface::bytesFormat(total)
-    //this->m_labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(cnt) + tr(",Total ") + Aria2RPCInterface::Instance()-);
+    }
+    QString _size = Aria2RPCInterface::Instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
+    this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
 }
 
 void BtInfoDialog::slot_checkAudio()
@@ -382,7 +389,8 @@ void BtInfoDialog::slot_checkAudio()
             cnt++;
         }
     }
- //   this->labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(cnt) + tr(",Total ") + Aria2cInterface::bytesFormat(total));
+    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
 }
 
 void BtInfoDialog::slot_checkPicture()
@@ -410,7 +418,8 @@ void BtInfoDialog::slot_checkPicture()
             cnt++;
         }
     }
-    //this->labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(cnt) + tr(",Total ") + Aria2cInterface::bytesFormat(total));
+    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
 }
 
 void BtInfoDialog::slot_checkOther()
@@ -437,7 +446,8 @@ void BtInfoDialog::slot_checkOther()
             cnt++;
         }
     }
-//    this->labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(cnt) + tr(",Total ") + Aria2cInterface::bytesFormat(total));
+    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
 }
 
 void BtInfoDialog::updateSelectedInfo()
@@ -451,7 +461,8 @@ void BtInfoDialog::updateSelectedInfo()
             cnt++;
         }
     }
-    //this->labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(cnt) + tr(",Total ") + Aria2cInterface::bytesFormat(total));
+    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
 }
 
 void BtInfoDialog::slot_filechoosed(const QString &filename)
@@ -471,7 +482,7 @@ void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type
 
     if(themeType == 1) {
         p.setColor(QPalette::Background, Qt::white);
-        //this->delegate->setHoverColor(QColor(0,0,0,13));
+        this->m_delegate->setHoverColor(QColor(0,0,0,13));
 
         QPalette pal;
         pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
@@ -480,7 +491,7 @@ void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type
     }
     else {
         p = DGuiApplicationHelper::instance()->applicationPalette();
-       // this->delegate->setHoverColor(QColor(255,255,255,26));
+        this->m_delegate->setHoverColor(QColor(255,255,255,26));
 
         this->m_labelFileSize->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
         this->m_labelSelectedFileNum->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
@@ -490,7 +501,7 @@ void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type
 
 void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash)
 {
-    opt.insert("dir",this->m_editDir->text().split("  ")[0]);   //取前面路径，并不取剩余空间字符
+    opt.insert("dir",this->m_editDir->text());
     opt.insert("select-file",this->getSelected());
     infoName = this->m_labelInfoName->text();
     infoHash = this->m_ariaInfo.infoHash;
@@ -498,13 +509,14 @@ void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QSt
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    QString _fielEditText =  text+  "    " + tr("Free: ") + Aria2RPCInterface::Instance()->getCapacityFree(text);
-    int _count = _fielEditText.count();
-    //若路径较短，则用空格进行填充
-    if(_count < 62)
-    {
-       int _fillCount = 62 - _fielEditText.count();
-       _fielEditText.insert(text.size(), QString(_fillCount*2, ' '));
-    }
-    return _fielEditText;
+//    QString _fielEditText =  text+  "    " + tr("Free: ") + Aria2RPCInterface::Instance()->getCapacityFree(text);
+//    int _count = _fielEditText.count();
+//    //若路径较短，则用空格进行填充
+//    if(_count < 62)
+//    {
+//       int _fillCount = 62 - _fielEditText.count();
+//       _fielEditText.insert(text.size(), QString(_fillCount*2, ' '));
+//    }
+//    return _fielEditText;
+    return text;
 }

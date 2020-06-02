@@ -21,9 +21,9 @@ void newTaskWidget::initUi()
     QIcon tryIcon=QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"))  ;
     this->setIcon(tryIcon);
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMinMaxButtonsHint);
-    this->setTitle(tr("New download task"));
+    this->setTitle(tr("New Task"));
 
-    QString _msg = tr("When you add multiple download links, \n please make sure each row has one link.");
+    QString _msg = tr("When adding download links, please enter one URL in each line");
     this->addSpacing(15);
     DLabel * _msgLab= new DLabel(this);
     _msgLab->setText(_msg);
@@ -33,7 +33,7 @@ void newTaskWidget::initUi()
 
     m_texturl->setReadOnly(false);
     m_texturl->setAcceptDrops(false);
-    m_texturl->setPlaceholderText(tr("please input download address or drag file to here"));
+    m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
     m_texturl->setFixedSize(QSize(454,154));
     QPalette _pal;
     _pal.setColor(QPalette::Base, QColor(0,0,0,20));
