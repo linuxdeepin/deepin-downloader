@@ -64,7 +64,7 @@ QString BtInfoDialog::getSelected()
 
 QString BtInfoDialog::getSaveto()
 {
-    return this->m_editDir->text();
+    return this->m_editDir->text().split("    ")[0];
 }
 
 QString BtInfoDialog::getName()
@@ -170,7 +170,8 @@ void BtInfoDialog::initUI()
     //
     this->m_editDir = new DFileChooserEdit(this);
     this->m_editDir->setGeometry(15, 435, 471, 36);
-    this->m_editDir->setText(this->m_defaultDownloadDir);
+    QString _text = this->getFileEditText(this->m_defaultDownloadDir);
+    this->m_editDir->setText(_text);
     this->m_editDir->setClearButtonEnabled(false);
     this->m_editDir->setFileMode(QFileDialog::DirectoryOnly);
     this->m_editDir->lineEdit()->setEnabled(false);
@@ -259,7 +260,7 @@ void BtInfoDialog::slot_btnOK()
         return;
     }
 
-    long _free = Aria2RPCInterface::Instance()->getCapacityFreeByte(m_editDir->text());
+    long _free = Aria2RPCInterface::Instance()->getCapacityFreeByte(m_editDir->text().split("   ")[0]);
     long _total = 0;//选中文件总大小（字节）
     for(int i = 0;i < m_model->rowCount();i++) {
         if(m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -270,7 +271,7 @@ void BtInfoDialog::slot_btnOK()
         qDebug()<<"Disk capacity is not enough!";
         return;
     }
-    QString save_path=m_editDir->text();
+    QString save_path=m_editDir->text().split("   ")[0];
     QString config_path=QString("%1/%2/%3/last_save_path")
             .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
             .arg(qApp->organizationName())
@@ -352,8 +353,8 @@ void BtInfoDialog::slot_checkVideo()
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
             cnt++;
         }
-    }
-    //this->labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(cnt) + tr(",Total ") + Aria2cInterface::bytesFormat(total));
+    }//Aria2cInterface::bytesFormat(total)
+    //this->m_labelSelectedFileNum->setText(tr("Selected Files:") + QString::number(cnt) + tr(",Total ") + Aria2RPCInterface::Instance()-);
 }
 
 void BtInfoDialog::slot_checkAudio()
@@ -457,14 +458,9 @@ void BtInfoDialog::slot_filechoosed(const QString &filename)
 {
     QFileInfo fileinfo;
     fileinfo.setFile(filename);
-    if(!fileinfo.isWritable())
-    {
-//        MessageBox *msg = new MessageBox(Warnings);
-//        msg->set_warning_MsgBox(tr("select directory not writeable"), tr("sure"));
-//        msg->exec();
-        this->m_editDir->lineEdit()->setText(this->m_defaultDownloadDir);
-    }
- //   this->labelCapacityFree->setText(tr("Free:") + Aria2cInterface::getCapacityFree(this->editDir->text()));
+    QString _text = this->getFileEditText(filename);
+    this->m_editDir->lineEdit()->setText(_text);
+
 }
 
 void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type)
@@ -494,9 +490,21 @@ void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type
 
 void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash)
 {
-    opt.insert("dir",this->m_editDir->text());
+    opt.insert("dir",this->m_editDir->text().split("  ")[0]);   //取前面路径，并不取剩余空间字符
     opt.insert("select-file",this->getSelected());
     infoName = this->m_labelInfoName->text();
     infoHash = this->m_ariaInfo.infoHash;
+}
 
+QString BtInfoDialog::getFileEditText(QString text)
+{
+    QString _fielEditText =  text+  "    " + tr("Free: ") + Aria2RPCInterface::Instance()->getCapacityFree(text);
+    int _count = _fielEditText.count();
+    //若路径较短，则用空格进行填充
+    if(_count < 62)
+    {
+       int _fillCount = 62 - _fielEditText.count();
+       _fielEditText.insert(text.size(), QString(_fillCount*2, ' '));
+    }
+    return _fielEditText;
 }

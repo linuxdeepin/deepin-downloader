@@ -85,7 +85,7 @@ void newTaskWidget::initUi()
 
 void newTaskWidget::openfileDialog()
 {
-    QString _btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "File(*.torrent)");
+    QString _btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if(_btFile != "") {
         BtInfoDialog *_dialog = new BtInfoDialog(_btFile,m_savePath);//torrent文件路径
         if(_dialog->exec() == QDialog::Accepted) {
