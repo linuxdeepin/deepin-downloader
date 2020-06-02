@@ -139,6 +139,16 @@ private slots:
      *  @param savepath： 保存路径
     */
     void getNewdowloadSlot(QString url, QString savepath);
+
+    /**
+     * @brief 定时器更新界面显示
+    */
+    void UpdateMainui();
+
+    /**
+     * @brief 开始下载按键按下槽函数
+    */
+    void onStartDownloadBtnClicked();
 private:
 
     /**
@@ -265,13 +275,13 @@ private:
     TableView *m_pDownLoadingTableView, *m_pDownLoadedTableView, *m_pRecycleTableView;
     QWidget *m_pLeftWidget;
     QWidget *m_pRight_Widget;
-    QWidget *m_pNoTask_Widget;
-    DLabel *m_pNoTask_label;
-    QLabel *m_pNoTask_tip_Label;
+    QWidget *m_pnotaskWidget;
+    DLabel *m_pnotaskLabel;
+    QLabel *m_pnotaskTipLabel;
     QStackedWidget *m_pRightStackwidget;
-    QWidget *m_pTask_Num_Widget;
-    QLabel  *m_pTask_Num;
-    DListView *m_pLeft_list;
+    QWidget *m_ptaskNumWidget;
+    QLabel  *m_ptaskNum;
+    DListView *m_pleftList;
 
     QStandardItem *m_pDownloading_item;
     QStandardItem *m_pDownloadFinish_item;
