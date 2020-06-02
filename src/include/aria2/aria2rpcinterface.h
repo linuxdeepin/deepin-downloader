@@ -10,14 +10,19 @@
 #ifndef ARIA2RPCINTERFACE_H
 #define ARIA2RPCINTERFACE_H
 
-#include <QObject>
-#include <QJsonObject>
 #include "aria2cbtinfo.h"
 #include "aria2const.h"
+
+#include <QObject>
+#include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
+#include <QCryptographicHash>
+#include <QtMath>
+
+
 
 class Aria2RPCInterface : public QObject
 {
@@ -311,6 +316,13 @@ public:
      */
     void setUploadLimitSpeed(QString UploadlimitSpeed);
 
+    /**
+     * @brief getBtToMetalink bt文件转磁力链
+     * @param strFileName bt文件名
+     *
+     */
+    QString getBtToMetalink(QString strFilePath);
+
 private:
     /**
      *@brief 调用RPC
@@ -339,6 +351,13 @@ private:
     QString fileToBase64(QString filePath);//文件转base64
 
     QString processThunderUri(QString thunder);//如果是迅雷链接会解密处理，否则原样返回
+
+    /**
+     * @brief bytesFormat 格式化字节
+     * @param size
+     * @return
+     */
+    QString bytesFormat(qint64 size);
 private:
     //QString cmd = "/usr/bin/aria2c";//aria2c程序路径 -> 已改成public static变量
     QString rpcPort = "16800";//rpc端口
