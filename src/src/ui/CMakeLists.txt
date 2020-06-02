@@ -12,11 +12,13 @@ ADD_DEFINITIONS(-DUI_LIB )
 
 #生成qm文件
 set(TS_FILES  ${CMAKE_CURRENT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager.ts")
+file(GLOB_RECURSE TS_SOURCES "*.cpp" "*.h" "*.ui")
+qt5_create_translation(QM_FILES ${TS_FILES} ${TS_SOURCES})
 
-qt5_create_translation(QM_FILES
-    ${PROJECT_SOURCE_DIR}
-    ${TS_FILES}
-    OPTIONS -source-language en_US -no-obsolete)
+#qt5_create_translation(QM_FILES
+#    ${PROJECT_SOURCE_DIR}
+#    ${TS_FILES}
+#    OPTIONS -source-language en_US -no-obsolete)
 
 
 
