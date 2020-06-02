@@ -238,35 +238,6 @@ private:
      */
     QString   getDownloadSavepathFromConfig();
 
-    /**
-     * @brief aria2下载事件
-     */
-    void aria2MethodAdd(QJsonObject json);
-
-    /**
-     * @brief aria2状态改变事件
-     */
-    void aria2MethodStatusChanged(QJsonObject json);
-
-    /**
-     * @brief aria2关闭事件
-     */
-    void aria2MethodShutdown(QJsonObject json);
-
-    /**
-     * @brief aria2获取文件事件
-     */
-    void aria2MethodGetFiles(QJsonObject json);
-
-    /**
-     * @brief aria2继续下载事件
-     */
-    void aria2MethodUnpause(QJsonObject json);
-
-    /**
-     * @brief aria2强制删除事件
-     */
-    void aria2MethodForceRemove(QJsonObject json);
 private:
     enum tableView_flag{
         downloading,recycle
@@ -293,7 +264,7 @@ private:
     Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
-    int m_iCurrentListviewRow;
+    int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
     QString m_searchContent;

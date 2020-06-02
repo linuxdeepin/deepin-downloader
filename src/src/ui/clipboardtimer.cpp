@@ -21,7 +21,6 @@ void ClipboardTimer::getDataChanged()
     {
         emit sendClipboardText(_url);
     }
-
 }
 
 bool ClipboardTimer::isMagnet(QString url)
