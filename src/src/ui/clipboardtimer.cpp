@@ -6,6 +6,7 @@ ClipboardTimer::ClipboardTimer(QObject *parent) :
 {
     m_clipboard = QApplication::clipboard();        //获取当前剪切板
     connect(m_clipboard,&QClipboard::dataChanged,this,&ClipboardTimer::getDataChanged);
+
 }
 
 ClipboardTimer::~ClipboardTimer()
@@ -17,11 +18,14 @@ ClipboardTimer::~ClipboardTimer()
 void ClipboardTimer::getDataChanged()
 {
     QString _url = m_clipboard->text();
-    if(isMagnet(_url) || isHttp(_url))
+    Settings *_setting =  Settings::getInstance();
+    bool _bIsHttp =  _setting->getHttpDownloadState();
+    bool _bIsMagnet = _setting->getMagneticDownloadState();
+    if((isMagnet(_url) && _bIsMagnet) ||
+            (isHttp(_url) && _bIsHttp))
     {
         emit sendClipboardText(_url);
     }
-
 }
 
 bool ClipboardTimer::isMagnet(QString url)

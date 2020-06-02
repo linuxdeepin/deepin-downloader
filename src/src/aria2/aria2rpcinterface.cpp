@@ -66,7 +66,7 @@ bool Aria2RPCInterface::startUp()
         opt << "--conf-path=" + this->configPath;//加载指定的配置文件
     }
     if(this->defaultDownloadPath != "") {
-      opt << "--dir=" + this->defaultDownloadPath;//配置默认下载路径。优先级高于配置文件，已移动到配置文件中
+        opt << "--dir=" + this->defaultDownloadPath;//配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
     opt << "--continue=true";//http续传配置
     opt << "--disable-ipv6";//禁用ipv6
@@ -103,9 +103,9 @@ void Aria2RPCInterface::Aria2RPCInterface::init()
 {
     //定义配置文件路径
     QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
-        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-        .arg(qApp->organizationName())
-        .arg(qApp->applicationName());
+            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+            .arg(qApp->organizationName())
+            .arg(qApp->applicationName());
 
     //判断文件是否存在,如果不存在复制配置文件内容到目录下
     QFileInfo fileInfo(m_aria2configPath);
@@ -159,7 +159,7 @@ void Aria2RPCInterface::setConfigFilePath(QString strPath)
 QString Aria2RPCInterface::getConfigFilePath()
 {
 
-   return configPath;
+    return configPath;
 }
 
 
@@ -461,9 +461,9 @@ void Aria2RPCInterface::modify_config_file(QString config_item, QString value)
     QStringList strList;
 
     QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
-        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-        .arg(qApp->organizationName())
-        .arg(qApp->applicationName());
+            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+            .arg(qApp->organizationName())
+            .arg(qApp->applicationName());
 
     QFile readFile(m_aria2configPath);
     if(readFile.open((QIODevice::ReadOnly|QIODevice::Text)))
@@ -545,8 +545,8 @@ void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadlimitSpeed)
 
     QString speed = downloadlimitSpeed+"K";
 
-     opt.insert("max-overall-download-limit",speed);
-     changeGlobalOption(opt);
+    opt.insert("max-overall-download-limit",speed);
+    changeGlobalOption(opt);
 
     QString value = "max-overall-download-limit=" + speed;
     modify_config_file("max-overall-download-limit=", value);
@@ -646,3 +646,40 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
     }
     return free.toLong();
 }
+
+QString Aria2RPCInterface::getBtToMetalink(QString strFilePath)
+{
+
+    QString strMetaLink = "";//磁力链
+
+
+    QFile file(strFilePath); //strFilePath文件的绝对路径
+    if(file.open(QIODevice::ReadOnly)) //只读方式打开
+    {
+        QCryptographicHash hash(QCryptographicHash::Sha1);
+        if(!file.atEnd())
+        {
+            hash.addData(file.readAll());
+            QString  stHashValue;
+            stHashValue.append(hash.result().toHex());
+            return stHashValue;
+        }
+    }
+
+
+    return  strMetaLink;
+}
+
+
+QString Aria2RPCInterface::bytesFormat(qint64 size) {
+    if(!size) {
+        return "0B";
+    }
+    QStringList sl;
+    if(sl.empty()) {
+        sl << "B" <<"KB" << "MB" << "GB" << "TB" << "PB";
+    }
+    int i = qFloor(qLn(size) / qLn(1024));
+    return QString::number(size * 1.0 / qPow(1024, qFloor(i)), 'f', (i > 1) ? 2 : 0) + sl.at(i);
+}
+

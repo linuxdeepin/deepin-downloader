@@ -81,6 +81,8 @@ private:
     bool isAudio(QString ext);//判断扩展名是否是常见音频格式
     bool isPicture(QString ext);//判断扩展名是否是常见图片格式
 
+    QString getFileEditText(QString text);
+
 private:
     QString m_torrentFile;
     QString m_defaultDownloadDir;   //默热下载文件路径
