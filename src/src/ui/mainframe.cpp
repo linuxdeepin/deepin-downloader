@@ -80,12 +80,12 @@ void MainFrame::init()
     pMainHLayout->setSpacing(0);
 
 
-    m_pDownLoadingTableView = new TableView(downloading);
+    m_pDownLoadingTableView = new TableView(downloading, m_pToolBar);
     //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
     m_pDownLoadingTableView->setColumnHidden(4, true);
     connect(m_pDownLoadingTableView, &TableView::header_stateChanged, this, &MainFrame::getHeaderStatechanged);
     connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::clear_header_check);
-    m_pRecycleTableView = new TableView(recycle);
+    m_pRecycleTableView = new TableView(recycle, m_pToolBar);
     m_pRecycleTableView->verticalHeader()->setDefaultSectionSize(30);
     connect(m_pRecycleTableView, &TableView::header_stateChanged,  this, &MainFrame::getHeaderStatechanged);
     connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::clear_header_check);
@@ -1019,40 +1019,9 @@ void MainFrame::clearTableItemCheckStatus()
 void MainFrame::slotSearchEditTextChanged(QString text)
 {
     m_searchContent = text;
-    TableModel *dtModel = this->m_pDownLoadingTableView->getTableModel();
-    TableModel *rtModel = this->m_pRecycleTableView->getTableModel();
-    if(text == "") {
-        for(int i = 0; i < dtModel->rowCount(QModelIndex()); i++) {
-            this->m_pDownLoadingTableView->setRowHidden(i, false);
-            dtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
-        }
-        for(int i = 0; i < rtModel->rowCount(QModelIndex()); i++) {
-            this->m_pRecycleTableView->setRowHidden(i, false);
-            rtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
-        }
-    } else {
-        for(int i = 0; i < dtModel->rowCount(QModelIndex()); i++) {
-            this->m_pDownLoadingTableView->setRowHidden(i, false);
-            QString fileName = dtModel->data(dtModel->index(i, 1), TableModel::FileName).toString();
-            if(!fileName.contains(text, Qt::CaseInsensitive)) {
-                this->m_pDownLoadingTableView->setRowHidden(i, true);
-            }
-            dtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
-        }
-
-        for(int i = 0; i < rtModel->rowCount(QModelIndex()); i++) {
-            this->m_pRecycleTableView->setRowHidden(i, false);
-            QString fileName = rtModel->data(rtModel->index(i, 1), TableModel::FileName).toString();
-            if(!fileName.contains(text, Qt::CaseInsensitive)) {
-                this->m_pRecycleTableView->setRowHidden(i, true);
-            }
-            rtModel->setData(dtModel->index(i, 0), false, TableModel::Ischecked);
-        }
-    }
-    this->m_pDownLoadingTableView->reset();
-    this->m_pRecycleTableView->reset();
+    m_pDownLoadingTableView->searchEditTextChanged(text);
+    m_pRecycleTableView->searchEditTextChanged(text);
     setTaskNum(m_iCurrentListviewRow);
-
 }
 
 void MainFrame::getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash)
@@ -1332,330 +1301,6 @@ QString   MainFrame::getDownloadSavepathFromConfig()
     return path;
 }
 
-void MainFrame::aria2MethodAdd(QJsonObject json)
-{
-    QString id = json.value("id").toString();
-    QString gId = json.value("result").toString();
-
-    DataItem *finddata = m_pDownLoadingTableView->getTableModel()->find(id);
-    if(finddata != nullptr) {
-        finddata->gid = gId;
-        finddata->taskId = id;
-        QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-        S_Task_Status  get_status;
-        S_Task_Status *download_status = new S_Task_Status(finddata->taskId,
-                                                                               Global::Status::Active,
-                                                                               QDateTime::currentDateTime(),
-                                                                               finddata->completedLength,
-                                                                               finddata->speed,
-                                                                               finddata->totalLength,
-                                                                               finddata->percent,
-                                                                               finddata->total,
-                                                                               finish_time);
-
-
-        S_Task_Status task;
-        DBInstance::getTaskStatusById(finddata->taskId, task);
-        if(task.m_taskId != "") {
-            DBInstance::updateTaskStatusById(*download_status);
-        } else {
-            DBInstance::addTaskStatus(*download_status);
-        }
-        finddata->status = Global::Status::Active;
-    } else {
-        // 获取下载信息
-        // aria2c->tellStatus(gId, gId);
-        Aria2RPCInterface::Instance()->getFiles(gId, id);
-        DataItem *data = new DataItem;
-        data->taskId = id;
-        data->gid = gId;
-        data->Ischecked = 0;
-        QDateTime time = QDateTime::currentDateTime();
-        data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
-
-        S_Task getTaskInfo;
-        S_Task  taskInfo;
-        DBInstance::getTaskByID(id, getTaskInfo);
-        S_Task *task;
-        if(getTaskInfo.m_taskId != "") {
-            task = new S_Task(getTaskInfo.m_taskId,
-                               gId,
-                               0,
-                               getTaskInfo.m_url,
-                               getTaskInfo.m_downloadPath,
-                               getTaskInfo.m_downloadFilename,
-                               time);
-            DBInstance::updateTaskByID(*task);
-            data->fileName = getTaskInfo.m_downloadFilename;
-        } else {
-            task = new S_Task(id, gId, 0, "", "", "Unknow", time);
-            DBInstance::addTask(*task);
-        }
-        m_pDownLoadingTableView->getTableModel()->append(data);
-        if((m_searchContent != "") && !data->fileName.contains(m_searchContent)) {
-            TableModel *dtModel = this->m_pDownLoadingTableView->getTableModel();
-            m_pDownLoadingTableView->setRowHidden(dtModel->rowCount(QModelIndex()), true);
-        }
-    }
-    refreshTableView(m_iCurrentListviewRow);
-}
-
-void MainFrame::aria2MethodStatusChanged(QJsonObject json)
-{
-    QJsonObject result = json.value("result").toObject();
-    QJsonObject bittorrent = result.value("bittorrent").toObject();
-    QString     mode;
-    QString     bittorrent_name;
-    QString     taskId = json.value("id").toString();
-    QString     bittorrent_dir = "";
-
-    if(!bittorrent.isEmpty()) {
-        mode = bittorrent.value("mode").toString();
-        if(mode == "multi") {
-            bittorrent_dir = result.value("dir").toString();
-        }
-        QJsonObject btInfo = bittorrent.value("info").toObject();
-        bittorrent_name = btInfo.value("name").toString();
-        QString infoHash = result.value("infoHash").toString();
-        S_Url_Info  tbUrlInfo;
-        S_Url_Info getUrlInfo;
-        DBInstance::getUrlById(taskId, getUrlInfo);
-        if(getUrlInfo.m_taskId != "") {
-            if(getUrlInfo.m_infoHash.isEmpty()) {
-                S_Url_Info *url_info = new S_Url_Info(getUrlInfo.m_taskId,
-                                                        getUrlInfo.m_url,
-                                                        getUrlInfo.m_downloadType,
-                                                        getUrlInfo.m_seedFile,
-                                                        getUrlInfo.m_selectedNum,
-                                                        infoHash);
-                DBInstance::updateUrlById(*url_info);
-            }
-        }
-    }
-    QJsonArray files = result.value("files").toArray();
-
-    QString filePath;
-    QString fileUri;
-    for(int i = 0; i < files.size(); ++i) {
-        QJsonObject file = files[i].toObject();
-        filePath = file.value("path").toString();
-        QJsonArray uri = file.value("uris").toArray();
-        for(int j = 0; j < uri.size(); ++j) {
-            QJsonObject uriObject = uri[j].toObject();
-            fileUri = uriObject.value("uri").toString();
-        }
-    }
-
-    QString gId = result.value("gid").toString();
-
-    long totalLength = result.value("totalLength").toString().toLong();         //
-                                                                                // 字节
-    long completedLength = result.value("completedLength").toString().toLong(); //
-                                                                                // 字节
-    long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //
-                                                                                // 字节/每秒
-    QString fileName = getFileName(filePath);
-    QString statusStr = result.value("status").toString();
-
-    int percent = 0;
-    int status = 0;
-
-    if((completedLength != 0) && (totalLength != 0)) {
-        double tempPercent = completedLength * 100.0 / totalLength;
-        percent = tempPercent;
-        if((percent < 0) || (percent > 100)) {
-            percent = 0;
-        }
-        if(completedLength == totalLength) {
-            statusStr = "complete";
-        }
-    }
-
-    if(statusStr == "active") {
-        status = Global::Status::Active;
-    } else if(statusStr == "waiting") {
-        status = Global::Status::Waiting;
-    } else if(statusStr == "paused") {
-        status = Global::Status::Paused;
-    } else if(statusStr == "error") {
-        status = Global::Status::Error;
-        dealNotificaitonSettings(statusStr, fileName);
-    } else if(statusStr == "complete") {
-        status = Global::Status::Complete;
-
-        //下载文件为种子文件
-        if(fileName.endsWith(".torrent")) {
-            emit signalAutoDownloadBt(filePath);
-        }
-
-        //下载文件为磁链种子文件
-        QString infoHash = result.value("infoHash").toString();
-        if(filePath.startsWith("[METADATA]")) {
-            QString dir = result.value("dir").toString();
-
-            emit signalAutoDownloadBt(dir + "/" + infoHash + ".torrent");
-            fileName = infoHash + ".torrent";
-        }
-
-        //
-        dealNotificaitonSettings(statusStr, fileName);
-    } else if(statusStr == "removed") {
-        status = Global::Status::Removed;
-    }
-
-    DataItem *data = m_pDownLoadingTableView->getTableModel()->find(taskId);
-    if(data == nullptr) {
-        return;
-    }
-    data->gid = gId;
-    data->totalLength = formatFileSize(totalLength);
-    data->completedLength = formatFileSize(completedLength);
-    data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
-
-    if(bittorrent.isEmpty()) {
-        if(!fileName.isEmpty() && (data->fileName != fileName)) {
-            data->fileName = fileName;
-        }
-
-        //                if(data->fileName==QObject::tr("Unknown"))
-        //                {
-        //                    data->fileName = (fileName.isEmpty()) ?
-        // Global::UNKNOWN : fileName;
-        //                }
-        data->status = status;
-    } else {
-        // data->fileName = (bittorrent_name.isEmpty()) ? Global::UNKNOWN :
-        // bittorrent_name;
-        if(mode == "multi") {
-            filePath = bittorrent_dir + "/" + bittorrent_name;
-        }
-        if((totalLength != 0) && (totalLength == completedLength)) {
-            data->status = Complete;
-            dealNotificaitonSettings("complete", filePath);
-        } else {
-            data->status = status;
-        }
-
-        fileUri = "";
-    }
-    data->percent = percent;
-    data->total = totalLength;
-    if(filePath != "") {
-        data->savePath = filePath;
-    } else {
-        data->savePath = getDownloadSavepathFromConfig();
-    }
-
-    data->url = fileUri;
-    data->time = "";
-
-    if((totalLength != completedLength) && (totalLength != 0) &&
-       (data->status == Global::Status::Active)) {
-        QTime t(0, 0, 0);
-        t = t.addSecs((totalLength - completedLength * 1.0) / downloadSpeed);
-        data->time = t.toString("mm:ss");
-    } else if((totalLength == 0) && (data->status == Global::Status::Active)) {
-        data->time = ("--:--");
-    } else {
-        if(data->time == "") {
-            data->time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-        }
-
-        //              updatetimer->stop();
-    }
-    S_Task  task;
-    S_Task getTask;
-    DBInstance::getTaskByID(data->taskId, getTask);
-    if(getTask.m_taskId != "") {
-        if(getTask.m_url != "") {
-            data->url = getTask.m_url;
-        }
-    }
-
-    m_pDownLoadingTableView->update();
-    m_pDownLoadingTableView->reset();
-    S_Task_Status  taskStatus;
-    S_Task_Status getTaskStatus;
-    DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
-
-    QDateTime get_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
-    S_Task_Status *save_task_status = new S_Task_Status(data->taskId,
-                                                                            data->status,
-                                                                            get_time,
-                                                                            data->completedLength,
-                                                                            data->speed,
-                                                                            data->totalLength,
-                                                                            data->percent,
-                                                                            data->total,
-                                                                            get_time);
-    if(getTaskStatus.m_taskId != "") {
-        DBInstance::addTaskStatus(*save_task_status);
-    } else {
-        if(getTaskStatus.m_downloadStatus != data->status) {
-            DBInstance::updateTaskStatusById(*save_task_status);
-        }
-    }
-    refreshTableView(m_iCurrentListviewRow);
-    if((data->status == Complete) && (this->m_searchContent != "")) {
-        slotSearchEditTextChanged(this->m_searchContent);
-    }
-}
-
-void MainFrame::aria2MethodShutdown(QJsonObject json)
-{
-    QString result = json.value("result").toString();
-    if(result == "OK") {
-        m_bShutdownOk = true;
-        qDebug() << "close downloadmanager";
-        this->close();
-        DApplication::exit();
-    }
-}
-
-void MainFrame::aria2MethodGetFiles(QJsonObject json)
-{
-    QString   id = json.value("id").toString();
-    DataItem *data = m_pDownLoadingTableView->getTableModel()->find(id);
-    if(data == nullptr) {// id等于gid
-        data = new DataItem();
-        QJsonArray  ja = json.value("result").toArray();
-        QJsonObject jo = ja.at(0).toObject();
-        data->totalLength = jo.value("length").toString().toLong(); // 文件大小
-        data->savePath = jo.value("path").toString();               //下载路径，带文件名
-        data->fileName = data->savePath.mid(data->savePath.lastIndexOf('/') + 1);
-        QJsonArray uris = jo.value("uris").toArray();
-        data->url = uris.at(0).toObject().value("uri").toString();  //下载链接
-        data->taskId = id;
-        m_pDownLoadingTableView->getTableModel()->append(data);
-    }
-    m_pDownLoadingTableView->reset();
-    refreshTableView(m_iCurrentListviewRow);
-}
-
-void MainFrame::aria2MethodUnpause(QJsonObject json)
-{
-    QString gId = json.value("result").toString();
-    QString taskId = json.value("id").toString();
-
-    DataItem *data = m_pDownLoadingTableView->getTableModel()->find(taskId);
-    if(data != nullptr) {
-        data->status = Global::Status::Active;
-        refreshTableView(m_iCurrentListviewRow);
-    }
-}
-
-void MainFrame::aria2MethodForceRemove(QJsonObject json)
-{
-    QString id = json.value("id").toString();
-    if(id.startsWith("REDOWNLOAD_")) { // 重新下载前的移除完成后
-        QStringList sp = id.split("_");
-        QString     taskId = sp.at(2);
-        int rd = sp.at(1).toInt();
-        QThread::msleep(500);
-        emit signalRedownload(taskId, rd);
-    }
-}
-
 void MainFrame::dealNotificaitonSettings(QString statusStr, QString fileName)
 {
     // 获取免打扰模式值
@@ -1767,18 +1412,18 @@ void MainFrame::slotRpcSuccess(QString method, QJsonObject json)
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
-        aria2MethodAdd(json);
+        m_pDownLoadingTableView->aria2MethodAdd(json, m_searchContent);
     } else if(method == ARIA2C_METHOD_TELL_STATUS) {
-        aria2MethodStatusChanged(json);
+        m_pDownLoadingTableView->aria2MethodStatusChanged(json, m_iCurrentListviewRow, m_searchContent);
     } else if(method == ARIA2C_METHOD_SHUTDOWN) {
-        aria2MethodShutdown(json);
+        m_pDownLoadingTableView->aria2MethodShutdown(json);
     } else if(method == ARIA2C_METHOD_GET_FILES) {
-        aria2MethodGetFiles(json);
+        m_pDownLoadingTableView->aria2MethodGetFiles(json, m_iCurrentListviewRow);
     } else if(method == ARIA2C_METHOD_UNPAUSE) {
-        aria2MethodUnpause(json);
+        m_pDownLoadingTableView->aria2MethodUnpause(json, m_iCurrentListviewRow);
     }
     else if(method == ARIA2C_METHOD_FORCE_REMOVE) {
-        aria2MethodForceRemove(json);
+        m_pDownLoadingTableView->aria2MethodForceRemove(json);
     }
 }
 
