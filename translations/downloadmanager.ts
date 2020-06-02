@@ -16,52 +16,52 @@
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="141"/>
         <source>Video</source>
-        <translation type="unfinished"></translation>
+        <translation>视频</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="147"/>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>音乐</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="153"/>
         <source>Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>图片</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="159"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>其他</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="183"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>下载</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="211"/>
         <source>File Name</source>
-        <translation type="unfinished"></translation>
+        <translation>文件名</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="213"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>类型</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="214"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>大小</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="307"/>
         <source>Selected Files:</source>
-        <translation type="unfinished"></translation>
+        <translation>选择文件：</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="307"/>
         <source>,Total </source>
-        <translation type="unfinished"></translation>
+        <translation>,共 </translation>
     </message>
 </context>
 <context>
@@ -146,23 +146,23 @@
     <message>
         <location filename="../src/src/ui/itemDelegate.cpp" line="207"/>
         <source>paused</source>
-        <translation type="unfinished"></translation>
+        <translation>已暂停</translation>
     </message>
     <message>
         <location filename="../src/src/ui/itemDelegate.cpp" line="219"/>
         <source>download error</source>
-        <translation type="unfinished"></translation>
+        <translation>下载错误</translation>
     </message>
     <message>
         <location filename="../src/src/ui/itemDelegate.cpp" line="225"/>
         <source>Surplus </source>
-        <translation type="unfinished"></translation>
+        <translation>剩余 </translation>
     </message>
 </context>
 <context>
     <name>Main</name>
     <message>
-        <location filename="../src/src/downloadmanager/main.cpp" line="25"/>
+        <location filename="../src/src/downloadmanager/main.cpp" line="26"/>
         <source>Uos Download Management Application</source>
         <translation type="unfinished"></translation>
     </message>
@@ -437,12 +437,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/downloadmanager/main.cpp" line="19"/>
+        <location filename="../src/src/downloadmanager/main.cpp" line="20"/>
         <source>Download Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/downloadmanager/main.cpp" line="22"/>
+        <location filename="../src/src/downloadmanager/main.cpp" line="23"/>
         <source>This is a download manage application.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -450,37 +450,182 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="331"/>
+        <location filename="../src/src/ui/settings.cpp" line="241"/>
+        <source>Basic</source>
+        <translation>基本设置</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="242"/>
+        <source>Start up</source>
+        <translation>启动</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="243"/>
+        <source>Auto start after boot</source>
+        <translation>开机启动</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="244"/>
+        <source>Auto download after start-up</source>
+        <translation>启动后自动开始未完成的任务</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="245"/>
+        <source>File Storage</source>
+        <translation>下载目录</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="246"/>
+        <source>One click to download</source>
+        <translation>一键下载</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="247"/>
+        <source>When main window closed</source>
+        <translation>关闭主界面</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="248"/>
+        <source>Minimize to System Tray</source>
+        <translation>最小化到托盘</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="249"/>
+        <source>Exit</source>
+        <translation>退出下载器</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="250"/>
+        <source>Tasks</source>
+        <translation>任务管理</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="251"/>
+        <source>Active downloads</source>
+        <translation>同时下载最大任务数</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="252"/>
+        <source>Open file after download</source>
+        <translation>下载完成后自动打开</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="253"/>
+        <source>Delete tasks without files</source>
+        <translation>自动删除“文件不存在”的任务</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="254"/>
+        <source>Downloads</source>
+        <translation>下载设置</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="255"/>
+        <source>Monitoring</source>
+        <translation>接管设置</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="256"/>
+        <source>Monitoring application</source>
+        <translation>接管对象</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="257"/>
+        <source>Clipboard</source>
+        <translation>剪切板</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="258"/>
+        <source>Monitoring download link</source>
+        <translation>接管下载类型</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="259"/>
+        <source>Monitoring BT files</source>
+        <translation>BT关联</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="260"/>
+        <source>Create new task after downloading BT files</source>
+        <translation>下载种子文件后自动打开下载面板</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="261"/>
+        <source>Create new task when BT files opening</source>
+        <translation>启动时关联BT种子文件</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="262"/>
+        <source>Notifications</source>
+        <translation>通知提醒</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="263"/>
+        <source>Allow notifications when downloading succeed or failed</source>
+        <translation>下载完成/失败时，系统通知提醒</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="264"/>
+        <source>Allow sounds when downloading succeed</source>
+        <translation>下载完成后，播放提示音</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="265"/>
+        <source>Advanced</source>
+        <translation>高级设置</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="266"/>
+        <source>Shortcuts</source>
+        <translation>快捷设置</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="267"/>
+        <source>Show main window when creating new task</source>
+        <translation>新建任务时显示主界面</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="268"/>
+        <source>Show main window</source>
+        <translation>打开主界面快捷键</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="269"/>
+        <source>Disk cache for dowloading</source>
+        <translation>下载磁盘缓存</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="362"/>
         <source>HTTP</source>
         <translation>HTTP下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="355"/>
+        <location filename="../src/src/ui/settings.cpp" line="386"/>
         <source>BitTorrent</source>
         <translation>BT下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="379"/>
+        <location filename="../src/src/ui/settings.cpp" line="410"/>
         <source>Magnet URI scheme</source>
-        <translation>磁力链接下载</translation>
+        <translation>磁力链下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="455"/>
+        <location filename="../src/src/ui/settings.cpp" line="486"/>
         <source>128</source>
         <translation>128</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="455"/>
+        <location filename="../src/src/ui/settings.cpp" line="486"/>
         <source>256</source>
         <translation>256</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="455"/>
+        <location filename="../src/src/ui/settings.cpp" line="486"/>
         <source>512</source>
         <translation>512</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="467"/>
+        <location filename="../src/src/ui/settings.cpp" line="498"/>
         <source>More disk cache, faster download speed and more computer consume</source>
         <translation>磁盘缓存越大，下载速度越快，占用电脑资源越多</translation>
     </message>

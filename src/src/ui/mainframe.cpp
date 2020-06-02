@@ -530,7 +530,7 @@ void MainFrame::onSettingsMenuClicked()
 //    pSettingsDialog->widgetFactory()->registerWidget("downloadtraysetting", Settings::createDownloadTraySettingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloaddiskcachesetting", Settings::createDownloadDiskCacheSettiingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting", Settings::createDownloadSpeedLimitSettiingHandle);
-    pSettingsDialog->updateSettings( m_pSettings->m_pSettings );
+    pSettingsDialog->updateSettings( "Settings",m_pSettings->m_pSettings );
     pSettingsDialog->exec();
     delete pSettingsDialog;
     m_pSettings->m_pSettings->sync();
