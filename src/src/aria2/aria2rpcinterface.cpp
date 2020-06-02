@@ -669,3 +669,17 @@ QString Aria2RPCInterface::getBtToMetalink(QString strFilePath)
 
     return  strMetaLink;
 }
+
+
+QString Aria2RPCInterface::bytesFormat(qint64 size) {
+    if(!size) {
+        return "0B";
+    }
+    QStringList sl;
+    if(sl.empty()) {
+        sl << "B" <<"KB" << "MB" << "GB" << "TB" << "PB";
+    }
+    int i = qFloor(qLn(size) / qLn(1024));
+    return QString::number(size * 1.0 / qPow(1024, qFloor(i)), 'f', (i > 1) ? 2 : 0) + sl.at(i);
+}
+
