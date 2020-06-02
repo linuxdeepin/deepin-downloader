@@ -1,44 +1,44 @@
 {
     "groups":[{
             "key":"Basic",
-            "name":"基本设置",
+            "name":"Basic",
             "groups":[{
                     "key":"Start",
-                    "name":"启动",
+                    "name":"Start up",
                     "options":[{
                             "key":"PowerOn",
-                            "name":"开机启动",
+                            "name":"Auto start after boot",
                             "type":"switchbutton",
                             "default":true
                         },
                         {
                             "key":"AutoStartUnfinishedTask",
-                            "name":"启动后自动开始未完成的任务",
+                            "name":"Auto download after start-up",
                             "type":"switchbutton",
-                            "default":false
+                            "default":true
                         }
 
                     ]
                 },
                 {
                     "key":"DownloadDirectory",
-                    "name":"下载目录",
+                    "name":"File Storage",
                     "options":[
                         {
                             "key": "downloadDirectoryFileChooser",
                             "name": "",
                             "type": "filechooseredit",
-                            "default":"custom;"
+                            "default":"auto;"
                         }
                     ]
                 },
                 {
                     "key":"OnekeyDownload",
-                    "name":"一键下载",
+                    "name":"One click to download",
                     "options":[
                         {
                             "key":"onekeydownload",
-                            "name":"一键下载",
+                            "name":"One click to download",
                             "type":"switchbutton",
                             "default":false
                         }
@@ -46,14 +46,14 @@
                 },
                 {
                     "key":"CloseMainWindow",
-                    "name":"关闭主界面",
+                    "name":"When main window closed",
                     "options":[
                         {
                             "key": "closemainwindow",
                             "type": "radiogroup",
                             "items": [
-                              "最小化到托盘",
-                              "退出下载器"
+                              "Minimize to System Tray",
+                              "Exit"
                             ],
                             "default": 1
                         }
@@ -63,25 +63,25 @@
         },
         {
             "key":"DownloadTaskManagement",
-            "name":"任务管理",
+            "name":"Tasks",
             "groups":[{
                     "key":"downloadtaskmanagement",
                     "name":"",
                     "options":[{
                             "key":"MaxDownloadTask",
-                            "name":"同时下载最大任务数",
+                            "name":"Active downloads",
                             "type":"combobox",
                             "default":"5"
                         },
                         {
                             "key":"AutoOpen",
-                            "name":"下载完成后自动打开",
+                            "name":"Open file after download",
                             "type":"switchbutton",
-                            "default":true
+                            "default":false
                         },
                         {
                             "key":"AutoDelete",
-                            "name":"自动删除“文件不存在”的任务",
+                            "name":"Delete tasks without files",
                             "type":"switchbutton",
                             "default":false
                         }
@@ -91,7 +91,7 @@
         },
         {
             "key":"DownloadSettings",
-            "name":"下载设置",
+            "name":"Downloads",
             "groups":[{
                     "key":"downloadsettings",
                     "name":"",
@@ -99,7 +99,7 @@
                             "key":"downloadspeedlimit",
                             "name":"",
                             "type":"downloadspeedlimitsetting",
-                            "default":"speedlimit;10240;32;08:00:00;17:00:00"
+                            "default":"speedlimit;102400;32;08:00:00;17:00:00"
                         }
                     ]
                 }
@@ -107,13 +107,13 @@
         },
         {
             "key":"Monitoring",
-            "name":"接管设置",
+            "name":"Monitoring",
             "groups":[{
                     "key":"MonitoringObject",
-                    "name":"接管对象",
+                    "name":"Monitoring application",
                     "options":[{
                             "key":"ClipBoard",
-                            "name":"剪切板",
+                            "name":"Clipboard",
                             "type":"switchbutton",
                             "default":true
                         }
@@ -121,7 +121,7 @@
                 },
                 {
                     "key":"MonitoringDownloadType",
-                    "name":"接管下载类型",
+                    "name":"Monitoring download link",
                     "options":[{
                             "key":"HttpDownload",
                             "name":"",
@@ -144,16 +144,16 @@
                 },
                 {
                     "key":"BTRelation",
-                    "name":"BT关联",
+                    "name":"Monitoring BT files",
                     "options":[{
                             "key":"OpenDownloadPanel",
-                            "name":"下载种子文件后自动打开新建窗口",
+                            "name":"Create new task after downloading BT files",
                             "type":"switchbutton",
                             "default":false
                         },
                         {
                             "key":"AssociateBTFileAtStartup",
-                            "name":"启动时关联BT种子文件(.torrent文件)",
+                            "name":"Create new task when BT files opening",
                             "type":"switchbutton",
                             "default":true
                         }
@@ -163,19 +163,19 @@
         },
         {
             "key":"Notifications",
-            "name":"通知提醒",
+            "name":"Notifications",
             "groups": [{
                     "key": "remind",
                     "name": "",
                     "options": [{
                             "key": "downloadInfoNotify",
-                            "name": "下载完成/失败时，系统通知提醒",
+                            "name": "Allow notifications when downloading succeed or failed",
                             "type": "switchbutton",
                             "default": true
                         },
                         {
                             "key": "afterDownloadPlayTone",
-                            "name": "下载完成后，播放提示音",
+                            "name": "Allow sounds when downloading succeed",
                             "type": "switchbutton",
                             "default": true
                         }
@@ -185,19 +185,19 @@
         },
         {
             "key":"AdvancedSetting",
-            "name":"高级设置",
+            "name":"Advanced",
             "groups": [{
                     "key": "ShortcutKeySetting",
-                    "name": "快捷设置",
+                    "name": "Shortcuts",
                     "options": [{
                             "key": "NewTaskShowMainwindow",
-                            "name": "新建任务时显示主界面",
+                            "name": "Show main window when creating new task",
                             "type": "switchbutton",
                             "default": true
                         },
                         {
                             "key": "OpenMainWindowShortcutKey",
-                            "name": "打开主界面快捷键",
+                            "name": "Show main window",
                             "type": "shortcut",
                             "default": "Alt+D"
                         }
@@ -205,7 +205,7 @@
                 },
                 {
                     "key": "DownloadDiskCache",
-                    "name": "下载磁盘缓存",
+                    "name": "Disk cache for dowloading",
                     "options": [{
                             "key": "DownloadDiskCacheSettiing",
                             "name": "",

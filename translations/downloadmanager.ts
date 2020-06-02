@@ -68,56 +68,76 @@
     <name>DownloadSettingWidget</name>
     <message>
         <location filename="../src/src/ui/downloadsettingwidget.cpp" line="24"/>
-        <source>全速下载</source>
+        <source>Speed unlimited</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="25"/>
-        <source>限速下载</source>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="27"/>
+        <source>Downloaded files will be uploaded through P2P, which could help other users speed up the downloading, does not involve the privacy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="30"/>
-        <source>最大下载限速</source>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="29"/>
+        <source>Speed limited</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="31"/>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="37"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="46"/>
+        <source>Max download speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="47"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="53"/>
         <source>KB/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="32"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="48"/>
         <source>(100-102400)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="33"/>
-        <source>10240</source>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="49"/>
+        <source>102400</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="36"/>
-        <source>最大上传限速</source>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="52"/>
+        <source>Max upload speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="38"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="54"/>
         <source>(16-5120)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="39"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="55"/>
         <source>32</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="58"/>
+        <source>Limited period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="59"/>
+        <source>to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>GroupSelectionWidget</name>
+    <name>FileSavePathChooser</name>
     <message>
-        <location filename="../src/src/ui/groupselectionwidget.cpp" line="34"/>
-        <source>%1</source>
+        <location filename="../src/src/ui/filesavepathchooser.cpp" line="30"/>
+        <source>Automatically changes to the last used directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/filesavepathchooser.cpp" line="31"/>
+        <source>Default directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -150,11 +170,6 @@
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="146"/>
-        <source>0 task</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/mainframe.cpp" line="62"/>
         <source>setting</source>
         <translation type="unfinished"></translation>
@@ -167,6 +182,11 @@
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="129"/>
         <source>you can click button to start new task</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="146"/>
+        <source>0 task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -424,6 +444,44 @@
     <message>
         <location filename="../src/src/downloadmanager/main.cpp" line="22"/>
         <source>This is a download manage application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="331"/>
+        <source>HTTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="355"/>
+        <source>BitTorrent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="379"/>
+        <source>Magnet URI scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="455"/>
+        <source>128</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="455"/>
+        <source>256</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="455"/>
+        <source>512</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="467"/>
+        <source>More disk cache, faster download speed and more computer consume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
