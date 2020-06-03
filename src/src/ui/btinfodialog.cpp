@@ -17,7 +17,7 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
     this->m_defaultDownloadDir = bt_last_save_path;
     this->setFixedSize(500, 525);
 
-    this->setIcon(QIcon::fromTheme(":/icons/images/icon/downloader3.svg"));
+    this->setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::slot_paletteTypeChanged);
 }
@@ -83,8 +83,7 @@ void BtInfoDialog::initUI()
     this->m_labelTitle->setFixedSize(this->width(), 30);
     this->m_labelTitle->setAlignment(Qt::AlignCenter);
     this->m_labelTitle->move(0, 48);
-    this->m_labelTitle->setText(tr("Magnet/Torrent Files Select"));
-
+    this->m_labelTitle->setText(tr("New Task"));
     this->m_folderIcon = new DLabel(this);
     this->m_folderIcon->setPixmap(QPixmap(":/icons/icon/folder.svg")); ///usr/share/icons/bloom/places/32/folder.svg
     this->m_folderIcon->move(45, 92);
@@ -92,7 +91,7 @@ void BtInfoDialog::initUI()
     //下载信息名称
     this->m_labelInfoName = new DLabel(this);
     this->m_labelInfoName->setGeometry(85, 89, 356, 40);
-    this->m_labelInfoName->setText("xiazai renwu ");
+    this->m_labelInfoName->setText(m_ariaInfo.name);
     this->m_labelInfoName->setWordWrap(true);
 
     //总大小标签
@@ -158,7 +157,7 @@ void BtInfoDialog::initUI()
 
     this->m_checkOther = new DCheckBox(this);
     this->m_checkOther->setGeometry(375, 401, 95, 29);    //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
-    this->m_checkOther->setText(tr("Other"));
+    this->m_checkOther->setText(tr("Others"));
     this->m_checkOther->setChecked(true);
     connect(this->m_checkOther, SIGNAL(clicked()), this, SLOT(slot_checkOther()));
 
@@ -186,7 +185,7 @@ void BtInfoDialog::initUI()
     this->m_btnOK = new DPushButton(this);
     //this->btnOK->setFixedWidth(190);
     this->m_btnOK->setGeometry(160, 480, 191, 35);
-    this->m_btnOK->setText(tr("Download"));
+    this->m_btnOK->setText(tr("Download Now"));
     connect(this->m_btnOK, SIGNAL(clicked()), this, SLOT(slot_btnOK()));
 
     //文件列表配置
@@ -214,7 +213,7 @@ void BtInfoDialog::initUI()
     this->m_tableView->setModel(this->m_model);
 
     m_model->setColumnCount(5);
-    m_model->setHeaderData(0, Qt::Horizontal, tr("File Name"));
+    m_model->setHeaderData(0, Qt::Horizontal, tr("Name"));
     m_model->setHeaderData(1, Qt::Horizontal, "");
     m_model->setHeaderData(2, Qt::Horizontal, tr("Type"));
     m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));

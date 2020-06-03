@@ -303,23 +303,23 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
     case 0:
         return tr("");
     case 1:
-        return tr("file name");
+        return tr("Name");
     case 2:
-        return tr("size");
+        return tr("Size");
     case 3:
-        if (m_mode == Downloading && TableViewTab_Flag == 0)
-            return tr("status");
-        else if (m_mode == Finished && TableViewTab_Flag == 0)
-            return tr("finish time");
+        if(m_mode==Downloading&&TableViewTab_Flag==0)
+            return tr("Status");
+        else if(m_mode==Finished&&TableViewTab_Flag==0)
+            return tr("Time finished");
         else
-            return tr("delete time");
+            return  tr("Time deleted");
     case 4:
-        if (m_mode == Downloading && TableViewTab_Flag == 0)
-            return tr("status");
-        else if (m_mode == Finished && TableViewTab_Flag == 0)
-            return tr("finish time");
+        if(m_mode==Downloading&&TableViewTab_Flag==0)
+            return tr("Status");
+        else if(m_mode==Finished&&TableViewTab_Flag==0)
+            return tr("Time finished");
         else
-            return tr("delete time");
+            return  tr("Time deleted");
     }
 
     return QVariant();

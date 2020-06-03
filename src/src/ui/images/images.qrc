@@ -42,6 +42,7 @@
         <file alias="checked">icon/checked.svg</file>
         <file alias="unchecked">icon/unchecked.svg</file>
         <file>icon/ndm_messagebox_logo_32px.svg</file>
+        <file>icon/folder.svg</file>
         <file>icon/bar-bg.png</file>
         <file>icon/bar-front.png</file>
     </qresource>

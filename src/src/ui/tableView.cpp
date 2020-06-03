@@ -516,9 +516,9 @@ void TableView::dealNotificaitonSettings(QString statusStr, QString fileName)
         QProcess *p = new QProcess;
         QString   showInfo;
         if(statusStr == "error") {
-            showInfo = fileName + tr(" download error");
+            showInfo = fileName + tr(" download failed, network error");
         } else {
-            showInfo = fileName + tr(" download complete");
+            showInfo = fileName + tr(" download finished");
         }
         p->start("notify-send", QStringList() << showInfo);
         p->waitForStarted();

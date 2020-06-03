@@ -208,6 +208,37 @@ Settings::Settings(QObject *parent)
             }
         }
     });
+
+    // json文件国际化
+    auto group_basicName = tr("Basic"); // 基本设置
+    auto group_basic_startName = tr("Start up"); // 启动
+    auto basic_start_poweronName = tr("Auto start after boot"); // 开机启动
+    auto basic_start_autoStartUnfinishedTaskName = tr("Auto download after start-up"); // 启动后自动开始未完成的任务
+    auto group_basic_downloadDirectoryName = tr("File Storage"); // 下载目录
+    auto group_basic_oneClickDownloadName = tr("One click to download"); // 一键下载
+    auto group_basic_closeMainWindowName = tr("When main window closed"); // 关闭主界面
+    auto basic_closeMainWindow_minimizeToSystemTrayName = tr("Minimize to System Tray"); // 最小化到托盘
+    auto basic_closeMainWindow_exitName = tr("Exit"); // 退出下载器
+    auto group_tasksName = tr("Tasks"); // 任务管理
+    auto tasks_activeDownloadsName = tr("Active downloads"); // 同时下载最大任务数
+    auto tasks_openFileAfterDownloadName = tr("Open file after download"); // 下载完成后自动打开
+    auto tasks_deleteTasksWithoutFilesName = tr("Delete tasks without files"); // 自动删除“文件不存在”的任务
+    auto group_downloadsName = tr("Downloads"); // 下载设置
+    auto group_monitoringName = tr("Monitoring"); // 接管设置
+    auto group_monitoring_monitoringApplicationName = tr("Monitoring application"); // 接管对象
+    auto monitoring_monitoringApplication_clipBoardName = tr("Clipboard"); // 剪切板
+    auto group_monitoring_monitoringDownloadLinkName = tr("Monitoring download link"); // 接管下载类型
+    auto group_monitoring_monitoringBTFilesName = tr("Monitoring BT files"); // BT关联
+    auto monitoring_monitoringBTFiles_downloadingName = tr("Create new task after downloading BT files"); // 下载种子文件后自动打开下载面板
+    auto monitoring_monitoringBTFiles_openingName = tr("Create new task when BT files opening"); // 启动时关联BT种子文件
+    auto group_notificationsName = tr("Notifications"); // 通知提醒
+    auto notifications_succeedOrFailedName = tr("Allow notifications when downloading succeed or failed"); // 下载完成/失败时，系统通知提醒
+    auto notifications_downloadingSucceedName = tr("Allow sounds when downloading succeed"); // 下载完成后，播放提示音
+    auto group_advancedName = tr("Advanced"); // 高级设置
+    auto group_advanced_shortcutsName = tr("Shortcuts"); // 快捷设置
+    auto advanced_shortcuts_newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
+    auto advanced_shortcuts_showMainName = tr("Show main window"); // 打开主界面快捷键
+    auto group_advanced_diskCacheName = tr("Disk cache for dowloading"); // 下载磁盘缓存
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
