@@ -65,7 +65,7 @@ public:
     }
 
 public slots:
-    void get_table_changed(int index);
+    void getTableChanged(int index);
 private:
     /**
      * @brief 初始化界面
