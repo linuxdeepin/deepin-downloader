@@ -35,7 +35,7 @@ public:
     */
     void setWarings(QString warningMsg,QString surebtntext,QString cancalbtntext="",int sameurl_count=0,QList<QString> same_url_list={});
     /**
-     * @brief 设置警告窗口
+     * @brief 设置删除窗口
      * @param permanentl bool类型，真为选择删除文件同时，删除本地文件。 假为可选择是否删除本地文件。
     */
     void setDelete(bool permanentl);

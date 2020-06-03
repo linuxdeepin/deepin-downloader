@@ -2,6 +2,7 @@
 #include <DMainWindow>
 #include <DWidgetUtil>
 #include <DApplicationSettings>
+#include <QTranslator>
 #include "mainframe.h"
 #include "log.h"
 DWIDGET_USE_NAMESPACE
@@ -27,7 +28,9 @@ int main(int argc, char *argv[])
     if (!a.setSingleInstance("downloadmanager"))//设置成单例程序
         return 0;
 
-
+    QTranslator translator; //新建翻译类
+    translator.load("./downloadmanager.qm"); //导入生成的文件
+    a.installTranslator(&translator); //装入
 
     // 保存程序的窗口主题设置
     DApplicationSettings as;
