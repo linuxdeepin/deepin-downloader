@@ -9,10 +9,12 @@
 
 #ifndef CLIPBOARDTIMER_H
 #define CLIPBOARDTIMER_H
+#include "settings.h"
 #include <DObject>
 #include <QClipboard>
 #include <QObject>
 #include <QApplication>
+
 
 class ClipboardTimer : public QObject
 {
@@ -31,7 +33,11 @@ private slots:
 signals:
     emit void sendClipboardText(QString url); //发送url
 private:
-    QClipboard *m_clipboard; //剪切板
+    QClipboard *m_clipboard;            //剪切板
+    bool m_isHttp;
+    bool m_isBt;
+    bool m_isMagnet;
+
 };
 
 #endif // CLIPBOARDTIMER_H

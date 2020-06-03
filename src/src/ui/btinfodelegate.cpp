@@ -85,7 +85,9 @@ bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             QString v = index.data().toString();
             model->setData(index, QVariant(v == "1" ? "0" : "1"), Qt::EditRole);
 
-            //  ((BtInfoDialog*)dialog)->updateSelectedInfo();
+
+            ((BtInfoDialog*)m_dialog)->updateSelectedInfo();
+
             return false;
         }
     }

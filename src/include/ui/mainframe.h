@@ -136,6 +136,18 @@ private slots:
     */
     void getNewdowloadSlot(QString url, QString savepath);
 
+    /**
+     * @brief 定时器更新界面显示
+    */
+    void UpdateMainui();
+
+    /**
+     * @brief 开始下载按键按下槽函数
+    */
+    void onStartDownloadBtnClicked();
+private:
+
+
 private:
     /**
      * @brief 初始化aria2
@@ -224,36 +236,6 @@ private:
      */
     QString getDownloadSavepathFromConfig();
 
-    /**
-     * @brief aria2下载事件
-     */
-    void aria2MethodAdd(QJsonObject json);
-
-    /**
-     * @brief aria2状态改变事件
-     */
-    void aria2MethodStatusChanged(QJsonObject json);
-
-    /**
-     * @brief aria2关闭事件
-     */
-    void aria2MethodShutdown(QJsonObject json);
-
-    /**
-     * @brief aria2获取文件事件
-     */
-    void aria2MethodGetFiles(QJsonObject json);
-
-    /**
-     * @brief aria2继续下载事件
-     */
-    void aria2MethodUnpause(QJsonObject json);
-
-    /**
-     * @brief aria2强制删除事件
-     */
-    void aria2MethodForceRemove(QJsonObject json);
-
 private:
     enum tableView_flag {
         downloading,
@@ -263,13 +245,15 @@ private:
     TableView *m_pDownLoadingTableView, *m_pDownLoadedTableView, *m_pRecycleTableView;
     QWidget *m_pLeftWidget;
     QWidget *m_pRight_Widget;
-    QWidget *m_pNoTask_Widget;
-    DLabel *m_pNoTask_label;
-    QLabel *m_pNoTask_tip_Label;
+    QWidget *m_pnotaskWidget;
+    DLabel *m_pnotaskLabel;
+    QLabel *m_pnotaskTipLabel;
     QStackedWidget *m_pRightStackwidget;
-    QWidget *m_pTask_Num_Widget;
-    QLabel *m_pTask_Num;
-    DListView *m_pLeft_list;
+
+    QWidget *m_ptaskNumWidget;
+    QLabel  *m_ptaskNum;
+    DListView *m_pleftList;
+
 
     QStandardItem *m_pDownloading_item;
     QStandardItem *m_pDownloadFinish_item;
@@ -281,9 +265,10 @@ private:
     Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
-    int m_iCurrentListviewRow;
-    int m_iDownloadingHeaderCheckStatus = 0;
-    int m_iFinishHeaderCheckStatus = 0;
+
+    int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
+    int m_iDownloadingHeaderCheckStatus=0;
+    int m_iFinishHeaderCheckStatus=0;
     QString m_searchContent;
     bool m_bShutdownOk = false;
 signals:

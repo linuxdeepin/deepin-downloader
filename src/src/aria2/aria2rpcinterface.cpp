@@ -1,8 +1,7 @@
-
 #include "aria2rpcinterface.h"
-#include <QProcess>
-
 #include "log.h"
+
+#include <QProcess>
 
 #define AIRA_CONFIG_PATH "/usr/share/uos-downloadmanager/config/aria2.conf"
 
