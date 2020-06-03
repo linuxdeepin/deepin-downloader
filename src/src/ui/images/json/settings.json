@@ -1,0 +1,220 @@
+{
+    "groups":[{
+            "key":"Basic",
+            "name":"Basic",
+            "groups":[{
+                    "key":"Start",
+                    "name":"Start up",
+                    "options":[{
+                            "key":"PowerOn",
+                            "name":"Auto start after boot",
+                            "type":"switchbutton",
+                            "default":true
+                        },
+                        {
+                            "key":"AutoStartUnfinishedTask",
+                            "name":"Auto download after start-up",
+                            "type":"switchbutton",
+                            "default":true
+                        }
+
+                    ]
+                },
+                {
+                    "key":"DownloadDirectory",
+                    "name":"File Storage",
+                    "options":[
+                        {
+                            "key": "downloadDirectoryFileChooser",
+                            "name": "",
+                            "type": "filechooseredit",
+                            "default":"auto;"
+                        }
+                    ]
+                },
+                {
+                    "key":"OnekeyDownload",
+                    "name":"One click to download",
+                    "options":[
+                        {
+                            "key":"onekeydownload",
+                            "name":"One click to download",
+                            "type":"switchbutton",
+                            "default":false
+                        }
+                    ]
+                },
+                {
+                    "key":"CloseMainWindow",
+                    "name":"When main window closed",
+                    "options":[
+                        {
+                            "key": "closemainwindow",
+                            "type": "radiogroup",
+                            "items": [
+                              "Minimize to System Tray",
+                              "Exit"
+                            ],
+                            "default": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key":"DownloadTaskManagement",
+            "name":"Tasks",
+            "groups":[{
+                    "key":"downloadtaskmanagement",
+                    "name":"",
+                    "options":[{
+                            "key":"MaxDownloadTask",
+                            "name":"Active downloads",
+                            "type":"combobox",
+                            "default":"5"
+                        },
+                        {
+                            "key":"AutoOpen",
+                            "name":"Open file after download",
+                            "type":"switchbutton",
+                            "default":false
+                        },
+                        {
+                            "key":"AutoDelete",
+                            "name":"Delete tasks without files",
+                            "type":"switchbutton",
+                            "default":false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key":"DownloadSettings",
+            "name":"Downloads",
+            "groups":[{
+                    "key":"downloadsettings",
+                    "name":"",
+                    "options":[{
+                            "key":"downloadspeedlimit",
+                            "name":"",
+                            "type":"downloadspeedlimitsetting",
+                            "default":"speedlimit;102400;32;08:00:00;17:00:00"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key":"Monitoring",
+            "name":"Monitoring",
+            "groups":[{
+                    "key":"MonitoringObject",
+                    "name":"Monitoring application",
+                    "options":[{
+                            "key":"ClipBoard",
+                            "name":"Clipboard",
+                            "type":"switchbutton",
+                            "default":true
+                        }
+                    ]
+                },
+                {
+                    "key":"MonitoringDownloadType",
+                    "name":"Monitoring download link",
+                    "options":[{
+                            "key":"HttpDownload",
+                            "name":"",
+                            "type":"httpdownload",
+                            "default":true
+                        },
+                        {
+                            "key":"BTDownload",
+                            "name":"",
+                            "type":"btdownload",
+                            "default":true
+                        },
+                        {
+                            "key":"MagneticDownload",
+                            "name":"",
+                            "type":"magneticdownload",
+                            "default":false
+                        }
+                    ]
+                },
+                {
+                    "key":"BTRelation",
+                    "name":"Monitoring BT files",
+                    "options":[{
+                            "key":"OpenDownloadPanel",
+                            "name":"Create new task after downloading BT files",
+                            "type":"switchbutton",
+                            "default":false
+                        },
+                        {
+                            "key":"AssociateBTFileAtStartup",
+                            "name":"Create new task when BT files opening",
+                            "type":"switchbutton",
+                            "default":true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key":"Notifications",
+            "name":"Notifications",
+            "groups": [{
+                    "key": "remind",
+                    "name": "",
+                    "options": [{
+                            "key": "downloadInfoNotify",
+                            "name": "Allow notifications when downloading succeed or failed",
+                            "type": "switchbutton",
+                            "default": true
+                        },
+                        {
+                            "key": "afterDownloadPlayTone",
+                            "name": "Allow sounds when downloading succeed",
+                            "type": "switchbutton",
+                            "default": true
+                        }
+                ]
+              }
+            ]
+        },
+        {
+            "key":"AdvancedSetting",
+            "name":"Advanced",
+            "groups": [{
+                    "key": "ShortcutKeySetting",
+                    "name": "Shortcuts",
+                    "options": [{
+                            "key": "NewTaskShowMainwindow",
+                            "name": "Show main window when creating new task",
+                            "type": "switchbutton",
+                            "default": true
+                        },
+                        {
+                            "key": "OpenMainWindowShortcutKey",
+                            "name": "Show main window",
+                            "type": "shortcut",
+                            "default": "Alt+D"
+                        }
+                    ]
+                },
+                {
+                    "key": "DownloadDiskCache",
+                    "name": "Disk cache for dowloading",
+                    "options": [{
+                            "key": "DownloadDiskCacheSettiing",
+                            "name": "",
+                            "type": "downloaddiskcachesetting",
+                            "default": "128"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

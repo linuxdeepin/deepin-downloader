@@ -4,6 +4,7 @@
         <file>texts/dcc_icon_start_11px.svg</file>
         <file>texts/dcc_newdownload_11px.svg</file>
         <file>texts/dcc_list_icon_delete_11px.svg</file>
+        <file>texts/dcc_recycel_delete_11px.svg</file>
         <file>texts/dcc_bt_11px.svg</file>
         <file>actions/dcc_list_downloading_11px.svg</file>
         <file>actions/dcc_print_done_11px.svg</file>
@@ -18,6 +19,7 @@
         <file>texts/dcc_icon_start_11px.svg</file>
         <file>texts/dcc_newdownload_11px.svg</file>
         <file>texts/dcc_list_icon_delete_11px.svg</file>
+        <file>texts/dcc_recycel_delete_11px.svg</file>
         <file>texts/dcc_bt_11px.svg</file>
         <file>actions/dcc_list_downloading_dark_11px.svg</file>
         <file>actions/dcc_list_delete_dark_11px.svg</file>
@@ -37,6 +39,15 @@
         <file>icon/downloader7.svg</file>
         <file>icon/downloader8.svg</file>
         <file>icon/downloader9.svg</file>
+        <file alias="checked">icon/checked.svg</file>
+        <file alias="unchecked">icon/unchecked.svg</file>
+        <file>icon/ndm_messagebox_logo_32px.svg</file>
+        <file>icon/headerIcon.png</file>
         <file>icon/folder.svg</file>
+        <file>icon/bar-bg.png</file>
+        <file>icon/bar-front.png</file>
+    </qresource>
+    <qresource prefix="/json">
+        <file alias="settings">json/settings.json</file>
     </qresource>
 </RCC>
