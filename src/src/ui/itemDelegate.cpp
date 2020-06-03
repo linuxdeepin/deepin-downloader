@@ -36,8 +36,8 @@ ItemDelegate::ItemDelegate(QObject *parent,int Flag)
 {
      Table_Flag=Flag;
      //progressbar = new QProgressBar;
-     bg = new QPixmap(":/icons/bar-bg.png");
-     front = new QPixmap(":/icons/bar-front.png");
+     bg = new QPixmap(":/icons/icon/bar-bg.png");
+     front = new QPixmap(":/icons/icon/bar-front.png");
 
 }
 
@@ -204,7 +204,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 initStyleOption(&viewOption, index);
                 if(index.data(TableModel::Status)==2||index.data(TableModel::Status)==6)
                 {
-                    const QString pauseText = painter->fontMetrics().elidedText( tr("paused"), Qt::ElideRight, textRect.width() - 10);
+                    const QString pauseText = painter->fontMetrics().elidedText( tr("Paused"), Qt::ElideRight, textRect.width() - 10);
                     painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, pauseText);
 
                 }
@@ -216,13 +216,13 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                     painter->setRenderHint(QPainter::Antialiasing);
                     painter->setPen(QColor("#FF6347"));
                     const QRect rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
-                    const QString errorText = painter->fontMetrics().elidedText( tr("download error"), Qt::ElideRight, rect_text.width() - 10);
+                    const QString errorText = painter->fontMetrics().elidedText( tr("Failed"), Qt::ElideRight, rect_text.width() - 10);
                     painter->drawText(rect_text, Qt::AlignVCenter|Qt::AlignLeft, errorText);
                     return;
                 }
                 else
                 {
-                    const QString sizeText = painter->fontMetrics().elidedText(" "+index.data(TableModel::Percent).toString() +"%    "+ index.data(TableModel::Speed).toString()+"   "+tr("Surplus ")+index.data(TableModel::Time).toString(), Qt::ElideRight, textRect.width() - 10);
+                    const QString sizeText = painter->fontMetrics().elidedText(" "+index.data(TableModel::Percent).toString() +"%    "+ index.data(TableModel::Speed).toString()+"   "+tr("Time left ")+index.data(TableModel::Time).toString(), Qt::ElideRight, textRect.width() - 10);
                     painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
                 }
 

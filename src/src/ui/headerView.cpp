@@ -14,7 +14,7 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget * parent)
 {
    m_headerCbx = new DCheckBox(this);
    //connect(m_headerCbx,&DCheckBox::stateChanged,this,&HeaderView::get_stateChanged);
-   connect(m_headerCbx,&DCheckBox::clicked,this,&HeaderView::get_stateChanged);
+   connect(m_headerCbx,&DCheckBox::clicked,this,&HeaderView::getStatechanged);
    connect(DGuiApplicationHelper::instance(),&DGuiApplicationHelper::paletteTypeChanged,this,&HeaderView::get_paletteTypeChanged);
 
    m_headerCbx->setFixedSize(25,25);

@@ -367,23 +367,23 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
     case 0:
         return tr("");
     case 1:
-        return tr("file name");
+        return tr("Name");
     case 2:
-        return tr("size");
+        return tr("Size");
     case 3:
         if(m_mode==Downloading&&TableViewTab_Flag==0)
-            return tr("status");
+            return tr("Status");
         else if(m_mode==Finished&&TableViewTab_Flag==0)
-            return tr("finish time");
+            return tr("Time finished");
         else
-            return  tr("delete time");
+            return  tr("Time deleted");
     case 4:
         if(m_mode==Downloading&&TableViewTab_Flag==0)
-            return tr("status");
+            return tr("Status");
         else if(m_mode==Finished&&TableViewTab_Flag==0)
-            return tr("finish time");
+            return tr("Time finished");
         else
-            return  tr("delete time");
+            return  tr("Time deleted");
     }
 
     return QVariant();
@@ -428,7 +428,7 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
             }
            // emit dataChanged(index,index);
             emit check_dataChange(TableViewTab_Flag);
-            emit signal_check_change(value.toBool(), TableViewTab_Flag);
+            emit signalCheckChange(value.toBool(), TableViewTab_Flag);
             return true;
         }
     }
