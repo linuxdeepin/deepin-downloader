@@ -72,6 +72,7 @@ void TableView::initUI()
     pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
+    pHeaderView->setTextElideMode (Qt::ElideMiddle);
     setColumnWidth(0, 20);
 
     connect(pHeaderView,

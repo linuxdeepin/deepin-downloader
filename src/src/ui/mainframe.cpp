@@ -95,7 +95,7 @@ void MainFrame::init()
     m_pLeftWidget->setAutoFillBackground(true);
     QVBoxLayout *pLeftLayout = new QVBoxLayout(m_pLeftWidget);
     m_pLeftWidget->setPalette(p);
-    m_pLeftWidget->setFixedWidth(132);
+    m_pLeftWidget->setFixedWidth(152);
     pLeftLayout->setContentsMargins(10, 0, 10, 0);
 
     m_pRight_Widget = new QWidget;
@@ -158,16 +158,17 @@ void MainFrame::init()
 
     m_pleftList = new DListView;
     m_pleftList->setItemSpacing(0);
-    m_pleftList->setItemSize(QSize(112, 40));
+    m_pleftList->setItemSize(QSize(132, 40));
     m_pleftList->setItemMargins(QMargins(10, 2, 5, 2));
     m_pleftList->setIconSize(QSize(14, 14));
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPointSize(14);
+    font.setPixelSize(14);
     m_pleftList->setFont(font);
     QStandardItemModel* pLeftList_model = new QStandardItemModel(this);
 
     m_pDownloading_item = new QStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
+    //QFont f = m_pDownloading_item->font();
     m_pDownloadFinish_item = new QStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
     m_pRecycle_item = new QStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
     m_pDownloading_item->setBackground(QColor(255, 255, 255));
