@@ -75,11 +75,11 @@ void TableView::initUI()
     setColumnWidth(0, 20);
 
     connect(pHeaderView,
-            &HeaderView::get_stateChanged,
+            &HeaderView::getStatechanged,
             this,
-            &TableView::header_stateChanged);
+            &TableView::headerStatechanged);
     connect(this,
-            &TableView::clear_header_check,
+            &TableView::clearHeaderCheck,
             pHeaderView,
             &HeaderView::get_clear_header_check);
     connect(m_pTableModel,
@@ -665,4 +665,62 @@ void TableView::searchEditTextChanged(QString text)
         }
     }
     reset();
+}
+
+void TableView::saveDataBeforeClose()
+{
+    QList<DataItem *> dataList = m_pTableModel->dataList();
+    QList<DelDataItem *> recyclelist = m_pTableModel->recyleList();
+
+    if(recyclelist.size() > 0) {
+        for(int j = 0; j < recyclelist.size(); j++) {
+            DelDataItem *del_data = recyclelist.at(j);
+            QDateTime    deltime = QDateTime::fromString(del_data->deleteTime, "yyyy-MM-dd hh:mm:ss");
+            S_Task     task(del_data->taskId, del_data->gid, 0, del_data->url, del_data->savePath,
+                                            del_data->fileName, deltime);
+
+             DBInstance::updateTaskByID(task);
+        }
+    }
+    if(dataList.size() > 0) {
+        for(int i = 0; i < dataList.size(); i++) {
+            DataItem *data = dataList.at(i);
+            QDateTime time = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
+
+
+            S_Task task(data->taskId, data->gid, 0, data->url, data->savePath,
+                                        data->fileName, time);
+
+            DBInstance::updateTaskByID(task);
+            QDateTime finish_time;
+            if(data->status == Global::Status::Complete) {
+                finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+            } else {
+                finish_time = QDateTime::currentDateTime();
+            }
+            S_Task_Status get_status;
+            int status;
+            if((data->status == Global::Status::Complete) || (data->status == Global::Status::Removed)) {
+                status = data->status;
+            } else {
+                status = Global::Status::Lastincomplete;
+            }
+
+            S_Task_Status download_status(data->taskId,
+                                                                                   status,
+                                                                                   finish_time,
+                                                                                   data->completedLength,
+                                                                                   data->speed,
+                                                                                   data->totalLength,
+                                                                                   data->percent,
+                                                                                   data->total,
+                                                                                   finish_time);
+
+            if(DBInstance::getTaskStatusById(data->taskId, get_status) != false) {
+                DBInstance::updateTaskStatusById(download_status);
+            } else {
+                DBInstance::addTaskStatus(download_status);
+            }
+        }
+    }
 }

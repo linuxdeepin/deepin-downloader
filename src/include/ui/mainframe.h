@@ -27,13 +27,21 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
-class TableView;
 class QStackedWidget;
-class TopButton;
 class QSystemTrayIcon;
+class QAction;
 class SettingsWidget;
+class TopButton;
+class TableView;
 class S_Task;
 class ClipboardTimer;
+
+namespace Global {
+class DataItem;
+class DelDataItem;
+}
+
+
 /**
  * @class MainFrame
  * @brief 主界面类
@@ -57,10 +65,7 @@ private slots:
      * @param event 事件类型
      */
     void onTrayQuitClick();
-    /**
-     * @brief 新建任务按钮槽函数
-    */
-    void onNewBtnClicked();
+
     /**
      * @brief 设置按钮槽函数
     */
@@ -79,6 +84,8 @@ private slots:
      * @param error： 错误号
     */
     void slotRpcError(QString method, QString id, int error);
+
+    void slotTableItemSelected(const QModelIndex &selected);
 
     /**
      * @brief 剪切板数据改变，需要新建任务
@@ -114,10 +121,10 @@ private slots:
     */
     void getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash);
     /**
-     * @brief 表头状态改变
-     * @param  i：节点
+     * @brief 表头全部选择按键
+     * @param  isChecked ：是否全选
     */
-    void getHeaderStatechanged(bool i);
+    void getHeaderStatechanged(bool isChecked);
 
     /**
      * @brief 设置右键菜单
@@ -142,9 +149,47 @@ private slots:
     void updateMainUI();
 
     /**
+     * @brief 新建任务按钮槽函数
+    */
+    void onNewBtnClicked();
+
+    /**
      * @brief 开始下载按键按下槽函数
     */
     void onStartDownloadBtnClicked();
+
+    /**
+     * @brief 暂停下载按键按下槽函数
+    */
+    void onPauseDownloadBtnClicked();
+
+    /**
+     * @brief 删除按键按下槽函数
+    */
+    void onDeleteDownloadBtnClicked();
+
+    /**
+     * @brief 改变列表选中槽函数
+    */
+    void slotCheckChange(bool checked, int flag);
+
+    /**
+     * @brief 删除槽函数
+    */
+    void delDownloadingAction();
+
+    /**
+     * @brief get_delete_confirm_slot 获取删除窗口确定信号
+     * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
+     * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
+     */
+    void getDeleteConfirmSlot(bool ischecked,bool permanent);
+
+    /**
+     * @brief 移除指定下载
+     */
+    void slotAria2Remove(QString gId, QString id);
+
 private:
 
 
@@ -177,11 +222,7 @@ private:
     */
     void setTaskNum(int num);
 
-    /**
-     * @brief mainwidow关闭事件
-     * @param event 事件类型
-     */
-    void closeEvent(QCloseEvent *event);
+
     /**
      * @brief 新建下载任务
      * @param url 下载地址
@@ -203,20 +244,54 @@ private:
     /**
      * @brief 显示报警窗口
      */
-    void showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList);
+    void showWarningMsgbox(QString title, int sameUrlCount = 0, QList<QString> sameUrlList = {});
+
+    /**
+     * @brief show_delete_MsgBox 显示删除或彻底删除警告窗口
+     * @param permanently 是否是彻底删除 tru    e是显示彻底删除窗口，false是显示删除窗口
+     */
+    void showDeleteMsgbox(bool permanently);
 
     /**
      * @brief 从配置文件中获取下载路径
      */
     QString getDownloadSavepathFromConfig();
 
+    /**
+     * @brief 退出之前保存
+     */
+    void saveDataBeforeClose();
+
+protected:
+    /**
+     * @brief 鼠标按下事件
+     * @param event 事件类型
+     */
+    void keyPressEvent(QKeyEvent *event);
+    /**
+     * @brief 鼠标释放事件
+     * @param event 事件类型
+     */
+    void keyReleaseEvent(QKeyEvent *event);
+    /**
+     * @brief 主窗口大小变化事件
+     * @param event 事件类型
+     */
+    void resizeEvent(QCloseEvent *event);
+
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void closeEvent(QCloseEvent *event);
+
+
 private:
-    enum tableView_flag {
-        downloading,
-        recycle
+    enum tableviewFlag{
+        downloading,recycle
     };
     TopButton *m_pToolBar;
-    TableView *m_pDownLoadingTableView, *m_pDownLoadedTableView, *m_pRecycleTableView;
+    TableView *m_pDownLoadingTableView, *m_pRecycleTableView;
     QWidget *m_pLeftWidget;
     QWidget *m_pRight_Widget;
     QWidget *m_pnotaskWidget;
@@ -245,6 +320,14 @@ private:
     int m_iFinishHeaderCheckStatus=0;
     QString m_searchContent;
     bool m_bShutdownOk = false;
+
+    QList<Global::DataItem*> reload_list;  /*已完成界面点击重新下载的数据列表*/
+    QList<Global::DelDataItem*> recycle_reload_list;  /*回收站界面点击重新下载的数据列表*/
+    QList<Global::DataItem*> rename_list;
+    QList<Global::DataItem*> m_pDeleteList;
+    QList<Global::DelDataItem*> m_pRecycleDeleteList;
+
+    bool m_bCtrlKey_press=false;
 signals:
     void switchTableSignal();
     void tableChanged(int index);

@@ -72,6 +72,11 @@ public:
     */
     void refreshTableView(const int &index);
 
+    /**
+     * @brief 退出之前保存
+     */
+    void saveDataBeforeClose();
+
 private:
     /**
      * @brief 界面初始化
@@ -116,11 +121,14 @@ private:
 
 
 
-
 signals:
+
     void get_datachanged();
-    void header_stateChanged(bool checked);
-    void clear_header_check();
+    /**
+     * @brief 表头全选按键状态改变信号
+     */
+    void headerStatechanged(bool checked);
+    void clearHeaderCheck();
     void get_tableview_allchecked(bool checked);
     void signal_hoverChanged(const QModelIndex &index);
 

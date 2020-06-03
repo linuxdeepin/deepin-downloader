@@ -34,6 +34,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settinginfoinputwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/deleteitemthread.h
 )
 
 #生成qm文件
@@ -41,7 +42,8 @@ set(TS_FILES  ${CMAKE_CURRENT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/d
 #file(GLOB_RECURSE TS_SOURCES "*.cpp" "*.h" "*.ui")
 #qt5_create_translation(QM_FILES ${TS_FILES} ${TS_SOURCES})
 qt5_create_translation(QM_FILES
-    ${PROJECT_SOURCE_DIR}
+    #${PROJECT_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}/bin
     ${TS_FILES}
     OPTIONS -source-language en_US -no-obsolete)
 
@@ -78,6 +80,7 @@ add_library(ui SHARED
        settinginfoinputwidget.cpp
        settings.cpp
        messagebox.cpp
+       deleteitemthread.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
        ${QM_FILES}

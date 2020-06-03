@@ -36,10 +36,10 @@ protected:
 private:
     DCheckBox *m_headerCbx;
 signals:
-    /**
-    * @brief 状态改变按钮
+   /**
+    * @brief 表头全选按键状态改变按钮
     */
-    void get_stateChanged(bool checked);
+   void getStatechanged(bool checked);
 public slots:
     /**
     * @brief 清除表头选中状态
