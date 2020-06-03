@@ -23,7 +23,15 @@ struct S_Task_Status
     int m_percent;
     int m_totalFromSource; //获取的下载文件大小
     QDateTime m_finishTime; //完成时间
-    S_Task_Status(){};
+    S_Task_Status(){
+        m_taskId = "";
+        m_downloadStatus = -1;
+        m_compeletedLength = "";
+        m_downloadSpeed = "";
+        m_totalLength = "";
+        m_percent  = -1;
+        m_totalFromSource = 0;
+    };
     S_Task_Status(QString task_id,int download_status,QDateTime modify_time,QString compeletedLength,
                   QString download_speed,QString totalLength,int percent,int totalFromSource, QDateTime finish_time)
     {
@@ -56,7 +64,14 @@ struct S_Task
     QString m_downloadPath; //下载全路径包括文件名
     QString m_downloadFilename; //下载文件名
     QDateTime m_createTime; //任务创建时间
-    S_Task(){};
+    S_Task(){
+        m_taskId = "";
+        m_gid = "";
+        m_gidIndex = -1;
+        m_url = "";
+        m_downloadPath = "";
+        m_downloadFilename = "";
+    };
     S_Task(QString task_id,QString gid,int gid_index,QString url,QString download_path,
                 QString download_filename,QDateTime create_time)
     {
@@ -79,7 +94,14 @@ struct S_Url_Info
     QString m_seedFile; //种子文件
     QString m_selectedNum ;//选择的种子文件序号
     QString m_infoHash; //种子文件hash值
-    S_Url_Info(){};
+    S_Url_Info(){
+        m_taskId = "" ;
+        m_url = "";
+        m_downloadType = "";
+        m_seedFile = "";
+        m_selectedNum = "";
+        m_infoHash = "";
+    };
     S_Url_Info(QString task_id ,QString url ,QString download_type,
                QString seedFile,QString selectedNum,QString infoHash)
     {
