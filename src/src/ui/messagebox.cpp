@@ -44,22 +44,27 @@ void MessageBox::setDelete(bool permanentl)
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     m_deleteFlag=permanentl;
-    QString show_title=tr("Are you soure to delete this download task?");
-    this->setTitle(show_title);
-    QString show_msg=tr("After deleting,the local file will be deleted");
-    //this->addLabel(show_title);
-    this->addSpacing(10);
+
     if(permanentl)
+    {
+        QString show_title=tr("Are you sure you want to delete this download task permanently?");
+        this->setTitle(show_title);
+        this->addSpacing(10);
+        QString show_msg=tr("Local files will be deleted at the same time.");
         this->addLabel(show_msg);
+    }
     else
     {
-        this->addCheckbox(tr("delete local file at the same time"));
+        QString show_title = tr("Are you sure you want to delete this download task?");
+        this->setTitle(show_title);
+        this->addSpacing(10);
+        this->addCheckbox(tr("Delete local files"));
     }
     this->addSpacing(10);
     this->addButton(tr("Cancel"));
     if(permanentl)
     {
-        this->addButton(tr("Delete permanently"),true,ButtonType::ButtonWarning);
+        this->addButton(tr("Permanently delete"),true,ButtonType::ButtonWarning);
     }
     else {
         this->addButton(tr("Delete"),true,ButtonType::ButtonWarning);
@@ -70,12 +75,12 @@ void MessageBox::setDelete(bool permanentl)
 void MessageBox::setClear()
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
-    QString show_title=tr("Are you soure to clear all tasks in recycle bin?");
+    QString show_title=tr("Are you sure you want to delete all tasks in the trash?");
     this->addLabel(show_title);
     this->addSpacing(10);
-    this->addCheckbox(tr("delete local file at the same time"));
+    this->addCheckbox(tr("Delete local files"));
     this->addButton(tr("Cancel"));
-    this->addButton(tr("Delete"));
+    this->addButton(tr("Empty"));
     connect(this,&MessageBox::buttonClicked,this,&MessageBox::clearBtn);
 }
 void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
@@ -83,7 +88,7 @@ void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtn
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     this->setCloseButtonVisible(false);
-    this->setTitle(tr("rename"));
+    this->setTitle(tr("Rename"));
     newName_lineedit = new DLineEdit();
     newName_lineedit->setText(oldname);
     newName_lineedit->setFixedWidth(400);

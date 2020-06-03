@@ -59,7 +59,7 @@ void MainFrame::init()
 
     // 添加设置界面
     DMenu *pSettingsMenu = new DMenu;
-    m_pSettingAction = new QAction(tr("setting"), this);
+    m_pSettingAction = new QAction(tr("Settings"), this);
     pSettingsMenu->addAction(m_pSettingAction);
     titlebar()->setMenu(pSettingsMenu);
 
@@ -116,7 +116,7 @@ void MainFrame::init()
     QColor   color = QColor(192, 198, 212, 76);
     font_p.setColor(QPalette::WindowText, color);
     m_pnotaskLabel->setFont(lableFont);
-    m_pnotaskLabel->setText(tr("current no task"));
+    m_pnotaskLabel->setText(tr("No download tasks"));
     m_pnotaskLabel->setAlignment(Qt::AlignHCenter);
 
     pNoTask_WidgetLayout->addWidget(m_pnotaskLabel);
@@ -126,7 +126,7 @@ void MainFrame::init()
     m_pnotaskTipLabel->setFont(noTask_tip_Label_font);
     QPalette noTask_tip_Label_p;
     noTask_tip_Label_p.setColor(QPalette::WindowText, QColor(65, 77, 104, 70));
-    m_pnotaskTipLabel->setText(tr("you can click button to start new task"));
+    m_pnotaskTipLabel->setText(tr("Click + to create new task"));
     m_pnotaskTipLabel->setAlignment(Qt::AlignHCenter);
     m_pnotaskTipLabel->setPalette(noTask_tip_Label_p);
     pNoTask_WidgetLayout->addWidget(m_pnotaskTipLabel);
@@ -200,13 +200,13 @@ void MainFrame::initTray()
     QIcon tryIcon = QIcon(":/icons/icon/downloader5.svg");
         m_pSystemTray = new QSystemTrayIcon(this);
         m_pSystemTray->setIcon(tryIcon);
-        m_pSystemTray->setToolTip(tr("下载器"));
+        m_pSystemTray->setToolTip(tr("Download Manager"));
 
-        QAction *pShowMainAct = new QAction(tr("显示主界面"), this);
-        QAction *pNewDownloadAct = new QAction(tr("新建任务"), this);
-        QAction *pStartAllAct = new QAction(tr("开始全部任务"), this);
-        QAction *pPauseAllAct = new QAction(tr("暂停全部任务"), this);
-        QAction *pQuitAct = new QAction(tr("退出"), this);
+        QAction *pShowMainAct = new QAction(tr("Show main window"), this);
+        QAction *pNewDownloadAct = new QAction(tr("New task"), this);
+        QAction *pStartAllAct = new QAction(tr("Continue all tasks"), this);
+        QAction *pPauseAllAct = new QAction(tr("Pause all tasks"), this);
+        QAction *pQuitAct = new QAction(tr("Exit"), this);
 
 
         QMenu* pTrayMenu = new QMenu(this);
@@ -622,19 +622,19 @@ void MainFrame::onListClicked(const QModelIndex &index)
             //connect(m_pDownLoadingTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(get_doubleClicked(QModelIndex)));
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(30);
             m_pnotaskWidget->show();
-            m_pnotaskLabel->setText(tr("current no download finish task"));
+            m_pnotaskLabel->setText(tr("No finished tasks"));
             m_pnotaskTipLabel->hide();
         } else {
             //disconnect(m_pDownLoadingTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(get_doubleClicked(QModelIndex)));
             //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
-            m_pnotaskLabel->setText(tr("current no download task"));
+            m_pnotaskLabel->setText(tr("No download tasks"));
             m_pnotaskWidget->show();
             m_pnotaskTipLabel->show();
         }
     } else {
         m_pRightStackwidget->setCurrentIndex(1);
         m_pnotaskWidget->show();
-        m_pnotaskLabel->setText(tr("current no delete files"));
+        m_pnotaskLabel->setText(tr("No deleted tasks"));
         m_pnotaskTipLabel->hide();
     }
     clearTableItemCheckStatus();
@@ -898,19 +898,19 @@ void MainFrame::slotContextMenu(QPoint pos)
         }
         if(pauseCount > 0) {
             QAction *pActionStart = new QAction();
-            pActionStart->setText(tr("start"));
+            pActionStart->setText(tr("Continue"));
             delmenlist->addAction(pActionStart);
             //connect(pActionStart, &QAction::triggered, this, &MainFrame::onStartDownloadBtnClicked);
         }
         if(activeCount > 0) {
             QAction *pActionPause = new QAction();
-            pActionPause->setText(tr("pause"));
+            pActionPause->setText(tr("Pause"));
             delmenlist->addAction(pActionPause);
             //connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
         }
         if(errorCount > 0) {
             QAction *pActionredownload = new QAction();
-            pActionredownload->setText(tr("Redownload"));
+            pActionredownload->setText(tr("Download again"));
             delmenlist->addAction(pActionredownload);
             //connect(pActionredownload, &QAction::triggered, this, &MainFrame::redownload_Action);
         }
@@ -918,7 +918,7 @@ void MainFrame::slotContextMenu(QPoint pos)
     }
     if(m_iCurrentListviewRow == 2) {
         QAction *returned_to_origin = new QAction();
-        returned_to_origin->setText(tr("return to origin"));
+        returned_to_origin->setText(tr("Restore"));
         delmenlist->addAction(returned_to_origin);
         //connect(returned_to_origin, &QAction::triggered, this, &MainFrame::returnTo_origin_Action);
     }
@@ -959,7 +959,7 @@ void MainFrame::slotContextMenu(QPoint pos)
 
         if(renamCount == 1) {
             QAction *pAction_rename = new QAction();
-            pAction_rename->setText(tr("rename"));
+            pAction_rename->setText(tr("Rename"));
             delmenlist->addAction(pAction_rename);
             delmenlist->addSeparator();
             //connect(pAction_rename, &QAction::triggered, this, &MainFrame::rename_Action);
@@ -967,12 +967,12 @@ void MainFrame::slotContextMenu(QPoint pos)
     }
     if((m_iCurrentListviewRow == 1) || (m_iCurrentListviewRow == 2)) {
         QAction *pActionredownload = new QAction();
-        pActionredownload->setText(tr("Redownload"));
+        pActionredownload->setText(tr("Download again"));
         delmenlist->addAction(pActionredownload);
         //connect(pActionredownload, &QAction::triggered, this, &MainFrame::redownload_Action);
     }
     QAction *pAction_copy_download_url = new QAction();
-    pAction_copy_download_url->setText(tr("Copy Download Url"));
+    pAction_copy_download_url->setText(tr("Copy download link"));
     delmenlist->addAction(pAction_copy_download_url);
     delmenlist->addSeparator();
     //connect(pAction_copy_download_url, &QAction::triggered, this, &MainFrame::copy_download_url_Action);
@@ -983,12 +983,12 @@ void MainFrame::slotContextMenu(QPoint pos)
         //connect(pActiondel_downloading, &QAction::triggered, this, &MainFrame::del_downloading_Action);
     }
     QAction *pAction_delete_permanently = new QAction();
-    pAction_delete_permanently->setText(tr("Delete permanently"));
+    pAction_delete_permanently->setText(tr("Permanently delete"));
     delmenlist->addAction(pAction_delete_permanently);
     //connect(pAction_delete_permanently, &QAction::triggered, this, &MainFrame::delete_permanently_Action);
     if(m_iCurrentListviewRow == 2) {
         QAction *pAction_clear_recycle = new QAction();
-        pAction_clear_recycle->setText(tr("Clear"));
+        pAction_clear_recycle->setText(tr("Empty"));
         delmenlist->addAction(pAction_clear_recycle);
         //connect(pAction_clear_recycle, &QAction::triggered, this, &MainFrame::clear_recycle_Action);
     }
@@ -1327,9 +1327,9 @@ void MainFrame::dealNotificaitonSettings(QString statusStr, QString fileName)
         QProcess *p = new QProcess;
         QString   showInfo;
         if(statusStr == "error") {
-            showInfo = fileName + tr(" download error");
+            showInfo = fileName + tr(" download failed, network error");
         } else {
-            showInfo = fileName + tr(" download complete");
+            showInfo = fileName + tr(" download finished");
         }
         p->start("notify-send", QStringList() << showInfo);
         p->waitForStarted();
