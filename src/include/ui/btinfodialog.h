@@ -12,7 +12,7 @@
 
 //#include "aria2cinterface.h"
 #include "btinfodelegate.h"
-
+#include "btheaderview.h"
 #include <DDialog>
 #include <QDebug>
 #include <DTableView>
