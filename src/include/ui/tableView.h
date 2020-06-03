@@ -67,23 +67,26 @@ public:
     */
     void searchEditTextChanged(QString text);
 
+    /**
+     * @brief 刷新列表
+    */
+    void refreshTableView(const int &index);
+
 private:
     /**
      * @brief 界面初始化
     */
     void initUI();
+
     /**
      * @brief 信号槽连接初始化
     */
     void initConnections();
+
     /**
      * @brief 表格初始化
     */
     void initTableView();
-    /**
-     * @brief 增加测试数据
-    */
-    void setTestData();
 
     /**
      * @brief 获取url中的文件名称
@@ -111,10 +114,7 @@ private:
      */
     QString formatDownloadSpeed(long size);
 
-    /**
-     * @brief 刷新列表
-    */
-    void refreshTableView(const int &index);
+
 
 
 signals:
@@ -150,7 +150,6 @@ private:
     ItemDelegate *m_pItemdegegate;
     Settings *m_pSetting;
     TopButton *m_pToolBar;
-    int Table_Flag;
 };
 
 #endif // TABLEVIEW_H

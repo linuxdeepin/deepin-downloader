@@ -33,10 +33,11 @@ DTK_USE_NAMESPACE
 ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     : QStyledItemDelegate(parent)
 {
-    Table_Flag = Flag;
-    //progressbar = new QProgressBar;
-    bg = new QPixmap(":/icons/bar-bg.png");
-    front = new QPixmap(":/icons/bar-front.png");
+     Table_Flag=Flag;
+     //progressbar = new QProgressBar;
+     bg = new QPixmap(":/icons/icon/bar-bg.png");
+     front = new QPixmap(":/icons/icon/bar-front.png");
+
 }
 
 ItemDelegate::~ItemDelegate()

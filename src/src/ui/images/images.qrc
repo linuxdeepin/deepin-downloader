@@ -40,11 +40,10 @@
         <file alias="checked">icon/checked.svg</file>
         <file alias="unchecked">icon/unchecked.svg</file>
         <file>icon/ndm_messagebox_logo_32px.svg</file>
+        <file>icon/bar-bg.png</file>
+        <file>icon/bar-front.png</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>
-    </qresource>
-    <qresource prefix="/qm">
-        <file>qm/downloadmanager.qm</file>
     </qresource>
 </RCC>

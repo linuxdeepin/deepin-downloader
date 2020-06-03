@@ -40,7 +40,7 @@ TableView::TableView(int Flag, TopButton* pToolBar)
 void TableView::initUI()
 {
     setModel(m_pTableModel);
-    m_pItemdegegate = new ItemDelegate(this, Table_Flag);
+    m_pItemdegegate = new ItemDelegate(this, m_iTableFlag);
     setItemDelegate(m_pItemdegegate);
     setFrameShape(QFrame::NoFrame);
     setMinimumWidth(636);
@@ -103,22 +103,6 @@ void TableView::initConnections()
 
 void TableView::initTableView()
 {
-}
-
-void TableView::setTestData()
-{
-    DataItem *data = new DataItem;
-
-    data->taskId = "id";
-    data->gid = "71bdc01777d598df";
-    data->Ischecked = 0;
-    data->fileName = "test.txt";
-    data->taskId = "{8ffd889b-c0f9-4413-bf11-e98fe9ffc707}";
-    data->createTime = "2020-05-22 15:39:14";
-    data->Ischecked = false;
-    getTableModel()->append(data);
-    TableModel *dtModel = getTableModel();
-    setRowHidden(dtModel->rowCount(QModelIndex()), true);
 }
 
 void TableView::reset(bool switched)
@@ -433,7 +417,7 @@ void TableView::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QSt
                                                         data->percent,
                                                         data->total,
                                                         get_time);
-    if(getTaskStatus.m_taskId != "") {
+    if(getTaskStatus.m_taskId == "") {
         DBInstance::addTaskStatus(*save_task_status);
     } else {
         if(getTaskStatus.m_downloadStatus != data->status) {

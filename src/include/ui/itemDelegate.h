@@ -38,10 +38,10 @@ public:
 
 private:
     int Table_Flag;
-    QProgressBar *progressbar;
-    int hoverRow;
-    QPixmap *bg;
-    QPixmap *front;
+     //QProgressBar *progressbar;
+     int hoverRow;
+     QPixmap *bg;
+     QPixmap *front;
 public slots:
     void slot_hoverChanged(const QModelIndex &index);
 };

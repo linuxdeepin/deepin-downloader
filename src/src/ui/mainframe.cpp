@@ -80,8 +80,7 @@ void MainFrame::init()
 
 
     m_pDownLoadingTableView = new TableView(downloading, m_pToolBar);
-
-    //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
+    m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
     m_pDownLoadingTableView->setColumnHidden(4, true);
     connect(m_pDownLoadingTableView, &TableView::header_stateChanged, this, &MainFrame::getHeaderStatechanged);
     connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::clear_header_check);
@@ -213,7 +212,6 @@ void MainFrame::initTray()
         QAction *pPauseAllAct = new QAction(tr("暂停全部任务"), this);
         QAction *pQuitAct = new QAction(tr("退出"), this);
 
-
         QMenu* pTrayMenu = new QMenu(this);
         pTrayMenu->addAction(pShowMainAct);
         pTrayMenu->addAction(pNewDownloadAct);
@@ -246,7 +244,7 @@ void MainFrame::initConnection()
     connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::clear_header_check);
     connect(this, &MainFrame::tableChanged, m_pToolBar, &TopButton::get_table_changed);
     connect(m_pToolBar, &TopButton::getSearchEditTextChange, this, &MainFrame::slotSearchEditTextChanged);
-    connect(m_pUpdatetimer, &QTimer::timeout, this, &MainFrame::UpdateMainui);
+    connect(m_pUpdatetimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
     connect(m_pToolBar, &TopButton::startDownloadBtnClicked, this, &MainFrame::onStartDownloadBtnClicked);
 }
 
@@ -315,9 +313,7 @@ void MainFrame::initTabledata()
         data->taskId = list.at(i).m_taskId;
         S_Task_Status taskStatus;
         DBInstance::getTaskStatusById(data->taskId, taskStatus);
-
-        if(taskStatus.m_taskId != nullptr) {
-
+        if(taskStatus.m_taskId != "") {
             data->percent = 0;
             data->fileName = list.at(i).m_downloadFilename;
             data->savePath = list.at(i).m_downloadPath;
@@ -342,8 +338,7 @@ void MainFrame::initTabledata()
                 }
                 if(data->status == Global::Status::Lastincomplete) {
                     m_pnotaskWidget->hide();
-                    QVariant autostart_unfinished_task_switchbutton = m_pSettings->m_pSettings->getOption(
-                        "basic.select_multiple.autostart_unfinished_task_switchbutton");
+                    QVariant autostart_unfinished_task_switchbutton = m_pSettings->getAutostartUnfinishedTaskState();
                     m_pDownLoadingTableView->getTableModel()->append(data);
                     if(autostart_unfinished_task_switchbutton.toBool()) {
                         QString savePath = getDownloadSavepathFromConfig();
@@ -396,52 +391,9 @@ void MainFrame::initTabledata()
             }
         }
     }
-    refreshTableView(0);
+    m_pDownLoadingTableView->refreshTableView(0);
 
     setTaskNum(m_iCurrentListviewRow);
-}
-
-void MainFrame::refreshTableView(const int &index, bool isClearSelection)
-{
-    switch (index) {
-    case 0: {
-        m_pDownLoadingTableView->getTableModel()->switchDownloadingMode();
-        m_pDownLoadingTableView->setColumnHidden(3, false);
-        m_pDownLoadingTableView->setColumnHidden(4, true);
-
-        // 联动工具栏按钮 begin
-        int chkedCnt = 0;
-        if (m_iCurrentListviewRow == 0) {
-            QList<DataItem *> selectList = m_pDownLoadingTableView->getTableModel()->renderList();
-            for (int i = 0; i < selectList.size(); i++) {
-                if (selectList.at(i)->Ischecked) {
-                    chkedCnt++;
-                }
-            }
-            if (chkedCnt > 0) {
-                m_pToolBar->enableStartBtn(true);
-                m_pToolBar->enablePauseBtn(true);
-                m_pToolBar->enableDeleteBtn(true);
-            } else {
-                m_pToolBar->enableStartBtn(false);
-                m_pToolBar->enablePauseBtn(false);
-                m_pToolBar->enableDeleteBtn(false);
-            }
-        }
-
-        // end
-        break;
-    }
-
-    case 1:
-        m_pDownLoadingTableView->getTableModel()->switchFinishedMode();
-
-        m_pDownLoadingTableView->setColumnHidden(3, true);
-        m_pDownLoadingTableView->setColumnHidden(4, false);
-        break;
-    }
-
-    m_pDownLoadingTableView->update();
 }
 
 void MainFrame::setTaskNum(int num)
@@ -625,7 +577,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
     QString DownloadTask_Lable_Text;
     if ((index.row() == 0) || (index.row() == 1)) {
         m_pRightStackwidget->setCurrentIndex(0);
-        refreshTableView(index.row());
+        m_pDownLoadingTableView->refreshTableView(index.row());
         m_pDownLoadingTableView->horizontalHeader()->reset();
         bool switched = true;
         m_pDownLoadingTableView->reset(switched);
@@ -637,7 +589,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_pnotaskTipLabel->hide();
         } else {
             //disconnect(m_pDownLoadingTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(get_doubleClicked(QModelIndex)));
-            //m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
+            m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
             m_pnotaskLabel->setText(tr("current no download task"));
             m_pnotaskWidget->show();
             m_pnotaskTipLabel->show();
@@ -1253,45 +1205,6 @@ void MainFrame::getNewdowloadSlot(QString url, QString savepath)
     }
 }
 
-QString MainFrame::getFileName(const QString &url)
-{
-    return QString(url).right(url.length() - url.lastIndexOf('/') - 1);
-}
-
-QString MainFrame::formatFileSize(long size)
-{
-    QString result = "";
-
-    if (size < 1024) {
-        result = QString::number(size) + "B";
-    } else if (size / 1024 < 1024) {
-        result = QString::number(size * 1.0 / 1024, 'r', 1) + "KB";
-    } else if (size / 1024 / 1024 < 1024) {
-        result = QString::number(size * 1.0 / 1024 / 1024, 'r', 1) + "MB";
-    } else if (size / 1024 / 1024 / 1024 < 1024) {
-        result = QString::number(size * 1.0 / 1024 / 1024 / 1024, 'r', 1) + "GB";
-    }
-
-    return result;
-}
-
-QString MainFrame::formatDownloadSpeed(long size)
-{
-    QString result = "";
-
-    if (size < 1024) {
-        result = QString::number(size) + " B/s";
-    } else if (size / 1024 < 1024) {
-        result = QString::number(size * 1.0 / 1024, 'r', 1) + " KB/s";
-    } else if (size / 1024 / 1024 < 1024) {
-        result = QString::number(size * 1.0 / 1024 / 1024, 'r', 1) + " MB/s";
-    } else if (size / 1024 / 1024 / 1024 < 1024) {
-        result = QString::number(size * 1.0 / 1024 / 1024 / 1024, 'r', 1) + " GB/s";
-    }
-
-    return result;
-}
-
 void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList)
 {
     //    MessageBox *msg = new MessageBox(Warnings);
@@ -1347,44 +1260,6 @@ QString MainFrame::getDownloadSavepathFromConfig()
     }
     return path;
 }
-
-
-void MainFrame::dealNotificaitonSettings(QString statusStr, QString fileName)
-{
-    // 获取免打扰模式值
-    QVariant undisturbed_mode_switchbutton = m_pSettings->m_pSettings->getOption(
-        "basic.select_multiple.undisturbed_mode_switchbutton");
-
-    if (undisturbed_mode_switchbutton.toBool()) {
-        bool topStatus = this->isTopLevel();
-        bool maxStatus = this->isMaximized();
-        if (topStatus && maxStatus) {
-            return;
-        }
-    }
-
-    QVariant afterDownloadPlayTone = m_pSettings->m_pSettings->getOption("noticeReminder.remind.afterDownloadPlayTone");
-    if (afterDownloadPlayTone.toBool()) {
-        //QSound::play(":/resources/wav/downloadfinish.wav");
-    } else {
-        qDebug() << " not in select down load finsh wav" << endl;
-    }
-
-    QVariant downloadInfoNotify = m_pSettings->m_pSettings->getOption("noticeReminder.remind.downloadInfoNotify");
-    if (downloadInfoNotify.toBool()) {
-        QProcess *p = new QProcess;
-        QString showInfo;
-        if (statusStr == "error") {
-            showInfo = fileName + tr(" download error");
-        } else {
-            showInfo = fileName + tr(" download complete");
-        }
-        p->start("notify-send", QStringList() << showInfo);
-        p->waitForStarted();
-        p->waitForFinished();
-    }
-}
-
 
 void MainFrame::onStartDownloadBtnClicked()
 {
@@ -1457,7 +1332,6 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::slotRpcSuccess(QString method, QJsonObject json)
 {
-    qDebug() << method;
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
@@ -1494,9 +1368,8 @@ void MainFrame::slotRpcError(QString method, QString id, int error)
 }
 
 
-void MainFrame::UpdateMainui()
+void MainFrame::updateMainUI()
 {
-    qDebug() << "__________________________";
     const QList<DataItem *> renderList = m_pDownLoadingTableView->getTableModel()->renderList();
     const QList<DataItem *> dataList = m_pDownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;

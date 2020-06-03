@@ -139,7 +139,7 @@ private slots:
     /**
      * @brief 定时器更新界面显示
     */
-    void UpdateMainui();
+    void updateMainUI();
 
     /**
      * @brief 开始下载按键按下槽函数
@@ -170,12 +170,6 @@ private:
      * @brief 初始化三个列表，读数据库
     */
     void initTabledata();
-    /**
-     * @brief 刷新列表
-     * @param index 节点
-     * @param isClearSelection 是否清除
-    */
-    void refreshTableView(const int &index, bool isClearSelection = false);
 
     /**
      * @brief 设置任务数
@@ -210,26 +204,6 @@ private:
      * @brief 显示报警窗口
      */
     void showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList);
-
-    /**
-     * @brief 获取url中的文件名称
-     * @param url 下载地址
-     */
-    QString getFileName(const QString &url);
-
-    /**
-     * @brief 处理设置界面通知设置函数
-     */
-    void dealNotificaitonSettings(QString statusStr, QString fileName);
-
-    /**
-     * @brief 格式化文件大小 （1B1KB1MB1GB）
-     */
-    QString formatFileSize(long size);
-    /**
-     * @brief 格式化下载速度（1B1KB1MB1GB  /S）
-     */
-    QString formatDownloadSpeed(long size);
 
     /**
      * @brief 从配置文件中获取下载路径
