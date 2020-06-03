@@ -5,7 +5,6 @@
 
 #define AIRA_CONFIG_PATH "/usr/share/uos-downloadmanager/config/aria2.conf"
 
-//#ln /usr/bin/aria2c /usr/share/uos-downloadmanager/uos-aria2c
 const QString Aria2RPCInterface::basePath = "/usr/share/uos-downloadmanager/";
 const QString Aria2RPCInterface::aria2cCmd = "nfs-aria2c"; // aria2c
 
@@ -114,37 +113,68 @@ void Aria2RPCInterface::Aria2RPCInterface::init()
     qDebug() << "Startup aria2:" << QString::number(rs);
 }
 
-; //检测aria2c是否启动
+//检测aria2c是否启动
 bool Aria2RPCInterface::checkAria2cProc()
 {
-    return true;
+    QProcess *proc = new QProcess;
+    QStringList opt;
+    opt << "-c";
+    //opt << "ps aux | grep aria2c";
+    opt << "ps aux|grep " + Aria2RPCInterface::aria2cCmd;
+    proc->start("/bin/bash", opt);
+    proc->waitForFinished();
+    QString output = QString::fromLocal8Bit(proc->readAllStandardOutput());
+    QStringList lineList = output.split("\n");
+    int cnt = 0;
+    foreach(QString t, lineList) {
+        if(t == "") {
+            continue;
+        }
+        if(t.indexOf("grep " + Aria2RPCInterface::aria2cCmd) >= 0) {
+            continue;
+        }
+        if(t.indexOf(Aria2RPCInterface::aria2cCmd) >= 0) {
+            cnt++;
+            //break;
+        }
+    }
+    if(cnt>0){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 //关闭aria2c进程
-bool Aria2RPCInterface::killAria2cProc()
+int Aria2RPCInterface::killAria2cProc()
 {
-    return true;
+    QStringList opt;
+    opt << "-c";
+    opt << "ps -ef|grep " + Aria2RPCInterface::aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
+    return QProcess::execute("/bin/bash", opt);
 }
 
 //设置默认的下载路径
 void Aria2RPCInterface::setDefaultDownLoadDir(QString strDir)
 {
+    this->defaultDownloadPath = strDir;
 }
 
 //获得默认的下载路径
 QString Aria2RPCInterface::getDefaultDownLoadDir()
 {
-    return "";
+    return defaultDownloadPath;
 }
 
 //设置配置文件路径
-void Aria2RPCInterface::setConfigFilePath(QString strPath)
+void Aria2RPCInterface::setConfigFilePath(const QString strPath)
 {
     configPath = strPath;
 }
 
 //获得配置文件路径
-QString Aria2RPCInterface::getConfigFilePath()
+QString Aria2RPCInterface::getConfigFilePath() const
 {
     return configPath;
 }
@@ -191,6 +221,16 @@ void Aria2RPCInterface::addTorrent(QString strTorrentFile, QMap<QString, QVarian
 //添加磁力链地址
 void Aria2RPCInterface::addMetalink(QString strMetalink, QMap<QString, QVariant> opt, QString strId)
 {
+    QString metalinkB64Str = fileToBase64(strMetalink);
+    QJsonArray ja;
+    ja.append(metalinkB64Str);
+    ja.append(QJsonArray());
+
+    QJsonDocument doc = QJsonDocument::fromVariant(QVariant(opt));
+    QJsonObject optJson = doc.object();
+    ja.append(optJson);
+
+    callRPC(ARIA2C_METHOD_ADD_METALINK, ja, strId);
 }
 
 QString Aria2RPCInterface::fileToBase64(QString filePath)
