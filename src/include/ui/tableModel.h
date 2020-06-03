@@ -163,7 +163,7 @@ signals:
      * @brief 选中或者不选中
      * @param flag: 模式
      */
-    void signal_check_change(bool checked, int  flag);
+    void signalCheckChange(bool checked, int  flag);
 private slots:
     /**
      * @brief 获取选中改变

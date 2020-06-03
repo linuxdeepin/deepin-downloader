@@ -39,7 +39,7 @@ public:
     bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index);
 private:
     int Table_Flag;
-     QProgressBar *progressbar;
+     //QProgressBar *progressbar;
      int hoverRow;
      QPixmap *bg;
      QPixmap *front;

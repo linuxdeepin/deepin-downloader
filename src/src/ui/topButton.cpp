@@ -76,7 +76,7 @@ void TopButton::InitConnections()
 }
 
 
-void TopButton::get_table_changed(int index)
+void TopButton::getTableChanged(int index)
 {
     if(index==1||index==2)
     {
@@ -85,10 +85,10 @@ void TopButton::get_table_changed(int index)
         m_pDeleteDownloadBtn->setEnabled(false);
         if(index==2)
         {
-            m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("ndm_recycel_delete"));
+            m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
         }
         else {
-            m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("ndm_list_icon_delete"));
+            m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
         }
     }
     else
@@ -96,7 +96,7 @@ void TopButton::get_table_changed(int index)
         m_pStartDownloadBtn->setEnabled(false);
         m_pPauseDownloadBtn->setEnabled(false);
         m_pDeleteDownloadBtn->setEnabled(false);
-        m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("ndm_list_icon_delete"));
+        m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
 
 
     }

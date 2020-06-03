@@ -46,6 +46,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settinginfoinputwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/deleteitemthread.h
 )
 
 
@@ -82,6 +83,7 @@ add_library(ui SHARED
        settinginfoinputwidget.cpp
        settings.cpp
        messagebox.cpp
+       deleteitemthread.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
        ${QM_FILES}

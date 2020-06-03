@@ -428,7 +428,7 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
             }
            // emit dataChanged(index,index);
             emit check_dataChange(TableViewTab_Flag);
-            emit signal_check_change(value.toBool(), TableViewTab_Flag);
+            emit signalCheckChange(value.toBool(), TableViewTab_Flag);
             return true;
         }
     }
