@@ -52,10 +52,6 @@ MainFrame::MainFrame(QWidget *parent) :
 
 void MainFrame::init()
 {
-
-    m_pSettings = new Settings;
-
-
     m_iCurrentListviewRow = 0;
 
     // 添加设置界面
@@ -283,7 +279,6 @@ void MainFrame::closeEvent(QCloseEvent *event)
         onMessageBoxConfirmClick();
     }
     event->ignore();
-    this->hide();
 }
 
 void MainFrame::createNewTask(QString url)
@@ -304,6 +299,8 @@ void MainFrame::onMessageBoxConfirmClick()
 {
     if(Settings::getInstance()->getCloseMainWindowSelected()){
         onTrayQuitClick();
+    } else {
+        this->hide();
     }
 }
 
@@ -360,7 +357,7 @@ void MainFrame::initTabledata()
                 }
                 if(data->status == Global::Status::Lastincomplete) {
                     m_pnotaskWidget->hide();
-                    QVariant autostart_unfinished_task_switchbutton = m_pSettings->getAutostartUnfinishedTaskState();
+                    QVariant autostart_unfinished_task_switchbutton = Settings::getInstance()->getAutostartUnfinishedTaskState();
                     m_pDownLoadingTableView->getTableModel()->append(data);
                     if(autostart_unfinished_task_switchbutton.toBool()) {
                         QString savePath = getDownloadSavepathFromConfig();
@@ -490,10 +487,10 @@ void MainFrame::onSettingsMenuClicked()
 //    pSettingsDialog->widgetFactory()->registerWidget("downloadtraysetting", Settings::createDownloadTraySettingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloaddiskcachesetting", Settings::createDownloadDiskCacheSettiingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting", Settings::createDownloadSpeedLimitSettiingHandle);
-    pSettingsDialog->updateSettings( "Settings",m_pSettings->m_pSettings );
+    pSettingsDialog->updateSettings( "Settings",Settings::getInstance()->m_pSettings);
     pSettingsDialog->exec();
     delete pSettingsDialog;
-    m_pSettings->m_pSettings->sync();
+    Settings::getInstance()->m_pSettings->sync();
 
 }
 
@@ -1328,7 +1325,7 @@ void MainFrame::getDeleteConfirmSlot(bool ischecked, bool permanent)
 QString   MainFrame::getDownloadSavepathFromConfig()
 {
     QVariant downloadRadioGroup =
-        m_pSettings->m_pSettings->getOption("basic.downloadDirectory.downloadDirectoryFileChooser");
+        Settings::getInstance()->m_pSettings->getOption("basic.downloadDirectory.downloadDirectoryFileChooser");
 
     QString path = "";
 

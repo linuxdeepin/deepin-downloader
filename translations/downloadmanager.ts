@@ -174,173 +174,173 @@
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="63"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="59"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="118"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="524"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="521"/>
         <source>No download tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="128"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="124"/>
         <source>Click + to create new task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="145"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="141"/>
         <source>0 task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="170"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="166"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="172"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="168"/>
         <source>Completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="173"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="169"/>
         <source>Trash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="203"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="199"/>
         <source>Download Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="205"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="201"/>
         <source>Show main window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="206"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="202"/>
         <source>New task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="207"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="203"/>
         <source>Continue all tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="208"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="204"/>
         <source>Pause all tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="209"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="205"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="379"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1446"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="376"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1443"/>
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="443"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="440"/>
         <source> item tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="459"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="473"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="456"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="470"/>
         <source> files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="519"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="516"/>
         <source>No finished tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="531"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="528"/>
         <source>No deleted tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="795"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="792"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="801"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="798"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="807"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="864"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="804"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="861"/>
         <source>Download again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="815"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="812"/>
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="821"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="818"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="826"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="823"/>
         <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="856"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="853"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="869"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="866"/>
         <source>Copy download link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="875"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="872"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="880"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="877"/>
         <source>Permanently delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="885"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="882"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1143"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1140"/>
         <source>has </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1143"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1140"/>
         <source> the same download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1154"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1151"/>
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1470"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1511"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1561"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1467"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1508"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1558"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>

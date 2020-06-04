@@ -311,7 +311,6 @@ private:
     ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
     QTimer *m_pUpdatetimer;
-    Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
     int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
