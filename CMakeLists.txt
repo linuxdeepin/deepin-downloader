@@ -30,22 +30,26 @@ set(CMAKE_AUTORCC ON)
 #打开全局uic
 set(CMAKE_AUTOUIC ON)
 
-
-#find_package(Qt5 REQUIRED)
-
-#target_link_libraries( ${APP_NAME} Qt5::Svg )
-
 #应用qt库
 set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
-
 
 
 #应用DTK库
 set(DTK Widget Core Gui Wm)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
+#调用sh生成qm文件
+#if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+#    message("qm")
+#    # generate qm files
+#    execute_process(COMMAND bash "translate_generation.sh"
+#                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+#endif ()
+
 
 #加载子模块
 add_subdirectory(src)
 add_subdirectory(translations)
+
