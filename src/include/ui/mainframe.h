@@ -62,11 +62,6 @@ private slots:
      * @param reason 激活原因
      */
     void onActivated(QSystemTrayIcon::ActivationReason reason);
-    /**
-     * @brief mainwidow关闭事件
-     * @param event 事件类型
-     */
-    void onTrayQuitClick();
 
     /**
      * @brief 设置按钮槽函数
@@ -193,6 +188,17 @@ private slots:
      */
     void slotAria2Remove(QString gId, QString id);
 
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void onTrayQuitClick();
+
+    /**
+     * @brief messageBox关闭返回事件
+     * @param index 按钮index
+     */
+    void onMessageBoxConfirmClick();
 private:
 
     /**
@@ -258,11 +264,6 @@ private:
      */
     QString   getDownloadSavepathFromConfig();
 
-    /**
-     * @brief 退出之前保存
-     */
-    void saveDataBeforeClose();
-
 protected:
     /**
      * @brief 鼠标按下事件
@@ -278,7 +279,7 @@ protected:
      * @brief 主窗口大小变化事件
      * @param event 事件类型
      */
-    void resizeEvent(QCloseEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
     /**
      * @brief mainwidow关闭事件
@@ -310,7 +311,6 @@ private:
     ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
     QTimer *m_pUpdatetimer;
-    Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
     int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
@@ -330,7 +330,6 @@ signals:
      void switchTableSignal();
      void tableChanged(int index);
 
-     void signalAutoDownloadBt(QString btFilePath);
      void signalRedownload(QString taskId, int rd);
 };
 

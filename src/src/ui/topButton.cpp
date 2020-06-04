@@ -1,6 +1,6 @@
 /**
 * @file topButton.cpp
-* @brief 顶部按钮和搜索框
+* @brief 主界面顶部按钮加搜索框
 * @author zhaoyue  <zhaoyue@uniontech.com>
 * @version 1.0.0
 * @date 2020-05-26 09:41

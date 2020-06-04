@@ -38,13 +38,16 @@ public:
      */
     bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index);
 private:
-    int Table_Flag;
+    int m_iTableFlag;
      //QProgressBar *progressbar;
-     int hoverRow;
-     QPixmap *bg;
-     QPixmap *front;
+     int m_iHoverRow;
+     QPixmap *m_pBgImage;
+     QPixmap *m_pFront;
 public slots:
-     void slot_hoverChanged(const QModelIndex &index);
+     /**
+      * @brief 鼠标悬停行改变
+      */
+     void slotHoverchanged(const QModelIndex &index);
 
 };
 

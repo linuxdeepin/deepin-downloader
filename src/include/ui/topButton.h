@@ -1,6 +1,6 @@
 /**
 * @file topButton.h
-* @brief
+* @brief 主界面顶部按钮加搜索框
 * @author zhaoyue  <zhaoyue@uniontech.com>
 * @version 1.0.0
 * @date 2020-05-26 09:42
@@ -65,6 +65,10 @@ public:
     }
 
 public slots:
+    /**
+     * @brief 当前显示列表改变
+     * @param index： 列表索引
+    */
     void getTableChanged(int index);
 private:
     /**

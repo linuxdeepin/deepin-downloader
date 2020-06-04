@@ -267,6 +267,20 @@ Settings::Settings(QObject *parent) : QObject(parent)
     auto advanced_shortcuts_newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
     auto advanced_shortcuts_showMainName = tr("Show main window"); // 打开主界面快捷键
     auto group_advanced_diskCacheName = tr("Disk cache for dowloading"); // 下载磁盘缓存
+
+    //上次保存文件位置以及右上角关闭时是否显示提示框
+
+    QString iniConfigPath = QString("%1/%2/%3/usrConfig.conf")
+        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+        .arg(qApp->organizationName())
+        .arg(qApp->applicationName());
+    m_pIniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
+    if(!m_pIniFile->contains("FilePath/Filename")){
+        m_pIniFile->setValue("FilePath/Filename",  "/home/sanhei/Downloads");
+    }
+    if(!m_pIniFile->contains("Close/showTip")){
+        m_pIniFile->setValue("Close/showTip",  "true");
+    }
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
@@ -727,6 +741,7 @@ bool Settings::getOneClickDownloadState()
 int Settings::getCloseMainWindowSelected()
 {
     auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
+    int i = option->value().toInt();
     return option->value().toInt();
 }
 
@@ -936,6 +951,34 @@ void Settings::setCloseMainWindowSelected(int nSelect)
     auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
     option->setValue(nSelect);
 }
+
+
+QString Settings::getCustomFilePath()
+{
+    return m_pIniFile->value("FilePath/Filename").toString();
+}
+
+void Settings::setCustomFilePath(const QString &path)
+{
+    m_pIniFile->setValue( "FilePath/Filename",  path);
+
+}
+
+bool Settings::getIsShowTip()
+{
+    return m_pIniFile->value("Close/showTip").toBool();
+}
+
+void Settings::setIsShowTip(bool b)
+{
+    if(b){
+        m_pIniFile->setValue( "Close/showTip",  "true");
+    } else {
+        m_pIniFile->setValue( "Close/showTip",  "false");
+    }
+    m_pIniFile->sync();
+}
+
 
 
 

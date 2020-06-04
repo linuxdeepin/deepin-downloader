@@ -9,7 +9,8 @@
                             "key":"PowerOn",
                             "name":"Auto start after boot",
                             "type":"switchbutton",
-                            "default":true
+                            "default":true,
+                            "visible": false
                         },
                         {
                             "key":"AutoStartUnfinishedTask",

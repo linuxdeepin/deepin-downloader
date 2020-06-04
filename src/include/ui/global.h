@@ -65,10 +65,18 @@ namespace Global {
         QString finishTime;
 
     };
+    /**
+     * @enum Status
+     * @brief 列表项当前状态
+     */
     enum Status {
         Active = 0, Waiting, Paused, Error, Complete, Removed,Lastincomplete
     };
-    enum Msgbox_type{
+    /**
+     * @enum MsgboxType
+     * @brief 消息弹框类型
+     */
+    enum MsgboxType{
         NewDownloding=0,
         Warnings = 1,
         Delete = 2,
