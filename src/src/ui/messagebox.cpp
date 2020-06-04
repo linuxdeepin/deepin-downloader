@@ -1,11 +1,12 @@
 #include "messagebox.h"
+#include "settings.h"
 
-MessageBox::MessageBox(DDialog *parent)
-    : DDialog(parent)
+MessageBox::MessageBox(DDialog *parent) : DDialog(parent)
 {
+
 }
 
-void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString cancelbtntext, int sameurl_count, QList<QString> same_url_list)
+void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cancelbtntext,int sameurl_count,QList<QString> same_url_list)
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -13,25 +14,30 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
 
     this->addLabel(warningMsg);
     this->addSpacing(10);
-    if (sameurl_count != 0) {
+    if(sameurl_count!=0)
+    {
         DTextEdit *url_text = new DTextEdit(this);
         url_text->setReadOnly(true);
-        url_text->setFixedSize(QSize(454, 154));
+        url_text->setFixedSize(QSize(454,154));
 
         QPalette pal;
-        pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
+        pal.setColor(QPalette::Base, QColor(0,0,0,20));
         url_text->setPalette(pal);
-        for (int i = 0; i < same_url_list.size(); i++) {
+        for(int i=0;i<same_url_list.size();i++)
+        {
             url_text->append(same_url_list.at(i));
         }
         this->addContent(url_text);
     }
-    if (cancelbtntext != "") {
+    if(cancelbtntext!="")
+    {
         this->addButton(cancelbtntext);
+
     }
     this->addButton(surebtntext);
-    connect(this, &MessageBox::buttonClicked, this,
-            [=]() {
+    connect(this,&MessageBox::buttonClicked,this,
+            [=]()
+            {
                 this->close();
             });
 }
@@ -65,7 +71,7 @@ void MessageBox::setDelete(bool permanentl)
         this->addButton(tr("Delete"),true,ButtonType::ButtonWarning);
 
     }
-    connect(this, &MessageBox::buttonClicked, this, &MessageBox::deleteBtn);
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::deleteBtn);
 }
 void MessageBox::setClear()
 {
@@ -87,68 +93,116 @@ void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtn
     newName_lineedit = new DLineEdit();
     newName_lineedit->setText(oldname);
     newName_lineedit->setFixedWidth(400);
-    this->addContent(newName_lineedit, Qt::AlignHCenter);
+    this->addContent(newName_lineedit,Qt::AlignHCenter);
     this->addSpacing(20);
-    QWidget *button_box = new QWidget(this);
-    QHBoxLayout *layout = new QHBoxLayout(button_box);
+    QWidget *button_box= new QWidget(this);
+    QHBoxLayout *layout=new QHBoxLayout(button_box);
     QPushButton *cancel_button = new QPushButton(button_box);
     cancel_button->setText(cancelbtntext);
-    connect(cancel_button, &DPushButton::clicked, this,
-            [=]() {
+    connect(cancel_button,&DPushButton::clicked,this,
+            [=]()
+            {
                 this->close();
             });
     layout->addWidget(cancel_button);
     rename_sure_button = new QPushButton(button_box);
     rename_sure_button->setText(surebtntext);
-    connect(rename_sure_button, &DPushButton::clicked, this, &MessageBox::renameSureBtn);
+    connect(rename_sure_button,&DPushButton::clicked,this,&MessageBox::renameSureBtn);
     layout->addWidget(rename_sure_button);
     this->addContent(button_box);
-    connect(newName_lineedit, &DLineEdit::textChanged, this, &MessageBox::get_renameLineEdit_changed);
+    connect(newName_lineedit,&DLineEdit::textChanged,this,&MessageBox::get_renameLineEdit_changed);
+}
+
+void MessageBox::setExit()
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    setTitle(tr("You want to"));
+    addSpacing(10);
+    addRadioGroup(tr("Exit"), tr("Minimize to System Tray"));
+    addSpacing(10);
+    addCheckbox(tr("Don't ask again"));
+    this->addButton(tr("Cancel"));
+    this->addButton(tr("Confirm"));
+
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::ExitBtn);
 }
 
 void MessageBox::addLabel(QString text)
 {
-    DLabel *title = new DLabel(this);
+    DLabel * title= new DLabel(this);
     title->setText(text);
-    this->addContent(title, Qt::AlignHCenter);
+    this->addContent(title,Qt::AlignHCenter);
+}
+
+void MessageBox::addRadioGroup(QString quitText, QString minText)
+{
+    int status = Settings::getInstance()->getCloseMainWindowSelected();
+    m_pButtonQuit = new  DRadioButton(quitText);
+    m_pButtonMin = new  DRadioButton(minText);
+    addContent(m_pButtonQuit,Qt::AlignLeft);
+    addSpacing(5);
+    addContent(m_pButtonMin,Qt::AlignLeft);
+    if(status){
+        m_pButtonQuit->setChecked(true);
+        m_pButtonMin->setChecked(false);
+    } else {
+        m_pButtonMin->setChecked(true);
+        m_pButtonQuit->setChecked(false);
+    }
+    connect(m_pButtonQuit, &DRadioButton::clicked, this,
+            [=]()
+            {
+                m_pButtonMin->setChecked(false);
+            });
+    connect(m_pButtonMin, &DRadioButton::clicked, this,
+            [=]()
+            {
+                m_pButtonQuit->setChecked(false);
+            });
 }
 
 void MessageBox::addCheckbox(QString checkboxText)
 {
     m_checkbox = new DCheckBox(this);
     m_checkbox->setText(checkboxText);
-    this->addContent(m_checkbox, Qt::AlignHCenter);
+    this->addContent(m_checkbox,Qt::AlignHCenter);
 }
 
 void MessageBox::get_renameLineEdit_changed(const QString &text)
 {
-    QString real_name = QString(text).left(text.lastIndexOf('.'));
 
-    if (!text.isEmpty() && !real_name.isEmpty()) {
+    QString real_name= QString(text).left(text.lastIndexOf('.'));
+
+    if(!text.isEmpty()&&!real_name.isEmpty())
+    {
         rename_sure_button->setEnabled(true);
-    } else {
+    }
+    else {
         rename_sure_button->setEnabled(false);
     }
 }
 
 void MessageBox::renameSureBtn()
 {
-    QString newname = newName_lineedit->text();
-    if (newname.contains("\\") || newname.contains("/")) {
-        MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("file name can not containts '\\' or '/' "), tr("sure"));
+    QString newname=newName_lineedit->text();
+    if(newname.contains("\\")||newname.contains("/"))
+    {
+        MessageBox *msg=new MessageBox();
+        msg->setWarings(tr("file name can not containts '\\' or '/' "),tr("sure"));
         msg->exec();
         return;
     }
     emit ReName_sig(newname);
-    this->close();
+   this->close();
 }
 
 void MessageBox::clearBtn(int index)
 {
-    if (index == 1) {
+    if(index==1)
+    {
         bool ischecked;
-        ischecked = m_checkbox->isChecked();
+        ischecked= m_checkbox->isChecked();
         emit ClearRecycle_sig(ischecked);
     }
     this->close();
@@ -156,16 +210,37 @@ void MessageBox::clearBtn(int index)
 
 void MessageBox::deleteBtn(int index)
 {
-    if (index == 1) {
-        QAbstractButton *button = this->getButton(index);
+    if(index==1)
+    {
+
+    QAbstractButton *button= this->getButton(index);
         button->setEnabled(false);
-        if (m_deleteFlag)
-            emit DeleteDownload_sig(true, m_deleteFlag);
-        else {
+        if(m_deleteFlag)
+             emit DeleteDownload_sig(true,m_deleteFlag);
+        else
+        {
             bool ischecked;
-            ischecked = m_checkbox->isChecked();
-            emit DeleteDownload_sig(ischecked, m_deleteFlag);
+            ischecked= m_checkbox->isChecked();
+            emit DeleteDownload_sig(ischecked,m_deleteFlag);
+
         }
+    }
+    this->close();
+}
+
+void MessageBox::ExitBtn(int index)
+{
+    if(index==1)
+    {
+        if(m_pButtonMin->isChecked()) {
+            Settings::getInstance()->setCloseMainWindowSelected(0);
+        } else {
+            Settings::getInstance()->setCloseMainWindowSelected(1);
+        }
+        if(m_checkbox->isChecked()) {
+            Settings::getInstance()->setIsShowTip(false);
+        }
+        emit signalCloseConfirm();
     }
     this->close();
 }

@@ -27,6 +27,7 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
+
 class QStackedWidget;
 class QSystemTrayIcon;
 class QAction;
@@ -52,6 +53,7 @@ class MainFrame : public Dtk::Widget::DMainWindow
 public:
     explicit MainFrame(QWidget *parent = Q_NULLPTR);
 
+
     ~MainFrame();
 
 private slots:
@@ -60,11 +62,6 @@ private slots:
      * @param reason 激活原因
      */
     void onActivated(QSystemTrayIcon::ActivationReason reason);
-    /**
-     * @brief mainwidow关闭事件
-     * @param event 事件类型
-     */
-    void onTrayQuitClick();
 
     /**
      * @brief 设置按钮槽函数
@@ -109,6 +106,7 @@ private slots:
     */
     void getNewDowloadUrl(QString url, QString savePath);
 
+
     /**
      * @brief 收到新建任务orrent
      * @param btName 文件路径
@@ -119,7 +117,7 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    void getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash);
+    void getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
     /**
      * @brief 表头全部选择按键
      * @param  isChecked ：是否全选
@@ -190,10 +188,19 @@ private slots:
      */
     void slotAria2Remove(QString gId, QString id);
 
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void onTrayQuitClick();
+
+    /**
+     * @brief messageBox关闭返回事件
+     * @param index 按钮index
+     */
+    void onMessageBoxConfirmClick();
 private:
 
-
-private:
     /**
      * @brief 初始化aria2
     */
@@ -255,12 +262,7 @@ private:
     /**
      * @brief 从配置文件中获取下载路径
      */
-    QString getDownloadSavepathFromConfig();
-
-    /**
-     * @brief 退出之前保存
-     */
-    void saveDataBeforeClose();
+    QString   getDownloadSavepathFromConfig();
 
 protected:
     /**
@@ -277,7 +279,7 @@ protected:
      * @brief 主窗口大小变化事件
      * @param event 事件类型
      */
-    void resizeEvent(QCloseEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
     /**
      * @brief mainwidow关闭事件
@@ -298,11 +300,9 @@ private:
     DLabel *m_pnotaskLabel;
     QLabel *m_pnotaskTipLabel;
     QStackedWidget *m_pRightStackwidget;
-
     QWidget *m_ptaskNumWidget;
     QLabel  *m_ptaskNum;
     DListView *m_pleftList;
-
 
     QStandardItem *m_pDownloading_item;
     QStandardItem *m_pDownloadFinish_item;
@@ -311,10 +311,8 @@ private:
     ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
     QTimer *m_pUpdatetimer;
-    Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
-
     int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
@@ -329,11 +327,10 @@ private:
 
     bool m_bCtrlKey_press=false;
 signals:
-    void switchTableSignal();
-    void tableChanged(int index);
+     void switchTableSignal();
+     void tableChanged(int index);
 
-    void signalAutoDownloadBt(QString btFilePath);
-    void signalRedownload(QString taskId, int rd);
+     void signalRedownload(QString taskId, int rd);
 };
 
 #endif // MAINFRAME_H

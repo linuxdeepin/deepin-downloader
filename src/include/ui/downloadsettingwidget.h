@@ -80,6 +80,7 @@ private slots:
     void radioButtonClickSlot();
 
 private:
+
     /**
      * @brief 初始化界面
      */
@@ -97,6 +98,7 @@ private:
     SettingInfoInputWidget *m_pMaxUploadSpeedLimit; // 最大上传限速输入框
     QTimeEdit *m_pStartTimeEdit; // 开始时间
     QTimeEdit *m_pEndTimeEdit; // 结束时间
+
 };
 
 #endif // DOWNLOADSETTINGWIDGET_H

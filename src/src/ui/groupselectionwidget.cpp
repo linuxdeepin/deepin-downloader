@@ -14,8 +14,7 @@
 
 #include "itemselectionwidget.h"
 
-GroupSelectionWidget::GroupSelectionWidget(QStringList lstItemName, QWidget *parent)
-    : QWidget(parent)
+GroupSelectionWidget::GroupSelectionWidget(QStringList lstItemName, QWidget *parent) : QWidget(parent)
 {
     m_lstItemName = lstItemName;
     initUI();
@@ -29,12 +28,14 @@ void GroupSelectionWidget::initUI()
     QVBoxLayout *pMainLayout = new QVBoxLayout;
     pMainLayout->setContentsMargins(0, 0, 0, 0);
     pMainLayout->addWidget(m_pLabel);
-    for (int i = 0; i < m_lstItemName.count(); i++) {
+    for(int i = 0; i < m_lstItemName.count(); i++)
+    {
         ItemSelectionWidget *pItemSelectionWidget = new ItemSelectionWidget;
         pItemSelectionWidget->setLabelText(m_lstItemName.at(i));
         pItemSelectionWidget->setObjectName(m_lstItemName.at(i));
         connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, this, &GroupSelectionWidget::itemCheckedSlot);
-        if (i == 0) {
+        if(i == 0)
+        {
             pItemSelectionWidget->setCheckBoxChecked(true);
         }
 
@@ -47,24 +48,31 @@ void GroupSelectionWidget::initUI()
 // 初始化链接
 void GroupSelectionWidget::initConnections()
 {
+
 }
 
 void GroupSelectionWidget::itemCheckedSlot(bool bIsChecked)
 {
     ItemSelectionWidget *pItemSelectionWidget = qobject_cast<ItemSelectionWidget *>(sender());
-    if (!bIsChecked) {
+    if(!bIsChecked)
+    {
         pItemSelectionWidget->setBlockSignals(true);
         pItemSelectionWidget->setCheckboxState(Qt::Checked);
         pItemSelectionWidget->setBlockSignals(false);
-    } else {
+    }
+    else
+    {
         QList<ItemSelectionWidget *> lstItemWidget = findChildren<ItemSelectionWidget *>();
-        for (int i = 0; i < lstItemWidget.count(); i++) {
+        for(int i = 0; i < lstItemWidget.count(); i++)
+        {
             ItemSelectionWidget *pItemWidget = lstItemWidget.at(i);
-            if (pItemSelectionWidget->objectName() != pItemWidget->objectName()) {
+            if(pItemSelectionWidget->objectName() != pItemWidget->objectName())
+            {
                 pItemWidget->setBlockSignals(true);
                 pItemWidget->setCheckboxState(Qt::Unchecked);
                 pItemWidget->setBlockSignals(false);
             }
+
         }
 
         QString strText = pItemSelectionWidget->objectName();
@@ -79,7 +87,8 @@ void GroupSelectionWidget::setLabelText(QString strText)
 
 void GroupSelectionWidget::setLabelIsHide(bool bIsHide)
 {
-    if (bIsHide) {
+    if(bIsHide)
+    {
         m_pLabel->hide();
     }
 }
@@ -87,16 +96,22 @@ void GroupSelectionWidget::setLabelIsHide(bool bIsHide)
 void GroupSelectionWidget::setCurrentSelected(QString strName)
 {
     QList<ItemSelectionWidget *> lstItemWidget = findChildren<ItemSelectionWidget *>();
-    for (int i = 0; i < lstItemWidget.count(); i++) {
+    for(int i = 0; i < lstItemWidget.count(); i++)
+    {
         ItemSelectionWidget *pItemWidget = lstItemWidget.at(i);
-        if (strName != pItemWidget->objectName()) {
+        if(strName != pItemWidget->objectName())
+        {
             pItemWidget->setBlockSignals(true);
             pItemWidget->setCheckboxState(Qt::Unchecked);
             pItemWidget->setBlockSignals(false);
-        } else {
+        }
+        else
+        {
             pItemWidget->setBlockSignals(true);
             pItemWidget->setCheckboxState(Qt::Checked);
             pItemWidget->setBlockSignals(false);
         }
     }
 }
+
+

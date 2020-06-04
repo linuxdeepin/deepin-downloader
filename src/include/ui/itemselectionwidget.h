@@ -61,6 +61,7 @@ public slots:
     void checkBoxstateChangedSlot(int nState);
 
 private:
+
     /**
      * @brief 初始化界面
      */
@@ -74,6 +75,7 @@ private:
 private:
     DLabel *m_pLabel; // 标题
     DCheckBox *m_pCheckBox; // 复选框
+
 };
 
 #endif // ITEMSELECTIONWIDGET_H

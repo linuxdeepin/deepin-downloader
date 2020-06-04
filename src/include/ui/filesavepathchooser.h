@@ -54,6 +54,7 @@ public slots:
     void lineEditTextChanged(const QString &strText);
 
 private:
+
     /**
      * @brief 初始化界面
      */
