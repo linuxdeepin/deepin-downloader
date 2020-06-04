@@ -62,11 +62,6 @@ private slots:
      * @param reason 激活原因
      */
     void onActivated(QSystemTrayIcon::ActivationReason reason);
-    /**
-     * @brief mainwidow关闭事件
-     * @param event 事件类型
-     */
-    void onTrayQuitClick();
 
     /**
      * @brief 设置按钮槽函数
@@ -193,6 +188,17 @@ private slots:
      */
     void slotAria2Remove(QString gId, QString id);
 
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void onTrayQuitClick();
+
+    /**
+     * @brief messageBox关闭返回事件
+     * @param index 按钮index
+     */
+    void onMessageBoxConfirmClick();
 private:
 
     /**
@@ -257,11 +263,6 @@ private:
      * @brief 从配置文件中获取下载路径
      */
     QString   getDownloadSavepathFromConfig();
-
-    /**
-     * @brief 退出之前保存
-     */
-    void saveDataBeforeClose();
 
 protected:
     /**

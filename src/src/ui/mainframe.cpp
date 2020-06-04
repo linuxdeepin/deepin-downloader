@@ -218,12 +218,7 @@ void MainFrame::initTray()
         //连接信号与槽
         connect(pShowMainAct, &QAction::triggered, [=](){this->show();});
         connect(pNewDownloadAct, &QAction::triggered, [=](){createNewTask("");});
-        connect(pQuitAct, &QAction::triggered, [=]()
-        {
-            m_pDownLoadingTableView->saveDataBeforeClose();
-            m_pRecycleTableView->saveDataBeforeClose();
-            qApp->quit();
-        });
+        connect(pQuitAct, &QAction::triggered, this, &MainFrame::onTrayQuitClick);
         connect(m_pSystemTray, &QSystemTrayIcon::activated, this, &MainFrame::onActivated);
         m_pSystemTray->setContextMenu(pTrayMenu);
         m_pSystemTray->show();
@@ -279,12 +274,16 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainFrame::closeEvent(QCloseEvent *event)
 {
-    MessageBox *msg = new MessageBox();
-
-    msg->setExit();
-    msg->exec();
-    this->hide();
+    if(Settings::getInstance()->getIsShowTip()){
+        MessageBox *msg = new MessageBox();
+        connect(msg, &MessageBox::signalCloseConfirm, this, &MainFrame::onMessageBoxConfirmClick);
+        msg->setExit();
+        msg->exec();
+    } else {
+        onMessageBoxConfirmClick();
+    }
     event->ignore();
+    this->hide();
 }
 
 void MainFrame::createNewTask(QString url)
@@ -296,8 +295,16 @@ void MainFrame::createNewTask(QString url)
 }
 void MainFrame::onTrayQuitClick()
 {
-    //save_data_before_close();
+    m_pDownLoadingTableView->saveDataBeforeClose();
+    m_pRecycleTableView->saveDataBeforeClose();
     qApp->quit();
+}
+
+void MainFrame::onMessageBoxConfirmClick()
+{
+    if(Settings::getInstance()->getCloseMainWindowSelected()){
+        onTrayQuitClick();
+    }
 }
 
 MainFrame::~MainFrame()
@@ -1652,60 +1659,3 @@ void MainFrame::updateMainUI()
     setTaskNum(m_iCurrentListviewRow);
 }
 
-void MainFrame::saveDataBeforeClose()
-{
-    QList<DataItem *> dataList = m_pDownLoadingTableView->getTableModel()->dataList();
-    QList<DelDataItem *> recyclelist = m_pRecycleTableView->getTableModel()->recyleList();
-
-    if(recyclelist.size() > 0) {
-        for(int j = 0; j < recyclelist.size(); j++) {
-            DelDataItem *del_data = recyclelist.at(j);
-            QDateTime    deltime = QDateTime::fromString(del_data->deleteTime, "yyyy-MM-dd hh:mm:ss");
-            S_Task     task(del_data->taskId, del_data->gid, 0, del_data->url, del_data->savePath,
-                                            del_data->fileName, deltime);
-
-             DBInstance::updateTaskByID(task);
-        }
-    }
-    if(dataList.size() > 0) {
-        for(int i = 0; i < dataList.size(); i++) {
-            DataItem *data = dataList.at(i);
-            QDateTime time = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
-
-
-            S_Task task(data->taskId, data->gid, 0, data->url, data->savePath,
-                                        data->fileName, time);
-
-            DBInstance::updateTaskByID(task);
-            QDateTime finish_time;
-            if(data->status == Global::Status::Complete) {
-                finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
-            } else {
-                finish_time = QDateTime::currentDateTime();
-            }
-            S_Task_Status get_status;
-            int status;
-            if((data->status == Global::Status::Complete) || (data->status == Global::Status::Removed)) {
-                status = data->status;
-            } else {
-                status = Global::Status::Lastincomplete;
-            }
-
-            S_Task_Status download_status(data->taskId,
-                                                                                   status,
-                                                                                   finish_time,
-                                                                                   data->completedLength,
-                                                                                   data->speed,
-                                                                                   data->totalLength,
-                                                                                   data->percent,
-                                                                                   data->total,
-                                                                                   finish_time);
-
-            if(DBInstance::getTaskStatusById(data->taskId, get_status)) {
-                DBInstance::updateTaskStatusById(download_status);
-            } else {
-                DBInstance::addTaskStatus(download_status);
-            }
-        }
-    }
-}

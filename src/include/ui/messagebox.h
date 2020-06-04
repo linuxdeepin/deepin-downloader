@@ -90,6 +90,11 @@ signals:
     */
     void DeleteDownload_sig(bool ret,bool ret1);
 
+    /**
+     * @brief 关闭确认信号
+    */
+    void signalCloseConfirm();
+
 public slots:
     /**
      * @brief 重命名编辑框更新槽函数
@@ -109,12 +114,19 @@ public slots:
     */
     void deleteBtn(int index);
 
+    /** 右上角退出按钮按下弹出框的操作
+     * @brief
+    */
+    void ExitBtn(int index);
+
 private:
     bool m_deleteFlag;
     DCheckBox *m_checkbox;
     DLineEdit *newName_lineedit;
     QPushButton *rename_sure_button;
 
+    DRadioButton *m_pButtonQuit;
+    DRadioButton *m_pButtonMin;
 };
 
 #endif // MESSAGEBOX_H

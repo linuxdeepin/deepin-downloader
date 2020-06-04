@@ -275,8 +275,12 @@ Settings::Settings(QObject *parent) : QObject(parent)
         .arg(qApp->organizationName())
         .arg(qApp->applicationName());
     m_pIniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
-    m_pIniFile->setValue( "FilePath/Filename",  "/home/sanhei/Downloads");
-    m_pIniFile->setValue( "Close/showTip",  "true");
+    if(!m_pIniFile->contains("FilePath/Filename")){
+        m_pIniFile->setValue("FilePath/Filename",  "/home/sanhei/Downloads");
+    }
+    if(!m_pIniFile->contains("Close/showTip")){
+        m_pIniFile->setValue("Close/showTip",  "true");
+    }
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
@@ -736,7 +740,8 @@ bool Settings::getOneClickDownloadState()
 
 int Settings::getCloseMainWindowSelected()
 {
-    auto option = m_pSettings->option("Basic.OnekeyDownload.onekeydownload");
+    auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
+    int i = option->value().toInt();
     return option->value().toInt();
 }
 
@@ -941,6 +946,13 @@ int Settings::getDisckcacheNum()
     return option->value().toInt();
 }
 
+void Settings::setCloseMainWindowSelected(int nSelect)
+{
+    auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
+    option->setValue(nSelect);
+}
+
+
 QString Settings::getCustomFilePath()
 {
     return m_pIniFile->value("FilePath/Filename").toString();
@@ -964,7 +976,9 @@ void Settings::setIsShowTip(bool b)
     } else {
         m_pIniFile->setValue( "Close/showTip",  "false");
     }
+    m_pIniFile->sync();
 }
+
 
 
 

@@ -246,6 +246,12 @@ public:
     int getDisckcacheNum();
 
     /**
+     * @brief 设置关闭主界面选择选项
+     * @param nSelect 设置选中选项，退出下载器设置1,最小化到托盘设置0
+     */
+    void setCloseMainWindowSelected(int nSelect);
+
+    /**
      * @brief 获取自定义文件路径
      * @return 返回数值
      */
@@ -268,6 +274,8 @@ public:
      * @return 返回数值
      */
     void setIsShowTip(bool b);
+
+
 
     DSettings *m_pSettings;
 
