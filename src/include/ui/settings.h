@@ -244,6 +244,12 @@ public:
      */
     int getDisckcacheNum();
 
+    /**
+     * @brief 设置关闭主界面选择选项
+     * @param nSelect 设置选中选项，退出下载器设置1,最小化到托盘设置0
+     */
+    void setCloseMainWindowSelected(int nSelect);
+
     DSettings *m_pSettings;
 
 signals:
