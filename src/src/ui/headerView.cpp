@@ -31,13 +31,13 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget * parent)
 void HeaderView::updateGeometries() {
     m_headerCbx->move(sectionPosition(0) + 5, 5);
 }
-void HeaderView::get_clear_header_check()
+void HeaderView::getClearHeaderCheck()
 {
     m_headerCbx->setChecked(false);
 }
 
 
-void HeaderView::get_checkall_signals(bool checked)
+void HeaderView::getCheckall(bool checked)
 {
      m_headerCbx->setChecked(checked);
 }

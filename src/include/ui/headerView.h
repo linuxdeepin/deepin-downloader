@@ -44,11 +44,11 @@ public slots:
    /**
     * @brief 清除表头选中状态
     */
-   void get_clear_header_check();
+   void getClearHeaderCheck();
    /**
-    * @brief 表头选中
+    * @brief 表头全选按键选中
     */
-   void get_checkall_signals(bool checked);
+   void getCheckall(bool checked);
    /**
     * @brief 调色板改变，重新设置颜色
     */

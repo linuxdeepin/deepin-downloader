@@ -124,16 +124,35 @@ private:
 
 signals:
 
-    void get_datachanged();
+    //void getDatachanged();
     /**
      * @brief 表头全选按键状态改变信号
      */
-    void headerStatechanged(bool checked);
-    void clearHeaderCheck();
-    void get_tableview_allchecked(bool checked);
-    void signal_hoverChanged(const QModelIndex &index);
+    void signalHeaderStatechanged(bool checked);
 
+    /**
+     * @brief 清除表头选中状态信号
+     */
+    void signalClearHeaderCheck();
+
+    /**
+     * @brief 表头全选按键选中
+     */
+    void signalTableViewAllChecked(bool checked);
+
+    /**
+     * @brief 鼠标悬停行改变
+     */
+    void signalHoverchanged(const QModelIndex &index);
+
+    /**
+     * @brief 文件为bt，自动开始下载
+     */
     void signalAutoDownloadBt(QString btFilePath);
+
+    /**
+     * @brief 文件为bt，自动开始下载
+     */
     void signalRedownload(QString taskId, int rd);
 protected:
     /**

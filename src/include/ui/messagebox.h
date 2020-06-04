@@ -14,6 +14,7 @@
 #include <DCheckBox>
 #include <DLineEdit>
 #include <QPushButton>
+#include <DRadioButton>
 #include "global.h"
 
 DWIDGET_USE_NAMESPACE
@@ -35,7 +36,7 @@ public:
     */
     void setWarings(QString warningMsg,QString surebtntext,QString cancalbtntext="",int sameurl_count=0,QList<QString> same_url_list={});
     /**
-     * @brief 设置警告窗口
+     * @brief 设置删除窗口
      * @param permanentl bool类型，真为选择删除文件同时，删除本地文件。 假为可选择是否删除本地文件。
     */
     void setDelete(bool permanentl);
@@ -51,12 +52,21 @@ public:
      * @param oldname 曾用名
     */
     void setReName(QString title,QString surebtntext,QString cancelbtn,QString oldname);
+    /**
+     * @brief 设置退出窗口
+    */
+    void setExit();
 private:
     /**
      * @brief 设置label
      * @param text label内容
     */
     void addLabel(QString text);
+    /**
+     * @brief 设置radioGroup
+     * @param text label内容
+    */
+    void addRadioGroup(QString quitText, QString minText);
     /**
      * @brief Checkbox
      * @param text Checkbox内容

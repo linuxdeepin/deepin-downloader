@@ -245,6 +245,30 @@ public:
      */
     int getDisckcacheNum();
 
+    /**
+     * @brief 获取自定义文件路径
+     * @return 返回数值
+     */
+    QString getCustomFilePath();
+
+    /**
+     * @brief 设置自定义文件路径
+     * @return 返回数值
+     */
+    void setCustomFilePath(const QString &path);
+
+    /**
+     * @brief 获取关闭时是否显示提示
+     * @return 返回数值
+     */
+    bool getIsShowTip();
+
+    /**
+     * @brief 设置关闭时是否显示提示
+     * @return 返回数值
+     */
+    void setIsShowTip(bool b);
+
     DSettings *m_pSettings;
 
 signals:
@@ -259,6 +283,7 @@ private:
     static Settings *s_pInstance;
     Dtk::Core::QSettingBackend *m_pBackend;
     QString m_configPath; // 配置文件路径
+    QSettings *m_pIniFile;
 
 };
 

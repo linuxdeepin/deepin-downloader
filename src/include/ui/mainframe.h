@@ -278,7 +278,7 @@ protected:
      * @brief 主窗口大小变化事件
      * @param event 事件类型
      */
-    void resizeEvent(QCloseEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
     /**
      * @brief mainwidow关闭事件
@@ -330,7 +330,6 @@ signals:
      void switchTableSignal();
      void tableChanged(int index);
 
-     void signalAutoDownloadBt(QString btFilePath);
      void signalRedownload(QString taskId, int rd);
 };
 

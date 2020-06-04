@@ -44,6 +44,9 @@ private:
      void deleteDownloadData();
 
 signals:
+     /**
+      * @brief 通知主界面调用aria2删除任务
+     */
      void signalAria2Remove(QString gId, QString id);
 
 private:
