@@ -726,7 +726,7 @@ bool Settings::getOneClickDownloadState()
 
 int Settings::getCloseMainWindowSelected()
 {
-    auto option = m_pSettings->option("Basic.OnekeyDownload.onekeydownload");
+    auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
     return option->value().toInt();
 }
 
@@ -929,6 +929,12 @@ int Settings::getDisckcacheNum()
 {
     auto option = m_pSettings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
     return option->value().toInt();
+}
+
+void Settings::setCloseMainWindowSelected(int nSelect)
+{
+    auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
+    option->setValue(nSelect);
 }
 
 
