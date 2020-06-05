@@ -296,13 +296,13 @@ private:
     TableView *m_pDownLoadingTableView, *m_pRecycleTableView;
     QWidget *m_pLeftWidget;
     QWidget *m_pRight_Widget;
-    QWidget *m_pnotaskWidget;
-    DLabel *m_pnotaskLabel;
-    QLabel *m_pnotaskTipLabel;
+    QWidget *m_pNotaskWidget;
+    DLabel *m_pNotaskLabel;
+    QLabel *m_pNotaskTipLabel;
     QStackedWidget *m_pRightStackwidget;
-    QWidget *m_ptaskNumWidget;
-    QLabel  *m_ptaskNum;
-    DListView *m_pleftList;
+    QWidget *m_pTaskNumWidget;
+    QLabel  *m_pTaskNum;
+    DListView *m_pLeftList;
 
     QStandardItem *m_pDownloading_item;
     QStandardItem *m_pDownloadFinish_item;
@@ -316,12 +316,12 @@ private:
     int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
-    QString m_searchContent;
+    QString m_SearchContent;
     bool m_bShutdownOk = false;
 
-    QList<Global::DataItem*> reload_list;  /*已完成界面点击重新下载的数据列表*/
-    QList<Global::DelDataItem*> recycle_reload_list;  /*回收站界面点击重新下载的数据列表*/
-    QList<Global::DataItem*> rename_list;
+    QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
+    QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
+    QList<Global::DataItem*> m_renameList;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 
@@ -329,7 +329,6 @@ private:
 signals:
      void switchTableSignal();
      void tableChanged(int index);
-
      void signalRedownload(QString taskId, int rd);
 };
 
