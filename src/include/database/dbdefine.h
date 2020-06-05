@@ -42,18 +42,16 @@ struct S_Task_Status
         m_compeletedLength = compeletedLength ;
         m_downloadSpeed = download_speed;
         m_totalLength = totalLength;
-        if(percent < 0 || percent > 100 )
-        {
-            m_percent  = 0;
-        }
-        else
-        {
+        if (percent < 0 || percent > 100) {
+            m_percent = 0;
+        } else {
             m_percent = percent;
         }
         m_totalFromSource = totalFromSource;
         m_finishTime = finish_time;
     };
 };
+
 
 struct S_Task
 {
@@ -92,7 +90,7 @@ struct S_Url_Info
     QString m_url; //下载url
     QString m_downloadType; //下载类型
     QString m_seedFile; //种子文件
-    QString m_selectedNum ;//选择的种子文件序号
+    QString m_selectedNum; //选择的种子文件序号
     QString m_infoHash; //种子文件hash值
     S_Url_Info(){
         m_taskId = "" ;
@@ -113,7 +111,5 @@ struct S_Url_Info
         m_infoHash = infoHash;
     }
 };
-
-
 
 #endif // DBDEFINE_H

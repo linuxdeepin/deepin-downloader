@@ -22,8 +22,6 @@
 #include <QCryptographicHash>
 #include <QtMath>
 
-
-
 class Aria2RPCInterface : public QObject
 {
     Q_OBJECT
@@ -31,7 +29,6 @@ public:
     explicit Aria2RPCInterface(QObject *parent = nullptr);
 
 public:
-
     /**
      *@brief startUp 启动aria2c进程
      *@return 启动成功true  启动失败 false
@@ -41,7 +38,7 @@ public:
      *@brief init 初始化
      *@return
      */
-    void init();//初始化RPC服务
+    void init(); //初始化RPC服务
     /**
      *@brief checkAria2cProc() 检测aria2c是否启动
      *@return 启动成功 true  否则 false
@@ -50,9 +47,9 @@ public:
 
     /**
      *@brief killAria2cProc关闭aria2c进程
-     *@return 启动成功 true  否则 false
+     *@return 成功 大于0  否则 小于0
      */
-    bool killAria2cProc();
+    int killAria2cProc();
 
     /**
      *@brief 设置默认的下载路径
@@ -65,18 +62,28 @@ public:
      *@brief 获得默认的下载路径
      *@return
      */
-    QString getDefaultDownLoadDir() ;//{return this->defaultDownloadPath();}
+    QString getDefaultDownLoadDir(); //{return this->defaultDownloadPath();}
 
     /**
      *@brief 设置配置文件路径
      *@param strPath
      *@return
      */
-    void setConfigFilePath(QString strPath);
+    void setConfigFilePath(const QString strPath);
 
-    QString getConfigFilePath();//获得配置文件路径
+    /**
+     *@brief 获得配置文件路径
+     *@param
+     *@return 返回路径
+     */
+    QString getConfigFilePath() const;
 
-    bool checkAria2cFile();//检查aria2c文件
+    /**
+     *@brief 检查aria2c文件
+     *@param
+     *@return aria2c 存在返回true 不存在返回false
+     */
+    bool checkAria2cFile();
     /**
      * @brief addUri 添加下载 HTTP(S)/FTP/BitTorrent Magnet 链接 ，
      * @param uri 链接
@@ -96,7 +103,7 @@ public:
      * {id:"", jsonrpc:"2.0", result:"gid"}
      * QString gId = json.value("result").toString();
      */
-    void addUri(QString strUri,QMap<QString,QVariant> opt,QString strId);//添加uri地址
+    void addUri(QString strUri, QMap<QString, QVariant> opt, QString strId); //添加uri地址
 
     /**
      * @brief addNewUri 添加下载 HTTP(S)/FTP/BitTorrent Magnet 链接 ，
@@ -104,8 +111,7 @@ public:
      * @param savepath  下载路径
      * @param strId     Gid
      */
-    void addNewUri(QString uri,QString savepath,QString strId);
-
+    void addNewUri(QString uri, QString savepath, QString strId);
 
     /**
      * @brief addTorrent 添加下载Torrent
@@ -129,7 +135,7 @@ public:
      * {id:"", jsonrpc:"2.0", result:"gid"}
      * QString gId = json.value("result").toString();
      */
-    void addTorrent(QString strTorrentFile,QMap<QString,QVariant> opt,QString strId);//添加bt文件
+    void addTorrent(QString strTorrentFile, QMap<QString, QVariant> opt, QString strId); //添加bt文件
 
     /**
      * @brief addMetalink 添加Metalink
@@ -142,7 +148,7 @@ public:
      * {id:"", jsonrpc:"2.0", result:"gid"}
      * QString gId = json.value("result").toString();
      */
-    void addMetalink(QString strMetalink,QMap<QString,QVariant> opt,QString strId);//
+    void addMetalink(QString strMetalink, QMap<QString, QVariant> opt, QString strId); //
 
     /**
      * @brief tellStatus 获取下载状态
@@ -168,6 +174,7 @@ public:
      * result为一个JsonObject，包含类似map键值，详见aria2文档
      */
     void tellStatus(QString gId, QStringList keys, QString id = "");
+
     /**
      * @brief pause 暂停指定下载 active/waiting状态将变为paused
      * @param gId GID
@@ -191,6 +198,7 @@ public:
      * QString gId = json.value("result").toString();
      */
     void forcePause(QString gId, QString id = "");
+
     /**
      * @brief pauseAll 全部暂停 active/waiting状态将变为paused
      * @param id 同其它方法参数
@@ -199,7 +207,7 @@ public:
      * {id:"", jsonrpc:"2.0", result:"ok"}
      * QString ok = json.value("result").toString();
      */
-    void pauseAll(QString id = "");//
+    void pauseAll(QString id = ""); //
 
     /**
      * @brief forcePauseAll 强制全部暂停
@@ -210,6 +218,7 @@ public:
      * QString ok = json.value("result").toString();
      */
     void forcePauseAll(QString id = "");
+
     /**
      * @brief unpause 恢复指定GID下载 paused状态变为waiting
      * @param gId GID aria2c生成的下载唯一标示
@@ -288,6 +297,7 @@ public:
      * 调用changeglobaloption设置,参数详见aria2文档
      */
     void setMaxDownloadNum(QString maxDownload);
+
     /**
      * @brief setDownloadUploadSpeed 下载和上传速度的设置
      * @param downloadSpeed 下载速度
@@ -330,64 +340,12 @@ public:
      */
     QString bytesFormat(qint64 size);
 
-private:
-    /**
-     *@brief 调用RPC
-     *@param method 调用的方法 params  该方法对应的参数   id
-     *
-     *@return
-     */
-    void callRPC(QString method, QJsonArray params, QString id = "");
-    void callRPC(QString method, QString id = "");//
-
-    /**
-     *@brief 发送请求
-     *@param jsonObj json包 method请求的方法
-     *
-     *@return
-     */
-    void sendMessage(QJsonObject jsonObj,const QString &method);
-    /**
-     *@brief 请求的返回
-     *@param reply网络对象 method 方法 id
-     *
-     *@return
-     */
-    void rpcRequestReply(QNetworkReply *reply,const QString &method,const QString id);
-
-    QString fileToBase64(QString filePath);//文件转base64
-
-    QString processThunderUri(QString thunder);//如果是迅雷链接会解密处理，否则原样返回
-
-private:
-    //QString cmd = "/usr/bin/aria2c";//aria2c程序路径 -> 已改成public static变量
-    QString rpcPort = "16800";//rpc端口
-    QString rpcServer = "http://localhost:" + rpcPort + "/jsonrpc";//rpc服务器地址
-    QString defaultDownloadPath;//默认下载路径
-    QString configPath = "";
-
-signals:
-    void signalRPCSuccess(QString method, QJsonObject json);
-    void signalRPCError(QString method, QString id, int errCode);
-
-public slots:
-
-public:
-    static Aria2RPCInterface *Instance();
-
-    static const QString aria2cCmd;//aria2c程序路径
-    static const QString basePath;//下载器安装目录
-private:
-    static Aria2RPCInterface *_pInstance;
-
-
-public:
     /**
      * @brief getBtInfo  获取torrent信息
      * @param strTorrentPath  bt文件路径
      * @return Aria2cBtInfo
      */
-    Aria2cBtInfo getBtInfo(QString strTorrentPath);//得到bt文件信息
+    Aria2cBtInfo getBtInfo(QString strTorrentPath); //得到bt文件信息
 
     /**
      * @brief getCapacityFree 获取指定路径所在分区的磁盘剩余容量
@@ -402,6 +360,69 @@ public:
      * @return
      */
     long getCapacityFreeByte(QString path);
+
+private:
+    /**
+     *@brief 调用RPC
+     *@param method 调用的方法 params  该方法对应的参数   id
+     *
+     *@return
+     */
+    void callRPC(QString method, QJsonArray params, QString id = "");
+    void callRPC(QString method, QString id = ""); //
+
+    /**
+     *@brief 发送请求
+     *@param jsonObj json包 method请求的方法
+     *
+     *@return
+     */
+    void sendMessage(QJsonObject jsonObj, const QString &method);
+
+    /**
+     *@brief 请求的返回
+     *@param reply网络对象 method 方法 id
+     *
+     *@return
+     */
+    void rpcRequestReply(QNetworkReply *reply, const QString &method, const QString id);
+
+    /**
+     *@brief 文件转base64
+     *@param filePath 文件路径
+     *
+     *@return 获得转换后的文件
+     */
+    QString fileToBase64(QString filePath); //文件转base64
+
+    /**
+     *@brief 如果是迅雷链接会解密处理，否则原样返回
+     *@param thunder 链接
+     *
+     *@return 解密后链接
+     */
+    QString processThunderUri(QString );
+
+private:
+    QString rpcPort = "16800"; //rpc端口
+    QString rpcServer = "http://localhost:" + rpcPort + "/jsonrpc"; //rpc服务器地址
+    QString defaultDownloadPath; //默认下载路径
+    QString configPath = "";//配置文件路径
+
+signals:
+    void signalRPCSuccess(QString method, QJsonObject json);//rpc 正确返回处理信号
+    void signalRPCError(QString method, QString id, int errCode);//rpc错误返回处理信号
+
+public slots:
+
+public:
+    static Aria2RPCInterface *Instance();
+    static const QString aria2cCmd; //aria2c程序路径
+    static const QString basePath; //下载器安装目录
+private:
+    static Aria2RPCInterface *_pInstance;
+
+public:
 
 };
 
