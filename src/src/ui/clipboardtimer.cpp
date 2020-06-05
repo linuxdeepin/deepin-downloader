@@ -45,7 +45,7 @@ bool ClipboardTimer::isHttp(QString url)
 {
     QString _isHttp =url.mid(0,4);
 
-    if( (-1 == url.indexOf("ftp://")) || (-1 == url.indexOf("http://")) || (-1 == url.indexOf("https://")))
+    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http:")) && (-1 == url.indexOf("https:")))
     {
         return false;
     }

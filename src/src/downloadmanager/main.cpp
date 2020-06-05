@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     DApplication::loadDXcbPlugin();
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     DApplication a(argc, argv);
+    a.setQuitOnLastWindowClosed(false);
     a.loadTranslator();//加载程序的翻译文件
     a.setOrganizationName("uos");//设置公司名
     a.setApplicationName("downloadmanager");//设置应用程序名
@@ -68,7 +69,7 @@ int main(int argc, char *argv[])
     CheckFreeDisk();
     //创建新日志
     CreateNewLog();
-    //qInstallMessageHandler(customLogMessageHandler);
+    qInstallMessageHandler(customLogMessageHandler);
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
