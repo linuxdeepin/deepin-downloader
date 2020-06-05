@@ -326,8 +326,6 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
 
     FileSavePathChooser *pFileSavePathChooser = new FileSavePathChooser(nCurrentSelect, strDownloadPath);
 
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pFileSavePathChooser);
-
     connect(pFileSavePathChooser, &FileSavePathChooser::textChanged, pFileSavePathChooser, [=] (QVariant var) {
 
         QString strCurrentValue = var.toString();
@@ -365,7 +363,7 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
         }
     });
 
-    return optionWidget;
+    return pFileSavePathChooser;
 }
 
 QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
@@ -376,8 +374,6 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
     pItemSelectionWidget->setLabelText(tr("HTTP")); // HTTP下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
-
     connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
@@ -389,7 +385,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
         }
     });
 
-    return optionWidget;
+    return pItemSelectionWidget;
 }
 
 QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
@@ -400,8 +396,6 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
     pItemSelectionWidget->setLabelText(tr("BitTorrent")); // BT下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
-
     connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
@@ -413,7 +407,7 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
         }
     });
 
-    return optionWidget;
+    return pItemSelectionWidget;
 }
 
 QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
@@ -424,8 +418,6 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
     pItemSelectionWidget->setLabelText(tr("Magnet URI scheme")); // 磁力链接下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pItemSelectionWidget);
-
     connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
@@ -437,7 +429,7 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
         }
     });
 
-    return optionWidget;
+    return pItemSelectionWidget;
 }
 
 QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
@@ -460,8 +452,6 @@ QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
     pGroupSelectionWidget->setLabelIsHide(true);
     pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
 
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pGroupSelectionWidget);
-
     connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
         if(strCurrentValue.isEmpty())
@@ -489,7 +479,7 @@ QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
         }
     });
 
-    return optionWidget;
+    return pGroupSelectionWidget;
 }
 
 QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
@@ -512,8 +502,6 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     pGroupSelectionWidget->setLabelText(tr("More disk cache, faster download speed and more computer consume")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
     pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
 
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pGroupSelectionWidget);
-
     connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
         if(strCurrentValue.isEmpty())
@@ -541,7 +529,7 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
         }
     });
 
-    return optionWidget;
+    return pGroupSelectionWidget;
 }
 
 QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
@@ -584,8 +572,6 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     pDownloadSettingWidget->setMaxUploadSpeedLimit(strMaxUploadSpeedLimit);
     pDownloadSettingWidget->setStartTime(strStartTime);
     pDownloadSettingWidget->setEndTime(strEndTime);
-
-    QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, pDownloadSettingWidget);
 
     connect(pDownloadSettingWidget, &DownloadSettingWidget::speedLimitInfoChanged, pDownloadSettingWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
@@ -644,7 +630,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
         }
     });
 
-    return optionWidget;
+    return pDownloadSettingWidget;
 }
 
 bool Settings::getPowerOnState()
@@ -741,7 +727,6 @@ bool Settings::getOneClickDownloadState()
 int Settings::getCloseMainWindowSelected()
 {
     auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
-    int i = option->value().toInt();
     return option->value().toInt();
 }
 
