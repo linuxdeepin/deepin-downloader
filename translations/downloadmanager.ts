@@ -308,7 +308,7 @@
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="114"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="521"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="520"/>
         <source>No download tasks</source>
         <translation type="unfinished"></translation>
     </message>
@@ -368,60 +368,82 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="376"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1443"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="375"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1442"/>
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="440"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="439"/>
         <source> item tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="456"/>
 >>>>>>> dev
         <location filename="../src/src/ui/mainframe.cpp" line="470"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="455"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="469"/>
+>>>>>>> dev
         <source> files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="517"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="516"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="515"/>
 >>>>>>> dev
         <source>No finished tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="529"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="528"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="527"/>
 >>>>>>> dev
         <source>No deleted tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="800"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="792"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="791"/>
 >>>>>>> dev
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="806"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="798"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="797"/>
 >>>>>>> dev
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="812"/>
         <location filename="../src/src/ui/mainframe.cpp" line="868"/>
@@ -429,46 +451,67 @@
         <location filename="../src/src/ui/mainframe.cpp" line="804"/>
         <location filename="../src/src/ui/mainframe.cpp" line="861"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="803"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="860"/>
+>>>>>>> dev
         <source>Download again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="820"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="812"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="811"/>
 >>>>>>> dev
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="826"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="818"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="817"/>
 >>>>>>> dev
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="831"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="823"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="822"/>
 >>>>>>> dev
         <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="860"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="853"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="852"/>
 >>>>>>> dev
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="873"/>
         <source>Copy download link</source>
@@ -499,43 +542,46 @@
         <source> the same download</source>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="866"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="865"/>
+>>>>>>> dev
         <source>Copy download link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="872"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="871"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="877"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="876"/>
         <source>Permanently delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="882"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="881"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1140"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1139"/>
         <source>has </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1140"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1139"/>
         <source> the same download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1151"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1150"/>
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1467"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1508"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1558"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1466"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1507"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1557"/>
         <source>no item is selected,please check items!</source>
 >>>>>>> dev
         <translation type="unfinished"></translation>
@@ -868,63 +914,91 @@
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/settings.cpp" line="316"/>
 =======
         <location filename="../src/src/ui/settings.cpp" line="376"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/settings.cpp" line="374"/>
 >>>>>>> dev
         <source>HTTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/settings.cpp" line="339"/>
 =======
         <location filename="../src/src/ui/settings.cpp" line="400"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/settings.cpp" line="396"/>
 >>>>>>> dev
         <source>BitTorrent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/settings.cpp" line="362"/>
 =======
         <location filename="../src/src/ui/settings.cpp" line="424"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/settings.cpp" line="418"/>
 >>>>>>> dev
         <source>Magnet URI scheme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/settings.cpp" line="432"/>
 =======
         <location filename="../src/src/ui/settings.cpp" line="500"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/settings.cpp" line="490"/>
 >>>>>>> dev
         <source>128</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/settings.cpp" line="432"/>
 =======
         <location filename="../src/src/ui/settings.cpp" line="500"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/settings.cpp" line="490"/>
 >>>>>>> dev
         <source>256</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/settings.cpp" line="432"/>
 =======
         <location filename="../src/src/ui/settings.cpp" line="500"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/settings.cpp" line="490"/>
 >>>>>>> dev
         <source>512</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <location filename="../src/src/ui/settings.cpp" line="442"/>
 =======
         <location filename="../src/src/ui/settings.cpp" line="512"/>
+>>>>>>> dev
+=======
+        <location filename="../src/src/ui/settings.cpp" line="502"/>
 >>>>>>> dev
         <source>More disk cache, faster download speed and more computer consume</source>
         <translation type="unfinished"></translation>

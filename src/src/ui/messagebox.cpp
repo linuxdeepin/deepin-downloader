@@ -242,5 +242,5 @@ void MessageBox::ExitBtn(int index)
         }
         emit signalCloseConfirm();
     }
-    this->close();
+    close();
 }

@@ -95,14 +95,14 @@ void MainFrame::init()
     pLeftLayout->setContentsMargins(10, 0, 10, 0);
 
     m_pRight_Widget = new QWidget;
-    m_pnotaskWidget = new QWidget;
-    m_pnotaskWidget->setAutoFillBackground(true);
-    m_pnotaskWidget->setPalette(p);
+    m_pNotaskWidget = new QWidget;
+    m_pNotaskWidget->setAutoFillBackground(true);
+    m_pNotaskWidget->setPalette(p);
 
-    QVBoxLayout *pNoTask_WidgetLayout = new QVBoxLayout(m_pnotaskWidget);
+    QVBoxLayout *pNoTask_WidgetLayout = new QVBoxLayout(m_pNotaskWidget);
     pNoTask_WidgetLayout->setContentsMargins(10, 0, 0, 0);
-    m_pnotaskLabel = new Dtk::Widget::DLabel();
-    m_pnotaskLabel->setForegroundRole(DPalette::PlaceholderText);
+    m_pNotaskLabel = new Dtk::Widget::DLabel();
+    m_pNotaskLabel->setForegroundRole(DPalette::PlaceholderText);
     QFont lableFont;
     lableFont.setPointSize(15);
     lableFont.setBold(QFont::DemiBold);
@@ -110,21 +110,21 @@ void MainFrame::init()
     QPalette font_p;
     QColor   color = QColor(192, 198, 212, 76);
     font_p.setColor(QPalette::WindowText, color);
-    m_pnotaskLabel->setFont(lableFont);
-    m_pnotaskLabel->setText(tr("No download tasks"));
-    m_pnotaskLabel->setAlignment(Qt::AlignHCenter);
+    m_pNotaskLabel->setFont(lableFont);
+    m_pNotaskLabel->setText(tr("No download tasks"));
+    m_pNotaskLabel->setAlignment(Qt::AlignHCenter);
 
-    pNoTask_WidgetLayout->addWidget(m_pnotaskLabel);
-    m_pnotaskTipLabel = new QLabel();
+    pNoTask_WidgetLayout->addWidget(m_pNotaskLabel);
+    m_pNotaskTipLabel = new QLabel();
     QFont noTask_tip_Label_font;
     noTask_tip_Label_font.setPointSize(13);
-    m_pnotaskTipLabel->setFont(noTask_tip_Label_font);
+    m_pNotaskTipLabel->setFont(noTask_tip_Label_font);
     QPalette noTask_tip_Label_p;
     noTask_tip_Label_p.setColor(QPalette::WindowText, QColor(65, 77, 104, 70));
-    m_pnotaskTipLabel->setText(tr("Click + to create new task"));
-    m_pnotaskTipLabel->setAlignment(Qt::AlignHCenter);
-    m_pnotaskTipLabel->setPalette(noTask_tip_Label_p);
-    pNoTask_WidgetLayout->addWidget(m_pnotaskTipLabel);
+    m_pNotaskTipLabel->setText(tr("Click + to create new task"));
+    m_pNotaskTipLabel->setAlignment(Qt::AlignHCenter);
+    m_pNotaskTipLabel->setPalette(noTask_tip_Label_p);
+    pNoTask_WidgetLayout->addWidget(m_pNotaskTipLabel);
     pNoTask_WidgetLayout->addStretch(5);
     QVBoxLayout *pRightLayout = new QVBoxLayout(m_pRight_Widget);
     pRightLayout->setContentsMargins(0, 0, 0, 0);
@@ -132,35 +132,35 @@ void MainFrame::init()
 
     QPalette p_task_num;
     p_task_num.setBrush(this->backgroundRole(), QBrush(QColor(255, 255, 255, 178)));
-    m_ptaskNumWidget = new QWidget;
-    m_ptaskNumWidget->setFixedHeight(30);
-    m_ptaskNumWidget->setAutoFillBackground(true);
-    m_ptaskNumWidget->setPalette(p_task_num);
-    QHBoxLayout *Task_Num_WidgetLayout = new QHBoxLayout(m_ptaskNumWidget);
+    m_pTaskNumWidget = new QWidget;
+    m_pTaskNumWidget->setFixedHeight(30);
+    m_pTaskNumWidget->setAutoFillBackground(true);
+    m_pTaskNumWidget->setPalette(p_task_num);
+    QHBoxLayout *Task_Num_WidgetLayout = new QHBoxLayout(m_pTaskNumWidget);
     Task_Num_WidgetLayout->setMargin(0);
-    m_ptaskNum = new QLabel(tr("0 task"));
-    m_ptaskNum->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    m_ptaskNum->setPalette(noTask_tip_Label_p);
-    Task_Num_WidgetLayout->addWidget(m_ptaskNum);
+    m_pTaskNum = new QLabel(tr("0 task"));
+    m_pTaskNum->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    m_pTaskNum->setPalette(noTask_tip_Label_p);
+    Task_Num_WidgetLayout->addWidget(m_pTaskNum);
     m_pRightStackwidget->addWidget(m_pDownLoadingTableView);
     m_pRightStackwidget->addWidget(m_pRecycleTableView);
     pRightLayout->addWidget(m_pRightStackwidget);
-    pRightLayout->addWidget(m_pnotaskWidget);
-    pRightLayout->addWidget(m_ptaskNumWidget);
+    pRightLayout->addWidget(m_pNotaskWidget);
+    pRightLayout->addWidget(m_pTaskNumWidget);
     pRightLayout->setSpacing(0);
 
     pMainHLayout->addWidget(m_pLeftWidget);
     pMainHLayout->addWidget(m_pRight_Widget);
 
-    m_pleftList = new DListView;
-    m_pleftList->setItemSpacing(0);
-    m_pleftList->setItemSize(QSize(132, 40));
-    m_pleftList->setItemMargins(QMargins(10, 2, 5, 2));
-    m_pleftList->setIconSize(QSize(14, 14));
+    m_pLeftList = new DListView;
+    m_pLeftList->setItemSpacing(0);
+    m_pLeftList->setItemSize(QSize(132, 40));
+    m_pLeftList->setItemMargins(QMargins(10, 2, 5, 2));
+    m_pLeftList->setIconSize(QSize(14, 14));
     QFont font;
     font.setFamily("Source Han Sans");
     font.setPixelSize(14);
-    m_pleftList->setFont(font);
+    m_pLeftList->setFont(font);
     QStandardItemModel* pLeftList_model = new QStandardItemModel(this);
 
     m_pDownloading_item = new QStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
@@ -176,10 +176,10 @@ void MainFrame::init()
     pLeftList_model->appendRow(m_pDownloading_item);
     pLeftList_model->appendRow(m_pDownloadFinish_item);
     pLeftList_model->appendRow(m_pRecycle_item);
-    m_pleftList->setModel(pLeftList_model);
-    pLeftLayout->addWidget(m_pleftList, 0);
+    m_pLeftList->setModel(pLeftList_model);
+    pLeftLayout->addWidget(m_pLeftList, 0);
     //updatetimer = new QTimer(this);
-    m_pleftList->setCurrentIndex(pLeftList_model->index(0, 0));
+    m_pLeftList->setCurrentIndex(pLeftList_model->index(0, 0));
     m_pDownLoadingTableView->setContextMenuPolicy(Qt::CustomContextMenu);
     //recycle_tableview->setContextMenuPolicy(Qt::CustomContextMenu);
 
@@ -238,7 +238,7 @@ void MainFrame::initConnection()
 
     connect(m_pSettingAction,&QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_pClipboard, &ClipboardTimer::sendClipboardText,this,&MainFrame::onClipboardDataChanged);
-    connect(m_pleftList, &DListView::clicked, this, &MainFrame::onListClicked);
+    connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::getPalettetypechanged);
     connect(m_pUpdatetimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
 
@@ -300,13 +300,12 @@ void MainFrame::onMessageBoxConfirmClick()
     if(Settings::getInstance()->getCloseMainWindowSelected()){
         onTrayQuitClick();
     } else {
-        this->hide();
+        hide();
     }
 }
 
 MainFrame::~MainFrame()
 {
-
 }
 
 
@@ -356,7 +355,7 @@ void MainFrame::initTabledata()
                     data->time = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
                 }
                 if(data->status == Global::Status::Lastincomplete) {
-                    m_pnotaskWidget->hide();
+                    m_pNotaskWidget->hide();
                     QVariant autostart_unfinished_task_switchbutton = Settings::getInstance()->getAutostartUnfinishedTaskState();
                     m_pDownLoadingTableView->getTableModel()->append(data);
                     if(autostart_unfinished_task_switchbutton.toBool()) {
@@ -439,9 +438,9 @@ void MainFrame::setTaskNum(int num)
         }
         active_num = QString::number(activeCount) + tr(" item tasks");
         if(activeCount == 0) {
-            m_pnotaskWidget->show();
+            m_pNotaskWidget->show();
         } else {
-            m_pnotaskWidget->hide();
+            m_pNotaskWidget->hide();
         }
     } else if(num == 1) {
         int j = 0;
@@ -455,9 +454,9 @@ void MainFrame::setTaskNum(int num)
         }
         active_num = QString::number(finishCount) + tr(" files");
         if(finishCount == 0) {
-            m_pnotaskWidget->show();
+            m_pNotaskWidget->show();
         } else {
-            m_pnotaskWidget->hide();
+            m_pNotaskWidget->hide();
         }
     } else {
         int k = 0;
@@ -469,12 +468,12 @@ void MainFrame::setTaskNum(int num)
         }
         active_num = QString::number(recycleCount) + tr(" files");
         if(recycleCount == 0) {
-            m_pnotaskWidget->show();
+            m_pNotaskWidget->show();
         } else {
-            m_pnotaskWidget->hide();
+            m_pNotaskWidget->hide();
         }
     }
-    m_ptaskNum->setText(active_num);
+    m_pTaskNum->setText(active_num);
 }
 
 void MainFrame::onSettingsMenuClicked()
@@ -512,21 +511,21 @@ void MainFrame::onListClicked(const QModelIndex &index)
         if(index.row() == 1) {
             //connect(m_pDownLoadingTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(get_doubleClicked(QModelIndex)));
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(30);
-            m_pnotaskWidget->show();
-            m_pnotaskLabel->setText(tr("No finished tasks"));
-            m_pnotaskTipLabel->hide();
+            m_pNotaskWidget->show();
+            m_pNotaskLabel->setText(tr("No finished tasks"));
+            m_pNotaskTipLabel->hide();
         } else {
             //disconnect(m_pDownLoadingTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(get_doubleClicked(QModelIndex)));
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
-            m_pnotaskLabel->setText(tr("No download tasks"));
-            m_pnotaskWidget->show();
-            m_pnotaskTipLabel->show();
+            m_pNotaskLabel->setText(tr("No download tasks"));
+            m_pNotaskWidget->show();
+            m_pNotaskTipLabel->show();
         }
     } else {
         m_pRightStackwidget->setCurrentIndex(1);
-        m_pnotaskWidget->show();
-        m_pnotaskLabel->setText(tr("No deleted tasks"));
-        m_pnotaskTipLabel->hide();
+        m_pNotaskWidget->show();
+        m_pNotaskLabel->setText(tr("No deleted tasks"));
+        m_pNotaskTipLabel->hide();
     }
     clearTableItemCheckStatus();
 
@@ -542,7 +541,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
 
 void MainFrame::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
-    m_pleftList->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
+    m_pLeftList->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
         QPalette deeptheme_palette;
@@ -556,22 +555,22 @@ void MainFrame::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
         label_palette.setBrush(QPalette::Text,
                                DGuiApplicationHelper::instance()->applicationPalette().placeholderText());
 
-        m_pnotaskTipLabel->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
+        m_pNotaskTipLabel->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
         QPalette tableview_palette;
 
         tableview_palette.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
 
         m_pDownLoadingTableView->setPalette(tableview_palette);
         m_pRecycleTableView->setPalette(tableview_palette);
-        m_pnotaskWidget->setPalette(tableview_palette);
-        m_ptaskNumWidget->setPalette(tableview_palette);
+        m_pNotaskWidget->setPalette(tableview_palette);
+        m_pTaskNumWidget->setPalette(tableview_palette);
         m_pDownloading_item->setIcon(QIcon::fromTheme("dcc_list_downloading_dark"));
         m_pDownloadFinish_item->setIcon(QIcon::fromTheme("dcc_print_done_dark"));
         m_pRecycle_item->setIcon(QIcon::fromTheme("dcc_list_delete_dark"));
         QPalette noTask_tip_Label_p;
         noTask_tip_Label_p.setBrush(QPalette::WindowText,
                                     DGuiApplicationHelper::instance()->applicationPalette().textTips());
-        m_ptaskNum->setPalette(noTask_tip_Label_p);
+        m_pTaskNum->setPalette(noTask_tip_Label_p);
     }
     else if(DGuiApplicationHelper::instance()->themeType()==1) {
         QPalette p;
@@ -579,10 +578,10 @@ void MainFrame::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
         QPalette tableview_palette;
         tableview_palette.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
         m_pLeftWidget->setPalette(p);
-        m_pnotaskWidget->setPalette(tableview_palette);
+        m_pNotaskWidget->setPalette(tableview_palette);
         m_pDownLoadingTableView->setPalette(tableview_palette);
         m_pRecycleTableView->setPalette(tableview_palette);
-        m_ptaskNumWidget->setPalette(tableview_palette);
+        m_pTaskNumWidget->setPalette(tableview_palette);
 
         m_pDownloading_item->setIcon(QIcon::fromTheme("dcc_list_downloading"));
         m_pDownloadFinish_item->setIcon(QIcon::fromTheme("dcc_print_done"));
@@ -598,7 +597,7 @@ void MainFrame::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
         // noTask_label->setPalette(font_p);
         QPalette noTask_tip_Label_p;
         noTask_tip_Label_p.setColor(QPalette::WindowText, QColor(65, 77, 104, 70));
-        m_ptaskNum->setPalette(noTask_tip_Label_p);
+        m_pTaskNum->setPalette(noTask_tip_Label_p);
     }
 }
 
@@ -695,7 +694,7 @@ void MainFrame::getNewDowloadUrl(QString url, QString savePath)
         Aria2RPCInterface::Instance()->addNewUri(_task.m_url,savePath,_task.m_taskId);
     }
 
-    m_pnotaskWidget->hide();
+    m_pNotaskWidget->hide();
     //定时器打开
 }
 
@@ -953,7 +952,7 @@ void MainFrame::clearTableItemCheckStatus()
 
 void MainFrame::slotSearchEditTextChanged(QString text)
 {
-    m_searchContent = text;
+    m_SearchContent = text;
     m_pDownLoadingTableView->searchEditTextChanged(text);
     m_pRecycleTableView->searchEditTextChanged(text);
     setTaskNum(m_iCurrentListviewRow);
@@ -1130,7 +1129,7 @@ void MainFrame::getNewdowloadSlot(QString url, QString savepath)
                 addTask.m_downloadFilename = filename;
                 addTask.m_createTime = QDateTime::currentDateTime();
                 DBInstance::addTask(addTask);
-                m_pnotaskWidget->hide();
+                m_pNotaskWidget->hide();
                 if(m_pUpdatetimer->isActive() == false) {
                     m_pUpdatetimer->start(2 * 1000);
                 }
@@ -1314,8 +1313,8 @@ void MainFrame::getDeleteConfirmSlot(bool ischecked, bool permanent)
 
         setTaskNum(m_iCurrentListviewRow);
     }
-    if(this->m_searchContent != "") {
-        slotSearchEditTextChanged(m_searchContent);
+    if(this->m_SearchContent != "") {
+        slotSearchEditTextChanged(m_SearchContent);
     }
     if(m_pUpdatetimer->isActive() == false) {
         m_pUpdatetimer->start(2 * 1000);
@@ -1566,9 +1565,9 @@ void MainFrame::slotRpcSuccess(QString method, QJsonObject json)
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
-        m_pDownLoadingTableView->aria2MethodAdd(json, m_searchContent);
+        m_pDownLoadingTableView->aria2MethodAdd(json, m_SearchContent);
     } else if(method == ARIA2C_METHOD_TELL_STATUS) {
-        m_pDownLoadingTableView->aria2MethodStatusChanged(json, m_iCurrentListviewRow, m_searchContent);
+        m_pDownLoadingTableView->aria2MethodStatusChanged(json, m_iCurrentListviewRow, m_SearchContent);
     } else if(method == ARIA2C_METHOD_SHUTDOWN) {
         m_pDownLoadingTableView->aria2MethodShutdown(json);
     } else if(method == ARIA2C_METHOD_GET_FILES) {
