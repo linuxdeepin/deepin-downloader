@@ -9,8 +9,8 @@
 
 #include "headerView.h"
 #include <QDebug>
-HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
-    : QHeaderView(orientation, parent)
+HeaderView::HeaderView(Qt::Orientation orientation, QWidget * parent)
+        : QHeaderView(orientation, parent)
 {
    m_headerCbx = new DCheckBox(this);
    //connect(m_headerCbx,&DCheckBox::stateChanged,this,&HeaderView::get_stateChanged);
@@ -28,29 +28,32 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
    }
 }
 
-void HeaderView::updateGeometries()
-{
+void HeaderView::updateGeometries() {
     m_headerCbx->move(sectionPosition(0) + 5, 5);
 }
-void HeaderView::get_clear_header_check()
+void HeaderView::getClearHeaderCheck()
 {
     m_headerCbx->setChecked(false);
 }
 
-void HeaderView::get_checkall_signals(bool checked)
-{
-    m_headerCbx->setChecked(checked);
-}
 
+void HeaderView::getCheckall(bool checked)
+{
+     m_headerCbx->setChecked(checked);
+}
 void HeaderView::get_paletteTypeChanged(DGuiApplicationHelper::ColorType type)
 {
     QPalette p;
 
-    if (DGuiApplicationHelper::instance()->themeType() == 2) {
-        p.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base());
+    if(DGuiApplicationHelper::instance()->themeType()==2)
+    {
+        p.setBrush(QPalette::Base,DGuiApplicationHelper::instance()->applicationPalette().base());
 
-    } else {
-        p.setColor(QPalette::Base, QColor(255, 255, 255));
+    }
+    else {
+        p.setColor(QPalette::Base,QColor(255,255,255));
+
     }
     this->setPalette(p);
 }
+

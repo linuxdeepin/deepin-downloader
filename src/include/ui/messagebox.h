@@ -14,6 +14,7 @@
 #include <DCheckBox>
 #include <DLineEdit>
 #include <QPushButton>
+#include <DRadioButton>
 #include "global.h"
 
 DWIDGET_USE_NAMESPACE
@@ -33,7 +34,7 @@ public:
      * @param sameurl_count 相同url数量
      * @param same_url_list 相同url列表
     */
-    void setWarings(QString warningMsg, QString surebtntext, QString cancalbtntext = "", int sameurl_count = 0, QList<QString> same_url_list = {});
+    void setWarings(QString warningMsg,QString surebtntext,QString cancalbtntext="",int sameurl_count=0,QList<QString> same_url_list={});
     /**
      * @brief 设置删除窗口
      * @param permanentl bool类型，真为选择删除文件同时，删除本地文件。 假为可选择是否删除本地文件。
@@ -50,14 +51,22 @@ public:
      * @param cancelbtn 设置取消按钮内容
      * @param oldname 曾用名
     */
-    void setReName(QString title, QString surebtntext, QString cancelbtn, QString oldname);
-
+    void setReName(QString title,QString surebtntext,QString cancelbtn,QString oldname);
+    /**
+     * @brief 设置退出窗口
+    */
+    void setExit();
 private:
     /**
      * @brief 设置label
      * @param text label内容
     */
     void addLabel(QString text);
+    /**
+     * @brief 设置radioGroup
+     * @param text label内容
+    */
+    void addRadioGroup(QString quitText, QString minText);
     /**
      * @brief Checkbox
      * @param text Checkbox内容
@@ -79,7 +88,12 @@ signals:
      * @param ret
      * @param ret1
     */
-    void DeleteDownload_sig(bool ret, bool ret1);
+    void DeleteDownload_sig(bool ret,bool ret1);
+
+    /**
+     * @brief 关闭确认信号
+    */
+    void signalCloseConfirm();
 
 public slots:
     /**
@@ -100,11 +114,19 @@ public slots:
     */
     void deleteBtn(int index);
 
+    /** 右上角退出按钮按下弹出框的操作
+     * @brief
+    */
+    void ExitBtn(int index);
+
 private:
     bool m_deleteFlag;
     DCheckBox *m_checkbox;
     DLineEdit *newName_lineedit;
     QPushButton *rename_sure_button;
+
+    DRadioButton *m_pButtonQuit;
+    DRadioButton *m_pButtonMin;
 };
 
 #endif // MESSAGEBOX_H

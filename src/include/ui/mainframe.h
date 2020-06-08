@@ -27,6 +27,7 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
+
 class QStackedWidget;
 class QSystemTrayIcon;
 class QAction;
@@ -52,6 +53,7 @@ class MainFrame : public Dtk::Widget::DMainWindow
 public:
     explicit MainFrame(QWidget *parent = Q_NULLPTR);
 
+
     ~MainFrame();
 
 private slots:
@@ -60,11 +62,6 @@ private slots:
      * @param reason 激活原因
      */
     void onActivated(QSystemTrayIcon::ActivationReason reason);
-    /**
-     * @brief mainwidow关闭事件
-     * @param event 事件类型
-     */
-    void onTrayQuitClick();
 
     /**
      * @brief 设置按钮槽函数
@@ -92,6 +89,10 @@ private slots:
     */
     void onClipboardDataChanged(QString url);
     /**
+     * @brief 剪切板数据改变，受到bt文件url
+    */
+    void onClipboardDataForBt(QString url);
+    /**
      * @brief 切换显示列表
      * @param index 节点
     */
@@ -109,6 +110,7 @@ private slots:
     */
     void getNewDowloadUrl(QString url, QString savePath);
 
+
     /**
      * @brief 收到新建任务orrent
      * @param btName 文件路径
@@ -119,7 +121,7 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    void getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash);
+    void getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
     /**
      * @brief 表头全部选择按键
      * @param  isChecked ：是否全选
@@ -190,10 +192,19 @@ private slots:
      */
     void slotAria2Remove(QString gId, QString id);
 
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void onTrayQuitClick();
+
+    /**
+     * @brief messageBox关闭返回事件
+     * @param index 按钮index
+     */
+    void onMessageBoxConfirmClick();
 private:
 
-
-private:
     /**
      * @brief 初始化aria2
     */
@@ -255,12 +266,7 @@ private:
     /**
      * @brief 从配置文件中获取下载路径
      */
-    QString getDownloadSavepathFromConfig();
-
-    /**
-     * @brief 退出之前保存
-     */
-    void saveDataBeforeClose();
+    QString   getDownloadSavepathFromConfig();
 
 protected:
     /**
@@ -277,7 +283,7 @@ protected:
      * @brief 主窗口大小变化事件
      * @param event 事件类型
      */
-    void resizeEvent(QCloseEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
     /**
      * @brief mainwidow关闭事件
@@ -294,15 +300,13 @@ private:
     TableView *m_pDownLoadingTableView, *m_pRecycleTableView;
     QWidget *m_pLeftWidget;
     QWidget *m_pRight_Widget;
-    QWidget *m_pnotaskWidget;
-    DLabel *m_pnotaskLabel;
-    QLabel *m_pnotaskTipLabel;
+    QWidget *m_pNotaskWidget;
+    DLabel *m_pNotaskLabel;
+    QLabel *m_pNotaskTipLabel;
     QStackedWidget *m_pRightStackwidget;
-
-    QWidget *m_ptaskNumWidget;
-    QLabel  *m_ptaskNum;
-    DListView *m_pleftList;
-
+    QWidget *m_pTaskNumWidget;
+    QLabel  *m_pTaskNum;
+    DListView *m_pLeftList;
 
     QStandardItem *m_pDownloading_item;
     QStandardItem *m_pDownloadFinish_item;
@@ -311,29 +315,25 @@ private:
     ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
     QTimer *m_pUpdatetimer;
-    Settings *m_pSettings;
 
     SettingsWidget *m_pSettingWidget;
-
     int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
-    QString m_searchContent;
+    QString m_SearchContent;
     bool m_bShutdownOk = false;
 
-    QList<Global::DataItem*> reload_list;  /*已完成界面点击重新下载的数据列表*/
-    QList<Global::DelDataItem*> recycle_reload_list;  /*回收站界面点击重新下载的数据列表*/
-    QList<Global::DataItem*> rename_list;
+    QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
+    QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
+    QList<Global::DataItem*> m_renameList;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 
     bool m_bCtrlKey_press=false;
 signals:
-    void switchTableSignal();
-    void tableChanged(int index);
-
-    void signalAutoDownloadBt(QString btFilePath);
-    void signalRedownload(QString taskId, int rd);
+     void switchTableSignal();
+     void tableChanged(int index);
+     void signalRedownload(QString taskId, int rd);
 };
 
 #endif // MAINFRAME_H

@@ -4,8 +4,7 @@
 #include <QVBoxLayout>
 #include <DLabel>
 
-MonitoringSettingWidget::MonitoringSettingWidget(QWidget *parent)
-    : QWidget(parent)
+MonitoringSettingWidget::MonitoringSettingWidget(QWidget *parent) : QWidget(parent)
 {
     initUI();
     initConnections();
@@ -15,7 +14,7 @@ MonitoringSettingWidget::MonitoringSettingWidget(QWidget *parent)
 void MonitoringSettingWidget::initUI()
 {
     DLabel *pMonitoringObjectLabel = new DLabel("接管对象");
-    pMonitoringObjectLabel->setFont(QFont("Source Han Sans", 14, 75));
+    pMonitoringObjectLabel->setFont(QFont("Source Han Sans",14, 75));
     DLabel *pClipBoardLabel = new DLabel("剪切板");
     m_pClipBoardButton = new DSwitchButton;
     m_pClipBoardButton->setStyleSheet("background:rgba(211, 211, 211, 1)");
@@ -50,4 +49,6 @@ void MonitoringSettingWidget::initUI()
 // 初始化链接
 void MonitoringSettingWidget::initConnections()
 {
+
 }
+

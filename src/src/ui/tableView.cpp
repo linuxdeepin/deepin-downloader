@@ -26,7 +26,6 @@
 #include "settings.h"
 #include "topButton.h"
 
-
 TableView::TableView(int Flag, TopButton* pToolBar)
     : QTableView()
     , m_iTableFlag(Flag)
@@ -51,6 +50,7 @@ void TableView::initUI()
 
     // this->verticalHeader()->setDefaultSectionSize(56);
 
+
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
 
@@ -72,29 +72,29 @@ void TableView::initUI()
     pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
+    pHeaderView->setTextElideMode (Qt::ElideMiddle);
     setColumnWidth(0, 20);
 
     connect(pHeaderView,
             &HeaderView::getStatechanged,
             this,
-            &TableView::headerStatechanged);
+            &TableView::signalHeaderStatechanged);
     connect(this,
-            &TableView::clearHeaderCheck,
+            &TableView::signalClearHeaderCheck,
             pHeaderView,
-            &HeaderView::get_clear_header_check);
+            &HeaderView::getClearHeaderCheck);
     connect(m_pTableModel,
             &TableModel::tableView_allChecked_or_allUnchecked,
             this,
-            &TableView::get_tableview_allchecked);
+            &TableView::signalTableViewAllChecked);
     connect(this,
-            &TableView::get_tableview_allchecked,
+            &TableView::signalTableViewAllChecked,
             pHeaderView,
-            &HeaderView::get_checkall_signals);
+            &HeaderView::getCheckall);
     connect(this,
-            &TableView::signal_hoverChanged,
+            &TableView::signalHoverchanged,
             m_pItemdegegate,
-            &ItemDelegate::slot_hoverChanged);
-
+            &ItemDelegate::slotHoverchanged);
 }
 
 void TableView::initConnections()
@@ -121,7 +121,6 @@ void TableView::reset(bool switched)
 
 void TableView::mousePressEvent(QMouseEvent *event)
 {
-
     if(event->button() == Qt::LeftButton) {
         setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
@@ -140,18 +139,17 @@ TableModel * TableView::getTableModel()
 void TableView::mouseMoveEvent(QMouseEvent *event)
 {
     QModelIndex idx = this->indexAt(event->pos());
-    emit signal_hoverChanged(idx);
+    emit signalHoverchanged(idx);
 }
 
 void TableView::leaveEvent(QEvent *event)
 {
     this->reset();
-    emit signal_hoverChanged(QModelIndex());
+    emit signalHoverchanged(QModelIndex());
 }
 
 void TableView::keyPressEvent(QKeyEvent *event)
 {
-
     if((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_C)) {
         return;
     }

@@ -3,9 +3,10 @@
 #include <QMouseEvent>
 #include <QDebug>
 
-BtInfoTableView::BtInfoTableView(QWidget *parent)
-    : DTableView(parent)
+BtInfoTableView::BtInfoTableView(QWidget *parent) :
+    DTableView(parent)
 {
+
 }
 
 void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
@@ -20,3 +21,4 @@ void BtInfoTableView::leaveEvent(QEvent *event)
     this->reset();
     emit signal_hoverChanged(QModelIndex());
 }
+
