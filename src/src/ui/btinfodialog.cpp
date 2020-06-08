@@ -515,9 +515,9 @@ QString BtInfoDialog::getFileEditText(QString text)
     QString _fielEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::Instance()->getCapacityFree(text);
     int _count = _fielEditText.count();
     //若路径较短，则用空格进行填充
-    if(_count < 62)
+    if(_count < 61)
     {
-       int _fillCount = 62 - _fielEditText.count();
+       int _fillCount = 60 - _fielEditText.count();
        _fielEditText.insert(text.size(), QString(_fillCount*2, ' '));
     }
     return _fielEditText;
