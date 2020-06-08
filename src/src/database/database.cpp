@@ -4,7 +4,14 @@ DataBase::DataBase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     QString _dataBasePath = qApp->applicationDirPath();
-    QFileInfo *databaseFile = new QFileInfo(UOS_DONWLOAD_DATABASE_PATH + UOS_DOWNLOAD_DATABASE_OLD_FILENAME);
+    QString newDataBase = QString("%1/%2/%3/%4")
+                                    .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                                    .arg(qApp->organizationName())
+                                    .arg(qApp->applicationName())
+                                    .arg(UOS_DOWNLOAD_DATABASE_FILENAME);
+
+    QFileInfo *databaseFile = new QFileInfo(newDataBase);
+
     //如果数据库文件不存在
     if (!databaseFile->isFile()) {
         //拷贝数据库文件
@@ -14,12 +21,16 @@ DataBase::DataBase()
         QByteArray ba = strold.toLatin1();
         char *old_database_file = ba.data();
         remove(old_database_file);
+
+
+
         QFile::copy(QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_OLD_FILENAME,
-                    QString(_dataBasePath + "/" + UOS_DOWNLOAD_DATABASE_FILENAME));
+                    newDataBase);
+                    //QString(_dataBasePath + "/" + UOS_DOWNLOAD_DATABASE_FILENAME));
     }
 
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(UOS_DONWLOAD_DATABASE_PATH + UOS_DOWNLOAD_DATABASE_OLD_FILENAME);
+    m_db.setDatabaseName(newDataBase);
 }
 
 DataBase &DataBase::Instance()
