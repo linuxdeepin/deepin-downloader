@@ -238,6 +238,7 @@ void MainFrame::initConnection()
 
     connect(m_pSettingAction,&QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_pClipboard, &ClipboardTimer::sendClipboardText,this,&MainFrame::onClipboardDataChanged);
+    connect(m_pClipboard, &ClipboardTimer::sentBtText,this,&MainFrame::onClipboardDataForBt);
     connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::getPalettetypechanged);
     connect(m_pUpdatetimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
@@ -496,6 +497,11 @@ void MainFrame::onSettingsMenuClicked()
 void MainFrame::onClipboardDataChanged(QString url)
 {
     createNewTask(url);
+}
+
+void MainFrame::onClipboardDataForBt(QString url)
+{
+
 }
 
 void MainFrame::onListClicked(const QModelIndex &index)

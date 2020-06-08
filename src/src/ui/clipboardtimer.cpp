@@ -21,10 +21,15 @@ void ClipboardTimer::getDataChanged()
     Settings *_setting =  Settings::getInstance();
     bool _bIsHttp =  _setting->getHttpDownloadState();
     bool _bIsMagnet = _setting->getMagneticDownloadState();
+    bool _bIsBt = _setting->getBtDownloadState();
     if((isMagnet(_url) && _bIsMagnet) ||
             (isHttp(_url) && _bIsHttp))
     {
         emit sendClipboardText(_url);
+    }
+    if(_url.endsWith(".torrent") && _bIsBt)
+    {
+        emit sentBtText(_url);
     }
 }
 
