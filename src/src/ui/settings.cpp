@@ -1,19 +1,42 @@
 /**
-* @file settings.cpp
-* @brief 设置类，主要实现调用json文件，生成配置文件；创建自定义的控件窗口
-* @author yuandandan  <yuandandan@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 13:39
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file settings.cpp
+ *
+ * @brief 设置类，主要实现调用json文件，生成配置文件；创建自定义的控件窗口
+ *
+ *@date 2020-06-09 09:55
+ *
+ * Author: yuandandan  <yuandandan@uniontech.com>
+ *
+ * Maintainer: yuandandan  <yuandandan@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "settings.h"
+#include "filesavepathchooser.h"
+#include "settinginfoinputwidget.h"
+#include "itemselectionwidget.h"
+#include "groupselectionwidget.h"
+#include "downloadsettingwidget.h"
 
-#include "dthememanager.h"
+#include <DThemeManager>
 #include <DSettings>
 #include <DSettingsGroup>
 #include <DSettingsWidgetFactory>
 #include <DSettingsOption>
-#include <dfilechooseredit.h>
+
 #include <QStyleFactory>
 #include <QFontDatabase>
 #include <QApplication>
@@ -21,12 +44,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
-
-#include "filesavepathchooser.h"
-#include "settinginfoinputwidget.h"
-#include "itemselectionwidget.h"
-#include "groupselectionwidget.h"
-#include "downloadsettingwidget.h"
 
 /**
  * @brief 判断字符串是否为纯数字
