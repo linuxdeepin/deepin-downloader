@@ -28,22 +28,15 @@ int main(int argc, char *argv[])
 
     a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application"));//设置应用程序的显示信息
 
-
+    //处理命令行类
+    QCommandLineParser parser;
+    parser.process(a);
+    QStringList _comList = parser.positionalArguments();
     if (!a.setSingleInstance("downloadmanager"))//设置成单例程序
     {
         QClipboard *_c = QApplication::clipboard();
-        //处理命令行类
-        QCommandLineParser parser;
-        parser.process(a);
-        QStringList _comList = parser.positionalArguments();
         //发送以.torrent结尾文件
-        for (int i = 0; i < _comList.size(); i++)
-        {
-            if(_comList[i].endsWith(".torrent"))
-            {
-                 _c->setText(_comList[i]);
-            }
-        }
+        _c->setText(_comList[0]);
         return 0;
     }
 
@@ -92,6 +85,13 @@ int main(int argc, char *argv[])
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
+    for (int i = 0; i < _comList.size(); i++)
+    {
+        if(_comList[i].endsWith(".torrent"))
+        {
+             w.onClipboardDataForBt(_comList[i]);
+        }
+    }
     w.show();
 
 

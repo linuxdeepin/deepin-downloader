@@ -29,6 +29,7 @@ void ClipboardTimer::getDataChanged()
     }
     if(_url.endsWith(".torrent") && _bIsBt)
     {
+        m_clipboard->clear();
         emit sentBtText(_url);
     }
 }
