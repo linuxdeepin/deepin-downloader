@@ -27,7 +27,6 @@
 
 #include "btinfodialog.h"
 
-
 #include "aria2rpcinterface.h"
 #include "btinfodelegate.h"
 #include "btheaderview.h"
@@ -310,21 +309,9 @@ void BtInfoDialog::slot_btnOK()
         return;
     }
     QString save_path=m_editDir->text().split("  ")[0];
-    QString config_path=QString("%1/%2/%3/last_save_path")
-            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-            .arg(qApp->organizationName())
-            .arg(qApp->applicationName());
-    QFile file;
-    file.setFileName(config_path);
-    bool isOK = file.open(QIODevice::WriteOnly);
-    if (isOK == true)
-    {
-        file.write(save_path.toStdString().data());
-    }
-    file.close();
+    Settings::getInstance()->setCustomFilePath(save_path);
     this->close();
     this->accept();
-
 }
 
 void BtInfoDialog::slot_checkAll()
@@ -505,7 +492,7 @@ void BtInfoDialog::slot_filechoosed(const QString &filename)
     fileinfo.setFile(filename);
     QString _text = this->getFileEditText(filename);
     this->m_editDir->lineEdit()->setText(_text);
-
+    m_editDir->setDirectoryUrl(filename);
 }
 
 void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type)

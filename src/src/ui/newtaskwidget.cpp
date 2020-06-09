@@ -37,7 +37,6 @@
 newTaskWidget::newTaskWidget(DDialog *parent):
     DDialog(parent)
 {
-    m_savePath = Settings::getInstance()->getDownloadSavePath();
     initUi();
 
 }
@@ -121,7 +120,8 @@ void newTaskWidget::openfileDialog()
 {
     QString _btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if(_btFile != "") {
-        BtInfoDialog *_dialog = new BtInfoDialog(_btFile,m_savePath);//torrent文件路径
+        QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+        BtInfoDialog *_dialog = new BtInfoDialog(_btFile,_savePath);//torrent文件路径
         if(_dialog->exec() == QDialog::Accepted) {
             QMap<QString,QVariant> opt;
             QString _infoName;
@@ -147,21 +147,8 @@ void newTaskWidget::onSureBtnClicked()
         qDebug()<<"url is NUll";
         return;
     }
-    //将当前保存路径，放入配置文件中
-    QString config_path=QString("%1/%2/%3/last_save_path")
-            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-            .arg(qApp->organizationName())
-            .arg(qApp->applicationName());
-    QFile file;
-    file.setFileName(config_path);
-    bool isOK = file.open(QIODevice::WriteOnly);
-    if (isOK == true)
-    {
-        file.write(m_savePath.toStdString().data());
-    }
-    file.close();
-
-    emit NewDownload_sig(_strUrl,m_savePath);
+    QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+    emit NewDownload_sig(_strUrl,_savePath);
     this->close();
 }
 
@@ -197,8 +184,8 @@ void newTaskWidget::dropEvent(QDropEvent *event)
             if(fileName.startsWith("file:")&&fileName.endsWith(".torrent"))
             {
                 fileName=fileName.right(fileName.length()-6);
-
-                BtInfoDialog *_dialog = new BtInfoDialog(fileName,m_savePath);//torrent文件路径
+                QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+                BtInfoDialog *_dialog = new BtInfoDialog(fileName,_savePath);//torrent文件路径
                 int ret = _dialog->exec();
                 if(ret == QDialog::Accepted) {
                     QMap<QString,QVariant> opt;
