@@ -139,25 +139,25 @@ void BtInfoDialog::initUI()
     connect(this->m_checkAll, SIGNAL(clicked()), this, SLOT(slot_checkAll()));
 
     this->m_checkVideo = new DCheckBox(this);
-    this->m_checkVideo->setGeometry(105, 401, 95, 29);
+    this->m_checkVideo->setGeometry(100, 401, 95, 29);
     this->m_checkVideo->setText(tr("Videos"));
     this->m_checkVideo->setChecked(true);
     connect(this->m_checkVideo, SIGNAL(clicked()), this, SLOT(slot_checkVideo()));
 
     this->m_checkPicture = new DCheckBox(this);
-    this->m_checkPicture->setGeometry(195, 401, 95, 29);
+    this->m_checkPicture->setGeometry(185, 401, 95, 29);
     this->m_checkPicture->setText(tr("Pictures"));
     this->m_checkPicture->setChecked(true);
     connect(this->m_checkPicture, SIGNAL(clicked()), this, SLOT(slot_checkPicture()));
 
     this->m_checkAudio = new DCheckBox(this);
-    this->m_checkAudio->setGeometry(285, 401, 95, 29);
+    this->m_checkAudio->setGeometry(270, 401, 95, 29);
     this->m_checkAudio->setText(tr("Music"));
     this->m_checkAudio->setChecked(true);
     connect(this->m_checkAudio, SIGNAL(clicked()), this, SLOT(slot_checkAudio()));
 
     this->m_checkOther = new DCheckBox(this);
-    this->m_checkOther->setGeometry(375, 401, 95, 29);    //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
+    this->m_checkOther->setGeometry(355, 401, 95, 29);    //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
     this->m_checkOther->setText(tr("Others"));
     this->m_checkOther->setChecked(true);
     connect(this->m_checkOther, SIGNAL(clicked()), this, SLOT(slot_checkOther()));
