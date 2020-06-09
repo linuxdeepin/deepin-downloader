@@ -89,6 +89,10 @@ private slots:
     */
     void onClipboardDataChanged(QString url);
     /**
+     * @brief 剪切板数据改变，受到bt文件url
+    */
+    void onClipboardDataForBt(QString url);
+    /**
      * @brief 切换显示列表
      * @param index 节点
     */

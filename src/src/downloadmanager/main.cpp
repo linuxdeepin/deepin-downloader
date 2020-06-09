@@ -3,6 +3,8 @@
 #include <DWidgetUtil>
 #include <DApplicationSettings>
 #include <QTranslator>
+#include <QClipboard>
+#include <QCommandLineParser>
 #include "mainframe.h"
 #include "log.h"
 DWIDGET_USE_NAMESPACE
@@ -26,8 +28,25 @@ int main(int argc, char *argv[])
 
     a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application"));//设置应用程序的显示信息
 
+
     if (!a.setSingleInstance("downloadmanager"))//设置成单例程序
+    {
+        QClipboard *_c = QApplication::clipboard();
+        //处理命令行类
+        QCommandLineParser parser;
+        parser.process(a);
+        QStringList _comList = parser.positionalArguments();
+        //发送以.torrent结尾文件
+        for (int i = 0; i < _comList.size(); i++)
+        {
+            if(_comList[i].endsWith(".torrent"))
+            {
+                 _c->setText(_comList[i]);
+            }
+        }
         return 0;
+    }
+
 
     QLocale locale;
     QTranslator translator; //新建翻译类

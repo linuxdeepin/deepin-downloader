@@ -32,6 +32,7 @@ private slots:
 
 signals:
     emit void sendClipboardText(QString url); //发送url
+    emit void sentBtText(QString url);         //发送bt url
 private:
     QClipboard *m_clipboard;            //剪切板
     bool m_isHttp;
