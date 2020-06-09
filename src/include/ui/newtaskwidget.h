@@ -98,7 +98,6 @@ signals:
     void newDownLoadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
 
 private:
-    QString m_savePath;                 //当前保存文件路径
     DTextEdit *m_texturl;               //url文本框
 
 };
