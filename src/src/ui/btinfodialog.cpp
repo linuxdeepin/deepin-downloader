@@ -535,12 +535,14 @@ QString BtInfoDialog::getFileEditText(QString text)
 
     for (int i =0 ; i < _flieEditText.size();i++)
     {
-        if(_flieEditText[i] >= 'A' && _flieEditText[i] <= 'Z')
+        //判断字符中是否包含中文或者大写字母
+        if((_flieEditText[i] >= 'A' && _flieEditText[i] <= 'Z')
+                || (_flieEditText[i] >= 0x4E00 && _flieEditText[i] <= 0x9FA5))
+
         {
             _count++;
         }
     }
-    _count --;
     //若路径较短，则用空格进行填充
     if(_count < 61)
     {
