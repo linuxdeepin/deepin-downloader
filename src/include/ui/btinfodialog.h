@@ -1,32 +1,51 @@
 /**
-* @file btinfodialog.h
-* @brief BT窗口类
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date 2020-06-01 16:00
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file btinfodialog.h
+ *
+ * @brief BT窗口类
+ *
+ * @date 2020-06-09 10:50
+ *
+ * Author: bulongwei  <bulongwei@uniontech.com>
+ *
+ * Maintainer: bulongwei  <bulongwei@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef BTINFODIALOG_H
 #define BTINFODIALOG_H
 
-//#include "aria2cinterface.h"
-#include "btinfodelegate.h"
-#include "btheaderview.h"
+
+#include "aria2cbtinfo.h"
+#include "dfilechooseredit.h"
 #include <DDialog>
-#include <QDebug>
 #include <DTableView>
 #include <DPushButton>
 #include <DLineEdit>
 #include <DLabel>
 #include <DTitlebar>
-#include <QStandardItemModel>
 #include <DCheckBox>
-#include <QStandardPaths>
-#include "dfilechooseredit.h"
-#include "aria2cbtinfo.h"
-#include "aria2rpcinterface.h"
-#include "btinfotableview.h"
+#include <DHeaderView>
+#include <DFileDialog>
+#include <DMessageBox>
+
+class BtInfoDelegate;
+class headerView;
+class BtInfoTableView;
+class QStandardItemModel;
 
 DWIDGET_USE_NAMESPACE
 

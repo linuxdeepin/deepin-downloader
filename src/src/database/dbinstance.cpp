@@ -34,7 +34,7 @@ bool DBInstance::delTask(QString _taskId)
         return false;
     }
     QSqlQuery _sql;
-    QString _str = QString("delete from  download_task where task_id=%1;").arg(_taskId);
+    QString _str = QString("delete from  download_task where task_id='%1';").arg(_taskId);
     _sql.prepare(_str);
     if (!_sql.exec()) {
         QSqlError error = _sql.lastError();
