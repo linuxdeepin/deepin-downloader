@@ -198,6 +198,7 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     _sql.prepare(select_all_sql);
     if (!_sql.exec()) {
         qWarning() << "select download_task,download_task_status failed : " << _sql.lastError();
+        _q.close();
         return false;
     }
     while (_sql.next()) {

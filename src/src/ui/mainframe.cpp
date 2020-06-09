@@ -37,6 +37,7 @@
 #include "clipboardtimer.h"
 #include "messagebox.h"
 #include "deleteitemthread.h"
+#include "btinfodialog.h"
 #include "../database/dbinstance.h"
 
 using namespace Global;
@@ -238,7 +239,7 @@ void MainFrame::initConnection()
 
     connect(m_pSettingAction,&QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_pClipboard, &ClipboardTimer::sendClipboardText,this,&MainFrame::onClipboardDataChanged);
-    connect(m_pClipboard, &ClipboardTimer::sentBtText,this,&MainFrame::onClipboardDataForBt);
+    connect(m_pClipboard, &ClipboardTimer::sentBtText,this,&MainFrame::onClipboardDataForBt,Qt::UniqueConnection);
     connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::getPalettetypechanged);
     connect(m_pUpdatetimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
@@ -285,8 +286,9 @@ void MainFrame::closeEvent(QCloseEvent *event)
 void MainFrame::createNewTask(QString url)
 {
     static newTaskWidget *pNewTaskWidget = new newTaskWidget();
-    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl);
-    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewdowloadSlot);
+    pNewTaskWidget->setUrl(url);
+    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl,Qt::UniqueConnection);
+  //  connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewdowloadSlot);
     pNewTaskWidget->exec();
 }
 void MainFrame::onTrayQuitClick()
@@ -501,7 +503,17 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::onClipboardDataForBt(QString url)
 {
+    QString _savePath = Settings::getInstance()->getDownloadSavePath();
 
+    BtInfoDialog *_bt = new BtInfoDialog(url,_savePath);//torrent文件路径
+    int ret = _bt->exec();
+    if(ret == QDialog::Accepted) {
+        QMap<QString,QVariant> opt;
+        QString _infoName;
+        QString _infoHash;
+        _bt->getBtInfo(opt, _infoName, _infoHash);
+        this->getNewDownloadTorrent(url,opt,_infoName,_infoHash);
+    }
 }
 
 void MainFrame::onListClicked(const QModelIndex &index)
@@ -674,21 +686,29 @@ void MainFrame::getNewDowloadUrl(QString url, QString savePath)
     QStringList urlList = url.split("\n");
     urlList = urlList.toSet().toList();   //url去重
     bool isExitsUrl = false;
+    QStringList _sameUrl;
     //判断url是否在数据中已存在
     for (int i = 0;i < urlList.size(); i++)
     {
         DBInstance::isExistUrl(urlList[i],isExitsUrl);
         if(isExitsUrl)
         {
+            _sameUrl.append(urlList[i]);
             urlList.removeAt(i);
             --i;
         }
     }
+    if(!_sameUrl.isEmpty())
+    {
+        QString warning_msg = tr("has ") + QString::number(_sameUrl.size()) + tr(" the same download");
+        showWarningMsgbox(warning_msg, _sameUrl.size(), _sameUrl);
+    }
     if(urlList.isEmpty())
     {
-        qDebug()<<"url is NUll";
+        qDebug()<<"url is NULl";
         return;
     }
+
     //将url加入数据库和aria
     S_Task _task;
     QMap<QString, QVariant> opt;
@@ -702,6 +722,9 @@ void MainFrame::getNewDowloadUrl(QString url, QString savePath)
 
     m_pNotaskWidget->hide();
     //定时器打开
+    if(m_pUpdatetimer->isActive() == false) {
+        m_pUpdatetimer->start(2 * 1000);
+    }
 }
 
 S_Task MainFrame::getUrlToName(QString url, QString savePath)
