@@ -530,13 +530,22 @@ void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QSt
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    QString _fielEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::Instance()->getCapacityFree(text);
-    int _count = _fielEditText.count();
+    QString _flieEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::Instance()->getCapacityFree(text);
+    int _count = _flieEditText.count();
+
+    for (int i =0 ; i < _flieEditText.size();i++)
+    {
+        if(_flieEditText[i] >= 'A' && _flieEditText[i] <= 'Z')
+        {
+            _count++;
+        }
+    }
+    _count --;
     //若路径较短，则用空格进行填充
     if(_count < 61)
     {
-       int _fillCount = 60 - _fielEditText.count();
-       _fielEditText.insert(text.size(), QString(_fillCount*2, ' '));
+       int _fillCount = 61 - _count;
+       _flieEditText.insert(text.size(), QString(_fillCount*2, ' '));
     }
-    return _fielEditText;
+    return _flieEditText;
 }
