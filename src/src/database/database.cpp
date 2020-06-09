@@ -14,16 +14,15 @@ DataBase::DataBase()
         //拷贝数据库文件
         qDebug() << "error: no db file  "; //<< QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_FILENAME << QString(_dataBasePath) + UOS_DOWNLOAD_DATABASE_FILENAME << endl;
 
-        //QString strold = _dataBasePath + UOS_DOWNLOAD_DATABASE_OLD_FILENAME;
-      //  QByteArray ba = strold.toLatin1();
-     //   char *old_database_file = ba.data();
-    //    remove(old_database_file);
-       // QFile::copy(QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_OLD_FILENAME,
-      //              QString(_dataBasePath + "/" + UOS_DOWNLOAD_DATABASE_FILENAME));
+        QString strold = UOS_DONWLOAD_DATABASE_PATH + "uos-downloadmanager-task.db";
+        QByteArray ba = strold.toLatin1();
+        char *old_database_file = ba.data();
+        remove(old_database_file);
+        QFile::copy(strold,_dbPath);
     }
 
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(UOS_DONWLOAD_DATABASE_PATH + UOS_DOWNLOAD_DATABASE_OLD_FILENAME);
+    m_db.setDatabaseName(_dbPath);
 }
 
 DataBase &DataBase::Instance()
