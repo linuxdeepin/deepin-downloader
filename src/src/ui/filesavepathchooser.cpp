@@ -1,19 +1,37 @@
 /**
-* @file filesavepathchooser.cpp
-* @brief 下载目录窗口，主要实现切换单选按钮时，文件保存路径控件的使能以及设置数据的传递与显示
-* @author yuandandan  <yuandandan@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 15:34
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file filesavepathchooser.cpp
+ *
+ * @brief 下载目录窗口，主要实现切换单选按钮时，文件保存路径控件的使能以及设置数据的传递与显示
+ *
+ *@date 2020-06-09 11:00
+ *
+ * Author: yuandandan  <yuandandan@uniontech.com>
+ *
+ * Maintainer: yuandandan  <yuandandan@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "filesavepathchooser.h"
+
+#include <DSwitchButton>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QDebug>
-#include <DSwitchButton>
-#include "dswitchbutton.h"
 
 FileSavePathChooser::FileSavePathChooser(int nCurrentSelect, const QString &strDownloadPath)
 {
@@ -29,6 +47,7 @@ void FileSavePathChooser::initUI()
     m_pFileChooserEdit = new DFileChooserEdit;
     m_pAutoLastPathRadioButton = new DRadioButton(tr("Automatically changes to the last used directory")); // 自动修改为上次使用的目录
     m_pCustomsPathRadioButton = new DRadioButton(tr("Default directory")); // 设置默认目录
+
     m_pFileChooserEdit->lineEdit()->setReadOnly(true);
     m_pFileChooserEdit->lineEdit()->setClearButtonEnabled(false);
     m_pFileChooserEdit->setFileMode(QFileDialog::FileMode::DirectoryOnly);
