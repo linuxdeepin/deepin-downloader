@@ -147,19 +147,6 @@ void newTaskWidget::onSureBtnClicked()
         qDebug()<<"url is NUll";
         return;
     }
-    //将当前保存路径，放入配置文件中
-    QString config_path=QString("%1/%2/%3/last_save_path")
-            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-            .arg(qApp->organizationName())
-            .arg(qApp->applicationName());
-    QFile file;
-    file.setFileName(config_path);
-    bool isOK = file.open(QIODevice::WriteOnly);
-    if (isOK == true)
-    {
-        file.write(m_savePath.toStdString().data());
-    }
-    file.close();
 
     emit NewDownload_sig(_strUrl,m_savePath);
     this->close();

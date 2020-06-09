@@ -28,7 +28,7 @@
 #ifndef BTINFODIALOG_H
 #define BTINFODIALOG_H
 
-
+#include "settings.h"
 #include "aria2cbtinfo.h"
 #include "dfilechooseredit.h"
 #include <DDialog>
