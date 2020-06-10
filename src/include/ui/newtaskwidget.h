@@ -39,6 +39,7 @@
 #include <QObject>
 
 class BtInfoDialog;
+class MessageBox;
 
 DWIDGET_USE_NAMESPACE
 
@@ -55,6 +56,20 @@ private:
      * @brief 初始化ui
      */
     void initUi();
+
+    /**
+     * @brief 是否为磁力链接
+     * @param url 路径
+     * @return  true 为磁力链接  false 为不是磁力链接
+    */
+    bool isMagnet(QString url);
+
+    /**
+     * @brief 是否为http链接
+     * @param url 路径
+     * @return  true 为http链接  false 为不是http链接
+    */
+    bool isHttp(QString url);
 
 private slots:
     /**
@@ -87,7 +102,7 @@ signals:
      * @param url http下载地址
      * @param save_path 保存路径
     */
-    void NewDownload_sig(QString url,QString save_path);
+    void NewDownload_sig(QStringList urlList,QString save_path);
     /**
      * @brief 新建bt下载任务
      * @param btPath bt下载地址
