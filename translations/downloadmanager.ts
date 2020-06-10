@@ -214,12 +214,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="219"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="218"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="225"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="227"/>
         <source>Time left </source>
 >>>>>>> dev
         <translation type="unfinished"></translation>
@@ -228,6 +228,7 @@
 <context>
     <name>MainFrame</name>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="61"/>
         <source>Settings</source>
@@ -303,82 +304,87 @@
         <location filename="../src/src/ui/mainframe.cpp" line="454"/>
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="59"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="80"/>
+>>>>>>> Stashed changes
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="114"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="520"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="135"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="651"/>
         <source>No download tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="124"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="145"/>
         <source>Click + to create new task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="141"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="162"/>
         <source>0 task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="166"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="187"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="168"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="190"/>
         <source>Completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="169"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="191"/>
         <source>Trash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="199"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="223"/>
         <source>Download Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="201"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="225"/>
         <source>Show main window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="226"/>
         <source>New task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="203"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="227"/>
         <source>Continue all tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="204"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="228"/>
         <source>Pause all tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="205"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="229"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="375"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1442"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="495"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1813"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2140"/>
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="439"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="561"/>
         <source> item tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="456"/>
 >>>>>>> dev
@@ -387,10 +393,15 @@
         <location filename="../src/src/ui/mainframe.cpp" line="455"/>
         <location filename="../src/src/ui/mainframe.cpp" line="469"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="577"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="591"/>
+>>>>>>> Stashed changes
         <source> files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="517"/>
@@ -400,10 +411,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="515"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="644"/>
+>>>>>>> Stashed changes
         <source>No finished tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="529"/>
@@ -413,10 +428,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="527"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="658"/>
+>>>>>>> Stashed changes
         <source>No deleted tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="800"/>
@@ -426,10 +445,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="791"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="913"/>
+>>>>>>> Stashed changes
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="806"/>
@@ -439,10 +462,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="797"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="919"/>
+>>>>>>> Stashed changes
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="812"/>
@@ -455,10 +482,15 @@
         <location filename="../src/src/ui/mainframe.cpp" line="803"/>
         <location filename="../src/src/ui/mainframe.cpp" line="860"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="925"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="971"/>
+>>>>>>> Stashed changes
         <source>Download again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="820"/>
@@ -468,10 +500,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="811"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="933"/>
+>>>>>>> Stashed changes
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="826"/>
@@ -481,10 +517,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="817"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="939"/>
+>>>>>>> Stashed changes
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="831"/>
@@ -494,10 +534,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="822"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="944"/>
+>>>>>>> Stashed changes
         <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="860"/>
@@ -507,10 +551,14 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="852"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="963"/>
+>>>>>>> Stashed changes
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="873"/>
@@ -545,45 +593,71 @@
 =======
         <location filename="../src/src/ui/mainframe.cpp" line="865"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="976"/>
+>>>>>>> Stashed changes
         <source>Copy download link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="871"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="982"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="876"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="987"/>
         <source>Permanently delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="881"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="992"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1139"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1419"/>
         <source>has </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1139"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1419"/>
         <source> the same download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1150"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1429"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1440"/>
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1466"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1507"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1557"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1438"/>
+        <source>reload will delete this local file,Do you continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1440"/>
+        <source>cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1839"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1880"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2024"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2063"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2161"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2205"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2295"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2316"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2400"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2449"/>
         <source>no item is selected,please check items!</source>
 >>>>>>> dev
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="2405"/>
+        <source>download uri already copyed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1035,30 +1109,53 @@
 <context>
     <name>TableModel</name>
     <message>
+<<<<<<< Updated upstream
         <location filename="../src/src/ui/tableModel.cpp" line="306"/>
+=======
+        <location filename="../src/src/ui/tableModel.cpp" line="360"/>
+>>>>>>> Stashed changes
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
         <location filename="../src/src/ui/tableModel.cpp" line="308"/>
+=======
+        <location filename="../src/src/ui/tableModel.cpp" line="363"/>
+>>>>>>> Stashed changes
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
         <location filename="../src/src/ui/tableModel.cpp" line="311"/>
         <location filename="../src/src/ui/tableModel.cpp" line="318"/>
+=======
+        <location filename="../src/src/ui/tableModel.cpp" line="367"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="376"/>
+>>>>>>> Stashed changes
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
         <location filename="../src/src/ui/tableModel.cpp" line="313"/>
         <location filename="../src/src/ui/tableModel.cpp" line="320"/>
+=======
+        <location filename="../src/src/ui/tableModel.cpp" line="369"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="378"/>
+>>>>>>> Stashed changes
         <source>Time finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
         <location filename="../src/src/ui/tableModel.cpp" line="315"/>
         <location filename="../src/src/ui/tableModel.cpp" line="322"/>
+=======
+        <location filename="../src/src/ui/tableModel.cpp" line="371"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="380"/>
+>>>>>>> Stashed changes
         <source>Time deleted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1066,20 +1163,28 @@
 <context>
     <name>TableView</name>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         <location filename="../src/src/ui/tableView.cpp" line="519"/>
 =======
         <location filename="../src/src/ui/tableView.cpp" line="517"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/tableView.cpp" line="544"/>
+>>>>>>> Stashed changes
         <source> download failed, network error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         <location filename="../src/src/ui/tableView.cpp" line="521"/>
 =======
         <location filename="../src/src/ui/tableView.cpp" line="519"/>
 >>>>>>> dev
+=======
+        <location filename="../src/src/ui/tableView.cpp" line="546"/>
+>>>>>>> Stashed changes
         <source> download finished</source>
         <translation type="unfinished"></translation>
     </message>

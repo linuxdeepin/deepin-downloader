@@ -139,7 +139,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
                     downloadSettings.m_strStartTime = lstCurrentValue.at(3);
                     downloadSettings.m_strEndTime = lstCurrentValue.at(4);
                 }
-                emit downloadSettingsChanged(downloadSettings);
+                emit downloadSettingsChanged();
             }
     });
 
