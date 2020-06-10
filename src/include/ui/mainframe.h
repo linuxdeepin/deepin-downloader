@@ -1,11 +1,29 @@
 /**
-* @file mainframe.h
-* @brief 主界面类
-* @author zhaoyue  <zhaoyue@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 09:37
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file mainframe.h
+ *
+ * @brief 主界面类
+ *
+ * @date 2020-06-09 09:44
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
@@ -79,7 +97,7 @@ private slots:
      * @param method: aria2调用的接口名称
      * @param json： 字符串
     */
-    void slotRpcSuccess(QString method, QJsonObject json);
+    void onRpcSuccess(QString method, QJsonObject json);
 
     /**
      * @brief 处理rpc返回错误的信息
@@ -87,9 +105,12 @@ private slots:
      * @param id： 唯一id
      * @param error： 错误号
     */
-    void slotRpcError(QString method, QString id, int error);
+    void onRpcError(QString method, QString id, int error);
 
-    void slotTableItemSelected(const QModelIndex &selected);
+    /**
+     * @brief 表格中元素被选中
+    */
+    void onTableItemSelected(const QModelIndex &selected);
 
     /**
      * @brief 剪切板数据改变，需要新建任务
@@ -105,7 +126,7 @@ private slots:
      * @brief 主题改变
      * @param type 颜色类型
     */
-    void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
+    void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
     /**
      * @brief 收到新建任务url
@@ -113,7 +134,6 @@ private slots:
      * @param savePath 保存路径
     */
     void getNewDowloadUrl(QString url, QString savePath);
-
 
     /**
      * @brief 收到新建任务orrent
@@ -135,19 +155,12 @@ private slots:
     /**
      * @brief 设置右键菜单
     */
-    void slotContextMenu(QPoint pos);
+    void onContextMenu(const QPoint &pos);
 
     /**
      * @brief 查找的文本改变
     */
-    void slotSearchEditTextChanged(QString text);
-
-    /**
-     * @brief 开始下载新任务槽函数
-     *  @param url： 地址
-     *  @param savepath： 保存路径
-    */
-    void getNewdowloadSlot(QString url, QString savepath);
+    void onSearchEditTextChanged(QString text);
 
     /**
      * @brief 定时器更新界面显示
@@ -177,24 +190,26 @@ private slots:
     /**
      * @brief 改变列表选中槽函数
     */
-    void slotCheckChange(bool checked, int flag);
+    void onCheckChanged(bool checked, int flag);
+
 
     /**
-     * @brief 删除槽函数
-    */
-    void delDownloadingAction();
-
-    /**
-     * @brief get_delete_confirm_slot 获取删除窗口确定信号
+     * @brief  获取删除窗口确定信号
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void getDeleteConfirmSlot(bool ischecked,bool permanent);
+    void onGetDeleteConfirm(bool ischecked,bool permanent);
+
+    /**
+     * @brief 重新下载
+     */
+
+    void onRedownload(QString taskId, int rd);
 
     /**
      * @brief 移除指定下载
      */
-    void slotAria2Remove(QString gId, QString id);
+    void onAria2Remove(QString gId, QString id);
 
     /**
      * @brief mainwidow关闭事件
@@ -207,6 +222,52 @@ private slots:
      * @param index 按钮index
      */
     void onMessageBoxConfirmClick();
+
+    /**
+     * @brief 删除ACtion槽函数
+    */
+    void onDelActionTriggered();
+
+    /**
+     * @brief 重新下载ACtion槽函数
+    */
+    void onRedownloadActionTriggered();
+
+    /**
+     * @brief 还原下载ACtion槽函数
+    */
+    void onReturnOriginActionTriggered();
+
+    /**
+     * @brief 打开文件ACtion槽函数
+    */
+    void onOpenFileActionTriggered();
+
+    /**
+     * @brief 打开文件目录ACtion槽函数
+    */
+    void onOpenFolderActionTriggered();
+
+    /**
+     * @brief 重命名文件ACtion槽函数
+    */
+    void onRenameActionTriggered();
+
+    /**
+     * @brief 清除回收站ACtion槽函数
+    */
+    void onClearRecyleActionTriggered();
+
+    /**
+     * @brief 清除回收站ACtion槽函数
+    */
+    void onCopyUrlActionTriggered();
+
+    /**
+     * @brief 永久删除ACtion槽函数
+    */
+    void onDeletePermanentActionTriggered();
+
 private:
 
     /**
@@ -262,15 +323,40 @@ private:
     void showWarningMsgbox(QString title, int sameUrlCount = 0, QList<QString> sameUrlList = {});
 
     /**
-     * @brief show_delete_MsgBox 显示删除或彻底删除警告窗口
-     * @param permanently 是否是彻底删除 tru    e是显示彻底删除窗口，false是显示删除窗口
+     * @brief showDeleteMsgbox 显示删除或彻底删除警告窗口
+     * @param permanently 是否是彻底删除 true是显示彻底删除窗口，false是显示删除窗口
      */
     void showDeleteMsgbox(bool permanently);
+
+    /**
+     * @brief showReloadMsgbox 显示重新下载窗口
+     */
+    void showReloadMsgbox();
+
+    /**
+     * @brief showRenameMsgbox 显示重命名窗口
+     */
+    void showRenameMsgbox();
 
     /**
      * @brief 从配置文件中获取下载路径
      */
     QString   getDownloadSavepathFromConfig();
+
+    /**
+     * @brief 判断下载限速
+     */
+    void downloadLimitPeriod();
+
+    /**
+     * @brief 判断是否在限速期间
+     */
+    bool checkIfInPeriod(QTime *currentTime, QTime *periodStartTime, QTime *periodEndTime);
+
+    /**
+     * @brief 比较时间
+     */
+    int  checkTime(QTime *startTime, QTime *endTime);
 
 protected:
     /**

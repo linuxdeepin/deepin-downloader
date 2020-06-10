@@ -34,7 +34,7 @@ MessageBox::MessageBox(DDialog *parent) : DDialog(parent)
 
 }
 
-void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cancelbtntext,int sameurl_count,QList<QString> same_url_list)
+void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cancelbtntext,int sameurlCount,QList<QString> sameUrlList)
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -42,20 +42,20 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
 
     this->addLabel(warningMsg);
     this->addSpacing(10);
-    if(sameurl_count!=0)
+    if(sameurlCount!=0)
     {
-        DTextEdit *url_text = new DTextEdit(this);
-        url_text->setReadOnly(true);
-        url_text->setFixedSize(QSize(454,154));
+        DTextEdit *urlText = new DTextEdit(this);
+        urlText->setReadOnly(true);
+        urlText->setFixedSize(QSize(454,154));
 
         QPalette pal;
         pal.setColor(QPalette::Base, QColor(0,0,0,20));
-        url_text->setPalette(pal);
-        for(int i=0;i<same_url_list.size();i++)
+        urlText->setPalette(pal);
+        for(int i=0;i<sameUrlList.size();i++)
         {
-            url_text->append(same_url_list.at(i));
+            urlText->append(sameUrlList.at(i));
         }
-        this->addContent(url_text);
+        this->addContent(urlText);
     }
     if(cancelbtntext!="")
     {
@@ -72,7 +72,7 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
 void MessageBox::setDelete(bool permanentl)
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
-    m_deleteFlag=permanentl;
+    m_bDeleteFlag=permanentl;
 
     if(permanentl)
     {
@@ -84,8 +84,8 @@ void MessageBox::setDelete(bool permanentl)
     }
     else
     {
-        QString show_title = tr("Are you sure you want to delete this download task?");
-        this->setTitle(show_title);
+        QString showTitle = tr("Are you sure you want to delete this download task?");
+        this->setTitle(showTitle);
         this->addSpacing(10);
         this->addCheckbox(tr("Delete local files"));
     }
@@ -118,10 +118,10 @@ void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtn
 
     this->setCloseButtonVisible(false);
     this->setTitle(tr("Rename"));
-    newName_lineedit = new DLineEdit();
-    newName_lineedit->setText(oldname);
-    newName_lineedit->setFixedWidth(400);
-    this->addContent(newName_lineedit,Qt::AlignHCenter);
+    m_pNewnameLineedit = new DLineEdit();
+    m_pNewnameLineedit->setText(oldname);
+    m_pNewnameLineedit->setFixedWidth(400);
+    this->addContent(m_pNewnameLineedit,Qt::AlignHCenter);
     this->addSpacing(20);
     QWidget *button_box= new QWidget(this);
     QHBoxLayout *layout=new QHBoxLayout(button_box);
@@ -133,12 +133,12 @@ void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtn
                 this->close();
             });
     layout->addWidget(cancel_button);
-    rename_sure_button = new QPushButton(button_box);
-    rename_sure_button->setText(surebtntext);
-    connect(rename_sure_button,&DPushButton::clicked,this,&MessageBox::renameSureBtn);
-    layout->addWidget(rename_sure_button);
+    m_pRenameSureButton = new QPushButton(button_box);
+    m_pRenameSureButton->setText(surebtntext);
+    connect(m_pRenameSureButton,&DPushButton::clicked,this,&MessageBox::renameSureBtn);
+    layout->addWidget(m_pRenameSureButton);
     this->addContent(button_box);
-    connect(newName_lineedit,&DLineEdit::textChanged,this,&MessageBox::get_renameLineEdit_changed);
+    connect(m_pNewnameLineedit,&DLineEdit::textChanged,this,&MessageBox::getRenamelineeditChanged);
 }
 
 void MessageBox::setExit()
@@ -192,28 +192,28 @@ void MessageBox::addRadioGroup(QString quitText, QString minText)
 
 void MessageBox::addCheckbox(QString checkboxText)
 {
-    m_checkbox = new DCheckBox(this);
-    m_checkbox->setText(checkboxText);
-    this->addContent(m_checkbox,Qt::AlignHCenter);
+    m_pCheckBox = new DCheckBox(this);
+    m_pCheckBox->setText(checkboxText);
+    this->addContent(m_pCheckBox,Qt::AlignHCenter);
 }
 
-void MessageBox::get_renameLineEdit_changed(const QString &text)
+void MessageBox::getRenamelineeditChanged(const QString &text)
 {
 
     QString real_name= QString(text).left(text.lastIndexOf('.'));
 
     if(!text.isEmpty()&&!real_name.isEmpty())
     {
-        rename_sure_button->setEnabled(true);
+        m_pRenameSureButton->setEnabled(true);
     }
     else {
-        rename_sure_button->setEnabled(false);
+        m_pRenameSureButton->setEnabled(false);
     }
 }
 
 void MessageBox::renameSureBtn()
 {
-    QString newname=newName_lineedit->text();
+    QString newname=m_pNewnameLineedit->text();
     if(newname.contains("\\")||newname.contains("/"))
     {
         MessageBox *msg=new MessageBox();
@@ -221,7 +221,7 @@ void MessageBox::renameSureBtn()
         msg->exec();
         return;
     }
-    emit ReName_sig(newname);
+    emit RenameSig(newname);
    this->close();
 }
 
@@ -230,8 +230,8 @@ void MessageBox::clearBtn(int index)
     if(index==1)
     {
         bool ischecked;
-        ischecked= m_checkbox->isChecked();
-        emit ClearRecycle_sig(ischecked);
+        ischecked= m_pCheckBox->isChecked();
+        emit ClearrecycleSig(ischecked);
     }
     this->close();
 }
@@ -243,13 +243,13 @@ void MessageBox::deleteBtn(int index)
 
     QAbstractButton *button= this->getButton(index);
         button->setEnabled(false);
-        if(m_deleteFlag)
-             emit DeleteDownload_sig(true,m_deleteFlag);
+        if(m_bDeleteFlag)
+             emit DeletedownloadSig(true,m_bDeleteFlag);
         else
         {
             bool ischecked;
-            ischecked= m_checkbox->isChecked();
-            emit DeleteDownload_sig(ischecked,m_deleteFlag);
+            ischecked= m_pCheckBox->isChecked();
+            emit DeletedownloadSig(ischecked,m_bDeleteFlag);
 
         }
     }
@@ -265,7 +265,7 @@ void MessageBox::ExitBtn(int index)
         } else {
             Settings::getInstance()->setCloseMainWindowSelected(1);
         }
-        if(m_checkbox->isChecked()) {
+        if(m_pCheckBox->isChecked()) {
             Settings::getInstance()->setIsShowTip(false);
         }
         emit signalCloseConfirm();

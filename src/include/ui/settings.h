@@ -299,7 +299,7 @@ public:
 signals:
     void poweronChanged(bool bState);
     void maxDownloadTaskNumberChanged(int nTaskNumber);
-    void downloadSettingsChanged(S_DownloadSettings downloadSettings);
+    void downloadSettingsChanged();
     void disckCacheChanged(int nNum);
 
 public slots:

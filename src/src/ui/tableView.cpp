@@ -1,13 +1,32 @@
 /**
- * @file tableView.cpp
- * @brief 下载条目列表
- * @author zhaoyue  <zhaoyue@uniontech.com>
- * @version 1.0.0
- * @date 2020-05-26 09:41
  * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file tableView.cpp
+ *
+ * @brief 下载条目列表
+ *
+ * @date 2020-06-09 09:56
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "tableView.h"
+
 #include <QDebug>
 #include <QScrollBar>
 #include <QMouseEvent>
@@ -17,6 +36,7 @@
 #include <QDateTime>
 #include <QProcess>
 #include <QThread>
+
 #include "../database/dbinstance.h"
 #include "global.h"
 #include "../aria2/aria2rpcinterface.h"
@@ -26,7 +46,7 @@
 #include "settings.h"
 #include "topButton.h"
 
-TableView::TableView(int Flag, TopButton* pToolBar)
+TableView::TableView(int Flag, TopButton *pToolBar)
     : QTableView()
     , m_iTableFlag(Flag)
     , m_pTableModel(new TableModel(Flag))
@@ -67,12 +87,12 @@ void TableView::initUI()
     pHeaderView->setDefaultSectionSize(20);
     pHeaderView->setSortIndicatorShown(false);
     pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-    pHeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
+    pHeaderView->setSectionResizeMode(0, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(1, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
-    pHeaderView->setTextElideMode (Qt::ElideMiddle);
+    pHeaderView->setTextElideMode(Qt::ElideMiddle);
     setColumnWidth(0, 20);
 
     connect(pHeaderView,
@@ -84,7 +104,7 @@ void TableView::initUI()
             pHeaderView,
             &HeaderView::getClearHeaderCheck);
     connect(m_pTableModel,
-            &TableModel::tableView_allChecked_or_allUnchecked,
+            &TableModel::tableviewAllcheckedOrAllunchecked,
             this,
             &TableView::signalTableViewAllChecked);
     connect(this,
@@ -94,7 +114,7 @@ void TableView::initUI()
     connect(this,
             &TableView::signalHoverchanged,
             m_pItemdegegate,
-            &ItemDelegate::slotHoverchanged);
+            &ItemDelegate::onHoverchanged);
 }
 
 void TableView::initConnections()
@@ -274,11 +294,14 @@ void TableView::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QSt
 
     long totalLength = result.value("totalLength").toString().toLong();         //
                                                                                 //
+                                                                                //
                                                                                 // 字节
     long completedLength = result.value("completedLength").toString().toLong(); //
                                                                                 //
+                                                                                //
                                                                                 // 字节
     long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //
+                                                                                //
                                                                                 //
                                                                                 // 字节/每秒
     QString fileName = getFileName(filePath);
@@ -431,8 +454,9 @@ void TableView::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QSt
 void TableView::aria2MethodShutdown(QJsonObject &json)
 {
     QString result = json.value("result").toString();
+
     if(result == "OK") {
-        //m_bShutdownOk = true;
+        // m_bShutdownOk = true;
         qDebug() << "close downloadmanager";
         this->close();
         DApplication::exit();
@@ -443,7 +467,8 @@ void TableView::aria2MethodGetFiles(QJsonObject &json, int iCurrentRow)
 {
     QString   id = json.value("id").toString();
     DataItem *data = getTableModel()->find(id);
-    if(data == nullptr) {// id等于gid
+
+    if(data == nullptr) { // id等于gid
         data = new DataItem();
         QJsonArray  ja = json.value("result").toArray();
         QJsonObject jo = ja.at(0).toObject();
@@ -465,6 +490,7 @@ void TableView::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
     QString taskId = json.value("id").toString();
 
     DataItem *data = getTableModel()->find(taskId);
+
     if(data != nullptr) {
         data->status = Global::Status::Active;
         refreshTableView(iCurrentRow);
@@ -474,6 +500,7 @@ void TableView::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
 void TableView::aria2MethodForceRemove(QJsonObject &json)
 {
     QString id = json.value("id").toString();
+
     if(id.startsWith("REDOWNLOAD_")) { // 重新下载前的移除完成后
         QStringList sp = id.split("_");
         QString     taskId = sp.at(2);
@@ -561,6 +588,7 @@ QString TableView::getDownloadSavepathFromConfig()
                 path =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
             }
         }
+
         // 自动修改为上次使用目录
         else {
             QString config_path = QString("%1/%2/%3/last_save_path")
@@ -647,6 +675,7 @@ void TableView::refreshTableView(const int &index)
 void TableView::searchEditTextChanged(QString text)
 {
     TableModel *pModel = getTableModel();
+
     if(text == "") {
         for(int i = 0; i < pModel->rowCount(QModelIndex()); i++) {
             setRowHidden(i, false);
@@ -674,10 +703,10 @@ void TableView::saveDataBeforeClose()
         for(int j = 0; j < recyclelist.size(); j++) {
             DelDataItem *del_data = recyclelist.at(j);
             QDateTime    deltime = QDateTime::fromString(del_data->deleteTime, "yyyy-MM-dd hh:mm:ss");
-            S_Task     task(del_data->taskId, del_data->gid, 0, del_data->url, del_data->savePath,
-                                            del_data->fileName, deltime);
+            S_Task task(del_data->taskId, del_data->gid, 0, del_data->url, del_data->savePath,
+                        del_data->fileName, deltime);
 
-             DBInstance::updateTaskByID(task);
+            DBInstance::updateTaskByID(task);
         }
     }
     if(dataList.size() > 0) {
@@ -687,7 +716,7 @@ void TableView::saveDataBeforeClose()
 
 
             S_Task task(data->taskId, data->gid, 0, data->url, data->savePath,
-                                        data->fileName, time);
+                        data->fileName, time);
 
             DBInstance::updateTaskByID(task);
             QDateTime finish_time;
@@ -705,14 +734,14 @@ void TableView::saveDataBeforeClose()
             }
 
             S_Task_Status download_status(data->taskId,
-                                                                                   status,
-                                                                                   finish_time,
-                                                                                   data->completedLength,
-                                                                                   data->speed,
-                                                                                   data->totalLength,
-                                                                                   data->percent,
-                                                                                   data->total,
-                                                                                   finish_time);
+                                          status,
+                                          finish_time,
+                                          data->completedLength,
+                                          data->speed,
+                                          data->totalLength,
+                                          data->percent,
+                                          data->total,
+                                          finish_time);
 
             if(DBInstance::getTaskStatusById(data->taskId, get_status) != false) {
                 DBInstance::updateTaskStatusById(download_status);
