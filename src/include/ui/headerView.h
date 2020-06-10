@@ -1,11 +1,29 @@
 /**
-* @file headerView.h
-* @brief 表头
-* @author zhaoyue  <zhaoyue@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 09:44
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file headerView.h
+ *
+ * @brief 表头
+ *
+ * @date 2020-06-09 09:59
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef HEADERVIEW_H
 #define HEADERVIEW_H
@@ -21,11 +39,12 @@ DWIDGET_USE_NAMESPACE
  * @class HeaderView
  * @brief 表头
  */
-class HeaderView: public QHeaderView
+class HeaderView : public QHeaderView
 {
     Q_OBJECT
 public:
-    explicit HeaderView(Qt::Orientation orientation, QWidget * parent = 0);
+    explicit HeaderView(Qt::Orientation orientation,
+                        QWidget        *parent = 0);
 
 protected:
     /**
@@ -34,29 +53,27 @@ protected:
     void updateGeometries();
 
 private:
-   DCheckBox *m_headerCbx;
+    DCheckBox *m_headerCbx;
 signals:
-   /**
-    * @brief 表头全选按键状态改变按钮
-    */
-   void getStatechanged(bool checked);
+    /**
+     * @brief 表头全选按键状态改变按钮
+     */
+    void getStatechanged(bool checked);
 public slots:
-   /**
-    * @brief 清除表头选中状态
-    */
-   void getClearHeaderCheck();
-   /**
-    * @brief 表头全选按键选中
-    */
-   void getCheckall(bool checked);
-   /**
-    * @brief 调色板改变，重新设置颜色
-    */
-   void get_paletteTypeChanged(DGuiApplicationHelper::ColorType type);
+    /**
+     * @brief 清除表头选中状态
+     */
+    void getClearHeaderCheck();
 
+    /**
+     * @brief 表头全选按键选中
+     */
+    void getCheckall(bool checked);
 
-
-
+    /**
+     * @brief 调色板改变，重新设置颜色
+     */
+    void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
 };
 
 #endif // HEADERVIEW_H

@@ -1,11 +1,29 @@
 /**
-* @file mainframe.h
-* @brief 主界面类
-* @author zhaoyue  <zhaoyue@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 09:37
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file mainframe.h
+ *
+ * @brief 主界面类
+ *
+ * @date 2020-06-09 09:44
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
@@ -89,6 +107,9 @@ private slots:
     */
     void slotRpcError(QString method, QString id, int error);
 
+    /**
+     * @brief 表格中元素被选中
+    */
     void slotTableItemSelected(const QModelIndex &selected);
 
     /**
@@ -135,7 +156,7 @@ private slots:
     /**
      * @brief 设置右键菜单
     */
-    void slotContextMenu(QPoint pos);
+    void slotContextMenu(const QPoint &pos);
 
     /**
      * @brief 查找的文本改变
@@ -179,17 +200,19 @@ private slots:
     */
     void slotCheckChange(bool checked, int flag);
 
-    /**
-     * @brief 删除槽函数
-    */
-    void delDownloadingAction();
 
     /**
-     * @brief get_delete_confirm_slot 获取删除窗口确定信号
+     * @brief  获取删除窗口确定信号
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
     void getDeleteConfirmSlot(bool ischecked,bool permanent);
+
+    /**
+     * @brief 重新下载
+     */
+
+    void slotRedownload(QString taskId, int rd);
 
     /**
      * @brief 移除指定下载
@@ -207,6 +230,52 @@ private slots:
      * @param index 按钮index
      */
     void onMessageBoxConfirmClick();
+
+    /**
+     * @brief 删除ACtion槽函数
+    */
+    void onDelActionTriggered();
+
+    /**
+     * @brief 重新下载ACtion槽函数
+    */
+    void onRedownloadActionTriggered();
+
+    /**
+     * @brief 还原下载ACtion槽函数
+    */
+    void onReturnOriginActionTriggered();
+
+    /**
+     * @brief 打开文件ACtion槽函数
+    */
+    void onOpenFileActionTriggered();
+
+    /**
+     * @brief 打开文件目录ACtion槽函数
+    */
+    void onOpenFolderActionTriggered();
+
+    /**
+     * @brief 重命名文件ACtion槽函数
+    */
+    void onRenameActionTriggered();
+
+    /**
+     * @brief 清除回收站ACtion槽函数
+    */
+    void onClearRecyleActionTriggered();
+
+    /**
+     * @brief 清除回收站ACtion槽函数
+    */
+    void onCopyUrlActionTriggered();
+
+    /**
+     * @brief 永久删除ACtion槽函数
+    */
+    void onDeletePermanentActionTriggered();
+
 private:
 
     /**
@@ -262,15 +331,40 @@ private:
     void showWarningMsgbox(QString title, int sameUrlCount = 0, QList<QString> sameUrlList = {});
 
     /**
-     * @brief show_delete_MsgBox 显示删除或彻底删除警告窗口
-     * @param permanently 是否是彻底删除 tru    e是显示彻底删除窗口，false是显示删除窗口
+     * @brief showDeleteMsgbox 显示删除或彻底删除警告窗口
+     * @param permanently 是否是彻底删除 true是显示彻底删除窗口，false是显示删除窗口
      */
     void showDeleteMsgbox(bool permanently);
+
+    /**
+     * @brief showReloadMsgbox 显示重新下载窗口
+     */
+    void showReloadMsgbox();
+
+    /**
+     * @brief showRenameMsgbox 显示重命名窗口
+     */
+    void showRenameMsgbox();
 
     /**
      * @brief 从配置文件中获取下载路径
      */
     QString   getDownloadSavepathFromConfig();
+
+    /**
+     * @brief 判断下载限速
+     */
+    void downloadLimitPeriod();
+
+    /**
+     * @brief 判断是否在限速期间
+     */
+    bool checkIfInPeriod(QTime *currentTime, QTime *periodStartTime, QTime *periodEndTime);
+
+    /**
+     * @brief 比较时间
+     */
+    int  checkTime(QTime *startTime, QTime *endTime);
 
 protected:
     /**

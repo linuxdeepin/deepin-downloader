@@ -1,11 +1,29 @@
 /**
-* @file tableModel.h
-* @brief 表格数据管理模块
-* @author zhaoyue  <zhaoyue@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 09:41
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file tableModel.h
+ *
+ * @brief 表格数据管理模块
+ *
+ * @date 2020-06-09 09:58
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef TABLEVIEWMODEL_H
 #define TABLEVIEWMODEL_H
@@ -115,12 +133,12 @@ public:
      * @brief 获取列表展示模式
      * @return 模式
      */
-    int get_tablemodel_mode();
+    int getTablemodelMode();
     /**
      * @brief 获取列表展示模式
      * @return 模式map
      */
-    QMap<QString, DataItem *>  get_table_model_map();
+    QMap<QString, DataItem *>  getTableModelMap();
     /**
      * @brief 获取行数
      * @param index: 索引
@@ -153,12 +171,12 @@ signals:
      * @brief 改变选中
      * @param flag: 模式
      */
-    void check_dataChange(int flag);
+    void checkDatachange(int flag);
     /**
      * @brief 全选或者全不选
      * @param checked: 选中状态
      */
-    void tableView_allChecked_or_allUnchecked(bool checked);
+    void tableviewAllcheckedOrAllunchecked(bool checked);
     /**
      * @brief 选中或者不选中
      * @param flag: 模式
@@ -169,7 +187,7 @@ private slots:
      * @brief 获取选中改变
      * @param flag: 模式
      */
-    void get_check_dataChange(int flag);
+    void getCheckDatachange(int flag);
 private:
     QList<DataItem *> m_dataList;
     QList<DataItem *> m_renderList;
