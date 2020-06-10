@@ -77,9 +77,7 @@ bool ClipboardTimer::isMagnet(QString url)
 
 bool ClipboardTimer::isHttp(QString url)
 {
-    QString _isHttp =url.mid(0,4);
-
-    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http:")) && (-1 == url.indexOf("https:")))
+    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://")))
     {
         return false;
     }
@@ -91,8 +89,11 @@ bool ClipboardTimer::isHttp(QString url)
     {
         return true;
     }
-    else
-    {
-        return false;
+    for (int i = 0; i < _type.size(); i++) {
+        if(_type[i].toUpper() == _suffix)
+        {
+            return true;
+        }
     }
+    return false;
 }

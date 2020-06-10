@@ -27,6 +27,7 @@
 
 #include "newtaskwidget.h"
 #include "btinfodialog.h"
+#include "messagebox.h"
 #include <QHBoxLayout>
 #include <QSizePolicy>
 #include <QDropEvent>
@@ -147,8 +148,32 @@ void newTaskWidget::onSureBtnClicked()
         qDebug()<<"url is NUll";
         return;
     }
+    //获取当前错误地址
+    QStringList _urlList = _strUrl.split("\n");
+    _urlList = _urlList.toSet().toList();
+    QStringList _errorList;
+    for (int i = 0; i < _urlList.size(); i++) {
+        if(!(isHttp(_urlList[i]) || isMagnet(_urlList[i])))
+        {
+            _errorList.append(_urlList[i]);
+        }
+    }
+    //将错误地址弹出提示框
+    if(!_errorList.isEmpty())
+    {
+        QString warning_msg = tr("has ") + QString::number(_errorList.size()) + tr(" the error download");
+        MessageBox *msg = new MessageBox();
+        msg->setWarings(warning_msg, tr("sure"), "", _errorList.size(), _errorList);
+        msg->exec();
+    }
+    //删除错误地址
+    for (int i = 0;i < _errorList.size() ; i++)
+    {
+        _urlList.removeOne(_errorList[i]);
+    }
+    //发送至主窗口
     QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-    emit NewDownload_sig(_strUrl,_savePath);
+    emit NewDownload_sig(_urlList,_savePath);
     this->close();
 }
 
@@ -210,4 +235,41 @@ void newTaskWidget::setUrl(QString url)
 {
     m_texturl->clear();
     m_texturl->setText(url);
+}
+
+bool newTaskWidget::isMagnet(QString url)
+{
+    QString _str = url;
+    if(_str.mid(0,20) == "magnet:?xt=urn:btih:")
+    {
+        return  true;
+    }
+    else
+    {
+        return  false;
+    }
+}
+
+bool newTaskWidget::isHttp(QString url)
+{
+
+    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://")))
+    {
+        return false;
+    }
+    QStringList _list= url.split(".");
+    QString _suffix = _list[_list.size()-1];
+    QStringList _type;
+     _type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2";
+    if(_type.contains(_suffix))
+    {
+        return true;
+    }
+    for (int i = 0; i < _type.size(); i++) {
+        if(_type[i].toUpper() == _suffix)
+        {
+            return true;
+        }
+    }
+    return false;
 }

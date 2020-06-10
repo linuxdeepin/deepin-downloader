@@ -817,11 +817,11 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::getNewDowloadUrl(QString url, QString savePath)
+void MainFrame::getNewDowloadUrl(QStringList urlList, QString savePath)
 {
-    QStringList urlList = url.split("\n");
+   // QStringList urlList = url.split("\n");
 
-    urlList = urlList.toSet().toList(); // url去重
+    //urlList = urlList.toSet().toList(); // url去重
     bool isExitsUrl = false;
     QStringList _sameUrl;
 

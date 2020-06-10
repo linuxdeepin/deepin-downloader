@@ -133,7 +133,7 @@ private slots:
      * @param url 收到url地址
      * @param savePath 保存路径
     */
-    void getNewDowloadUrl(QString url, QString savePath);
+    void getNewDowloadUrl(QStringList url, QString savePath);
 
     /**
      * @brief 收到新建任务orrent
