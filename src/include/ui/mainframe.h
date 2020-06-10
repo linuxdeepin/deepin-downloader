@@ -298,6 +298,10 @@ private:
     */
     void setTaskNum(int num);
 
+    /**
+     * @brief 设置主题模式
+    */
+    void setPaletteType();
 
     /**
      * @brief 新建下载任务

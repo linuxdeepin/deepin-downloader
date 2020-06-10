@@ -70,6 +70,7 @@ MainFrame::MainFrame(QWidget *parent) :
     initAria2();
     initConnection();
     initTabledata();
+    setPaletteType();
 }
 
 void MainFrame::init()
@@ -601,6 +602,67 @@ void MainFrame::setTaskNum(int num)
     m_pTaskNum->setText(active_num);
 }
 
+void MainFrame::setPaletteType()
+{
+    m_pLeftList->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
+
+    if(DGuiApplicationHelper::instance()->themeType() == 2) {
+        QPalette deeptheme_palette;
+        deeptheme_palette.setBrush(QPalette::Background,
+                                   DGuiApplicationHelper::instance()->applicationPalette().base());
+        m_pLeftWidget->setPalette(deeptheme_palette);
+        m_pDownloading_item->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
+        m_pDownloadFinish_item->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
+        m_pRecycle_item->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
+        QPalette label_palette;
+        label_palette.setBrush(QPalette::Text,
+                               DGuiApplicationHelper::instance()->applicationPalette().placeholderText());
+
+        m_pNotaskTipLabel->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
+        QPalette tableview_palette;
+
+        tableview_palette.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
+
+        m_pDownLoadingTableView->setPalette(tableview_palette);
+        m_pRecycleTableView->setPalette(tableview_palette);
+        m_pNotaskWidget->setPalette(tableview_palette);
+        m_pTaskNumWidget->setPalette(tableview_palette);
+        m_pDownloading_item->setIcon(QIcon::fromTheme("dcc_list_downloading_dark"));
+        m_pDownloadFinish_item->setIcon(QIcon::fromTheme("dcc_print_done_dark"));
+        m_pRecycle_item->setIcon(QIcon::fromTheme("dcc_list_delete_dark"));
+        QPalette noTask_tip_Label_p;
+        noTask_tip_Label_p.setBrush(QPalette::WindowText,
+                                    DGuiApplicationHelper::instance()->applicationPalette().textTips());
+        m_pTaskNum->setPalette(noTask_tip_Label_p);
+    } else if(DGuiApplicationHelper::instance()->themeType() == 1) {
+        QPalette p;
+        p.setColor(QPalette::Background, QColor(255, 255, 255));
+        QPalette tableview_palette;
+        tableview_palette.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
+        m_pLeftWidget->setPalette(p);
+        m_pNotaskWidget->setPalette(tableview_palette);
+        m_pDownLoadingTableView->setPalette(tableview_palette);
+        m_pRecycleTableView->setPalette(tableview_palette);
+        m_pTaskNumWidget->setPalette(tableview_palette);
+
+        m_pDownloading_item->setIcon(QIcon::fromTheme("dcc_list_downloading"));
+        m_pDownloadFinish_item->setIcon(QIcon::fromTheme("dcc_print_done"));
+        m_pRecycle_item->setIcon(QIcon::fromTheme("dcc_list_delete"));
+        m_pDownloading_item->setBackground(QColor(255, 255, 255));
+        m_pDownloadFinish_item->setBackground(QColor(255, 255, 255));
+        m_pRecycle_item->setBackground(QColor(255, 255, 255));
+
+        QPalette font_p;
+        QColor   color = QColor(192, 198, 212, 76);
+        font_p.setColor(QPalette::WindowText, color);
+
+        // noTask_label->setPalette(font_p);
+        QPalette noTask_tip_Label_p;
+        noTask_tip_Label_p.setColor(QPalette::WindowText, QColor(65, 77, 104, 70));
+        m_pTaskNum->setPalette(noTask_tip_Label_p);
+    }
+}
+
 void MainFrame::onSettingsMenuClicked()
 {
     DSettingsDialog *pSettingsDialog = new DSettingsDialog(this);
@@ -690,63 +752,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
 
 void MainFrame::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
-    m_pLeftList->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
-
-    if(DGuiApplicationHelper::instance()->themeType() == 2) {
-        QPalette deeptheme_palette;
-        deeptheme_palette.setBrush(QPalette::Background,
-                                   DGuiApplicationHelper::instance()->applicationPalette().base());
-        m_pLeftWidget->setPalette(deeptheme_palette);
-        m_pDownloading_item->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
-        m_pDownloadFinish_item->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
-        m_pRecycle_item->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
-        QPalette label_palette;
-        label_palette.setBrush(QPalette::Text,
-                               DGuiApplicationHelper::instance()->applicationPalette().placeholderText());
-
-        m_pNotaskTipLabel->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
-        QPalette tableview_palette;
-
-        tableview_palette.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
-
-        m_pDownLoadingTableView->setPalette(tableview_palette);
-        m_pRecycleTableView->setPalette(tableview_palette);
-        m_pNotaskWidget->setPalette(tableview_palette);
-        m_pTaskNumWidget->setPalette(tableview_palette);
-        m_pDownloading_item->setIcon(QIcon::fromTheme("dcc_list_downloading_dark"));
-        m_pDownloadFinish_item->setIcon(QIcon::fromTheme("dcc_print_done_dark"));
-        m_pRecycle_item->setIcon(QIcon::fromTheme("dcc_list_delete_dark"));
-        QPalette noTask_tip_Label_p;
-        noTask_tip_Label_p.setBrush(QPalette::WindowText,
-                                    DGuiApplicationHelper::instance()->applicationPalette().textTips());
-        m_pTaskNum->setPalette(noTask_tip_Label_p);
-    } else if(DGuiApplicationHelper::instance()->themeType() == 1) {
-        QPalette p;
-        p.setColor(QPalette::Background, QColor(255, 255, 255));
-        QPalette tableview_palette;
-        tableview_palette.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
-        m_pLeftWidget->setPalette(p);
-        m_pNotaskWidget->setPalette(tableview_palette);
-        m_pDownLoadingTableView->setPalette(tableview_palette);
-        m_pRecycleTableView->setPalette(tableview_palette);
-        m_pTaskNumWidget->setPalette(tableview_palette);
-
-        m_pDownloading_item->setIcon(QIcon::fromTheme("dcc_list_downloading"));
-        m_pDownloadFinish_item->setIcon(QIcon::fromTheme("dcc_print_done"));
-        m_pRecycle_item->setIcon(QIcon::fromTheme("dcc_list_delete"));
-        m_pDownloading_item->setBackground(QColor(255, 255, 255));
-        m_pDownloadFinish_item->setBackground(QColor(255, 255, 255));
-        m_pRecycle_item->setBackground(QColor(255, 255, 255));
-
-        QPalette font_p;
-        QColor   color = QColor(192, 198, 212, 76);
-        font_p.setColor(QPalette::WindowText, color);
-
-        // noTask_label->setPalette(font_p);
-        QPalette noTask_tip_Label_p;
-        noTask_tip_Label_p.setColor(QPalette::WindowText, QColor(65, 77, 104, 70));
-        m_pTaskNum->setPalette(noTask_tip_Label_p);
-    }
+    setPaletteType();
 }
 
 void MainFrame::getHeaderStatechanged(bool isChecked)
