@@ -229,8 +229,10 @@ void BtInfoDialog::initUI()
     font.setPixelSize(13);
     this->m_tableView->setFont(font);
 
-    this->m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-    this->m_tableView->horizontalHeader()->setHighlightSections(false);
+    headerView *_headerView = new headerView(Qt::Horizontal, this->m_tableView);
+    this->m_tableView->setHorizontalHeader(_headerView);
+    _headerView->setDefaultAlignment(Qt::AlignLeft);
+    _headerView->setHighlightSections(false);
 
     this->m_tableView->verticalHeader()->hide();
     this->m_tableView->verticalHeader()->setDefaultSectionSize(46);
@@ -260,8 +262,6 @@ void BtInfoDialog::initUI()
         this->m_model->appendRow(list);
     }
 
-    headerView *_headerView = new headerView(Qt::Horizontal, this->m_tableView);
-    this->m_tableView->setHorizontalHeader(_headerView);
     this->m_tableView->setColumnHidden(1, true);
     this->m_tableView->setColumnHidden(4, true);
     this->m_tableView->setColumnHidden(5, true);

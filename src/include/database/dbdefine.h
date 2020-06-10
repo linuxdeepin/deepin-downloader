@@ -17,9 +17,9 @@ struct S_Task_Status
     QString m_taskId; //任务id，主键唯一标识
     int m_downloadStatus; //任务状态
     QDateTime m_modifyTime; //修改时间
-    QString m_compeletedLength ; //下载大小
+    QString m_compeletedLength ; //已下载大小
     QString  m_downloadSpeed ; //下载速度
-    QString  m_totalLength; //下载文件大小
+    QString  m_totalLength; //下载总文件大小
     int m_percent;
     int m_totalFromSource; //获取的下载文件大小
     QDateTime m_finishTime; //完成时间

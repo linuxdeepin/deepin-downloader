@@ -36,6 +36,7 @@
 #include <QDateTime>
 #include <QProcess>
 #include <QThread>
+#include <QDesktopServices>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -141,6 +142,7 @@ void TableView::reset(bool switched)
 
 void TableView::mousePressEvent(QMouseEvent *event)
 {
+    int num = m_pTableModel->rowCount(QModelIndex());
     if(event->button() == Qt::LeftButton) {
         setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
@@ -349,6 +351,9 @@ void TableView::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QSt
 
         //
         dealNotificaitonSettings(statusStr, fileName);
+        if(Settings::getInstance()->getDownloadFinishedOpenState()){
+            QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
+        }
     } else if(statusStr == "removed") {
         status = Global::Status::Removed;
     }
@@ -441,7 +446,7 @@ void TableView::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QSt
     if(getTaskStatus.m_taskId == "") {
         DBInstance::addTaskStatus(*save_task_status);
     } else {
-        if(getTaskStatus.m_downloadStatus != data->status) {
+        if(getTaskStatus.m_downloadStatus != data->status || getTaskStatus.m_percent != data->speed) {
             DBInstance::updateTaskStatusById(*save_task_status);
         }
     }
