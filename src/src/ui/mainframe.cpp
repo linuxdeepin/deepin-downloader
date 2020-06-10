@@ -405,6 +405,7 @@ void MainFrame::createNewTask(QString url)
 
     pNewTaskWidget->setUrl(url);
     connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl, Qt::UniqueConnection);
+    connect(pNewTaskWidget, &newTaskWidget::newDownLoadTorrent, this, &MainFrame::getNewDownloadTorrent, Qt::UniqueConnection);
     pNewTaskWidget->exec();
 }
 
