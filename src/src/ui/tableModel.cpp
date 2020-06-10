@@ -230,7 +230,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 
 
     if(TableViewTab_Flag == 0) {
-        if((m_renderList.size() > 0) && (m_renderList.size() >= row)) {
+        if((m_renderList.size() > 0) && (m_renderList.size() > row)) {
             data = m_renderList.at(row);
             sizeSepChar = (!data->totalLength.isEmpty()) ? '/' : ' ';
         } else {

@@ -458,7 +458,7 @@ void MainFrame::initTabledata()
         S_Task_Status taskStatus;
         DBInstance::getTaskStatusById(data->taskId, taskStatus);
         if(taskStatus.m_taskId != "") {
-            data->percent = 0;
+            data->percent = taskStatus.m_percent;
             data->fileName = list.at(i).m_downloadFilename;
             data->savePath = list.at(i).m_downloadPath;
             data->Ischecked = 0;
@@ -1344,56 +1344,14 @@ void MainFrame::showReloadMsgbox()
         if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
             for(int i = 0; i < m_reloadList.size(); i++) {
                 DataItem *data = m_reloadList.at(i);
-
-                //
-                //
-                //
-                //        Aria2RPCInterface::Instance()->forceRemove(data->gid,
-                //
-                //
-                //
-                //
-                //                                                "REDOWNLOAD_"
-                // + QString::number(
-                //
-                //
-                //
-                //
-                //
-                //
-                //
-                //
-                //                                        m_iCurrentListviewRow)
-                // + "_" + data->taskId);
-
-                Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
+                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_"+ QString::number(m_iCurrentListviewRow)+ "_" + data->taskId);
+                //Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
             }
         } else {
             for(int i = 0; i < m_recycleReloadList.size(); i++) {
                 DelDataItem *data = m_recycleReloadList.at(i);
-
-                //
-                //
-                //
-                //        Aria2RPCInterface::Instance()->forceRemove(data->gid,
-                //
-                //
-                //
-                //
-                //                                                "REDOWNLOAD_"
-                // + QString::number(
-                //
-                //
-                //
-                //
-                //
-                //
-                //
-                //
-                //                                        m_iCurrentListviewRow)
-                // + "_" + data->taskId);
-
-                Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
+                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_" + QString::number(m_iCurrentListviewRow) + "_" + data->taskId);
+                //Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
             }
         }
     }
@@ -1476,7 +1434,7 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
     } else {
         DataItem *data = new DataItem;
 
-        QList<DataItem> thread_delete_list;
+        QList<DataItem> threadDeleteList;
 
 
         for(int i = 0; i < m_pDeleteList.size(); i++) {
@@ -1497,10 +1455,10 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
             tempdata.time = m_pDeleteList.at(i)->time;
             tempdata.createTime = m_pDeleteList.at(i)->createTime;
 
-            thread_delete_list.append(tempdata);
+            threadDeleteList.append(tempdata);
         }
 
-        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(thread_delete_list,
+        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadDeleteList,
                                                                    m_pDownLoadingTableView,
                                                                    Aria2RPCInterface::Instance(),
                                                                    ifDeleteLocal,
