@@ -97,7 +97,7 @@ private slots:
      * @param method: aria2调用的接口名称
      * @param json： 字符串
     */
-    void slotRpcSuccess(QString method, QJsonObject json);
+    void onRpcSuccess(QString method, QJsonObject json);
 
     /**
      * @brief 处理rpc返回错误的信息
@@ -105,12 +105,12 @@ private slots:
      * @param id： 唯一id
      * @param error： 错误号
     */
-    void slotRpcError(QString method, QString id, int error);
+    void onRpcError(QString method, QString id, int error);
 
     /**
      * @brief 表格中元素被选中
     */
-    void slotTableItemSelected(const QModelIndex &selected);
+    void onTableItemSelected(const QModelIndex &selected);
 
     /**
      * @brief 剪切板数据改变，需要新建任务
@@ -126,7 +126,7 @@ private slots:
      * @brief 主题改变
      * @param type 颜色类型
     */
-    void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
+    void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
     /**
      * @brief 收到新建任务url
@@ -134,7 +134,6 @@ private slots:
      * @param savePath 保存路径
     */
     void getNewDowloadUrl(QString url, QString savePath);
-
 
     /**
      * @brief 收到新建任务orrent
@@ -156,19 +155,12 @@ private slots:
     /**
      * @brief 设置右键菜单
     */
-    void slotContextMenu(const QPoint &pos);
+    void onContextMenu(const QPoint &pos);
 
     /**
      * @brief 查找的文本改变
     */
-    void slotSearchEditTextChanged(QString text);
-
-    /**
-     * @brief 开始下载新任务槽函数
-     *  @param url： 地址
-     *  @param savepath： 保存路径
-    */
-    void getNewdowloadSlot(QString url, QString savepath);
+    void onSearchEditTextChanged(QString text);
 
     /**
      * @brief 定时器更新界面显示
@@ -198,7 +190,7 @@ private slots:
     /**
      * @brief 改变列表选中槽函数
     */
-    void slotCheckChange(bool checked, int flag);
+    void onCheckChanged(bool checked, int flag);
 
 
     /**
@@ -206,18 +198,18 @@ private slots:
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void getDeleteConfirmSlot(bool ischecked,bool permanent);
+    void onGetDeleteConfirm(bool ischecked,bool permanent);
 
     /**
      * @brief 重新下载
      */
 
-    void slotRedownload(QString taskId, int rd);
+    void onRedownload(QString taskId, int rd);
 
     /**
      * @brief 移除指定下载
      */
-    void slotAria2Remove(QString gId, QString id);
+    void onAria2Remove(QString gId, QString id);
 
     /**
      * @brief mainwidow关闭事件

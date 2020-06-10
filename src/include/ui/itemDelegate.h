@@ -65,7 +65,7 @@ public slots:
      /**
       * @brief 鼠标悬停行改变
       */
-     void slotHoverchanged(const QModelIndex &index);
+     void onHoverchanged(const QModelIndex &index);
 
 };
 

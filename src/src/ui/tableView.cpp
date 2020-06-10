@@ -87,7 +87,7 @@ void TableView::initUI()
     pHeaderView->setDefaultSectionSize(20);
     pHeaderView->setSortIndicatorShown(false);
     pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-    pHeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
+    pHeaderView->setSectionResizeMode(0, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(1, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
@@ -114,7 +114,7 @@ void TableView::initUI()
     connect(this,
             &TableView::signalHoverchanged,
             m_pItemdegegate,
-            &ItemDelegate::slotHoverchanged);
+            &ItemDelegate::onHoverchanged);
 }
 
 void TableView::initConnections()
