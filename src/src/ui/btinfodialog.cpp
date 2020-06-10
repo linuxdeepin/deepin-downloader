@@ -229,8 +229,10 @@ void BtInfoDialog::initUI()
     font.setPixelSize(13);
     this->m_tableView->setFont(font);
 
-    this->m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-    this->m_tableView->horizontalHeader()->setHighlightSections(false);
+    headerView *_headerView = new headerView(Qt::Horizontal, this->m_tableView);
+    this->m_tableView->setHorizontalHeader(_headerView);
+    _headerView->setDefaultAlignment(Qt::AlignLeft);
+    _headerView->setHighlightSections(false);
 
     this->m_tableView->verticalHeader()->hide();
     this->m_tableView->verticalHeader()->setDefaultSectionSize(46);
@@ -260,8 +262,6 @@ void BtInfoDialog::initUI()
         this->m_model->appendRow(list);
     }
 
-    headerView *_headerView = new headerView(Qt::Horizontal, this->m_tableView);
-    this->m_tableView->setHorizontalHeader(_headerView);
     this->m_tableView->setColumnHidden(1, true);
     this->m_tableView->setColumnHidden(4, true);
     this->m_tableView->setColumnHidden(5, true);
@@ -530,13 +530,24 @@ void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QSt
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    QString _fielEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::Instance()->getCapacityFree(text);
-    int _count = _fielEditText.count();
+    QString _flieEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::Instance()->getCapacityFree(text);
+    int _count = _flieEditText.count();
+
+    for (int i =0 ; i < _flieEditText.size();i++)
+    {
+        //判断字符中是否包含中文或者大写字母
+        if((_flieEditText[i] >= 'A' && _flieEditText[i] <= 'Z')
+                || (_flieEditText[i] >= 0x4E00 && _flieEditText[i] <= 0x9FA5))
+
+        {
+            _count++;
+        }
+    }
     //若路径较短，则用空格进行填充
     if(_count < 61)
     {
-       int _fillCount = 60 - _fielEditText.count();
-       _fielEditText.insert(text.size(), QString(_fillCount*2, ' '));
+       int _fillCount = 61 - _count;
+       _flieEditText.insert(text.size(), QString(_fillCount*2, ' '));
     }
-    return _fielEditText;
+    return _flieEditText;
 }

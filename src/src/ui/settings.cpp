@@ -367,16 +367,22 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
         if(!var.toString().isEmpty())
         {
             QString strCurrentValue = var.toString();
-            if(strCurrentValue.contains("custom;"))
-            {
-                pFileSavePathChooser->setCurrentSelectRadioButton(2);
-            }
             QString strCurrentPath = strCurrentValue.section(QString(';'),1,1);
+
             if(strCurrentPath.isEmpty())
             {
                 strCurrentPath =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
             }
+
             pFileSavePathChooser->setLineEditText(strCurrentPath);
+
+            if(strCurrentValue.contains("custom;"))
+            {
+                pFileSavePathChooser->setCurrentSelectRadioButton(2);
+            }
+            else {
+                pFileSavePathChooser->setCurrentSelectRadioButton(1);
+            }
         }
     });
 
@@ -701,32 +707,8 @@ QString Settings::getDownloadSavePath()
     }
     else if(strCurrentValue.contains("auto;"))
     {
-        QString strConfigPath=QString("%1/%2/%3/last_save_path")
-                    .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                    .arg(qApp->organizationName())
-                    .arg(qApp->applicationName());
-        QFile file;
-        file.setFileName(strConfigPath);
-        if(file.exists())
-        {
-            bool isOK = file.open(QIODevice::ReadOnly);
-           if(isOK == true)
-           {
-               QByteArray array = file.readAll();
-
-               strDownloadPath = array;
-               if(strDownloadPath.isEmpty())
-               {
-                   strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-               }
-           }
-           else
-           {
-               strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-           }
-           file.close();
-        }
-        else
+        strDownloadPath = getCustomFilePath();
+        if(strDownloadPath.isEmpty())
         {
             strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
         }
