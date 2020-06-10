@@ -331,7 +331,7 @@ bool ItemDelegate::editorEvent(QEvent                     *event,
     return ret;
 }
 
-void ItemDelegate::slotHoverchanged(const QModelIndex &index)
+void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
     m_iHoverRow = index.row();
 }

@@ -99,7 +99,7 @@ public:
     /**
      * @brief 右键菜单
      */
-    void slotContextMenu(QPoint pos);
+    void onContextMenu(QPoint pos);
 private:
     /**
      * @brief 界面初始化
