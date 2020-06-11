@@ -47,6 +47,9 @@
 #include "settings.h"
 #include "topButton.h"
 #include "tabledatacontrol.h"
+#include "global.h"
+
+using namespace Global;
 
 TableView::TableView(int Flag, TopButton *pToolBar)
     : QTableView()
@@ -67,6 +70,7 @@ void TableView::initUI()
     setFrameShape(QFrame::NoFrame);
     setMinimumWidth(636);
     setMouseTracking(true);
+    setSortingEnabled(true);
 
     // this->setMaximumWidth(2000);
     verticalHeader()->hide();
@@ -88,7 +92,7 @@ void TableView::initUI()
     HeaderView *pHeaderView = new  HeaderView(Qt::Horizontal, this);
     setHorizontalHeader(pHeaderView);
     pHeaderView->setDefaultSectionSize(20);
-    pHeaderView->setSortIndicatorShown(false);
+    //pHeaderView->setSortIndicatorShown(false);
     pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     pHeaderView->setSectionResizeMode(0, QHeaderView::Stretch);
     pHeaderView->setSectionResizeMode(1, QHeaderView::Stretch);

@@ -48,6 +48,8 @@
 #include "topButton.h"
 #include "tableView.h"
 
+using namespace Global;
+
 tableDataControl::tableDataControl(TableView* pTableView, QObject *parent) :
     QObject(parent),
     m_pTableView(pTableView)
