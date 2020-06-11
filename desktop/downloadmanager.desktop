@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=downloadManager;
+Comment=UOS-download-manager
+Exec=deepin-editor %F
+GenericName=Download
+Icon=download-manager
+MimeType=application/torrent;
+Name=Download
+StartupNotify=false
+Type=Application
+X-Deepin-Vendor=user-custom

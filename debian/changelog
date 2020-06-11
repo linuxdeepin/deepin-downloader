@@ -1,0 +1,5 @@
+downloadmanager (5.1.0.1) UNRELEASED; urgency=low
+
+  * 修改主题未初始化的bug  
+
+ -- unknown <unknown@uniontech.com>  Wed, 10 Jun 2020 10:01:16 +0800
