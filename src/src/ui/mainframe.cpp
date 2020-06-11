@@ -769,11 +769,11 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::getNewDownloadUrl(QString url, QString savePath)
+void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath)
 {
-    QStringList urlList = url.split("\n");
+   // QStringList urlList = url.split("\n");
 
-    urlList = urlList.toSet().toList(); // url去重
+    //urlList = urlList.toSet().toList(); // url去重
     bool isExitsUrl = false;
     QStringList _sameUrl;
 

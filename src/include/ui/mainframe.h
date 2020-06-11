@@ -134,7 +134,7 @@ private slots:
      * @param url 收到url地址
      * @param savePath 保存路径
     */
-    void getNewDownloadUrl(QString url, QString savePath);
+    void getNewDownloadUrl(QStringList url, QString savePath);
 
     /**
      * @brief 收到新建任务orrent
