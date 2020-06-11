@@ -1,6 +1,4 @@
-/usr/share/downloadmanager/translations/downloadmanager(副本).qm
-/usr/share/downloadmanager/translations/downloadmanager.qm
-/usr/share/downloadmanager/translations/downloadmanager_en.qm
+/usr/share/downloadmanager/translations/*.qm
 /usr/share/applications/downloadmanager.desktop
 /usr/share/downloadmanager/database/uos-downloadmanager-task.db
 /usr/share/downloadmanager/config/aria2.conf
@@ -9,8 +7,5 @@
 /usr/share/icons/hicolor/scalable/apps/downloader4.svg
 /usr/share/downloadmanager/icons/logo/downloader4.svg
 /usr/bin/downloadmanager
-/usr/lib/liblog.so
-/usr/lib/libdatabase.so
-/usr/lib/libaria2.so
-/usr/lib/libui.so
+/usr/lib/lib*.so
 /usr/share/downloadmanager/downloadmanager

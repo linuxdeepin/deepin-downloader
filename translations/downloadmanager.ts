@@ -304,11 +304,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="969"/>
-        <source>Open folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/mainframe.cpp" line="949"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
@@ -316,6 +311,11 @@
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="963"/>
         <source>Copy download link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="969"/>
+        <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

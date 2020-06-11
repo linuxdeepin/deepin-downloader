@@ -4,7 +4,7 @@ downloadmanager (5.1.0.1) stable; urgency=low
 
  -- unknown <unknown@uniontech.com>  Wed, 11 Jun 2020 15:31:16 +0800
 
-downloadmanager (5.1.0.1) stable; urgency=low
+downloadmanager (5.1.0.0) stable; urgency=low
 
   * 修改主题未初始化的bug  
 

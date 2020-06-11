@@ -48,24 +48,25 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /data/home/sanhei/workspace/downloadmanager/src
+CMAKE_SOURCE_DIR = /data/home/denglinglong/downloadmanager
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /data/home/sanhei/workspace/downloadmanager/src
+CMAKE_BINARY_DIR = /data/home/denglinglong/downloadmanager
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -78,16 +79,61 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(CMAKE_COMMAND) -E cmake_progress_start /data/home/sanhei/workspace/downloadmanager/src/CMakeFiles /data/home/sanhei/workspace/downloadmanager/src/src/src/ui/CMakeFiles/progress.marks
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /data/home/sanhei/workspace/downloadmanager/src/CMakeFiles 0
+	cd /data/home/denglinglong/downloadmanager && $(CMAKE_COMMAND) -E cmake_progress_start /data/home/denglinglong/downloadmanager/CMakeFiles /data/home/denglinglong/downloadmanager/src/src/ui/CMakeFiles/progress.marks
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /data/home/denglinglong/downloadmanager/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/clean
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +143,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/preinstall
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/preinstall
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /data/home/denglinglong/downloadmanager && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/src/ui/CMakeFiles/ui.dir/rule:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/CMakeFiles/ui.dir/rule
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/CMakeFiles/ui.dir/rule
 .PHONY : src/src/ui/CMakeFiles/ui.dir/rule
 
 # Convenience name for target.
@@ -122,12 +168,12 @@ ui: src/src/ui/CMakeFiles/ui.dir/rule
 
 # fast build rule for target.
 ui/fast:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/build
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/build
 .PHONY : ui/fast
 
 # Convenience name for target.
 src/src/ui/CMakeFiles/ui_autogen.dir/rule:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/CMakeFiles/ui_autogen.dir/rule
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f CMakeFiles/Makefile2 src/src/ui/CMakeFiles/ui_autogen.dir/rule
 .PHONY : src/src/ui/CMakeFiles/ui_autogen.dir/rule
 
 # Convenience name for target.
@@ -137,35 +183,386 @@ ui_autogen: src/src/ui/CMakeFiles/ui_autogen.dir/rule
 
 # fast build rule for target.
 ui_autogen/fast:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui_autogen.dir/build.make src/src/ui/CMakeFiles/ui_autogen.dir/build
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui_autogen.dir/build.make src/src/ui/CMakeFiles/ui_autogen.dir/build
 .PHONY : ui_autogen/fast
 
-__/__/include/ui/moc_headerview.o: __/__/include/ui/moc_headerview.cpp.o
+__/__/include/ui/moc_basicsettingwidget.o: __/__/include/ui/moc_basicsettingwidget.cpp.o
 
-.PHONY : __/__/include/ui/moc_headerview.o
+.PHONY : __/__/include/ui/moc_basicsettingwidget.o
 
 # target to build an object file
-__/__/include/ui/moc_headerview.cpp.o:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_headerview.cpp.o
-.PHONY : __/__/include/ui/moc_headerview.cpp.o
+__/__/include/ui/moc_basicsettingwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_basicsettingwidget.cpp.o
+.PHONY : __/__/include/ui/moc_basicsettingwidget.cpp.o
 
-__/__/include/ui/moc_headerview.i: __/__/include/ui/moc_headerview.cpp.i
+__/__/include/ui/moc_basicsettingwidget.i: __/__/include/ui/moc_basicsettingwidget.cpp.i
 
-.PHONY : __/__/include/ui/moc_headerview.i
+.PHONY : __/__/include/ui/moc_basicsettingwidget.i
 
 # target to preprocess a source file
-__/__/include/ui/moc_headerview.cpp.i:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_headerview.cpp.i
-.PHONY : __/__/include/ui/moc_headerview.cpp.i
+__/__/include/ui/moc_basicsettingwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_basicsettingwidget.cpp.i
+.PHONY : __/__/include/ui/moc_basicsettingwidget.cpp.i
 
-__/__/include/ui/moc_headerview.s: __/__/include/ui/moc_headerview.cpp.s
+__/__/include/ui/moc_basicsettingwidget.s: __/__/include/ui/moc_basicsettingwidget.cpp.s
 
-.PHONY : __/__/include/ui/moc_headerview.s
+.PHONY : __/__/include/ui/moc_basicsettingwidget.s
 
 # target to generate assembly for a file
-__/__/include/ui/moc_headerview.cpp.s:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_headerview.cpp.s
-.PHONY : __/__/include/ui/moc_headerview.cpp.s
+__/__/include/ui/moc_basicsettingwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_basicsettingwidget.cpp.s
+.PHONY : __/__/include/ui/moc_basicsettingwidget.cpp.s
+
+__/__/include/ui/moc_btheaderview.o: __/__/include/ui/moc_btheaderview.cpp.o
+
+.PHONY : __/__/include/ui/moc_btheaderview.o
+
+# target to build an object file
+__/__/include/ui/moc_btheaderview.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btheaderview.cpp.o
+.PHONY : __/__/include/ui/moc_btheaderview.cpp.o
+
+__/__/include/ui/moc_btheaderview.i: __/__/include/ui/moc_btheaderview.cpp.i
+
+.PHONY : __/__/include/ui/moc_btheaderview.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_btheaderview.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btheaderview.cpp.i
+.PHONY : __/__/include/ui/moc_btheaderview.cpp.i
+
+__/__/include/ui/moc_btheaderview.s: __/__/include/ui/moc_btheaderview.cpp.s
+
+.PHONY : __/__/include/ui/moc_btheaderview.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_btheaderview.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btheaderview.cpp.s
+.PHONY : __/__/include/ui/moc_btheaderview.cpp.s
+
+__/__/include/ui/moc_btinfodelegate.o: __/__/include/ui/moc_btinfodelegate.cpp.o
+
+.PHONY : __/__/include/ui/moc_btinfodelegate.o
+
+# target to build an object file
+__/__/include/ui/moc_btinfodelegate.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfodelegate.cpp.o
+.PHONY : __/__/include/ui/moc_btinfodelegate.cpp.o
+
+__/__/include/ui/moc_btinfodelegate.i: __/__/include/ui/moc_btinfodelegate.cpp.i
+
+.PHONY : __/__/include/ui/moc_btinfodelegate.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_btinfodelegate.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfodelegate.cpp.i
+.PHONY : __/__/include/ui/moc_btinfodelegate.cpp.i
+
+__/__/include/ui/moc_btinfodelegate.s: __/__/include/ui/moc_btinfodelegate.cpp.s
+
+.PHONY : __/__/include/ui/moc_btinfodelegate.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_btinfodelegate.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfodelegate.cpp.s
+.PHONY : __/__/include/ui/moc_btinfodelegate.cpp.s
+
+__/__/include/ui/moc_btinfodialog.o: __/__/include/ui/moc_btinfodialog.cpp.o
+
+.PHONY : __/__/include/ui/moc_btinfodialog.o
+
+# target to build an object file
+__/__/include/ui/moc_btinfodialog.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfodialog.cpp.o
+.PHONY : __/__/include/ui/moc_btinfodialog.cpp.o
+
+__/__/include/ui/moc_btinfodialog.i: __/__/include/ui/moc_btinfodialog.cpp.i
+
+.PHONY : __/__/include/ui/moc_btinfodialog.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_btinfodialog.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfodialog.cpp.i
+.PHONY : __/__/include/ui/moc_btinfodialog.cpp.i
+
+__/__/include/ui/moc_btinfodialog.s: __/__/include/ui/moc_btinfodialog.cpp.s
+
+.PHONY : __/__/include/ui/moc_btinfodialog.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_btinfodialog.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfodialog.cpp.s
+.PHONY : __/__/include/ui/moc_btinfodialog.cpp.s
+
+__/__/include/ui/moc_btinfotableview.o: __/__/include/ui/moc_btinfotableview.cpp.o
+
+.PHONY : __/__/include/ui/moc_btinfotableview.o
+
+# target to build an object file
+__/__/include/ui/moc_btinfotableview.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfotableview.cpp.o
+.PHONY : __/__/include/ui/moc_btinfotableview.cpp.o
+
+__/__/include/ui/moc_btinfotableview.i: __/__/include/ui/moc_btinfotableview.cpp.i
+
+.PHONY : __/__/include/ui/moc_btinfotableview.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_btinfotableview.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfotableview.cpp.i
+.PHONY : __/__/include/ui/moc_btinfotableview.cpp.i
+
+__/__/include/ui/moc_btinfotableview.s: __/__/include/ui/moc_btinfotableview.cpp.s
+
+.PHONY : __/__/include/ui/moc_btinfotableview.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_btinfotableview.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_btinfotableview.cpp.s
+.PHONY : __/__/include/ui/moc_btinfotableview.cpp.s
+
+__/__/include/ui/moc_clipboardtimer.o: __/__/include/ui/moc_clipboardtimer.cpp.o
+
+.PHONY : __/__/include/ui/moc_clipboardtimer.o
+
+# target to build an object file
+__/__/include/ui/moc_clipboardtimer.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_clipboardtimer.cpp.o
+.PHONY : __/__/include/ui/moc_clipboardtimer.cpp.o
+
+__/__/include/ui/moc_clipboardtimer.i: __/__/include/ui/moc_clipboardtimer.cpp.i
+
+.PHONY : __/__/include/ui/moc_clipboardtimer.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_clipboardtimer.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_clipboardtimer.cpp.i
+.PHONY : __/__/include/ui/moc_clipboardtimer.cpp.i
+
+__/__/include/ui/moc_clipboardtimer.s: __/__/include/ui/moc_clipboardtimer.cpp.s
+
+.PHONY : __/__/include/ui/moc_clipboardtimer.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_clipboardtimer.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_clipboardtimer.cpp.s
+.PHONY : __/__/include/ui/moc_clipboardtimer.cpp.s
+
+__/__/include/ui/moc_deleteitemthread.o: __/__/include/ui/moc_deleteitemthread.cpp.o
+
+.PHONY : __/__/include/ui/moc_deleteitemthread.o
+
+# target to build an object file
+__/__/include/ui/moc_deleteitemthread.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_deleteitemthread.cpp.o
+.PHONY : __/__/include/ui/moc_deleteitemthread.cpp.o
+
+__/__/include/ui/moc_deleteitemthread.i: __/__/include/ui/moc_deleteitemthread.cpp.i
+
+.PHONY : __/__/include/ui/moc_deleteitemthread.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_deleteitemthread.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_deleteitemthread.cpp.i
+.PHONY : __/__/include/ui/moc_deleteitemthread.cpp.i
+
+__/__/include/ui/moc_deleteitemthread.s: __/__/include/ui/moc_deleteitemthread.cpp.s
+
+.PHONY : __/__/include/ui/moc_deleteitemthread.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_deleteitemthread.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_deleteitemthread.cpp.s
+.PHONY : __/__/include/ui/moc_deleteitemthread.cpp.s
+
+__/__/include/ui/moc_downloadsettingwidget.o: __/__/include/ui/moc_downloadsettingwidget.cpp.o
+
+.PHONY : __/__/include/ui/moc_downloadsettingwidget.o
+
+# target to build an object file
+__/__/include/ui/moc_downloadsettingwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_downloadsettingwidget.cpp.o
+.PHONY : __/__/include/ui/moc_downloadsettingwidget.cpp.o
+
+__/__/include/ui/moc_downloadsettingwidget.i: __/__/include/ui/moc_downloadsettingwidget.cpp.i
+
+.PHONY : __/__/include/ui/moc_downloadsettingwidget.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_downloadsettingwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_downloadsettingwidget.cpp.i
+.PHONY : __/__/include/ui/moc_downloadsettingwidget.cpp.i
+
+__/__/include/ui/moc_downloadsettingwidget.s: __/__/include/ui/moc_downloadsettingwidget.cpp.s
+
+.PHONY : __/__/include/ui/moc_downloadsettingwidget.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_downloadsettingwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_downloadsettingwidget.cpp.s
+.PHONY : __/__/include/ui/moc_downloadsettingwidget.cpp.s
+
+__/__/include/ui/moc_filesavepathchooser.o: __/__/include/ui/moc_filesavepathchooser.cpp.o
+
+.PHONY : __/__/include/ui/moc_filesavepathchooser.o
+
+# target to build an object file
+__/__/include/ui/moc_filesavepathchooser.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_filesavepathchooser.cpp.o
+.PHONY : __/__/include/ui/moc_filesavepathchooser.cpp.o
+
+__/__/include/ui/moc_filesavepathchooser.i: __/__/include/ui/moc_filesavepathchooser.cpp.i
+
+.PHONY : __/__/include/ui/moc_filesavepathchooser.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_filesavepathchooser.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_filesavepathchooser.cpp.i
+.PHONY : __/__/include/ui/moc_filesavepathchooser.cpp.i
+
+__/__/include/ui/moc_filesavepathchooser.s: __/__/include/ui/moc_filesavepathchooser.cpp.s
+
+.PHONY : __/__/include/ui/moc_filesavepathchooser.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_filesavepathchooser.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_filesavepathchooser.cpp.s
+.PHONY : __/__/include/ui/moc_filesavepathchooser.cpp.s
+
+__/__/include/ui/moc_global.o: __/__/include/ui/moc_global.cpp.o
+
+.PHONY : __/__/include/ui/moc_global.o
+
+# target to build an object file
+__/__/include/ui/moc_global.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_global.cpp.o
+.PHONY : __/__/include/ui/moc_global.cpp.o
+
+__/__/include/ui/moc_global.i: __/__/include/ui/moc_global.cpp.i
+
+.PHONY : __/__/include/ui/moc_global.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_global.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_global.cpp.i
+.PHONY : __/__/include/ui/moc_global.cpp.i
+
+__/__/include/ui/moc_global.s: __/__/include/ui/moc_global.cpp.s
+
+.PHONY : __/__/include/ui/moc_global.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_global.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_global.cpp.s
+.PHONY : __/__/include/ui/moc_global.cpp.s
+
+__/__/include/ui/moc_groupselectionwidget.o: __/__/include/ui/moc_groupselectionwidget.cpp.o
+
+.PHONY : __/__/include/ui/moc_groupselectionwidget.o
+
+# target to build an object file
+__/__/include/ui/moc_groupselectionwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_groupselectionwidget.cpp.o
+.PHONY : __/__/include/ui/moc_groupselectionwidget.cpp.o
+
+__/__/include/ui/moc_groupselectionwidget.i: __/__/include/ui/moc_groupselectionwidget.cpp.i
+
+.PHONY : __/__/include/ui/moc_groupselectionwidget.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_groupselectionwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_groupselectionwidget.cpp.i
+.PHONY : __/__/include/ui/moc_groupselectionwidget.cpp.i
+
+__/__/include/ui/moc_groupselectionwidget.s: __/__/include/ui/moc_groupselectionwidget.cpp.s
+
+.PHONY : __/__/include/ui/moc_groupselectionwidget.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_groupselectionwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_groupselectionwidget.cpp.s
+.PHONY : __/__/include/ui/moc_groupselectionwidget.cpp.s
+
+__/__/include/ui/moc_headerView.o: __/__/include/ui/moc_headerView.cpp.o
+
+.PHONY : __/__/include/ui/moc_headerView.o
+
+# target to build an object file
+__/__/include/ui/moc_headerView.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_headerView.cpp.o
+.PHONY : __/__/include/ui/moc_headerView.cpp.o
+
+__/__/include/ui/moc_headerView.i: __/__/include/ui/moc_headerView.cpp.i
+
+.PHONY : __/__/include/ui/moc_headerView.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_headerView.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_headerView.cpp.i
+.PHONY : __/__/include/ui/moc_headerView.cpp.i
+
+__/__/include/ui/moc_headerView.s: __/__/include/ui/moc_headerView.cpp.s
+
+.PHONY : __/__/include/ui/moc_headerView.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_headerView.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_headerView.cpp.s
+.PHONY : __/__/include/ui/moc_headerView.cpp.s
+
+__/__/include/ui/moc_itemDelegate.o: __/__/include/ui/moc_itemDelegate.cpp.o
+
+.PHONY : __/__/include/ui/moc_itemDelegate.o
+
+# target to build an object file
+__/__/include/ui/moc_itemDelegate.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_itemDelegate.cpp.o
+.PHONY : __/__/include/ui/moc_itemDelegate.cpp.o
+
+__/__/include/ui/moc_itemDelegate.i: __/__/include/ui/moc_itemDelegate.cpp.i
+
+.PHONY : __/__/include/ui/moc_itemDelegate.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_itemDelegate.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_itemDelegate.cpp.i
+.PHONY : __/__/include/ui/moc_itemDelegate.cpp.i
+
+__/__/include/ui/moc_itemDelegate.s: __/__/include/ui/moc_itemDelegate.cpp.s
+
+.PHONY : __/__/include/ui/moc_itemDelegate.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_itemDelegate.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_itemDelegate.cpp.s
+.PHONY : __/__/include/ui/moc_itemDelegate.cpp.s
+
+__/__/include/ui/moc_itemselectionwidget.o: __/__/include/ui/moc_itemselectionwidget.cpp.o
+
+.PHONY : __/__/include/ui/moc_itemselectionwidget.o
+
+# target to build an object file
+__/__/include/ui/moc_itemselectionwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_itemselectionwidget.cpp.o
+.PHONY : __/__/include/ui/moc_itemselectionwidget.cpp.o
+
+__/__/include/ui/moc_itemselectionwidget.i: __/__/include/ui/moc_itemselectionwidget.cpp.i
+
+.PHONY : __/__/include/ui/moc_itemselectionwidget.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_itemselectionwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_itemselectionwidget.cpp.i
+.PHONY : __/__/include/ui/moc_itemselectionwidget.cpp.i
+
+__/__/include/ui/moc_itemselectionwidget.s: __/__/include/ui/moc_itemselectionwidget.cpp.s
+
+.PHONY : __/__/include/ui/moc_itemselectionwidget.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_itemselectionwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_itemselectionwidget.cpp.s
+.PHONY : __/__/include/ui/moc_itemselectionwidget.cpp.s
 
 __/__/include/ui/moc_mainframe.o: __/__/include/ui/moc_mainframe.cpp.o
 
@@ -173,7 +570,7 @@ __/__/include/ui/moc_mainframe.o: __/__/include/ui/moc_mainframe.cpp.o
 
 # target to build an object file
 __/__/include/ui/moc_mainframe.cpp.o:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_mainframe.cpp.o
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_mainframe.cpp.o
 .PHONY : __/__/include/ui/moc_mainframe.cpp.o
 
 __/__/include/ui/moc_mainframe.i: __/__/include/ui/moc_mainframe.cpp.i
@@ -182,7 +579,7 @@ __/__/include/ui/moc_mainframe.i: __/__/include/ui/moc_mainframe.cpp.i
 
 # target to preprocess a source file
 __/__/include/ui/moc_mainframe.cpp.i:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_mainframe.cpp.i
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_mainframe.cpp.i
 .PHONY : __/__/include/ui/moc_mainframe.cpp.i
 
 __/__/include/ui/moc_mainframe.s: __/__/include/ui/moc_mainframe.cpp.s
@@ -191,35 +588,629 @@ __/__/include/ui/moc_mainframe.s: __/__/include/ui/moc_mainframe.cpp.s
 
 # target to generate assembly for a file
 __/__/include/ui/moc_mainframe.cpp.s:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_mainframe.cpp.s
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_mainframe.cpp.s
 .PHONY : __/__/include/ui/moc_mainframe.cpp.s
 
-headerview.o: headerview.cpp.o
+__/__/include/ui/moc_messagebox.o: __/__/include/ui/moc_messagebox.cpp.o
 
-.PHONY : headerview.o
+.PHONY : __/__/include/ui/moc_messagebox.o
 
 # target to build an object file
-headerview.cpp.o:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/headerview.cpp.o
-.PHONY : headerview.cpp.o
+__/__/include/ui/moc_messagebox.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_messagebox.cpp.o
+.PHONY : __/__/include/ui/moc_messagebox.cpp.o
 
-headerview.i: headerview.cpp.i
+__/__/include/ui/moc_messagebox.i: __/__/include/ui/moc_messagebox.cpp.i
 
-.PHONY : headerview.i
+.PHONY : __/__/include/ui/moc_messagebox.i
 
 # target to preprocess a source file
-headerview.cpp.i:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/headerview.cpp.i
-.PHONY : headerview.cpp.i
+__/__/include/ui/moc_messagebox.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_messagebox.cpp.i
+.PHONY : __/__/include/ui/moc_messagebox.cpp.i
 
-headerview.s: headerview.cpp.s
+__/__/include/ui/moc_messagebox.s: __/__/include/ui/moc_messagebox.cpp.s
 
-.PHONY : headerview.s
+.PHONY : __/__/include/ui/moc_messagebox.s
 
 # target to generate assembly for a file
-headerview.cpp.s:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/headerview.cpp.s
-.PHONY : headerview.cpp.s
+__/__/include/ui/moc_messagebox.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_messagebox.cpp.s
+.PHONY : __/__/include/ui/moc_messagebox.cpp.s
+
+__/__/include/ui/moc_monitoringsettingwidget.o: __/__/include/ui/moc_monitoringsettingwidget.cpp.o
+
+.PHONY : __/__/include/ui/moc_monitoringsettingwidget.o
+
+# target to build an object file
+__/__/include/ui/moc_monitoringsettingwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_monitoringsettingwidget.cpp.o
+.PHONY : __/__/include/ui/moc_monitoringsettingwidget.cpp.o
+
+__/__/include/ui/moc_monitoringsettingwidget.i: __/__/include/ui/moc_monitoringsettingwidget.cpp.i
+
+.PHONY : __/__/include/ui/moc_monitoringsettingwidget.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_monitoringsettingwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_monitoringsettingwidget.cpp.i
+.PHONY : __/__/include/ui/moc_monitoringsettingwidget.cpp.i
+
+__/__/include/ui/moc_monitoringsettingwidget.s: __/__/include/ui/moc_monitoringsettingwidget.cpp.s
+
+.PHONY : __/__/include/ui/moc_monitoringsettingwidget.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_monitoringsettingwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_monitoringsettingwidget.cpp.s
+.PHONY : __/__/include/ui/moc_monitoringsettingwidget.cpp.s
+
+__/__/include/ui/moc_newtaskwidget.o: __/__/include/ui/moc_newtaskwidget.cpp.o
+
+.PHONY : __/__/include/ui/moc_newtaskwidget.o
+
+# target to build an object file
+__/__/include/ui/moc_newtaskwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_newtaskwidget.cpp.o
+.PHONY : __/__/include/ui/moc_newtaskwidget.cpp.o
+
+__/__/include/ui/moc_newtaskwidget.i: __/__/include/ui/moc_newtaskwidget.cpp.i
+
+.PHONY : __/__/include/ui/moc_newtaskwidget.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_newtaskwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_newtaskwidget.cpp.i
+.PHONY : __/__/include/ui/moc_newtaskwidget.cpp.i
+
+__/__/include/ui/moc_newtaskwidget.s: __/__/include/ui/moc_newtaskwidget.cpp.s
+
+.PHONY : __/__/include/ui/moc_newtaskwidget.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_newtaskwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_newtaskwidget.cpp.s
+.PHONY : __/__/include/ui/moc_newtaskwidget.cpp.s
+
+__/__/include/ui/moc_settinginfoinputwidget.o: __/__/include/ui/moc_settinginfoinputwidget.cpp.o
+
+.PHONY : __/__/include/ui/moc_settinginfoinputwidget.o
+
+# target to build an object file
+__/__/include/ui/moc_settinginfoinputwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settinginfoinputwidget.cpp.o
+.PHONY : __/__/include/ui/moc_settinginfoinputwidget.cpp.o
+
+__/__/include/ui/moc_settinginfoinputwidget.i: __/__/include/ui/moc_settinginfoinputwidget.cpp.i
+
+.PHONY : __/__/include/ui/moc_settinginfoinputwidget.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_settinginfoinputwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settinginfoinputwidget.cpp.i
+.PHONY : __/__/include/ui/moc_settinginfoinputwidget.cpp.i
+
+__/__/include/ui/moc_settinginfoinputwidget.s: __/__/include/ui/moc_settinginfoinputwidget.cpp.s
+
+.PHONY : __/__/include/ui/moc_settinginfoinputwidget.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_settinginfoinputwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settinginfoinputwidget.cpp.s
+.PHONY : __/__/include/ui/moc_settinginfoinputwidget.cpp.s
+
+__/__/include/ui/moc_settings.o: __/__/include/ui/moc_settings.cpp.o
+
+.PHONY : __/__/include/ui/moc_settings.o
+
+# target to build an object file
+__/__/include/ui/moc_settings.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settings.cpp.o
+.PHONY : __/__/include/ui/moc_settings.cpp.o
+
+__/__/include/ui/moc_settings.i: __/__/include/ui/moc_settings.cpp.i
+
+.PHONY : __/__/include/ui/moc_settings.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_settings.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settings.cpp.i
+.PHONY : __/__/include/ui/moc_settings.cpp.i
+
+__/__/include/ui/moc_settings.s: __/__/include/ui/moc_settings.cpp.s
+
+.PHONY : __/__/include/ui/moc_settings.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_settings.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settings.cpp.s
+.PHONY : __/__/include/ui/moc_settings.cpp.s
+
+__/__/include/ui/moc_settingswidget.o: __/__/include/ui/moc_settingswidget.cpp.o
+
+.PHONY : __/__/include/ui/moc_settingswidget.o
+
+# target to build an object file
+__/__/include/ui/moc_settingswidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settingswidget.cpp.o
+.PHONY : __/__/include/ui/moc_settingswidget.cpp.o
+
+__/__/include/ui/moc_settingswidget.i: __/__/include/ui/moc_settingswidget.cpp.i
+
+.PHONY : __/__/include/ui/moc_settingswidget.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_settingswidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settingswidget.cpp.i
+.PHONY : __/__/include/ui/moc_settingswidget.cpp.i
+
+__/__/include/ui/moc_settingswidget.s: __/__/include/ui/moc_settingswidget.cpp.s
+
+.PHONY : __/__/include/ui/moc_settingswidget.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_settingswidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_settingswidget.cpp.s
+.PHONY : __/__/include/ui/moc_settingswidget.cpp.s
+
+__/__/include/ui/moc_tableModel.o: __/__/include/ui/moc_tableModel.cpp.o
+
+.PHONY : __/__/include/ui/moc_tableModel.o
+
+# target to build an object file
+__/__/include/ui/moc_tableModel.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tableModel.cpp.o
+.PHONY : __/__/include/ui/moc_tableModel.cpp.o
+
+__/__/include/ui/moc_tableModel.i: __/__/include/ui/moc_tableModel.cpp.i
+
+.PHONY : __/__/include/ui/moc_tableModel.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_tableModel.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tableModel.cpp.i
+.PHONY : __/__/include/ui/moc_tableModel.cpp.i
+
+__/__/include/ui/moc_tableModel.s: __/__/include/ui/moc_tableModel.cpp.s
+
+.PHONY : __/__/include/ui/moc_tableModel.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_tableModel.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tableModel.cpp.s
+.PHONY : __/__/include/ui/moc_tableModel.cpp.s
+
+__/__/include/ui/moc_tableView.o: __/__/include/ui/moc_tableView.cpp.o
+
+.PHONY : __/__/include/ui/moc_tableView.o
+
+# target to build an object file
+__/__/include/ui/moc_tableView.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tableView.cpp.o
+.PHONY : __/__/include/ui/moc_tableView.cpp.o
+
+__/__/include/ui/moc_tableView.i: __/__/include/ui/moc_tableView.cpp.i
+
+.PHONY : __/__/include/ui/moc_tableView.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_tableView.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tableView.cpp.i
+.PHONY : __/__/include/ui/moc_tableView.cpp.i
+
+__/__/include/ui/moc_tableView.s: __/__/include/ui/moc_tableView.cpp.s
+
+.PHONY : __/__/include/ui/moc_tableView.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_tableView.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tableView.cpp.s
+.PHONY : __/__/include/ui/moc_tableView.cpp.s
+
+__/__/include/ui/moc_tabledatacontrol.o: __/__/include/ui/moc_tabledatacontrol.cpp.o
+
+.PHONY : __/__/include/ui/moc_tabledatacontrol.o
+
+# target to build an object file
+__/__/include/ui/moc_tabledatacontrol.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tabledatacontrol.cpp.o
+.PHONY : __/__/include/ui/moc_tabledatacontrol.cpp.o
+
+__/__/include/ui/moc_tabledatacontrol.i: __/__/include/ui/moc_tabledatacontrol.cpp.i
+
+.PHONY : __/__/include/ui/moc_tabledatacontrol.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_tabledatacontrol.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tabledatacontrol.cpp.i
+.PHONY : __/__/include/ui/moc_tabledatacontrol.cpp.i
+
+__/__/include/ui/moc_tabledatacontrol.s: __/__/include/ui/moc_tabledatacontrol.cpp.s
+
+.PHONY : __/__/include/ui/moc_tabledatacontrol.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_tabledatacontrol.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_tabledatacontrol.cpp.s
+.PHONY : __/__/include/ui/moc_tabledatacontrol.cpp.s
+
+__/__/include/ui/moc_topButton.o: __/__/include/ui/moc_topButton.cpp.o
+
+.PHONY : __/__/include/ui/moc_topButton.o
+
+# target to build an object file
+__/__/include/ui/moc_topButton.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_topButton.cpp.o
+.PHONY : __/__/include/ui/moc_topButton.cpp.o
+
+__/__/include/ui/moc_topButton.i: __/__/include/ui/moc_topButton.cpp.i
+
+.PHONY : __/__/include/ui/moc_topButton.i
+
+# target to preprocess a source file
+__/__/include/ui/moc_topButton.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_topButton.cpp.i
+.PHONY : __/__/include/ui/moc_topButton.cpp.i
+
+__/__/include/ui/moc_topButton.s: __/__/include/ui/moc_topButton.cpp.s
+
+.PHONY : __/__/include/ui/moc_topButton.s
+
+# target to generate assembly for a file
+__/__/include/ui/moc_topButton.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/__/__/include/ui/moc_topButton.cpp.s
+.PHONY : __/__/include/ui/moc_topButton.cpp.s
+
+basicsettingwidget.o: basicsettingwidget.cpp.o
+
+.PHONY : basicsettingwidget.o
+
+# target to build an object file
+basicsettingwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/basicsettingwidget.cpp.o
+.PHONY : basicsettingwidget.cpp.o
+
+basicsettingwidget.i: basicsettingwidget.cpp.i
+
+.PHONY : basicsettingwidget.i
+
+# target to preprocess a source file
+basicsettingwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/basicsettingwidget.cpp.i
+.PHONY : basicsettingwidget.cpp.i
+
+basicsettingwidget.s: basicsettingwidget.cpp.s
+
+.PHONY : basicsettingwidget.s
+
+# target to generate assembly for a file
+basicsettingwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/basicsettingwidget.cpp.s
+.PHONY : basicsettingwidget.cpp.s
+
+btheaderview.o: btheaderview.cpp.o
+
+.PHONY : btheaderview.o
+
+# target to build an object file
+btheaderview.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btheaderview.cpp.o
+.PHONY : btheaderview.cpp.o
+
+btheaderview.i: btheaderview.cpp.i
+
+.PHONY : btheaderview.i
+
+# target to preprocess a source file
+btheaderview.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btheaderview.cpp.i
+.PHONY : btheaderview.cpp.i
+
+btheaderview.s: btheaderview.cpp.s
+
+.PHONY : btheaderview.s
+
+# target to generate assembly for a file
+btheaderview.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btheaderview.cpp.s
+.PHONY : btheaderview.cpp.s
+
+btinfodelegate.o: btinfodelegate.cpp.o
+
+.PHONY : btinfodelegate.o
+
+# target to build an object file
+btinfodelegate.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfodelegate.cpp.o
+.PHONY : btinfodelegate.cpp.o
+
+btinfodelegate.i: btinfodelegate.cpp.i
+
+.PHONY : btinfodelegate.i
+
+# target to preprocess a source file
+btinfodelegate.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfodelegate.cpp.i
+.PHONY : btinfodelegate.cpp.i
+
+btinfodelegate.s: btinfodelegate.cpp.s
+
+.PHONY : btinfodelegate.s
+
+# target to generate assembly for a file
+btinfodelegate.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfodelegate.cpp.s
+.PHONY : btinfodelegate.cpp.s
+
+btinfodialog.o: btinfodialog.cpp.o
+
+.PHONY : btinfodialog.o
+
+# target to build an object file
+btinfodialog.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfodialog.cpp.o
+.PHONY : btinfodialog.cpp.o
+
+btinfodialog.i: btinfodialog.cpp.i
+
+.PHONY : btinfodialog.i
+
+# target to preprocess a source file
+btinfodialog.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfodialog.cpp.i
+.PHONY : btinfodialog.cpp.i
+
+btinfodialog.s: btinfodialog.cpp.s
+
+.PHONY : btinfodialog.s
+
+# target to generate assembly for a file
+btinfodialog.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfodialog.cpp.s
+.PHONY : btinfodialog.cpp.s
+
+btinfotableview.o: btinfotableview.cpp.o
+
+.PHONY : btinfotableview.o
+
+# target to build an object file
+btinfotableview.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfotableview.cpp.o
+.PHONY : btinfotableview.cpp.o
+
+btinfotableview.i: btinfotableview.cpp.i
+
+.PHONY : btinfotableview.i
+
+# target to preprocess a source file
+btinfotableview.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfotableview.cpp.i
+.PHONY : btinfotableview.cpp.i
+
+btinfotableview.s: btinfotableview.cpp.s
+
+.PHONY : btinfotableview.s
+
+# target to generate assembly for a file
+btinfotableview.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/btinfotableview.cpp.s
+.PHONY : btinfotableview.cpp.s
+
+clipboardtimer.o: clipboardtimer.cpp.o
+
+.PHONY : clipboardtimer.o
+
+# target to build an object file
+clipboardtimer.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/clipboardtimer.cpp.o
+.PHONY : clipboardtimer.cpp.o
+
+clipboardtimer.i: clipboardtimer.cpp.i
+
+.PHONY : clipboardtimer.i
+
+# target to preprocess a source file
+clipboardtimer.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/clipboardtimer.cpp.i
+.PHONY : clipboardtimer.cpp.i
+
+clipboardtimer.s: clipboardtimer.cpp.s
+
+.PHONY : clipboardtimer.s
+
+# target to generate assembly for a file
+clipboardtimer.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/clipboardtimer.cpp.s
+.PHONY : clipboardtimer.cpp.s
+
+deleteitemthread.o: deleteitemthread.cpp.o
+
+.PHONY : deleteitemthread.o
+
+# target to build an object file
+deleteitemthread.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/deleteitemthread.cpp.o
+.PHONY : deleteitemthread.cpp.o
+
+deleteitemthread.i: deleteitemthread.cpp.i
+
+.PHONY : deleteitemthread.i
+
+# target to preprocess a source file
+deleteitemthread.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/deleteitemthread.cpp.i
+.PHONY : deleteitemthread.cpp.i
+
+deleteitemthread.s: deleteitemthread.cpp.s
+
+.PHONY : deleteitemthread.s
+
+# target to generate assembly for a file
+deleteitemthread.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/deleteitemthread.cpp.s
+.PHONY : deleteitemthread.cpp.s
+
+downloadsettingwidget.o: downloadsettingwidget.cpp.o
+
+.PHONY : downloadsettingwidget.o
+
+# target to build an object file
+downloadsettingwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/downloadsettingwidget.cpp.o
+.PHONY : downloadsettingwidget.cpp.o
+
+downloadsettingwidget.i: downloadsettingwidget.cpp.i
+
+.PHONY : downloadsettingwidget.i
+
+# target to preprocess a source file
+downloadsettingwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/downloadsettingwidget.cpp.i
+.PHONY : downloadsettingwidget.cpp.i
+
+downloadsettingwidget.s: downloadsettingwidget.cpp.s
+
+.PHONY : downloadsettingwidget.s
+
+# target to generate assembly for a file
+downloadsettingwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/downloadsettingwidget.cpp.s
+.PHONY : downloadsettingwidget.cpp.s
+
+filesavepathchooser.o: filesavepathchooser.cpp.o
+
+.PHONY : filesavepathchooser.o
+
+# target to build an object file
+filesavepathchooser.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/filesavepathchooser.cpp.o
+.PHONY : filesavepathchooser.cpp.o
+
+filesavepathchooser.i: filesavepathchooser.cpp.i
+
+.PHONY : filesavepathchooser.i
+
+# target to preprocess a source file
+filesavepathchooser.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/filesavepathchooser.cpp.i
+.PHONY : filesavepathchooser.cpp.i
+
+filesavepathchooser.s: filesavepathchooser.cpp.s
+
+.PHONY : filesavepathchooser.s
+
+# target to generate assembly for a file
+filesavepathchooser.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/filesavepathchooser.cpp.s
+.PHONY : filesavepathchooser.cpp.s
+
+groupselectionwidget.o: groupselectionwidget.cpp.o
+
+.PHONY : groupselectionwidget.o
+
+# target to build an object file
+groupselectionwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/groupselectionwidget.cpp.o
+.PHONY : groupselectionwidget.cpp.o
+
+groupselectionwidget.i: groupselectionwidget.cpp.i
+
+.PHONY : groupselectionwidget.i
+
+# target to preprocess a source file
+groupselectionwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/groupselectionwidget.cpp.i
+.PHONY : groupselectionwidget.cpp.i
+
+groupselectionwidget.s: groupselectionwidget.cpp.s
+
+.PHONY : groupselectionwidget.s
+
+# target to generate assembly for a file
+groupselectionwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/groupselectionwidget.cpp.s
+.PHONY : groupselectionwidget.cpp.s
+
+headerView.o: headerView.cpp.o
+
+.PHONY : headerView.o
+
+# target to build an object file
+headerView.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/headerView.cpp.o
+.PHONY : headerView.cpp.o
+
+headerView.i: headerView.cpp.i
+
+.PHONY : headerView.i
+
+# target to preprocess a source file
+headerView.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/headerView.cpp.i
+.PHONY : headerView.cpp.i
+
+headerView.s: headerView.cpp.s
+
+.PHONY : headerView.s
+
+# target to generate assembly for a file
+headerView.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/headerView.cpp.s
+.PHONY : headerView.cpp.s
+
+itemDelegate.o: itemDelegate.cpp.o
+
+.PHONY : itemDelegate.o
+
+# target to build an object file
+itemDelegate.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/itemDelegate.cpp.o
+.PHONY : itemDelegate.cpp.o
+
+itemDelegate.i: itemDelegate.cpp.i
+
+.PHONY : itemDelegate.i
+
+# target to preprocess a source file
+itemDelegate.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/itemDelegate.cpp.i
+.PHONY : itemDelegate.cpp.i
+
+itemDelegate.s: itemDelegate.cpp.s
+
+.PHONY : itemDelegate.s
+
+# target to generate assembly for a file
+itemDelegate.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/itemDelegate.cpp.s
+.PHONY : itemDelegate.cpp.s
+
+itemselectionwidget.o: itemselectionwidget.cpp.o
+
+.PHONY : itemselectionwidget.o
+
+# target to build an object file
+itemselectionwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/itemselectionwidget.cpp.o
+.PHONY : itemselectionwidget.cpp.o
+
+itemselectionwidget.i: itemselectionwidget.cpp.i
+
+.PHONY : itemselectionwidget.i
+
+# target to preprocess a source file
+itemselectionwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/itemselectionwidget.cpp.i
+.PHONY : itemselectionwidget.cpp.i
+
+itemselectionwidget.s: itemselectionwidget.cpp.s
+
+.PHONY : itemselectionwidget.s
+
+# target to generate assembly for a file
+itemselectionwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/itemselectionwidget.cpp.s
+.PHONY : itemselectionwidget.cpp.s
 
 mainframe.o: mainframe.cpp.o
 
@@ -227,7 +1218,7 @@ mainframe.o: mainframe.cpp.o
 
 # target to build an object file
 mainframe.cpp.o:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/mainframe.cpp.o
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/mainframe.cpp.o
 .PHONY : mainframe.cpp.o
 
 mainframe.i: mainframe.cpp.i
@@ -236,7 +1227,7 @@ mainframe.i: mainframe.cpp.i
 
 # target to preprocess a source file
 mainframe.cpp.i:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/mainframe.cpp.i
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/mainframe.cpp.i
 .PHONY : mainframe.cpp.i
 
 mainframe.s: mainframe.cpp.s
@@ -245,8 +1236,305 @@ mainframe.s: mainframe.cpp.s
 
 # target to generate assembly for a file
 mainframe.cpp.s:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/mainframe.cpp.s
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/mainframe.cpp.s
 .PHONY : mainframe.cpp.s
+
+messagebox.o: messagebox.cpp.o
+
+.PHONY : messagebox.o
+
+# target to build an object file
+messagebox.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/messagebox.cpp.o
+.PHONY : messagebox.cpp.o
+
+messagebox.i: messagebox.cpp.i
+
+.PHONY : messagebox.i
+
+# target to preprocess a source file
+messagebox.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/messagebox.cpp.i
+.PHONY : messagebox.cpp.i
+
+messagebox.s: messagebox.cpp.s
+
+.PHONY : messagebox.s
+
+# target to generate assembly for a file
+messagebox.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/messagebox.cpp.s
+.PHONY : messagebox.cpp.s
+
+monitoringsettingwidget.o: monitoringsettingwidget.cpp.o
+
+.PHONY : monitoringsettingwidget.o
+
+# target to build an object file
+monitoringsettingwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/monitoringsettingwidget.cpp.o
+.PHONY : monitoringsettingwidget.cpp.o
+
+monitoringsettingwidget.i: monitoringsettingwidget.cpp.i
+
+.PHONY : monitoringsettingwidget.i
+
+# target to preprocess a source file
+monitoringsettingwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/monitoringsettingwidget.cpp.i
+.PHONY : monitoringsettingwidget.cpp.i
+
+monitoringsettingwidget.s: monitoringsettingwidget.cpp.s
+
+.PHONY : monitoringsettingwidget.s
+
+# target to generate assembly for a file
+monitoringsettingwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/monitoringsettingwidget.cpp.s
+.PHONY : monitoringsettingwidget.cpp.s
+
+newtaskwidget.o: newtaskwidget.cpp.o
+
+.PHONY : newtaskwidget.o
+
+# target to build an object file
+newtaskwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/newtaskwidget.cpp.o
+.PHONY : newtaskwidget.cpp.o
+
+newtaskwidget.i: newtaskwidget.cpp.i
+
+.PHONY : newtaskwidget.i
+
+# target to preprocess a source file
+newtaskwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/newtaskwidget.cpp.i
+.PHONY : newtaskwidget.cpp.i
+
+newtaskwidget.s: newtaskwidget.cpp.s
+
+.PHONY : newtaskwidget.s
+
+# target to generate assembly for a file
+newtaskwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/newtaskwidget.cpp.s
+.PHONY : newtaskwidget.cpp.s
+
+qrc_images.o: qrc_images.cpp.o
+
+.PHONY : qrc_images.o
+
+# target to build an object file
+qrc_images.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/qrc_images.cpp.o
+.PHONY : qrc_images.cpp.o
+
+qrc_images.i: qrc_images.cpp.i
+
+.PHONY : qrc_images.i
+
+# target to preprocess a source file
+qrc_images.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/qrc_images.cpp.i
+.PHONY : qrc_images.cpp.i
+
+qrc_images.s: qrc_images.cpp.s
+
+.PHONY : qrc_images.s
+
+# target to generate assembly for a file
+qrc_images.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/qrc_images.cpp.s
+.PHONY : qrc_images.cpp.s
+
+settinginfoinputwidget.o: settinginfoinputwidget.cpp.o
+
+.PHONY : settinginfoinputwidget.o
+
+# target to build an object file
+settinginfoinputwidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settinginfoinputwidget.cpp.o
+.PHONY : settinginfoinputwidget.cpp.o
+
+settinginfoinputwidget.i: settinginfoinputwidget.cpp.i
+
+.PHONY : settinginfoinputwidget.i
+
+# target to preprocess a source file
+settinginfoinputwidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settinginfoinputwidget.cpp.i
+.PHONY : settinginfoinputwidget.cpp.i
+
+settinginfoinputwidget.s: settinginfoinputwidget.cpp.s
+
+.PHONY : settinginfoinputwidget.s
+
+# target to generate assembly for a file
+settinginfoinputwidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settinginfoinputwidget.cpp.s
+.PHONY : settinginfoinputwidget.cpp.s
+
+settings.o: settings.cpp.o
+
+.PHONY : settings.o
+
+# target to build an object file
+settings.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settings.cpp.o
+.PHONY : settings.cpp.o
+
+settings.i: settings.cpp.i
+
+.PHONY : settings.i
+
+# target to preprocess a source file
+settings.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settings.cpp.i
+.PHONY : settings.cpp.i
+
+settings.s: settings.cpp.s
+
+.PHONY : settings.s
+
+# target to generate assembly for a file
+settings.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settings.cpp.s
+.PHONY : settings.cpp.s
+
+settingswidget.o: settingswidget.cpp.o
+
+.PHONY : settingswidget.o
+
+# target to build an object file
+settingswidget.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settingswidget.cpp.o
+.PHONY : settingswidget.cpp.o
+
+settingswidget.i: settingswidget.cpp.i
+
+.PHONY : settingswidget.i
+
+# target to preprocess a source file
+settingswidget.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settingswidget.cpp.i
+.PHONY : settingswidget.cpp.i
+
+settingswidget.s: settingswidget.cpp.s
+
+.PHONY : settingswidget.s
+
+# target to generate assembly for a file
+settingswidget.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/settingswidget.cpp.s
+.PHONY : settingswidget.cpp.s
+
+tableModel.o: tableModel.cpp.o
+
+.PHONY : tableModel.o
+
+# target to build an object file
+tableModel.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tableModel.cpp.o
+.PHONY : tableModel.cpp.o
+
+tableModel.i: tableModel.cpp.i
+
+.PHONY : tableModel.i
+
+# target to preprocess a source file
+tableModel.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tableModel.cpp.i
+.PHONY : tableModel.cpp.i
+
+tableModel.s: tableModel.cpp.s
+
+.PHONY : tableModel.s
+
+# target to generate assembly for a file
+tableModel.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tableModel.cpp.s
+.PHONY : tableModel.cpp.s
+
+tableView.o: tableView.cpp.o
+
+.PHONY : tableView.o
+
+# target to build an object file
+tableView.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tableView.cpp.o
+.PHONY : tableView.cpp.o
+
+tableView.i: tableView.cpp.i
+
+.PHONY : tableView.i
+
+# target to preprocess a source file
+tableView.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tableView.cpp.i
+.PHONY : tableView.cpp.i
+
+tableView.s: tableView.cpp.s
+
+.PHONY : tableView.s
+
+# target to generate assembly for a file
+tableView.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tableView.cpp.s
+.PHONY : tableView.cpp.s
+
+tabledatacontrol.o: tabledatacontrol.cpp.o
+
+.PHONY : tabledatacontrol.o
+
+# target to build an object file
+tabledatacontrol.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tabledatacontrol.cpp.o
+.PHONY : tabledatacontrol.cpp.o
+
+tabledatacontrol.i: tabledatacontrol.cpp.i
+
+.PHONY : tabledatacontrol.i
+
+# target to preprocess a source file
+tabledatacontrol.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tabledatacontrol.cpp.i
+.PHONY : tabledatacontrol.cpp.i
+
+tabledatacontrol.s: tabledatacontrol.cpp.s
+
+.PHONY : tabledatacontrol.s
+
+# target to generate assembly for a file
+tabledatacontrol.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/tabledatacontrol.cpp.s
+.PHONY : tabledatacontrol.cpp.s
+
+topButton.o: topButton.cpp.o
+
+.PHONY : topButton.o
+
+# target to build an object file
+topButton.cpp.o:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/topButton.cpp.o
+.PHONY : topButton.cpp.o
+
+topButton.i: topButton.cpp.i
+
+.PHONY : topButton.i
+
+# target to preprocess a source file
+topButton.cpp.i:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/topButton.cpp.i
+.PHONY : topButton.cpp.i
+
+topButton.s: topButton.cpp.s
+
+.PHONY : topButton.s
+
+# target to generate assembly for a file
+topButton.cpp.s:
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/topButton.cpp.s
+.PHONY : topButton.cpp.s
 
 ui_autogen/mocs_compilation.o: ui_autogen/mocs_compilation.cpp.o
 
@@ -254,7 +1542,7 @@ ui_autogen/mocs_compilation.o: ui_autogen/mocs_compilation.cpp.o
 
 # target to build an object file
 ui_autogen/mocs_compilation.cpp.o:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/ui_autogen/mocs_compilation.cpp.o
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/ui_autogen/mocs_compilation.cpp.o
 .PHONY : ui_autogen/mocs_compilation.cpp.o
 
 ui_autogen/mocs_compilation.i: ui_autogen/mocs_compilation.cpp.i
@@ -263,7 +1551,7 @@ ui_autogen/mocs_compilation.i: ui_autogen/mocs_compilation.cpp.i
 
 # target to preprocess a source file
 ui_autogen/mocs_compilation.cpp.i:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/ui_autogen/mocs_compilation.cpp.i
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/ui_autogen/mocs_compilation.cpp.i
 .PHONY : ui_autogen/mocs_compilation.cpp.i
 
 ui_autogen/mocs_compilation.s: ui_autogen/mocs_compilation.cpp.s
@@ -272,7 +1560,7 @@ ui_autogen/mocs_compilation.s: ui_autogen/mocs_compilation.cpp.s
 
 # target to generate assembly for a file
 ui_autogen/mocs_compilation.cpp.s:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/ui_autogen/mocs_compilation.cpp.s
+	cd /data/home/denglinglong/downloadmanager && $(MAKE) -f src/src/ui/CMakeFiles/ui.dir/build.make src/src/ui/CMakeFiles/ui.dir/ui_autogen/mocs_compilation.cpp.s
 .PHONY : ui_autogen/mocs_compilation.cpp.s
 
 # Help Target
@@ -281,22 +1569,164 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... ui"
+	@echo "... install/strip"
 	@echo "... edit_cache"
+	@echo "... ui"
+	@echo "... rebuild_cache"
+	@echo "... list_install_components"
+	@echo "... install/local"
+	@echo "... install"
 	@echo "... ui_autogen"
-	@echo "... __/__/include/ui/moc_headerview.o"
-	@echo "... __/__/include/ui/moc_headerview.i"
-	@echo "... __/__/include/ui/moc_headerview.s"
+	@echo "... __/__/include/ui/moc_basicsettingwidget.o"
+	@echo "... __/__/include/ui/moc_basicsettingwidget.i"
+	@echo "... __/__/include/ui/moc_basicsettingwidget.s"
+	@echo "... __/__/include/ui/moc_btheaderview.o"
+	@echo "... __/__/include/ui/moc_btheaderview.i"
+	@echo "... __/__/include/ui/moc_btheaderview.s"
+	@echo "... __/__/include/ui/moc_btinfodelegate.o"
+	@echo "... __/__/include/ui/moc_btinfodelegate.i"
+	@echo "... __/__/include/ui/moc_btinfodelegate.s"
+	@echo "... __/__/include/ui/moc_btinfodialog.o"
+	@echo "... __/__/include/ui/moc_btinfodialog.i"
+	@echo "... __/__/include/ui/moc_btinfodialog.s"
+	@echo "... __/__/include/ui/moc_btinfotableview.o"
+	@echo "... __/__/include/ui/moc_btinfotableview.i"
+	@echo "... __/__/include/ui/moc_btinfotableview.s"
+	@echo "... __/__/include/ui/moc_clipboardtimer.o"
+	@echo "... __/__/include/ui/moc_clipboardtimer.i"
+	@echo "... __/__/include/ui/moc_clipboardtimer.s"
+	@echo "... __/__/include/ui/moc_deleteitemthread.o"
+	@echo "... __/__/include/ui/moc_deleteitemthread.i"
+	@echo "... __/__/include/ui/moc_deleteitemthread.s"
+	@echo "... __/__/include/ui/moc_downloadsettingwidget.o"
+	@echo "... __/__/include/ui/moc_downloadsettingwidget.i"
+	@echo "... __/__/include/ui/moc_downloadsettingwidget.s"
+	@echo "... __/__/include/ui/moc_filesavepathchooser.o"
+	@echo "... __/__/include/ui/moc_filesavepathchooser.i"
+	@echo "... __/__/include/ui/moc_filesavepathchooser.s"
+	@echo "... __/__/include/ui/moc_global.o"
+	@echo "... __/__/include/ui/moc_global.i"
+	@echo "... __/__/include/ui/moc_global.s"
+	@echo "... __/__/include/ui/moc_groupselectionwidget.o"
+	@echo "... __/__/include/ui/moc_groupselectionwidget.i"
+	@echo "... __/__/include/ui/moc_groupselectionwidget.s"
+	@echo "... __/__/include/ui/moc_headerView.o"
+	@echo "... __/__/include/ui/moc_headerView.i"
+	@echo "... __/__/include/ui/moc_headerView.s"
+	@echo "... __/__/include/ui/moc_itemDelegate.o"
+	@echo "... __/__/include/ui/moc_itemDelegate.i"
+	@echo "... __/__/include/ui/moc_itemDelegate.s"
+	@echo "... __/__/include/ui/moc_itemselectionwidget.o"
+	@echo "... __/__/include/ui/moc_itemselectionwidget.i"
+	@echo "... __/__/include/ui/moc_itemselectionwidget.s"
 	@echo "... __/__/include/ui/moc_mainframe.o"
 	@echo "... __/__/include/ui/moc_mainframe.i"
 	@echo "... __/__/include/ui/moc_mainframe.s"
-	@echo "... headerview.o"
-	@echo "... headerview.i"
-	@echo "... headerview.s"
+	@echo "... __/__/include/ui/moc_messagebox.o"
+	@echo "... __/__/include/ui/moc_messagebox.i"
+	@echo "... __/__/include/ui/moc_messagebox.s"
+	@echo "... __/__/include/ui/moc_monitoringsettingwidget.o"
+	@echo "... __/__/include/ui/moc_monitoringsettingwidget.i"
+	@echo "... __/__/include/ui/moc_monitoringsettingwidget.s"
+	@echo "... __/__/include/ui/moc_newtaskwidget.o"
+	@echo "... __/__/include/ui/moc_newtaskwidget.i"
+	@echo "... __/__/include/ui/moc_newtaskwidget.s"
+	@echo "... __/__/include/ui/moc_settinginfoinputwidget.o"
+	@echo "... __/__/include/ui/moc_settinginfoinputwidget.i"
+	@echo "... __/__/include/ui/moc_settinginfoinputwidget.s"
+	@echo "... __/__/include/ui/moc_settings.o"
+	@echo "... __/__/include/ui/moc_settings.i"
+	@echo "... __/__/include/ui/moc_settings.s"
+	@echo "... __/__/include/ui/moc_settingswidget.o"
+	@echo "... __/__/include/ui/moc_settingswidget.i"
+	@echo "... __/__/include/ui/moc_settingswidget.s"
+	@echo "... __/__/include/ui/moc_tableModel.o"
+	@echo "... __/__/include/ui/moc_tableModel.i"
+	@echo "... __/__/include/ui/moc_tableModel.s"
+	@echo "... __/__/include/ui/moc_tableView.o"
+	@echo "... __/__/include/ui/moc_tableView.i"
+	@echo "... __/__/include/ui/moc_tableView.s"
+	@echo "... __/__/include/ui/moc_tabledatacontrol.o"
+	@echo "... __/__/include/ui/moc_tabledatacontrol.i"
+	@echo "... __/__/include/ui/moc_tabledatacontrol.s"
+	@echo "... __/__/include/ui/moc_topButton.o"
+	@echo "... __/__/include/ui/moc_topButton.i"
+	@echo "... __/__/include/ui/moc_topButton.s"
+	@echo "... basicsettingwidget.o"
+	@echo "... basicsettingwidget.i"
+	@echo "... basicsettingwidget.s"
+	@echo "... btheaderview.o"
+	@echo "... btheaderview.i"
+	@echo "... btheaderview.s"
+	@echo "... btinfodelegate.o"
+	@echo "... btinfodelegate.i"
+	@echo "... btinfodelegate.s"
+	@echo "... btinfodialog.o"
+	@echo "... btinfodialog.i"
+	@echo "... btinfodialog.s"
+	@echo "... btinfotableview.o"
+	@echo "... btinfotableview.i"
+	@echo "... btinfotableview.s"
+	@echo "... clipboardtimer.o"
+	@echo "... clipboardtimer.i"
+	@echo "... clipboardtimer.s"
+	@echo "... deleteitemthread.o"
+	@echo "... deleteitemthread.i"
+	@echo "... deleteitemthread.s"
+	@echo "... downloadsettingwidget.o"
+	@echo "... downloadsettingwidget.i"
+	@echo "... downloadsettingwidget.s"
+	@echo "... filesavepathchooser.o"
+	@echo "... filesavepathchooser.i"
+	@echo "... filesavepathchooser.s"
+	@echo "... groupselectionwidget.o"
+	@echo "... groupselectionwidget.i"
+	@echo "... groupselectionwidget.s"
+	@echo "... headerView.o"
+	@echo "... headerView.i"
+	@echo "... headerView.s"
+	@echo "... itemDelegate.o"
+	@echo "... itemDelegate.i"
+	@echo "... itemDelegate.s"
+	@echo "... itemselectionwidget.o"
+	@echo "... itemselectionwidget.i"
+	@echo "... itemselectionwidget.s"
 	@echo "... mainframe.o"
 	@echo "... mainframe.i"
 	@echo "... mainframe.s"
+	@echo "... messagebox.o"
+	@echo "... messagebox.i"
+	@echo "... messagebox.s"
+	@echo "... monitoringsettingwidget.o"
+	@echo "... monitoringsettingwidget.i"
+	@echo "... monitoringsettingwidget.s"
+	@echo "... newtaskwidget.o"
+	@echo "... newtaskwidget.i"
+	@echo "... newtaskwidget.s"
+	@echo "... qrc_images.o"
+	@echo "... qrc_images.i"
+	@echo "... qrc_images.s"
+	@echo "... settinginfoinputwidget.o"
+	@echo "... settinginfoinputwidget.i"
+	@echo "... settinginfoinputwidget.s"
+	@echo "... settings.o"
+	@echo "... settings.i"
+	@echo "... settings.s"
+	@echo "... settingswidget.o"
+	@echo "... settingswidget.i"
+	@echo "... settingswidget.s"
+	@echo "... tableModel.o"
+	@echo "... tableModel.i"
+	@echo "... tableModel.s"
+	@echo "... tableView.o"
+	@echo "... tableView.i"
+	@echo "... tableView.s"
+	@echo "... tabledatacontrol.o"
+	@echo "... tabledatacontrol.i"
+	@echo "... tabledatacontrol.s"
+	@echo "... topButton.o"
+	@echo "... topButton.i"
+	@echo "... topButton.s"
 	@echo "... ui_autogen/mocs_compilation.o"
 	@echo "... ui_autogen/mocs_compilation.i"
 	@echo "... ui_autogen/mocs_compilation.s"
@@ -311,6 +1741,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /data/home/sanhei/workspace/downloadmanager/src && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /data/home/denglinglong/downloadmanager && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
