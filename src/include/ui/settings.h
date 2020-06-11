@@ -1,28 +1,46 @@
 /**
-* @file settings.h
-* @brief 设置类，主要实现调用json文件，生成配置文件；创建自定义的控件窗口
-* @author yuandandan  <yuandandan@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 12:25
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file settings.h
+ *
+ * @brief 设置类，主要实现调用json文件，生成配置文件；创建自定义的控件窗口
+ *
+ *@date 2020-06-09 09:50
+ *
+ * Author: yuandandan  <yuandandan@uniontech.com>
+ *
+ * Maintainer: yuandandan  <yuandandan@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <QObject>
 #include <DDialog>
 #include <DSettingsDialog>
 #include <DSettingsWidgetFactory>
-#include <qsettingbackend.h>
+
+#include <QObject>
 #include <QSettings>
-#include <QPointer>
-#include <QTime>
+#include <qsettingbackend.h>
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
-struct S_DownloadSettings {
+struct S_DownloadSettings
+{
     QString m_strType; // 下载类型，限速下载为1,全速下载为0
     QString m_strMaxDownload; // 最大下载限速
     QString m_strMaxUpload; // 最大上传限速
@@ -244,13 +262,46 @@ public:
      */
     int getDisckcacheNum();
 
+    /**
+     * @brief 设置关闭主界面选择选项
+     * @param nSelect 设置选中选项，退出下载器设置1,最小化到托盘设置0
+     */
+    void setCloseMainWindowSelected(int nSelect);
+
+    /**
+     * @brief 获取自定义文件路径
+     * @return 返回数值
+     */
+    QString getCustomFilePath();
+
+    /**
+     * @brief 设置自定义文件路径
+     * @return 返回数值
+     */
+    void setCustomFilePath(const QString &path);
+
+    /**
+     * @brief 获取关闭时是否显示提示
+     * @return 返回数值
+     */
+    bool getIsShowTip();
+
+    /**
+     * @brief 设置关闭时是否显示提示
+     * @return 返回数值
+     */
+    void setIsShowTip(bool b);
+
+
+
     DSettings *m_pSettings;
 
 signals:
     void poweronChanged(bool bState);
     void maxDownloadTaskNumberChanged(int nTaskNumber);
-    void downloadSettingsChanged(S_DownloadSettings downloadSettings);
+    void downloadSettingsChanged();
     void disckCacheChanged(int nNum);
+    void startAssociatedBTFileChanged(bool bState);
 
 public slots:
 
@@ -258,6 +309,8 @@ private:
     static Settings *s_pInstance;
     Dtk::Core::QSettingBackend *m_pBackend;
     QString m_configPath; // 配置文件路径
+    QSettings *m_pIniFile;
+
 };
 
 #endif // SETTINGS_H

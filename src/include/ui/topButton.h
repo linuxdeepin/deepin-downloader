@@ -1,11 +1,29 @@
 /**
-* @file topButton.h
-* @brief
-* @author zhaoyue  <zhaoyue@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 09:42
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file topButton.h
+ *
+ * @brief 主界面顶部按钮加搜索框
+ *
+ * @date 2020-06-09 10:00
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef TOOLBAR_H
 #define TOOLBAR_H
@@ -14,6 +32,7 @@
 #include <DPushButton>
 #include <DSearchEdit>
 #include <DLabel>
+
 
 #include <QWidget>
 
@@ -64,6 +83,10 @@ public:
     }
 
 public slots:
+    /**
+     * @brief 当前显示列表改变
+     * @param index： 列表索引
+    */
     void getTableChanged(int index);
 private:
     /**
@@ -100,7 +123,6 @@ signals:
      * @brief 搜索框内容改变信号
     */
     void getSearchEditTextChange(QString text);
-
 private:
     DLabel *m_pIconLable;
     DIconButton *m_pNewDownloadBtn;

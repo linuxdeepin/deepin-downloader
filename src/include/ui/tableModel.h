@@ -1,11 +1,29 @@
 /**
-* @file tableModel.h
-* @brief 表格数据管理模块
-* @author zhaoyue  <zhaoyue@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 09:41
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file tableModel.h
+ *
+ * @brief 表格数据管理模块
+ *
+ * @date 2020-06-09 09:58
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef TABLEVIEWMODEL_H
 #define TABLEVIEWMODEL_H
@@ -23,30 +41,21 @@ class TableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    TableModel(int Flag,
+    TableModel(int      Flag,
                QObject *parent = nullptr);
     /**
      * @brief 列表模式
      */
     enum Mode {
-        Downloading = 0,
-        Finished
+        Downloading = 0, Finished
     };
     /**
      * @brief 数据角色
      */
     enum DataRole {
-        Ischecked = 0,
-        Speed,
-        Size,
-        FileName,
-        Time,
-        Status,
-        GID,
-        Percent,
-        TotalLength,
-        SavePath
+        Ischecked = 0, Speed, Size, FileName, Time, Status, GID, Percent, TotalLength, SavePath
     };
+
 
     /**
      * @brief 父类虚函数，设置数据
@@ -55,8 +64,8 @@ public:
      * @param role: 角色
      */
     bool setData(const QModelIndex &ndex,
-                 const QVariant &value,
-                 int role);
+                 const QVariant    &value,
+                 int                role);
     /**
      * @brief 在正在下载列表添加一列
      * @param data: 数据
@@ -98,23 +107,23 @@ public:
      * @param gid: id
      * @return 查找到的item数据
      */
-    DataItem *find(const QString &gid);
+    DataItem* find(const QString &gid);
     /**
      * @brief 根据id查找回收站item
      * @param gid: id
      * @return 查找到的item数据
      */
-    DelDataItem *find(const QString &gid, int flag);
+    DelDataItem* find(const QString &gid, int flag);
     /**
      * @brief 获取正在下载列表
      * @return item列表
      */
-    const QList<DataItem *> dataList();
+    const QList<DataItem *>    dataList();
     /**
      * @brief 获取已完成下载列表
      * @return item列表
      */
-    const QList<DataItem *> renderList();
+    const QList<DataItem *>    renderList();
     /**
      * @brief 获取回收站下载列表
      * @return item列表
@@ -124,12 +133,12 @@ public:
      * @brief 获取列表展示模式
      * @return 模式
      */
-    int get_tablemodel_mode();
+    int getTablemodelMode();
     /**
      * @brief 获取列表展示模式
      * @return 模式map
      */
-    QMap<QString, DataItem *> get_table_model_map();
+    QMap<QString, DataItem *>  getTableModelMap();
     /**
      * @brief 获取行数
      * @param index: 索引
@@ -162,12 +171,12 @@ signals:
      * @brief 改变选中
      * @param flag: 模式
      */
-    void check_dataChange(int flag);
+    void checkDatachange(int flag);
     /**
      * @brief 全选或者全不选
      * @param checked: 选中状态
      */
-    void tableView_allChecked_or_allUnchecked(bool checked);
+    void tableviewAllcheckedOrAllunchecked(bool checked);
     /**
      * @brief 选中或者不选中
      * @param flag: 模式
@@ -178,8 +187,7 @@ private slots:
      * @brief 获取选中改变
      * @param flag: 模式
      */
-    void get_check_dataChange(int flag);
-
+    void getCheckDatachange(int flag);
 private:
     QList<DataItem *> m_dataList;
     QList<DataItem *> m_renderList;

@@ -5,8 +5,7 @@
 #include <DLabel>
 #include <QStandardPaths>
 
-BasicSettingWidget::BasicSettingWidget(QWidget *parent)
-    : QWidget(parent)
+BasicSettingWidget::BasicSettingWidget(QWidget *parent) : QWidget(parent)
 {
     initUI();
     initConnections();
@@ -16,12 +15,12 @@ BasicSettingWidget::BasicSettingWidget(QWidget *parent)
 void BasicSettingWidget::initUI()
 {
     DLabel *pStartLabel = new DLabel("启动");
-    pStartLabel->setFont(QFont("Source Han Sans", 14, 75));
+    pStartLabel->setFont(QFont("Source Han Sans",14, 75));
     DLabel *pPowerOnLabel = new DLabel("开机启动");
     DLabel *pUndisturbedModeLabel = new DLabel("免打扰模式");
     DLabel *pAutostartUnfinishedTaskLabel = new DLabel("启动后自动开始未完成的任务");
     DLabel *pDownloadLabel = new DLabel("下载目录");
-    pDownloadLabel->setFont(QFont("Source Han Sans", 14, 75));
+    pDownloadLabel->setFont(QFont("Source Han Sans",14, 75));
     m_pPowerOnButton = new DSwitchButton;
     m_pUndisturbedModeButton = new DSwitchButton;
     m_pAutostartUnfinishedTaskButton = new DSwitchButton;
@@ -38,7 +37,7 @@ void BasicSettingWidget::initUI()
     m_pFileChooserEdit->setStyleSheet("QPushButton{background-color:rgba(0, 129, 255, 1);width:36px;height:36px;font-size:20px;color:#fff}"
                                       "QPushButton:hover{background-color:rgba(0, 129, 255, 200);width:36px;height:36px;color:#fff}"
                                       "QPushButton:disabled{background-color:rgba(0, 129, 255, 50);width:36px;height:36px;color:#fff}");
-    //    m_pFileChooserEdit->setDisabled(true);
+//    m_pFileChooserEdit->setDisabled(true);
     m_pCustomsPathRadioButton->setChecked(true);
 
     m_pPowerOnButton->setStyleSheet("background:rgba(211, 211, 211, 1)");
@@ -111,20 +110,25 @@ void BasicSettingWidget::initUI()
 // 初始化链接
 void BasicSettingWidget::initConnections()
 {
-    connect(m_pAutoLastPathRadioButton, SIGNAL(clicked()), this, SLOT(radioButtonClickSlot()));
-    connect(m_pCustomsPathRadioButton, SIGNAL(clicked()), this, SLOT(radioButtonClickSlot()));
+    connect(m_pAutoLastPathRadioButton,SIGNAL(clicked()),this,SLOT(radioButtonClickSlot()));
+    connect(m_pCustomsPathRadioButton,SIGNAL(clicked()),this,SLOT(radioButtonClickSlot()));
 }
 
 void BasicSettingWidget::radioButtonClickSlot()
 {
     DRadioButton *pRadioButton = qobject_cast<DRadioButton *>(sender());
-    if (m_pAutoLastPathRadioButton == pRadioButton) {
+    if(m_pAutoLastPathRadioButton == pRadioButton)
+    {
         m_pAutoLastPathRadioButton->setChecked(true);
         m_pCustomsPathRadioButton->setChecked(false);
         m_pFileChooserEdit->setDisabled(true);
-    } else if (m_pCustomsPathRadioButton == pRadioButton) {
+    }
+    else if(m_pCustomsPathRadioButton == pRadioButton)
+    {
         m_pAutoLastPathRadioButton->setChecked(false);
         m_pCustomsPathRadioButton->setChecked(true);
         m_pFileChooserEdit->setDisabled(false);
     }
 }
+
+

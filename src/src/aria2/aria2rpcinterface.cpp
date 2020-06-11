@@ -1,14 +1,44 @@
+/**
+ * @copyright 2020-2020} Uniontech Technology Co., Ltd.
+ *
+ * @file aria2rpcinterface.h
+ *
+ * @brief aria2 RPC 后端接口实现
+ *
+ * @date 2020-05-26 11:55
+ *
+ * Author: denglinglong  <denglinglong@uniontech.com>
+ *
+ * Maintainer: denglinglong  <denglinglong@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 #include "aria2rpcinterface.h"
+
 #include "log.h"
 
 #include <QProcess>
 
-#define AIRA_CONFIG_PATH "/usr/share/uos-downloadmanager/config/aria2.conf"
+#define AIRA_CONFIG_PATH "/usr/share/downloadmanager/config/aria2.conf"
 
-const QString Aria2RPCInterface::basePath = "/usr/share/uos-downloadmanager/";
-const QString Aria2RPCInterface::aria2cCmd = "nfs-aria2c"; // aria2c
+const QString Aria2RPCInterface::basePath = "/usr/bin/";
+const QString Aria2RPCInterface::aria2cCmd = "aria2c"; // aria2c
 
 Aria2RPCInterface *Aria2RPCInterface::_pInstance = new Aria2RPCInterface;
+
 Aria2RPCInterface *Aria2RPCInterface::Instance()
 {
     return _pInstance;
@@ -19,7 +49,6 @@ Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
 {
 }
 
-//启动RPC服务
 bool Aria2RPCInterface::startUp()
 {
     /*
@@ -85,14 +114,12 @@ bool Aria2RPCInterface::startUp()
     return bCheck;
 }
 
-//检查aria2c文件
 bool Aria2RPCInterface::checkAria2cFile()
 {
     QFile file(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd);
     return file.exists();
 }
 
-//初始化RPC服务
 void Aria2RPCInterface::Aria2RPCInterface::init()
 {
     //定义配置文件路径
@@ -113,7 +140,6 @@ void Aria2RPCInterface::Aria2RPCInterface::init()
     qDebug() << "Startup aria2:" << QString::number(rs);
 }
 
-//检测aria2c是否启动
 bool Aria2RPCInterface::checkAria2cProc()
 {
     QProcess *proc = new QProcess;
@@ -146,7 +172,6 @@ bool Aria2RPCInterface::checkAria2cProc()
     }
 }
 
-//关闭aria2c进程
 int Aria2RPCInterface::killAria2cProc()
 {
     QStringList opt;
@@ -155,31 +180,26 @@ int Aria2RPCInterface::killAria2cProc()
     return QProcess::execute("/bin/bash", opt);
 }
 
-//设置默认的下载路径
 void Aria2RPCInterface::setDefaultDownLoadDir(QString strDir)
 {
     this->defaultDownloadPath = strDir;
 }
 
-//获得默认的下载路径
 QString Aria2RPCInterface::getDefaultDownLoadDir()
 {
     return defaultDownloadPath;
 }
 
-//设置配置文件路径
 void Aria2RPCInterface::setConfigFilePath(const QString strPath)
 {
     configPath = strPath;
 }
 
-//获得配置文件路径
 QString Aria2RPCInterface::getConfigFilePath() const
 {
     return configPath;
 }
 
-//添加uri地址
 void Aria2RPCInterface::addUri(QString strUri, QMap<QString, QVariant> opt, QString strId)
 {
     strUri = processThunderUri(strUri); //处理迅雷链接
@@ -203,7 +223,6 @@ void Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString strId)
     qDebug() << "Add new uri" << uri;
 }
 
-//添加bt文件
 void Aria2RPCInterface::addTorrent(QString strTorrentFile, QMap<QString, QVariant> opt, QString strId)
 {
     QString torrentB64Str = fileToBase64(strTorrentFile); //把bt文件转成base64编码
@@ -218,7 +237,6 @@ void Aria2RPCInterface::addTorrent(QString strTorrentFile, QMap<QString, QVarian
     callRPC(ARIA2C_METHOD_ADD_TORRENT, ja, strId);
 }
 
-//添加磁力链地址
 void Aria2RPCInterface::addMetalink(QString strMetalink, QMap<QString, QVariant> opt, QString strId)
 {
     QString metalinkB64Str = fileToBase64(strMetalink);
@@ -242,7 +260,6 @@ QString Aria2RPCInterface::fileToBase64(QString filePath)
     return b64Str;
 }
 
-//获取bt文件信息
 Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
 {
     QProcess *pProc = new QProcess; //进程调用指针
@@ -496,7 +513,6 @@ void Aria2RPCInterface::modify_config_file(QString config_item, QString value)
     writeFile.close();
 }
 
-//同时下载的最大数
 void Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
 {
     QMap<QString, QVariant> opt;
@@ -507,7 +523,6 @@ void Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
     qDebug() << "set max download num:" << maxDownload;
 }
 
-//最大下载速度  最大上传速度
 void Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed)
 {
     QMap<QString, QVariant> opt;
@@ -531,7 +546,6 @@ void Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)
     qDebug() << "set disk cache num:" << disckCacheNum;
 }
 
-//设置最大总体下载速度
 void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadlimitSpeed)
 {
     QMap<QString, QVariant> opt;
@@ -547,7 +561,6 @@ void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadlimitSpeed)
     qDebug() << "set download limit speed:" << downloadlimitSpeed;
 }
 
-//设置最大总体上传速度
 void Aria2RPCInterface::setUploadLimitSpeed(QString UploadlimitSpeed)
 {
     QMap<QString, QVariant> opt;
@@ -653,6 +666,7 @@ QString Aria2RPCInterface::getBtToMetalink(QString strFilePath)
             return stHashValue;
         }
     }
+
     return strMetaLink;
 }
 

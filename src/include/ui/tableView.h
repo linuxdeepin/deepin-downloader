@@ -1,14 +1,33 @@
 /**
-* @file tableView.h
-* @brief 下载条目列表
-* @author zhaoyue  <zhaoyue@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 09:41
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file tableView.h
+ *
+ * @brief 下载条目列表
+ *
+ * @date 2020-06-09 09:56
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef TABLEVIEW_H
 #define TABLEVIEW_H
+
 
 #include <QTableView>
 
@@ -16,11 +35,12 @@ class Settings;
 class TableModel;
 class ItemDelegate;
 class TopButton;
+class tableDataControl;
 /**
  * @class TableView
  * @brief 下载条目列表
 */
-class TableView : public QTableView
+class TableView:public QTableView
 {
     Q_OBJECT
 public:
@@ -30,42 +50,13 @@ public:
      * @brief 获取model
      * @return model
     */
-    TableModel *getTableModel();
+    TableModel* getTableModel();
 
     /**
-     * @brief aria2下载事件
-     */
-    void aria2MethodAdd(QJsonObject &json, QString &searchContent);
-
-    /**
-     * @brief aria2状态改变事件
-     */
-    void aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow,  QString &searchContent);
-
-    /**
-     * @brief aria2关闭事件
-     */
-    void aria2MethodShutdown(QJsonObject &json);
-
-    /**
-     * @brief aria2获取文件事件
-     */
-    void aria2MethodGetFiles(QJsonObject &json, int iCurrentRow);
-
-    /**
-     * @brief aria2继续下载事件
-     */
-    void aria2MethodUnpause(QJsonObject &json, int iCurrentRow);
-
-    /**
-     * @brief aria2强制删除事件
-     */
-    void aria2MethodForceRemove(QJsonObject &json);
-
-    /**
-     * @brief 查找的文本改变
+     * @brief 获取control
+     * @return model
     */
-    void searchEditTextChanged(QString text);
+    tableDataControl* getTableControl();
 
     /**
      * @brief 刷新列表
@@ -73,10 +64,9 @@ public:
     void refreshTableView(const int &index);
 
     /**
-     * @brief 退出之前保存
+     * @brief 右键菜单
      */
-    void saveDataBeforeClose();
-
+    void onContextMenu(QPoint pos);
 private:
     /**
      * @brief 界面初始化
@@ -93,47 +83,28 @@ private:
     */
     void initTableView();
 
-    /**
-     * @brief 获取url中的文件名称
-     * @param url 下载地址
-     */
-    QString getFileName(const QString &url);
-
-    /**
-     * @brief 处理设置界面通知设置函数
-     */
-    void dealNotificaitonSettings(QString statusStr, QString fileName);
-
-    /**
-     * @brief 格式化文件大小 （1B1KB1MB1GB）
-     */
-    QString formatFileSize(long size);
-
-    /**
-     * @brief 从配置文件中获取下载路径
-     */
-    QString   getDownloadSavepathFromConfig();
-
-    /**
-     * @brief 格式化下载速度（1B1KB1MB1GB  /S）
-     */
-    QString formatDownloadSpeed(long size);
-
-
-
 signals:
 
-    void get_datachanged();
+    //void getDatachanged();
     /**
      * @brief 表头全选按键状态改变信号
      */
-    void headerStatechanged(bool checked);
-    void clearHeaderCheck();
-    void get_tableview_allchecked(bool checked);
-    void signal_hoverChanged(const QModelIndex &index);
+    void signalHeaderStatechanged(bool checked);
 
-    void signalAutoDownloadBt(QString btFilePath);
-    void signalRedownload(QString taskId, int rd);
+    /**
+     * @brief 清除表头选中状态信号
+     */
+    void signalClearHeaderCheck();
+
+    /**
+     * @brief 表头全选按键选中
+     */
+    void signalTableViewAllChecked(bool checked);
+
+    /**
+     * @brief 鼠标悬停行改变
+     */
+    void signalHoverchanged(const QModelIndex &index);
 protected:
     /**
      * @brief 鼠标按下事件
@@ -151,10 +122,10 @@ protected:
      * @brief 键盘按下事件
     */
     void keyPressEvent(QKeyEvent *event);
-
 private:
     int m_iTableFlag;
     TableModel *m_pTableModel;
+    tableDataControl * m_ptableDataControl;
     ItemDelegate *m_pItemdegegate;
     Settings *m_pSetting;
     TopButton *m_pToolBar;

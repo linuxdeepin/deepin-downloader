@@ -14,4 +14,7 @@ else()
     target_link_libraries(downloadmanager libui.so liblog.so Qt5::Core Qt5::Widgets libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
 endif()
 
+INSTALL(TARGETS downloadmanager
+RUNTIME DESTINATION share/downloadmanager
+)
 

@@ -1,46 +1,75 @@
 /**
-* @file newtaskwidget.h
-* @brief 新建任务类
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date 2020-06-01 16:01
-* @copyright 2020-2020 Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file newtaskwidget.h
+ *
+ * @brief 新建任务类
+ *
+ * @date 2020-06-09 10:52
+ *
+ * Author: bulongwei  <bulongwei@uniontech.com>
+ *
+ * Maintainer: bulongwei  <bulongwei@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef NEWTASKWIDGET_H
 #define NEWTASKWIDGET_H
 
+#include "settings.h"
 #include <DMainWindow>
-#include <QObject>
 #include <DPushButton>
 #include <DDialog>
 #include <DLabel>
 #include <DTextEdit>
-#include <QHBoxLayout>
 #include <DSuggestButton>
 #include <DFileDialog>
-#include <QSizePolicy>
-#include <QDropEvent>
-#include <QMimeData>
-#include "btinfodialog.h"
-#include "settings.h"
+#include <QObject>
+
+class BtInfoDialog;
+class MessageBox;
 
 DWIDGET_USE_NAMESPACE
 
-class newTaskWidget : public DDialog
+class  newTaskWidget :public DDialog
 {
     Q_OBJECT
 public:
-    explicit newTaskWidget(DDialog *parent = 0);
+    explicit newTaskWidget(DDialog *parent=0);
     ~newTaskWidget();
 
     void setUrl(QString url);
-
 private:
     /**
      * @brief 初始化ui
      */
     void initUi();
+
+    /**
+     * @brief 是否为磁力链接
+     * @param url 路径
+     * @return  true 为磁力链接  false 为不是磁力链接
+    */
+    bool isMagnet(QString url);
+
+    /**
+     * @brief 是否为http链接
+     * @param url 路径
+     * @return  true 为http链接  false 为不是http链接
+    */
+    bool isHttp(QString url);
 
 private slots:
     /**
@@ -55,7 +84,6 @@ private slots:
      * @brief 确定下载按钮
      */
     void onSureBtnClicked();
-
 protected:
     /**
      * @brief 拖拽处理函数
@@ -69,13 +97,25 @@ protected:
     void dropEvent(QDropEvent *event);
 
 signals:
-    void NewDownload_sig(QString url, QString save_path);
-    void newDownLoadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash);
+    /**
+     * @brief 新建http下载任务
+     * @param url http下载地址
+     * @param save_path 保存路径
+    */
+    void NewDownload_sig(QStringList urlList,QString save_path);
+    /**
+     * @brief 新建bt下载任务
+     * @param btPath bt下载地址
+     * @param opt 选项
+     * @param infoName bt文件名字
+     * @param infoHash bt文件hash值
+    */
+    void newDownLoadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
 
 private:
-    QString m_savePath; //当前保存文件路径
+    DTextEdit *m_texturl;               //url文本框
 
-    DTextEdit *m_texturl; //url文本框
 };
+
 
 #endif // NEWTASKWIDGET_H

@@ -19,7 +19,7 @@
 
 const QString DATABASE_VERISON = "1"; //数据库版本
 const QString UOS_DOWNLOAD_DATABASE_FILENAME = "uos-downloadmanager-task" + DATABASE_VERISON + ".db"; //数据库名字
-const QString UOS_DONWLOAD_DATABASE_PATH = "/usr/share/uos-downloadmanager/database/"; //备份数据库路径
+const QString UOS_DONWLOAD_DATABASE_PATH = "/usr/share/downloadmanager/database/"; //备份数据库路径
 const QString UOS_DOWNLOAD_DATABASE_OLD_FILENAME = "uos-downloadmanager-task.db"; //备份数据库名字
 
 class DataBase

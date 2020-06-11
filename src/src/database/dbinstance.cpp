@@ -34,7 +34,7 @@ bool DBInstance::delTask(QString _taskId)
         return false;
     }
     QSqlQuery _sql;
-    QString _str = QString("delete from  download_task where task_id=%1;").arg(_taskId);
+    QString _str = QString("delete from  download_task where task_id='%1';").arg(_taskId);
     _sql.prepare(_str);
     if (!_sql.exec()) {
         QSqlError error = _sql.lastError();
@@ -198,6 +198,7 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     _sql.prepare(select_all_sql);
     if (!_sql.exec()) {
         qWarning() << "select download_task,download_task_status failed : " << _sql.lastError();
+        _q.close();
         return false;
     }
     while (_sql.next()) {

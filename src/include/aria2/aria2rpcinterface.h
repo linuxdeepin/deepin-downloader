@@ -1,11 +1,29 @@
 /**
-* @file aria2rpcinterface.h
-* @brief aria2 rpc 接口类
-* @author denglinglong  <denglinglong@uniontech.com>
-* @version 1.0.0
-* @date 2020-05-26 11:55
-* @copyright 2020-2020Uniontech Technology Co., Ltd.
-*/
+ * @copyright 2020-2020} Uniontech Technology Co., Ltd.
+ *
+ * @file aria2rpcinterface.h
+ *
+ * @brief aria2 RPC 后端接口头文件
+ *
+ * @date 2020-05-26 11:55
+ *
+ * Author: denglinglong  <denglinglong@uniontech.com>
+ *
+ * Maintainer: denglinglong  <denglinglong@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef ARIA2RPCINTERFACE_H
 #define ARIA2RPCINTERFACE_H
@@ -369,7 +387,14 @@ private:
      *@return
      */
     void callRPC(QString method, QJsonArray params, QString id = "");
-    void callRPC(QString method, QString id = ""); //
+
+    /**
+     *@brief 调用RPC
+     *@param method 调用的方法   id
+     *
+     *@return
+     */
+    void callRPC(QString method, QString id = "");
 
     /**
      *@brief 发送请求
