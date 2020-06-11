@@ -380,9 +380,6 @@ private:
      * @brief 初始化DelDataItem
      */
     void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
-
-
-
 protected:
     /**
      * @brief 鼠标按下事件

@@ -2302,7 +2302,3 @@ void MainFrame::startAssociatedBTFile(bool status)
       //  this->endBtAssociat();
     }
 }
-
-
-
-
