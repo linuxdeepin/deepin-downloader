@@ -268,6 +268,12 @@ private slots:
     */
     void onDeletePermanentActionTriggered();
 
+    /**
+    * @brief 是否开启bt文件托管
+    * @param status true 为开启 false为关闭
+    */
+   void startAssociatedBTFile(bool status);
+
 private:
 
     /**
@@ -361,6 +367,16 @@ private:
      * @brief 比较时间
      */
     int  checkTime(QTime *startTime, QTime *endTime);
+
+    /**
+     * @brief 将bt文件设置右键启动
+     */
+    void startBtAssociat();
+
+    /**
+     * @brief 将bt文件关闭右键启动
+     */
+    void endBtAssociat();
 
 protected:
     /**
