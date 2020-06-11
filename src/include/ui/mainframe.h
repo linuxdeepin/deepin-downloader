@@ -271,6 +271,12 @@ private slots:
     */
     void onDeletePermanentActionTriggered();
 
+    /**
+    * @brief 是否开启bt文件托管
+    * @param status true 为开启 false为关闭
+    */
+   void startAssociatedBTFile(bool status);
+
 private:
 
     /**
@@ -374,6 +380,16 @@ private:
      * @brief 初始化DelDataItem
      */
     void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
+
+    /**
+     * @brief 将bt文件设置右键启动
+     */
+    void startBtAssociat();
+
+    /**
+     * @brief 将bt文件关闭右键启动
+     */
+    void endBtAssociat();
 
 protected:
     /**
