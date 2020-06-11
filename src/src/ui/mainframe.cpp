@@ -2247,6 +2247,50 @@ int  MainFrame::checkTime(QTime *startTime, QTime *endTime)
     return 0;
 }
 
+void MainFrame::initDataItem(Global::DataItem *data, const S_Task &tbTask)
+{
+    data->gid = tbTask.m_gid;
+    data->url = tbTask.m_url;
+    data->time = "0";
+    data->speed = "0kb/s";
+    data->taskId = tbTask.m_taskId;
+    S_Task_Status taskStatus;
+    DBInstance::getTaskStatusById(data->taskId, taskStatus);
+    if(taskStatus.m_taskId != "") {
+        data->percent = taskStatus.m_percent;
+        data->fileName = tbTask.m_downloadFilename;
+        data->savePath = tbTask.m_downloadPath;
+        data->Ischecked = 0;
+        data->totalLength = taskStatus.m_totalLength;
+        data->completedLength = taskStatus.m_compeletedLength;
+        if(taskStatus.m_downloadStatus == Global::Status::Active) {
+            data->status = Global::Status::Lastincomplete;
+        } else {
+            data->status = taskStatus.m_downloadStatus;
+        }
+        data->total = taskStatus.m_totalFromSource;
+        if(data->status == Global::Status::Complete) {
+            data->time = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
+        }
+    }
+}
+
+void MainFrame::initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData)
+{
+    S_Task_Status taskStatus;
+    DBInstance::getTaskStatusById(data->taskId, taskStatus);
+    delData->taskId = data->taskId;
+    delData->gid = data->gid;
+    delData->url = data->url;
+    delData->status = data->status;
+    delData->fileName = data->fileName;
+    delData->savePath = data->savePath;
+    delData->deleteTime = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
+    delData->totalLength = data->totalLength;
+    delData->completedLength = data->completedLength;
+    delData->finishTime = taskStatus.m_finishTime.toString("yyyy-MM-dd hh:mm:ss");
+}
+
 void MainFrame::startAssociatedBTFile(bool status)
 {
     if(status)
@@ -2394,46 +2438,3 @@ void MainFrame::endBtAssociat()
     _writerFile.close();
 }
 
-void MainFrame::initDataItem(Global::DataItem *data, const S_Task &tbTask)
-{
-    data->gid = tbTask.m_gid;
-    data->url = tbTask.m_url;
-    data->time = "0";
-    data->speed = "0kb/s";
-    data->taskId = tbTask.m_taskId;
-    S_Task_Status taskStatus;
-    DBInstance::getTaskStatusById(data->taskId, taskStatus);
-    if(taskStatus.m_taskId != "") {
-        data->percent = taskStatus.m_percent;
-        data->fileName = tbTask.m_downloadFilename;
-        data->savePath = tbTask.m_downloadPath;
-        data->Ischecked = 0;
-        data->totalLength = taskStatus.m_totalLength;
-        data->completedLength = taskStatus.m_compeletedLength;
-        if(taskStatus.m_downloadStatus == Global::Status::Active) {
-            data->status = Global::Status::Lastincomplete;
-        } else {
-            data->status = taskStatus.m_downloadStatus;
-        }
-        data->total = taskStatus.m_totalFromSource;
-        if(data->status == Global::Status::Complete) {
-            data->time = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
-        }
-    }
-}
-
-void MainFrame::initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData)
-{
-    S_Task_Status taskStatus;
-    DBInstance::getTaskStatusById(data->taskId, taskStatus);
-    delData->taskId = data->taskId;
-    delData->gid = data->gid;
-    delData->url = data->url;
-    delData->status = data->status;
-    delData->fileName = data->fileName;
-    delData->savePath = data->savePath;
-    delData->deleteTime = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
-    delData->totalLength = data->totalLength;
-    delData->completedLength = data->completedLength;
-    delData->finishTime = taskStatus.m_finishTime.toString("yyyy-MM-dd hh:mm:ss");
-}

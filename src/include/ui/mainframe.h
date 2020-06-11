@@ -372,16 +372,6 @@ private:
     int  checkTime(QTime *startTime, QTime *endTime);
 
     /**
-     * @brief 将bt文件设置右键启动
-     */
-    void startBtAssociat();
-
-    /**
-     * @brief 将bt文件关闭右键启动
-     */
-    void endBtAssociat();
-
-    /**
      * @brief 初始化DataItem
      */
     void initDataItem(Global::DataItem *data, const S_Task &tbTask);
@@ -390,6 +380,16 @@ private:
      * @brief 初始化DelDataItem
      */
     void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
+
+    /**
+     * @brief 将bt文件设置右键启动
+     */
+    void startBtAssociat();
+
+    /**
+     * @brief 将bt文件关闭右键启动
+     */
+    void endBtAssociat();
 
 protected:
     /**
