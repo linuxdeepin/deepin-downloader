@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=downloadManager;
 Comment=UOS-download-manager
-Exec=deepin-editor %F
+Exec=deepin-downloadmanager %F
 GenericName=Download
 Icon=ndm_preferencesystem_32px
 MimeType=application/torrent;
