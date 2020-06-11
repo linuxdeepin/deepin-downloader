@@ -161,6 +161,14 @@ Settings::Settings(QObject *parent) : QObject(parent)
             }
         });
 
+    // 启动时关联BT种子文件
+    auto startAssociatedBTFile = m_pSettings->option("Monitoring.BTRelation.AssociateBTFileAtStartup");
+    connect(startAssociatedBTFile, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
+            if (!value.isNull()) {
+                emit startAssociatedBTFileChanged(value.toBool());
+            }
+        });
+
     // 实现剪切板和接管下载类型关联
     auto optionClipBoard = m_pSettings->option("Monitoring.MonitoringObject.ClipBoard");
     auto optionHttpDownload = m_pSettings->option("Monitoring.MonitoringDownloadType.HttpDownload");

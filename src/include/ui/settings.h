@@ -301,6 +301,7 @@ signals:
     void maxDownloadTaskNumberChanged(int nTaskNumber);
     void downloadSettingsChanged();
     void disckCacheChanged(int nNum);
+    void startAssociatedBTFileChanged(bool bState);
 
 public slots:
 

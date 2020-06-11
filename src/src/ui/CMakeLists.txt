@@ -36,6 +36,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btheaderview.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/deleteitemthread.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/tabledatacontrol.h
 )
 
 #file(GLOB_RECURSE QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
@@ -63,6 +64,7 @@ add_library(ui SHARED
        mainframe.cpp
        tableView.cpp
        tableModel.cpp
+       tabledatacontrol.cpp
        headerView.cpp
        itemDelegate.cpp
        topButton.cpp
