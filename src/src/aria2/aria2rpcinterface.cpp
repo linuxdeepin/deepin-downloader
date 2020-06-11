@@ -32,10 +32,10 @@
 
 #include <QProcess>
 
-#define AIRA_CONFIG_PATH "/usr/share/uos-downloadmanager/config/aria2.conf"
+#define AIRA_CONFIG_PATH "/usr/share/downloadmanager/config/aria2.conf"
 
-const QString Aria2RPCInterface::basePath = "/usr/share/uos-downloadmanager/";
-const QString Aria2RPCInterface::aria2cCmd = "nfs-aria2c"; // aria2c
+const QString Aria2RPCInterface::basePath = "/usr/bin/";
+const QString Aria2RPCInterface::aria2cCmd = "aria2c"; // aria2c
 
 Aria2RPCInterface *Aria2RPCInterface::_pInstance = new Aria2RPCInterface;
 

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=uos-downloadmanager
+Exec=/usr/bin/uos-downloadmanager
+NoDisplay=true
+Terminal=false
+Type=Application
+X-Deepin-CreatedBy=com.deepin.SessionManager
+X-Deepin-AppID=uos-downloadmanager
+Hidden=false
