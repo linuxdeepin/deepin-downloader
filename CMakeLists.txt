@@ -12,12 +12,35 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置Debug  Release
-set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_BUILD_TYPE "Release")
+
+#设置安装路径
+# Install settings
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX /usr)
+endif ()
+
+if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
+
+    # generate qm
+    execute_process(COMMAND bash "translate_generation.sh"
+                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+endif ()
+
+
+#set(CMAKE_INSTALL_PREFIX /usr/local)
+#安装 /usr/local/bin目录下
+#INSTALL (TARGETS downloadmanager DESTINATION bin)
 
 #库 和 执行文件 的设置输出的路径
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib)
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin)
 
 message(STATUS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
@@ -36,7 +59,7 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 
 #应用DTK库
-set(DTK Widget Core Gui Wm)
+set(DTK Widget Core Gui Wm multimedia)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
 #调用sh生成qm文件
@@ -49,7 +72,39 @@ find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 #endif ()
 
 
+
+
 #加载子模块
 add_subdirectory(src)
 add_subdirectory(translations)
+
+#安装
+## qm files
+file(GLOB QM_FILES "translations/*.qm")
+install(FILES ${QM_FILES} DESTINATION share/downloadmanager/translations)
+
+#desktop
+install(FILES desktop/downloadmanager.desktop DESTINATION share/applications)
+#install(FILES desktop/downloadmanager.desktop DESTINATION share/downloadmanager/desktop)
+
+#datebases
+install(FILES data/uos-downloadmanager-task.db DESTINATION share/downloadmanager/database)
+
+# conf file
+install(FILES docs/aria2.conf DESTINATION share/downloadmanager/config)
+install(FILES docs/config.conf DESTINATION share/downloadmanager/config)
+
+#aria2c
+install(FILES /usr/bin/aria2c DESTINATION share/downloadmanager)
+
+#icon
+install(FILES src/src/ui/images/icon/downloader4.svg DESTINATION share/icons/hicolor/scalable/apps/)
+install(FILES src/src/ui/images/icon/downloader4.svg DESTINATION share/downloadmanager/icons/logo/)
+
+
+INSTALL(TARGETS downloadmanager log database aria2 ui
+RUNTIME DESTINATION bin
+LIBRARY DESTINATION lib
+ARCHIVE DESTINATION libstatic
+)
 
