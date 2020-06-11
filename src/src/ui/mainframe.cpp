@@ -60,6 +60,7 @@
 #include "deleteitemthread.h"
 #include "btinfodialog.h"
 #include "../database/dbinstance.h"
+#include "tabledatacontrol.h"
 
 using namespace Global;
 
@@ -75,7 +76,7 @@ MainFrame::MainFrame(QWidget *parent) :
 
 void MainFrame::init()
 {
-    m_iCurrentListviewRow = 0;
+    m_iCurrentLab = downloadingLab;
 
     // 添加设置界面
     DMenu *pSettingsMenu = new DMenu;
@@ -100,14 +101,13 @@ void MainFrame::init()
     pMainHLayout->setSpacing(0);
 
 
+
     m_pDownLoadingTableView = new TableView(downloading, m_pToolBar);
     m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
     m_pDownLoadingTableView->setColumnHidden(4, true);
 
     m_pRecycleTableView = new TableView(recycle, m_pToolBar);
     m_pRecycleTableView->verticalHeader()->setDefaultSectionSize(30);
-
-
     m_pRecycleTableView->setColumnHidden(3, true);
     setAcceptDrops(true);
     m_pLeftWidget = new QWidget;
@@ -264,8 +264,8 @@ void MainFrame::initConnection()
             &TableView::pressed,
             this,
             &MainFrame::onTableItemSelected);
-    connect(m_pDownLoadingTableView,
-            &TableView::signalRedownload,
+    connect(m_pDownLoadingTableView->getTableControl(),
+            &tableDataControl::signalRedownload,
             this,
             &MainFrame::onRedownload,
             Qt::QueuedConnection);
@@ -286,8 +286,8 @@ void MainFrame::initConnection()
             &TableView::pressed,
             this,
             &MainFrame::onTableItemSelected);
-    connect(m_pRecycleTableView,
-            &TableView::signalRedownload,
+    connect(m_pRecycleTableView->getTableControl(),
+            &tableDataControl::signalRedownload,
             this,
             &MainFrame::onRedownload,
             Qt::QueuedConnection);
@@ -405,15 +405,15 @@ void MainFrame::createNewTask(QString url)
     static newTaskWidget *pNewTaskWidget = new newTaskWidget();
 
     pNewTaskWidget->setUrl(url);
-    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDowloadUrl, Qt::UniqueConnection);
+    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDownloadUrl, Qt::UniqueConnection);
     connect(pNewTaskWidget, &newTaskWidget::newDownLoadTorrent, this, &MainFrame::getNewDownloadTorrent, Qt::UniqueConnection);
     pNewTaskWidget->exec();
 }
 
 void MainFrame::onTrayQuitClick()
 {
-    m_pDownLoadingTableView->saveDataBeforeClose();
-    m_pRecycleTableView->saveDataBeforeClose();
+    m_pDownLoadingTableView->getTableControl()->saveDataBeforeClose();
+    m_pRecycleTableView->getTableControl()->saveDataBeforeClose();
     qApp->quit();
 }
 
@@ -443,6 +443,8 @@ void MainFrame::initAria2()
 
 void MainFrame::initTabledata()
 {
+    //m_ptableDataControl->initTabledata();
+
     QList<S_Task> list;
     S_Task tbTask;
     int    task_num = 0;
@@ -450,96 +452,58 @@ void MainFrame::initTabledata()
     DBInstance::getAllTask(list);
     for(int i = 0; i < list.length(); i++) {
         DataItem *data = new DataItem;
-        data->gid = list.at(i).m_gid;
-        data->url = list.at(i).m_url;
-        data->time = "0";
-        data->speed = "0kb/s";
-        data->taskId = list.at(i).m_taskId;
-        S_Task_Status taskStatus;
-        DBInstance::getTaskStatusById(data->taskId, taskStatus);
-        if(taskStatus.m_taskId != "") {
-            data->percent = taskStatus.m_percent;
-            data->fileName = list.at(i).m_downloadFilename;
-            data->savePath = list.at(i).m_downloadPath;
-            data->Ischecked = 0;
-            data->totalLength = taskStatus.m_totalLength;
-            data->completedLength = taskStatus.m_compeletedLength;
-            if(taskStatus.m_downloadStatus == Global::Status::Active) {
-                data->status = Global::Status::Lastincomplete;
-            } else {
-                data->status = taskStatus.m_downloadStatus;
-            }
-            data->total = taskStatus.m_totalFromSource;
+        initDataItem(data, list.at(i));
+        if(data->status != Global::Status::Removed) {
             if(data->status == Global::Status::Lastincomplete) {
-                ++task_num;
-            }
-            if(data->status != Global::Status::Removed) {
-                if(data->status == Global::Status::Complete) {
-                    data->time = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
-                }
-                if(data->status == Global::Status::Lastincomplete) {
-                    m_pNotaskWidget->hide();
-                    QVariant autostart_unfinished_task_switchbutton =
-                        Settings::getInstance()->getAutostartUnfinishedTaskState();
-                    m_pDownLoadingTableView->getTableModel()->append(data);
-                    if(autostart_unfinished_task_switchbutton.toBool()) {
-                        QString savePath = getDownloadSavepathFromConfig();
-                        QMap<QString, QVariant> opt;
-                        opt.insert("dir", savePath);
-                        S_Url_Info *url_info = new S_Url_Info;
-                        S_Url_Info  getUrlInfo;
-                        DBInstance::getUrlById(data->taskId, getUrlInfo);
-                        if(getUrlInfo.m_taskId != "") {
-                            if(getUrlInfo.m_downloadType == "torrent") {
-                                QString select_num = getUrlInfo.m_selectedNum;
-                                QMap<QString, QVariant> opt;
-                                opt.insert("dir",           savePath);
-                                opt.insert("select-file", select_num);
-                                if(!QFile(getUrlInfo.m_seedFile).exists()) {
-                                    showWarningMsgbox(tr("seed file not exists or broken;"));
-                                    qDebug() << "seed file not exists or broken;";
-                                } else {
-                                    Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile,
-                                                                              opt,
-                                                                              getUrlInfo.m_taskId);
-                                    if(m_pUpdatetimer->isActive() == false) {
-                                        m_pUpdatetimer->start(2 * 1000);
-                                    }
+                m_pNotaskWidget->hide();
+                QVariant autostart_unfinished_task_switchbutton =
+                    Settings::getInstance()->getAutostartUnfinishedTaskState();
+                m_pDownLoadingTableView->getTableModel()->append(data);
+                if(autostart_unfinished_task_switchbutton.toBool()) {
+                    QString savePath = getDownloadSavepathFromConfig();
+                    QMap<QString, QVariant> opt;
+                    opt.insert("dir", savePath);
+                    S_Url_Info  getUrlInfo;
+                    DBInstance::getUrlById(data->taskId, getUrlInfo);
+                    if(getUrlInfo.m_taskId != "") {
+                        if(getUrlInfo.m_downloadType == "torrent") {
+                            QString selectNum = getUrlInfo.m_selectedNum;
+                            opt.insert("select-file", selectNum);
+                            if(!QFile(getUrlInfo.m_seedFile).exists()) {
+                                showWarningMsgbox(tr("seed file not exists or broken;"));
+                                qDebug() << "seed file not exists or broken;";
+                            } else {
+                                Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile,
+                                                                          opt,
+                                                                          getUrlInfo.m_taskId);
+                                if(m_pUpdatetimer->isActive() == false) {
+                                    m_pUpdatetimer->start(2 * 1000);
                                 }
                             }
-                        } else {
-                            downloadLimitPeriod();
-                            Aria2RPCInterface::Instance()->addUri(data->url, opt, data->taskId);
-                            if(m_pUpdatetimer->isActive() == false) {
-                                m_pUpdatetimer->start(2 * 1000);
-                            }
+                        }
+                    } else {
+                        downloadLimitPeriod();
+                        Aria2RPCInterface::Instance()->addUri(data->url, opt, data->taskId);
+                        if(m_pUpdatetimer->isActive() == false) {
+                            m_pUpdatetimer->start(2 * 1000);
                         }
                     }
-                } else {
-                    m_pDownLoadingTableView->getTableModel()->append(data);
                 }
             } else {
-                DelDataItem *deldata = new DelDataItem;
-                deldata->taskId = data->taskId;
-                deldata->gid = data->gid;
-                deldata->url = data->url;
-                deldata->status = data->status;
-                deldata->fileName = data->fileName;
-                deldata->savePath = data->savePath;
-                deldata->deleteTime = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
-                deldata->totalLength = data->totalLength;
-                deldata->completedLength = data->completedLength;
-                deldata->finishTime = taskStatus.m_finishTime.toString("yyyy-MM-dd hh:mm:ss");
-                m_pRecycleTableView->getTableModel()->append(deldata);
+                m_pDownLoadingTableView->getTableModel()->append(data);
             }
+        } else {
+            DelDataItem *deldata = new DelDataItem;
+            initDelDataItem(data, deldata);
+            m_pRecycleTableView->getTableModel()->append(deldata);
         }
     }
     m_pDownLoadingTableView->refreshTableView(0);
 
-    setTaskNum(m_iCurrentListviewRow);
+    setTaskNum(m_iCurrentLab);
 }
 
-void MainFrame::setTaskNum(int num)
+void MainFrame::setTaskNum(int currentLab)
 {
     QList<DataItem *> data_list = m_pDownLoadingTableView->getTableModel()->dataList();
     QList<DataItem *> render_list = m_pDownLoadingTableView->getTableModel()->renderList();
@@ -550,7 +514,7 @@ void MainFrame::setTaskNum(int num)
     int recycleCount = 0;
     QString active_num;
 
-    if(num == 0) {
+    if(currentLab == 0) {
         int i = 0;
         for(const auto *item : render_list) {
             if((item->status == Global::Status::Active) || (item->status == Global::Status::Paused) ||
@@ -568,7 +532,7 @@ void MainFrame::setTaskNum(int num)
         } else {
             m_pNotaskWidget->hide();
         }
-    } else if(num == 1) {
+    } else if(currentLab == 1) {
         int j = 0;
         for(const auto *item : render_list) {
             if(item->status == Global::Status::Complete) {
@@ -672,9 +636,6 @@ void MainFrame::onSettingsMenuClicked()
     pSettingsDialog->widgetFactory()->registerWidget("btdownload", Settings::createBTDownloadEditHandle);
     pSettingsDialog->widgetFactory()->registerWidget("magneticdownload", Settings::createMagneticDownloadEditHandle);
 
-    //
-    //  pSettingsDialog->widgetFactory()->registerWidget("downloadtraysetting",
-    // Settings::createDownloadTraySettingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloaddiskcachesetting",
                                                      Settings::createDownloadDiskCacheSettiingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting",
@@ -708,7 +669,7 @@ void MainFrame::onClipboardDataForBt(QString url)
 
 void MainFrame::onListClicked(const QModelIndex &index)
 {
-    m_iCurrentListviewRow = index.row();
+    m_iCurrentLab = (currentLab)index.row();
     QString DownloadTask_Lable_Text;
     if((index.row() == 0) || (index.row() == 1)) {
         m_pRightStackwidget->setCurrentIndex(0);
@@ -717,17 +678,11 @@ void MainFrame::onListClicked(const QModelIndex &index)
         bool switched = true;
         m_pDownLoadingTableView->reset(switched);
         if(index.row() == 1) {
-            // connect(m_pDownLoadingTableView,
-            // SIGNAL(doubleClicked(QModelIndex)), this,
-            // SLOT(get_doubleClicked(QModelIndex)));
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(30);
             m_pNotaskWidget->show();
             m_pNotaskLabel->setText(tr("No finished tasks"));
             m_pNotaskTipLabel->hide();
         } else {
-            // disconnect(m_pDownLoadingTableView,
-            // SIGNAL(doubleClicked(QModelIndex)), this,
-            // SLOT(get_doubleClicked(QModelIndex)));
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
             m_pNotaskLabel->setText(tr("No download tasks"));
             m_pNotaskWidget->show();
@@ -739,13 +694,10 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_pNotaskLabel->setText(tr("No deleted tasks"));
         m_pNotaskTipLabel->hide();
     }
+
     clearTableItemCheckStatus();
-
     emit switchTableSignal();
-
-    setTaskNum(m_iCurrentListviewRow);
-
-    // search begin
+    setTaskNum(m_iCurrentLab);
     onSearchEditTextChanged(this->m_pToolBar->getSearchText());
     emit tableChanged(index.row());
 }
@@ -758,11 +710,11 @@ void MainFrame::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 void MainFrame::getHeaderStatechanged(bool isChecked)
 {
     // ToolBar禁用按钮联动：表头全选复选框状体变化 begin
-    int cnt = (m_iCurrentListviewRow == 2 ? m_pRecycleTableView->getTableModel()->rowCount(QModelIndex())
+    int cnt = (m_iCurrentLab == recycleLab ? m_pRecycleTableView->getTableModel()->rowCount(QModelIndex())
                : m_pDownLoadingTableView->getTableModel()->rowCount(QModelIndex()));
 
     if(cnt > 0) {
-        if(m_iCurrentListviewRow == 0) {
+        if(m_iCurrentLab == downloadingLab) {
             m_pToolBar->enableStartBtn(isChecked);
             m_pToolBar->enablePauseBtn(isChecked);
             m_pToolBar->enableDeleteBtn(isChecked);
@@ -778,23 +730,23 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     }
 
     // end
-    if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
+    if((m_iCurrentLab == downloadingLab) || (m_iCurrentLab == finishLab)) {
         QList<DataItem *> render_list = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int j = 0; j < render_list.size(); j++) {
             DataItem *data = render_list.at(j);
             if(!isChecked) {
-                if(m_iCurrentListviewRow == 0) {
+                if(m_iCurrentLab == downloadingLab) {
                     m_iDownloadingHeaderCheckStatus = 0;
                 }
-                if(m_iCurrentListviewRow == 1) {
+                if(m_iCurrentLab == finishLab) {
                     m_iFinishHeaderCheckStatus = 0;
                 }
                 data->Ischecked = false;
             } else {
-                if(m_iCurrentListviewRow == 0) {
+                if(m_iCurrentLab == downloadingLab) {
                     m_iDownloadingHeaderCheckStatus = 2;
                 }
-                if(m_iCurrentListviewRow == 1) {
+                if(m_iCurrentLab == finishLab) {
                     m_iFinishHeaderCheckStatus = 2;
                 }
                 data->Ischecked = true;
@@ -817,7 +769,7 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::getNewDowloadUrl(QString url, QString savePath)
+void MainFrame::getNewDownloadUrl(QString url, QString savePath)
 {
     QStringList urlList = url.split("\n");
 
@@ -902,7 +854,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
 {
     int chkedCnt = 0;
 
-    if(m_iCurrentListviewRow == 2) {
+    if(m_iCurrentLab == recycleLab) {
         QList<DelDataItem *> recyleList = m_pRecycleTableView->getTableModel()->recyleList();
         for(int i = 0; i < recyleList.size(); i++) {
             if(recyleList.at(i)->Ischecked) {
@@ -926,7 +878,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     int renamCount = 0;
     int errorCount = 0;
     QMenu *delmenlist = new QMenu(this);
-    if(m_iCurrentListviewRow == 0) {
+    if(m_iCurrentLab == downloadingLab) {
         QList<DataItem *> selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(selectList.at(i)->Ischecked == 1) {
@@ -962,26 +914,22 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
         delmenlist->addSeparator();
     }
-    if(m_iCurrentListviewRow == 2) {
+    if(m_iCurrentLab == recycleLab) {
         QAction *returned_to_origin = new QAction();
         returned_to_origin->setText(tr("Restore"));
         delmenlist->addAction(returned_to_origin);
         connect(returned_to_origin, &QAction::triggered, this, &MainFrame::onReturnOriginActionTriggered);
     }
-    if((m_iCurrentListviewRow == 1) || (m_iCurrentListviewRow == 2)) {
-        QAction *pActionopenFile = new QAction();
-        pActionopenFile->setText(tr("Open"));
-        delmenlist->addAction(pActionopenFile);
-        connect(pActionopenFile, &QAction::triggered, this, &MainFrame::onOpenFileActionTriggered);
+    if((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) {
+        if(1 == chkedCnt){
+            QAction *pActionopenFile = new QAction();
+            pActionopenFile->setText(tr("Open"));
+            delmenlist->addAction(pActionopenFile);
+            connect(pActionopenFile, &QAction::triggered, this, &MainFrame::onOpenFileActionTriggered);
+        }
     }
-    QAction *pActionopenFoler = new QAction();
-    pActionopenFoler->setText(tr("Open folder"));
-    delmenlist->addAction(pActionopenFoler);
-    connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
-    if(m_iCurrentListviewRow == 0) {
-        delmenlist->addSeparator();
-    }
-    if(m_iCurrentListviewRow == 1) {
+
+    if(m_iCurrentLab == finishLab) {
         QList<DataItem *> selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(selectList.at(i)->Ischecked == 1) {
@@ -1000,28 +948,39 @@ void MainFrame::onContextMenu(const QPoint &pos)
             connect(pAction_rename, &QAction::triggered, this, &MainFrame::onRenameActionTriggered);
         }
     }
-    if((m_iCurrentListviewRow == 1) || (m_iCurrentListviewRow == 2)) {
+    if(((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
         pActionredownload->setText(tr("Download again"));
         delmenlist->addAction(pActionredownload);
         connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
     }
-    QAction *pAction_copy_download_url = new QAction();
-    pAction_copy_download_url->setText(tr("Copy download link"));
-    delmenlist->addAction(pAction_copy_download_url);
-    delmenlist->addSeparator();
-    connect(pAction_copy_download_url, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
-    if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
-        QAction *pActiondel_downloading = new QAction();
-        pActiondel_downloading->setText(tr("Delete"));
-        delmenlist->addAction(pActiondel_downloading);
-        connect(pActiondel_downloading, &QAction::triggered, this, &MainFrame::onDelActionTriggered);
+    if(1 == chkedCnt){
+        QAction *pAction_copy_download_url = new QAction();
+        pAction_copy_download_url->setText(tr("Copy download link"));
+        delmenlist->addAction(pAction_copy_download_url);
+        delmenlist->addSeparator();
+        connect(pAction_copy_download_url, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
+
+        QAction *pActionopenFoler = new QAction();
+        pActionopenFoler->setText(tr("Open folder"));
+        delmenlist->addAction(pActionopenFoler);
+        connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
+        if(m_iCurrentLab == downloadingLab) {
+            delmenlist->addSeparator();
+        }
     }
+
+    QAction *pActiondel_downloading = new QAction();
+    pActiondel_downloading->setText(tr("Delete"));
+    delmenlist->addAction(pActiondel_downloading);
+    connect(pActiondel_downloading, &QAction::triggered, this, &MainFrame::onDelActionTriggered);
+
     QAction *pAction_delete_permanently = new QAction();
     pAction_delete_permanently->setText(tr("Permanently delete"));
     delmenlist->addAction(pAction_delete_permanently);
     connect(pAction_delete_permanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
-    if(m_iCurrentListviewRow == 2) {
+
+    if(m_iCurrentLab == recycleLab) {
         QAction *pAction_clear_recycle = new QAction();
         pAction_clear_recycle->setText(tr("Empty"));
         delmenlist->addAction(pAction_clear_recycle);
@@ -1037,7 +996,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
     // ToolBar禁用按钮联动：列表内复选框状态变化 begin
     int chkedCnt = 0;
 
-    if(m_iCurrentListviewRow == 2) {
+    if(m_iCurrentLab == recycleLab) {
         QList<DelDataItem *> recyleList = m_pRecycleTableView->getTableModel()->recyleList();
         for(int i = 0; i < recyleList.size(); i++) {
             if(recyleList.at(i)->Ischecked) {
@@ -1054,23 +1013,23 @@ void MainFrame::onCheckChanged(bool checked, int flag)
     }
 
     if(chkedCnt > 0) {
-        if(m_iCurrentListviewRow == 0) {
-            this->m_pToolBar->enableStartBtn(true);
-            this->m_pToolBar->enablePauseBtn(true);
-            this->m_pToolBar->enableDeleteBtn(true);
-        } else if(m_iCurrentListviewRow == 1) {
-            this->m_pToolBar->enableStartBtn(false);
-            this->m_pToolBar->enablePauseBtn(false);
-            this->m_pToolBar->enableDeleteBtn(true);
-        } else if(m_iCurrentListviewRow == 2) {
-            this->m_pToolBar->enableStartBtn(false);
-            this->m_pToolBar->enablePauseBtn(false);
-            this->m_pToolBar->enableDeleteBtn(true);
+        if(m_iCurrentLab == downloadingLab) {
+            m_pToolBar->enableStartBtn(true);
+            m_pToolBar->enablePauseBtn(true);
+            m_pToolBar->enableDeleteBtn(true);
+        } else if(m_iCurrentLab == finishLab) {
+            m_pToolBar->enableStartBtn(false);
+            m_pToolBar->enablePauseBtn(false);
+            m_pToolBar->enableDeleteBtn(true);
+        } else if(m_iCurrentLab == recycleLab) {
+            m_pToolBar->enableStartBtn(false);
+            m_pToolBar->enablePauseBtn(false);
+            m_pToolBar->enableDeleteBtn(true);
         }
     } else {
-        this->m_pToolBar->enableStartBtn(false);
-        this->m_pToolBar->enablePauseBtn(false);
-        this->m_pToolBar->enableDeleteBtn(false);
+        m_pToolBar->enableStartBtn(false);
+        m_pToolBar->enablePauseBtn(false);
+        m_pToolBar->enableDeleteBtn(false);
     }
 
     // end
@@ -1078,7 +1037,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
 
 void MainFrame::clearTableItemCheckStatus()
 {
-    if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
+    if((m_iCurrentLab == downloadingLab) || (m_iCurrentLab == finishLab)) {
         QList<DataItem *> render_list = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int j = 0; j < render_list.size(); j++) {
             DataItem *data = render_list.at(j);
@@ -1098,9 +1057,9 @@ void MainFrame::clearTableItemCheckStatus()
 void MainFrame::onSearchEditTextChanged(QString text)
 {
     m_SearchContent = text;
-    m_pDownLoadingTableView->searchEditTextChanged(text);
-    m_pRecycleTableView->searchEditTextChanged(text);
-    setTaskNum(m_iCurrentListviewRow);
+    m_pDownLoadingTableView->getTableControl()->searchEditTextChanged(text);
+    m_pRecycleTableView->getTableControl()->searchEditTextChanged(text);
+    setTaskNum(m_iCurrentLab);
 }
 
 void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash)
@@ -1341,16 +1300,16 @@ void MainFrame::showReloadMsgbox()
 
         // 重新下载：通知aria2移除下载项
 
-        if((m_iCurrentListviewRow == 0) || (m_iCurrentListviewRow == 1)) {
+        if((m_iCurrentLab == downloadingLab) || (m_iCurrentLab == finishLab)) {
             for(int i = 0; i < m_reloadList.size(); i++) {
                 DataItem *data = m_reloadList.at(i);
-                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_"+ QString::number(m_iCurrentListviewRow)+ "_" + data->taskId);
+                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_"+ QString::number(m_iCurrentLab)+ "_" + data->taskId);
                 //Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
             }
         } else {
             for(int i = 0; i < m_recycleReloadList.size(); i++) {
                 DelDataItem *data = m_recycleReloadList.at(i);
-                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_" + QString::number(m_iCurrentListviewRow) + "_" + data->taskId);
+                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_" + QString::number(m_iCurrentLab) + "_" + data->taskId);
                 //Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
             }
         }
@@ -1387,32 +1346,15 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
     QString gid;
     QString aria_temp_file;
     QString save_path;
-    QString task_id;
+    QString taskId;
     bool    ifDeleteLocal = permanent || ischecked;
 
     if(m_pUpdatetimer->isActive()) {
         m_pUpdatetimer->stop();
     }
 
-    if(m_iCurrentListviewRow == 2) {
-        QList<DelDataItem> threadRecycleDeleteList;
-        for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
-            DelDataItem tempdata;
-            tempdata.status = m_pRecycleDeleteList.at(i)->status;
-            tempdata.Ischecked = m_pRecycleDeleteList.at(i)->Ischecked;
-            tempdata.taskId = m_pRecycleDeleteList.at(i)->taskId;
-            tempdata.fileName = m_pRecycleDeleteList.at(i)->fileName;
-            tempdata.completedLength =  m_pRecycleDeleteList.at(i)->completedLength;
-            tempdata.savePath = m_pRecycleDeleteList.at(i)->savePath;
-            tempdata.gid = m_pRecycleDeleteList.at(i)->gid;
-            tempdata.url = m_pRecycleDeleteList.at(i)->url;
-            tempdata.totalLength = m_pRecycleDeleteList.at(i)->totalLength;
-            tempdata.deleteTime = m_pRecycleDeleteList.at(i)->deleteTime;
-            tempdata.finishTime = m_pRecycleDeleteList.at(i)->finishTime;
-            threadRecycleDeleteList.append(tempdata);
-        }
-
-        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadRecycleDeleteList,
+    if(m_iCurrentLab == recycleLab) {
+        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pRecycleDeleteList,
                                                                    m_pRecycleTableView,
                                                                    Aria2RPCInterface::Instance(),
                                                                    ifDeleteLocal,
@@ -1423,42 +1365,13 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
         for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
             DelDataItem *data = new DelDataItem;
             data = m_pRecycleDeleteList.at(i);
-            task_id = data->taskId;
-
-            S_Task_Status tb_download_status;
-            DBInstance::delTask(task_id);
-
+            taskId = data->taskId;
+            DBInstance::delTask(taskId);
             m_pRecycleTableView->getTableModel()->removeItem(data);
         }
-        setTaskNum(m_iCurrentListviewRow);
+        setTaskNum(m_iCurrentLab);
     } else {
-        DataItem *data = new DataItem;
-
-        QList<DataItem> threadDeleteList;
-
-
-        for(int i = 0; i < m_pDeleteList.size(); i++) {
-            DataItem tempdata;
-
-            tempdata.status = m_pDeleteList.at(i)->status;
-            tempdata.percent = m_pDeleteList.at(i)->percent;
-            tempdata.total = m_pDeleteList.at(i)->total;
-            tempdata.Ischecked = m_pDeleteList.at(i)->Ischecked;
-            tempdata.taskId = m_pDeleteList.at(i)->taskId;
-            tempdata.fileName = m_pDeleteList.at(i)->fileName;
-            tempdata.completedLength =  m_pDeleteList.at(i)->completedLength;
-            tempdata.totalLength =  m_pDeleteList.at(i)->totalLength;
-            tempdata.savePath = m_pDeleteList.at(i)->savePath;
-            tempdata.speed = m_pDeleteList.at(i)->speed;
-            tempdata.gid = m_pDeleteList.at(i)->gid;
-            tempdata.url = m_pDeleteList.at(i)->url;
-            tempdata.time = m_pDeleteList.at(i)->time;
-            tempdata.createTime = m_pDeleteList.at(i)->createTime;
-
-            threadDeleteList.append(tempdata);
-        }
-
-        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadDeleteList,
+        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pDeleteList,
                                                                    m_pDownLoadingTableView,
                                                                    Aria2RPCInterface::Instance(),
                                                                    ifDeleteLocal,
@@ -1467,10 +1380,11 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
         pDeleteItemThread->start();
 
         for(int i = 0; i < m_pDeleteList.size(); i++) {
+            DataItem *data = new DataItem;
             data = m_pDeleteList.at(i);
             save_path = data->savePath;
             gid = data->gid;
-            task_id = data->taskId;
+            taskId = data->taskId;
             QDateTime finish_time;
             if(data->status == Complete) {
                 finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
@@ -1478,7 +1392,7 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
                 finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
             }
 
-            S_Task_Status get_status;
+            S_Task_Status getStatus;
             S_Task_Status downloadStatus(data->taskId,
                                          Global::Status::Removed,
                                          QDateTime::currentDateTime(),
@@ -1491,8 +1405,7 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
 
 
             if(permanent || ischecked) {
-                S_Task_Status tb_download_status;
-                DBInstance::delTask(task_id);
+                DBInstance::delTask(taskId);
 
                 // Aria2RPCInterface::Instance()->purgeDownloadResult(data->gid);
             }
@@ -1513,7 +1426,7 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
                 m_pRecycleTableView->getTableModel()->append(delData);
                 m_pRecycleTableView->update();
 
-                if(DBInstance::getTaskStatusById(delData->taskId, get_status)) {
+                if(DBInstance::getTaskStatusById(delData->taskId, getStatus)) {
                     DBInstance::updateTaskStatusById(downloadStatus);
                 } else {
                     DBInstance::addTaskStatus(downloadStatus);
@@ -1523,7 +1436,7 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
             m_pDownLoadingTableView->getTableModel()->removeItem(data);
         }
 
-        setTaskNum(m_iCurrentListviewRow);
+        setTaskNum(m_iCurrentLab);
     }
     if(this->m_SearchContent != "") {
         onSearchEditTextChanged(m_SearchContent);
@@ -1535,48 +1448,7 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
 
 QString   MainFrame::getDownloadSavepathFromConfig()
 {
-    QVariant downloadRadioGroup =
-        Settings::getInstance()->m_pSettings->getOption("basic.downloadDirectory.downloadDirectoryFileChooser");
-
-    QString path = "";
-
-    QString currentValue = downloadRadioGroup.toString();
-
-    // 无设置信息
-    if(currentValue.isEmpty()) {
-        path = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-    } else {
-        // 用户设置默认目录
-        if(currentValue.contains("custom;")) {
-            path = currentValue.section(QString(';'), 1, 1);
-            if(path.isEmpty()) {
-                path =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-            }
-        }
-        // 自动修改为上次使用目录
-        else {
-            QString config_path = QString("%1/%2/%3/last_save_path")
-                                  .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                                  .arg(qApp->organizationName())
-                                  .arg(qApp->applicationName());
-            QFile file;
-            file.setFileName(config_path);
-            if(file.exists()) {
-                bool isOK = file.open(QIODevice::ReadOnly);
-                if(isOK == true) {
-                    QByteArray array = file.readAll();
-
-                    path = array;
-                } else {
-                    path = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-                }
-                file.close();
-            } else {
-                path = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-            }
-        }
-    }
-    return path;
+     return Settings::getInstance()->getDownloadSavePath();
 }
 
 void MainFrame::keyPressEvent(QKeyEvent *event)
@@ -1616,7 +1488,7 @@ void MainFrame::onStartDownloadBtnClicked()
     QList<DataItem *> selectList;
     int selectedCount = 0;
 
-    if(m_iCurrentListviewRow == 0) {
+    if(m_iCurrentLab == downloadingLab) {
         selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(selectList.at(i)->Ischecked && !m_pDownLoadingTableView->isRowHidden(i)) {
@@ -1687,7 +1559,7 @@ void MainFrame::onPauseDownloadBtnClicked()
     QList<DataItem *> selectList;
     int selectedCount = 0;
 
-    if(m_iCurrentListviewRow == 0) {
+    if(m_iCurrentLab == downloadingLab) {
         selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(selectList.at(i)->Ischecked && !m_pDownLoadingTableView->isRowHidden(i)) {
@@ -1732,17 +1604,17 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
-        m_pDownLoadingTableView->aria2MethodAdd(json, m_SearchContent);
+        m_pDownLoadingTableView->getTableControl()->aria2MethodAdd(json, m_SearchContent);
     } else if(method == ARIA2C_METHOD_TELL_STATUS) {
-        m_pDownLoadingTableView->aria2MethodStatusChanged(json, m_iCurrentListviewRow, m_SearchContent);
+        m_pDownLoadingTableView->getTableControl()->aria2MethodStatusChanged(json, m_iCurrentLab, m_SearchContent);
     } else if(method == ARIA2C_METHOD_SHUTDOWN) {
-        m_pDownLoadingTableView->aria2MethodShutdown(json);
+        m_pDownLoadingTableView->getTableControl()->aria2MethodShutdown(json);
     } else if(method == ARIA2C_METHOD_GET_FILES) {
-        m_pDownLoadingTableView->aria2MethodGetFiles(json, m_iCurrentListviewRow);
+        m_pDownLoadingTableView->getTableControl()->aria2MethodGetFiles(json, m_iCurrentLab);
     } else if(method == ARIA2C_METHOD_UNPAUSE) {
-        m_pDownLoadingTableView->aria2MethodUnpause(json, m_iCurrentListviewRow);
+        m_pDownLoadingTableView->getTableControl()->aria2MethodUnpause(json, m_iCurrentLab);
     } else if(method == ARIA2C_METHOD_FORCE_REMOVE) {
-        m_pDownLoadingTableView->aria2MethodForceRemove(json);
+        m_pDownLoadingTableView->getTableControl()->aria2MethodForceRemove(json);
     }
 }
 
@@ -1818,14 +1690,14 @@ void MainFrame::updateMainUI()
             m_pUpdatetimer->stop();
         }
     }
-    setTaskNum(m_iCurrentListviewRow);
+    setTaskNum(m_iCurrentLab);
 }
 
 void MainFrame::onDelActionTriggered()
 {
     int selected_count = 0;
 
-    if(m_iCurrentListviewRow == 2) {
+    if(m_iCurrentLab == recycleLab) {
         QList<DelDataItem *> pRecycleSelectlist;
         m_pRecycleDeleteList.clear();
         pRecycleSelectlist = m_pRecycleTableView->getTableModel()->recyleList();
@@ -1842,7 +1714,7 @@ void MainFrame::onDelActionTriggered()
         for(int i = 0; i < pSelectList.size(); ++i) {
             DataItem *data = new DataItem;
 
-            if(m_iCurrentListviewRow == 1) {
+            if(m_iCurrentLab == finishLab) {
                 if(pSelectList.at(i)->status == Complete) {
                     if((pSelectList.at(i)->Ischecked == 1) && !m_pDownLoadingTableView->isRowHidden(i)) {
                         data = pSelectList.at(i);
@@ -1872,13 +1744,13 @@ void MainFrame::onRedownloadActionTriggered()
 {
     int selected_count = 0;
 
-    if((m_iCurrentListviewRow == 1) || (m_iCurrentListviewRow == 0)) {
+    if((m_iCurrentLab == finishLab) || (m_iCurrentLab == downloadingLab)) {
         QList<DataItem *> selectList;
         m_reloadList.clear();
         selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
-            if(((m_iCurrentListviewRow == 1) && (selectList.at(i)->status == Complete)) ||
-               ((m_iCurrentListviewRow == 0) && (selectList.at(i)->status == Error))) {
+            if(((m_iCurrentLab == finishLab) && (selectList.at(i)->status == Complete)) ||
+               ((m_iCurrentLab == downloadingLab) && (selectList.at(i)->status == Error))) {
                 if((selectList.at(i)->Ischecked == 1) && !m_pDownLoadingTableView->isRowHidden(i)) {
                     DataItem *data = selectList.at(i);
                     m_reloadList.append(data);
@@ -1995,7 +1867,7 @@ void MainFrame::onReturnOriginActionTriggered()
                 }
             }
             m_pRecycleTableView->getTableModel()->removeItem(data);
-            setTaskNum(m_iCurrentListviewRow);
+            setTaskNum(m_iCurrentLab);
         }
     }
     if(selected_count == 0) {
@@ -2014,7 +1886,7 @@ void MainFrame::onOpenFileActionTriggered()
     QList<DelDataItem *> delList;
     int selected_count = 0;
 
-    if(m_iCurrentListviewRow == 1) {
+    if(m_iCurrentLab == finishLab) {
         selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(selectList.at(i)->status == Complete) {
@@ -2053,7 +1925,7 @@ void MainFrame::onOpenFolderActionTriggered()
     QList<DelDataItem *> delList;
     int selected_count = 0;
 
-    if(m_iCurrentListviewRow == 2) {
+    if(m_iCurrentLab == recycleLab) {
         delList = m_pRecycleTableView->getTableModel()->recyleList();
         for(int j = 0; j < delList.size(); ++j) {
             if((delList.at(j)->Ischecked == 1) && !m_pRecycleTableView->isRowHidden(j)) {
@@ -2080,7 +1952,7 @@ void MainFrame::onOpenFolderActionTriggered()
     } else {
         selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
-            if(m_iCurrentListviewRow == 1) {
+            if(m_iCurrentLab == finishLab) {
                 if(selectList.at(i)->status == Complete) {
                     if((selectList.at(i)->Ischecked == 1) && !m_pDownLoadingTableView->isRowHidden(i)) {
                         DataItem *data = selectList.at(i);
@@ -2172,7 +2044,7 @@ void MainFrame::onCopyUrlActionTriggered()
     QString copyUrl = "";
     QString url;
 
-    if(m_iCurrentListviewRow == 2) {
+    if(m_iCurrentLab == recycleLab) {
         recycle_selectList = m_pRecycleTableView->getTableModel()->recyleList();
         for(int i = 0; i < recycle_selectList.size(); ++i) {
             DelDataItem *data = recycle_selectList.at(i);
@@ -2203,7 +2075,7 @@ void MainFrame::onCopyUrlActionTriggered()
         for(int i = 0; i < selectList.size(); ++i) {
             DataItem *data = new DataItem;
             bool isSelect = false;
-            if((m_iCurrentListviewRow == 1) && (selectList.at(i)->status == Complete)) {
+            if((m_iCurrentLab == finishLab) && (selectList.at(i)->status == Complete)) {
                 if((selectList.at(i)->Ischecked == 1) && !m_pDownLoadingTableView->isRowHidden(i)) {
                     data = selectList.at(i);
                     ++selected_count;
@@ -2251,7 +2123,7 @@ void MainFrame::onDeletePermanentActionTriggered()
 {
     int selectedCount = 0;
 
-    if(m_iCurrentListviewRow == 2) {
+    if(m_iCurrentLab == recycleLab) {
         QList<DelDataItem *> recycle_selectList;
         m_pRecycleDeleteList.clear();
         recycle_selectList = m_pRecycleTableView->getTableModel()->recyleList();
@@ -2267,7 +2139,7 @@ void MainFrame::onDeletePermanentActionTriggered()
         selectList = m_pDownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             DataItem *data = new DataItem;
-            if(m_iCurrentListviewRow == 1) {
+            if(m_iCurrentLab == finishLab) {
                 if(selectList.at(i)->status == Complete) {
                     if((selectList.at(i)->Ischecked == 1) && !m_pDownLoadingTableView->isRowHidden(i)) {
                         data = selectList.at(i);
@@ -2369,4 +2241,48 @@ int  MainFrame::checkTime(QTime *startTime, QTime *endTime)
         return -1;
     }
     return 0;
+}
+
+void MainFrame::initDataItem(Global::DataItem *data, const S_Task &tbTask)
+{
+    data->gid = tbTask.m_gid;
+    data->url = tbTask.m_url;
+    data->time = "0";
+    data->speed = "0kb/s";
+    data->taskId = tbTask.m_taskId;
+    S_Task_Status taskStatus;
+    DBInstance::getTaskStatusById(data->taskId, taskStatus);
+    if(taskStatus.m_taskId != "") {
+        data->percent = taskStatus.m_percent;
+        data->fileName = tbTask.m_downloadFilename;
+        data->savePath = tbTask.m_downloadPath;
+        data->Ischecked = 0;
+        data->totalLength = taskStatus.m_totalLength;
+        data->completedLength = taskStatus.m_compeletedLength;
+        if(taskStatus.m_downloadStatus == Global::Status::Active) {
+            data->status = Global::Status::Lastincomplete;
+        } else {
+            data->status = taskStatus.m_downloadStatus;
+        }
+        data->total = taskStatus.m_totalFromSource;
+        if(data->status == Global::Status::Complete) {
+            data->time = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
+        }
+    }
+}
+
+void MainFrame::initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData)
+{
+    S_Task_Status taskStatus;
+    DBInstance::getTaskStatusById(data->taskId, taskStatus);
+    delData->taskId = data->taskId;
+    delData->gid = data->gid;
+    delData->url = data->url;
+    delData->status = data->status;
+    delData->fileName = data->fileName;
+    delData->savePath = data->savePath;
+    delData->deleteTime = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
+    delData->totalLength = data->totalLength;
+    delData->completedLength = data->completedLength;
+    delData->finishTime = taskStatus.m_finishTime.toString("yyyy-MM-dd hh:mm:ss");
 }

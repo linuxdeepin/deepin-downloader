@@ -55,6 +55,7 @@ class TableView;
 class S_Task;
 class ClipboardTimer;
 class BtInfoDialog;
+class tableDataControl;
 
 namespace Global {
 class DataItem;
@@ -133,7 +134,7 @@ private slots:
      * @param url 收到url地址
      * @param savePath 保存路径
     */
-    void getNewDowloadUrl(QString url, QString savePath);
+    void getNewDownloadUrl(QString url, QString savePath);
 
     /**
      * @brief 收到新建任务orrent
@@ -202,6 +203,8 @@ private slots:
 
     /**
      * @brief 重新下载
+     * @param taskId 任务ID
+     * @param rd 重新开始前所在列表 正在下载、已完成、回收站
      */
 
     void onRedownload(QString taskId, int rd);
@@ -294,9 +297,9 @@ private:
 
     /**
      * @brief 设置任务数
-     * @param num 个数
+     * @param currentLab 当前显示列表，正在下载、已完成、回收站
     */
-    void setTaskNum(int num);
+    void setTaskNum(int currentLab);
 
     /**
      * @brief 设置主题模式
@@ -362,6 +365,16 @@ private:
      */
     int  checkTime(QTime *startTime, QTime *endTime);
 
+    /**
+     * @brief 初始化DataItem
+     */
+    void initDataItem(Global::DataItem *data, const S_Task &tbTask);
+
+    /**
+     * @brief 初始化DelDataItem
+     */
+    void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
+
 protected:
     /**
      * @brief 鼠标按下事件
@@ -390,6 +403,9 @@ private:
     enum tableviewFlag{
         downloading,recycle
     };
+    enum currentLab{
+        downloadingLab,finishLab,recycleLab
+    };
     TopButton *m_pToolBar;
     TableView *m_pDownLoadingTableView, *m_pRecycleTableView;
     QWidget *m_pLeftWidget;
@@ -411,7 +427,7 @@ private:
     QTimer *m_pUpdatetimer;
 
     SettingsWidget *m_pSettingWidget;
-    int m_iCurrentListviewRow; // 当前显示列表，正在下载、已完成、回收站
+    currentLab m_iCurrentLab; // 当前显示列表，正在下载、已完成、回收站
     int m_iDownloadingHeaderCheckStatus=0;
     int m_iFinishHeaderCheckStatus=0;
     QString m_SearchContent;
