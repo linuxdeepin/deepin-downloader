@@ -2291,14 +2291,14 @@ void MainFrame::initDelDataItem(Global::DataItem* data, Global::DelDataItem *del
     delData->finishTime = taskStatus.m_finishTime.toString("yyyy-MM-dd hh:mm:ss");
 }
 
-void MainFrame::startAssociatedBTFile(bool status)
-{
-    if(status)
-    {
-        //this->startBtAssociat();
-    }
-    else
-    {
-      //  this->endBtAssociat();
-    }
-}
+//void MainFrame::startAssociatedBTFile(bool status)
+//{
+//    if(status)
+//    {
+//        //this->startBtAssociat();
+//    }
+//    else
+//    {
+//      //  this->endBtAssociat();
+//    }
+//}
