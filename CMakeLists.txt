@@ -59,7 +59,7 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 
 #应用DTK库
-set(DTK Widget Core Gui Wm multimedia)
+set(DTK Widget Core Gui Wm)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
 #调用sh生成qm文件
