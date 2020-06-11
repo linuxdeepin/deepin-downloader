@@ -1840,19 +1840,19 @@ void MainFrame::onReturnOriginActionTriggered()
                 opt.insert("dir", save_path);
 
                 S_Url_Info *url_info = new S_Url_Info;
-                S_Url_Info  get_url_info;
-                DBInstance::getUrlById(returnTo_data->taskId, get_url_info);
-                if(get_url_info.m_taskId != "") {
-                    if(get_url_info.m_downloadType == "torrent") {
-                        QString select_num = get_url_info.m_selectedNum;
-                        QString seed_file_path = get_url_info.m_seedFile;
+                S_Url_Info  getUrlInfo;
+                DBInstance::getUrlById(returnTo_data->taskId, getUrlInfo);
+                if(getUrlInfo.m_taskId != "") {
+                    if(getUrlInfo.m_downloadType == "torrent") {
+                        QString select_num = getUrlInfo.m_selectedNum;
+                        QString seed_file_path = getUrlInfo.m_seedFile;
 
                         opt.insert("select-file", select_num);
 
                         if(!QFile(seed_file_path).exists()) {
                             showWarningMsgbox(tr("seed file not exists or broken;"));
                         } else {
-                            Aria2RPCInterface::Instance()->addTorrent(seed_file_path, opt, get_url_info.m_taskId);
+                            Aria2RPCInterface::Instance()->addTorrent(seed_file_path, opt, getUrlInfo.m_taskId);
                             if(m_pUpdatetimer->isActive() == false) {
                                 m_pUpdatetimer->start(2 * 1000);
                             }

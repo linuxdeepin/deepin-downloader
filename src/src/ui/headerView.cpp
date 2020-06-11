@@ -31,7 +31,7 @@
 HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
-    m_headerCbx = new DCheckBox(this);
+    m_headerCbx = new QCheckBox(this);
 
     // connect(m_headerCbx,&DCheckBox::stateChanged,this,&HeaderView::get_stateChanged);
     connect(m_headerCbx,
@@ -45,12 +45,25 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
 
     m_headerCbx->setFixedSize(25, 25);
     m_headerCbx->setVisible(true);
-    this->setSectionResizeMode(QHeaderView::ResizeToContents);
+    this->setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
+
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
         getPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     } else {
         getPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
     }
+    setSortIndicatorShown(true);
+    bool b = isSortIndicatorShown();
+    setSectionsClickable(true);
+    bool bb = sectionsClickable();
+    connect(this, &HeaderView::sortIndicatorChanged, [=]{
+        qDebug() << "sortIndicatorChanged";
+    });
+
+    connect(this, &HeaderView::sectionClicked, [=]{
+        qDebug() << "sectionClicked";
+    });
+
 }
 
 void HeaderView::updateGeometries()

@@ -28,10 +28,12 @@
 #ifndef TABLEVIEWMODEL_H
 #define TABLEVIEWMODEL_H
 
-#include "global.h"
 #include <QAbstractTableModel>
 
-using namespace Global;
+namespace Global {
+    struct DataItem;
+    struct DelDataItem;
+}
 
 /**
  * @class TableModel
@@ -70,22 +72,30 @@ public:
      * @brief 在正在下载列表添加一列
      * @param data: 数据
      */
-    void append(DataItem *data);
+    void append(Global::DataItem *data);
+
+    /**
+     * @brief 排序
+     * @param column: 列
+     * @param order: 排序方式
+     */
+    virtual void sort(int column, Qt::SortOrder order);
+
     /**
      * @brief 在回收站列表添加一列
      * @param data: 数据
      */
-    void append(DelDataItem *data);
+    void append(Global::DelDataItem *data);
     /**
      * @brief 在正在下载列表删除一列
      * @param data: 数据
      */
-    void removeItem(DataItem *data);
+    void removeItem(Global::DataItem *data);
     /**
      * @brief 在回收站列表删除一列
      * @param data: 数据
      */
-    void removeItem(DelDataItem *data);
+    void removeItem(Global::DelDataItem *data);
     /**
      * @brief 清空下载列表
      */
@@ -95,11 +105,11 @@ public:
      */
     void removeItems(bool isrecycle);
     /**
-     * @brief 切换下载状态
+     * @brief 切换到正在下载列表
      */
     void switchDownloadingMode();
     /**
-     * @brief 切换完成状态
+     * @brief 切换到已完成列表
      */
     void switchFinishedMode();
     /**
@@ -107,28 +117,28 @@ public:
      * @param gid: id
      * @return 查找到的item数据
      */
-    DataItem* find(const QString &gid);
+    Global::DataItem* find(const QString &gid);
     /**
      * @brief 根据id查找回收站item
      * @param gid: id
      * @return 查找到的item数据
      */
-    DelDataItem* find(const QString &gid, int flag);
+    Global::DelDataItem* find(const QString &gid, int flag);
     /**
      * @brief 获取正在下载列表
      * @return item列表
      */
-    const QList<DataItem *>    dataList();
+    const QList<Global::DataItem *>    dataList();
     /**
      * @brief 获取已完成下载列表
      * @return item列表
      */
-    const QList<DataItem *>    renderList();
+    const QList<Global::DataItem *>    renderList();
     /**
      * @brief 获取回收站下载列表
      * @return item列表
      */
-    const QList<DelDataItem *> recyleList();
+    const QList<Global::DelDataItem *> recyleList();
     /**
      * @brief 获取列表展示模式
      * @return 模式
@@ -138,7 +148,7 @@ public:
      * @brief 获取列表展示模式
      * @return 模式map
      */
-    QMap<QString, DataItem *>  getTableModelMap();
+    QMap<QString, Global::DataItem *>  getTableModelMap();
     /**
      * @brief 获取行数
      * @param index: 索引
@@ -166,6 +176,10 @@ public:
     QVariant headerData(int ection, Qt::Orientation orientation, int role) const;
     ~TableModel();
 
+private:
+    void sortDownload(int column, Qt::SortOrder order);
+    void sortRecycle(int column, Qt::SortOrder order);
+    double formatFileSize(QString str);
 signals:
     /**
      * @brief 改变选中
@@ -189,14 +203,14 @@ private slots:
      */
     void getCheckDatachange(int flag);
 private:
-    QList<DataItem *> m_dataList;
-    QList<DataItem *> m_renderList;
-    QMap<QString, DataItem *> m_map;
+    QList<Global::DataItem *> m_dataList;
+    QList<Global::DataItem *> m_renderList; //切换到正在下载列表就保存正在下载的数据，切换到已完成列表就保存已完成数据
+    QMap<QString, Global::DataItem *> m_map;
     Mode m_mode;
-    int TableViewTab_Flag;
+    int m_iTableviewtabFlag;
 
-    QMap<QString, DelDataItem *> m_Deletemap;
-    QList<DelDataItem *> m_recyleList;
+    QMap<QString, Global::DelDataItem *> m_Deletemap;
+    QList<Global::DelDataItem *> m_recyleList;
 };
 
 #endif // TABLEVIEWMODEL_H
