@@ -2295,146 +2295,14 @@ void MainFrame::startAssociatedBTFile(bool status)
 {
     if(status)
     {
-        this->startBtAssociat();
+        //this->startBtAssociat();
     }
     else
     {
-        this->endBtAssociat();
+      //  this->endBtAssociat();
     }
 }
 
-void MainFrame::startBtAssociat()
-{
-    QString _path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
-    QFile _readFile(_path);
-    if(!_readFile.open(QIODevice::ReadOnly))
-    {
-        qDebug()<<"error";
-        return;
-    }
-    QTextStream data(&_readFile);
-    bool isDefault;
-    bool isAdded;
-    QStringList _DefaultList;
-    QStringList _AddedList;
-    //找到 [Default Applications] 和[Added Associations] 下面中的 application/x-bittorrent=字段
-    while(!data.atEnd())
-    {
 
-        QString sLine = data.readLine();
-        if(sLine == "[Default Applications]")
-        {
-            isDefault = true;
-            isAdded = false;
-        }
-        else if(sLine == "[Added Associations]")
-        {
-            isDefault = false;
-            isAdded = true;
-        }
-        if(isDefault)
-        {
-            _DefaultList.append(sLine);
-        }
-        if(isAdded)
-        {
-            _AddedList.append(sLine);
-        }
-    }
-    //将application/x-bittorrent 字段替换为 application/x-bittorrent=uos-download.desktop。 uos-download.desktop为桌面文件夹名字
-    if(!_DefaultList.isEmpty())
-    {
-        for (int i = 0; i < _DefaultList.size(); i++)
-        {
-            if(_DefaultList[i].contains("application/x-bittorrent"))
-            {
-                _DefaultList[i] = "application/x-bittorrent=uos-download.desktop;";
-            }
-            if(i == _DefaultList.size()-1 &&
-                    !(_DefaultList[i].contains("application/x-bittorrent")))
-            {
-                _DefaultList.append("application/x-bittorrent=uos-download.desktop;");
-            }
-        }
-    }
-    else
-    {
-        qDebug()<<"[Default Associations] is Null";
-    }
-    if(!_AddedList.isEmpty())
-    {
-        for (int i = 0; i < _AddedList.size(); i++)
-        {
-            if(_AddedList[i].contains("application/x-bittorrent"))
-            {
-                _AddedList[i] = "application/x-bittorrent=uos-download.desktop;";
-            }
-            if(i == _AddedList.size()-1 &&
-                    !(_AddedList[i].contains("application/x-bittorrent")))
-            {
-                _AddedList.append("application/x-bittorrent=uos-download.desktop;");
-            }
-        }
-    }
-    else
-    {
-        qDebug()<<"[Default Associations] is Null";
-    }
-    _readFile.close();
 
-    //将替换以后的字符串，重新写入到文件中去
-    QFile _writerFile(_path);
-    _DefaultList << _AddedList;
-    if(_writerFile.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-
-    }
-    QTextStream _writeData(&_writerFile);
-
-    for (int i =0 ;i < _DefaultList.size(); i++)
-    {
-        _writeData<<_DefaultList[i] << endl;
-    }
-    _writeData.flush();
-    _writerFile.close();
-}
-
-void MainFrame::endBtAssociat()
-{
-    QString _path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
-    QFile _readFile(_path);
-    if(!_readFile.open(QIODevice::ReadOnly))
-    {
-        qDebug()<<"open file error";
-        return;
-    }
-    QTextStream data(&_readFile);
-    QStringList _list;
-    while(!data.atEnd())
-    {
-        QString sLine = data.readLine();
-        _list.append(sLine);
-    }
-    for (int i = 0; i < _list.size(); i++) {
-        if(_list[i].contains("application/x-bittorrent"))
-        {
-            _list[i] = "application/x-bittorrent=";
-        }
-    }
-    _readFile.close();
-
-    QFile _writerFile(_path);
-    if(!_writerFile.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        qDebug()<<"writer file error";
-        return;
-    }
-    QTextStream _writeData(&_writerFile);
-    for (int i =0 ;i < _list.size(); i++)
-    {
-        _writeData<<_list[i] << endl;
-    }
-    _writeData.flush();
-    _writerFile.close();
-}
 

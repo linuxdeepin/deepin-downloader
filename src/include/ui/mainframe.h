@@ -381,15 +381,7 @@ private:
      */
     void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
 
-    /**
-     * @brief 将bt文件设置右键启动
-     */
-    void startBtAssociat();
 
-    /**
-     * @brief 将bt文件关闭右键启动
-     */
-    void endBtAssociat();
 
 protected:
     /**
