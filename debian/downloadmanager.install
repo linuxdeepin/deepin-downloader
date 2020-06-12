@@ -1,0 +1,8 @@
+translations/*.qm /usr/share/downloadmanager/translations
+desktop/downloadmanager.desktop /usr/share/applications
+data/uos-downloadmanager-task.db /usr/share/downloadmanager/database
+docs/aria2.conf /usr/share/downloadmanager/config
+docs/config.conf /usr/share/downloadmanager/config
+build/bin/downloadmanager /usr/bin/downloadmanager
+build/lib/lib*.so /usr/lib
+build/bin/downloadmanager /usr/share/downloadmanager
