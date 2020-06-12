@@ -39,7 +39,6 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/tabledatacontrol.h
 )
 
-#file(GLOB_RECURSE QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
 #添加资源文件
 set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
 qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
@@ -90,12 +89,7 @@ add_library(ui SHARED
        ${QM_FILES}
 )
 
-#依赖库
-if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    target_link_libraries(ui libaria2d.so libdatabased.so Qt5::Core Qt5::Widgets Qt5::Svg libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
-else()
-    target_link_libraries(ui libaria2.so libdatabase.so Qt5::Core Qt5::Widgets Qt5::Svg libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
-endif()
+target_link_libraries(ui aria2 database dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg)
 
 
 

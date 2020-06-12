@@ -15,10 +15,11 @@ set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_BUILD_TYPE "Release")
 
 #设置安装路径
-# Install settings
-if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX /usr)
-endif ()
+set(CMAKE_INSTALL_PREFIX /usr)
+## Install settings
+#if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+#    set(CMAKE_INSTALL_PREFIX /usr)
+#endif ()
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
@@ -27,11 +28,6 @@ if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     execute_process(COMMAND bash "translate_generation.sh"
                     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif ()
-
-
-set(CMAKE_INSTALL_PREFIX /usr)
-#安装 /usr/local/bin目录下
-#INSTALL (TARGETS downloadmanager DESTINATION bin)
 
 #库 和 执行文件 的设置输出的路径
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -62,17 +58,6 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 set(DTK Widget Core Gui Wm)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
-#调用sh生成qm文件
-#if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-#    message("qm")
-#    # generate qm files
-#    execute_process(COMMAND bash "translate_generation.sh"
-#                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-#endif ()
-
-
-
 
 #加载子模块
 add_subdirectory(src)
@@ -102,9 +87,9 @@ install(FILES src/src/ui/images/icon/downloader4.svg DESTINATION share/icons/hic
 install(FILES src/src/ui/images/icon/downloader4.svg DESTINATION share/downloadmanager/icons/logo/)
 
 
-#INSTALL(TARGETS downloadmanager log database aria2 ui
-#RUNTIME DESTINATION bin
-#LIBRARY DESTINATION lib
-#ARCHIVE DESTINATION libstatic
-#)
+INSTALL(TARGETS downloadmanager log database aria2 ui
+RUNTIME DESTINATION bin
+LIBRARY DESTINATION lib
+ARCHIVE DESTINATION libstatic
+)
 

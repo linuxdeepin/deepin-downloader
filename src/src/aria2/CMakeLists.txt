@@ -3,8 +3,8 @@ include_directories(${PROJECT_SOURCE_DIR}/src/include/aria2
     )
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
-#预定义宏，主要用于dll导出
-ADD_DEFINITIONS(-DARIA_LIB )
+#预定义宏，主要用于共享库导出
+#ADD_DEFINITIONS(-DARIA_LIB )
 
 #需要moc(加Q_OBJECT)的头文件
 set (DWM_ARIA_HEADERS
@@ -22,9 +22,5 @@ add_library(aria2 SHARED
     ${DWM_ARIA_HEADERS_MOC}
 )
 
-#依赖库
-if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    target_link_libraries(aria2 liblogd.so Qt5::Core Qt5::Widgets Qt5::Network libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
-else()
-    target_link_libraries(aria2 liblog.so Qt5::Core Qt5::Widgets Qt5::Network libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
-endif()
+target_link_libraries(aria2 log Qt5::Core)
+

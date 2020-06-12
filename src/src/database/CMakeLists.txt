@@ -22,12 +22,5 @@ add_library(database SHARED
     ${DWM_DATABASE_HEADERS_MOC}
 )
 
-#依赖库
-if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    target_link_libraries(database Qt5::Core Qt5::Widgets Qt5::Sql libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
-    message("ui debug")
-else()
-    target_link_libraries(database Qt5::Core Qt5::Widgets Qt5::Sql libdtkcore.so libdtkgui.so libdtkwidget.so libdtkwm.so)
-    message("ui release")
-endif()
+target_link_libraries(database log Qt5::Core Qt5::Widgets Qt5::Sql)
 
