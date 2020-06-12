@@ -1,3 +1,9 @@
+downloadmanager (5.1.0.6) stable; urgency=low
+
+  * 完善了control
+
+ -- unknown <unknown@uniontech.com>  Wed, 12 Jun 2020 13:18:16 +0800
+
 downloadmanager (5.1.0.5) stable; urgency=low
 
   * 完善了cmakelist.txt
