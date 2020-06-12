@@ -513,11 +513,13 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
         QVariant itm = data(this->index(row, column), role);
         if(role == TableModel::Size){
             num = formatFileSize(itm.toString());
-        }
-        if(!itm.isNull()) {
             sortable.append(QPair<QVariant, int>(num, row));
-        } else   {
-            unsortable.append(row);
+        } else {
+            if(!itm.isNull()) {
+                sortable.append(QPair<QVariant, int>(num, row));
+            } else   {
+                unsortable.append(row);
+            }
         }
     }
 
@@ -562,11 +564,13 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
         QVariant itm = data(this->index(row, column), role);
         if(role == TableModel::TotalLength){
             num = formatFileSize(itm.toString());
-        }
-        if(!itm.isNull()) {
             sortable.append(QPair<QVariant, int>(num, row));
-        } else   {
-            unsortable.append(row);
+        } else{
+            if(!itm.isNull()) {
+                sortable.append(QPair<QVariant, int>(itm, row));
+            } else   {
+                unsortable.append(row);
+            }
         }
     }
     LessThan compare = (order == Qt::AscendingOrder ? &itemLessThan : &itemGreaterThan);
