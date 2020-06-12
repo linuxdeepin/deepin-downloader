@@ -24,3 +24,4 @@ add_library(database SHARED
 
 target_link_libraries(database log Qt5::Core Qt5::Widgets Qt5::Sql)
 
+install(TARGETS database DESTINATION lib)

@@ -24,3 +24,5 @@ add_library(aria2 SHARED
 
 target_link_libraries(aria2 log Qt5::Core)
 
+install(TARGETS aria2 DESTINATION lib)
+

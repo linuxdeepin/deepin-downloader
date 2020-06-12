@@ -4,3 +4,5 @@ add_library(log SHARED
     log.cpp
     )
 target_link_libraries(log Qt5::Core)
+
+install(TARGETS log DESTINATION lib)
