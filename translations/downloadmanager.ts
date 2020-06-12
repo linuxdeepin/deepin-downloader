@@ -679,30 +679,30 @@
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="360"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="366"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="363"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="369"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="367"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="376"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="373"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="382"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="369"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="378"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="375"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="384"/>
         <source>Time finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="371"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="380"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="377"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="386"/>
         <source>Time deleted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -758,12 +758,12 @@
 <context>
     <name>tableDataControl</name>
     <message>
-        <location filename="../src/src/ui/tabledatacontrol.cpp" line="490"/>
+        <location filename="../src/src/ui/tabledatacontrol.cpp" line="492"/>
         <source> download failed, network error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tabledatacontrol.cpp" line="492"/>
+        <location filename="../src/src/ui/tabledatacontrol.cpp" line="494"/>
         <source> download finished</source>
         <translation type="unfinished"></translation>
     </message>

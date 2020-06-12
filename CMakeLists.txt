@@ -102,9 +102,9 @@ install(FILES src/src/ui/images/icon/downloader4.svg DESTINATION share/icons/hic
 install(FILES src/src/ui/images/icon/downloader4.svg DESTINATION share/downloadmanager/icons/logo/)
 
 
-INSTALL(TARGETS downloadmanager log database aria2 ui
-RUNTIME DESTINATION bin
-LIBRARY DESTINATION lib
-ARCHIVE DESTINATION libstatic
-)
+#INSTALL(TARGETS downloadmanager log database aria2 ui
+#RUNTIME DESTINATION bin
+#LIBRARY DESTINATION lib
+#ARCHIVE DESTINATION libstatic
+#)
 
