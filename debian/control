@@ -2,14 +2,16 @@ Source: downloadmanager
 Section: unknown
 Priority: optional
 Maintainer: unknown <unknown@uniontech.com>
-Build-Depends: debhelper (>= 11), cmake, qt5-default, qttools5-dev-tools, qtmultimedia5-dev, libdtkwidget-dev, qttools5-dev, libdtkwm2
+Build-Depends: debhelper (>= 11), cmake, pkg-config,
+               qt5-default, qttools5-dev-tools, qtmultimedia5-dev, qttools5-dev,
+               libqt5svg5-dev,  libdtkwidget-dev, libqt5x11extras5-dev,  libdtkcore-bin,                 
+               libdtkwidget2-dev, libqt5sql5-sqlite,
 Standards-Version: 4.1.3
-Homepage: <downloader>
-#Vcs-Browser: https://salsa.debian.org/debian/downloadmanager
-#Vcs-Git: https://salsa.debian.org/debian/downloadmanager.git
+Homepage: https://www.deepin.org/
+
 
 Package: downloadmanager
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},sqlite3,qt5-qmake,libnotify-bin,aria2,libaria2
-Description: <downloader>
- <downloader>
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: download manager
+ download manager for deepin desktop environment.
