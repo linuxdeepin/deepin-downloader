@@ -1,11 +1,18 @@
 [Desktop Entry]
-Categories=downloadManager;
-Comment=UOS-download-manager
-Exec=deepin-downloadmanager %F
-GenericName=Download
+Categories=Utility;TextEditor;
+Comment=download manager
+Exec=downloadmanager %F
+GenericName=download manager
 Icon=ndm_preferencesystem_32px
 MimeType=application/torrent;
-Name=Download
+Name=DownloadManager
 StartupNotify=false
 Type=Application
 X-Deepin-Vendor=user-custom
+
+# Translations:
+# Do not manually modify!
+GenericName[zh_CN]=下载器
+GenericName[zh_TW]=下载器
+Name[zh_CN]=下载器
+Name[zh_TW]=下载器
