@@ -10,7 +10,7 @@ add_executable(downloadmanager main.cpp)
 
 target_link_libraries(downloadmanager ui log Qt5::Core)
 
-INSTALL(TARGETS downloadmanager
-RUNTIME DESTINATION share/downloadmanager
-)
+#INSTALL(TARGETS downloadmanager
+#RUNTIME DESTINATION share/downloadmanager
+#)
 

@@ -64,7 +64,7 @@ add_subdirectory(src)
 add_subdirectory(translations)
 
 #安装
-## qm files
+# qm files
 file(GLOB QM_FILES "translations/*.qm")
 install(FILES ${QM_FILES} DESTINATION share/downloadmanager/translations)
 
