@@ -2,7 +2,7 @@ Source: downloadmanager
 Section: unknown
 Priority: optional
 Maintainer: unknown <unknown@uniontech.com>
-Build-Depends: debhelper (>= 9), cmake, pkg-config, libqt5widgets5, libdtkcore-dev, libdtkwidget-dev, qt5-default, libkf5codecs-dev, qttools5-dev-tools, qtbase5-private-dev, qtbase5-dev, qttools5-dev, libdtkgui-dev,
+Build-Depends: debhelper (>= 9), cmake, pkg-config, libqt5widgets5, libdtkcore-dev, libdtkwm-dev, libdtkwidget-dev, qt5-default, libkf5codecs-dev, qttools5-dev-tools, qtbase5-private-dev, qtbase5-dev, qttools5-dev, libdtkgui-dev, libqt5svg5-dev, libdtkwidget2-dev
 Standards-Version: 4.1.3
 Homepage: https://www.deepin.org/
 
