@@ -55,7 +55,7 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 
 #应用DTK库
-set(DTK Widget Core Gui )
+set(DTK Widget Core Gui Wm)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
 

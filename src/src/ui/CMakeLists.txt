@@ -89,7 +89,7 @@ add_library(ui SHARED
        ${QM_FILES}
 )
 
-target_link_libraries(ui aria2 database dtkcore dtkgui dtkwidget Qt5::Core Qt5::Widgets Qt5::Svg)
+target_link_libraries(ui aria2 database dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg)
 
 install(TARGETS ui DESTINATION lib)
 
