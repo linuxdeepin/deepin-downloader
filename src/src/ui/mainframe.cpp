@@ -585,7 +585,11 @@ void MainFrame::onSettingsMenuClicked()
 
 void MainFrame::onClipboardDataChanged(QString url)
 {
-    createNewTask(url);
+    if(!m_bIsCopyUrlFromLocal){
+        createNewTask(url);
+    } else{
+        m_bIsCopyUrlFromLocal = false;
+    }
 }
 
 void MainFrame::onClipboardDataForBt(QString url)
@@ -1399,11 +1403,11 @@ QString   MainFrame::getDownloadSavepathFromConfig()
 void MainFrame::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Control) {
-        m_bCtrlKey_press = true;
+        m_bctrlkeyPress = true;
         qDebug() << "Key_Control";
     }
     if(event->key() == Qt::Key_A) {
-        if(m_bCtrlKey_press == true){
+        if(m_bctrlkeyPress == true){
             getHeaderStatechanged(true);
             qDebug() << "Key_Control + Key_A";
         }
@@ -1414,8 +1418,8 @@ void MainFrame::keyPressEvent(QKeyEvent *event)
 
 void MainFrame::keyReleaseEvent(QKeyEvent *event)
 {
-    if(m_bCtrlKey_press == true) {
-        m_bCtrlKey_press = false;
+    if(m_bctrlkeyPress == true) {
+        m_bctrlkeyPress = false;
     }
     QWidget::keyReleaseEvent(event);
 }
@@ -1590,7 +1594,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
 {
     bool chked = selected.model()->data(selected, TableModel::DataRole::Ischecked).toBool();
 
-    if(m_bCtrlKey_press == false) {
+    if(m_bctrlkeyPress == false) {
         QList<DataItem *> data_list = m_pDownLoadingTableView->getTableModel()->dataList();
         for(int i = 0; i < data_list.size(); i++) {
             data_list.at(i)->Ischecked = false;
@@ -1604,7 +1608,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
         ((TableModel *)selected.model())->setData(selected.model()->index(selected.row(), 0),
                                                   true,
                                                   TableModel::Ischecked);
-    } else if(m_bCtrlKey_press == true) {
+    } else if(m_bctrlkeyPress == true) {
         m_pDownLoadingTableView->reset();
         m_pRecycleTableView->reset();
         ((TableModel *)selected.model())->setData(selected.model()->index(selected.row(), 0),
@@ -2063,9 +2067,9 @@ void MainFrame::onCopyUrlActionTriggered()
     if(selected_count == 0) {
         showWarningMsgbox(tr("no item is selected,please check items!"));
     } else {
+        m_bIsCopyUrlFromLocal = true;
         QClipboard *clipboard = DApplication::clipboard();
         clipboard->setText(copyUrl);
-
         m_pTaskNum->setText(tr("download uri already copyed"));
     }
 }
