@@ -277,6 +277,27 @@ private slots:
     */
    void startAssociatedBTFile(bool status);
 
+    void getRenameConfirmSlot(QString &name);
+    /**
+     * @brief 判断下载限速
+     */
+    void onDownloadLimitChanged();
+
+    /**
+     * @brief 是否开机启动
+     */
+    void onPowerOnChanged(bool isPowerOn);
+
+    /**
+     * @brief 设置里最大任务数改变
+     */
+    void onMaxDownloadTaskNumberChanged(int nTaskNumber) ;
+
+    /**
+     * @brief 设置里磁盘缓存改变
+     */
+    void onDisckCacheChanged(int nNum);
+
 private:
 
     /**
@@ -288,14 +309,17 @@ private:
      * @brief 界面初始化
     */
     void init();
+
     /**
      * @brief 右下角托盘初始化
     */
     void initTray();
+
     /**
      * @brief 新建连接
     */
     void initConnection();
+
     /**
      * @brief 初始化三个列表，读数据库
     */
@@ -357,11 +381,6 @@ private:
     QString   getDownloadSavepathFromConfig();
 
     /**
-     * @brief 判断下载限速
-     */
-    void downloadLimitPeriod();
-
-    /**
      * @brief 判断是否在限速期间
      */
     bool checkIfInPeriod(QTime *currentTime, QTime *periodStartTime, QTime *periodEndTime);
@@ -382,6 +401,7 @@ private:
     void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
 
     /**
+<<<<<<< Updated upstream
      * @brief 将bt文件设置右键启动
      */
     void startBtAssociat();
@@ -390,22 +410,31 @@ private:
      * @brief 将bt文件关闭右键启动
      */
     void endBtAssociat();
+     /**
+     * @brief 修改aria2配置文件
+     * @param configItem 配置文件中的id
+     * @param value 配置文件中的value
+     */
+    void modifyConfigFile(QString configItem, QString value);
 
 protected:
     /**
      * @brief 鼠标按下事件
      * @param event 事件类型
      */
+
     void keyPressEvent(QKeyEvent *event);
     /**
-     * @brief 鼠标释放事件
+     * @brief 鼠标释放事件set_rename_MsgBox
      * @param event 事件类型
      */
+
     void keyReleaseEvent(QKeyEvent *event);
     /**
      * @brief 主窗口大小变化事件
      * @param event 事件类型
      */
+
     void resizeEvent(QResizeEvent *event);
 
     /**
@@ -413,7 +442,6 @@ protected:
      * @param event 事件类型
      */
     void closeEvent(QCloseEvent *event);
-
 
 private:
     enum tableviewFlag{
@@ -451,7 +479,7 @@ private:
 
     QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
     QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
-    QList<Global::DataItem*> m_renameList;
+    Global::DataItem* m_pRenamItem;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 

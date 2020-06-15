@@ -172,21 +172,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
     QString gId = result.value("gid").toString();
 
-    long totalLength = result.value("totalLength").toString().toLong();         //
-                                                                                //
-                                                                                //
-                                                                                //
-                                                                                // 字节
-    long completedLength = result.value("completedLength").toString().toLong(); //
-                                                                                //
-                                                                                //
-                                                                                //
-                                                                                // 字节
-    long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //
-                                                                                //
-                                                                                //
-                                                                                //
-                                                                                // 字节/每秒
+    long totalLength = result.value("totalLength").toString().toLong();         //字节
+    long completedLength = result.value("completedLength").toString().toLong(); //字节
+    long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //字节/每秒
     QString fileName = getFileName(filePath);
     QString statusStr = result.value("status").toString();
 
@@ -387,6 +375,16 @@ void tableDataControl::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
     }
 }
 
+void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
+{
+    QList<Global::DataItem *> pItemList = m_pTableView->getTableModel()->dataList();
+
+    foreach(DataItem * pItem, pItemList){
+        pItem->status = Global::Status::Active;
+        m_pTableView->refreshTableView(iCurrentRow);
+    }
+}
+
 void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
 {
     QString id = json.value("id").toString();
@@ -407,10 +405,10 @@ void tableDataControl::saveDataBeforeClose()
 
     if(recyclelist.size() > 0) {
         for(int j = 0; j < recyclelist.size(); j++) {
-            DelDataItem *del_data = recyclelist.at(j);
-            QDateTime    deltime = QDateTime::fromString(del_data->deleteTime, "yyyy-MM-dd hh:mm:ss");
-            S_Task task(del_data->taskId, del_data->gid, 0, del_data->url, del_data->savePath,
-                        del_data->fileName, deltime);
+            DelDataItem *pDelData = recyclelist.at(j);
+            QDateTime    deltime = QDateTime::fromString(pDelData->deleteTime, "yyyy-MM-dd hh:mm:ss");
+            S_Task task(pDelData->taskId, pDelData->gid, 0, pDelData->url, pDelData->savePath,
+                        pDelData->fileName, deltime);
 
             DBInstance::updateTaskByID(task);
         }
@@ -425,11 +423,11 @@ void tableDataControl::saveDataBeforeClose()
                         data->fileName, time);
 
             DBInstance::updateTaskByID(task);
-            QDateTime finish_time;
+            QDateTime finishTime;
             if(data->status == Global::Status::Complete) {
-                finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+                finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
             } else {
-                finish_time = QDateTime::currentDateTime();
+                finishTime = QDateTime::currentDateTime();
             }
             S_Task_Status get_status;
             int status;
@@ -439,20 +437,13 @@ void tableDataControl::saveDataBeforeClose()
                 status = Global::Status::Lastincomplete;
             }
 
-            S_Task_Status download_status(data->taskId,
-                                          status,
-                                          finish_time,
-                                          data->completedLength,
-                                          data->speed,
-                                          data->totalLength,
-                                          data->percent,
-                                          data->total,
-                                          finish_time);
+            S_Task_Status downloadStatus(data->taskId, status, finishTime, data->completedLength, data->speed,
+                                          data->totalLength,data->percent,data->total,finishTime);
 
             if(DBInstance::getTaskStatusById(data->taskId, get_status) != false) {
-                DBInstance::updateTaskStatusById(download_status);
+                DBInstance::updateTaskStatusById(downloadStatus);
             } else {
-                DBInstance::addTaskStatus(download_status);
+                DBInstance::addTaskStatus(downloadStatus);
             }
         }
     }
@@ -567,46 +558,3 @@ void tableDataControl::searchEditTextChanged(QString text)
     m_pTableView->reset();
 }
 
-void tableDataControl::initDataItem(Global::DataItem *data, const S_Task &tbTask)
-{
-    data->gid = tbTask.m_gid;
-    data->url = tbTask.m_url;
-    data->time = "0";
-    data->speed = "0kb/s";
-    data->taskId = tbTask.m_taskId;
-    S_Task_Status taskStatus;
-    DBInstance::getTaskStatusById(data->taskId, taskStatus);
-    if(taskStatus.m_taskId != "") {
-        data->percent = taskStatus.m_percent;
-        data->fileName = tbTask.m_downloadFilename;
-        data->savePath = tbTask.m_downloadPath;
-        data->Ischecked = 0;
-        data->totalLength = taskStatus.m_totalLength;
-        data->completedLength = taskStatus.m_compeletedLength;
-        if(taskStatus.m_downloadStatus == Global::Status::Active) {
-            data->status = Global::Status::Lastincomplete;
-        } else {
-            data->status = taskStatus.m_downloadStatus;
-        }
-        data->total = taskStatus.m_totalFromSource;
-        if(data->status == Global::Status::Complete) {
-            data->time = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
-        }
-    }
-}
-
-void tableDataControl::initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData)
-{
-    S_Task_Status taskStatus;
-    DBInstance::getTaskStatusById(data->taskId, taskStatus);
-    delData->taskId = data->taskId;
-    delData->gid = data->gid;
-    delData->url = data->url;
-    delData->status = data->status;
-    delData->fileName = data->fileName;
-    delData->savePath = data->savePath;
-    delData->deleteTime = taskStatus.m_modifyTime.toString("yyyy-MM-dd hh:mm:ss");
-    delData->totalLength = data->totalLength;
-    delData->completedLength = data->completedLength;
-    delData->finishTime = taskStatus.m_finishTime.toString("yyyy-MM-dd hh:mm:ss");
-}

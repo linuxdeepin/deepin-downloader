@@ -64,10 +64,13 @@
 
 using namespace Global;
 
+#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/uos-downloadmanager/desktop/"
+
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
 {
     init();
+    initTray();
     initAria2();
     initConnection();
     initTabledata();
@@ -151,7 +154,9 @@ void MainFrame::init()
     pNoTask_WidgetLayout->addStretch(5);
     QVBoxLayout *pRightLayout = new QVBoxLayout(m_pRight_Widget);
     pRightLayout->setContentsMargins(0, 0, 0, 0);
+
     m_pRightStackwidget = new QStackedWidget(this);
+    m_pRightStackwidget->setCurrentIndex(0);
 
     QPalette p_task_num;
     p_task_num.setBrush(this->backgroundRole(), QBrush(QColor(255, 255, 255, 178)));
@@ -203,17 +208,11 @@ void MainFrame::init()
     m_pLeftList->setModel(pLeftList_model);
     pLeftLayout->addWidget(m_pLeftList, 0);
 
-    // updatetimer = new QTimer(this);
     m_pLeftList->setCurrentIndex(pLeftList_model->index(0, 0));
-    m_pDownLoadingTableView->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_pRecycleTableView->setContextMenuPolicy(Qt::CustomContextMenu);
-
-    m_pRightStackwidget->setCurrentIndex(0);
 
     m_pClipboard = new ClipboardTimer; // 获取当前剪切板
-
     m_pUpdatetimer = new QTimer(this);
-    initTray();
+
 }
 
 void MainFrame::initTray()
@@ -244,6 +243,18 @@ void MainFrame::initTray()
     connect(pNewDownloadAct, &QAction::triggered, [ = ]() {
         createNewTask("");
     });
+    connect(pStartAllAct, &QAction::triggered, [=](){
+        Aria2RPCInterface::Instance()->unpauseAll();
+        if(m_pUpdatetimer->isActive() == false) {
+            m_pUpdatetimer->start(2 * 1000);
+        }
+    });
+    connect(pPauseAllAct, &QAction::triggered,  [=](){
+        Aria2RPCInterface::Instance()->pauseAll();
+//        if(m_pUpdatetimer->isActive()) {
+//            m_pUpdatetimer->stop();
+//        }
+    });
     connect(pQuitAct,      &QAction::triggered,         this, &MainFrame::onTrayQuitClick);
     connect(m_pSystemTray, &QSystemTrayIcon::activated, this, &MainFrame::onActivated);
     m_pSystemTray->setContextMenu(pTrayMenu);
@@ -252,124 +263,42 @@ void MainFrame::initTray()
 
 void MainFrame::initConnection()
 {
-    connect(m_pDownLoadingTableView,
-            &TableView::signalHeaderStatechanged,
-            this,
-            &MainFrame::getHeaderStatechanged);
-    connect(m_pDownLoadingTableView,
-            &TableView::customContextMenuRequested,
-            this,
-            &MainFrame::onContextMenu);
-    connect(m_pDownLoadingTableView,
-            &TableView::pressed,
-            this,
-            &MainFrame::onTableItemSelected);
-    connect(m_pDownLoadingTableView->getTableControl(),
-            &tableDataControl::signalRedownload,
-            this,
-            &MainFrame::onRedownload,
-            Qt::QueuedConnection);
-    connect(m_pDownLoadingTableView->getTableModel(),
-            &TableModel::signalCheckChange,
-            this,
-            &MainFrame::onCheckChanged);
+    connect(m_pDownLoadingTableView, &TableView::signalHeaderStatechanged, this, &MainFrame::getHeaderStatechanged);
+    connect(m_pDownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu);
+    connect(m_pDownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
+    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalRedownload, this, &MainFrame::onRedownload, Qt::QueuedConnection);
+    connect(m_pDownLoadingTableView->getTableModel(), &TableModel::signalCheckChange, this, &MainFrame::onCheckChanged);
 
-    connect(m_pRecycleTableView,
-            &TableView::signalHeaderStatechanged,
-            this,
-            &MainFrame::getHeaderStatechanged);
-    connect(m_pRecycleTableView,
-            &TableView::customContextMenuRequested,
-            this,
-            &MainFrame::onContextMenu);
-    connect(m_pRecycleTableView,
-            &TableView::pressed,
-            this,
-            &MainFrame::onTableItemSelected);
-    connect(m_pRecycleTableView->getTableControl(),
-            &tableDataControl::signalRedownload,
-            this,
-            &MainFrame::onRedownload,
-            Qt::QueuedConnection);
-    connect(m_pRecycleTableView->getTableModel(),
-            &TableModel::signalCheckChange,
-            this,
-            &MainFrame::onCheckChanged);
+    connect(m_pRecycleTableView, &TableView::signalHeaderStatechanged, this, &MainFrame::getHeaderStatechanged);
+    connect(m_pRecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu);
+    connect(m_pRecycleTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
+    connect(m_pRecycleTableView->getTableControl(), &tableDataControl::signalRedownload, this, &MainFrame::onRedownload, Qt::QueuedConnection);
+    connect(m_pRecycleTableView->getTableModel(), &TableModel::signalCheckChange, this, &MainFrame::onCheckChanged);
 
-    connect(this,
-            &MainFrame::switchTableSignal,
-            m_pDownLoadingTableView,
-            &TableView::signalClearHeaderCheck);
-    connect(this,
-            &MainFrame::switchTableSignal,
-            m_pRecycleTableView,
-            &TableView::signalClearHeaderCheck);
+    connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::signalClearHeaderCheck);
+    connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::signalClearHeaderCheck);
 
 
-    connect(m_pSettingAction,
-            &QAction::triggered,
-            this,
-            &MainFrame::onSettingsMenuClicked);
-    connect(m_pClipboard,
-            &ClipboardTimer::sendClipboardText,
-            this,
-            &MainFrame::onClipboardDataChanged);
-    connect(m_pClipboard,
-            &ClipboardTimer::sentBtText,
-            this,
-            &MainFrame::onClipboardDataForBt,
-            Qt::UniqueConnection);
-    connect(m_pLeftList,
-            &DListView::clicked,
-            this,
-            &MainFrame::onListClicked);
-    connect(DGuiApplicationHelper::instance(),
-            &DGuiApplicationHelper::paletteTypeChanged,
-            this,
-            &MainFrame::onPalettetypechanged);
-    connect(m_pUpdatetimer,
-            &QTimer::timeout,
-            this,
-            &MainFrame::updateMainUI);
+    connect(m_pSettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
+    connect(m_pClipboard, &ClipboardTimer::sendClipboardText, this, &MainFrame::onClipboardDataChanged);
+    connect(m_pClipboard, &ClipboardTimer::sentBtText, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
+    connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
+    connect(m_pUpdatetimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
 
-    connect(m_pToolBar,
-            &TopButton::newDownloadBtnClicked,
-            this,
-            &MainFrame::onNewBtnClicked);
-    connect(m_pToolBar,
-            &TopButton::getSearchEditTextChange,
-            this,
-            &MainFrame::onSearchEditTextChanged);
-    connect(m_pToolBar,
-            &TopButton::startDownloadBtnClicked,
-            this,
-            &MainFrame::onStartDownloadBtnClicked);
-    connect(m_pToolBar,
-            &TopButton::pauseDownloadBtnClicked,
-            this,
-            &MainFrame::onPauseDownloadBtnClicked);
-    connect(m_pToolBar,
-            &TopButton::deleteDownloadBtnClicked,
-            this,
-            &MainFrame::onDeleteDownloadBtnClicked);
-    connect(this,
-            &MainFrame::tableChanged,
-            m_pToolBar,
-            &TopButton::getTableChanged);
-    connect(this,
-            &MainFrame::signalRedownload,
-            this,
-            &MainFrame::onRedownload,
-            Qt::QueuedConnection);
+    connect(m_pToolBar, &TopButton::newDownloadBtnClicked, this, &MainFrame::onNewBtnClicked);
+    connect(m_pToolBar, &TopButton::getSearchEditTextChange, this, &MainFrame::onSearchEditTextChanged);
+    connect(m_pToolBar, &TopButton::startDownloadBtnClicked, this, &MainFrame::onStartDownloadBtnClicked);
+    connect(m_pToolBar, &TopButton::pauseDownloadBtnClicked, this, &MainFrame::onPauseDownloadBtnClicked);
+    connect(m_pToolBar, &TopButton::deleteDownloadBtnClicked, this, &MainFrame::onDeleteDownloadBtnClicked);
+    connect(this, &MainFrame::tableChanged, m_pToolBar, &TopButton::getTableChanged);
+    connect(this, &MainFrame::signalRedownload, this, &MainFrame::onRedownload, Qt::QueuedConnection);
 
-    connect(Settings::getInstance(),
-            &Settings::downloadSettingsChanged,
-            this,
-            &MainFrame::downloadLimitPeriod);
-    connect(Settings::getInstance(),
-            &Settings::startAssociatedBTFileChanged,
-            this,
-            &MainFrame::startAssociatedBTFile);
+    connect(Settings::getInstance(), &Settings::downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
+    connect(Settings::getInstance(), &Settings::poweronChanged, this, &MainFrame::onPowerOnChanged);
+    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
+    //connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onDownloadLimitChanged);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -406,6 +335,11 @@ void MainFrame::closeEvent(QCloseEvent *event)
 
 void MainFrame::createNewTask(QString url)
 {
+    if(Settings::getInstance()->getNewTaskShowMainWindowState()) {
+        activateWindow();
+        setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+        show();
+    }
     static newTaskWidget *pNewTaskWidget = new newTaskWidget();
 
     pNewTaskWidget->setUrl(url);
@@ -486,7 +420,7 @@ void MainFrame::initTabledata()
                             }
                         }
                     } else {
-                        downloadLimitPeriod();
+                        onDownloadLimitChanged();
                         Aria2RPCInterface::Instance()->addUri(data->url, opt, data->taskId);
                         if(m_pUpdatetimer->isActive() == false) {
                             m_pUpdatetimer->start(2 * 1000);
@@ -1156,7 +1090,7 @@ void MainFrame::onRedownload(QString taskId, int rd)
 
         // QString save_path=get_download_savePath_from_config();
 
-        downloadLimitPeriod();
+        onDownloadLimitChanged();
 
         DBInstance::delTask(taskId);
         S_Url_Info getUrlInfo;
@@ -1230,7 +1164,7 @@ void MainFrame::onRedownload(QString taskId, int rd)
 
 
         m_pRecycleTableView->getTableModel()->removeItem(data);
-        downloadLimitPeriod();
+        onDownloadLimitChanged();
 
         // QString  save_path=get_download_savePath_from_config();
         DBInstance::delTask(taskId);
@@ -1337,7 +1271,12 @@ void MainFrame::showDeleteMsgbox(bool permanently)
 
 void MainFrame::showRenameMsgbox()
 {
+    MessageBox *msg = new MessageBox();
 
+    connect(msg, &MessageBox::RenameSig, this, &MainFrame::getRenameConfirmSlot);
+    QString title = tr("Rename");
+    msg->setReName(title, tr("sure"), tr("cancel"), m_pRenamItem->fileName);
+    msg->exec();
 }
 
 void MainFrame::onAria2Remove(QString gId, QString id)
@@ -1619,6 +1558,8 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
         m_pDownLoadingTableView->getTableControl()->aria2MethodUnpause(json, m_iCurrentLab);
     } else if(method == ARIA2C_METHOD_FORCE_REMOVE) {
         m_pDownLoadingTableView->getTableControl()->aria2MethodForceRemove(json);
+    } else if(method == ARIA2C_METHOD_UNPAUSE_ALL) {
+        m_pDownLoadingTableView->getTableControl()->aria2MethodUnpauseAll(json, m_iCurrentLab);
     }
 }
 
@@ -1863,7 +1804,7 @@ void MainFrame::onReturnOriginActionTriggered()
                         }
                     }
                 } else {
-                    downloadLimitPeriod();
+                    onDownloadLimitChanged();
                     Aria2RPCInterface::Instance()->addUri(returnTo_data->url, opt, returnTo_data->taskId);
                     if(m_pUpdatetimer->isActive() == false) {
                         m_pUpdatetimer->start(2 * 1000);
@@ -2016,20 +1957,19 @@ void MainFrame::onOpenFolderActionTriggered()
 void MainFrame::onRenameActionTriggered()
 {
     QList<DataItem *> selectList;
-    int selected_count = 0;
+    int selectedCount = 0;
 
-    m_renameList.clear();
     selectList = m_pDownLoadingTableView->getTableModel()->renderList();
     for(int i = 0; i < selectList.size(); ++i) {
         if(selectList.at(i)->status == Complete) {
             if(selectList.at(i)->Ischecked == 1) {
                 DataItem *data = selectList.at(i);
-                m_renameList.append(data);
-                ++selected_count;
+                m_pRenamItem = data;
+                ++selectedCount;
             }
         }
     }
-    if(selected_count == 0) {
+    if(selectedCount == 0) {
         showWarningMsgbox(tr("no item is selected,please check items!"));
     } else {
         showRenameMsgbox();
@@ -2169,7 +2109,22 @@ void MainFrame::onDeletePermanentActionTriggered()
     }
 }
 
-void MainFrame::downloadLimitPeriod()
+void MainFrame::getRenameConfirmSlot(QString &name)
+{
+    if(name == m_pRenamItem->fileName){
+        return;
+    }
+
+    QString FilePath;
+    FilePath = m_pRenamItem->savePath.left(m_pRenamItem->savePath.length()
+                                           - m_pRenamItem->fileName.length());
+    QFile::rename(FilePath + m_pRenamItem->fileName, FilePath + name);
+    m_pRenamItem->fileName = name;
+    m_pRenamItem->savePath = FilePath + name;
+    m_pDownLoadingTableView->update();
+}
+
+void MainFrame::onDownloadLimitChanged()
 {
     QTime   current_time = QTime::currentTime();
     QTime  *periodStartTime = new QTime();
@@ -2197,6 +2152,90 @@ void MainFrame::downloadLimitPeriod()
     } else {
         Aria2RPCInterface::Instance()->setDownloadUploadSpeed(downloadSpeed, uploadSpeed);
     }
+}
+
+void MainFrame::onPowerOnChanged(bool isPowerOn)
+{
+    QString autostartDesktop = "autostart/downloadmanager.desktop";
+    QString defaultDesktop = "downloadmanager.desktop";
+    QString userDefaultDesktopPath = QString("%1/autostart/")
+                                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+
+    if(isPowerOn == 0) {
+        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(
+            userDefaultDesktopPath);
+        char *ch;
+        QByteArray ba = cmd.toLatin1();
+        ch = ba.data();
+        system(ch);
+    } else {
+        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + autostartDesktop).arg(
+            userDefaultDesktopPath);
+        char *ch;
+        QByteArray ba = cmd.toLatin1();
+        ch = ba.data();
+        system(ch);
+    }
+}
+
+void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
+{
+    QMap<QString, QVariant> opt;
+    QString value = QString("max-concurrent-downloads=%1").arg(nTaskNumber);
+
+    modifyConfigFile("max-concurrent-downloads=", value);
+    opt.insert("max-concurrent-downloads", nTaskNumber);
+    Aria2RPCInterface::Instance()->changeGlobalOption(opt);
+}
+
+void MainFrame::onDisckCacheChanged(int nNum)
+{
+    QMap<QString, QVariant> opt;
+    QString cacheNum = QString().number(nNum) + "M";
+
+    opt.insert("disk-cache", cacheNum);
+    Aria2RPCInterface::Instance()->changeGlobalOption(opt);
+    QString value = "disk-cache=" + cacheNum;
+    modifyConfigFile("disk-cache=", value);
+}
+
+void MainFrame::modifyConfigFile(QString configItem, QString value)
+{
+    QString strAll;
+    QStringList strList;
+
+    QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
+                                .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                                .arg(qApp->organizationName())
+                                .arg(qApp->applicationName());
+
+    QFile readFile(m_aria2configPath);
+
+    if(readFile.open((QIODevice::ReadOnly | QIODevice::Text))) {
+        QTextStream stream(&readFile);
+        strAll = stream.readAll();
+    }
+    readFile.close();
+    QFile writeFile(m_aria2configPath);
+    if(writeFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream stream(&writeFile);
+        strList = strAll.split("\n");
+        for(int i = 0; i < strList.count(); i++) {
+            if(strList.at(i).contains(configItem)) {
+                QString tempStr = strList.at(i);
+                tempStr.replace(0, tempStr.length(), value);
+                stream << tempStr << '\n';
+            } else {
+                if(i == strList.count() - 1) {
+                    // 最后一行不需要换行
+                    stream << strList.at(i);
+                } else {
+                    stream << strList.at(i) << '\n';
+                }
+            }
+        }
+    }
+    writeFile.close();
 }
 
 bool MainFrame::checkIfInPeriod(QTime *currentTime, QTime *periodStartTime, QTime *periodEndTime)

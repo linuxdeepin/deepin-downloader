@@ -71,6 +71,12 @@ public:
     void aria2MethodUnpause(QJsonObject &json, int iCurrentRow);
 
     /**
+     * @brief aria2继续下载事件
+     */
+    void aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow);
+
+
+    /**
      * @brief aria2强制删除事件
      */
     void aria2MethodForceRemove(QJsonObject &json);
@@ -84,11 +90,6 @@ public:
      * @brief 查找的文本改变
     */
     void searchEditTextChanged(QString text);
-
-    void initDataItem(Global::DataItem *data, const S_Task &tbTask);
-
-    void initDelDataItem(Global::DataItem* data, Global::DelDataItem *deldata);
-
 
 private:
 
@@ -122,8 +123,6 @@ private:
      * @brief 检查文件是否存在
      */
     bool checkFileExist(QString &filePath);
-
-
 
 signals:
     /**
