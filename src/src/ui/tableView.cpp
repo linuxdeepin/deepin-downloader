@@ -71,13 +71,8 @@ void TableView::initUI()
     setMinimumWidth(636);
     setMouseTracking(true);
     setSortingEnabled(true);
-
-    // this->setMaximumWidth(2000);
+    setContextMenuPolicy(Qt::CustomContextMenu);
     verticalHeader()->hide();
-
-    // this->verticalHeader()->setDefaultSectionSize(56);
-
-
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
 
