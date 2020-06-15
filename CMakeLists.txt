@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置Debug  Release
-set(CMAKE_BUILD_TYPE "Release")
+#set(CMAKE_BUILD_TYPE "Release")
 
 #设置安装路径
 set(CMAKE_INSTALL_PREFIX /usr)
@@ -23,7 +23,7 @@ set(CMAKE_INSTALL_PREFIX /usr)
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
-
+    message("release")
     # generate qm
     execute_process(COMMAND bash "translate_generation.sh"
                     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -76,8 +76,8 @@ install(FILES desktop/downloadmanager.desktop DESTINATION share/applications)
 install(FILES data/uos-downloadmanager-task.db DESTINATION share/downloadmanager/database)
 
 # conf file
-install(FILES docs/aria2.conf DESTINATION share/downloadmanager/config)
-install(FILES docs/config.conf DESTINATION share/downloadmanager/config)
+file(GLOB CF_FILES "docs/*.conf")
+install(FILES ${CF_FILES} DESTINATION share/downloadmanager/config)
 
 #aria2c
 #install(FILES /usr/bin/aria2c DESTINATION share/downloadmanager)
