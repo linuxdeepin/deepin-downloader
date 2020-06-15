@@ -241,8 +241,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="411"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1469"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1798"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1471"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1800"/>
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -353,21 +353,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1495"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1536"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1682"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1721"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1819"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1863"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1953"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1973"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2057"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2106"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1497"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1538"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1684"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1723"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1821"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1865"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1955"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1975"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2059"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2108"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2062"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2064"/>
         <source>download uri already copyed</source>
         <translation type="unfinished"></translation>
     </message>

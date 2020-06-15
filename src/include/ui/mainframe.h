@@ -401,7 +401,6 @@ private:
     void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
 
     /**
-<<<<<<< Updated upstream
      * @brief 将bt文件设置右键启动
      */
     void startBtAssociat();
@@ -419,13 +418,13 @@ private:
 
 protected:
     /**
-     * @brief 鼠标按下事件
+     * @brief 键盘按下事件
      * @param event 事件类型
      */
 
     void keyPressEvent(QKeyEvent *event);
     /**
-     * @brief 鼠标释放事件set_rename_MsgBox
+     * @brief 键盘释放事件set_rename_MsgBox
      * @param event 事件类型
      */
 
@@ -468,7 +467,7 @@ private:
     QSystemTrayIcon *m_pSystemTray;
     ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
-    QTimer *m_pUpdatetimer;
+    QTimer *m_pUpdateTimer;
 
     SettingsWidget *m_pSettingWidget;
     currentLab m_iCurrentLab; // 当前显示列表，正在下载、已完成、回收站

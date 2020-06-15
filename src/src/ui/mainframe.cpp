@@ -211,8 +211,7 @@ void MainFrame::init()
     m_pLeftList->setCurrentIndex(pLeftList_model->index(0, 0));
 
     m_pClipboard = new ClipboardTimer; // 获取当前剪切板
-    m_pUpdatetimer = new QTimer(this);
-
+    m_pUpdateTimer = new QTimer(this);
 }
 
 void MainFrame::initTray()
@@ -245,8 +244,8 @@ void MainFrame::initTray()
     });
     connect(pStartAllAct, &QAction::triggered, [=](){
         Aria2RPCInterface::Instance()->unpauseAll();
-        if(m_pUpdatetimer->isActive() == false) {
-            m_pUpdatetimer->start(2 * 1000);
+        if(m_pUpdateTimer->isActive() == false) {
+            m_pUpdateTimer->start(2 * 1000);
         }
     });
     connect(pPauseAllAct, &QAction::triggered,  [=](){
@@ -284,7 +283,7 @@ void MainFrame::initConnection()
     connect(m_pClipboard, &ClipboardTimer::sentBtText, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
     connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
-    connect(m_pUpdatetimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
+    connect(m_pUpdateTimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
 
     connect(m_pToolBar, &TopButton::newDownloadBtnClicked, this, &MainFrame::onNewBtnClicked);
     connect(m_pToolBar, &TopButton::getSearchEditTextChange, this, &MainFrame::onSearchEditTextChanged);
@@ -414,16 +413,16 @@ void MainFrame::initTabledata()
                                 Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile,
                                                                           opt,
                                                                           getUrlInfo.m_taskId);
-                                if(m_pUpdatetimer->isActive() == false) {
-                                    m_pUpdatetimer->start(2 * 1000);
+                                if(m_pUpdateTimer->isActive() == false) {
+                                    m_pUpdateTimer->start(2 * 1000);
                                 }
                             }
                         }
                     } else {
                         onDownloadLimitChanged();
                         Aria2RPCInterface::Instance()->addUri(data->url, opt, data->taskId);
-                        if(m_pUpdatetimer->isActive() == false) {
-                            m_pUpdatetimer->start(2 * 1000);
+                        if(m_pUpdateTimer->isActive() == false) {
+                            m_pUpdateTimer->start(2 * 1000);
                         }
                     }
                 }
@@ -616,11 +615,13 @@ void MainFrame::onListClicked(const QModelIndex &index)
         bool switched = true;
         m_pDownLoadingTableView->reset(switched);
         if(index.row() == 1) {
+            m_pDownLoadingTableView->setFocus();
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(30);
             m_pNotaskWidget->show();
             m_pNotaskLabel->setText(tr("No finished tasks"));
             m_pNotaskTipLabel->hide();
         } else {
+            m_pDownLoadingTableView->setFocus();
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(56);
             m_pNotaskLabel->setText(tr("No download tasks"));
             m_pNotaskWidget->show();
@@ -628,6 +629,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
         }
     } else {
         m_pRightStackwidget->setCurrentIndex(1);
+        m_pRecycleTableView->setFocus();
         m_pNotaskWidget->show();
         m_pNotaskLabel->setText(tr("No deleted tasks"));
         m_pNotaskTipLabel->hide();
@@ -746,8 +748,8 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath)
     m_pNotaskWidget->hide();
 
     // 定时器打开
-    if(m_pUpdatetimer->isActive() == false) {
-        m_pUpdatetimer->start(2 * 1000);
+    if(m_pUpdateTimer->isActive() == false) {
+        m_pUpdateTimer->start(2 * 1000);
     }
 }
 
@@ -1208,8 +1210,8 @@ void MainFrame::onRedownload(QString taskId, int rd)
         }
     }
     updateMainUI();
-    if(m_pUpdatetimer->isActive() == false) {
-        m_pUpdatetimer->start(2 * 1000);
+    if(m_pUpdateTimer->isActive() == false) {
+        m_pUpdateTimer->start(2 * 1000);
     }
 }
 
@@ -1292,8 +1294,8 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
     QString taskId;
     bool    ifDeleteLocal = permanent || ischecked;
 
-    if(m_pUpdatetimer->isActive()) {
-        m_pUpdatetimer->stop();
+    if(m_pUpdateTimer->isActive()) {
+        m_pUpdateTimer->stop();
     }
 
     if(m_iCurrentLab == recycleLab) {
@@ -1384,8 +1386,8 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
     if(this->m_SearchContent != "") {
         onSearchEditTextChanged(m_SearchContent);
     }
-    if(m_pUpdatetimer->isActive() == false) {
-        m_pUpdatetimer->start(2 * 1000);
+    if(m_pUpdateTimer->isActive() == false) {
+        m_pUpdateTimer->start(2 * 1000);
     }
 }
 
@@ -1398,9 +1400,14 @@ void MainFrame::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Control) {
         m_bCtrlKey_press = true;
+        qDebug() << "Key_Control";
     }
-    if((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_C)) {
-        return;
+    if(event->key() == Qt::Key_A) {
+        if(m_bCtrlKey_press == true){
+            getHeaderStatechanged(true);
+            qDebug() << "Key_Control + Key_A";
+        }
+
     }
     QWidget::keyPressEvent(event);
 }
@@ -1472,16 +1479,16 @@ void MainFrame::onStartDownloadBtnClicked()
                                     Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile,
                                                                               opt,
                                                                               getUrlInfo.m_taskId);
-                                    if(m_pUpdatetimer->isActive() == false) {
-                                        m_pUpdatetimer->start(2 * 1000);
+                                    if(m_pUpdateTimer->isActive() == false) {
+                                        m_pUpdateTimer->start(2 * 1000);
                                     }
                                 }
                             }
                         } else {
                             // deal_download_upload_limit_period();
                             Aria2RPCInterface::Instance()->addUri(selectList.at(i)->url, opt, selectList.at(i)->taskId);
-                            if(m_pUpdatetimer->isActive() == false) {
-                                m_pUpdatetimer->start(2 * 1000);
+                            if(m_pUpdateTimer->isActive() == false) {
+                                m_pUpdateTimer->start(2 * 1000);
                             }
                         }
                     } else {
@@ -1631,8 +1638,8 @@ void MainFrame::updateMainUI()
           slot_searchEditTextChange(this->g_search_content);
        }*/
     if(activeCount == 0) {
-        if(m_pUpdatetimer->isActive()) {
-            m_pUpdatetimer->stop();
+        if(m_pUpdateTimer->isActive()) {
+            m_pUpdateTimer->stop();
         }
     }
     setTaskNum(m_iCurrentLab);
@@ -1798,16 +1805,16 @@ void MainFrame::onReturnOriginActionTriggered()
                             showWarningMsgbox(tr("seed file not exists or broken;"));
                         } else {
                             Aria2RPCInterface::Instance()->addTorrent(seed_file_path, opt, getUrlInfo.m_taskId);
-                            if(m_pUpdatetimer->isActive() == false) {
-                                m_pUpdatetimer->start(2 * 1000);
+                            if(m_pUpdateTimer->isActive() == false) {
+                                m_pUpdateTimer->start(2 * 1000);
                             }
                         }
                     }
                 } else {
                     onDownloadLimitChanged();
                     Aria2RPCInterface::Instance()->addUri(returnTo_data->url, opt, returnTo_data->taskId);
-                    if(m_pUpdatetimer->isActive() == false) {
-                        m_pUpdatetimer->start(2 * 1000);
+                    if(m_pUpdateTimer->isActive() == false) {
+                        m_pUpdateTimer->start(2 * 1000);
                     }
                 }
             }
