@@ -80,7 +80,7 @@ install(FILES docs/aria2.conf DESTINATION share/downloadmanager/config)
 install(FILES docs/config.conf DESTINATION share/downloadmanager/config)
 
 #aria2c
-install(FILES /usr/bin/aria2c DESTINATION share/downloadmanager)
+#install(FILES /usr/bin/aria2c DESTINATION share/downloadmanager)
 
 #icon
 install(FILES src/src/ui/images/icon/downloader4.svg DESTINATION share/icons/hicolor/scalable/apps/)
