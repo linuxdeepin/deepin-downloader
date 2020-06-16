@@ -40,27 +40,6 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-
-    QLocale locale;
-    QTranslator translator; //新建翻译类
-    QString strFileName = ""; // qm文件名称
-    switch (locale.language()) // 取得当前系统语言，设置相关qm文件名称
-    {
-        case QLocale::Chinese:
-        {
-            strFileName = "downloadmanager.qm";
-            break;
-        }
-        default:
-            break;
-    }
-
-    if(strFileName.isEmpty() == false)
-    {
-        translator.load(strFileName); //导入生成的文件
-        a.installTranslator(&translator); //装入
-    }
-
     // 保存程序的窗口主题设置
     DApplicationSettings as;
     Q_UNUSED(as)
