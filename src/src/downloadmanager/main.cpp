@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     {
         case QLocale::Chinese:
         {
-            strFileName = "downloadmanager.qm";
+            strFileName = "downloadmanager_zh_CN.qm";
             break;
         }
         default:

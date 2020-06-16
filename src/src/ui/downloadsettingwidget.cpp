@@ -43,7 +43,7 @@ void DownloadSettingWidget::initUI()
     m_pFullSpeedDownloadButton = new DRadioButton(tr("Speed unlimited")); // 全速下载
     DLabel *pFullSpeedLabel = new DLabel;
     // 下载文件会通过P2P的方式上传分享，帮助其他网友加速下载，不会涉及任何用户隐私。
-    pFullSpeedLabel->setText(tr("Downloaded files will be uploaded through P2P, which could help other users speed up the downloading, does not involve the privacy."));
+    pFullSpeedLabel->setText(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
     pFullSpeedLabel->setWordWrap(true);
     m_pSpeedLimitDownloadButton = new DRadioButton(tr("Speed limited")); // 限速下载
     m_pSpeedLimitDownloadButton->setChecked(true);

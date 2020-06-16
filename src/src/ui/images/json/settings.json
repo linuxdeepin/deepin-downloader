@@ -35,11 +35,11 @@
                 },
                 {
                     "key":"OnekeyDownload",
-                    "name":"One click to download",
+                    "name":"1-click download",
                     "options":[
                         {
                             "key":"onekeydownload",
-                            "name":"One click to download",
+                            "name":"1-click download",
                             "type":"switchbutton",
                             "default":false
                         }
@@ -47,7 +47,7 @@
                 },
                 {
                     "key":"CloseMainWindow",
-                    "name":"When main window closed",
+                    "name":"Close window",
                     "options":[
                         {
                             "key": "closemainwindow",
@@ -111,7 +111,7 @@
             "name":"Monitoring",
             "groups":[{
                     "key":"MonitoringObject",
-                    "name":"Monitoring application",
+                    "name":"Application",
                     "options":[{
                             "key":"ClipBoard",
                             "name":"Clipboard",
@@ -122,7 +122,7 @@
                 },
                 {
                     "key":"MonitoringDownloadType",
-                    "name":"Monitoring download link",
+                    "name":"Link type",
                     "options":[{
                             "key":"HttpDownload",
                             "name":"",
@@ -145,7 +145,7 @@
                 },
                 {
                     "key":"BTRelation",
-                    "name":"Monitoring BT files",
+                    "name":"BT files",
                     "options":[{
                             "key":"OpenDownloadPanel",
                             "name":"Create new task after downloading BT files",
@@ -206,7 +206,7 @@
                 },
                 {
                     "key": "DownloadDiskCache",
-                    "name": "Disk cache for dowloading",
+                    "name": "Cache",
                     "options": [{
                             "key": "DownloadDiskCacheSettiing",
                             "name": "",
