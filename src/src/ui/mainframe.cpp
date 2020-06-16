@@ -758,7 +758,7 @@ S_Task MainFrame::getUrlToName(QString url, QString savePath)
     // 获取url文件名
     QString fileName;
 
-    if(url.startsWith("magnet") && url.contains("&")) {
+    if(url.startsWith("magnet")) {
         fileName = url.split("&")[0];
         if(fileName.contains("btih:")) {
             fileName = fileName.split("btih:")[1] + ".torrent";
@@ -2394,12 +2394,12 @@ void MainFrame::startBtAssociat()
         {
             if(_DefaultList[i].contains("application/x-bittorrent"))
             {
-                _DefaultList[i] = "application/x-bittorrent=uos-download.desktop;";
+                _DefaultList[i] = "application/x-bittorrent=downloadmanager.desktop;";
             }
             if(i == _DefaultList.size()-1 &&
                     !(_DefaultList[i].contains("application/x-bittorrent")))
             {
-                _DefaultList.append("application/x-bittorrent=uos-download.desktop;");
+                _DefaultList.append("application/x-bittorrent=downloadmanager.desktop;");
             }
         }
     }
@@ -2413,12 +2413,12 @@ void MainFrame::startBtAssociat()
         {
             if(_AddedList[i].contains("application/x-bittorrent"))
             {
-                _AddedList[i] = "application/x-bittorrent=uos-download.desktop;";
+                _AddedList[i] = "application/x-bittorrent=downloadmanager.desktop;";
             }
             if(i == _AddedList.size()-1 &&
                     !(_AddedList[i].contains("application/x-bittorrent")))
             {
-                _AddedList.append("application/x-bittorrent=uos-download.desktop;");
+                _AddedList.append("application/x-bittorrent=downloadmanager.desktop;");
             }
         }
     }
