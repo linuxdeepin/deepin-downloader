@@ -95,7 +95,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     QStringList values;
     QStringList keys;
     keys << "3" << "5" << "10" << "20";
-    values << "3" << "5" << "10" << "20";
+    values << tr("3") << tr("5") << tr("10") << tr("20");
     QMap<QString, QVariant> mapData;
 
     mapData.insert("keys", keys);
@@ -530,7 +530,7 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     }
 
     GroupSelectionWidget *pGroupSelectionWidget = new GroupSelectionWidget(lstItemName);
-    pGroupSelectionWidget->setLabelText(tr("More disk cache, faster download speed and more computer consume")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
+    pGroupSelectionWidget->setLabelText(tr("More disk cache, faster download speed \nand more computer consume")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
     pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
 
     connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
