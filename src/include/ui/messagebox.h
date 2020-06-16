@@ -96,7 +96,7 @@ signals:
      * @brief 重命名信号
      * @param newname 新名字
     */
-    void RenameSig(QString newname);
+    void RenameSig(QString &newname);
     /**
      * @brief 清空信号
      * @param ret 是否清空全部

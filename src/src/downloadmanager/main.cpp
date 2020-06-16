@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 //            break;
 //    }
 
+
 //    if(strFileName.isEmpty() == false)
 //    {
 //        translator.load(strFileName); //导入生成的文件
