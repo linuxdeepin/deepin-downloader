@@ -121,7 +121,7 @@ void DeleteItemThread::deleteDownloadData()
         QString save_path = m_DeleteList.at(i)->savePath;
         QString filename = m_DeleteList.at(i)->fileName;
         emit    signalAria2Remove(m_DeleteList.at(i)->gid, "");
-
+        Aria2RPCInterface::Instance()->remove(m_DeleteList.at(i)->gid, "");
         if(m_bIfDeleteLocal) {
             m_pAria2c->pause(gid, task_id);
 

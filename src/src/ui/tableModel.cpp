@@ -516,7 +516,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if(!itm.isNull()) {
-                sortable.append(QPair<QVariant, int>(num, row));
+                sortable.append(QPair<QVariant, int>(itm, row));
             } else   {
                 unsortable.append(row);
             }
