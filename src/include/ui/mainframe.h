@@ -447,7 +447,7 @@ private:
         downloading,recycle
     };
     enum currentLab{
-        downloadingLab,finishLab,recycleLab
+        downloadingLab = 0,finishLab,recycleLab
     };
     TopButton *m_pToolBar;
     TableView *m_pDownLoadingTableView, *m_pRecycleTableView;

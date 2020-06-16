@@ -53,17 +53,7 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
         getPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
     }
     setSortIndicatorShown(true);
-    bool b = isSortIndicatorShown();
     setSectionsClickable(true);
-    bool bb = sectionsClickable();
-    connect(this, &HeaderView::sortIndicatorChanged, [=]{
-        qDebug() << "sortIndicatorChanged";
-    });
-
-    connect(this, &HeaderView::sectionClicked, [=]{
-        qDebug() << "sectionClicked";
-    });
-
 }
 
 void HeaderView::updateGeometries()
