@@ -758,7 +758,7 @@ S_Task MainFrame::getUrlToName(QString url, QString savePath)
     // 获取url文件名
     QString fileName;
 
-    if(url.startsWith("magnet") && url.contains("&")) {
+    if(url.startsWith("magnet")) {
         fileName = url.split("&")[0];
         if(fileName.contains("btih:")) {
             fileName = fileName.split("btih:")[1] + ".torrent";
@@ -1014,11 +1014,11 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
     DBInstance::getAllUrl(urlList);
     for(int i = 0; i < urlList.size(); i++) {
         if((urlList[i].m_infoHash == infoHash) && (urlList[i].m_selectedNum == selectedNum)) {
-            qDebug() << "has the same download!";
+            QString warning_msg = tr("has ") + " 1 " + tr(" the same download");
+            showWarningMsgbox(warning_msg, 1, QStringList(infoName));
             return;
         }
     }
-
     // 将任务添加如task表中
     S_Task  task;
     QString strId = QUuid::createUuid().toString();
@@ -1038,7 +1038,7 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
     urlInfo.m_downloadType = "torrent";
     urlInfo.m_seedFile = btPath;
     urlInfo.m_selectedNum = selectedNum;
-    urlInfo.m_infoHash = "";
+    urlInfo.m_infoHash = infoHash;
     DBInstance::addUrl(urlInfo);
 
     // 开始下载
@@ -2088,12 +2088,12 @@ void MainFrame::startBtAssociat()
         {
             if(_DefaultList[i].contains("application/x-bittorrent"))
             {
-                _DefaultList[i] = "application/x-bittorrent=uos-download.desktop;";
+                _DefaultList[i] = "application/x-bittorrent=downloadmanager.desktop;";
             }
             if(i == _DefaultList.size()-1 &&
                     !(_DefaultList[i].contains("application/x-bittorrent")))
             {
-                _DefaultList.append("application/x-bittorrent=uos-download.desktop;");
+                _DefaultList.append("application/x-bittorrent=downloadmanager.desktop;");
             }
         }
     }
@@ -2107,12 +2107,12 @@ void MainFrame::startBtAssociat()
         {
             if(_AddedList[i].contains("application/x-bittorrent"))
             {
-                _AddedList[i] = "application/x-bittorrent=uos-download.desktop;";
+                _AddedList[i] = "application/x-bittorrent=downloadmanager.desktop;";
             }
             if(i == _AddedList.size()-1 &&
                     !(_AddedList[i].contains("application/x-bittorrent")))
             {
-                _AddedList.append("application/x-bittorrent=uos-download.desktop;");
+                _AddedList.append("application/x-bittorrent=downloadmanager.desktop;");
             }
         }
     }
