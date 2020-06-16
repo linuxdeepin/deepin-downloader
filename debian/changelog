@@ -1,41 +1,9 @@
-downloadmanager (5.1.0.6) stable; urgency=low
-
-  * 完善了control
-
- -- unknown <unknown@uniontech.com>  Wed, 12 Jun 2020 13:18:16 +0800
-
-downloadmanager (5.1.0.5) stable; urgency=low
-
-  * 完善了cmakelist.txt
-
- -- unknown <unknown@uniontech.com>  Wed, 12 Jun 2020 9:55:16 +0800
-
-downloadmanager (5.1.0.4) stable; urgency=low
-
-  * 完善了cmake install 的内容,完善了debian的内容  
-
- -- unknown <unknown@uniontech.com>  Wed, 11 Jun 2020 18:31:16 +0800
-
-downloadmanager (5.1.0.3) stable; urgency=low
-
-  * 完善了cmake install 的内容,完善了debian的内容  
-
- -- unknown <unknown@uniontech.com>  Wed, 11 Jun 2020 17:31:16 +0800
-
-downloadmanager (5.1.0.2) stable; urgency=low
-
-  * 完善了cmake install 的内容,完善了debian的内容  
-
- -- unknown <unknown@uniontech.com>  Wed, 11 Jun 2020 16:31:16 +0800
-
 downloadmanager (5.1.0.1) stable; urgency=low
 
-  * 完善了cmake install 的内容,完善了debian的内容  
+  * 完成了成界面设计
+  * 完成了http任务下载
+  * 完成了主界面列表的功能
+  * 完成了部分主界面右键功能
+  * 完成了主界面暂停/启动/删除/添加功能
 
- -- unknown <unknown@uniontech.com>  Wed, 11 Jun 2020 15:31:16 +0800
-
-downloadmanager (5.1.0.0) stable; urgency=low
-
-  * 修改主题未初始化的bug  
-
- -- unknown <unknown@uniontech.com>  Wed, 10 Jun 2020 10:01:16 +0800
+ -- unknown <unknown@uniontech.com>  Tue, 16 Jun 2020 14:20:16 +0800
