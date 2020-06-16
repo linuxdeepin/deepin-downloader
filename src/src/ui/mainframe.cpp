@@ -1016,7 +1016,8 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
     DBInstance::getAllUrl(urlList);
     for(int i = 0; i < urlList.size(); i++) {
         if((urlList[i].m_infoHash == infoHash) && (urlList[i].m_selectedNum == selectedNum)) {
-            qDebug() << "has the same download!";
+            QString warning_msg = tr("has ") + " 1 " + tr(" the same download");
+            showWarningMsgbox(warning_msg, 1, QStringList(infoName));
             return;
         }
     }
@@ -1040,7 +1041,7 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
     urlInfo.m_downloadType = "torrent";
     urlInfo.m_seedFile = btPath;
     urlInfo.m_selectedNum = selectedNum;
-    urlInfo.m_infoHash = "";
+    urlInfo.m_infoHash = infoHash;
     DBInstance::addUrl(urlInfo);
 
     // 开始下载
