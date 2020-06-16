@@ -262,7 +262,7 @@ private slots:
     void onClearRecyleActionTriggered();
 
     /**
-     * @brief 清除回收站ACtion槽函数
+     * @brief 复制URL ACtion槽函数
     */
     void onCopyUrlActionTriggered();
 
@@ -447,7 +447,7 @@ private:
         downloading,recycle
     };
     enum currentLab{
-        downloadingLab,finishLab,recycleLab
+        downloadingLab = 0,finishLab,recycleLab
     };
     TopButton *m_pToolBar;
     TableView *m_pDownLoadingTableView, *m_pRecycleTableView;
@@ -482,7 +482,8 @@ private:
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 
-    bool m_bCtrlKey_press=false;
+    bool m_bctrlkeyPress = false;
+    bool m_bIsCopyUrlFromLocal = false;
 signals:
      void switchTableSignal();
      void tableChanged(int index);

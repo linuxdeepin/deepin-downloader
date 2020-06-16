@@ -113,34 +113,27 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(QColor("#414D68"));
         }
         if(isSelected) {
-            painter->setPen(QColor("#FFFFFF"));
+            painter->setPen(QColor("#0081FF"));
             painter->setBrush(QBrush("#0081FF"));
-            painter->drawRect(rect);
+            painter->drawRoundRect(rect.x(), rect.y(), 25, rect.height(), 25, 25);
+            painter->drawRect(rect.x() + 15, rect.y(), rect.width() - 15, rect.height());
+            painter->setPen(QColor("#FFFFFF"));
         }
 
         QRect rect = textRect;
 
         int x = rect.x();
-        int y = 0;
-        if(m_iTableFlag == 0) {
-            if(rect.height() < 30) {
-                y = rect.y() + 3;
-            } else {
-                y = rect.y() + 15;
-            }
-        } else {
-            y = rect.y() + 3;
-        }
+        int y = rect.y() + 12;
         QString   filetype = index.data(TableModel::FileName).toString();
-        QString   file_save_path = index.data(TableModel::SavePath).toString();
-        QFileInfo fileInfo(file_save_path);
+        QString   fileSavePath = index.data(TableModel::SavePath).toString();
+        QFileInfo fileInfo(fileSavePath);
         QPixmap   pic;
-        if(file_save_path.contains(filetype) && fileInfo.isDir()) {
+        if(fileSavePath.contains(filetype) && fileInfo.isDir()) {
             QIcon icon = QIcon::fromTheme("folder");
             pic = icon.pixmap(20, 20);
         } else {
             QFileIconProvider iconProvider;
-            QFileInfo filenameInfo(file_save_path + filetype);
+            QFileInfo filenameInfo(fileSavePath + filetype);
             QIcon     icon = iconProvider.icon(filenameInfo);
             if(icon.isNull()) {
                 icon = iconProvider.icon(QFileIconProvider::IconType::File);
@@ -161,9 +154,10 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(QColor("#414D68"));
         }
         if(isSelected) {
-            painter->setPen(QColor("#FFFFFF"));
+            painter->setPen(QColor("#0081FF"));
             painter->setBrush(QBrush("#0081FF"));
             painter->drawRect(rect);
+            painter->setPen(QColor("#FFFFFF"));
         }
         const QString size = index.data(TableModel::Size).toString();
         painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
@@ -171,26 +165,15 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         if(m_iTableFlag == 0) {
             QFont font;
             font.setPointSize(10);
-
-            //
-            //
-            //           if(DGuiApplicationHelper::instance()->themeType()==2)
-            //                {
-            //                    painter->setPen(QColor("#C0C6D4"));
-            //                }
-            //                else
-            // if(DGuiApplicationHelper::instance()->themeType()==1)
-            //                {
-            // painter->setPen(QColor("#414D68"));
             painter->setPen(Qt::red);
             painter->setPen(QColor("#8AA1B4"));
 
-            //                }
-            // painter->setPen(QColor("8AA1B4"));
             if(isSelected) {
-                painter->setPen(QColor("#FFFFFF"));
+                painter->setPen(QColor("#0081FF"));
                 painter->setBrush(QBrush("#0081FF"));
-                painter->drawRect(rect);
+                painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
+                painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
+                painter->setPen(QColor("#FFFFFF"));
             }
             painter->setFont(font);
             QRect sizeRect = textRect;
@@ -231,15 +214,6 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
             }
 
-            /* QStyleOptionProgressBar *optionBar = new QStyleOptionProgressBar;
-               optionBar->initFrom(option.widget);
-               optionBar->rect = sizeRect;
-               optionBar->minimum = 0;
-               optionBar->maximum = 100;
-               optionBar->progress =
-                  index.data(TableViewModel::Percent).toInt();
-               QApplication::style()->drawControl(QStyle::CE_ProgressBar,
-                  optionBar, painter, progressbar);*/
             QRect s1(0, 0, 3, this->m_pBgImage->height());
             QRect t1(sizeRect.x(), sizeRect.y(), 3, this->m_pBgImage->height());
             painter->drawPixmap(t1, *this->m_pBgImage, s1);
@@ -287,9 +261,11 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(QColor("#414D68"));
         }
         if(isSelected) {
-            painter->setPen(QColor("#FFFFFF"));
+            painter->setPen(QColor("#0081FF"));
             painter->setBrush(QBrush("#0081FF"));
-            painter->drawRect(rect);
+            painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
+            painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
+            painter->setPen(QColor("#FFFFFF"));
         }
         const QString time = index.data(TableModel::Time).toString();
         painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, time);
