@@ -1021,7 +1021,6 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
             return;
         }
     }
-
     // 将任务添加如task表中
     S_Task  task;
     QString strId = QUuid::createUuid().toString();
