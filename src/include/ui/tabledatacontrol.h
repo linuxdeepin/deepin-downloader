@@ -142,11 +142,18 @@ public:
     int onDeletePermanentAction(int currentLab);
 
     /**
-     * @brief  获取删除窗口确定信号
+     * @brief  获取删除正在下载和已完成列表窗口确定信号
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void onDeleteConfirm(bool ischecked,bool permanent, int currentLab);
+    void onDeleteDownloadListConfirm(bool ischecked,bool permanent, TableView* pRecycleTableView);
+
+    /**
+     * @brief  获取删除回收站列表窗口确定信号
+     * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
+     * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
+     */
+    void onDeleteRecycleListConfirm(bool ischecked,bool permanent);
 
 private:
 
@@ -188,7 +195,7 @@ signals:
     void signalAutoDownloadBt(QString btFilePath);
 
     /**
-     * @brief 文件为bt，自动开始下载
+     * @brief 重新下载信号
      */
     void signalRedownload(QString taskId, int rd);
 
