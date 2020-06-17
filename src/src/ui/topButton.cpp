@@ -27,6 +27,11 @@
 
 #include "topButton.h"
 #include <QDebug>
+#include <DToolTip>
+#include <QTimer>
+#include <QCursor>
+
+DWIDGET_USE_NAMESPACE
 
 TopButton::TopButton(QWidget *parent) : QWidget(parent)
 {
@@ -48,28 +53,35 @@ void TopButton::Init()
     m_pSearchEdit->setMinimumWidth(350);
     m_pSearchEdit->setFixedHeight(36);
 
+
     // searchEdit->setFixedSize(350,36);
     m_pNewDownloadBtn = new DIconButton(this);
     m_pNewDownloadBtn->setFixedSize(36, 36);
     m_pNewDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
+    m_pNewDownloadBtn->setToolTip("Create");
+    DToolTip * pTip1 = new DToolTip("Create");
 
-    m_pPauseDownloadBtn = new DIconButton(this);
+    m_pPauseDownloadBtn = new Dtk::Widget::DIconButton(this);
 
     // pauseDownloadBtn->setFixedSize(36,36);
 
     m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pPauseDownloadBtn->setEnabled(false);
     m_pPauseDownloadBtn->setGeometry(90, 0, 36, 36);
+    m_pPauseDownloadBtn->setToolTip("Pause");
 
     m_pStartDownloadBtn = new DIconButton(this);
     m_pStartDownloadBtn->setFixedSize(36, 36);
     m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_pStartDownloadBtn->setEnabled(false);
+    m_pStartDownloadBtn->setToolTip("Resume");
+
 
     m_pDeleteDownloadBtn = new DIconButton(this);
     m_pDeleteDownloadBtn->setFixedSize(36, 36);
     m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_pDeleteDownloadBtn->setEnabled(false);
+    m_pDeleteDownloadBtn->setToolTip("Delete");
 
     mainHlayout->addSpacing(5);
     mainHlayout->addWidget(m_pIconLable);
@@ -115,3 +127,24 @@ void TopButton::getTableChanged(int index)
         m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     }
 }
+
+
+//DownloadManagerBtn::DownloadManagerBtn(QWidget *parent)
+//{
+
+//}
+
+//void DownloadManagerBtn::mouseMoveEvent(QMouseEvent *event)
+//{
+//    m_pHoverTimer = new QTimer(this);
+//    m_pHoverTimer->start(1000);
+//    connect(m_pHoverTimer, &QTimer::timeout, this, &DownloadManagerBtn::onTimeOut);
+//}
+
+//void DownloadManagerBtn::onTimeOut()
+//{
+//    if(geometry().contains(this->mapFromGlobal(QCursor::pos()))){
+//        DToolTip* pTip = new DToolTip("Stop");
+//        pTip->show(QCursor::pos(), 1000);
+//    }
+//}
