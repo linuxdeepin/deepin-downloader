@@ -36,7 +36,19 @@
 
 #include <QWidget>
 
-DWIDGET_USE_NAMESPACE
+//class DownloadManagerBtn : public Dtk::Widget::DIconButton
+//{
+//    Q_OBJECT
+//public:
+//     explicit DownloadManagerBtn(QWidget *parent = nullptr);
+//    ~DownloadManagerBtn();
+//protected:
+//    void mouseMoveEvent(QMouseEvent *event);
+//private slots:
+//    void onTimeOut();
+//private:
+//    QTimer *m_pHoverTimer;
+//};
 
 /**
  * @class TopButton
@@ -124,13 +136,15 @@ signals:
     */
     void getSearchEditTextChange(QString text);
 private:
-    DLabel *m_pIconLable;
-    DIconButton *m_pNewDownloadBtn;
-    DIconButton *m_pStartDownloadBtn;
-    DIconButton *m_pStopDownloadBtn;
-    DIconButton *m_pPauseDownloadBtn;
-    DIconButton *m_pDeleteDownloadBtn;
-    DSearchEdit *m_pSearchEdit;
+    Dtk::Widget::DLabel *m_pIconLable;
+    Dtk::Widget::DIconButton *m_pNewDownloadBtn;
+    Dtk::Widget::DIconButton *m_pStartDownloadBtn;
+    Dtk::Widget::DIconButton *m_pStopDownloadBtn;
+    Dtk::Widget::DIconButton *m_pPauseDownloadBtn;
+    Dtk::Widget::DIconButton *m_pDeleteDownloadBtn;
+    Dtk::Widget::DSearchEdit *m_pSearchEdit;
 };
+
+
 
 #endif // TOOLBAR_H

@@ -125,51 +125,51 @@ void MainFrame::init()
     m_pNotaskWidget->setAutoFillBackground(true);
     m_pNotaskWidget->setPalette(p);
 
-    QVBoxLayout *pNoTask_WidgetLayout = new QVBoxLayout(m_pNotaskWidget);
-    pNoTask_WidgetLayout->setContentsMargins(10, 0, 0, 0);
+    QVBoxLayout *pnotaskWidgetlayout = new QVBoxLayout(m_pNotaskWidget);
+    pnotaskWidgetlayout->setContentsMargins(10, 0, 0, 0);
     m_pNotaskLabel = new Dtk::Widget::DLabel();
     m_pNotaskLabel->setForegroundRole(DPalette::PlaceholderText);
     QFont lableFont;
     lableFont.setPointSize(15);
     lableFont.setBold(QFont::DemiBold);
     lableFont.setFamily("T5");
-    QPalette font_p;
-    QColor   color = QColor(192, 198, 212, 76);
-    font_p.setColor(QPalette::WindowText, color);
+    QPalette fontP;
+    QColor   color = QColor(85, 85, 85, 40);
+    fontP.setColor(QPalette::WindowText, color);
     m_pNotaskLabel->setFont(lableFont);
     m_pNotaskLabel->setText(tr("No download tasks"));
     m_pNotaskLabel->setAlignment(Qt::AlignHCenter);
 
-    pNoTask_WidgetLayout->addWidget(m_pNotaskLabel);
+    pnotaskWidgetlayout->addWidget(m_pNotaskLabel);
     m_pNotaskTipLabel = new QLabel();
-    QFont noTask_tip_Label_font;
-    noTask_tip_Label_font.setPointSize(13);
-    m_pNotaskTipLabel->setFont(noTask_tip_Label_font);
-    QPalette noTask_tip_Label_p;
-    noTask_tip_Label_p.setColor(QPalette::WindowText, QColor(65, 77, 104, 70));
+    QFont notaskTipLabelFont;
+    notaskTipLabelFont.setPointSize(13);
+    m_pNotaskTipLabel->setFont(notaskTipLabelFont);
+    QPalette notaskTipLabelP;
+    notaskTipLabelP.setColor(QPalette::WindowText, QColor(85, 85, 85, 40));
     m_pNotaskTipLabel->setText(tr("Click + to create new task"));
     m_pNotaskTipLabel->setAlignment(Qt::AlignHCenter);
-    m_pNotaskTipLabel->setPalette(noTask_tip_Label_p);
-    pNoTask_WidgetLayout->addWidget(m_pNotaskTipLabel);
-    pNoTask_WidgetLayout->addStretch(5);
+    m_pNotaskTipLabel->setPalette(notaskTipLabelP);
+    pnotaskWidgetlayout->addWidget(m_pNotaskTipLabel);
+    pnotaskWidgetlayout->addStretch(5);
     QVBoxLayout *pRightLayout = new QVBoxLayout(m_pRight_Widget);
     pRightLayout->setContentsMargins(0, 0, 0, 0);
 
     m_pRightStackwidget = new QStackedWidget(this);
     m_pRightStackwidget->setCurrentIndex(0);
 
-    QPalette p_task_num;
-    p_task_num.setBrush(this->backgroundRole(), QBrush(QColor(255, 255, 255, 178)));
+    QPalette pTaskNum;
+    pTaskNum.setBrush(this->backgroundRole(), QBrush(QColor(255, 255, 255, 178)));
     m_pTaskNumWidget = new QWidget;
     m_pTaskNumWidget->setFixedHeight(30);
     m_pTaskNumWidget->setAutoFillBackground(true);
-    m_pTaskNumWidget->setPalette(p_task_num);
-    QHBoxLayout *Task_Num_WidgetLayout = new QHBoxLayout(m_pTaskNumWidget);
-    Task_Num_WidgetLayout->setMargin(0);
+    m_pTaskNumWidget->setPalette(pTaskNum);
+    QHBoxLayout *TaskNumWidgetlayout = new QHBoxLayout(m_pTaskNumWidget);
+    TaskNumWidgetlayout->setMargin(0);
     m_pTaskNum = new QLabel(tr("0 task"));
     m_pTaskNum->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    m_pTaskNum->setPalette(noTask_tip_Label_p);
-    Task_Num_WidgetLayout->addWidget(m_pTaskNum);
+    m_pTaskNum->setPalette(notaskTipLabelP);
+    TaskNumWidgetlayout->addWidget(m_pTaskNum);
     m_pRightStackwidget->addWidget(m_pDownLoadingTableView);
     m_pRightStackwidget->addWidget(m_pRecycleTableView);
     pRightLayout->addWidget(m_pRightStackwidget);
@@ -189,7 +189,7 @@ void MainFrame::init()
     font.setFamily("Source Han Sans");
     font.setPixelSize(14);
     m_pLeftList->setFont(font);
-    QStandardItemModel *pLeftList_model = new QStandardItemModel(this);
+    QStandardItemModel *pleftlistModel = new QStandardItemModel(this);
 
     m_pDownloading_item = new QStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
 
@@ -202,13 +202,13 @@ void MainFrame::init()
     m_pDownloading_item->setEditable(false);
     m_pDownloadFinish_item->setEditable(false);
     m_pRecycle_item->setEditable(false);
-    pLeftList_model->appendRow(m_pDownloading_item);
-    pLeftList_model->appendRow(m_pDownloadFinish_item);
-    pLeftList_model->appendRow(m_pRecycle_item);
-    m_pLeftList->setModel(pLeftList_model);
+    pleftlistModel->appendRow(m_pDownloading_item);
+    pleftlistModel->appendRow(m_pDownloadFinish_item);
+    pleftlistModel->appendRow(m_pRecycle_item);
+    m_pLeftList->setModel(pleftlistModel);
     pLeftLayout->addWidget(m_pLeftList, 0);
 
-    m_pLeftList->setCurrentIndex(pLeftList_model->index(0, 0));
+    m_pLeftList->setCurrentIndex(pleftlistModel->index(0, 0));
 
     m_pClipboard = new ClipboardTimer; // 获取当前剪切板
     m_pUpdateTimer = new QTimer(this);
@@ -1354,9 +1354,9 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
     }
 
     if(m_iCurrentLab == recycleLab) {
-        m_pRecycleTableView->getTableControl()->onDeleteConfirm(ischecked, permanent, m_iCurrentLab);
+        m_pRecycleTableView->getTableControl()->onDeleteRecycleListConfirm(ischecked, permanent);
     } else {
-        m_pDownLoadingTableView->getTableControl()->onDeleteConfirm(ischecked, permanent, m_iCurrentLab);
+        m_pDownLoadingTableView->getTableControl()->onDeleteDownloadListConfirm(ischecked, permanent, m_pRecycleTableView);
     }
     setTaskNum(m_iCurrentLab);
 
