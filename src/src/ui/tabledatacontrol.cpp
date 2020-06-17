@@ -303,25 +303,24 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
     m_pTableView->update();
     m_pTableView->reset();
-    S_Task_Status taskStatus;
     S_Task_Status getTaskStatus;
     DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
 
-    QDateTime get_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
-    S_Task_Status *save_task_status = new S_Task_Status(data->taskId,
-                                                        data->status,
-                                                        get_time,
-                                                        data->completedLength,
-                                                        data->speed,
-                                                        data->totalLength,
-                                                        data->percent,
-                                                        data->total,
-                                                        get_time);
+    QDateTime getTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+    S_Task_Status saveTaskStatus(data->taskId,
+                                 data->status,
+                                 getTime,
+                                 data->completedLength,
+                                 data->speed,
+                                 data->totalLength,
+                                 data->percent,
+                                 data->total,
+                                 getTime);
     if(getTaskStatus.m_taskId == "") {
-        DBInstance::addTaskStatus(*save_task_status);
+        DBInstance::addTaskStatus(saveTaskStatus);
     } else {
         if((getTaskStatus.m_downloadStatus != data->status) || (getTaskStatus.m_percent != data->speed)) {
-            DBInstance::updateTaskStatusById(*save_task_status);
+            DBInstance::updateTaskStatusById(saveTaskStatus);
         }
     }
     m_pTableView->refreshTableView(iCurrentRow);
@@ -603,39 +602,41 @@ int tableDataControl::onDelAction(int currentLab)
     return selectedCount;
 }
 
-void tableDataControl::onRedownloadAction(int currentLab)
+int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DataItem*> &reloadList)
 {
-    int selected_count = 0;
+    int selectedCount = 0;
 
-    if((currentLab == 0) || (currentLab == 1)) {
-        QList<DataItem *> selectList;
-        m_reloadList.clear();
-        selectList = m_pTableView->getTableModel()->renderList();
-        for(int i = 0; i < selectList.size(); ++i) {
-            if(((currentLab == 1) && (selectList.at(i)->status == Complete)) ||
-               ((currentLab == 0) && (selectList.at(i)->status == Error))) {
-                if((selectList.at(i)->Ischecked == 1) && !m_pTableView->isRowHidden(i)) {
-                    DataItem *data = selectList.at(i);
-                    m_reloadList.append(data);
-                    ++selected_count;
-                }
-            }
-        }
-    } else {
-        QList<DelDataItem *> selectList;
-        m_recycleReloadList.clear();
-        selectList = m_pTableView->getTableModel()->recyleList();
-        for(int i = 0; i < selectList.size(); ++i) {
-            if(selectList.at(i)->status == Removed) {
-                if((selectList.at(i)->Ischecked == 1) && !m_pTableView->isRowHidden(i)) {
-                    DelDataItem *data = selectList.at(i);
-                    m_recycleReloadList.append(data);
-                    ++selected_count;
-                }
+    QList<DataItem *> selectList;
+    reloadList.clear();
+    selectList = m_pTableView->getTableModel()->renderList();
+    for(int i = 0; i < selectList.size(); ++i) {
+        if(selectList.at(i)->status == Complete || selectList.at(i)->status == Error) {
+            if((selectList.at(i)->Ischecked == 1) && !m_pTableView->isRowHidden(i)) {
+                DataItem *data = selectList.at(i);
+                reloadList.append(data);
+                ++selectedCount;
             }
         }
     }
+    return selectedCount;
+}
 
+int tableDataControl::RedownloadTrashList(QList<DelDataItem *> &reloadList)
+{
+    int selectedCount = 0;
+    QList<DelDataItem *> selectList;
+    reloadList.clear();
+    selectList = m_pTableView->getTableModel()->recyleList();
+    for(int i = 0; i < selectList.size(); ++i) {
+        if(selectList.at(i)->status == Removed) {
+            if((selectList.at(i)->Ischecked == 1) && !m_pTableView->isRowHidden(i)) {
+                DelDataItem *data = selectList.at(i);
+                reloadList.append(data);
+                ++selectedCount;
+            }
+        }
+    }
+    return selectedCount;
 }
 
 void tableDataControl::onReturnOriginAction()
