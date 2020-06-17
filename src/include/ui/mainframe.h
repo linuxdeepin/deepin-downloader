@@ -147,6 +147,7 @@ private slots:
      * @param infoName 文件hash值
     */
     void getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+
     /**
      * @brief 表头全部选择按键
      * @param  isChecked ：是否全选
@@ -348,6 +349,11 @@ private:
      * @return 解析后Task结构体
      */
     S_Task getUrlToName(QString url, QString savePaht);
+
+    /**
+     * @brief 开始或者继续下载任务
+    */
+    void continueDownload(Global::DataItem *pItem);
 
     /**
      * @brief 清除item的选中状态
