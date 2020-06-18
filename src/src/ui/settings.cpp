@@ -969,10 +969,3 @@ void Settings::setIsShowTip(bool b)
         m_pIniFile->setValue( "Close/showTip",  "false");
     }
 }
-
-
-
-
-
-
-

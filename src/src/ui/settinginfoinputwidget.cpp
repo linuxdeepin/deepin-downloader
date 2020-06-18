@@ -41,11 +41,21 @@ void SettingInfoInputWidget::initUI()
     m_pUnitLabel = new DLabel;
     m_pRangeLabel = new DLabel;
 
+    QHBoxLayout *pHLayout = new QHBoxLayout;
+    pHLayout->addWidget(m_pTitleLabel);
+    pHLayout->addWidget(m_pLineEdit);
+    pHLayout->setContentsMargins(0, 0, 0, 0);
+
+    m_pWidget = new QWidget;
+    m_pWidget->setLayout(pHLayout);
+
     QHBoxLayout *pMainLayout = new QHBoxLayout;
-    pMainLayout->addWidget(m_pTitleLabel);
-    pMainLayout->addWidget(m_pLineEdit);
+//    pMainLayout->addWidget(m_pTitleLabel);
+//    pMainLayout->addWidget(m_pLineEdit);
+    pMainLayout->addWidget(m_pWidget);
     pMainLayout->addWidget(m_pUnitLabel);
     pMainLayout->addWidget(m_pRangeLabel);
+    pMainLayout->addStretch();
     pMainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(pMainLayout);
@@ -97,5 +107,10 @@ QString SettingInfoInputWidget::getLineEditText()
     QString strText = m_pLineEdit->text();
 
     return strText;
+}
+
+void SettingInfoInputWidget::setWidgetWidth(int nWidth)
+{
+    m_pWidget->setFixedWidth(nWidth);
 }
 

@@ -71,7 +71,7 @@ public:
     void aria2MethodUnpause(QJsonObject &json, int iCurrentRow);
 
     /**
-     * @brief aria2继续下载事件
+     * @brief aria2继续所有下载事件
      */
     void aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow);
 
@@ -97,9 +97,14 @@ public:
     int onDelAction(int currentLab);
 
     /**
-     * @brief 重新下载ACtion槽函数
+     * @brief 正在下载和已完成列表重新下载ACtion槽函数
     */
-    void onRedownloadAction(int currentLab);
+    int RedownloadDownloadAndFinishList(QList<Global::DataItem*> &reloadList);
+
+    /**
+     * @brief 回收站重新下载ACtion槽函数
+    */
+    int RedownloadTrashList(QList<Global::DelDataItem*> &reloadList);
 
     /**
      * @brief 还原下载ACtion槽函数
@@ -193,8 +198,6 @@ private:
     TableView *m_pTableView;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
-    QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
-    QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
 };
 
 #endif // TABLEDATACONTROL_H
