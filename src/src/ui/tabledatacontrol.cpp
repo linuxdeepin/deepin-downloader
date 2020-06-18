@@ -861,7 +861,7 @@ int tableDataControl::onDeletePermanentAction(int currentLab)
     return selectedCount;
 }
 
-void tableDataControl::onDeleteConfirm(bool ischecked, bool permanent, int currentLab)
+void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView* pRecycleTableView)
 {
     QString gid;
     QString aria_temp_file;
@@ -869,92 +869,93 @@ void tableDataControl::onDeleteConfirm(bool ischecked, bool permanent, int curre
     QString taskId;
     bool    ifDeleteLocal = permanent || ischecked;
 
+    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pDeleteList,
+                                                               m_pTableView,
+                                                               Aria2RPCInterface::Instance(),
+                                                               ifDeleteLocal,
+                                                               "download_delete");
+    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
+        Aria2RPCInterface::Instance()->remove(gId, id);
+    });
+    pDeleteItemThread->start();
 
-    if(currentLab == 2) {
-        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pRecycleDeleteList,
-                                                                   m_pTableView,
-                                                                   Aria2RPCInterface::Instance(),
-                                                                   ifDeleteLocal,
-                                                                   "recycle_delete");
-        connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
-            Aria2RPCInterface::Instance()->remove(gId, id);
-        });
-        pDeleteItemThread->start();
+    for(int i = 0; i < m_pDeleteList.size(); i++) {
+        DataItem *data = new DataItem;
+        data = m_pDeleteList.at(i);
+        save_path = data->savePath;
+        gid = data->gid;
+        taskId = data->taskId;
+        QDateTime finish_time;
+        if(data->status == Complete) {
+            finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+        } else {
+            finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+        }
 
-        for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
-            DelDataItem *data = new DelDataItem;
-            data = m_pRecycleDeleteList.at(i);
-            taskId = data->taskId;
+        S_Task_Status getStatus;
+        S_Task_Status downloadStatus(data->taskId,
+                                     Global::Status::Removed,
+                                     QDateTime::currentDateTime(),
+                                     data->completedLength,
+                                     data->speed,
+                                     data->totalLength,
+                                     data->percent,
+                                     data->total,
+                                     finish_time);
+
+
+        if(permanent || ischecked) {
             DBInstance::delTask(taskId);
-            m_pTableView->getTableModel()->removeItem(data);
-        }
-    } else {
-        DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pDeleteList,
-                                                                   m_pTableView,
-                                                                   Aria2RPCInterface::Instance(),
-                                                                   ifDeleteLocal,
-                                                                   "download_delete");
-        connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
-            Aria2RPCInterface::Instance()->remove(gId, id);
-        });
-        pDeleteItemThread->start();
 
-        for(int i = 0; i < m_pDeleteList.size(); i++) {
-            DataItem *data = new DataItem;
-            data = m_pDeleteList.at(i);
-            save_path = data->savePath;
-            gid = data->gid;
-            taskId = data->taskId;
-            QDateTime finish_time;
-            if(data->status == Complete) {
-                finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+            // Aria2RPCInterface::Instance()->purgeDownloadResult(data->gid);
+        }
+
+        if(!permanent && !ischecked) {
+            DelDataItem *delData = new DelDataItem;
+            delData->taskId = data->taskId;
+            delData->gid = data->gid;
+            delData->url = data->url;
+            delData->fileName = data->fileName;
+            delData->savePath = data->savePath;
+            delData->Ischecked = false;
+            delData->totalLength = data->totalLength;
+            delData->completedLength = data->completedLength;
+            delData->deleteTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+            delData->finishTime = data->time;
+
+            pRecycleTableView->getTableModel()->append(delData);
+            m_pTableView->update();
+
+            if(DBInstance::getTaskStatusById(delData->taskId, getStatus)) {
+                DBInstance::updateTaskStatusById(downloadStatus);
             } else {
-                finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+                DBInstance::addTaskStatus(downloadStatus);
             }
-
-            S_Task_Status getStatus;
-            S_Task_Status downloadStatus(data->taskId,
-                                         Global::Status::Removed,
-                                         QDateTime::currentDateTime(),
-                                         data->completedLength,
-                                         data->speed,
-                                         data->totalLength,
-                                         data->percent,
-                                         data->total,
-                                         finish_time);
-
-
-            if(permanent || ischecked) {
-                DBInstance::delTask(taskId);
-
-                // Aria2RPCInterface::Instance()->purgeDownloadResult(data->gid);
-            }
-
-            if(!permanent && !ischecked) {
-                DelDataItem *delData = new DelDataItem;
-                delData->taskId = data->taskId;
-                delData->gid = data->gid;
-                delData->url = data->url;
-                delData->fileName = data->fileName;
-                delData->savePath = data->savePath;
-                delData->Ischecked = false;
-                delData->totalLength = data->totalLength;
-                delData->completedLength = data->completedLength;
-                delData->deleteTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-                delData->finishTime = data->time;
-
-                m_pTableView->getTableModel()->append(delData);
-                m_pTableView->update();
-
-                if(DBInstance::getTaskStatusById(delData->taskId, getStatus)) {
-                    DBInstance::updateTaskStatusById(downloadStatus);
-                } else {
-                    DBInstance::addTaskStatus(downloadStatus);
-                }
-            }
-
-            m_pTableView->getTableModel()->removeItem(data);
         }
+
+        m_pTableView->getTableModel()->removeItem(data);
+    }
+}
+
+void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent)
+{
+
+    bool    ifDeleteLocal = permanent || ischecked;
+    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pRecycleDeleteList,
+                                                               m_pTableView,
+                                                               Aria2RPCInterface::Instance(),
+                                                               ifDeleteLocal,
+                                                               "recycle_delete");
+    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
+        Aria2RPCInterface::Instance()->remove(gId, id);
+    });
+    pDeleteItemThread->start();
+
+    for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
+        DelDataItem *data = new DelDataItem;
+        data = m_pRecycleDeleteList.at(i);
+        DBInstance::delTask(data->taskId);
+        m_pTableView->getTableModel()->removeItem(data);
     }
 }
 
