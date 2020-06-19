@@ -25,6 +25,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "filesavepathchooser.h"
+#include "messagebox.h"
 
 #include <DSwitchButton>
 
@@ -32,6 +33,7 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QDebug>
+#include <QStandardPaths>
 
 FileSavePathChooser::FileSavePathChooser(int nCurrentSelect, const QString &strDownloadPath)
 {
@@ -114,12 +116,25 @@ void FileSavePathChooser::radioButtonClickSlot()
 
 void FileSavePathChooser::lineEditTextChanged(const QString &strText)
 {
-    QString strChangedText = "custom;" + strText;
-    emit textChanged(strChangedText);
+    QFileInfo fileinfo;
+    fileinfo.setFile(strText);
+    if(!fileinfo.isWritable())
+    {
+        MessageBox *msg=new MessageBox();
+        QString title = tr("select directory not writeable!");
+        msg->setWarings(title, tr("sure"));
+        m_pFileChooserEdit->setText(m_strDownloadPath);
+        msg->exec();
+    }
+    else {
+        QString strChangedText = "custom;" + strText;
+        emit textChanged(strChangedText);
+    }
 }
 
 void FileSavePathChooser::setLineEditText(const QString &strText)
 {
+    m_strDownloadPath = strText;
     m_pFileChooserEdit->setText(strText);
 }
 

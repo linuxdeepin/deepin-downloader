@@ -145,14 +145,24 @@ does not involve the privacy.</source>
 <context>
     <name>FileSavePathChooser</name>
     <message>
-        <location filename="../src/src/ui/filesavepathchooser.cpp" line="48"/>
+        <location filename="../src/src/ui/filesavepathchooser.cpp" line="50"/>
         <source>Automatically changes to the last used directory</source>
         <translation>自动修改为上次使用的目录</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/filesavepathchooser.cpp" line="49"/>
+        <location filename="../src/src/ui/filesavepathchooser.cpp" line="51"/>
         <source>Default directory</source>
         <translation>设置默认目录</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/filesavepathchooser.cpp" line="124"/>
+        <source>select directory not writeable!</source>
+        <translation>选择的目录无操作权限！</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/filesavepathchooser.cpp" line="125"/>
+        <source>sure</source>
+        <translation>确认</translation>
     </message>
 </context>
 <context>
