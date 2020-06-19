@@ -54,15 +54,23 @@ public:
      * @param sameUrlList 相同url列表
     */
     void setWarings(QString warningMsg,QString surebtntext,QString cancalbtntext="",int sameUrlCount=0,QList<QString> sameUrlList={});
+
+    /**
+     * @brief 设置重新下载窗口
+    */
+    void setRedownload(QList<QString> sameUrlList={});
+
     /**
      * @brief 设置删除窗口
      * @param permanentl bool类型，真为选择删除文件同时，删除本地文件。 假为可选择是否删除本地文件。
     */
     void setDelete(bool permanentl);
+
     /**
      * @brief 设置清空窗口。可选择是否清空回收站及删除本地文件
     */
     void setClear();
+
     /**
      * @brief 设置重命名窗口
      * @param title 设置标题
@@ -71,10 +79,13 @@ public:
      * @param oldname 曾用名
     */
     void setReName(QString title,QString surebtntext,QString cancelbtn,QString oldname);
+
     /**
      * @brief 设置退出窗口
     */
     void setExit();
+
+
 private:
     /**
      * @brief 设置label
@@ -97,11 +108,19 @@ signals:
      * @param newname 新名字
     */
     void RenameSig(QString &newname);
+
+    /**
+     * @brief 重新下载信号
+     * @param newname 新名字
+    */
+    void reDownloadSig();
+
     /**
      * @brief 清空信号
      * @param ret 是否清空全部
     */
     void ClearrecycleSig(bool ret);
+
     /**
      * @brief 删除信号
      * @param ret

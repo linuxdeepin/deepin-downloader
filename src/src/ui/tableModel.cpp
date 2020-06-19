@@ -34,8 +34,9 @@ using namespace Global;
 
 TableModel::TableModel(int Flag, QObject *parent)
     : QAbstractTableModel(parent)
+    , m_iTableviewtabFlag(Flag)
+    , m_iDownloadingCount(0)
 {
-    m_iTableviewtabFlag = Flag;
     if(Flag == 0) {
         m_mode = Downloading;
     }
@@ -456,6 +457,15 @@ const QList<DelDataItem *> TableModel::recyleList()
 QMap<QString, DataItem *> TableModel::getTableModelMap()
 {
     return m_map;
+}
+
+int TableModel::DownloadingCount()
+{
+    if(Downloading ==  m_mode){
+        return m_renderList.count();
+    } else{
+        return m_dataList.count() - m_renderList.count();
+    }
 }
 
 typedef bool (*LessThan)(const QPair<QVariant, int> &left,
