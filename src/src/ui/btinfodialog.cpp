@@ -31,6 +31,7 @@
 #include "btinfodelegate.h"
 #include "btheaderview.h"
 #include "btinfotableview.h"
+#include "messagebox.h"
 #include <QDebug>
 #include <QDir>
 #include <QFont>
@@ -308,6 +309,9 @@ void BtInfoDialog::slot_btnOK()
     }
     if(_free < (_total / 1024)) {//剩余空间比较 KB
         qDebug()<<"Disk capacity is not enough!";
+        MessageBox *msg = new MessageBox();
+        msg->setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr("Cancel"));
+        msg->exec();
         return;
     }
     QString save_path=m_editDir->text().split("  ")[0];
