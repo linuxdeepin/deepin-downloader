@@ -36,6 +36,7 @@
 #include <QProcess>
 #include <QThread>
 #include <QDesktopServices>
+#include <QUuid>
 //#include <QSound>
 
 #include "../database/dbinstance.h"
@@ -578,8 +579,7 @@ int tableDataControl::onDelAction(int currentLab)
         m_pDeleteList.clear();
         pSelectList = m_pTableView->getTableModel()->renderList();
         for(int i = 0; i < pSelectList.size(); ++i) {
-            DataItem *data = new DataItem;
-
+            DataItem *data;
             if(currentLab == 1) {
                 if(pSelectList.at(i)->status == Complete) {
                     if((pSelectList.at(i)->Ischecked == 1) && !m_pTableView->isRowHidden(i)) {
@@ -782,7 +782,7 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
         selectList = m_pTableView->getTableModel()->renderList();
 
         for(int i = 0; i < selectList.size(); ++i) {
-            DataItem *data = new DataItem;
+            DataItem *data;
             bool isSelect = false;
             if((currentLab == 1) && (selectList.at(i)->status == Complete)) {
                 if((selectList.at(i)->Ischecked == 1) && !m_pTableView->isRowHidden(i)) {
@@ -838,7 +838,7 @@ int tableDataControl::onDeletePermanentAction(int currentLab)
         m_pDeleteList.clear();
         selectList = m_pTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
-            DataItem *data = new DataItem;
+            DataItem *data;
             if(currentLab == 1) {
                 if(selectList.at(i)->status == Complete) {
                     if((selectList.at(i)->Ischecked == 1) && !m_pTableView->isRowHidden(i)) {
@@ -869,19 +869,37 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     QString taskId;
     bool    ifDeleteLocal = permanent || ischecked;
 
-    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pDeleteList,
+    QList<DataItem> threadDeleteList;
+    for(int i = 0; i < m_pDeleteList.size(); i++) {
+        DataItem tempdata;
+
+        tempdata.status = m_pDeleteList.at(i)->status;
+        tempdata.percent = m_pDeleteList.at(i)->percent;
+        tempdata.total = m_pDeleteList.at(i)->total;
+        tempdata.Ischecked = m_pDeleteList.at(i)->Ischecked;
+        tempdata.taskId = m_pDeleteList.at(i)->taskId;
+        tempdata.fileName = m_pDeleteList.at(i)->fileName;
+        tempdata.completedLength =  m_pDeleteList.at(i)->completedLength;
+        tempdata.totalLength =  m_pDeleteList.at(i)->totalLength;
+        tempdata.savePath = m_pDeleteList.at(i)->savePath;
+        tempdata.speed = m_pDeleteList.at(i)->speed;
+        tempdata.gid = m_pDeleteList.at(i)->gid;
+        tempdata.url = m_pDeleteList.at(i)->url;
+        tempdata.time = m_pDeleteList.at(i)->time;
+        tempdata.createTime = m_pDeleteList.at(i)->createTime;
+
+        threadDeleteList.append(tempdata);
+    }
+
+    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadDeleteList,
                                                                m_pTableView,
                                                                Aria2RPCInterface::Instance(),
                                                                ifDeleteLocal,
                                                                "download_delete");
-    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
-        Aria2RPCInterface::Instance()->remove(gId, id);
-    });
     pDeleteItemThread->start();
 
     for(int i = 0; i < m_pDeleteList.size(); i++) {
-        DataItem *data = new DataItem;
-        data = m_pDeleteList.at(i);
+        DataItem *data = m_pDeleteList.at(i);
         save_path = data->savePath;
         gid = data->gid;
         taskId = data->taskId;
@@ -941,7 +959,23 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
 {
 
     bool    ifDeleteLocal = permanent || ischecked;
-    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_pRecycleDeleteList,
+    QList<DelDataItem> threadRecycleDeleteList;
+    for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
+        DelDataItem tempdata;
+        tempdata.status = m_pRecycleDeleteList.at(i)->status;
+        tempdata.Ischecked = m_pRecycleDeleteList.at(i)->Ischecked;
+        tempdata.taskId = m_pRecycleDeleteList.at(i)->taskId;
+        tempdata.fileName = m_pRecycleDeleteList.at(i)->fileName;
+        tempdata.completedLength =  m_pRecycleDeleteList.at(i)->completedLength;
+        tempdata.savePath = m_pRecycleDeleteList.at(i)->savePath;
+        tempdata.gid = m_pRecycleDeleteList.at(i)->gid;
+        tempdata.url = m_pRecycleDeleteList.at(i)->url;
+        tempdata.totalLength = m_pRecycleDeleteList.at(i)->totalLength;
+        tempdata.deleteTime = m_pRecycleDeleteList.at(i)->deleteTime;
+        tempdata.finishTime = m_pRecycleDeleteList.at(i)->finishTime;
+        threadRecycleDeleteList.append(tempdata);
+    }
+    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadRecycleDeleteList,
                                                                m_pTableView,
                                                                Aria2RPCInterface::Instance(),
                                                                ifDeleteLocal,
@@ -956,6 +990,162 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
         data = m_pRecycleDeleteList.at(i);
         DBInstance::delTask(data->taskId);
         m_pTableView->getTableModel()->removeItem(data);
+    }
+}
+
+void tableDataControl::downloadListRedownload(QString id)
+{
+    DataItem *data = m_pTableView->getTableModel()->find(id);
+    if(data == nullptr) {
+        return;
+    }
+    QString url = data->url;
+    QString ariaTempFile = data->savePath + ".aria2";
+    QString taskId = data->taskId;
+    if(!data->savePath.isEmpty()) {
+        QFileInfo fi(data->savePath);
+        if(fi.isDir() && data->savePath.contains(data->fileName) && !data->fileName.isEmpty()) {
+            QDir tar(data->savePath);
+            tar.removeRecursively();
+        } else {
+            QFile::remove(data->savePath);
+        }
+        if(QFile::exists(ariaTempFile)) {
+            QThread::sleep(1);
+            QFile::remove(ariaTempFile);
+        }
+    }
+
+    QString filePath = data->savePath;
+    QString fileName = data->fileName;
+    QString defaultSavepath = getDownloadSavepathFromConfig();
+    QString savePath;
+
+    if(defaultSavepath != data->savePath) {
+        int nameLength = fileName.size();
+        int filePathLength = filePath.size();
+        int folderPathLength = filePathLength - nameLength - 1;
+        savePath = filePath.left(folderPathLength);
+    } else {
+        savePath = defaultSavepath;
+    }
+
+    //m_pTableView->getTableModel()->removeItem(data);
+    //DBInstance::delTask(taskId);
+
+    S_Url_Info getUrlInfo;
+    DBInstance::getUrlById(taskId, getUrlInfo);
+    if(getUrlInfo.m_taskId != "") {
+        if(getUrlInfo.m_downloadType == "torrent") {
+            QMap<QString, QVariant> opt;
+            opt.insert("dir",          savePath);
+            opt.insert("select-file", getUrlInfo.m_selectedNum);
+
+            // aria2c->addTorrent(get_url_info->seedFile,opt,get_url_info->task_id);
+            S_Task addTask(getUrlInfo.m_taskId,
+                           "",
+                           0,
+                           "",
+                           "",
+                           fileName,
+                           QDateTime::currentDateTime());
+            DBInstance::addTask(addTask);
+            Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
+        }
+    } else {
+        QUuid   uuid = QUuid::createUuid();
+        QString strId = uuid.toString();
+        QMap<QString, QVariant> opt;
+        opt.insert("dir", savePath);
+        Aria2RPCInterface::Instance()->addUri(url, opt, strId);
+
+        QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
+        if(!filename.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
+            const QByteArray filename_byte = filename.toLatin1();
+            QString filename_decode = QUrl::fromPercentEncoding(filename_byte);
+            filename = filename_decode;
+        }
+
+        S_Task addTask(strId, "", 0, url, filePath, filename, QDateTime::currentDateTime());
+        DBInstance::addTask(addTask);
+    }
+}
+
+void tableDataControl::recycleListRedownload(QString id)
+{
+    DelDataItem *data = m_pTableView->getTableModel()->find(id, 2);
+    if(data == nullptr) {
+        return;
+    }
+    QString url = data->url;
+    QString taskId = data->taskId;
+    QString ariaTempFile = data->savePath + ".aria2";
+    if(!data->savePath.isEmpty()) {
+        QFileInfo fi(data->savePath);
+        if(fi.isDir() && data->savePath.contains(data->fileName) && !data->fileName.isEmpty()) {
+            QDir tar(data->savePath);
+            tar.removeRecursively();
+        } else {
+            QFile::remove(data->savePath);
+        }
+        if(QFile::exists(ariaTempFile)) {
+            QFile::remove(ariaTempFile);
+        }
+    }
+    QString filePath = data->savePath;
+    QString fileName = data->fileName;
+    QString defaultSavepath = getDownloadSavepathFromConfig();
+    QString savePath;
+    if(defaultSavepath != data->savePath) {
+        int name_length = fileName.size();
+        int filePathLength = filePath.size();
+        int folderPathLength = filePathLength - name_length - 1;
+        savePath = filePath.left(folderPathLength);
+    } else {
+        savePath = defaultSavepath;
+    }
+
+
+   // m_pTableView->getTableModel()->removeItem(data);
+
+   // DBInstance::delTask(taskId);
+    QUuid   uuid = QUuid::createUuid();
+    QString strId = uuid.toString();
+    S_Url_Info getUrlInfo;
+    DBInstance::getUrlById(taskId, getUrlInfo);
+    if(getUrlInfo.m_taskId != "") {
+        if(getUrlInfo.m_downloadType == "torrent") {
+            if(!getUrlInfo.m_infoHash.isEmpty()) {
+                QFile::remove(getUrlInfo.m_infoHash + ".torrent");
+            }
+            QMap<QString, QVariant> opt;
+            opt.insert("dir",          savePath);
+            opt.insert("select-file", getUrlInfo.m_selectedNum);
+
+            // aria2c->addTorrent(get_url_info->seedFile,opt,get_url_info->task_id);
+
+            S_Task addTask(getUrlInfo.m_taskId,
+                           "",
+                           0,
+                           "",
+                           "",
+                           fileName,
+                           QDateTime::currentDateTime());
+            DBInstance::addTask(addTask);
+            Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
+        }
+    } else {
+        QMap<QString, QVariant> opt;
+        opt.insert("dir", savePath);
+        Aria2RPCInterface::Instance()->addUri(url, opt, strId);
+        QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
+        if(!filename.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
+            const QByteArray filename_byte = filename.toLatin1();
+            QString filename_decode = QUrl::fromPercentEncoding(filename_byte);
+            filename = filename_decode;
+        }
+        S_Task addTask(strId, "", 0, url, filePath, filename, QDateTime::currentDateTime());
+        DBInstance::addTask(addTask);
     }
 }
 

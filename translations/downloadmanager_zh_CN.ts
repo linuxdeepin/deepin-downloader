@@ -53,7 +53,7 @@
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="217"/>
         <source>Download Now</source>
-        <translation>其他</translation>
+        <translation>立即下载</translation>
     </message>
     <message>
         <location filename="../src/src/ui/btinfodialog.cpp" line="247"/>

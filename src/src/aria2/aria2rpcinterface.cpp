@@ -459,6 +459,13 @@ void Aria2RPCInterface::forceRemove(QString gId, QString id)
     callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
 }
 
+void Aria2RPCInterface::removeDownloadResult(QString gId, QString id)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    callRPC(ARIA2C_METHOD_REMOVE_DOWNLOAD_RESULT, ja, id);
+}
+
 void Aria2RPCInterface::getFiles(QString gId, QString id)
 {
     QJsonArray ja;

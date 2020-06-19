@@ -258,6 +258,11 @@ private slots:
     void onRenameActionTriggered();
 
     /**
+     * @brief 移动到文件夹ACtion槽函数
+    */
+    void onMoveToActionTriggered();
+
+    /**
      * @brief 清除回收站ACtion槽函数
     */
     void onClearRecyleActionTriggered();
@@ -298,6 +303,11 @@ private slots:
      * @brief 设置里磁盘缓存改变
      */
     void onDisckCacheChanged(int nNum);
+
+    /**
+     * @brief 清空回收站确认槽函数
+     */
+    void getClearRecycleSlot(bool ischecked);
 
 private:
 
@@ -366,6 +376,11 @@ private:
     void showWarningMsgbox(QString title, int sameUrlCount = 0, QList<QString> sameUrlList = {});
 
     /**
+     * @brief 显示清空窗口
+     */
+    void showClearMsgbox();
+
+    /**
      * @brief showDeleteMsgbox 显示删除或彻底删除警告窗口
      * @param permanently 是否是彻底删除 true是显示彻底删除窗口，false是显示删除窗口
      */
@@ -380,6 +395,11 @@ private:
      * @brief showRenameMsgbox 显示重命名窗口
      */
     void showRenameMsgbox();
+
+    /**
+     * @brief 显示重新下载窗口
+     */
+    void showRedownloadMsgbox(QList<QString> sameUrlList);
 
     /**
      * @brief 从配置文件中获取下载路径
@@ -448,6 +468,12 @@ protected:
      */
     void closeEvent(QCloseEvent *event);
 
+    /**
+     * @brief 绘图事件
+     * @param event 事件类型
+     */
+    void paintEvent(QPaintEvent *event);
+
 private:
     enum tableviewFlag{
         downloading,recycle
@@ -467,13 +493,14 @@ private:
     QLabel  *m_pTaskNum;
     DListView *m_pLeftList;
 
-    QStandardItem *m_pDownloading_item;
-    QStandardItem *m_pDownloadFinish_item;
-    QStandardItem *m_pRecycle_item;
+    QStandardItem *m_pdownloadingItem;
+    QStandardItem *m_pdownloadfinishItem;
+    QStandardItem *m_precycleItem;
     QSystemTrayIcon *m_pSystemTray;
     ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
     QTimer *m_pUpdateTimer;
+    QTimer *m_TrayClickTimer;
 
     SettingsWidget *m_pSettingWidget;
     currentLab m_iCurrentLab; // 当前显示列表，正在下载、已完成、回收站
@@ -485,6 +512,7 @@ private:
     QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
     QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
     Global::DataItem* m_pRenamItem;
+    Global::DataItem* m_pMovetoItem;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 

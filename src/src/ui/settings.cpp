@@ -935,7 +935,19 @@ QString Settings::getOpenMainWindowShortcutKey()
 int Settings::getDisckcacheNum()
 {
     auto option = m_pSettings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
-    return option->value().toInt();
+    int nNumber = 128;
+
+    if (option->value().toInt() == 0) {
+        nNumber = 128;
+    }
+    else if (option->value().toInt() == 1) {
+        nNumber = 256;
+    }
+    else if (option->value().toInt() == 2) {
+        nNumber = 512;
+    }
+
+    return nNumber;
 }
 
 void Settings::setCloseMainWindowSelected(int nSelect)
