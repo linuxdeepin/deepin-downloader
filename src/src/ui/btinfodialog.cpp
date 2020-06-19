@@ -51,6 +51,8 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
     this->setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::slot_paletteTypeChanged);
+
+
 }
 
 BtInfoDialog::~BtInfoDialog() {
@@ -272,7 +274,7 @@ void BtInfoDialog::initUI()
     //this->tableView->setColumnWidth(3, 60);
     this->m_tableView->horizontalHeader()->setStretchLastSection(true);
 
-
+    DFontSizeManager::instance()->bind(this->m_tableView,DFontSizeManager::SizeType::T6, 0);
 
     connect(this->m_tableView, &BtInfoTableView::signal_hoverChanged, this->m_delegate, &BtInfoDelegate::slot_hoverChanged);
 
