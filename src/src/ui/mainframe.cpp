@@ -961,6 +961,11 @@ void MainFrame::onContextMenu(const QPoint &pos)
             delmenlist->addSeparator();
             connect(pAction_rename, &QAction::triggered, this, &MainFrame::onRenameActionTriggered);
         }
+        QAction *pAction_move = new QAction();
+        pAction_move->setText(tr("Move to"));
+        delmenlist->addAction(pAction_move);
+        delmenlist->addSeparator();
+        connect(pAction_move, &QAction::triggered, this, &MainFrame::onMoveToActionTriggered);
     }
     if(((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
@@ -995,10 +1000,12 @@ void MainFrame::onContextMenu(const QPoint &pos)
     connect(pAction_delete_permanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
 
     if(m_iCurrentLab == recycleLab) {
-        QAction *pAction_clear_recycle = new QAction();
-        pAction_clear_recycle->setText(tr("Empty"));
-        delmenlist->addAction(pAction_clear_recycle);
-        connect(pAction_clear_recycle, &QAction::triggered, this, &MainFrame::onClearRecyleActionTriggered);
+        if(1 == chkedCnt){
+            QAction *pAction_clear_recycle = new QAction();
+            pAction_clear_recycle->setText(tr("Empty"));
+            delmenlist->addAction(pAction_clear_recycle);
+            connect(pAction_clear_recycle, &QAction::triggered, this, &MainFrame::onClearRecyleActionTriggered);
+        }
     }
 
     delmenlist->exec(QCursor::pos());
@@ -1142,6 +1149,45 @@ void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString
     msg->exec();
 }
 
+void MainFrame::showClearMsgbox()
+{
+    MessageBox *msg = new MessageBox();
+
+    connect(msg, &MessageBox::ClearrecycleSig, this, &MainFrame::getClearRecycleSlot);
+    msg->setClear();
+    int rs = msg->exec();
+    if(rs == DDialog::Accepted) {
+        // ToolBar禁用按钮联动：确认后禁用按钮
+        m_pToolBar->enableStartBtn(false);
+        m_pToolBar->enablePauseBtn(false);
+        m_pToolBar->enableDeleteBtn(false);
+    }
+}
+
+void MainFrame::getClearRecycleSlot(bool ischecked)
+{
+    QList<DelDataItem *> recycle_list = m_pRecycleTableView->getTableModel()->recyleList();
+
+    if(ischecked) {
+        for(int i = 0; i < recycle_list.size(); ++i) {
+            DelDataItem *data = recycle_list.at(i);
+            QString aria_temp_file = data->savePath + ".aria2";
+            if(!data->savePath.isEmpty()) {
+                QFile::remove(data->savePath);
+                if(QFile::exists(aria_temp_file)) {
+                    QFile::remove(aria_temp_file);
+                }
+            }
+            Aria2RPCInterface::Instance()->removeDownloadResult(data->gid);
+        }
+    }
+    for(int i = 0; i < recycle_list.size(); ++i) {
+        DBInstance::delAllTask();
+    }
+
+    m_pRecycleTableView->getTableModel()->removeItems(true);
+}
+
 void MainFrame::showReloadMsgbox()
 {
     MessageBox *msg = new MessageBox();
@@ -1163,13 +1209,11 @@ void MainFrame::showReloadMsgbox()
             for(int i = 0; i < m_reloadList.size(); i++) {
                 DataItem *data = m_reloadList.at(i);
                 Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_"+ QString::number(m_iCurrentLab)+ "_" + data->taskId);
-                //Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
             }
         } else {
             for(int i = 0; i < m_recycleReloadList.size(); i++) {
                 DelDataItem *data = m_recycleReloadList.at(i);
                 Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_" + QString::number(m_iCurrentLab) + "_" + data->taskId);
-                //Aria2RPCInterface::Instance()->forceRemove(data->gid, data->taskId);
             }
         }
     }
@@ -1645,9 +1689,34 @@ void MainFrame::onRenameActionTriggered()
     }
 }
 
+void MainFrame::onMoveToActionTriggered()
+{
+    QFileDialog *fileDialog = new QFileDialog(this);
+    fileDialog->setFileMode(QFileDialog::Directory);
+    QStringList fileName;
+    if ( fileDialog->exec() == QDialog::Accepted )
+    {
+        fileName = fileDialog->selectedFiles();
+    }
+    QString filePath = fileName.first();
+    if(filePath != "") {
+        QList<DataItem *> selectList;
+        selectList = m_pDownLoadingTableView->getTableModel()->renderList();
+        for(int i = 0; i < selectList.size(); ++i) {
+            if(selectList.at(i)->status == Complete) {
+                if(selectList.at(i)->Ischecked == 1) {
+                    DataItem *data = selectList.at(i);
+                    QFile::rename(data->savePath, filePath + "/" + data->fileName);
+                    data->savePath = filePath + "/" + data->fileName;
+                }
+            }
+        }
+    }
+}
+
 void MainFrame::onClearRecyleActionTriggered()
 {
-    // show_clear_MsgBox();
+    showClearMsgbox();
 }
 
 void MainFrame::onCopyUrlActionTriggered()
