@@ -43,6 +43,7 @@
 #include <DMessageBox>
 #include <DStyleOption>
 
+class MessageBox;
 class BtInfoDelegate;
 class headerView;
 class BtInfoTableView;
