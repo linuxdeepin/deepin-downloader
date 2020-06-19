@@ -35,30 +35,30 @@ DeleteItemThread::DeleteItemThread()
 {
 }
 
-DeleteItemThread::DeleteItemThread(QList<DelDataItem*> recycleDeleteList,
+DeleteItemThread::DeleteItemThread(QList<DelDataItem> recycleDeleteList,
                                    TableView         *recycleTableview,
                                    Aria2RPCInterface *aria2c,
                                    bool               ifDeleteLocal,
                                    QString            deleteType)
 {
-    this->m_pRecycleDeleteList = recycleDeleteList;
-    this->m_pRecycleTableview = recycleTableview;
-    this->m_pAria2c = aria2c;
-    this->m_bIfDeleteLocal = ifDeleteLocal;
-    this->m_StrDeleteType = deleteType;
+    m_pRecycleDeleteList = recycleDeleteList;
+    m_pRecycleTableview = recycleTableview;
+    m_pAria2c = aria2c;
+    m_bIfDeleteLocal = ifDeleteLocal;
+    m_StrDeleteType = deleteType;
 }
 
-DeleteItemThread::DeleteItemThread(QList<DataItem*>    deleteList,
+DeleteItemThread::DeleteItemThread(QList<DataItem>    deleteList,
                                    TableView         *downloadingTableview,
                                    Aria2RPCInterface *aria2c,
                                    bool               ifDeleteLocal,
                                    QString            deleteType)
 {
-    this->m_DeleteList = deleteList;
-    this->m_pDownloadingTableview = downloadingTableview;
-    this->m_pAria2c = aria2c;
-    this->m_bIfDeleteLocal = ifDeleteLocal;
-    this->m_StrDeleteType = deleteType;
+    m_DeleteList = deleteList;
+    m_pDownloadingTableview = downloadingTableview;
+    m_pAria2c = aria2c;
+    m_bIfDeleteLocal = ifDeleteLocal;
+    m_StrDeleteType = deleteType;
 }
 
 //删除文件夹
@@ -86,17 +86,17 @@ bool DeleteItemThread::DelDir(const QString &path)
 void DeleteItemThread::deleteRecycleData()
 {
     for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
-        QString save_path = m_pRecycleDeleteList.at(i)->savePath;
-        QString gid = m_pRecycleDeleteList.at(i)->gid;
-        QString taskId = m_pRecycleDeleteList.at(i)->taskId;
-        QString filename = m_pRecycleDeleteList.at(i)->fileName;
+        QString save_path = m_pRecycleDeleteList.at(i).savePath;
+        QString gid = m_pRecycleDeleteList.at(i).gid;
+        QString taskId = m_pRecycleDeleteList.at(i).taskId;
+        QString filename = m_pRecycleDeleteList.at(i).fileName;
 
 
         if(m_bIfDeleteLocal) {
             if(save_path != "") {
                 QFileInfo fileinfo(save_path);
                 if(fileinfo.isDir() && save_path.contains(filename) && !filename.isEmpty()) {
-                    QDir tar(m_pRecycleDeleteList.at(i)->savePath);
+                    QDir tar(m_pRecycleDeleteList.at(i).savePath);
                     tar.removeRecursively();
                 } else {
                     QString aria_temp_file = save_path + ".aria2";
@@ -116,12 +116,12 @@ void DeleteItemThread::deleteRecycleData()
 void DeleteItemThread::deleteDownloadData()
 {
     for(int i = 0; i < m_DeleteList.size(); ++i) {
-        QString gid = m_DeleteList.at(i)->gid;
-        QString task_id = m_DeleteList.at(i)->taskId;
-        QString save_path = m_DeleteList.at(i)->savePath;
-        QString filename = m_DeleteList.at(i)->fileName;
-        emit    signalAria2Remove(m_DeleteList.at(i)->gid, "");
-        Aria2RPCInterface::Instance()->remove(m_DeleteList.at(i)->gid, "");
+        QString gid = m_DeleteList.at(i).gid;
+        QString task_id = m_DeleteList.at(i).taskId;
+        QString save_path = m_DeleteList.at(i).savePath;
+        QString filename = m_DeleteList.at(i).fileName;
+        //emit    signalAria2Remove(m_DeleteList.at(i).gid, m_DeleteList.at(i).taskId);
+        Aria2RPCInterface::Instance()->remove(m_DeleteList.at(i).gid, "");
         if(m_bIfDeleteLocal) {
             m_pAria2c->pause(gid, task_id);
 

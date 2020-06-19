@@ -67,7 +67,36 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
             [=]()
             {
                 this->close();
-            });
+    });
+}
+
+void MessageBox::setRedownload(QList<QString> sameUrlList)
+{
+    this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    this->setTitle(tr("Warning"));
+
+    this->addLabel("Task exist. Download again?");
+    this->addSpacing(10);
+    DTextEdit *urlText = new DTextEdit(this);
+    urlText->setReadOnly(true);
+    urlText->setFixedSize(QSize(454,154));
+
+    QPalette pal;
+    pal.setColor(QPalette::Base, QColor(0,0,0,20));
+    urlText->setPalette(pal);
+    for(int i=0;i<sameUrlList.size();i++)
+    {
+        urlText->append(sameUrlList.at(i));
+    }
+    this->addContent(urlText);
+    addButton("Ok");
+    addButton("Cancel");
+    connect(this,&MessageBox::buttonClicked,this,
+            [=]()
+            {
+                emit reDownloadSig();
+    });
 }
 void MessageBox::setDelete(bool permanentl)
 {
