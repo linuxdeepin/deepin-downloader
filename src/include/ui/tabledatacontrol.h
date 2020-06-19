@@ -155,6 +155,17 @@ public:
      */
     void onDeleteRecycleListConfirm(bool ischecked,bool permanent);
 
+    /**
+     * @brief  正在下载列表和已完成列表重新下载
+     */
+    void downloadListRedownload(QString id);
+
+    /**
+     * @brief  已删除列表重新下载
+     */
+    void recycleListRedownload(QString id);
+
+
 private:
 
     /**
