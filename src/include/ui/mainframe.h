@@ -382,6 +382,11 @@ private:
     void showRenameMsgbox();
 
     /**
+     * @brief 显示重新下载窗口
+     */
+    void showRedownloadMsgbox(QList<QString> sameUrlList);
+
+    /**
      * @brief 从配置文件中获取下载路径
      */
     QString   getDownloadSavepathFromConfig();
@@ -448,6 +453,12 @@ protected:
      */
     void closeEvent(QCloseEvent *event);
 
+    /**
+     * @brief 绘图事件
+     * @param event 事件类型
+     */
+    void paintEvent(QPaintEvent *event);
+
 private:
     enum tableviewFlag{
         downloading,recycle
@@ -467,13 +478,14 @@ private:
     QLabel  *m_pTaskNum;
     DListView *m_pLeftList;
 
-    QStandardItem *m_pDownloading_item;
-    QStandardItem *m_pDownloadFinish_item;
-    QStandardItem *m_pRecycle_item;
+    QStandardItem *m_pdownloadingItem;
+    QStandardItem *m_pdownloadfinishItem;
+    QStandardItem *m_precycleItem;
     QSystemTrayIcon *m_pSystemTray;
     ClipboardTimer *m_pClipboard;
     QAction *m_pSettingAction;
     QTimer *m_pUpdateTimer;
+    QTimer *m_TrayClickTimer;
 
     SettingsWidget *m_pSettingWidget;
     currentLab m_iCurrentLab; // 当前显示列表，正在下载、已完成、回收站

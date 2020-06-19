@@ -68,6 +68,7 @@ public:
     bool setData(const QModelIndex &ndex,
                  const QVariant    &value,
                  int                role);
+
     /**
      * @brief 在正在下载列表添加一列
      * @param data: 数据
@@ -86,81 +87,103 @@ public:
      * @param data: 数据
      */
     void append(Global::DelDataItem *data);
+
     /**
      * @brief 在正在下载列表删除一列
      * @param data: 数据
      */
     void removeItem(Global::DataItem *data);
+
     /**
      * @brief 在回收站列表删除一列
      * @param data: 数据
      */
     void removeItem(Global::DelDataItem *data);
+
     /**
      * @brief 清空下载列表
      */
     void removeItems();
+
     /**
      * @brief 清空回收站列表
      */
     void removeItems(bool isrecycle);
+
     /**
      * @brief 切换到正在下载列表
      */
     void switchDownloadingMode();
+
     /**
      * @brief 切换到已完成列表
      */
     void switchFinishedMode();
+
     /**
      * @brief 根据id查找正在下载item
      * @param gid: id
      * @return 查找到的item数据
      */
     Global::DataItem* find(const QString &gid);
+
     /**
      * @brief 根据id查找回收站item
      * @param gid: id
      * @return 查找到的item数据
      */
     Global::DelDataItem* find(const QString &gid, int flag);
+
     /**
      * @brief 获取正在下载列表
      * @return item列表
      */
     const QList<Global::DataItem *>    dataList();
+
     /**
      * @brief 获取已完成下载列表
      * @return item列表
      */
     const QList<Global::DataItem *>    renderList();
+
     /**
      * @brief 获取回收站下载列表
      * @return item列表
      */
     const QList<Global::DelDataItem *> recyleList();
+
     /**
      * @brief 获取列表展示模式
      * @return 模式
      */
     int getTablemodelMode();
+
     /**
      * @brief 获取列表展示模式
      * @return 模式map
      */
     QMap<QString, Global::DataItem *>  getTableModelMap();
+
+    /**
+     * @brief 获取正在下载的个数
+     * @return 正在下载的个数
+     */
+    int DownloadingCount();
+
     /**
      * @brief 获取行数
      * @param index: 索引
      * @return 行数
      */
     int rowCount(const QModelIndex &parent) const;
+
     /**
      * @brief 获取列数
      * @param index: 索引
      * @return 列数
      */
     int columnCount(const QModelIndex &parent) const;
+
     /**
      * @brief 获取数据
      * @param index: 索引
@@ -168,6 +191,7 @@ public:
      * @return 数据
      */
     QVariant data(const QModelIndex &index, int role) const;
+
     /**
      * @brief 获取表头
      * @param role: 角色
@@ -208,7 +232,7 @@ private:
     QMap<QString, Global::DataItem *> m_map;
     Mode m_mode;
     int m_iTableviewtabFlag;
-
+    int m_iDownloadingCount;
     QMap<QString, Global::DelDataItem *> m_Deletemap;
     QList<Global::DelDataItem *> m_recyleList;
 };
