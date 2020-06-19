@@ -42,13 +42,13 @@ void ItemSelectionWidget::initUI()
 
     m_pLabel = new DLabel("HTTP下载");
     m_pCheckBox = new DCheckBox;
-    m_pCheckBox->setStyleSheet("QCheckBox::indicator:unchecked{image:url(:/icons/unchecked);width:24px;height:24px;}"
-                               "QCheckBox::indicator:checked{image:url(:/icons/checked);width:24px;height:24px;}");
+//    m_pCheckBox->setStyleSheet("QCheckBox::indicator:unchecked{image:url(:/icons/unchecked);width:24px;height:24px;}"
+//                               "QCheckBox::indicator:checked{image:url(:/icons/checked);width:24px;height:24px;}");
 
     QHBoxLayout *pMainLayout = new QHBoxLayout;
+    pMainLayout->addWidget(m_pCheckBox);
     pMainLayout->addWidget(m_pLabel);
     pMainLayout->addStretch();
-    pMainLayout->addWidget(m_pCheckBox);
     pMainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(pMainLayout);

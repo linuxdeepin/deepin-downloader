@@ -41,6 +41,7 @@
 #include <DHeaderView>
 #include <DFileDialog>
 #include <DMessageBox>
+#include <DStyleOption>
 
 class BtInfoDelegate;
 class headerView;
