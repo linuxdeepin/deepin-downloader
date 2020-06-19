@@ -282,6 +282,15 @@ public:
     void forceRemove(QString gId, QString id = "");
 
     /**
+     * @brief removeDownloadResult 移出指定下载项下载结果（包括已完成/下载错误/已移出）,不会删除文件
+     * @param gId
+     * @param id
+     *
+     * signal_success信号中异步返回 OK
+     */
+    void removeDownloadResult(QString gId, QString id = "");
+
+    /**
      * @brief getFiles 获取文件列表
      * @param gId
      * @param id

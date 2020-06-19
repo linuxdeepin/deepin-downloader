@@ -258,6 +258,11 @@ private slots:
     void onRenameActionTriggered();
 
     /**
+     * @brief 移动到文件夹ACtion槽函数
+    */
+    void onMoveToActionTriggered();
+
+    /**
      * @brief 清除回收站ACtion槽函数
     */
     void onClearRecyleActionTriggered();
@@ -298,6 +303,11 @@ private slots:
      * @brief 设置里磁盘缓存改变
      */
     void onDisckCacheChanged(int nNum);
+
+    /**
+     * @brief 清空回收站确认槽函数
+     */
+    void getClearRecycleSlot(bool ischecked);
 
 private:
 
@@ -364,6 +374,11 @@ private:
      * @brief 显示报警窗口
      */
     void showWarningMsgbox(QString title, int sameUrlCount = 0, QList<QString> sameUrlList = {});
+
+    /**
+     * @brief 显示清空窗口
+     */
+    void showClearMsgbox();
 
     /**
      * @brief showDeleteMsgbox 显示删除或彻底删除警告窗口
@@ -497,6 +512,7 @@ private:
     QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
     QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
     Global::DataItem* m_pRenamItem;
+    Global::DataItem* m_pMovetoItem;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 
