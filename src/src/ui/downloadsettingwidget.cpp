@@ -50,6 +50,9 @@ void DownloadSettingWidget::initUI()
     m_pMaxDownloadSpeedLimit = new SettingInfoInputWidget;
     m_pMaxUploadSpeedLimit = new SettingInfoInputWidget;
 
+    m_pMaxDownloadSpeedLimit->setWidgetWidth(290);
+    m_pMaxUploadSpeedLimit->setWidgetWidth(290);
+
     QHBoxLayout *pFullSpeedLabelLayout = new QHBoxLayout;
     pFullSpeedLabelLayout->addWidget(pFullSpeedLabel);
     pFullSpeedLabelLayout->addStretch();
