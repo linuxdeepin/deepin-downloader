@@ -86,6 +86,12 @@ public:
      */
     QString getLineEditText();
 
+    /**
+     * @brief 设置左侧窗口的宽度
+     * @param nWidth 宽
+     */
+    void setWidgetWidth(int nWidth);
+
 signals:
     void textChanged(QString strText);
 
@@ -114,6 +120,7 @@ private:
     DLabel *m_pTitleLabel; // 标题
     DLabel *m_pUnitLabel; // 单位
     DLabel *m_pRangeLabel; // 范围
+    QWidget *m_pWidget;
 };
 
 #endif // SETTINGINFOINPUTWIDGET_H

@@ -209,9 +209,13 @@
                     "name": "Cache",
                     "options": [{
                             "key": "DownloadDiskCacheSettiing",
-                            "name": "",
-                            "type": "downloaddiskcachesetting",
-                            "default": "128"
+                            "type": "radiogroup",
+                            "items": [
+                                "128",
+                                "256",
+                                "512"
+                            ],
+                            "default": 0
                         }
                     ]
                 }
