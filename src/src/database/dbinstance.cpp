@@ -427,3 +427,29 @@ bool DBInstance::getAllUrl(QList<S_Url_Info> &_urlList)
     _q.close();
     return true;
 }
+
+bool DBInstance::isExistBtInHash(QString hash, bool &ret)
+{
+    ret = false;
+    QSqlDatabase _q = DataBase::Instance().getDB();
+    if (!_q.open()) {
+        qDebug() << _q.lastError();
+        return false;
+    }
+    QSqlQuery _sql;
+    QString select_all_sql = "select count(*)  from url_info where url_info.infoHash='" + hash + "' ;";
+    qDebug() << select_all_sql;
+    _sql.prepare(select_all_sql);
+    if (!_sql.exec()) {
+        qWarning() << "select download_task,download_task_status failed : " << _sql.lastError();
+        _q.close();
+        return false;
+    }
+    while (_sql.next()) {
+        if (_sql.value(0).toInt() >= 1) {
+            ret = true;
+        }
+    }
+    _q.close();
+    return true;
+}

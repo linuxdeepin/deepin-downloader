@@ -100,7 +100,7 @@
                             "key":"downloadspeedlimit",
                             "name":"",
                             "type":"downloadspeedlimitsetting",
-                            "default":"speedlimit;102400;32;08:00:00;17:00:00"
+                            "default":"fullspeed;102400;32;08:00:00;17:00:00"
                         }
                     ]
                 }

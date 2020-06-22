@@ -7,6 +7,7 @@
 #include <QCommandLineParser>
 #include "mainframe.h"
 #include "log.h"
+#include "settings.h"
 DWIDGET_USE_NAMESPACE
 
 int main(int argc, char *argv[])
@@ -64,15 +65,18 @@ int main(int argc, char *argv[])
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
+    w.show();
     for (int i = 0; i < _comList.size(); i++)
     {
         if(_comList[i].endsWith(".torrent"))
         {
-             w.onClipboardDataForBt(_comList[i]);
+            if(Settings::getInstance()->getOneClickDownloadState())
+            {
+                w.hide();
+            }
+             w.onClipboardDataForBt(_comList[i]);     
         }
     }
-    w.show();
-
 
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
