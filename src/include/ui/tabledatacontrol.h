@@ -199,6 +199,13 @@ private:
      */
     bool checkFileExist(QString &filePath);
 
+public slots:
+
+    /**
+     * @brief 异常处理确认
+     */
+    void getUnusualConfirm(int index, const QString &taskId);
+
 signals:
     /**
      * @brief 文件为bt，自动开始下载
@@ -210,7 +217,10 @@ signals:
      */
     void signalRedownload(QString taskId, int rd);
 
-public slots:
+    /**
+     * @brief 开始下载信号
+     */
+    void signalDownload(QStringList urlList, QString savePath);
 
 private:
     TableView *m_pTableView;

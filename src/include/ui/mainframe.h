@@ -281,9 +281,19 @@ private slots:
     * @brief 是否开启bt文件托管
     * @param status true 为开启 false为关闭
     */
-   void startAssociatedBTFile(bool status);
+    void startAssociatedBTFile(bool status);
 
+    /**
+    * @brief 重命名确认槽函数
+    * @param name 新名称
+    */
     void getRenameConfirmSlot(QString &name);
+
+    /**
+    * @brief 重新下载确认槽函数
+    */
+    void getRedownloadConfirmSlot(const QList<QString> &sameUrlList);
+
     /**
      * @brief 判断下载限速
      */
@@ -399,7 +409,7 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    void showRedownloadMsgbox(QList<QString> sameUrlList);
+    bool showRedownloadMsgbox(QList<QString> sameUrlList);
 
     /**
      * @brief 从配置文件中获取下载路径
@@ -491,13 +501,14 @@ private:
     QWidget *m_pRight_Widget;
     QWidget *m_pNotaskWidget;
     DLabel *m_pNotaskLabel;
+    DLabel *m_pNoResultlabel;
     QLabel *m_pNotaskTipLabel;
     QStackedWidget *m_pRightStackwidget;
     QWidget *m_pTaskNumWidget;
     QLabel  *m_pTaskNum;
     DListView *m_pLeftList;
 
-    QStandardItem *m_pdownloadingItem;
+    DStandardItem *m_pdownloadingItem;
     QStandardItem *m_pdownloadfinishItem;
     QStandardItem *m_precycleItem;
     QSystemTrayIcon *m_pSystemTray;

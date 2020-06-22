@@ -13,7 +13,6 @@
         <file>actions/dcc_bases_normal_11px.svg</file>
         <file>actions/dcc_notification_normal_11px.svg</file>
         <file>actions/dcc_take_over_normal_11px.svg</file>
-
     </qresource>
     <qresource prefix="/icons/deepin/builtin/dark">
         <file>texts/dcc_list_icon_pause_11px.svg</file>
@@ -50,5 +49,8 @@
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>
+    </qresource>
+    <qresource prefix="/media">
+        <file>wav/downloadfinish.wav</file>
     </qresource>
 </RCC>
