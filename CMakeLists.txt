@@ -50,7 +50,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 #应用qt库
-set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg)
+set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 
