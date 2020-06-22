@@ -64,7 +64,7 @@
 
 using namespace Global;
 
-#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/uos-downloadmanager/desktop/"
+#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/downloadmanager/desktop/"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
@@ -127,19 +127,30 @@ void MainFrame::init()
 
     QVBoxLayout *pnotaskWidgetlayout = new QVBoxLayout(m_pNotaskWidget);
     pnotaskWidgetlayout->setContentsMargins(10, 0, 0, 0);
-    m_pNotaskLabel = new Dtk::Widget::DLabel();
-    m_pNotaskLabel->setForegroundRole(DPalette::PlaceholderText);
+
     QFont lableFont;
     lableFont.setPointSize(15);
     lableFont.setBold(QFont::DemiBold);
     lableFont.setFamily("T5");
     DPalette fontP;
-    fontP.setBrush(DPalette::PlaceholderText, DGuiApplicationHelper::instance()->applicationPalette().placeholderText());
+    m_pNotaskLabel = new Dtk::Widget::DLabel();
     m_pNotaskLabel->setFont(lableFont);
     m_pNotaskLabel->setText(tr("No download tasks"));
     m_pNotaskLabel->setAlignment(Qt::AlignHCenter);
-
+    m_pNotaskLabel->setForegroundRole(DPalette::PlaceholderText);
     pnotaskWidgetlayout->addWidget(m_pNotaskLabel);
+
+    m_pNoResultlabel = new Dtk::Widget::DLabel();
+    m_pNoResultlabel->setFont(lableFont);
+    m_pNoResultlabel->setText(tr("No result"));
+    m_pNoResultlabel->setAlignment(Qt::AlignHCenter);
+    m_pNoResultlabel->setForegroundRole(DPalette::PlaceholderText);
+    m_pNoResultlabel->hide();
+    pnotaskWidgetlayout->addWidget(m_pNoResultlabel);
+
+    fontP.setBrush(DPalette::PlaceholderText, DGuiApplicationHelper::instance()->applicationPalette().placeholderText());
+
+
     m_pNotaskTipLabel = new QLabel();
     QFont notaskTipLabelFont;
     notaskTipLabelFont.setPointSize(13);
@@ -271,6 +282,7 @@ void MainFrame::initConnection()
     connect(m_pDownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalRedownload, this, &MainFrame::onRedownload);
     connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalAutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
+    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalDownload, this, &MainFrame::getNewDownloadUrl);
     connect(m_pDownLoadingTableView->getTableModel(), &TableModel::signalCheckChange, this, &MainFrame::onCheckChanged);
 
     connect(m_pRecycleTableView, &TableView::signalHeaderStatechanged, this, &MainFrame::getHeaderStatechanged);
@@ -311,7 +323,7 @@ void MainFrame::initConnection()
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason == QSystemTrayIcon::ActivationReason::Trigger) {
-        if(m_TrayClickTimer->isActive()){
+        //if(m_TrayClickTimer->isActive()){
             if(this->isHidden()) {
                 // 恢复窗口显示
                 this->show();
@@ -321,10 +333,10 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
             } else {
                 this->hide();
             }
-        } else {
-            m_TrayClickTimer->start(200);
-            m_TrayClickTimer->setSingleShot(true);
-        }
+        //} else {
+            //m_TrayClickTimer->start(200);
+            //m_TrayClickTimer->setSingleShot(true);
+        //}
         return;
     }
 }
@@ -333,7 +345,7 @@ void MainFrame::closeEvent(QCloseEvent *event)
 {
     if(Settings::getInstance()->getIsShowTip()) {
         MessageBox *msg = new MessageBox();
-        connect(msg, &MessageBox::signalCloseConfirm, this, &MainFrame::onMessageBoxConfirmClick);
+        connect(msg, &MessageBox::closeConfirmSig, this, &MainFrame::onMessageBoxConfirmClick);
         msg->setExit();
         msg->exec();
     } else {
@@ -465,7 +477,7 @@ void MainFrame::setTaskNum(int currentLab)
     int activeCount = 0;
     int finishCount = 0;
     int recycleCount = 0;
-    QString active_num;
+    QString activeNum;
 
     if(currentLab == 0) {
         int i = 0;
@@ -479,7 +491,7 @@ void MainFrame::setTaskNum(int currentLab)
             }
             i++;
         }
-        active_num = QString::number(activeCount) + tr(" item tasks");
+        activeNum = QString::number(activeCount) + tr(" item tasks");
         if(activeCount == 0) {
             m_pNotaskWidget->show();
         } else {
@@ -495,13 +507,13 @@ void MainFrame::setTaskNum(int currentLab)
             }
             j++;
         }
-        active_num = QString::number(finishCount) + tr(" files");
+        activeNum = QString::number(finishCount) + tr(" files");
         if(finishCount == 0) {
             m_pNotaskWidget->show();
         } else {
             m_pNotaskWidget->hide();
         }
-    } else {
+    } else if(currentLab == 2){
         int k = 0;
         for(const auto *item : m_recycleList) {
             if(!m_pRecycleTableView->isRowHidden(k)) {
@@ -509,14 +521,14 @@ void MainFrame::setTaskNum(int currentLab)
             }
             k++;
         }
-        active_num = QString::number(recycleCount) + tr(" files");
+        activeNum = QString::number(recycleCount) + tr(" files");
         if(recycleCount == 0) {
             m_pNotaskWidget->show();
         } else {
             m_pNotaskWidget->hide();
         }
     }
-    m_pTaskNum->setText(active_num);
+    m_pTaskNum->setText(activeNum);
 }
 
 void MainFrame::setPaletteType()
@@ -607,14 +619,14 @@ void MainFrame::onClipboardDataForBt(QString url)
 {
     QString _savePath = Settings::getInstance()->getDownloadSavePath();
 
-    BtInfoDialog *pBt = new BtInfoDialog(url, _savePath); // torrent文件路径
-    int ret = pBt->exec();
-
     if(Settings::getInstance()->getNewTaskShowMainWindowState()) {
         activateWindow();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
         show();
     }
+
+    BtInfoDialog *pBt = new BtInfoDialog(url, _savePath); // torrent文件路径
+    int ret = pBt->exec();
 
     if(ret == QDialog::Accepted) {
         QMap<QString, QVariant> opt;
@@ -641,12 +653,14 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_pNotaskWidget->show();
             m_pNotaskLabel->setText(tr("No finished tasks"));
             m_pNotaskTipLabel->hide();
+            m_pNoResultlabel->hide();
         } else {
             m_pDownLoadingTableView->setFocus();
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
             m_pNotaskLabel->setText(tr("No download tasks"));
             m_pNotaskWidget->show();
             m_pNotaskTipLabel->show();
+            m_pNoResultlabel->hide();
         }
     } else {
         m_pRightStackwidget->setCurrentIndex(1);
@@ -654,6 +668,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_pNotaskWidget->show();
         m_pNotaskLabel->setText(tr("No deleted tasks"));
         m_pNotaskTipLabel->hide();
+        m_pNoResultlabel->hide();
     }
 
     clearTableItemCheckStatus();
@@ -740,8 +755,8 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath)
         DBInstance::isExistUrl(urlList[i], isExitsUrl);
         if(isExitsUrl) {
             sameUrlList.append(urlList[i]);
-            //urlList.removeAt(i);
-            //--i;
+            urlList.removeAt(i);
+            --i;
         }
     }
     if(!sameUrlList.isEmpty()) {
@@ -1248,7 +1263,7 @@ void MainFrame::showRedownloadMsgbox(QList<QString> sameUrlList)
 {
     MessageBox *msg = new MessageBox();
 
-    //connect(msg, &MessageBox::reDownloadSig, this, &MainFrame::getRenameConfirmSlot);
+    connect(msg, &MessageBox::reDownloadSig, this, &MainFrame::getRedownloadConfirmSlot);
     QString title = tr("Redownload");
     msg->setRedownload(sameUrlList);
     msg->exec();
@@ -1697,21 +1712,22 @@ void MainFrame::onMoveToActionTriggered()
     if ( fileDialog->exec() == QDialog::Accepted )
     {
         fileName = fileDialog->selectedFiles();
-    }
-    QString filePath = fileName.first();
-    if(filePath != "") {
-        QList<DataItem *> selectList;
-        selectList = m_pDownLoadingTableView->getTableModel()->renderList();
-        for(int i = 0; i < selectList.size(); ++i) {
-            if(selectList.at(i)->status == Complete) {
-                if(selectList.at(i)->Ischecked == 1) {
-                    DataItem *data = selectList.at(i);
-                    QFile::rename(data->savePath, filePath + "/" + data->fileName);
-                    data->savePath = filePath + "/" + data->fileName;
+        QString filePath = fileName.first();
+        if(filePath != "") {
+            QList<DataItem *> selectList;
+            selectList = m_pDownLoadingTableView->getTableModel()->renderList();
+            for(int i = 0; i < selectList.size(); ++i) {
+                if(selectList.at(i)->status == Complete) {
+                    if(selectList.at(i)->Ischecked == 1) {
+                        DataItem *data = selectList.at(i);
+                        QFile::rename(data->savePath, filePath + "/" + data->fileName);
+                        data->savePath = filePath + "/" + data->fileName;
+                    }
                 }
             }
         }
     }
+
 }
 
 void MainFrame::onClearRecyleActionTriggered()
@@ -1772,6 +1788,27 @@ void MainFrame::getRenameConfirmSlot(QString &name)
     m_pDownLoadingTableView->update();
 }
 
+void MainFrame::getRedownloadConfirmSlot(const QList<QString> &sameUrlList)
+{
+    // 将url加入数据库和aria
+    S_Task task;
+    QMap<QString, QVariant> opt;
+    QString savePath = Settings::getInstance()->getDownloadSavePath();
+    opt.insert("dir", savePath);
+    for(int i = 0; i < sameUrlList.size(); i++) {
+        task = getUrlToName(sameUrlList[i], savePath);
+        DBInstance::addTask(task);
+        Aria2RPCInterface::Instance()->addNewUri(task.m_url, savePath, task.m_taskId);
+    }
+
+    m_pNotaskWidget->hide();
+
+    // 定时器打开
+    if(m_pUpdateTimer->isActive() == false) {
+        m_pUpdateTimer->start(2 * 1000);
+    }
+}
+
 void MainFrame::onDownloadLimitChanged()
 {
     QTime   current_time = QTime::currentTime();
@@ -1804,7 +1841,7 @@ void MainFrame::onDownloadLimitChanged()
 
 void MainFrame::onPowerOnChanged(bool isPowerOn)
 {
-    QString autostartDesktop = "autostart/downloadmanager.desktop";
+    QString autostartDesktop = "auto-desktop/downloadmanager.desktop";
     QString defaultDesktop = "downloadmanager.desktop";
     QString userDefaultDesktopPath = QString("%1/autostart/")
                                         .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));

@@ -49,6 +49,7 @@
 #include "topButton.h"
 #include "tableView.h"
 #include "deleteitemthread.h"
+#include "messagebox.h"
 
 using namespace Global;
 
@@ -198,6 +199,11 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         status = Global::Status::Active;
         QFileInfo fInfo(filePath);
         if(!fInfo.isFile()) {
+            status = Global::Status::Error;
+            MessageBox *msg = new MessageBox();
+            msg->setUnusual(taskId);
+            connect(msg, &MessageBox::unusualConfirmSig, this, &tableDataControl::getUnusualConfirm);
+            msg->exec();
             qDebug() << "文件不存在，";
         }
     } else if(statusStr == "waiting") {
@@ -537,6 +543,20 @@ bool tableDataControl::checkFileExist(QString &filePath)
     QFileInfo fInfo(filePath);
 
     return fInfo.isFile();
+}
+
+void tableDataControl::getUnusualConfirm(int index, const QString &taskId)
+{
+    DataItem *pItem = m_pTableView->getTableModel()->find(taskId);
+
+    QStringList strlist;
+    strlist.append(pItem->url);
+    Aria2RPCInterface::Instance()->remove(pItem->gid,pItem->taskId);
+    m_pTableView->getTableModel()->removeItem(pItem);
+    DBInstance::delTask(taskId);
+    if(0 == index){
+        emit signalDownload(strlist, Settings::getInstance()->getDownloadSavePath());
+    }
 }
 
 void tableDataControl::searchEditTextChanged(QString text)

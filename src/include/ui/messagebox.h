@@ -58,7 +58,12 @@ public:
     /**
      * @brief 设置重新下载窗口
     */
-    void setRedownload(QList<QString> sameUrlList={});
+    void setRedownload(const QList<QString> &sameUrlList);
+
+    /**
+     * @brief 设置下载异常窗口（正在下载中，文件被删除）
+    */
+    void setUnusual(const QString &taskId);
 
     /**
      * @brief 设置删除窗口
@@ -113,7 +118,7 @@ signals:
      * @brief 重新下载信号
      * @param newname 新名字
     */
-    void reDownloadSig();
+    void reDownloadSig(const QList<QString> &sameUrlList);
 
     /**
      * @brief 清空信号
@@ -131,7 +136,12 @@ signals:
     /**
      * @brief 关闭确认信号
     */
-    void signalCloseConfirm();
+    void closeConfirmSig();
+
+    /**
+     * @brief 异常确认信号
+    */
+    void unusualConfirmSig(int index, const QString &taskId);
 
 public slots:
     /**

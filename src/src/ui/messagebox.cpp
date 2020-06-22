@@ -70,7 +70,7 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
     });
 }
 
-void MessageBox::setRedownload(QList<QString> sameUrlList)
+void MessageBox::setRedownload(const QList<QString> &sameUrlList)
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -93,10 +93,32 @@ void MessageBox::setRedownload(QList<QString> sameUrlList)
     addButton("Ok");
     addButton("Cancel");
     connect(this,&MessageBox::buttonClicked,this,
-            [=]()
+            [=](int index)
             {
-                emit reDownloadSig();
+            if(index == 0)
+            {
+                emit reDownloadSig(sameUrlList);
+            }
+            close();
     });
+}
+
+void MessageBox::setUnusual(const QString &taskId)
+{
+    this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    this->setTitle(tr("Warning"));
+
+    this->addLabel("Download Error. ");
+    this->addSpacing(10);
+    addButton("Download again");
+    addButton("Delete task");
+    connect(this,&MessageBox::buttonClicked,this,
+            [=](int index)
+            {
+        emit unusualConfirmSig(index,taskId);
+        close();
+            });
 }
 void MessageBox::setDelete(bool permanentl)
 {
@@ -297,7 +319,7 @@ void MessageBox::ExitBtn(int index)
         if(m_pCheckBox->isChecked()) {
             Settings::getInstance()->setIsShowTip(false);
         }
-        emit signalCloseConfirm();
+        emit closeConfirmSig();
     }
     close();
 }
