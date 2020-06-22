@@ -314,7 +314,7 @@ void MainFrame::initConnection()
     connect(Settings::getInstance(), &Settings::poweronChanged, this, &MainFrame::onPowerOnChanged);
     connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
     connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
-    connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onDownloadLimitChanged);
+    connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::startAssociatedBTFile);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -616,22 +616,42 @@ void MainFrame::onClipboardDataChanged(QString url)
 void MainFrame::onClipboardDataForBt(QString url)
 {
     QString _savePath = Settings::getInstance()->getDownloadSavePath();
+    BtInfoDialog *pBt = new BtInfoDialog(url, _savePath); // torrent文件路径
+    QMap<QString, QVariant> opt;
+    QString infoName;
+    QString infoHash;
+    bool isExist;
+    bool _isOneClick = Settings::getInstance()->getOneClickDownloadState();
+    if(_isOneClick)
+    {
+        pBt->slot_btnOK();
+        pBt->getBtInfo(opt, infoName, infoHash);
+        this->getNewDownloadTorrent(url, opt, infoName, infoHash);
+        DBInstance::isExistBtInHash(infoHash, isExist);
+        if(!isExist)
+        {
+            //若任务存在，将重新下载
+        }
+        this->btNotificaitonSettings(infoName);
+        return;
+    }
 
+    int ret = pBt->exec();
     if(Settings::getInstance()->getNewTaskShowMainWindowState()) {
         activateWindow();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
         show();
     }
 
-    BtInfoDialog *pBt = new BtInfoDialog(url, _savePath); // torrent文件路径
-    int ret = pBt->exec();
-
     if(ret == QDialog::Accepted) {
-        QMap<QString, QVariant> opt;
-        QString infoName;
-        QString infoHash;
         pBt->getBtInfo(opt, infoName, infoHash);
         this->getNewDownloadTorrent(url, opt, infoName, infoHash);
+        DBInstance::isExistBtInHash(infoHash, isExist);
+        if(isExist)
+        {
+            //若任务存在，将重新下载
+        }
+        this->btNotificaitonSettings(infoName);
     }
 }
 
@@ -2183,3 +2203,27 @@ void MainFrame::endBtAssociat()
     _writerFile.close();
 }
 
+void MainFrame::btNotificaitonSettings(QString fileName)
+{
+    // 获取免打扰模式值
+    QVariant undisturbed_mode_switchbutton = Settings::getInstance()->m_pSettings->getOption(
+        "basic.select_multiple.undisturbed_mode_switchbutton");
+
+
+    bool afterDownloadPlayTone = Settings::getInstance()->getDownloadFinishedPlayToneState();
+    if(afterDownloadPlayTone) {
+        //QSound::play(":/resources/wav/downloadfinish.wav");
+    } else {
+        qDebug() << " not in select down load finsh wav" << endl;
+    }
+
+    bool downloadInfoNotify = Settings::getInstance()->getDownloadInfoSystemNotifyState();
+    if(downloadInfoNotify) {
+        QProcess *p = new QProcess;
+        QString   showInfo;
+        showInfo = fileName + tr(" downloading");
+        p->start("notify-send", QStringList() << showInfo);
+        p->waitForStarted();
+        p->waitForFinished();
+    }
+}

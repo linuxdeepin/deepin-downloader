@@ -7,7 +7,7 @@ include_directories( ${PROJECT_SOURCE_DIR}/src/include/ui
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
 #预定义宏，主要用于dll导出
-ADD_DEFINITIONS(-DUI_LIB )
+ADD_DEFINITIONS(-DCONTROLUI_LIB )
 
 
 #需要moc(加Q_OBJECT)的头文件 
@@ -59,7 +59,7 @@ QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
 
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
-add_library(ui SHARED
+add_library(controlui SHARED
        mainframe.cpp
        tableView.cpp
        tableModel.cpp
@@ -89,7 +89,7 @@ add_library(ui SHARED
        ${QM_FILES}
 )
 
-target_link_libraries(ui aria2 database dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg  Qt5::Multimedia)
+target_link_libraries(controlui aria2 database dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg  Qt5::Multimedia)
 
-install(TARGETS ui DESTINATION lib)
+install(TARGETS controlui DESTINATION lib)
 

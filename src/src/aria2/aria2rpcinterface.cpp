@@ -71,12 +71,17 @@ bool Aria2RPCInterface::startUp()
     /*
     *设置aria2c  session 路径  时间  input 路径
     */
-    QString sessionCacheFile = QDir::homePath() + "/.cache/uos-aria2c.session";
-    QString inputFile = QDir::homePath() + "/.cache/uos-aria2c.input";
+    QString sessionCacheFile = QDir::homePath() + "/.cache/uos-aria2c.session";//session 文件路径
+    QString inputFile = QDir::homePath() + "/.cache/uos-aria2c.input";//.input文件路径
+    QString dhtFile = QDir::homePath() + "/.config/uos/downloadmanager/dht.dat";//
+    QString dht6File = QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat";//
     QString saveSessionInterval = "30"; //秒
 
     qDebug() << "创建session缓存文件: " << sessionCacheFile;
     QProcess::execute("/usr/bin/touch", QStringList() << sessionCacheFile); //创建session缓存文件
+    QProcess::execute("/usr/bin/touch", QStringList() << dhtFile); //创建dht文件
+    QProcess::execute("/usr/bin/touch", QStringList() << dht6File); //创建dht6文件
+
 
     QStringList opt;
     opt << "--enable-rpc=true"; //启动RPC
@@ -103,6 +108,8 @@ bool Aria2RPCInterface::startUp()
     //opt << "--input-file=" + inputFile;
     opt << "--save-session=" + sessionCacheFile;
     opt << "--save-session-interval=" + saveSessionInterval;
+    opt << "--dht-file-path=" + dhtFile;
+    opt << "--dht-file-path6=" + dht6File;
 
     qDebug() << Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd << opt.join(' ');
 
