@@ -61,6 +61,13 @@ public:
      */
     static bool isExistUrl(QString url, bool &ret);
     /**
+     * @brief 判断Url是否存在
+     * @param hash 需要查询hash
+     * @param ret 传出参数，真为存在，假为不存在
+     * @return true 执行成功 false执行失败
+     */
+    static bool isExistBtInHash(QString hash, bool &ret);
+    /**
      * @brief 添加任务状态
      * @param task 任务状态
      * @return true 执行成功 false执行失败
@@ -111,6 +118,7 @@ public:
      * @return true 执行成功 false执行失败
      */
     static bool getAllUrl(QList<S_Url_Info> &urlList); //得到所有Url
+
 };
 
 #endif // DBINSTANCE_H

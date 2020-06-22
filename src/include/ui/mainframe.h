@@ -441,6 +441,10 @@ private:
      * @param value 配置文件中的value
      */
     void modifyConfigFile(QString configItem, QString value);
+    /**
+     * @brief 处理设置界面通知设置函数
+     */
+    void btNotificaitonSettings(QString fileName);
 
 protected:
     /**
