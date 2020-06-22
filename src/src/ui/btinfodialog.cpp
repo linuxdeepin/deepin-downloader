@@ -495,10 +495,25 @@ void BtInfoDialog::updateSelectedInfo()
 void BtInfoDialog::slot_filechoosed(const QString &filename)
 {
     QFileInfo fileinfo;
+    QString _strPath;
     fileinfo.setFile(filename);
+    if(!fileinfo.isWritable())
+    {
+       MessageBox *msg=new MessageBox();
+       QString title = tr("select directory not writeable!");
+       msg->setWarings(title, tr("sure"));
+       msg->exec();
+       _strPath = m_editDir->directoryUrl().toString();
+       QString _text = this->getFileEditText(m_defaultDownloadDir);
+       this->m_editDir->lineEdit()->setText(_text);
+       m_editDir->setDirectoryUrl(m_defaultDownloadDir);
+       return;
+    }
+
     QString _text = this->getFileEditText(filename);
     this->m_editDir->lineEdit()->setText(_text);
     m_editDir->setDirectoryUrl(filename);
+    m_defaultDownloadDir = filename;
 }
 
 void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type)
