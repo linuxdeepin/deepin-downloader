@@ -37,7 +37,7 @@
 #include <QThread>
 #include <QDesktopServices>
 #include <QUuid>
-//#include <QSound>
+#include <QSound>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -119,6 +119,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
             task = S_Task(id, gId, 0, "", "", "Unknow", time);
             DBInstance::addTask(task);
         }
+        data->savePath = getTaskInfo.m_downloadPath + "/" + getTaskInfo.m_downloadFilename;
         m_pTableView->getTableModel()->append(data);
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_pTableView->getTableModel();
@@ -479,7 +480,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
 
     bool afterDownloadPlayTone = Settings::getInstance()->getDownloadFinishedPlayToneState();
     if(afterDownloadPlayTone) {
-        //QSound::play(":/resources/wav/downloadfinish.wav");
+        QSound::play(":/media/wav/downloadfinish.wav");
     } else {
         qDebug() << " not in select down load finsh wav" << endl;
     }
@@ -548,6 +549,9 @@ bool tableDataControl::checkFileExist(QString &filePath)
 void tableDataControl::getUnusualConfirm(int index, const QString &taskId)
 {
     DataItem *pItem = m_pTableView->getTableModel()->find(taskId);
+    if( nullptr == pItem){
+        return;
+    }
 
     QStringList strlist;
     strlist.append(pItem->url);
@@ -1022,19 +1026,19 @@ void tableDataControl::downloadListRedownload(QString id)
     QString url = data->url;
     QString ariaTempFile = data->savePath + ".aria2";
     QString taskId = data->taskId;
-    if(!data->savePath.isEmpty()) {
-        QFileInfo fi(data->savePath);
-        if(fi.isDir() && data->savePath.contains(data->fileName) && !data->fileName.isEmpty()) {
-            QDir tar(data->savePath);
-            tar.removeRecursively();
-        } else {
-            QFile::remove(data->savePath);
-        }
-        if(QFile::exists(ariaTempFile)) {
-            QThread::sleep(1);
-            QFile::remove(ariaTempFile);
-        }
-    }
+//    if(!data->savePath.isEmpty()) {
+//        QFileInfo fi(data->savePath);
+//        if(fi.isDir() && data->savePath.contains(data->fileName) && !data->fileName.isEmpty()) {
+//            QDir tar(data->savePath);
+//            tar.removeRecursively();
+//        } else {
+//            QFile::remove(data->savePath);
+//        }
+//        if(QFile::exists(ariaTempFile)) {
+//            QThread::sleep(1);
+//            QFile::remove(ariaTempFile);
+//        }
+//    }
 
     QString filePath = data->savePath;
     QString fileName = data->fileName;
@@ -1076,7 +1080,15 @@ void tableDataControl::downloadListRedownload(QString id)
         QUuid   uuid = QUuid::createUuid();
         QString strId = uuid.toString();
         QMap<QString, QVariant> opt;
+        int count = DBInstance::getSameNameCount(data->fileName);
+        QString outFileName;
+        if(count > 0) {
+            QString name1 = data->fileName.mid(0, fileName.lastIndexOf('.'));
+            name1 += QString("_%1").arg(count);
+            outFileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
+        }
         opt.insert("dir", savePath);
+        opt.insert("out", outFileName);
         Aria2RPCInterface::Instance()->addUri(url, opt, strId);
 
         QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
@@ -1151,12 +1163,21 @@ void tableDataControl::recycleListRedownload(QString id)
                            "",
                            fileName,
                            QDateTime::currentDateTime());
+
             DBInstance::addTask(addTask);
             Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
         }
     } else {
         QMap<QString, QVariant> opt;
+        int count = DBInstance::getSameNameCount(data->fileName);
+        QString outFileName;
+        if(count > 0) {
+            QString name1 = data->fileName.mid(0, fileName.lastIndexOf('.'));
+            name1 += QString("_%1").arg(count);
+            outFileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
+        }
         opt.insert("dir", savePath);
+        opt.insert("out", outFileName);
         Aria2RPCInterface::Instance()->addUri(url, opt, strId);
         QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
         if(!filename.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {

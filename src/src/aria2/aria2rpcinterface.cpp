@@ -214,10 +214,12 @@ void Aria2RPCInterface::addUri(QString strUri, QMap<QString, QVariant> opt, QStr
     callRPC(ARIA2C_METHOD_ADD_URI, ja, strId);
 }
 
-void Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString strId)
+void Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filename, QString strId)
 {
     QMap<QString, QVariant> opt;
     opt.insert("dir", savepath);
+    opt.insert("out", filename);
+
     addUri(uri, opt, strId);
 
     qDebug() << "Add new uri" << uri;

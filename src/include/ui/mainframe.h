@@ -409,7 +409,7 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    void showRedownloadMsgbox(QList<QString> sameUrlList);
+    bool showRedownloadMsgbox(QList<QString> sameUrlList);
 
     /**
      * @brief 从配置文件中获取下载路径
@@ -504,7 +504,7 @@ private:
     QLabel  *m_pTaskNum;
     DListView *m_pLeftList;
 
-    QStandardItem *m_pdownloadingItem;
+    DStandardItem *m_pdownloadingItem;
     QStandardItem *m_pdownloadfinishItem;
     QStandardItem *m_precycleItem;
     QSystemTrayIcon *m_pSystemTray;

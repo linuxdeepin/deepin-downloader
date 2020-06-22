@@ -90,12 +90,12 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
         urlText->append(sameUrlList.at(i));
     }
     this->addContent(urlText);
-    addButton("Ok");
     addButton("Cancel");
+    addButton("Ok");
     connect(this,&MessageBox::buttonClicked,this,
             [=](int index)
             {
-            if(index == 0)
+            if(index == 1)
             {
                 emit reDownloadSig(sameUrlList);
             }

@@ -40,7 +40,7 @@ set (UDLC_UI_HEADERS
 )
 
 #添加资源文件
-set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/images.qrc)
+set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/resource/resource.qrc)
 qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 
 #发布的时候生成qm文件
@@ -89,7 +89,7 @@ add_library(ui SHARED
        ${QM_FILES}
 )
 
-target_link_libraries(ui aria2 database dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg)
+target_link_libraries(ui aria2 database dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg  Qt5::Multimedia)
 
 install(TARGETS ui DESTINATION lib)
 

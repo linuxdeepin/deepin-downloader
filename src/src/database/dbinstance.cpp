@@ -427,3 +427,28 @@ bool DBInstance::getAllUrl(QList<S_Url_Info> &_urlList)
     _q.close();
     return true;
 }
+
+int DBInstance::getSameNameCount(QString filename)
+{
+    int count = 0;
+    QSqlDatabase sqlDatabase = DataBase::Instance().getDB();
+    if (!sqlDatabase.open()) {
+        qDebug() << sqlDatabase.lastError();
+        return 0;
+    }
+
+    QSqlQuery sql;
+    QString sqlStr =  QString("select count(download_filename) from download_task where download_filename like '" + filename + "%';").arg(filename);
+    sql.prepare(sqlStr);
+    if (!sql.exec()) {
+        qWarning() << "select count(download_filename) failed : " << sql.lastError();
+        qWarning() << sqlStr;
+        sqlDatabase.close();
+        return 0;
+    }
+    while(sql.next())
+    {
+        count = sql.value(0).toInt();
+    }
+    return count;
+}

@@ -111,6 +111,13 @@ public:
      * @return true 执行成功 false执行失败
      */
     static bool getAllUrl(QList<S_Url_Info> &urlList); //得到所有Url
+
+    /**
+     * @brief 获取重复名称个数
+     * @param filename 文件名称
+     * @return 重复名称个数
+     */
+    static int getSameNameCount(QString filename);
 };
 
 #endif // DBINSTANCE_H

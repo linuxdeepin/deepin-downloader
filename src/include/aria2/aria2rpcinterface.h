@@ -127,9 +127,10 @@ public:
      * @brief addNewUri 添加下载 HTTP(S)/FTP/BitTorrent Magnet 链接 ，
      * @param uri 链接
      * @param savepath  下载路径
+     * @param filename  文件名称
      * @param strId     Gid
      */
-    void addNewUri(QString uri, QString savepath, QString strId);
+    void addNewUri(QString uri, QString savepath, QString filename, QString strId);
 
     /**
      * @brief addTorrent 添加下载Torrent

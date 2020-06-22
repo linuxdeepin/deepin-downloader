@@ -58,8 +58,7 @@ void TopButton::Init()
     m_pNewDownloadBtn = new DIconButton(this);
     m_pNewDownloadBtn->setFixedSize(36, 36);
     m_pNewDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
-    m_pNewDownloadBtn->setToolTip("Create");
-    DToolTip * pTip1 = new DToolTip("Create");
+    m_pNewDownloadBtn->setToolTip(tr("Create"));
 
     m_pPauseDownloadBtn = new Dtk::Widget::DIconButton(this);
 
@@ -68,20 +67,20 @@ void TopButton::Init()
     m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pPauseDownloadBtn->setEnabled(false);
     m_pPauseDownloadBtn->setGeometry(90, 0, 36, 36);
-    m_pPauseDownloadBtn->setToolTip("Pause");
+    m_pPauseDownloadBtn->setToolTip(tr("Pause"));
 
     m_pStartDownloadBtn = new DIconButton(this);
     m_pStartDownloadBtn->setFixedSize(36, 36);
     m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_pStartDownloadBtn->setEnabled(false);
-    m_pStartDownloadBtn->setToolTip("Resume");
+    m_pStartDownloadBtn->setToolTip(tr("Resume"));
 
 
     m_pDeleteDownloadBtn = new DIconButton(this);
     m_pDeleteDownloadBtn->setFixedSize(36, 36);
     m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_pDeleteDownloadBtn->setEnabled(false);
-    m_pDeleteDownloadBtn->setToolTip("Delete");
+    m_pDeleteDownloadBtn->setToolTip(tr("Delete"));
 
     mainHlayout->addSpacing(5);
     mainHlayout->addWidget(m_pIconLable);
