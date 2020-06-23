@@ -87,7 +87,7 @@ void newTaskWidget::initUi()
     _iconBtn->setIconSize(QSize(18,15));
     _iconBtn->setFixedSize(QSize(40,35));
     connect(_iconBtn,&DIconButton::clicked,this,&newTaskWidget::openfileDialog);
-    _iconBtn->setToolTip("Select file");
+    _iconBtn->setToolTip(tr("Select file"));
     layout->addWidget(_iconBtn);
 
     QWidget *_rightBox= new QWidget(_boxBtn);
