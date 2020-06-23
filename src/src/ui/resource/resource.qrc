@@ -13,6 +13,9 @@
         <file>actions/dcc_bases_normal_11px.svg</file>
         <file>actions/dcc_notification_normal_11px.svg</file>
         <file>actions/dcc_take_over_normal_11px.svg</file>
+        <file>texts/dcc_finish_openfile_11px.svg</file>
+        <file>texts/dcc_finish_openfolder_11px.svg</file>
+        <file>texts/dcc_recycel_restore_11px.svg</file>
     </qresource>
     <qresource prefix="/icons/deepin/builtin/dark">
         <file>texts/dcc_list_icon_pause_11px.svg</file>
@@ -28,6 +31,9 @@
         <file>actions/dcc_bases_normal_dark_11px.svg</file>
         <file>actions/dcc_notification_normal_dark_11px.svg</file>
         <file>actions/dcc_take_over_normal_dark_11px.svg</file>
+        <file>texts/dcc_finish_openfolder_11px.svg</file>
+        <file>texts/dcc_finish_openfile_11px.svg</file>
+        <file>texts/dcc_recycel_restore_11px.svg</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icon/downloader1.svg</file>

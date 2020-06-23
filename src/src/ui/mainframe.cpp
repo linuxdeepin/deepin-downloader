@@ -689,6 +689,8 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_pNoResultlabel->hide();
     }
 
+
+
     clearTableItemCheckStatus();
     emit switchTableSignal();
     setTaskNum(m_iCurrentLab);
@@ -1113,6 +1115,15 @@ void MainFrame::clearTableItemCheckStatus()
 
 void MainFrame::onSearchEditTextChanged(QString text)
 {
+    if(text != ""){
+        m_pNotaskLabel->hide();
+        m_pNotaskTipLabel->hide();
+        m_pNoResultlabel->show();
+    } else {
+        m_pNotaskLabel->show();
+        m_pNotaskTipLabel->show();
+        m_pNoResultlabel->hide();
+    }
     m_SearchContent = text;
     m_pDownLoadingTableView->getTableControl()->searchEditTextChanged(text);
     m_pRecycleTableView->getTableControl()->searchEditTextChanged(text);
@@ -1304,6 +1315,12 @@ bool MainFrame::showRedownloadMsgbox(QList<QString> sameUrlList)
     if(rs == DDialog::Accepted){
         return true;
     }
+    QString url;
+    foreach(QString str, sameUrlList){
+        url.append(str);
+        url.append("/n");
+    }
+    createNewTask(url);
     return false;
 }
 
