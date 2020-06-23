@@ -196,16 +196,43 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         }
     }
 
+    DataItem *data = m_pTableView->getTableModel()->find(taskId);
+    if(data == nullptr) {
+        return;
+    }
     if(statusStr == "active") {
         status = Global::Status::Active;
         QFileInfo fInfo(filePath);
         if(!fInfo.isFile()) {
+            if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
+                Aria2RPCInterface::Instance()->remove(data->gid);
+                DBInstance::delTask(taskId);
+
+                QFileInfo fileinfo(data->savePath);
+                if(fileinfo.isDir() && data->savePath.contains(data->fileName) && !data->fileName.isEmpty()) {
+                    QDir tar(data->savePath);
+                    tar.removeRecursively();
+                } else {
+                    QString ariaTempFile = data->savePath + ".aria2";
+                    if(!data->savePath.isEmpty()) {
+                        QFile::remove(data->savePath);
+                        if(QFile::exists(ariaTempFile)) {
+                            QThread::sleep(1);
+                            QFile::remove(ariaTempFile);
+                        }
+                    }
+                }
+
+                m_pTableView->getTableModel()->removeItem(data);
+                return;
+            }
             status = Global::Status::Error;
             MessageBox *msg = new MessageBox();
             msg->setUnusual(taskId);
             connect(msg, &MessageBox::unusualConfirmSig, this, &tableDataControl::getUnusualConfirm);
             msg->exec();
             qDebug() << "文件不存在，";
+            return;
         }
     } else if(statusStr == "waiting") {
         status = Global::Status::Waiting;
@@ -240,10 +267,6 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         status = Global::Status::Removed;
     }
 
-    DataItem *data = m_pTableView->getTableModel()->find(taskId);
-    if(data == nullptr) {
-        return;
-    }
     data->gid = gId;
     data->totalLength = formatFileSize(totalLength);
     data->completedLength = formatFileSize(completedLength);
