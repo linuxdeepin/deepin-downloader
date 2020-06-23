@@ -76,7 +76,7 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel("Task exist. Download again?");
+    this->addLabel(tr("Task exist. Download again?"));
     this->addSpacing(10);
     DTextEdit *urlText = new DTextEdit(this);
     urlText->setReadOnly(true);
@@ -90,8 +90,8 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
         urlText->append(sameUrlList.at(i));
     }
     this->addContent(urlText);
-    addButton("Cancel");
-    addButton("Ok");
+    addButton(tr("Cancel"));
+    addButton(tr("Ok"));
     connect(this,&MessageBox::buttonClicked,this,
             [=](int index)
             {
