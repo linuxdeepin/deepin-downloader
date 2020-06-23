@@ -195,12 +195,6 @@
                             "name": "Show main window when creating new task",
                             "type": "switchbutton",
                             "default": true
-                        },
-                        {
-                            "key": "OpenMainWindowShortcutKey",
-                            "name": "Show main window",
-                            "type": "shortcut",
-                            "default": "Alt+D"
                         }
                     ]
                 },
