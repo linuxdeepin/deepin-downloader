@@ -103,7 +103,6 @@ void TopButton::InitConnections()
     connect( m_pPauseDownloadBtn, &DIconButton::clicked,      this, &TopButton::pauseDownloadBtnClicked);
     connect( m_pStartDownloadBtn, &DIconButton::clicked,      this, &TopButton::startDownloadBtnClicked);
     connect(m_pDeleteDownloadBtn, &DIconButton::clicked,      this, &TopButton::deleteDownloadBtnClicked);
-
     connect(       m_pSearchEdit, &DSearchEdit::focusChanged, this, &TopButton::getSearchEditFocus);
     connect(       m_pSearchEdit, &DSearchEdit::textChanged,  this, &TopButton::getSearchEditTextChange);
 }
