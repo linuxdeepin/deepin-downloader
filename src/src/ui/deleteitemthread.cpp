@@ -85,26 +85,24 @@ bool DeleteItemThread::DelDir(const QString &path)
 
 void DeleteItemThread::deleteRecycleData()
 {
-    for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
-        QString save_path = m_pRecycleDeleteList.at(i).savePath;
-        QString gid = m_pRecycleDeleteList.at(i).gid;
-        QString taskId = m_pRecycleDeleteList.at(i).taskId;
-        QString filename = m_pRecycleDeleteList.at(i).fileName;
-
-
-        if(m_bIfDeleteLocal) {
-            if(save_path != "") {
-                QFileInfo fileinfo(save_path);
-                if(fileinfo.isDir() && save_path.contains(filename) && !filename.isEmpty()) {
+    if(m_bIfDeleteLocal) {
+        for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
+            QString savePath = m_pRecycleDeleteList.at(i).savePath;
+            QString gid = m_pRecycleDeleteList.at(i).gid;
+            QString taskId = m_pRecycleDeleteList.at(i).taskId;
+            QString filename = m_pRecycleDeleteList.at(i).fileName;
+            if(savePath != "") {
+                QFileInfo fileinfo(savePath);
+                if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
                     QDir tar(m_pRecycleDeleteList.at(i).savePath);
                     tar.removeRecursively();
                 } else {
-                    QString aria_temp_file = save_path + ".aria2";
-                    if(!save_path.isEmpty()) {
-                        QFile::remove(save_path);
-                        if(QFile::exists(aria_temp_file)) {
+                    QString ariaTempFile = savePath + ".aria2";
+                    if(!savePath.isEmpty()) {
+                        QFile::remove(savePath);
+                        if(QFile::exists(ariaTempFile)) {
                             QThread::sleep(1);
-                            QFile::remove(aria_temp_file);
+                            QFile::remove(ariaTempFile);
                         }
                     }
                 }
@@ -117,26 +115,26 @@ void DeleteItemThread::deleteDownloadData()
 {
     for(int i = 0; i < m_DeleteList.size(); ++i) {
         QString gid = m_DeleteList.at(i).gid;
-        QString task_id = m_DeleteList.at(i).taskId;
-        QString save_path = m_DeleteList.at(i).savePath;
+        QString taskId = m_DeleteList.at(i).taskId;
+        QString savePath = m_DeleteList.at(i).savePath;
         QString filename = m_DeleteList.at(i).fileName;
         //emit    signalAria2Remove(m_DeleteList.at(i).gid, m_DeleteList.at(i).taskId);
         Aria2RPCInterface::Instance()->remove(m_DeleteList.at(i).gid, "");
         if(m_bIfDeleteLocal) {
-            m_pAria2c->pause(gid, task_id);
+            m_pAria2c->pause(gid, taskId);
 
-            if(save_path != "") {
-                QFileInfo fileinfo(save_path);
-                if(fileinfo.isDir() && save_path.contains(filename) && !filename.isEmpty()) {
-                    QDir tar(save_path);
+            if(savePath != "") {
+                QFileInfo fileinfo(savePath);
+                if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
+                    QDir tar(savePath);
                     tar.removeRecursively();
                 } else {
-                    QString aria_temp_file = save_path + ".aria2";
-                    if(!save_path.isEmpty()) {
-                        QFile::remove(save_path);
-                        if(QFile::exists(aria_temp_file)) {
+                    QString ariaTempFile = savePath + ".aria2";
+                    if(!savePath.isEmpty()) {
+                        QFile::remove(savePath);
+                        if(QFile::exists(ariaTempFile)) {
                             QThread::sleep(1);
-                            QFile::remove(aria_temp_file);
+                            QFile::remove(ariaTempFile);
                         }
                     }
                 }
