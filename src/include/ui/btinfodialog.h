@@ -42,6 +42,7 @@
 #include <DFileDialog>
 #include <DMessageBox>
 #include <DStyleOption>
+#include <DSuggestButton>
 
 class MessageBox;
 class BtInfoDelegate;
@@ -103,6 +104,8 @@ private:
     bool isPicture(QString ext);//判断扩展名是否是常见图片格式
 
     QString getFileEditText(QString text);
+
+    void setOkBtnStatus(int count);    //根据选择文件设置确认按钮状态
 
 private:
     QString m_torrentFile;
