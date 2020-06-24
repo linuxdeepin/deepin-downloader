@@ -203,7 +203,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if(statusStr == "active") {
         status = Global::Status::Active;
         QFileInfo fInfo(filePath);
-        if(!fInfo.isFile()) {
+        if(!fInfo.isFile() && (!fileName.contains("[METADATA]"))) {
             if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
                 Aria2RPCInterface::Instance()->remove(data->gid);
                 DBInstance::delTask(taskId);
@@ -586,6 +586,11 @@ void tableDataControl::getUnusualConfirm(int index, const QString &taskId)
     }
 }
 
+void tableDataControl::Aria2RemoveSlot(QString gId, QString id)
+{
+    Aria2RPCInterface::Instance()->remove(gId, id);
+}
+
 void tableDataControl::searchEditTextChanged(QString text)
 {
     TableModel *pModel = m_pTableView->getTableModel();
@@ -943,6 +948,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                                                Aria2RPCInterface::Instance(),
                                                                ifDeleteLocal,
                                                                "download_delete");
+    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
     pDeleteItemThread->start();
 
     for(int i = 0; i < m_pDeleteList.size(); i++) {
@@ -972,7 +978,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         if(permanent || ischecked) {
             DBInstance::delTask(taskId);
 
-            // Aria2RPCInterface::Instance()->purgeDownloadResult(data->gid);
+            Aria2RPCInterface::Instance()->purgeDownloadResult(data->gid);
         }
 
         if(!permanent && !ischecked) {

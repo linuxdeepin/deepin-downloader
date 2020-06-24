@@ -69,7 +69,7 @@ public:
      * @brief 设置删除窗口
      * @param permanentl bool类型，真为选择删除文件同时，删除本地文件。 假为可选择是否删除本地文件。
     */
-    void setDelete(bool permanentl);
+    void setDelete(bool permanentl, bool checked = false);
 
     /**
      * @brief 设置清空窗口。可选择是否清空回收站及删除本地文件
@@ -106,7 +106,7 @@ private:
      * @brief Checkbox
      * @param text Checkbox内容
     */
-    void addCheckbox(QString checkboxText);
+    void addCheckbox(QString checkboxText, bool checked = false);
 signals:
     /**
      * @brief 重命名信号

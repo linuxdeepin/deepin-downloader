@@ -206,6 +206,11 @@ public slots:
      */
     void getUnusualConfirm(int index, const QString &taskId);
 
+    /**
+    * @brief 同志aria2删除任务
+    */
+    void Aria2RemoveSlot(QString gId, QString id);
+
 signals:
     /**
      * @brief 文件为bt，自动开始下载
