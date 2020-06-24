@@ -280,7 +280,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         QString infoHash = result.value("infoHash").toString();
         if(filePath.startsWith("[METADATA]")) {
             QString dir = result.value("dir").toString();
-
+            data->status = Global::Status::Complete;
             emit signalAutoDownloadBt(dir + "/" + infoHash + ".torrent");
             fileName = infoHash + ".torrent";
         }
