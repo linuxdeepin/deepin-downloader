@@ -1694,7 +1694,7 @@ void MainFrame::onReturnOriginActionTriggered()
                     }
                 } else {
                     onDownloadLimitChanged();
-                    Aria2RPCInterface::Instance()->addUri(returntoData->url, opt, returntoData->taskId);
+                   // Aria2RPCInterface::Instance()->addUri(returntoData->url, opt, returntoData->taskId);
                     if(m_pUpdateTimer->isActive() == false) {
                         m_pUpdateTimer->start(2 * 1000);
                     }

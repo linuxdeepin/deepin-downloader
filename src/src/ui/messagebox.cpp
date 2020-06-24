@@ -109,10 +109,10 @@ void MessageBox::setUnusual(const QString &taskId)
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel("Download Error. ");
+    this->addLabel(tr("Download Error. "));
     this->addSpacing(10);
-    addButton("Download again");
-    addButton("Delete task");
+    addButton(tr("Download again"));
+    addButton(tr("Delete task"));
     connect(this,&MessageBox::buttonClicked,this,
             [=](int index)
             {
