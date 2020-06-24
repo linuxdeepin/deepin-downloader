@@ -81,6 +81,8 @@ void DownloadSettingWidget::initUI()
     DLabel *pCenterLabel = new DLabel(tr("to")); // 至
     m_pStartTimeEdit = new QTimeEdit(QTime(8, 0, 0));
     m_pEndTimeEdit = new QTimeEdit(QTime(17, 0, 0));
+    m_pStartTimeEdit->setDisplayFormat("h:mm");
+    m_pEndTimeEdit->setDisplayFormat("h:mm");
 
     QHBoxLayout *pTimeLayout = new QHBoxLayout;
     pTimeLayout->addWidget(pLeftLabel);
