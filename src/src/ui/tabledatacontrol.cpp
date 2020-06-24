@@ -253,7 +253,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
                 removeDownloadListJob(data);
                 return;
             }
-            status = Global::Status::Error;
+            data->status = Global::Status::Error;
             MessageBox *msg = new MessageBox();
             msg->setUnusual(taskId);
             connect(msg, &MessageBox::unusualConfirmSig, this, &tableDataControl::getUnusualConfirm);
