@@ -235,6 +235,8 @@ private:
     int m_iDownloadingCount;
     QMap<QString, Global::DelDataItem *> m_Deletemap;
     QList<Global::DelDataItem *> m_recyleList;
+    int m_iSortColumn;
+    Qt::SortOrder m_SortOrder;
 };
 
 #endif // TABLEVIEWMODEL_H
