@@ -64,7 +64,7 @@
 
 using namespace Global;
 
-#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/downloadmanager/desktop/"
+#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
@@ -462,6 +462,7 @@ void MainFrame::initTabledata()
             m_pRecycleTableView->getTableModel()->append(deldata);
         }
     }
+    m_pDownLoadingTableView->getTableModel()->switchDownloadingMode();
     m_pDownLoadingTableView->refreshTableView(0);
 
     setTaskNum(m_iCurrentLab);
@@ -1242,6 +1243,7 @@ void MainFrame::showClearMsgbox()
         m_pToolBar->enableStartBtn(false);
         m_pToolBar->enablePauseBtn(false);
         m_pToolBar->enableDeleteBtn(false);
+        emit switchTableSignal();
     }
 }
 
@@ -1932,7 +1934,7 @@ void MainFrame::onDownloadLimitChanged()
 
 void MainFrame::onPowerOnChanged(bool isPowerOn)
 {
-    QString autostartDesktop = "auto-desktop/downloadmanager.desktop";
+    QString autostartDesktop = "downloadmanager.desktop";
     QString defaultDesktop = "downloadmanager.desktop";
     QString userDefaultDesktopPath = QString("%1/autostart/")
                                         .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));

@@ -189,7 +189,9 @@ void TableView::refreshTableView(const int &index)
 {
     switch(index) {
     case 0: {
-        getTableModel()->switchDownloadingMode();
+        if(1 == getTableModel()->getTablemodelMode()){
+            getTableModel()->switchDownloadingMode();
+        }
         setColumnHidden(3, false);
         setColumnHidden(4, true);
 
@@ -214,8 +216,9 @@ void TableView::refreshTableView(const int &index)
     }
 
     case 1:
-        getTableModel()->switchFinishedMode();
-
+        if(0 == getTableModel()->getTablemodelMode()){
+            getTableModel()->switchFinishedMode();
+        }
         setColumnHidden(3, true);
         setColumnHidden(4, false);
         break;
