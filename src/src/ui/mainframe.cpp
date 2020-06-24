@@ -112,6 +112,7 @@ void MainFrame::init()
     m_pRecycleTableView = new TableView(recycle, m_pToolBar);
     m_pRecycleTableView->verticalHeader()->setDefaultSectionSize(48);
     m_pRecycleTableView->setColumnHidden(3, true);
+    m_pDownLoadingTableView->getTableControl()->setRecycleTable(m_pRecycleTableView);
     setAcceptDrops(true);
     m_pLeftWidget = new QWidget;
     m_pLeftWidget->setAutoFillBackground(true);
@@ -802,9 +803,9 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath)
     m_pNotaskWidget->hide();
 
     // 定时器打开
-    if(m_pUpdateTimer->isActive() == false) {
+    //if(m_pUpdateTimer->isActive() == false) {
         m_pUpdateTimer->start(2 * 1000);
-    }
+   // }
 }
 
 S_Task MainFrame::getUrlToName(QString url, QString savePath)
@@ -1628,7 +1629,7 @@ void MainFrame::onReturnOriginActionTriggered()
                 if(data->totalLength != "0B") {
                     returntoData->status = Global::Status::Complete;
                 } else {
-                    returntoData->status = Global::Status::Active;
+                    returntoData->status = Global::Status::Lastincomplete;
                 }
             } else {
                 long completedLength = returntoData->completedLength.toLong();
@@ -1639,7 +1640,8 @@ void MainFrame::onReturnOriginActionTriggered()
                                              returntoData->totalLength.toLong();
 
                     if((returntoData->percent < 0) || (returntoData->percent > 100)) {
-                        returntoData->percent = 0;
+                        returntoData->status = Global::Status::Lastincomplete;
+                        //returntoData->percent = 0;
                     }
                 } else {
                     returntoData->percent = 0;
@@ -1653,6 +1655,7 @@ void MainFrame::onReturnOriginActionTriggered()
             returntoData->gid = data->gid;
             returntoData->time = data->finishTime;
             returntoData->taskId = data->taskId;
+            //returntoData->status = Global::Status::Lastincomplete;
             m_pDownLoadingTableView->getTableModel()->append(returntoData);
             if((data->completedLength != data->totalLength) || (data->totalLength == "0B")) {
                 QMap<QString, QVariant> opt;
@@ -1694,7 +1697,8 @@ void MainFrame::onReturnOriginActionTriggered()
                     }
                 } else {
                     onDownloadLimitChanged();
-                   // Aria2RPCInterface::Instance()->addUri(returntoData->url, opt, returntoData->taskId);
+                    //Aria2RPCInterface::Instance()->addUri(returntoData->url, opt, returntoData->taskId);
+                    //Aria2RPCInterface::Instance()->pause(returntoData->gid, returntoData->taskId);
                     if(m_pUpdateTimer->isActive() == false) {
                         m_pUpdateTimer->start(2 * 1000);
                     }

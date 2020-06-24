@@ -52,7 +52,7 @@ void TopButton::Init()
     m_pSearchEdit = new DSearchEdit();
     m_pSearchEdit->setMinimumWidth(350);
     m_pSearchEdit->setFixedHeight(36);
-
+    m_pSearchEdit->lineEdit()->setMaxLength(256);
 
     // searchEdit->setFixedSize(350,36);
     m_pNewDownloadBtn = new DIconButton(this);

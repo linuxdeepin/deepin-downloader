@@ -41,6 +41,8 @@ TableModel::TableModel(int Flag, QObject *parent)
         m_mode = Downloading;
     }
     connect(this, &TableModel::checkDatachange, this, &TableModel::getCheckDatachange);
+    m_iSortColumn = 0;
+    m_SortOrder = Qt::AscendingOrder;
 }
 
 TableModel::~TableModel()
@@ -194,6 +196,7 @@ void TableModel::switchDownloadingMode()
             m_renderList.append(item);
         }
     }
+    sortDownload(m_iSortColumn,m_SortOrder);
 }
 
 void TableModel::switchFinishedMode()
@@ -486,6 +489,8 @@ bool itemGreaterThan(const QPair<QVariant, int> &left,
 void TableModel::sort(int column, Qt::SortOrder order)
 {
     if(0 == m_iTableviewtabFlag){
+        m_iSortColumn = column;
+        m_SortOrder = order;
         sortDownload(column, order);
     } else if(1 == m_iTableviewtabFlag){
         sortRecycle(column, order);
@@ -507,16 +512,19 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
                 if(Downloading == m_mode){
                     role = TableModel::Speed;
                 } else {
-                    role = TableModel::Size;
+                    role = TableModel::TotalLength;
                 }
                 break;
             case 3:
                 if(Downloading == m_mode){
                     role = TableModel::Status;
-                } else {
-                    role = TableModel::Time;
                 }
                 break;
+        case 4:
+            if(Finished == m_mode){
+                role = TableModel::Time;
+            }
+            break;
     }
     double num = -1;
     for(int row = 0; row < rowCount(QModelIndex()); ++row) {
