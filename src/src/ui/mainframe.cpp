@@ -298,6 +298,7 @@ void MainFrame::initConnection()
     connect(m_pClipboard, &ClipboardTimer::sentBtText, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
     connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
 
     //connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
     connect(m_pUpdateTimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
@@ -907,12 +908,14 @@ void MainFrame::continueDownload(DataItem *pItem)
 void MainFrame::onContextMenu(const QPoint &pos)
 {
     int chkedCnt = 0;
-
+    DataItem *pDownloadItem = nullptr;
+    DelDataItem *pDeleteItem = nullptr;
     if(m_iCurrentLab == recycleLab) {
         QList<DelDataItem *> recyleList = m_pRecycleTableView->getTableModel()->recyleList();
         for(int i = 0; i < recyleList.size(); i++) {
             if(recyleList.at(i)->Ischecked) {
                 chkedCnt++;
+                pDeleteItem = recyleList.at(i);
             }
         }
     } else {
@@ -920,6 +923,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         for(int i = 0; i < selectList.size(); i++) {
             if(selectList.at(i)->Ischecked) {
                 chkedCnt++;
+                pDownloadItem = selectList.at(i);
             }
         }
     }
@@ -968,14 +972,16 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
         delmenlist->addSeparator();
     }
-    if(m_iCurrentLab == recycleLab) {
+
+    if(m_iCurrentLab == recycleLab && QFileInfo(pDeleteItem->savePath).isFile()) {
         QAction *returned_to_origin = new QAction();
         returned_to_origin->setText(tr("Restore"));
         delmenlist->addAction(returned_to_origin);
         connect(returned_to_origin, &QAction::triggered, this, &MainFrame::onReturnOriginActionTriggered);
     }
     if((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) {
-        if(1 == chkedCnt){
+        if((1 == chkedCnt && m_iCurrentLab == finishLab && QFileInfo(pDownloadItem->savePath).isFile()) ||
+           (1 == chkedCnt && m_iCurrentLab == recycleLab && QFileInfo(pDeleteItem->savePath).isFile())){
             QAction *pActionopenFile = new QAction();
             pActionopenFile->setText(tr("Open"));
             delmenlist->addAction(pActionopenFile);
@@ -994,18 +1000,21 @@ void MainFrame::onContextMenu(const QPoint &pos)
             }
         }
 
-        if(renamCount == 1) {
+        if(renamCount == 1  && QFileInfo(pDownloadItem->savePath).isFile()) {
             QAction *pAction_rename = new QAction();
             pAction_rename->setText(tr("Rename"));
             delmenlist->addAction(pAction_rename);
             delmenlist->addSeparator();
             connect(pAction_rename, &QAction::triggered, this, &MainFrame::onRenameActionTriggered);
         }
-        QAction *pAction_move = new QAction();
-        pAction_move->setText(tr("Move to"));
-        delmenlist->addAction(pAction_move);
-        delmenlist->addSeparator();
-        connect(pAction_move, &QAction::triggered, this, &MainFrame::onMoveToActionTriggered);
+        if(QFileInfo(pDownloadItem->savePath).isFile()){
+            QAction *pAction_move = new QAction();
+            pAction_move->setText(tr("Move to"));
+            delmenlist->addAction(pAction_move);
+            delmenlist->addSeparator();
+            connect(pAction_move, &QAction::triggered, this, &MainFrame::onMoveToActionTriggered);
+        }
+
     }
     if(((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
@@ -1020,10 +1029,14 @@ void MainFrame::onContextMenu(const QPoint &pos)
         delmenlist->addSeparator();
         connect(pAction_copy_download_url, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
 
-        QAction *pActionopenFoler = new QAction();
-        pActionopenFoler->setText(tr("Open folder"));
-        delmenlist->addAction(pActionopenFoler);
-        connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
+        if((1 == chkedCnt && (m_iCurrentLab == finishLab || m_iCurrentLab == downloadingLab) && QFileInfo(pDownloadItem->savePath).isFile()) ||
+           (1 == chkedCnt && m_iCurrentLab == recycleLab && QFileInfo(pDeleteItem->savePath).isFile())){
+            QAction *pActionopenFoler = new QAction();
+            pActionopenFoler->setText(tr("Open folder"));
+            delmenlist->addAction(pActionopenFoler);
+            connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
+        }
+
         if(m_iCurrentLab == downloadingLab) {
             delmenlist->addSeparator();
         }
@@ -1079,18 +1092,21 @@ void MainFrame::onCheckChanged(bool checked, int flag)
             m_pToolBar->enablePauseBtn(true);
             m_pToolBar->enableDeleteBtn(true);
         } else if(m_iCurrentLab == finishLab) {
-            m_pToolBar->enableStartBtn(false);
-            m_pToolBar->enablePauseBtn(false);
+            m_pToolBar->enableStartBtn(true);
+            m_pToolBar->enablePauseBtn(true);
             m_pToolBar->enableDeleteBtn(true);
         } else if(m_iCurrentLab == recycleLab) {
             m_pToolBar->enableStartBtn(false);
-            m_pToolBar->enablePauseBtn(false);
+            m_pToolBar->enablePauseBtn(true);
             m_pToolBar->enableDeleteBtn(true);
         }
     } else {
         m_pToolBar->enableStartBtn(false);
         m_pToolBar->enablePauseBtn(false);
         m_pToolBar->enableDeleteBtn(false);
+        if(m_iCurrentLab == recycleLab){
+            m_pToolBar->enableStartBtn(true);
+        }
     }
 }
 
@@ -1121,7 +1137,9 @@ void MainFrame::onSearchEditTextChanged(QString text)
         m_pNoResultlabel->show();
     } else {
         m_pNotaskLabel->show();
-        m_pNotaskTipLabel->show();
+        if(m_iCurrentLab == downloadingLab){
+            m_pNotaskTipLabel->show();
+        }
         m_pNoResultlabel->hide();
     }
     m_SearchContent = text;
@@ -1186,6 +1204,9 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
     Aria2RPCInterface::Instance()->addTorrent(btPath, opt, strId);
 
     // 定时器打开
+    if(m_pUpdateTimer->isActive() == false) {
+        m_pUpdateTimer->start(2 * 1000);
+    }
 }
 
 void MainFrame::onRedownload(QString taskId, int rd)
@@ -1284,7 +1305,11 @@ void MainFrame::showDeleteMsgbox(bool permanently)
     MessageBox *msg = new MessageBox();
 
     connect(msg, &MessageBox::DeletedownloadSig, this, &MainFrame::onGetDeleteConfirm);
-    msg->setDelete(permanently);
+    if(m_iCurrentLab == downloadingLab){
+        msg->setDelete(permanently, true);
+    } else {
+        msg->setDelete(permanently);
+    }
     int rs = msg->exec();
     if(rs == DDialog::Accepted) {
         // ToolBar禁用按钮联动：确认后禁用按钮
@@ -1405,10 +1430,11 @@ void MainFrame::onStartDownloadBtnClicked()
                 continueDownload(selectList.at(i));
             }
         }
-    }
-    if(selectedCount == 0) {
-        showWarningMsgbox(tr("no item is selected,please check items!"));
-        qDebug() << "no item is selected,please check items!";
+
+    } else if(m_iCurrentLab == finishLab) {
+        onOpenFolderActionTriggered();
+    } else {
+        onClearRecyleActionTriggered();
     }
 }
 
@@ -1446,10 +1472,12 @@ void MainFrame::onPauseDownloadBtnClicked()
                 }
             }
         }
+    } else if(m_iCurrentLab == finishLab) {
+        onOpenFileActionTriggered();
+    } else {
+        onReturnOriginActionTriggered();
     }
-    if(selectedCount == 0) {
-        showWarningMsgbox(tr("no item is selected,please check items!"));
-    }
+
 }
 
 void MainFrame::onDeleteDownloadBtnClicked()
@@ -1643,7 +1671,7 @@ void MainFrame::onReturnOriginActionTriggered()
 
 
                 opt.insert("dir", savePath);
-                opt.insert("out", fileName);
+                //opt.insert("out", fileName);
                 S_Url_Info  getUrlInfo;
                 DBInstance::getUrlById(returntoData->taskId, getUrlInfo);
                 if(getUrlInfo.m_taskId != "") {
@@ -1808,7 +1836,12 @@ void MainFrame::onCopyUrlActionTriggered()
         m_bIsCopyUrlFromLocal = true;
         QClipboard *clipboard = DApplication::clipboard();
         clipboard->setText(copyUrl);
-        m_pTaskNum->setText(tr("download uri already copyed"));
+        m_pTaskNum->setText(tr("Copied to clipboard"));
+        QProcess *p = new QProcess;
+        QString showInfo(tr("Copied to clipboard"));
+        p->start("notify-send", QStringList() << showInfo);
+        p->waitForStarted();
+        p->waitForFinished();
     }
 }
 

@@ -369,6 +369,14 @@ public:
     QString bytesFormat(qint64 size);
 
     /**
+     * @brief purgeDownloadResult 清除已下载结果（包括已完成/下载错误/已移出）,不会删除文件
+     * @param id
+     *
+     * signal_success信号中异步返回 OK
+     */
+    void purgeDownloadResult(QString id = "");
+
+    /**
      * @brief getBtInfo  获取torrent信息
      * @param strTorrentPath  bt文件路径
      * @return Aria2cBtInfo

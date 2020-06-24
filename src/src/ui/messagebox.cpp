@@ -120,7 +120,7 @@ void MessageBox::setUnusual(const QString &taskId)
         close();
             });
 }
-void MessageBox::setDelete(bool permanentl)
+void MessageBox::setDelete(bool permanentl, bool checked)
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     m_bDeleteFlag=permanentl;
@@ -138,7 +138,12 @@ void MessageBox::setDelete(bool permanentl)
         QString showTitle = tr("Are you sure you want to delete this download task?");
         this->setTitle(showTitle);
         this->addSpacing(10);
-        this->addCheckbox(tr("Delete local files"));
+        if(checked){
+            this->addCheckbox(tr("Delete local files"), true);
+        }
+        else{
+            this->addCheckbox(tr("Delete local files"));
+        }
     }
     this->addSpacing(10);
     this->addButton(tr("Cancel"));
@@ -241,10 +246,13 @@ void MessageBox::addRadioGroup(QString quitText, QString minText)
             });
 }
 
-void MessageBox::addCheckbox(QString checkboxText)
+void MessageBox::addCheckbox(QString checkboxText, bool checked)
 {
     m_pCheckBox = new DCheckBox(this);
     m_pCheckBox->setText(checkboxText);
+    if(checked){
+        m_pCheckBox->setCheckState(Qt::Checked);
+    }
     this->addContent(m_pCheckBox,Qt::AlignHCenter);
 }
 
