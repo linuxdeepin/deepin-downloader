@@ -43,6 +43,11 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
             this,
             &HeaderView::getPalettetypechanged);
 
+    connect(DGuiApplicationHelper::instance(),
+            &DGuiApplicationHelper::themeTypeChanged,
+            this,
+            &HeaderView::getPalettetypechanged);
+
     m_headerCbx->setFixedSize(25, 25);
     m_headerCbx->setVisible(true);
     this->setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
@@ -78,7 +83,7 @@ void HeaderView::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
         p.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base());
     } else {
-        p.setColor(QPalette::Base, QColor(255, 255, 255));
+        p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());
     }
     this->setPalette(p);
 }
