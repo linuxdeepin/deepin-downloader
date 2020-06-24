@@ -209,6 +209,7 @@ void TableModel::switchFinishedMode()
             m_renderList.append(item);
         }
     }
+    sortDownload(m_iSortColumn,m_SortOrder);
 }
 
 int TableModel::rowCount(const QModelIndex &parent) const
