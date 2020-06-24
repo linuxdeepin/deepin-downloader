@@ -69,6 +69,7 @@ void newTaskWidget::initUi()
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
     m_texturl->setFixedSize(QSize(454,154));
+    connect(m_texturl,&DTextEdit::textChanged,this,&newTaskWidget::onTextChanged);
     QPalette _pal;
     _pal.setColor(QPalette::Base, QColor(0,0,0,20));
     m_texturl->setPalette(_pal);
@@ -86,6 +87,7 @@ void newTaskWidget::initUi()
     _iconBtn->setIconSize(QSize(18,15));
     _iconBtn->setFixedSize(QSize(40,35));
     connect(_iconBtn,&DIconButton::clicked,this,&newTaskWidget::openfileDialog);
+    _iconBtn->setToolTip(tr("Select file"));
     layout->addWidget(_iconBtn);
 
     QWidget *_rightBox= new QWidget(_boxBtn);
@@ -104,14 +106,14 @@ void newTaskWidget::initUi()
 
 
 
-    DSuggestButton *sure_button = new DSuggestButton(_boxBtn);
-    sure_button->setText(tr("Confirm"));
-    _policy = sure_button->sizePolicy();
+    m_sure_button = new DSuggestButton(_boxBtn);
+    m_sure_button->setText(tr("Confirm"));
+    _policy = m_sure_button->sizePolicy();
     _policy.setHorizontalPolicy(QSizePolicy::Expanding);
-    sure_button->setSizePolicy(_policy);
-    connect(sure_button,&DPushButton::clicked,this,&newTaskWidget::onSureBtnClicked);
+    m_sure_button->setSizePolicy(_policy);
+    connect(m_sure_button,&DPushButton::clicked,this,&newTaskWidget::onSureBtnClicked);
     layout_right->addSpacing(20);
-    layout_right->addWidget(sure_button);
+    layout_right->addWidget(m_sure_button);
     layout->addWidget(_rightBox);
     this->addContent(_boxBtn);
 }
@@ -158,14 +160,22 @@ void newTaskWidget::onSureBtnClicked()
             _errorList.append(_urlList[i]);
         }
     }
-    //将错误地址弹出提示框
     if(!_errorList.isEmpty())
     {
-        QString warning_msg = tr("has ") + QString::number(_errorList.size()) + tr(" the error download");
+        QString warning_msg = tr("The address you entered cannot be resolved correctly. Please try again");
         MessageBox *msg = new MessageBox();
-        msg->setWarings(warning_msg, tr("sure"), "", _errorList.size(), _errorList);
+        msg->setWarings(warning_msg, tr("sure"), "");
         msg->exec();
+        return;
     }
+//    //将错误地址弹出提示框   使用列表方式提示
+//    if(!_errorList.isEmpty())
+//    {
+//        QString warning_msg = tr("has ") + QString::number(_errorList.size()) + tr(" the error download");
+//        MessageBox *msg = new MessageBox();
+//        msg->setWarings(warning_msg, tr("sure"), "", _errorList.size(), _errorList);
+//        msg->exec();
+//    }
     //删除错误地址
     for (int i = 0;i < _errorList.size() ; i++)
     {
@@ -272,4 +282,16 @@ bool newTaskWidget::isHttp(QString url)
         }
     }
     return false;
+}
+
+void newTaskWidget::onTextChanged()
+{
+    if(m_texturl->toPlainText().isEmpty())
+    {
+        m_sure_button->setEnabled(false);
+    }
+    else
+    {
+        m_sure_button->setEnabled(true);
+    }
 }

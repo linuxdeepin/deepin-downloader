@@ -84,6 +84,11 @@ private slots:
      * @brief 确定下载按钮
      */
     void onSureBtnClicked();
+    /**
+     * @brief url文本框变化
+     */
+    void onTextChanged();
+
 protected:
     /**
      * @brief 拖拽处理函数
@@ -114,7 +119,7 @@ signals:
 
 private:
     DTextEdit *m_texturl;               //url文本框
-
+    DSuggestButton *m_sure_button;      //确认按钮
 };
 
 

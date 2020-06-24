@@ -26,7 +26,6 @@
  */
 
 #include "btinfodialog.h"
-
 #include "aria2rpcinterface.h"
 #include "btinfodelegate.h"
 #include "btheaderview.h"
@@ -136,7 +135,7 @@ void BtInfoDialog::initUI()
     this->m_labelFileSize = new DLabel(this);
     this->m_labelFileSize->setAlignment(Qt::AlignRight);
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
-    m_labelFileSize->setText(QString(tr("Total :")+ _size));
+    m_labelFileSize->setText(QString(tr("Total ")+ _size));
     this->m_labelFileSize->setFont(font2);
     this->m_labelFileSize->setPalette(pal);
 
@@ -212,6 +211,10 @@ void BtInfoDialog::initUI()
     this->m_editDir->setFileMode(QFileDialog::DirectoryOnly);
     this->m_editDir->lineEdit()->setEnabled(false);
     connect(this->m_editDir, &DFileChooserEdit::fileChoosed, this, &BtInfoDialog::slot_filechoosed);
+    QList<DSuggestButton*> _btnList = this->m_editDir->findChildren<DSuggestButton *>();
+    for (int i = 0; i < _btnList.size(); i++) {
+        _btnList[i]->setToolTip(tr("Change download folder"));
+    }
 
     //确定按钮
     this->m_btnOK = new DPushButton(this);
@@ -310,7 +313,7 @@ void BtInfoDialog::slot_btnOK()
     if(_free < (_total / 1024)) {//剩余空间比较 KB
         qDebug()<<"Disk capacity is not enough!";
         MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr("Cancel"));
+        msg->setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg->exec();
         return;
     }
@@ -334,16 +337,18 @@ void BtInfoDialog::slot_checkAll()
         this->m_checkAudio->setCheckState(Qt::Checked);
         this->m_checkPicture->setCheckState(Qt::Checked);
         this->m_checkOther->setCheckState(Qt::Checked);
+        this->setOkBtnStatus(m_model->rowCount());
     }
     else if(state == Qt::Unchecked) {
         for(int i = 0;i < m_model->rowCount();i++) {
             m_model->setData(m_model->index(i, 0), "0");
-            this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(0)).arg("0GB"));
+            this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(0)).arg("0B"));
         }
         this->m_checkVideo->setCheckState(Qt::Unchecked);
         this->m_checkAudio->setCheckState(Qt::Unchecked);
         this->m_checkPicture->setCheckState(Qt::Unchecked);
         this->m_checkOther->setCheckState(Qt::Unchecked);
+        this->setOkBtnStatus(0);
     }
 }
 
@@ -387,8 +392,9 @@ void BtInfoDialog::slot_checkVideo()
             cnt++;
         }
     }
-    QString _size = Aria2RPCInterface::Instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
+    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
+    this->setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::slot_checkAudio()
@@ -418,6 +424,7 @@ void BtInfoDialog::slot_checkAudio()
     }
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
+    this->setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::slot_checkPicture()
@@ -447,6 +454,7 @@ void BtInfoDialog::slot_checkPicture()
     }
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
+    this->setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::slot_checkOther()
@@ -475,6 +483,7 @@ void BtInfoDialog::slot_checkOther()
     }
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
+    this->setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::updateSelectedInfo()
@@ -571,4 +580,16 @@ QString BtInfoDialog::getFileEditText(QString text)
        _flieEditText.insert(text.size(), QString(_fillCount*2, ' '));
     }
     return _flieEditText;
+}
+
+void BtInfoDialog::setOkBtnStatus(int count)
+{
+    if(count == 0)
+    {
+        m_btnOK->setEnabled(false);
+    }
+    else
+    {
+        m_btnOK->setEnabled(true);
+    }
 }
