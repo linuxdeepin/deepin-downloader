@@ -56,7 +56,7 @@
                               "Minimize to System Tray",
                               "Exit"
                             ],
-                            "default": 1
+                            "default": 0
                         }
                     ]
                 }
@@ -139,7 +139,7 @@
                             "key":"MagneticDownload",
                             "name":"",
                             "type":"magneticdownload",
-                            "default":false
+                            "default":true
                         }
                     ]
                 },
