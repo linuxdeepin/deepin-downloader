@@ -58,7 +58,7 @@ void TopButton::Init()
     m_pNewDownloadBtn = new DIconButton(this);
     m_pNewDownloadBtn->setFixedSize(36, 36);
     m_pNewDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
-    m_pNewDownloadBtn->setToolTip(tr("Create"));
+    m_pNewDownloadBtn->setToolTip(tr("New task"));
 
     m_pPauseDownloadBtn = new Dtk::Widget::DIconButton(this);
 
@@ -109,20 +109,34 @@ void TopButton::InitConnections()
 
 void TopButton::getTableChanged(int index)
 {
-    if((index == 1) || (index == 2)) {
-        m_pStartDownloadBtn->setEnabled(false);
-        m_pPauseDownloadBtn->setEnabled(false);
-        m_pDeleteDownloadBtn->setEnabled(false);
-        if(index == 2) {
-            m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
-        } else   {
-            m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
-        }
-    } else   {
-        m_pStartDownloadBtn->setEnabled(false);
-        m_pPauseDownloadBtn->setEnabled(false);
-        m_pDeleteDownloadBtn->setEnabled(false);
+    if(index == 2) {
+        m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
+        m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_restore"));
         m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
+
+        m_pStartDownloadBtn->setToolTip(tr("Empty"));
+        m_pPauseDownloadBtn->setToolTip(tr("Restore"));
+        m_pDeleteDownloadBtn->setToolTip(tr("Delete"));
+    } else if(index == 1)   {
+        m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
+        m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfolder"));
+        m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
+
+        m_pStartDownloadBtn->setToolTip(tr("Open Folder"));
+        m_pPauseDownloadBtn->setToolTip(tr("Open"));
+        m_pDeleteDownloadBtn->setToolTip(tr("Delete"));
+    } else   {
+        m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
+        m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
+        m_pDeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
+
+        m_pStartDownloadBtn->setToolTip(tr("Resume"));
+        m_pPauseDownloadBtn->setToolTip(tr("Pause"));
+        m_pDeleteDownloadBtn->setToolTip(tr("Delete"));
+
+        m_pStartDownloadBtn->setEnabled(false);
+        m_pPauseDownloadBtn->setEnabled(false);
+        m_pDeleteDownloadBtn->setEnabled(false);
     }
 }
 

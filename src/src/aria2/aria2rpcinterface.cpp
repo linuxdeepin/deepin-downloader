@@ -269,6 +269,11 @@ QString Aria2RPCInterface::fileToBase64(QString filePath)
     return b64Str;
 }
 
+void Aria2RPCInterface::purgeDownloadResult(QString id)
+{
+    callRPC(ARIA2C_METHOD_PURGE_DOWNLOAD_RESULT, id);
+}
+
 Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
 {
     QProcess *pProc = new QProcess; //进程调用指针
