@@ -507,16 +507,19 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
                 if(Downloading == m_mode){
                     role = TableModel::Speed;
                 } else {
-                    role = TableModel::Size;
+                    role = TableModel::TotalLength;
                 }
                 break;
             case 3:
                 if(Downloading == m_mode){
                     role = TableModel::Status;
-                } else {
-                    role = TableModel::Time;
                 }
                 break;
+        case 4:
+            if(Finished == m_mode){
+                role = TableModel::Time;
+            }
+            break;
     }
     double num = -1;
     for(int row = 0; row < rowCount(QModelIndex()); ++row) {

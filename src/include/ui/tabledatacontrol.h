@@ -46,6 +46,16 @@ public:
     void initTabledata();
 
     /**
+     * @brief 设置RecycleTable
+     */
+    void setRecycleTable(TableView *pRecycleTable);
+
+    /**
+     * @brief 将正在下载列表里文件不存在的任务移到回收站
+     */
+    void removeDownloadListJob(Global::DataItem *pData, bool isAddToRecycle = true);
+
+    /**
      * @brief aria2下载事件
      */
     void aria2MethodAdd(QJsonObject &json, QString &searchContent);
@@ -228,7 +238,8 @@ signals:
     void signalDownload(QStringList urlList, QString savePath);
 
 private:
-    TableView *m_pTableView;
+    TableView *m_pDownloadTableView;
+    TableView *m_pRececleTableView;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 };
