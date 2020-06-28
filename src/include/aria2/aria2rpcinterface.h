@@ -396,6 +396,25 @@ public:
      * @return
      */
     long getCapacityFreeByte(QString path);
+    /**
+     * @brief shutdown 停止aria2c程序
+     * 调用后会给aria2c发送shutdown消息。
+     * signal_success信号中异步返回 "OK"
+     * {id:"", jsonrpc:"2.0", result:"ok"}
+     * QString ok = json.value("result").toString();
+     *
+     * @param id 可选，该参数用来唯一标示一次请求，异步返回的结果里会包含请求发出是指定的id，用以区分匹配多次请求。
+     * 默认为method名，详见aria2cconst.h常量
+     * QString id = json.value("id").toString();
+     */
+    void shutdown(QString id = "");
+
+    /**
+     * @brief forceShutdown 强制停止aria2c程序
+     * @param id
+     * 同shutdown，
+     */
+    void forceShutdown(QString id = "");
 
 private:
     /**
