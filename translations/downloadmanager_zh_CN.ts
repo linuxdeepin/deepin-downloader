@@ -109,60 +109,61 @@
         <translation>全速下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="46"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="44"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 does not involve the privacy.</source>
-        <translation>下载文件会通过P2P的方式上传分享，帮助其他网友加速下载，不会涉及任何用户隐私。</translation>
+        <translation>下载文件会通过P2P的方式上传分享，帮助其他
+网友加速下载，不会涉及任何用户隐私。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="48"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="50"/>
         <source>Speed limited</source>
         <translation>限速下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="68"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="70"/>
         <source>Max download speed</source>
         <translation>最大下载限速</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="69"/>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="75"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="71"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="77"/>
         <source>KB/s</source>
         <translation>KB/s</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="70"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="72"/>
         <source>(100-102400)</source>
         <translation>(100-102400)</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="71"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="73"/>
         <source>102400</source>
         <translation>102400</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="74"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="76"/>
         <source>Max upload speed</source>
         <translation>最大上传限速</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="76"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="78"/>
         <source>(16-5120)</source>
         <translation>(16-5120)</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="77"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="79"/>
         <source>32</source>
         <translation>32</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="80"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="82"/>
         <source>Limited period</source>
         <translation>限速时段</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="81"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="83"/>
         <source>to</source>
         <translation>至</translation>
     </message>
@@ -193,22 +194,22 @@ does not involve the privacy.</source>
 <context>
     <name>ItemDelegate</name>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="191"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="192"/>
         <source>Paused</source>
         <translation>已暂停</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="202"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="203"/>
         <source>Failed</source>
         <translation>下载失败</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="214"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="215"/>
         <source>Watting</source>
         <translation>等待中</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/itemDelegate.cpp" line="223"/>
+        <location filename="../src/src/ui/itemDelegate.cpp" line="224"/>
         <source>Time left </source>
         <translation>剩余 </translation>
     </message>
@@ -230,7 +231,7 @@ does not involve the privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="139"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="681"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="688"/>
         <source>No download tasks</source>
         <translation>暂无下载任务</translation>
     </message>
@@ -295,138 +296,137 @@ does not involve the privacy.</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="438"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="886"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1690"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="445"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="893"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1701"/>
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="495"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="502"/>
         <source> item tasks</source>
         <translation> 项任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="511"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="525"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="518"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="532"/>
         <source> files</source>
         <translation> 个文件</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="675"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="682"/>
         <source>No finished tasks</source>
         <translation>暂无下载完成的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="690"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="697"/>
         <source>No deleted tasks</source>
         <translation>暂无删除的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1290"/>
         <source>Do you continue?</source>
         <translation>是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1845"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1847"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1856"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1858"/>
         <source>Copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2280"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2291"/>
         <source> downloading</source>
         <translation> 正在下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="959"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="966"/>
         <source>Continue</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="965"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="972"/>
         <source>Pause</source>
         <translation>暂停</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="971"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1023"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="978"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1037"/>
         <source>Download again</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="980"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="987"/>
         <source>Restore</source>
         <translation>还原</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="988"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="995"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1007"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1330"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1021"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1340"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1014"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1028"/>
         <source>Move to</source>
         <translation>移动到文件夹</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1029"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1043"/>
         <source>Copy download link</source>
         <translation>复制下载链接</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1037"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1003"/>
         <source>Open folder</source>
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1048"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1053"/>
         <source>Delete</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1053"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1058"/>
         <source>Permanently delete</source>
         <translation>彻底删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1060"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1065"/>
         <source>Empty</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1231"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1282"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1331"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1241"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1292"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1341"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1282"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1331"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1292"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1341"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1340"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1350"/>
         <source>Redownload</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1596"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1612"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1712"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1756"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1770"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1790"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1840"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1864"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1607"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1723"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1767"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1781"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1801"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1851"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1875"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -840,30 +840,30 @@ and more computer consume</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="370"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="371"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="373"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="374"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="377"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="386"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="378"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="387"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="379"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="388"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="380"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="389"/>
         <source>Time finished</source>
         <translation>完成时间</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="381"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="390"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="382"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="391"/>
         <source>Time deleted</source>
         <translation>删除时间</translation>
     </message>
@@ -967,12 +967,12 @@ and more computer consume</source>
 <context>
     <name>tableDataControl</name>
     <message>
-        <location filename="../src/src/ui/tabledatacontrol.cpp" line="543"/>
+        <location filename="../src/src/ui/tabledatacontrol.cpp" line="531"/>
         <source> download failed, network error</source>
         <translation> 下载失败，网络故障</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tabledatacontrol.cpp" line="545"/>
+        <location filename="../src/src/ui/tabledatacontrol.cpp" line="533"/>
         <source> download finished</source>
         <translation> download finished</translation>
     </message>

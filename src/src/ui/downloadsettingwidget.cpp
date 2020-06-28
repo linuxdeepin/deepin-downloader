@@ -27,6 +27,9 @@
 #include "downloadsettingwidget.h"
 #include "settinginfoinputwidget.h"
 
+#include <DFontSizeManager>
+#include <DPalette>
+
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QDebug>
@@ -41,10 +44,12 @@ DownloadSettingWidget::DownloadSettingWidget(QWidget *parent) : QWidget(parent)
 void DownloadSettingWidget::initUI()
 {
     m_pFullSpeedDownloadButton = new DRadioButton(tr("Speed unlimited")); // 全速下载
-    DLabel *pFullSpeedLabel = new DLabel;
-    // 下载文件会通过P2P的方式上传分享，帮助其他网友加速下载，不会涉及任何用户隐私。
-    pFullSpeedLabel->setText(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
-    pFullSpeedLabel->setWordWrap(true);
+    m_pFullSpeedDownloadButton->setToolTip(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
+//    m_pFullSpeedDownloadButton->toolTip()
+    //    DLabel *pFullSpeedLabel = new DLabel;
+//    // 下载文件会通过P2P的方式上传分享，帮助其他网友加速下载，不会涉及任何用户隐私。
+//    pFullSpeedLabel->setText(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
+//    pFullSpeedLabel->setWordWrap(true);
     m_pSpeedLimitDownloadButton = new DRadioButton(tr("Speed limited")); // 限速下载
     m_pSpeedLimitDownloadButton->setChecked(true);
     m_pMaxDownloadSpeedLimit = new SettingInfoInputWidget;
@@ -53,17 +58,30 @@ void DownloadSettingWidget::initUI()
     m_pMaxDownloadSpeedLimit->setWidgetWidth(290);
     m_pMaxUploadSpeedLimit->setWidgetWidth(290);
 
-    QHBoxLayout *pFullSpeedLabelLayout = new QHBoxLayout;
-    pFullSpeedLabelLayout->addWidget(pFullSpeedLabel);
-    pFullSpeedLabelLayout->addStretch();
-    pFullSpeedLabelLayout->setContentsMargins(28, 0, 0, 0);
+    QFont font;
+    font.setPointSize(DFontSizeManager::T8);
+    font.setWeight(QFont::Normal);
 
-    QVBoxLayout *pVFullSpeedLayout = new QVBoxLayout;
-    pVFullSpeedLayout->addWidget(m_pFullSpeedDownloadButton);
-    pVFullSpeedLayout->addSpacing(3);
-    pVFullSpeedLayout->addLayout(pFullSpeedLabelLayout);
-    pVFullSpeedLayout->setSpacing(0);
-    pVFullSpeedLayout->setContentsMargins(0, 0, 0, 0);
+    DPalette palette;
+    QColor color = palette.color(DPalette::TextTips);
+    palette.setColor(DPalette::TextTips,color);
+
+    m_pMaxDownloadSpeedLimit->setRangeLabelFont(font);
+    m_pMaxDownloadSpeedLimit->setRangeLabelPalette(palette);
+    m_pMaxUploadSpeedLimit->setRangeLabelFont(font);
+    m_pMaxUploadSpeedLimit->setRangeLabelPalette(palette);
+
+//    QHBoxLayout *pFullSpeedLabelLayout = new QHBoxLayout;
+//    pFullSpeedLabelLayout->addWidget(pFullSpeedLabel);
+//    pFullSpeedLabelLayout->addStretch();
+//    pFullSpeedLabelLayout->setContentsMargins(28, 0, 0, 0);
+
+//    QVBoxLayout *pVFullSpeedLayout = new QVBoxLayout;
+//    pVFullSpeedLayout->addWidget(m_pFullSpeedDownloadButton);
+//    pVFullSpeedLayout->addSpacing(3);
+//    pVFullSpeedLayout->addLayout(pFullSpeedLabelLayout);
+//    pVFullSpeedLayout->setSpacing(0);
+//    pVFullSpeedLayout->setContentsMargins(0, 0, 0, 0);
 
     m_pMaxDownloadSpeedLimit->setTitleLabelText(tr("Max download speed")); // 最大下载限速
     m_pMaxDownloadSpeedLimit->setUnitLabelText(tr("KB/s"));
@@ -103,8 +121,8 @@ void DownloadSettingWidget::initUI()
     pSpeedLimitDownloadLayout->setContentsMargins(28, 0, 0, 0);
 
     QVBoxLayout *pMainLayout = new QVBoxLayout;
-//    pMainLayout->addWidget(m_pFullSpeedDownloadButton);
-    pMainLayout->addLayout(pVFullSpeedLayout);
+    pMainLayout->addWidget(m_pFullSpeedDownloadButton);
+//    pMainLayout->addLayout(pVFullSpeedLayout);
     pMainLayout->addWidget(m_pSpeedLimitDownloadButton);
     pMainLayout->addLayout(pSpeedLimitDownloadLayout);
     pMainLayout->setContentsMargins(0, 0, 0, 0);

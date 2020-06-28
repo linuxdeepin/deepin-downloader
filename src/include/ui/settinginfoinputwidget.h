@@ -92,6 +92,18 @@ public:
      */
     void setWidgetWidth(int nWidth);
 
+    /**
+     * @brief 设置范围字体样式
+     * @param font 范围文本字体样式
+     */
+    void setRangeLabelFont(QFont font);
+
+    /**
+     * @brief 设置范围字体颜色
+     * @param font 范围文本字体颜色
+     */
+    void setRangeLabelPalette(DPalette palette);
+
 signals:
     void textChanged(QString strText);
 
