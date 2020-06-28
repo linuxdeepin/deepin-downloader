@@ -983,10 +983,10 @@ void MainFrame::onContextMenu(const QPoint &pos)
     }
 
     if(m_iCurrentLab == recycleLab && QFileInfo(pDeleteItem->savePath).isFile()) {
-        QAction *returned_to_origin = new QAction();
-        returned_to_origin->setText(tr("Restore"));
-        delmenlist->addAction(returned_to_origin);
-        connect(returned_to_origin, &QAction::triggered, this, &MainFrame::onReturnOriginActionTriggered);
+        QAction *returnedToOrigin = new QAction();
+        returnedToOrigin->setText(tr("Restore"));
+        delmenlist->addAction(returnedToOrigin);
+        connect(returnedToOrigin, &QAction::triggered, this, &MainFrame::onReturnOriginActionTriggered);
     }
     if((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) {
         if((1 == chkedCnt && m_iCurrentLab == finishLab && QFileInfo(pDownloadItem->savePath).isFile()) ||
@@ -996,6 +996,13 @@ void MainFrame::onContextMenu(const QPoint &pos)
             delmenlist->addAction(pActionopenFile);
             connect(pActionopenFile, &QAction::triggered, this, &MainFrame::onOpenFileActionTriggered);
         }
+    }
+    if((1 == chkedCnt && (m_iCurrentLab == finishLab || m_iCurrentLab == downloadingLab) && QFileInfo(pDownloadItem->savePath).isFile()) ||
+       (1 == chkedCnt && m_iCurrentLab == recycleLab && QFileInfo(pDeleteItem->savePath).isFile())){
+        QAction *pActionopenFoler = new QAction();
+        pActionopenFoler->setText(tr("Open folder"));
+        delmenlist->addAction(pActionopenFoler);
+        connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
     }
 
     if(m_iCurrentLab == finishLab) {
@@ -1010,11 +1017,11 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
 
         if(renamCount == 1  && QFileInfo(pDownloadItem->savePath).isFile()) {
-            QAction *pAction_rename = new QAction();
-            pAction_rename->setText(tr("Rename"));
-            delmenlist->addAction(pAction_rename);
+            QAction *pactionRename = new QAction();
+            pactionRename->setText(tr("Rename"));
+            delmenlist->addAction(pactionRename);
             delmenlist->addSeparator();
-            connect(pAction_rename, &QAction::triggered, this, &MainFrame::onRenameActionTriggered);
+            connect(pactionRename, &QAction::triggered, this, &MainFrame::onRenameActionTriggered);
         }
         if(QFileInfo(pDownloadItem->savePath).isFile()){
             QAction *pAction_move = new QAction();
@@ -1025,41 +1032,32 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
 
     }
-    if(((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) && (1 == chkedCnt)) {
+    if((m_iCurrentLab == recycleLab) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
         pActionredownload->setText(tr("Download again"));
         delmenlist->addAction(pActionredownload);
         connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
     }
     if(1 == chkedCnt){
-        QAction *pAction_copy_download_url = new QAction();
-        pAction_copy_download_url->setText(tr("Copy download link"));
-        delmenlist->addAction(pAction_copy_download_url);
+        QAction *pactionCopyDownloadUrl = new QAction();
+        pactionCopyDownloadUrl->setText(tr("Copy download link"));
+        delmenlist->addAction(pactionCopyDownloadUrl);
         delmenlist->addSeparator();
-        connect(pAction_copy_download_url, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
-
-        if((1 == chkedCnt && (m_iCurrentLab == finishLab || m_iCurrentLab == downloadingLab) && QFileInfo(pDownloadItem->savePath).isFile()) ||
-           (1 == chkedCnt && m_iCurrentLab == recycleLab && QFileInfo(pDeleteItem->savePath).isFile())){
-            QAction *pActionopenFoler = new QAction();
-            pActionopenFoler->setText(tr("Open folder"));
-            delmenlist->addAction(pActionopenFoler);
-            connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
-        }
-
+        connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
         if(m_iCurrentLab == downloadingLab) {
             delmenlist->addSeparator();
         }
     }
 
-    QAction *pActiondel_downloading = new QAction();
-    pActiondel_downloading->setText(tr("Delete"));
-    delmenlist->addAction(pActiondel_downloading);
-    connect(pActiondel_downloading, &QAction::triggered, this, &MainFrame::onDelActionTriggered);
+    QAction *pactiondelDownloading = new QAction();
+    pactiondelDownloading->setText(tr("Delete"));
+    delmenlist->addAction(pactiondelDownloading);
+    connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::onDelActionTriggered);
 
-    QAction *pAction_delete_permanently = new QAction();
-    pAction_delete_permanently->setText(tr("Permanently delete"));
-    delmenlist->addAction(pAction_delete_permanently);
-    connect(pAction_delete_permanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
+    QAction *pactionDeletePermanently = new QAction();
+    pactionDeletePermanently->setText(tr("Permanently delete"));
+    delmenlist->addAction(pactionDeletePermanently);
+    connect(pactionDeletePermanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
 
     if(m_iCurrentLab == recycleLab) {
         if(1 == chkedCnt){
@@ -1622,7 +1620,7 @@ void MainFrame::onRedownloadActionTriggered()
         selectedCount = m_pRecycleTableView->getTableControl()->RedownloadTrashList(m_recycleReloadList);
     }
     if(selectedCount == 0) {
-        showWarningMsgbox(tr("no item is selected,please check items!"));
+        //showWarningMsgbox(tr("no item is selected,please check items!"));
     } else {
         showReloadMsgbox();
     }

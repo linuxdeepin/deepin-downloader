@@ -112,6 +112,11 @@ public:
     int RedownloadDownloadAndFinishList(QList<Global::DataItem*> &reloadList);
 
     /**
+     * @brief 下载错误重新下载ACtion槽函数
+    */
+    void RedownloadErrorItem(Global::DataItem* errorItem);
+
+    /**
      * @brief 回收站重新下载ACtion槽函数
     */
     int RedownloadTrashList(QList<Global::DelDataItem*> &reloadList);
