@@ -377,7 +377,13 @@ void MainFrame::createNewTask(QString url)
 void MainFrame::onTrayQuitClick()
 {
     if(m_pUpdateTimer->isActive()) {
-
+        MessageBox *pBox = new MessageBox();
+        QString title = tr("Are you sure to exit? Tasks in download will be interrupted.");
+        pBox->setWarings(title, tr("sure"), tr("cancel"));
+        int rs = pBox->exec();
+        if(rs != DDialog::Accepted) {
+            return;
+        }
     }
     m_pDownLoadingTableView->getTableControl()->saveDataBeforeClose();
     m_pRecycleTableView->getTableControl()->saveDataBeforeClose();
@@ -1761,9 +1767,9 @@ void MainFrame::onOpenFileActionTriggered()
         }
     }
 
-    if(selectedCount == 0) {
-        showWarningMsgbox(tr("no item is selected,please check items!"));
-    }
+//    if(selectedCount == 0) {
+//        showWarningMsgbox(tr("no item is selected,please check items!"));
+//    }
 }
 
 void MainFrame::onOpenFolderActionTriggered()
