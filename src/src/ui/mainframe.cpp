@@ -149,13 +149,14 @@ void MainFrame::init()
     m_pNoResultlabel->hide();
     pnotaskWidgetlayout->addWidget(m_pNoResultlabel);
 
-    m_pNotaskTipLabel = new QLabel();
+    m_pNotaskTipLabel = new DLabel();
     QFont notaskTipLabelFont;
     notaskTipLabelFont.setPointSize(13);
+    notaskTipLabelFont.setFamily("T6");
     m_pNotaskTipLabel->setFont(notaskTipLabelFont);
     m_pNotaskTipLabel->setText(tr("Click + to create new task"));
     m_pNotaskTipLabel->setAlignment(Qt::AlignHCenter);
-    m_pNotaskTipLabel->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
+    m_pNotaskTipLabel->setForegroundRole(DPalette::PlaceholderText);
     pnotaskWidgetlayout->addWidget(m_pNotaskTipLabel);
     pnotaskWidgetlayout->addStretch(5);
     QVBoxLayout *pRightLayout = new QVBoxLayout(m_pRight_Widget);
@@ -167,7 +168,7 @@ void MainFrame::init()
     m_pTaskNumWidget = new QWidget;
     m_pTaskNumWidget->setFixedHeight(30);
     m_pTaskNumWidget->setAutoFillBackground(true);
-    m_pTaskNumWidget->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
+    m_pTaskNumWidget->setPalette(p);
     QHBoxLayout *TaskNumWidgetlayout = new QHBoxLayout(m_pTaskNumWidget);
     TaskNumWidgetlayout->setMargin(0);
     m_pTaskNum = new QLabel(tr("0 task"));
@@ -375,9 +376,12 @@ void MainFrame::createNewTask(QString url)
 
 void MainFrame::onTrayQuitClick()
 {
+    if(m_pUpdateTimer->isActive()) {
+
+    }
     m_pDownLoadingTableView->getTableControl()->saveDataBeforeClose();
     m_pRecycleTableView->getTableControl()->saveDataBeforeClose();
-    //Aria2RPCInterface::Instance()->shutdown();
+    Aria2RPCInterface::Instance()->shutdown();
     qApp->quit();
 }
 

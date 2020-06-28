@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     a.loadTranslator();//加载程序的翻译文件
     a.setOrganizationName("uos");//设置公司名
     a.setApplicationName("downloadmanager");//设置应用程序名
-    a.setApplicationVersion("1.0.00");//设置应用程序版本
+    a.setApplicationVersion("5.1.0.1");//设置应用程序版本
     a.setProductIcon(QIcon(":/icons/icon/downloader4.svg"));//从系统主题中获取图标并设置成产品图标
     auto download_manager_name = QObject::tr("Download Manager");
     a.setProductName(download_manager_name);//设置产品的名称
