@@ -502,7 +502,7 @@ private:
     QWidget *m_pNotaskWidget;
     DLabel *m_pNotaskLabel;
     DLabel *m_pNoResultlabel;
-    QLabel *m_pNotaskTipLabel;
+    DLabel *m_pNotaskTipLabel;
     QStackedWidget *m_pRightStackwidget;
     QWidget *m_pTaskNumWidget;
     QLabel  *m_pTaskNum;
