@@ -29,6 +29,7 @@
 
 #include <DFontSizeManager>
 #include <DPalette>
+#include <DGuiApplicationHelper>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -63,8 +64,7 @@ void DownloadSettingWidget::initUI()
     font.setWeight(QFont::Normal);
 
     DPalette palette;
-    QColor color = palette.color(DPalette::TextTips);
-    palette.setColor(DPalette::TextTips,color);
+    palette.setBrush(DPalette::TextTips, DGuiApplicationHelper::instance()->applicationPalette().textTips());
 
     m_pMaxDownloadSpeedLimit->setRangeLabelFont(font);
     m_pMaxDownloadSpeedLimit->setRangeLabelPalette(palette);
