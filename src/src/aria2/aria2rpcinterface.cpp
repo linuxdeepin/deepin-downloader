@@ -108,6 +108,8 @@ bool Aria2RPCInterface::startUp()
     //opt << "--input-file=" + inputFile;
     opt << "--save-session=" + sessionCacheFile;
     opt << "--save-session-interval=" + saveSessionInterval;
+    opt << "--enable-dht=true";//启动dht文件
+    opt << "--enable-dht6=false";//禁用dht6文件
     opt << "--dht-file-path=" + dhtFile;
     opt << "--dht-file-path6=" + dht6File;
 
