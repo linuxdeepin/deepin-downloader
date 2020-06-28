@@ -282,6 +282,9 @@ void MainFrame::initConnection()
     connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalAutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
     connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalDownload, this, &MainFrame::getNewDownloadUrl);
     connect(m_pDownLoadingTableView->getTableModel(), &TableModel::signalCheckChange, this, &MainFrame::onCheckChanged);
+    connect(m_pDownLoadingTableView, &TableView::doubleClicked,[=](){
+        onOpenFileActionTriggered();
+    });
 
     connect(m_pRecycleTableView, &TableView::signalHeaderStatechanged, this, &MainFrame::getHeaderStatechanged);
     connect(m_pRecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu);
@@ -289,10 +292,14 @@ void MainFrame::initConnection()
     connect(m_pRecycleTableView->getTableControl(), &tableDataControl::signalRedownload, this, &MainFrame::onRedownload);
     connect(m_pRecycleTableView->getTableControl(), &tableDataControl::signalAutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
     connect(m_pRecycleTableView->getTableModel(), &TableModel::signalCheckChange, this, &MainFrame::onCheckChanged);
+    connect(m_pRecycleTableView, &TableView::doubleClicked,[=](){
+        onOpenFileActionTriggered();
+    });
 
     connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::signalClearHeaderCheck);
     connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::signalClearHeaderCheck);
-
+    connect(this, &MainFrame::headerViewChecked, m_pDownLoadingTableView, &TableView::signalTableViewAllChecked);
+    connect(this, &MainFrame::headerViewChecked, m_pRecycleTableView, &TableView::signalTableViewAllChecked);
 
     connect(m_pSettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_pClipboard, &ClipboardTimer::sendClipboardText, this, &MainFrame::onClipboardDataChanged);
@@ -836,7 +843,7 @@ S_Task MainFrame::getUrlToName(QString url, QString savePath)
     if(fileName.contains(".torrent")){
         fileName = fileName.remove(".torrent");
     }
-    int count = DBInstance::getSameNameCount(fileName);
+    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(".")));
     if(count > 0){
         QString name1 = fileName.mid(0, fileName.lastIndexOf('.'));
         name1 += QString("_%1").arg(count);
@@ -1094,9 +1101,14 @@ void MainFrame::onCheckChanged(bool checked, int flag)
             m_pToolBar->enablePauseBtn(true);
             m_pToolBar->enableDeleteBtn(true);
         } else if(m_iCurrentLab == finishLab) {
-            m_pToolBar->enableStartBtn(true);
-            m_pToolBar->enablePauseBtn(true);
             m_pToolBar->enableDeleteBtn(true);
+            if(1 == chkedCnt){
+                m_pToolBar->enableStartBtn(true);
+                m_pToolBar->enablePauseBtn(true);
+            } else {
+                m_pToolBar->enableStartBtn(false);
+                m_pToolBar->enablePauseBtn(false);
+            }
         } else if(m_iCurrentLab == recycleLab) {
             m_pToolBar->enableStartBtn(false);
             m_pToolBar->enablePauseBtn(true);
@@ -1392,6 +1404,7 @@ void MainFrame::keyPressEvent(QKeyEvent *event)
     if(event->key() == Qt::Key_A) {
         if(m_bctrlkeyPress == true){
             getHeaderStatechanged(true);
+            emit headerViewChecked(true);
             qDebug() << "Key_Control + Key_A";
         }
 

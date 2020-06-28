@@ -446,6 +446,7 @@ int DBInstance::getSameNameCount(QString filename)
         sqlDatabase.close();
         return 0;
     }
+    qWarning() << sqlStr;
     while(sql.next())
     {
         count = sql.value(0).toInt();

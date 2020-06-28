@@ -35,6 +35,7 @@
 #include <QApplication>
 #include <QPainter>
 #include <QDebug>
+#include <QLineEdit>
 #include <QFileInfo>
 #include <QFileIconProvider>
 #include <QIcon>
@@ -318,6 +319,12 @@ bool ItemDelegate::editorEvent(QEvent                     *event,
         ret = QStyledItemDelegate::editorEvent(event, model, option, index);
     }
     return ret;
+}
+
+QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index)
+{
+    QLineEdit * edit=new QLineEdit("xx",parent);
+    return edit;
 }
 
 void ItemDelegate::onHoverchanged(const QModelIndex &index)
