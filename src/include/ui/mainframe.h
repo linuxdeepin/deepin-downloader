@@ -535,6 +535,7 @@ private:
     bool m_bIsCopyUrlFromLocal = false;
 signals:
      void switchTableSignal();
+     void headerViewChecked(bool checked);
      void tableChanged(int index);
      void signalRedownload(QString taskId, int rd);
 };

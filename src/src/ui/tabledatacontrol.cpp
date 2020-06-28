@@ -976,7 +976,12 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                                                ifDeleteLocal,
                                                                "download_delete");
     connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
+
+//    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
+//        Aria2RPCInterface::Instance()->remove(gId, id);
+//    });
     pDeleteItemThread->start();
+
 
     for(int i = 0; i < m_pDeleteList.size(); i++) {
         DataItem *data = m_pDeleteList.at(i);
@@ -1168,18 +1173,18 @@ void tableDataControl::recycleListRedownload(QString id)
     QString url = data->url;
     QString taskId = data->taskId;
     QString ariaTempFile = data->savePath + ".aria2";
-    if(!data->savePath.isEmpty()) {
-        QFileInfo fi(data->savePath);
-        if(fi.isDir() && data->savePath.contains(data->fileName) && !data->fileName.isEmpty()) {
-            QDir tar(data->savePath);
-            tar.removeRecursively();
-        } else {
-            QFile::remove(data->savePath);
-        }
-        if(QFile::exists(ariaTempFile)) {
-            QFile::remove(ariaTempFile);
-        }
-    }
+//    if(!data->savePath.isEmpty()) {
+//        QFileInfo fi(data->savePath);
+//        if(fi.isDir() && data->savePath.contains(data->fileName) && !data->fileName.isEmpty()) {
+//            QDir tar(data->savePath);
+//            tar.removeRecursively();
+//        } else {
+//            QFile::remove(data->savePath);
+//        }
+//        if(QFile::exists(ariaTempFile)) {
+//            QFile::remove(ariaTempFile);
+//        }
+//    }
     QString filePath = data->savePath;
     QString fileName = data->fileName;
     QString defaultSavepath = getDownloadSavepathFromConfig();

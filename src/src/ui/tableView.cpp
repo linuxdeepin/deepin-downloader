@@ -118,6 +118,8 @@ void TableView::initUI()
             &TableView::signalHoverchanged,
             m_pItemdegegate,
             &ItemDelegate::onHoverchanged);
+
+
 }
 
 void TableView::initConnections()

@@ -55,6 +55,8 @@ public:
      * @brief 开始编辑前调用
      */
     bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index);
+
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index);
 private:
     int m_iTableFlag;
      //QProgressBar *progressbar;
