@@ -517,33 +517,22 @@ QString tableDataControl::getFileName(const QString &url)
 void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileName)
 {
     // 获取免打扰模式值
-    QVariant undisturbed_mode_switchbutton = Settings::getInstance()->m_pSettings->getOption(
-        "basic.select_multiple.undisturbed_mode_switchbutton");
-
-    if(undisturbed_mode_switchbutton.toBool()) {
-        bool topStatus = m_pDownloadTableView->isTopLevel();
-        bool maxStatus = m_pDownloadTableView->isMaximized();
-        if(topStatus && maxStatus) {
-            return;
-        }
-    }
-
     bool afterDownloadPlayTone = Settings::getInstance()->getDownloadFinishedPlayToneState();
     if(afterDownloadPlayTone) {
-        QSound::play(":/media/wav/downloadfinish.wav");
+       // QSound::play(":/media/wav/downloadfinish.wav");
     } else {
         qDebug() << " not in select down load finsh wav" << endl;
     }
 
     bool downloadInfoNotify = Settings::getInstance()->getDownloadInfoSystemNotifyState();
     if(downloadInfoNotify) {
-        QProcess *p = new QProcess;
         QString   showInfo;
         if(statusStr == "error") {
             showInfo = fileName + tr(" download failed, network error");
         } else {
             showInfo = fileName + tr(" download finished");
         }
+        QProcess *p = new QProcess;
         p->start("notify-send", QStringList() << showInfo);
         p->waitForStarted();
         p->waitForFinished();
@@ -692,12 +681,27 @@ int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DataItem*> &
         if(selectList.at(i)->status == Complete || selectList.at(i)->status == Error) {
             if((selectList.at(i)->Ischecked == 1) && !m_pDownloadTableView->isRowHidden(i)) {
                 DataItem *data = selectList.at(i);
+                if(data->status == Global::Error){
+                    RedownloadErrorItem(data);
+                    return 0;
+                }
                 reloadList.append(data);
                 ++selectedCount;
             }
         }
     }
     return selectedCount;
+}
+
+void tableDataControl::RedownloadErrorItem(DataItem *errorItem)
+{
+    Aria2RPCInterface::Instance()->remove(errorItem->gid);
+    DBInstance::delTask(errorItem->taskId);
+    QStringList urlList;
+    urlList << errorItem->url;
+    emit signalDownload(urlList, Settings::getInstance()->getDownloadSavePath());
+    m_pDownloadTableView->getTableModel()->removeItem(errorItem);
+
 }
 
 int tableDataControl::RedownloadTrashList(QList<DelDataItem *> &reloadList)
