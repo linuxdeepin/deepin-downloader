@@ -710,3 +710,13 @@ QString Aria2RPCInterface::bytesFormat(qint64 size)
     int i = qFloor(qLn(size) / qLn(1024));
     return QString::number(size * 1.0 / qPow(1024, qFloor(i)), 'f', (i > 1) ? 2 : 0) + sl.at(i);
 }
+
+void Aria2RPCInterface::shutdown(QString id)
+{
+    callRPC(ARIA2C_METHOD_SHUTDOWN, id);
+}
+
+void Aria2RPCInterface::forceShutdown(QString id)
+{
+    callRPC(ARIA2C_METHOD_FORCE_SHUTDOWN, id);
+}
