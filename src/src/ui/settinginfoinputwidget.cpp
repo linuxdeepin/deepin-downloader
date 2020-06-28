@@ -26,6 +26,9 @@
  */
 #include "settinginfoinputwidget.h"
 
+#include <DFontSizeManager>
+#include <DPalette>
+
 #include <QHBoxLayout>
 
 SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent) : QWidget(parent)
@@ -112,5 +115,15 @@ QString SettingInfoInputWidget::getLineEditText()
 void SettingInfoInputWidget::setWidgetWidth(int nWidth)
 {
     m_pWidget->setFixedWidth(nWidth);
+}
+
+void SettingInfoInputWidget::setRangeLabelFont(QFont font)
+{
+    m_pRangeLabel->setFont(font);
+}
+
+void SettingInfoInputWidget::setRangeLabelPalette(DPalette palette)
+{
+    m_pRangeLabel->setPalette(palette);
 }
 
