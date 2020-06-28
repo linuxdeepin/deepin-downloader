@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
              w.onClipboardDataForBt(_comList[i]);     
         }
     }
-
+    w.setWindowIcon(QIcon(":/icons/icon/downloader4.svg"));
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
 }

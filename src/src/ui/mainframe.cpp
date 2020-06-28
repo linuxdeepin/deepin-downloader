@@ -44,6 +44,7 @@
 #include <QProcess>
 #include <QDesktopServices>
 #include <QDebug>
+#include <DFontSizeManager>
 
 #include "aria2rpcinterface.h"
 #include "aria2const.h"
@@ -133,7 +134,6 @@ void MainFrame::init()
     lableFont.setPointSize(15);
     lableFont.setBold(QFont::DemiBold);
     lableFont.setFamily("T5");
-    DPalette fontP;
     m_pNotaskLabel = new Dtk::Widget::DLabel();
     m_pNotaskLabel->setFont(lableFont);
     m_pNotaskLabel->setText(tr("No download tasks"));
@@ -149,18 +149,13 @@ void MainFrame::init()
     m_pNoResultlabel->hide();
     pnotaskWidgetlayout->addWidget(m_pNoResultlabel);
 
-    fontP.setBrush(DPalette::PlaceholderText, DGuiApplicationHelper::instance()->applicationPalette().placeholderText());
-
-
     m_pNotaskTipLabel = new QLabel();
     QFont notaskTipLabelFont;
     notaskTipLabelFont.setPointSize(13);
     m_pNotaskTipLabel->setFont(notaskTipLabelFont);
-    DPalette notaskTipLabelP;
-    notaskTipLabelP.setColor(DPalette::PlaceholderText, QColor(85, 85, 85, 40));
     m_pNotaskTipLabel->setText(tr("Click + to create new task"));
     m_pNotaskTipLabel->setAlignment(Qt::AlignHCenter);
-    m_pNotaskTipLabel->setPalette(notaskTipLabelP);
+    m_pNotaskTipLabel->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
     pnotaskWidgetlayout->addWidget(m_pNotaskTipLabel);
     pnotaskWidgetlayout->addStretch(5);
     QVBoxLayout *pRightLayout = new QVBoxLayout(m_pRight_Widget);
@@ -169,17 +164,15 @@ void MainFrame::init()
     m_pRightStackwidget = new QStackedWidget(this);
     m_pRightStackwidget->setCurrentIndex(0);
 
-    DPalette pTaskNum;
-    pTaskNum.setBrush(this->backgroundRole(), QBrush(QColor(255, 255, 255, 178)));
     m_pTaskNumWidget = new QWidget;
     m_pTaskNumWidget->setFixedHeight(30);
     m_pTaskNumWidget->setAutoFillBackground(true);
-    m_pTaskNumWidget->setPalette(pTaskNum);
+    m_pTaskNumWidget->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
     QHBoxLayout *TaskNumWidgetlayout = new QHBoxLayout(m_pTaskNumWidget);
     TaskNumWidgetlayout->setMargin(0);
     m_pTaskNum = new QLabel(tr("0 task"));
     m_pTaskNum->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    m_pTaskNum->setPalette(notaskTipLabelP);
+    m_pTaskNum->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
     TaskNumWidgetlayout->addWidget(m_pTaskNum);
     m_pRightStackwidget->addWidget(m_pDownLoadingTableView);
     m_pRightStackwidget->addWidget(m_pRecycleTableView);
@@ -384,6 +377,7 @@ void MainFrame::onTrayQuitClick()
 {
     m_pDownLoadingTableView->getTableControl()->saveDataBeforeClose();
     m_pRecycleTableView->getTableControl()->saveDataBeforeClose();
+    //Aria2RPCInterface::Instance()->shutdown();
     qApp->quit();
 }
 

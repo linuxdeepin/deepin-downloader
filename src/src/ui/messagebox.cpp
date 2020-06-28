@@ -199,7 +199,7 @@ void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtn
 
 void MessageBox::setExit()
 {
-    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+    setIcon(QIcon(":/icons/icon/downloader5.svg"));
 
     setTitle(tr("You want to"));
     addSpacing(10);
