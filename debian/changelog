@@ -1,9 +1,5 @@
 downloadmanager (5.1.0.1) stable; urgency=low
 
-  * 完成了成界面设计
-  * 完成了http任务下载
-  * 完成了主界面列表的功能
-  * 完成了部分主界面右键功能
-  * 完成了主界面暂停/启动/删除/添加功能
+  * 完成所有需求的功能开发
 
- -- unknown <unknown@uniontech.com>  Tue, 16 Jun 2020 14:20:16 +0800
+ -- unknown <unknown@uniontech.com>  Mon, 28 Jun 2020 14:20:16 +0800
