@@ -192,7 +192,7 @@ private:
     /**
      * @brief 处理设置界面通知设置函数
      */
-    void dealNotificaitonSettings(QString statusStr, QString fileName);
+    void dealNotificaitonSettings(QString statusStr, QString fileName, QString errorCode);
 
     /**
      * @brief 格式化文件大小 （1B1KB1MB1GB）

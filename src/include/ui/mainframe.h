@@ -31,6 +31,7 @@
 #include <DMainWindow>
 #include <DLabel>
 #include <DListView>
+#include <DStatusBar>
 #include <QSystemTrayIcon>
 
 #include <DTitlebar>

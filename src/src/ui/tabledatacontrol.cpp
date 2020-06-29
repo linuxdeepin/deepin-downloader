@@ -226,7 +226,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //字节/每秒
     QString fileName = getFileName(filePath);
     QString statusStr = result.value("status").toString();
-
+    QString errorCode = result.value("errorCode").toString();
     int percent = 0;
     int status = 0;
 
@@ -267,7 +267,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         status = Global::Status::Paused;
     } else if(statusStr == "error") {
         status = Global::Status::Error;
-        dealNotificaitonSettings(statusStr, fileName);
+        dealNotificaitonSettings(statusStr, fileName, errorCode);
     } else if(statusStr == "complete") {
         status = Global::Status::Complete;
 
@@ -286,7 +286,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         }
 
         //
-        dealNotificaitonSettings(statusStr, fileName);
+        dealNotificaitonSettings(statusStr, fileName, errorCode);
         if(Settings::getInstance()->getDownloadFinishedOpenState()) {
             QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
         }
@@ -318,7 +318,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         }
         if((totalLength != 0) && (totalLength == completedLength)) {
             data->status = Complete;
-            dealNotificaitonSettings("complete", filePath);
+            dealNotificaitonSettings("complete", filePath, errorCode);
         } else {
             data->status = status;
         }
@@ -514,7 +514,7 @@ QString tableDataControl::getFileName(const QString &url)
     return QString(url).right(url.length() - url.lastIndexOf('/') - 1);
 }
 
-void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileName)
+void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileName, QString errorCode)
 {
     // 获取免打扰模式值
     bool afterDownloadPlayTone = Settings::getInstance()->getDownloadFinishedPlayToneState();
@@ -528,7 +528,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     if(downloadInfoNotify) {
         QString   showInfo;
         if(statusStr == "error") {
-            showInfo = fileName + tr(" download failed, network error");
+            showInfo = fileName + tr(" download failed, network error: errorCode: ") + errorCode;
         } else {
             showInfo = fileName + tr(" download finished");
         }
