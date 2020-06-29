@@ -165,10 +165,11 @@ void MainFrame::init()
     m_pRightStackwidget = new QStackedWidget(this);
     m_pRightStackwidget->setCurrentIndex(0);
 
+    QPalette pa;
+    pa.setColor(QPalette::Background, QColor(255, 0, 0));
     m_pTaskNumWidget = new QWidget;
     m_pTaskNumWidget->setFixedHeight(30);
-    m_pTaskNumWidget->setAutoFillBackground(true);
-    m_pTaskNumWidget->setPalette(p);
+    //m_pTaskNumWidget->setPalette(pa);
     QHBoxLayout *TaskNumWidgetlayout = new QHBoxLayout(m_pTaskNumWidget);
     TaskNumWidgetlayout->setMargin(0);
     m_pTaskNum = new QLabel(tr("0 task"));
@@ -567,7 +568,12 @@ void MainFrame::setPaletteType()
         m_pDownLoadingTableView->setPalette(tableviewPalette);
         m_pRecycleTableView->setPalette(tableviewPalette);
         m_pNotaskWidget->setPalette(tableviewPalette);
-        m_pTaskNumWidget->setPalette(tableviewPalette);
+
+        DPalette palette;
+        QColor c = DGuiApplicationHelper::instance()->applicationPalette().base().color();
+        c.setAlpha(70);
+        palette.setColor(DPalette::Background,c);
+        m_pTaskNumWidget->setPalette(palette);
         m_pdownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading_dark"));
         m_pdownloadfinishItem->setIcon(QIcon::fromTheme("dcc_print_done_dark"));
         m_precycleItem->setIcon(QIcon::fromTheme("dcc_list_delete_dark"));
@@ -577,14 +583,19 @@ void MainFrame::setPaletteType()
         m_pTaskNum->setPalette(notaskTipLabelP);
     } else if(DGuiApplicationHelper::instance()->themeType() == 1) {
         DPalette p;
-        p.setColor(DPalette::Background, QColor(255, 255, 255));
-        DPalette tableview_palette;
-        tableview_palette.setBrush(DPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
+        p.setBrush(DPalette::Background,
+                   DGuiApplicationHelper::instance()->applicationPalette().base());
+        DPalette tableviewPalette;
+        tableviewPalette.setBrush(DPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
         m_pLeftWidget->setPalette(p);
-        m_pNotaskWidget->setPalette(tableview_palette);
-        m_pDownLoadingTableView->setPalette(tableview_palette);
-        m_pRecycleTableView->setPalette(tableview_palette);
-        m_pTaskNumWidget->setPalette(tableview_palette);
+        m_pNotaskWidget->setPalette(tableviewPalette);
+        m_pDownLoadingTableView->setPalette(tableviewPalette);
+        m_pRecycleTableView->setPalette(tableviewPalette);
+        DPalette palette;
+        QColor c = DGuiApplicationHelper::instance()->applicationPalette().base().color();
+        c.setAlpha(70);
+        palette.setColor(DPalette::Background,c);
+        m_pTaskNumWidget->setPalette(palette);
 
         m_pdownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading"));
         m_pdownloadfinishItem->setIcon(QIcon::fromTheme("dcc_print_done"));
@@ -1333,6 +1344,9 @@ void MainFrame::showDeleteMsgbox(bool permanently)
         m_pToolBar->enableStartBtn(false);
         m_pToolBar->enablePauseBtn(false);
         m_pToolBar->enableDeleteBtn(false);
+        if(m_iCurrentLab == recycleLab){
+            m_pToolBar->enableStartBtn(true);
+        }
     }
 }
 
@@ -1505,6 +1519,7 @@ void MainFrame::onDeleteDownloadBtnClicked()
 
 void MainFrame::onRpcSuccess(QString method, QJsonObject json)
 {
+    qDebug() << "onRpcSuccess: method: " << method;
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
@@ -1727,7 +1742,7 @@ void MainFrame::onReturnOriginActionTriggered()
         showWarningMsgbox(tr("no item is selected,please check items!"));
     } else {
         // ToolBar禁用按钮联动：还原后禁用按钮
-        m_pToolBar->enableStartBtn(false);
+        m_pToolBar->enableStartBtn(true);
         m_pToolBar->enablePauseBtn(false);
         m_pToolBar->enableDeleteBtn(false);
     }
