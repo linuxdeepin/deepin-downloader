@@ -301,7 +301,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
         .arg(qApp->applicationName());
     m_pIniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
     if(!m_pIniFile->contains("FilePath/Filename")){
-        m_pIniFile->setValue("FilePath/Filename",  "/home/sanhei/Downloads");
+        m_pIniFile->setValue("FilePath/Filename",  "");
     }
     if(!m_pIniFile->contains("Close/showTip")){
         m_pIniFile->setValue("Close/showTip",  "true");
