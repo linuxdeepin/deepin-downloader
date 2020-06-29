@@ -528,7 +528,8 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     if(downloadInfoNotify) {
         QString   showInfo;
         if(statusStr == "error") {
-            showInfo = fileName + tr(" download failed, network error: errorCode: ") + errorCode;
+            showInfo = fileName + tr(" download failed, network error");
+            qDebug() << showInfo + (" errorCode: ") + errorCode;
         } else {
             showInfo = fileName + tr(" download finished");
         }
