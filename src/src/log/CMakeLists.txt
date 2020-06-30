@@ -1,8 +1,8 @@
 include_directories(${PROJECT_SOURCE_DIR}/src/include/log)
 
-add_library(log SHARED
+add_library(dlmlog SHARED
     log.cpp
     )
-target_link_libraries(log Qt5::Core)
+target_link_libraries(dlmlog Qt5::Core)
 
-install(TARGETS log DESTINATION lib)
+install(TARGETS dlmlog DESTINATION lib)

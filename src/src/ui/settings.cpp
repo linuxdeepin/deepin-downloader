@@ -30,6 +30,7 @@
 #include "itemselectionwidget.h"
 #include "groupselectionwidget.h"
 #include "downloadsettingwidget.h"
+#include "settingslabel.h"
 
 #include <DThemeManager>
 #include <DSettings>
@@ -662,6 +663,26 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     });
 
     return pDownloadSettingWidget;
+}
+
+QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
+{
+//    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    QString diskCacheInfo = tr("More disk cache, faster download speed \nand more computer consume");
+    SettingsLabel *pSettingsLabel = new SettingsLabel;
+    pSettingsLabel->setLabelText(diskCacheInfo);
+
+    QFont font;
+    font.setPointSize(10); // 设置字号
+    pSettingsLabel->setLabelFont(font);
+
+    DPalette palette;
+    QColor fontColor("#6d7c88");
+    palette.setColor(DPalette::Text, fontColor);
+    pSettingsLabel->setLabelPalette(palette);
+
+     return pSettingsLabel;
 }
 
 bool Settings::getPowerOnState()

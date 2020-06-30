@@ -87,7 +87,7 @@ install(FILES data/downloader4.svg DESTINATION share/icons/hicolor/scalable/apps
 install(FILES data/downloader4.svg DESTINATION share/downloadmanager/icons/logo/)
 
 
-install(TARGETS downloadmanager log database aria2 controlui
+install(TARGETS downloadmanager dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
 LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic
