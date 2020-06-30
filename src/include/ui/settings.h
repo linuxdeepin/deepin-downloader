@@ -107,6 +107,12 @@ public:
     static QWidget *createDownloadSpeedLimitSettiingHandle(QObject *obj);
 
     /**
+     * @brief 创建下载磁盘缓存文本提示窗口
+     * @param obj option对象
+     */
+    static QWidget *createDiskCacheSettiingLabelHandle(QObject *obj);
+
+    /**
      * @brief 获取开机启动状态值
      * @return 开启返回true，否则返回false
      */
