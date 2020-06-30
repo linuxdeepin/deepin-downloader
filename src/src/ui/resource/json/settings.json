@@ -202,6 +202,12 @@
                     "key": "DownloadDiskCache",
                     "name": "Cache",
                     "options": [{
+                            "key": "disckcacheTip",
+                            "name": "",
+                            "type": "diskcacheInfo",
+                            "default": ""
+                        },
+                        {
                             "key": "DownloadDiskCacheSettiing",
                             "type": "radiogroup",
                             "items": [
