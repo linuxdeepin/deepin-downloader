@@ -16,13 +16,13 @@ QT5_WRAP_CPP (DWM_ARIA_HEADERS_MOC ${DWM_ARIA_HEADERS})
 
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
-add_library(aria2 SHARED
+add_library(dlmaria2 SHARED
     aria2rpcinterface.cpp
     aria2cbtinfo.cpp
     ${DWM_ARIA_HEADERS_MOC}
 )
 
-target_link_libraries(aria2 log Qt5::Core)
+target_link_libraries(dlmaria2 dlmlog Qt5::Core)
 
-install(TARGETS aria2 DESTINATION lib)
+install(TARGETS dlmaria2 DESTINATION lib)
 
