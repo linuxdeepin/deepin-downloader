@@ -31,6 +31,7 @@
 #include <DObject>
 #include <QObject>
 #include <QApplication>
+#include <QSystemTrayIcon>
 
 class QClipboard;
 
@@ -46,12 +47,15 @@ private:
     bool isMagnet(QString _str);        //是否是磁力链接
     bool isHttp(QString _str);          //是否是http+后缀
 
+    bool isStartManager(QString _str);  //是否是启动下载器命令
+
 private slots:
     void getDataChanged();              //得到剪切板内容
 
 signals:
     emit void sendClipboardText(QString url); //发送url
     emit void sentBtText(QString url);         //发送bt url
+    emit void showMainWindows();
 private:
     QClipboard *m_clipboard;            //剪切板
     bool m_isHttp;

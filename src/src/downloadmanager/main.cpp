@@ -10,6 +10,8 @@
 #include "settings.h"
 DWIDGET_USE_NAMESPACE
 
+
+
 int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
@@ -36,8 +38,16 @@ int main(int argc, char *argv[])
     if (!a.setSingleInstance("downloadmanager"))//设置成单例程序
     {
         QClipboard *_c = QApplication::clipboard();
-        //发送以.torrent结尾文件
-        _c->setText(_comList[0]);
+        if(_comList.isEmpty())
+        {
+            _c->setText("start_manager_for_clipboard");
+        }
+        else
+        {
+            //发送以.torrent结尾文件
+            _c->setText(_comList[0]);
+        }
+
         return 0;
     }
 
