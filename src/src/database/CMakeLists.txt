@@ -16,12 +16,12 @@ set (DWM_DATABASE_HEADERS
 QT5_WRAP_CPP (DWM_DATABASE_HEADERS_MOC ${DWM_DATABASE_HEADERS})
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
-add_library(database SHARED
+add_library(dlmdatabase SHARED
     database.cpp
     dbinstance.cpp
     ${DWM_DATABASE_HEADERS_MOC}
 )
 
-target_link_libraries(database log Qt5::Core Qt5::Widgets Qt5::Sql)
+target_link_libraries(dlmdatabase dlmlog Qt5::Core Qt5::Widgets Qt5::Sql)
 
-install(TARGETS database DESTINATION lib)
+install(TARGETS dlmdatabase DESTINATION lib)

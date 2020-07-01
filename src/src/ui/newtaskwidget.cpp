@@ -76,6 +76,17 @@ void newTaskWidget::initUi()
     this->addContent(m_texturl);
     this->addSpacing(15);
 
+    this->m_editDir = new DFileChooserEdit(this);
+    this->m_editDir->lineEdit()->setReadOnly(true);
+    this->m_editDir->lineEdit()->setClearButtonEnabled(false);
+    this->m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
+    connect(this->m_editDir, &DFileChooserEdit::fileChoosed, this, &newTaskWidget::slot_filechoosed);
+    QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+    this->m_editDir->setText(_savePath);
+    this->addContent(m_editDir);
+    this->addSpacing(15);
+    m_defaultDownloadDir = _savePath;
+
 
     QWidget *_boxBtn= new QWidget(this);
     QHBoxLayout *layout=new QHBoxLayout(_boxBtn);
@@ -123,8 +134,8 @@ void newTaskWidget::openfileDialog()
 {
     QString _btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if(_btFile != "") {
-        QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-        BtInfoDialog *_dialog = new BtInfoDialog(_btFile,_savePath);//torrent文件路径
+        //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+        BtInfoDialog *_dialog = new BtInfoDialog(_btFile,m_defaultDownloadDir);//torrent文件路径
         if(_dialog->exec() == QDialog::Accepted) {
             QMap<QString,QVariant> opt;
             QString _infoName;
@@ -182,8 +193,8 @@ void newTaskWidget::onSureBtnClicked()
         _urlList.removeOne(_errorList[i]);
     }
     //发送至主窗口
-    QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-    emit NewDownload_sig(_urlList,_savePath);
+    //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+    emit NewDownload_sig(_urlList,m_defaultDownloadDir);
     this->close();
 }
 
@@ -219,8 +230,8 @@ void newTaskWidget::dropEvent(QDropEvent *event)
             if(fileName.startsWith("file:")&&fileName.endsWith(".torrent"))
             {
                 fileName=fileName.right(fileName.length()-6);
-                QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-                BtInfoDialog *_dialog = new BtInfoDialog(fileName,_savePath);//torrent文件路径
+              //  QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+                BtInfoDialog *_dialog = new BtInfoDialog(fileName,m_defaultDownloadDir);//torrent文件路径
                 int ret = _dialog->exec();
                 if(ret == QDialog::Accepted) {
                     QMap<QString,QVariant> opt;
@@ -294,4 +305,27 @@ void newTaskWidget::onTextChanged()
     {
         m_sure_button->setEnabled(true);
     }
+}
+
+void newTaskWidget::slot_filechoosed(const QString &filename)
+{
+    QFileInfo fileinfo;
+    QString _strPath;
+    fileinfo.setFile(filename);
+    if(!fileinfo.isWritable())
+    {
+       MessageBox *msg=new MessageBox();
+       QString title = tr("select directory not writeable!");
+       msg->setWarings(title, tr("sure"));
+       msg->exec();
+       _strPath = m_editDir->directoryUrl().toString();
+      // QString _text = this->getFileEditText(m_defaultDownloadDir);
+       this->m_editDir->lineEdit()->setText(m_defaultDownloadDir);
+       m_editDir->setDirectoryUrl(m_defaultDownloadDir);
+       return;
+    }
+
+    this->m_editDir->lineEdit()->setText(filename);
+    m_editDir->setDirectoryUrl(filename);
+    m_defaultDownloadDir = filename;
 }

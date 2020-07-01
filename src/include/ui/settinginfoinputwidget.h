@@ -100,7 +100,7 @@ public:
 
     /**
      * @brief 设置范围字体颜色
-     * @param font 范围文本字体颜色
+     * @param palette 范围文本字体颜色
      */
     void setRangeLabelPalette(DPalette palette);
 

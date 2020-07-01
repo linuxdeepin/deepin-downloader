@@ -37,6 +37,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/btheaderview.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/deleteitemthread.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tabledatacontrol.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/settingslabel.h
 )
 
 #添加资源文件
@@ -59,7 +60,7 @@ QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
 
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
-add_library(controlui SHARED
+add_library(dlmcontrolui SHARED
        mainframe.cpp
        tableView.cpp
        tableModel.cpp
@@ -84,12 +85,13 @@ add_library(controlui SHARED
        messagebox.cpp
        btheaderview.cpp
        deleteitemthread.cpp
+       settingslabel.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
        ${QM_FILES}
 )
 
-target_link_libraries(controlui aria2 database dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg  Qt5::Multimedia)
+target_link_libraries(dlmcontrolui dlmaria2 dlmdatabase dtkcore dtkgui dtkwidget dtkwm Qt5::Core Qt5::Widgets Qt5::Svg  Qt5::Multimedia)
 
-install(TARGETS controlui DESTINATION lib)
+install(TARGETS dlmcontrolui DESTINATION lib)
 

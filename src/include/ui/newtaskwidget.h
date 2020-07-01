@@ -29,6 +29,7 @@
 #define NEWTASKWIDGET_H
 
 #include "settings.h"
+#include <dfilechooseredit.h>
 #include <DMainWindow>
 #include <DPushButton>
 #include <DDialog>
@@ -89,6 +90,11 @@ private slots:
      */
     void onTextChanged();
 
+    /**
+     * @brief 选择下载路径
+     */
+    void slot_filechoosed(const QString &);
+
 protected:
     /**
      * @brief 拖拽处理函数
@@ -120,6 +126,8 @@ signals:
 private:
     DTextEdit *m_texturl;               //url文本框
     DSuggestButton *m_sure_button;      //确认按钮
+    DFileChooserEdit *m_editDir;    //选择下载路径窗口
+    QString m_defaultDownloadDir;   //默认文件路径
 };
 
 
