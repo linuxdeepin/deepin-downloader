@@ -1123,7 +1123,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
                 m_pToolBar->enablePauseBtn(false);
             }
         } else if(m_iCurrentLab == recycleLab) {
-            m_pToolBar->enableStartBtn(false);
+            m_pToolBar->enableStartBtn(true);
             m_pToolBar->enablePauseBtn(true);
             m_pToolBar->enableDeleteBtn(true);
         }
@@ -1519,7 +1519,6 @@ void MainFrame::onDeleteDownloadBtnClicked()
 
 void MainFrame::onRpcSuccess(QString method, QJsonObject json)
 {
-    qDebug() << "onRpcSuccess: method: " << method;
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
@@ -1981,8 +1980,7 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
         ch = ba.data();
         system(ch);
     } else {
-        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + autostartDesktop).arg(
-            userDefaultDesktopPath);
+        QString cmd = QString("rm -f %1").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + autostartDesktop);
         char *ch;
         QByteArray ba = cmd.toLatin1();
         ch = ba.data();
@@ -1996,7 +1994,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     QString value = QString("max-concurrent-downloads=%1").arg(nTaskNumber);
 
     modifyConfigFile("max-concurrent-downloads=", value);
-    opt.insert("max-concurrent-downloads", nTaskNumber);
+    opt.insert("max-concurrent-downloads", QString().number(nTaskNumber));
     Aria2RPCInterface::Instance()->changeGlobalOption(opt);
 }
 

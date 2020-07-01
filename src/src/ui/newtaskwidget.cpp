@@ -267,21 +267,21 @@ bool newTaskWidget::isHttp(QString url)
     {
         return false;
     }
-    QStringList _list= url.split(".");
-    QString _suffix = _list[_list.size()-1];
-    QStringList _type;
-     _type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
-    if(_type.contains(_suffix))
-    {
-        return true;
-    }
-    for (int i = 0; i < _type.size(); i++) {
-        if(_type[i].toUpper() == _suffix)
-        {
-            return true;
-        }
-    }
-    return false;
+//    QStringList _list= url.split(".");
+//    QString _suffix = _list[_list.size()-1];
+//    QStringList _type;
+//     _type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
+//    if(_type.contains(_suffix))
+//    {
+//        return true;
+//    }
+//    for (int i = 0; i < _type.size(); i++) {
+//        if(_type[i].toUpper() == _suffix)
+//        {
+//            return true;
+//        }
+//    }
+    return true;
 }
 
 void newTaskWidget::onTextChanged()
