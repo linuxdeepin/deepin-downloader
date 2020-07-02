@@ -240,6 +240,9 @@ void MainFrame::initTray()
     // 连接信号与槽
     connect(pShowMainAct,    &QAction::triggered, [ = ]() {
         this->show();
+        this->setWindowState(Qt::WindowActive);
+        this->activateWindow();
+        this->setWindowState((this->windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
     });
     connect(pNewDownloadAct, &QAction::triggered, [ = ]() {
         createNewTask("");
@@ -437,7 +440,7 @@ void MainFrame::initTabledata()
                     Settings::getInstance()->getAutostartUnfinishedTaskState();
                 m_pDownLoadingTableView->getTableModel()->append(data);
                 if(autostart_unfinished_task_switchbutton.toBool()) {
-                    QString savePath = getDownloadSavepathFromConfig();
+                    QString savePath = data->savePath;
                     QMap<QString, QVariant> opt;
                     opt.insert("dir", savePath);
                     opt.insert("out", data->fileName);
@@ -692,14 +695,15 @@ void MainFrame::onListClicked(const QModelIndex &index)
         bool switched = true;
         m_pDownLoadingTableView->reset(switched);
         if(index.row() == 1) {
-            m_pDownLoadingTableView->setFocus();
+            //m_pDownLoadingTableView->setFocus();
+            //m_pDownLoadingTableView->getTableModel()->setData()
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
             m_pNotaskWidget->show();
             m_pNotaskLabel->setText(tr("No finished tasks"));
             m_pNotaskTipLabel->hide();
             m_pNoResultlabel->hide();
         } else {
-            m_pDownLoadingTableView->setFocus();
+            //m_pDownLoadingTableView->setFocus();
             m_pDownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
             m_pNotaskLabel->setText(tr("No download tasks"));
             m_pNotaskWidget->show();
@@ -708,7 +712,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
         }
     } else {
         m_pRightStackwidget->setCurrentIndex(1);
-        m_pRecycleTableView->setFocus();
+        //m_pRecycleTableView->setFocus();
         m_pNotaskWidget->show();
         m_pNotaskLabel->setText(tr("No deleted tasks"));
         m_pNotaskTipLabel->hide();
@@ -932,6 +936,16 @@ void MainFrame::continueDownload(DataItem *pItem)
 
 void MainFrame::onContextMenu(const QPoint &pos)
 {
+    if(m_iCurrentLab == recycleLab){
+        QModelIndex index = m_pRecycleTableView->indexAt(pos);
+        QModelIndex realIndex =index.sibling(index.row(),0);
+        m_pRecycleTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
+    } else {
+        QModelIndex index = m_pDownLoadingTableView->indexAt(pos);
+        QModelIndex realIndex =index.sibling(index.row(),0);
+        m_pDownLoadingTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
+    }
+
     int chkedCnt = 0;
     DataItem *pDownloadItem = nullptr;
     DelDataItem *pDeleteItem = nullptr;
@@ -1124,7 +1138,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
                 m_pToolBar->enablePauseBtn(false);
             }
         } else if(m_iCurrentLab == recycleLab) {
-            m_pToolBar->enableStartBtn(false);
+            m_pToolBar->enableStartBtn(true);
             m_pToolBar->enablePauseBtn(true);
             m_pToolBar->enableDeleteBtn(true);
         }
@@ -1520,7 +1534,6 @@ void MainFrame::onDeleteDownloadBtnClicked()
 
 void MainFrame::onRpcSuccess(QString method, QJsonObject json)
 {
-    qDebug() << "onRpcSuccess: method: " << method;
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
        || (method == ARIA2C_METHOD_ADD_METALINK)) {
@@ -1876,7 +1889,7 @@ void MainFrame::onCopyUrlActionTriggered()
         m_pTaskNum->setText(tr("Copied to clipboard"));
         QProcess *p = new QProcess;
         QString showInfo(tr("Copied to clipboard"));
-        p->start("notify-send", QStringList() << showInfo);
+        p->start("notify-send", QStringList() << showInfo << "--icon=/usr/share/downloadmanager/icons/logo/downloader4.svg");
         p->waitForStarted();
         p->waitForFinished();
     }
@@ -1946,6 +1959,10 @@ void MainFrame::onDownloadLimitChanged()
 
     // get_limit_speed_time(period_start_time, period_end_time);
     S_DownloadSettings settings = Settings::getInstance()->getAllSpeedLimitInfo();
+    if("0" == settings.m_strType){
+        Aria2RPCInterface::Instance()->setDownloadUploadSpeed("0", "0");
+        return;
+    }
 
     periodStartTime->setHMS(settings.m_strStartTime.section(":", 0, 0).toInt(),
                               settings.m_strStartTime.section(":", 1, 1).toInt(),
@@ -1961,7 +1978,7 @@ void MainFrame::onDownloadLimitChanged()
     // 判断当前时间是否在限速时间内
     bool bInPeriod = checkIfInPeriod(&current_time, periodStartTime, periodEndTime);
     if(!bInPeriod) {
-        Aria2RPCInterface::Instance()->setDownloadUploadSpeed("102400", "5120");
+        Aria2RPCInterface::Instance()->setDownloadUploadSpeed("0", "0");
     } else {
         Aria2RPCInterface::Instance()->setDownloadUploadSpeed(downloadSpeed, uploadSpeed);
     }
@@ -1974,7 +1991,7 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
     QString userDefaultDesktopPath = QString("%1/autostart/")
                                         .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
 
-    if(isPowerOn == 0) {
+    if(isPowerOn == 1) {
         QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(
             userDefaultDesktopPath);
         char *ch;
@@ -1982,8 +1999,7 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
         ch = ba.data();
         system(ch);
     } else {
-        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + autostartDesktop).arg(
-            userDefaultDesktopPath);
+        QString cmd = QString("rm -f %1").arg(userDefaultDesktopPath + defaultDesktop);
         char *ch;
         QByteArray ba = cmd.toLatin1();
         ch = ba.data();
@@ -1997,7 +2013,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     QString value = QString("max-concurrent-downloads=%1").arg(nTaskNumber);
 
     modifyConfigFile("max-concurrent-downloads=", value);
-    opt.insert("max-concurrent-downloads", nTaskNumber);
+    opt.insert("max-concurrent-downloads", QString().number(nTaskNumber));
     Aria2RPCInterface::Instance()->changeGlobalOption(opt);
 }
 

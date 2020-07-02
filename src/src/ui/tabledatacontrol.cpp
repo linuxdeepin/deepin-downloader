@@ -164,7 +164,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
             task = S_Task(id, gId, 0, "", "", "Unknow", time);
             DBInstance::addTask(task);
         }
-        data->savePath = getTaskInfo.m_downloadPath + "/" + getTaskInfo.m_downloadFilename;
+        data->savePath = getTaskInfo.m_downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
         m_pDownloadTableView->getTableModel()->append(data);
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_pDownloadTableView->getTableModel();
@@ -258,7 +258,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             msg->setUnusual(taskId);
             connect(msg, &MessageBox::unusualConfirmSig, this, &tableDataControl::getUnusualConfirm);
             msg->exec();
-            qDebug() << "文件不存在，";
+            //qDebug() << "文件不存在，";
             return;
         }
     } else if(statusStr == "waiting") {
@@ -295,8 +295,12 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
 
     data->gid = gId;
-    data->totalLength = formatFileSize(totalLength);
-    data->completedLength = formatFileSize(completedLength);
+    if(totalLength <= 0) {
+        data->totalLength = formatFileSize(totalLength);
+    }
+    if(completedLength <= 0) {
+        data->completedLength = formatFileSize(completedLength);
+    }
     data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
 
     if(bittorrent.isEmpty()) {
@@ -605,7 +609,8 @@ void tableDataControl::getUnusualConfirm(int index, const QString &taskId)
 
 void tableDataControl::Aria2RemoveSlot(QString gId, QString id)
 {
-    Aria2RPCInterface::Instance()->remove(gId, id);
+    auto basicLambda =[&gId, &id] { Aria2RPCInterface::Instance()->remove(gId, id);};
+    basicLambda();
 }
 
 void tableDataControl::searchEditTextChanged(QString text)
@@ -980,12 +985,15 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                                                Aria2RPCInterface::Instance(),
                                                                ifDeleteLocal,
                                                                "download_delete");
-    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
+    //connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
 
-//    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
-//        Aria2RPCInterface::Instance()->remove(gId, id);
-//    });
+    qDebug() << "subThread: " << QThread::currentThreadId();
+    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, [](QString gId, QString id){
+        qDebug() << "subThread: " << QThread::currentThreadId();
+        Aria2RPCInterface::Instance()->remove(gId, id);
+    });
     pDeleteItemThread->start();
+    //pDeleteItemThread->deleteLater();
 
 
     for(int i = 0; i < m_pDeleteList.size(); i++) {
