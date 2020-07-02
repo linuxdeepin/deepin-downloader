@@ -164,7 +164,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
             task = S_Task(id, gId, 0, "", "", "Unknow", time);
             DBInstance::addTask(task);
         }
-        data->savePath = getTaskInfo.m_downloadPath + "/" + getTaskInfo.m_downloadFilename;
+        data->savePath = getTaskInfo.m_downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
         m_pDownloadTableView->getTableModel()->append(data);
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_pDownloadTableView->getTableModel();
@@ -295,8 +295,12 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
 
     data->gid = gId;
-    data->totalLength = formatFileSize(totalLength);
-    data->completedLength = formatFileSize(completedLength);
+    if(totalLength <= 0) {
+        data->totalLength = formatFileSize(totalLength);
+    }
+    if(completedLength <= 0) {
+        data->completedLength = formatFileSize(completedLength);
+    }
     data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
 
     if(bittorrent.isEmpty()) {
@@ -989,7 +993,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         Aria2RPCInterface::Instance()->remove(gId, id);
     });
     pDeleteItemThread->start();
-    pDeleteItemThread->deleteLater();
+    //pDeleteItemThread->deleteLater();
 
 
     for(int i = 0; i < m_pDeleteList.size(); i++) {
