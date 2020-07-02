@@ -320,6 +320,12 @@ private slots:
      */
     void getClearRecycleSlot(bool ischecked);
 
+    /**
+     * @brief 剪切板将
+     * @param reason 激活原因
+     */
+    void showWindowsForClipboard();
+
 private:
 
     /**
