@@ -192,9 +192,14 @@ void newTaskWidget::onSureBtnClicked()
     {
         _urlList.removeOne(_errorList[i]);
     }
+    //获取真实url地址,发送到主界面
+    for (int i = 0;i < _urlList.size(); i++)
+    {
+        getTruetUrl(_urlList[i]);
+    }
     //发送至主窗口
     //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-    emit NewDownload_sig(_urlList,m_defaultDownloadDir);
+ //   emit NewDownload_sig(_urlList,m_defaultDownloadDir);
     this->close();
 }
 
@@ -256,6 +261,8 @@ void newTaskWidget::setUrl(QString url)
 {
     m_texturl->clear();
     m_texturl->setText(url);
+    QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+    this->m_editDir->setText(_savePath);
 }
 
 bool newTaskWidget::isMagnet(QString url)
@@ -328,4 +335,42 @@ void newTaskWidget::slot_filechoosed(const QString &filename)
     this->m_editDir->lineEdit()->setText(filename);
     m_editDir->setDirectoryUrl(filename);
     m_defaultDownloadDir = filename;
+}
+
+void newTaskWidget::getTruetUrl(QString redirecUrl)
+{
+    if(isMagnet(redirecUrl))
+    {
+        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir);
+        return;
+    }
+    QNetworkAccessManager *manager = new QNetworkAccessManager;
+    QNetworkRequest *requset = new QNetworkRequest;                       // 定义请求对象
+    QString _trueUrl;
+    requset->setUrl(QUrl(redirecUrl)); // 设置服务器的uri
+    requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    manager->head(*requset);                                               // post信息到服务器
+    QObject::connect(manager,
+                     &QNetworkAccessManager::finished,
+                     this,
+                     [ = ](QNetworkReply *reply) {
+                        int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+                        //QString length = reply->attribute(QNetworkRequest::OriginalContentLengthAttribute).toString();
+                        qDebug() << "FINISHED" << statusCode;
+                        switch(statusCode) {
+                            case 200: // redirect (Location: [URL])
+                            {
+                                QString length = reply->header(QNetworkRequest::ContentLengthHeader).toString();
+                                QString type = reply->header(QNetworkRequest::ContentTypeHeader).toString();
+                                emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir);
+                                break;
+                            }
+                            case 302: // redirect (Location: [URL])
+                            {
+                                QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
+                                emit NewDownload_sig(QStringList(strUrl),m_defaultDownloadDir);
+                               break;
+                            }
+                        }
+    });
 }

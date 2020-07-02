@@ -38,6 +38,8 @@
 #include <DSuggestButton>
 #include <DFileDialog>
 #include <QObject>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 class BtInfoDialog;
 class MessageBox;
@@ -71,6 +73,13 @@ private:
      * @return  true 为http链接  false 为不是http链接
     */
     bool isHttp(QString url);
+
+    /**
+     * @brief 根据重定向url 获取真是url地址,并发送到主界面
+     * @param 重定向地址
+     * @return  返回真是url地址
+    */
+    void getTruetUrl(QString redirecUrl);
 
 private slots:
     /**

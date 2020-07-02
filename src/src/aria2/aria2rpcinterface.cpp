@@ -493,8 +493,12 @@ void Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QStr
 {
     QJsonArray ja;
     QJsonDocument doc = QJsonDocument::fromVariant(QVariant(options));
+    QByteArray jba=doc.toJson();
+    QString jsonString = QString(jba);
+    QByteArray njba = jsonString.toUtf8();
+     QJsonObject nobj = QJsonObject(QJsonDocument::fromJson(njba).object());
     QJsonObject optJson = doc.object();
-    ja.append(optJson);
+    ja.append(nobj);
     callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);
 }
 

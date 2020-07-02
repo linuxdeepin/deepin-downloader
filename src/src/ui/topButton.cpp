@@ -60,14 +60,15 @@ void TopButton::Init()
     m_pNewDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
     m_pNewDownloadBtn->setToolTip(tr("New task"));
 
-    m_pPauseDownloadBtn = new Dtk::Widget::DIconButton(this);
-
-    // pauseDownloadBtn->setFixedSize(36,36);
-
+    m_pPauseDownloadBtn = new DIconButton(this);
+    m_pPauseDownloadBtn->setFixedSize(36, 36);
     m_pPauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pPauseDownloadBtn->setEnabled(false);
-    m_pPauseDownloadBtn->setGeometry(90, 0, 36, 36);
     m_pPauseDownloadBtn->setToolTip(tr("Pause"));
+
+   // m_pPauseDownloadBtn->setIconSize(QSize(12,12));
+    QSize size1 = m_pPauseDownloadBtn->iconSize();
+    QSize size2 = m_pNewDownloadBtn->iconSize();
 
     m_pStartDownloadBtn = new DIconButton(this);
     m_pStartDownloadBtn->setFixedSize(36, 36);

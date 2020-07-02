@@ -50,15 +50,22 @@ void ClipboardTimer::getDataChanged()
     bool _bIsHttp =  _setting->getHttpDownloadState();
     bool _bIsMagnet = _setting->getMagneticDownloadState();
     bool _bIsBt = _setting->getBtDownloadState();
+    //是否是链接，若是链接打开新建任务窗口
     if((isMagnet(_url) && _bIsMagnet) ||
             (isHttp(_url) && _bIsHttp))
     {
         emit sendClipboardText(_url);
     }
+    //是否是BT文件托管，若是BT文件托管，打开BT文件
     if(_url.endsWith(".torrent") && _bIsBt)
     {
         m_clipboard->clear();
         emit sentBtText(_url);
+    }
+    //是否调用下载器，不打开任何任务
+    if(isStartManager(_url))
+    {
+        emit showMainWindows();
     }
 }
 
@@ -94,6 +101,16 @@ bool ClipboardTimer::isHttp(QString url)
         {
             return true;
         }
+    }
+    return false;
+}
+
+
+bool ClipboardTimer::isStartManager(QString _str)
+{
+    if(_str == "start_manager_for_clipboard")
+    {
+        return true;
     }
     return false;
 }
