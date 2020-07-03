@@ -38,6 +38,7 @@
 #include <QDesktopServices>
 #include <QUuid>
 #include <QSound>
+#include <QDBusInterface>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -519,28 +520,55 @@ QString tableDataControl::getFileName(const QString &url)
 
 void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileName, QString errorCode)
 {
-    // 获取免打扰模式值
-    bool afterDownloadPlayTone = Settings::getInstance()->getDownloadFinishedPlayToneState();
-    if(afterDownloadPlayTone) {
-       // QSound::play(":/media/wav/downloadfinish.wav");
-    } else {
-        qDebug() << " not in select down load finsh wav" << endl;
+    bool downloadInfoNotify = Settings::getInstance()->getDownloadInfoSystemNotifyState();
+    if(!downloadInfoNotify)
+    {
+        return;
+    }
+    QDBusInterface  tInterNotify("com.deepin.dde.Notification",
+                                       "/com/deepin/dde/Notification",
+                                       "com.deepin.dde.Notification",
+                                       QDBusConnection::sessionBus());
+    QList<QVariant> arg;
+    QString in0(tr("Downloader"));      //下载器
+    uint in1 = 101;
+    QString in2;
+    QString in3;
+    QString in4;
+    QStringList in5;
+    QVariantMap in6;
+    if(statusStr== "error")
+    {
+        in2 = "uos-downloadmanger-error";
+        in3 = tr("Download complated");     //下载失败
+        in4 = QString(tr("%1 download failed. Network error.")).arg(fileName);      //【%1下载失败，网络故障。】
+        in5<<"_cancel"<<"Cancel"<<"_view"<<"View";
+        in6["x-deepin-action-_view"] = "downloadmanager,""";
+    }
+    else
+    {
+        in2 = "uos-downloadmanger";
+        in3 = tr("Download failed");      //下载完成
+        in4 = QString(tr("%1 download finished.")).arg(fileName);      //【【%1下载完成。】
     }
 
-    bool downloadInfoNotify = Settings::getInstance()->getDownloadInfoSystemNotifyState();
-    if(downloadInfoNotify) {
-        QString   showInfo;
-        if(statusStr == "error") {
-            showInfo = fileName + tr(" download failed, network error");
-            qDebug() << showInfo + (" errorCode: ") + errorCode;
-        } else {
-            showInfo = fileName + tr(" download finished");
-        }
-        QProcess *p = new QProcess;
-        p->start("notify-send", QStringList() << showInfo);
-        p->waitForStarted();
-        p->waitForFinished();
-    }
+    int in7 = 5000;
+    arg<<in0<<in1<<in2<<in3<<in4<<in5<<in6<<in7;
+    tInterNotify.callWithArgumentList(QDBus::AutoDetect,"Notify", arg);
+
+
+//        QString   showInfo;
+//        if(statusStr == "error") {
+//            showInfo = fileName + tr(" download failed, network error");
+//            qDebug() << showInfo + (" errorCode: ") + errorCode;
+//        } else {
+//            showInfo = fileName + tr(" download finished");
+//        }
+//        QProcess *p = new QProcess;
+//        p->start("notify-send", QStringList() << showInfo);
+//        p->waitForStarted();
+//        p->waitForFinished();
+
 }
 
 QString tableDataControl::formatFileSize(long size)
