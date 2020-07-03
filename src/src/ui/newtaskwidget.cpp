@@ -265,6 +265,8 @@ void newTaskWidget::setUrl(QString url)
 {
     m_texturl->clear();
     m_texturl->setText(url);
+    QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+    this->m_editDir->setText(_savePath);
 }
 
 bool newTaskWidget::isMagnet(QString url)
