@@ -175,14 +175,14 @@ public:
      * @param index: 索引
      * @return 行数
      */
-    int rowCount(const QModelIndex &parent) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
     /**
      * @brief 获取列数
      * @param index: 索引
      * @return 列数
      */
-    int columnCount(const QModelIndex &parent) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
     /**
      * @brief 获取数据
@@ -198,6 +198,8 @@ public:
      * @return 表头数据
      */
     QVariant headerData(int ection, Qt::Orientation orientation, int role) const;
+
+    Qt::ItemFlags flags(const QModelIndex &index) const;
     ~TableModel();
 
 private:
