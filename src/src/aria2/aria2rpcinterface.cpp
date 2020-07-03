@@ -559,6 +559,14 @@ void Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString up
     QString upload_speed = uploadSpeed + "K";
     opt.insert("max-overall-upload-limit", upload_speed);
     changeGlobalOption(opt);
+
+    QString value = "max-overall-download-limit=" + down_speed;
+    modify_config_file("max-overall-download-limit=", value);
+
+    value = "max-overall-upload-limit=" + upload_speed;
+    modify_config_file("max-overall-upload-limit=", value);
+
+    qDebug() << "set download upload limit speed:" << downloadSpeed << uploadSpeed;
 }
 
 void Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)

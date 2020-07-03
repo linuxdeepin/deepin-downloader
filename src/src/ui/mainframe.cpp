@@ -303,6 +303,7 @@ void MainFrame::initConnection()
     connect(m_pSettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_pClipboard, &ClipboardTimer::sendClipboardText, this, &MainFrame::onClipboardDataChanged);
     connect(m_pClipboard, &ClipboardTimer::sentBtText, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
+    connect(m_pClipboard, &ClipboardTimer::showMainWindows, this, &MainFrame::showWindowsForClipboard, Qt::UniqueConnection);
     connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
@@ -2375,5 +2376,16 @@ void MainFrame::btNotificaitonSettings(QString fileName)
         p->start("notify-send", QStringList() << showInfo);
         p->waitForStarted();
         p->waitForFinished();
+    }
+}
+
+void MainFrame::showWindowsForClipboard()
+{
+    if(this->isHidden()) {
+        // 恢复窗口显示
+        this->show();
+        this->setWindowState(Qt::WindowActive);
+        this->activateWindow();
+        this->setWindowState((this->windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
     }
 }
