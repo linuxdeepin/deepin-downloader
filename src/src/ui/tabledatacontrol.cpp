@@ -168,7 +168,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         m_pDownloadTableView->getTableModel()->append(data);
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_pDownloadTableView->getTableModel();
-            m_pDownloadTableView->setRowHidden(dtModel->rowCount(QModelIndex()), true);
+            m_pDownloadTableView->setRowHidden(dtModel->rowCount(), true);
         }
     }
 }
@@ -247,8 +247,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     if(statusStr == "active") {
         status = Global::Status::Active;
-        QFileInfo fInfo(filePath);
-        if(!fInfo.isFile() && (!fileName.contains("[METADATA]"))) {
+        if(QFileInfo::exists(filePath) && (!fileName.contains("[METADATA]"))) {
             if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
                 removeDownloadListJob(data);
                 return;
@@ -587,7 +586,7 @@ bool tableDataControl::checkFileExist(QString &filePath)
 {
     QFileInfo fInfo(filePath);
 
-    return fInfo.isFile();
+    return fInfo.exists();
 }
 
 void tableDataControl::getUnusualConfirm(int index, const QString &taskId)
@@ -618,12 +617,12 @@ void tableDataControl::searchEditTextChanged(QString text)
     TableModel *pModel = m_pDownloadTableView->getTableModel();
 
     if(text == "") {
-        for(int i = 0; i < pModel->rowCount(QModelIndex()); i++) {
+        for(int i = 0; i < pModel->rowCount(); i++) {
             m_pDownloadTableView->setRowHidden(i, false);
             pModel->setData(pModel->index(i, 0), false, TableModel::Ischecked);
         }
     } else {
-        for(int i = 0; i < pModel->rowCount(QModelIndex()); i++) {
+        for(int i = 0; i < pModel->rowCount(); i++) {
             m_pDownloadTableView->setRowHidden(i, false);
             QString fileName = pModel->data(pModel->index(i, 1), TableModel::FileName).toString();
             if(!fileName.contains(text, Qt::CaseInsensitive)) {

@@ -41,6 +41,7 @@
 #include <QIcon>
 #include <QProgressBar>
 #include <QMouseEvent>
+#include <QItemEditorFactory>
 
 #include "tableView.h"
 #include "tableModel.h"
@@ -71,7 +72,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     }
     const QRect rect(option.rect);
     const int   column(index.column());
-    const bool  isSelected = option.state & QStyle::State_Selected;
+    const bool  isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
 
     QFont font;
     font.setPointSize(11);
@@ -79,24 +80,14 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(QColor("#414D68"));
-    if(isSelected) {
-        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
-        painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
-        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
-    }
-    if(column == 0) {
-        painter->fillRect(rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().window());
-
-        //        if(DGuiApplicationHelper::instance()->themeType()==2)
-        //        {
-        //            painter->fillRect(rect,QColor("#262626"));
-
-        //        }
-        //        else if(DGuiApplicationHelper::instance()->themeType()==1)
-        //        {
-        //            painter->fillRect(rect,QColor(248,248,248));
-        //        }
-    }
+//    if(isSelected) {
+//        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
+//        painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
+//        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
+//    }
+//    if(column == 0) {
+//        painter->fillRect(rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().window());
+//    }
     const QRect textRect = rect.marginsRemoved(QMargins(10, 2, 0, 0));
     if(column == 0) {
         QStyleOptionButton checkBoxStyle;
@@ -107,8 +98,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         checkBoxStyle.rect.setWidth(20);
         DCheckBox *check_btn = new DCheckBox;
         QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, check_btn);
-    }
-    if(column == 1) {
+    } else if(column == 1) {
         if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
             painter->setPen(QColor("#C0C6D4"));
         } else if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
@@ -120,6 +110,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->drawRoundRect(rect.x(), rect.y(), 25, rect.height(), 25, 25);
             painter->drawRect(rect.x() + 15, rect.y(), rect.width() - 15, rect.height());
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
+            QItemEditorFactory::setDefaultFactory(new QItemEditorFactory);
         }
 
         QRect rect = textRect;
@@ -283,6 +274,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
         const QString time = index.data(TableModel::Time).toString();
         painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, time);
+    } else {
+        QStyledItemDelegate::paint(painter, option, index);
     }
 }
 
@@ -321,11 +314,27 @@ bool ItemDelegate::editorEvent(QEvent                     *event,
     return ret;
 }
 
-QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index)
+QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QLineEdit * edit=new QLineEdit("xx",parent);
-    return edit;
+    QLineEdit *pEdit = new QLineEdit("asdasd", parent);
+    return pEdit;
 }
+
+void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    QLineEdit *pEdit =(QLineEdit *)editor;
+    QString str = index.data().toString();
+    pEdit->setText(index.data().toString());
+    //QStyledItemDelegate::setEditorData(editor, index);
+}
+
+void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+    QLineEdit *pEdit =(QLineEdit *)editor;
+    model->setData(index, pEdit->text());
+   // QStyledItemDelegate::setModelData(editor, model, index);
+}
+
 
 void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
