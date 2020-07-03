@@ -8,6 +8,6 @@ Homepage: https://www.deepin.org/
 
 Package: downloadmanager
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},sqlite3,qt5-qmake,libnotify-bin,aria2,libaria2
+Depends: ${shlibs:Depends}, ${misc:Depends},sqlite3,libnotify-bin,aria2,libaria2
 Description: download manager
  download manager for deepin desktop environment.
