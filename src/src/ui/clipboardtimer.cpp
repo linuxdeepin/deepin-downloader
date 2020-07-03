@@ -45,17 +45,27 @@ ClipboardTimer::~ClipboardTimer()
 
 void ClipboardTimer::getDataChanged()
 {
-    QString _url = m_clipboard->text();
+    QStringList _urlList = m_clipboard->text().split("\n");
+    QString _url;
     Settings *_setting =  Settings::getInstance();
     bool _bIsHttp =  _setting->getHttpDownloadState();
     bool _bIsMagnet = _setting->getMagneticDownloadState();
     bool _bIsBt = _setting->getBtDownloadState();
-    //是否是链接，若是链接打开新建任务窗口
-    if((isMagnet(_url) && _bIsMagnet) ||
-            (isHttp(_url) && _bIsHttp))
+    //将不符合规则链接剔除
+    for (int i = 0; i < _urlList.size(); i++)
+    {
+        if((isMagnet(_urlList[i]) && _bIsMagnet) ||
+                (isHttp(_urlList[i]) && _bIsHttp))
+        {
+            _url.append(_urlList[i]).append("\n");
+        }
+    }
+    //将符合规则链接发送至主页面
+    if(!_url.isEmpty())
     {
         emit sendClipboardText(_url);
     }
+
     //是否是BT文件托管，若是BT文件托管，打开BT文件
     if(_url.endsWith(".torrent") && _bIsBt)
     {

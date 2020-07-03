@@ -34,6 +34,7 @@
 #include <QMimeData>
 #include <QDebug>
 #include <QStandardPaths>
+#include <QProcess>
 
 newTaskWidget::newTaskWidget(DDialog *parent):
     DDialog(parent)
@@ -51,6 +52,7 @@ void newTaskWidget::initUi()
 {
     setCloseButtonVisible(true);
     setAcceptDrops(true);
+
 
     QIcon tryIcon=QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"))  ;
     this->setIcon(tryIcon);
@@ -127,6 +129,8 @@ void newTaskWidget::initUi()
     layout_right->addWidget(m_sure_button);
     layout->addWidget(_rightBox);
     this->addContent(_boxBtn);
+
+    setMaximumSize(this->width(),this->height());
 }
 
 
@@ -171,7 +175,7 @@ void newTaskWidget::onSureBtnClicked()
             _errorList.append(_urlList[i]);
         }
     }
-    if(!_errorList.isEmpty())
+    if(_errorList == _urlList)
     {
         QString warning_msg = tr("The address you entered cannot be resolved correctly. Please try again");
         MessageBox *msg = new MessageBox();
@@ -341,7 +345,7 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
 {
     if(isMagnet(redirecUrl))
     {
-        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir);
+        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir, "");
         return;
     }
     QNetworkAccessManager *manager = new QNetworkAccessManager;
@@ -349,7 +353,9 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
     QString _trueUrl;
     requset->setUrl(QUrl(redirecUrl)); // 设置服务器的uri
     requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    manager->head(*requset);                                               // post信息到服务器
+    manager->get(*requset);
+    //manager->head(*requset);
+    // post信息到服务器
     QObject::connect(manager,
                      &QNetworkAccessManager::finished,
                      this,
@@ -358,17 +364,38 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                         //QString length = reply->attribute(QNetworkRequest::OriginalContentLengthAttribute).toString();
                         qDebug() << "FINISHED" << statusCode;
                         switch(statusCode) {
-                            case 200: // redirect (Location: [URL])
+                            case 200: // redirect (Location: [URL])   真实链接
                             {
                                 QString length = reply->header(QNetworkRequest::ContentLengthHeader).toString();
                                 QString type = reply->header(QNetworkRequest::ContentTypeHeader).toString();
-                                emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir);
+                                emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,"");
                                 break;
                             }
-                            case 302: // redirect (Location: [URL])
+                            case 302: // redirect (Location: [URL])  重定向链接
                             {
                                 QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-                                emit NewDownload_sig(QStringList(strUrl),m_defaultDownloadDir);
+                                emit NewDownload_sig(QStringList(strUrl),m_defaultDownloadDir, "");
+                               break;
+                            }
+                            case 405:   // 方法不被允许,不能使用head方法，使用 curl -i 查看文件名字
+                            {
+                                QProcess *p = new QProcess;
+                                QStringList _list;
+                                _list<<"-i"<< "redirecUrl";
+                                p->start("curl", _list);
+                                p->waitForReadyRead();
+                                QString _str = p->readAllStandardOutput();
+                                QStringList _urlInfoList = _str.split("\r\n");
+                                for (int i = 0; i < _urlInfoList.size(); i++)
+                                {
+                                    if(_urlInfoList[i].startsWith("Content-Disposition:"))
+                                    {
+                                        int _start= _urlInfoList[i].lastIndexOf("'");
+                                        QString _urlName = _urlInfoList[i].mid(_start);
+                                        QString _urlNameForZH = QUrl::fromPercentEncoding(_urlName.toUtf8());
+                                        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
+                                    }
+                                }
                                break;
                             }
                         }

@@ -337,7 +337,7 @@ void BtInfoDialog::slot_checkAll()
         this->m_checkAudio->setCheckState(Qt::Checked);
         this->m_checkPicture->setCheckState(Qt::Checked);
         this->m_checkOther->setCheckState(Qt::Checked);
-        this->setOkBtnStatus(m_model->rowCount());
+        setOkBtnStatus(m_model->rowCount());
     }
     else if(state == Qt::Unchecked) {
         for(int i = 0;i < m_model->rowCount();i++) {
@@ -348,7 +348,7 @@ void BtInfoDialog::slot_checkAll()
         this->m_checkAudio->setCheckState(Qt::Unchecked);
         this->m_checkPicture->setCheckState(Qt::Unchecked);
         this->m_checkOther->setCheckState(Qt::Unchecked);
-        this->setOkBtnStatus(0);
+        setOkBtnStatus(0);
     }
 }
 
@@ -394,7 +394,7 @@ void BtInfoDialog::slot_checkVideo()
     }
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
-    this->setOkBtnStatus(cnt);
+    setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::slot_checkAudio()
@@ -424,7 +424,7 @@ void BtInfoDialog::slot_checkAudio()
     }
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
-    this->setOkBtnStatus(cnt);
+    setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::slot_checkPicture()
@@ -454,7 +454,7 @@ void BtInfoDialog::slot_checkPicture()
     }
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
-    this->setOkBtnStatus(cnt);
+    setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::slot_checkOther()
@@ -499,6 +499,7 @@ void BtInfoDialog::updateSelectedInfo()
     }
     QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
+    setOkBtnStatus(cnt);
 }
 
 void BtInfoDialog::slot_filechoosed(const QString &filename)

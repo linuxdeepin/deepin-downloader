@@ -81,6 +81,7 @@ private:
     */
     void getTruetUrl(QString redirecUrl);
 
+
 private slots:
     /**
      * @brief 打开选择文件窗口按钮
@@ -121,8 +122,9 @@ signals:
      * @brief 新建http下载任务
      * @param url http下载地址
      * @param save_path 保存路径
+     * @param path_name 文件名字
     */
-    void NewDownload_sig(QStringList urlList,QString save_path);
+    void NewDownload_sig(QStringList urlList,QString save_path,QString path_name);
     /**
      * @brief 新建bt下载任务
      * @param btPath bt下载地址
