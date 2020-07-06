@@ -29,6 +29,7 @@
 
 #include <DCheckBox>
 #include <DGuiApplicationHelper>
+#include <DLineEdit>
 
 #include <QStandardItemModel>
 #include <QStyleOptionProgressBar>
@@ -45,6 +46,7 @@
 
 #include "tableView.h"
 #include "tableModel.h"
+#include "../database/dbinstance.h"
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -316,23 +318,47 @@ bool ItemDelegate::editorEvent(QEvent                     *event,
 
 QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QLineEdit *pEdit = new QLineEdit("asdasd", parent);
+    DLineEdit *pEdit = new DLineEdit(parent);
+    connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename){
+        DLineEdit *pEdit=qobject_cast<DLineEdit *>(sender());
+        QString FilePath = index.data(TableModel::SavePath).toString();
+        FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
+        FilePath = FilePath + filename;
+        if(QFileInfo::exists(FilePath)){
+            pEdit->showAlertMessage(tr("Duplicate name!"));
+            return;
+        } else {
+            pEdit->setAlert(false);
+        }
+    });
+    pEdit->resize(parent->size());
+    QString FilePath = index.data(TableModel::SavePath).toString();
     return pEdit;
 }
 
 void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    QLineEdit *pEdit =(QLineEdit *)editor;
-    QString str = index.data().toString();
-    pEdit->setText(index.data().toString());
-    //QStyledItemDelegate::setEditorData(editor, index);
+    DLineEdit *pEdit =(DLineEdit *)editor;
+    QString str = index.data(TableModel::FileName).toString();
+    pEdit->setText(str);
 }
 
 void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    QLineEdit *pEdit =(QLineEdit *)editor;
-    model->setData(index, pEdit->text());
-   // QStyledItemDelegate::setModelData(editor, model, index);
+    DLineEdit *pEdit =(DLineEdit *)editor;
+    QString FilePath = index.data(TableModel::SavePath).toString();
+    FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
+    FilePath = FilePath + pEdit->text();
+    if(!QFileInfo::exists(FilePath)){
+        QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
+        model->setData(index, pEdit->text(), TableModel::FileName);
+        model->setData(index, FilePath, TableModel::SavePath);
+        S_Task task;
+        DBInstance::getTaskByID(index.data(TableModel::taskId).toString(),task);
+        task.m_downloadPath = FilePath;
+        task.m_downloadFilename = pEdit->text();
+        DBInstance::updateTaskByID(task);
+    }
 }
 
 

@@ -240,7 +240,7 @@ signals:
     /**
      * @brief 开始下载信号
      */
-    void signalDownload(QStringList urlList, QString savePath);
+    void signalDownload(QStringList urlList, QString savePath, QString filename = "");
 
 private:
     TableView *m_pDownloadTableView;

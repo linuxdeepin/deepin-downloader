@@ -248,7 +248,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     if(statusStr == "active") {
         status = Global::Status::Active;
-        if(QFileInfo::exists(filePath) && (!fileName.contains("[METADATA]"))) {
+        if(!QFileInfo::exists(filePath) && (!fileName.contains("[METADATA]"))) {
             if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
                 removeDownloadListJob(data);
                 return;
@@ -295,10 +295,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
 
     data->gid = gId;
-    if(totalLength <= 0) {
+    if(totalLength > 0) {
         data->totalLength = formatFileSize(totalLength);
     }
-    if(completedLength <= 0) {
+    if(completedLength > 0) {
         data->completedLength = formatFileSize(completedLength);
     }
     data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
