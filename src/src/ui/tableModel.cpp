@@ -28,6 +28,7 @@
 #include "tableModel.h"
 #include <QDebug>
 #include <QString>
+#include <QStandardItemModel>
 
 #include "global.h"
 using namespace Global;
@@ -325,6 +326,15 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             }
         }
 
+        case TableModel::taskId:
+        {
+            if(m_iTableviewtabFlag == 0) {
+                return data->taskId;
+            } else {
+                return deldata->taskId;
+            }
+        }
+
         case TableModel::Percent:
         {
             if(m_iTableviewtabFlag == 0) {
@@ -407,6 +417,9 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
         return QAbstractItemModel::flags(index);
     }
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;//ItemIsEnabled,表明这一项可以使用，ItemIsSelectable 表明这一项可以选中。
+
+    if (index.column() == 1)//增加第二列的控制选项。
+      flags |= Qt::ItemIsUserCheckable|Qt::ItemIsEditable;
     return flags;
 }
 
@@ -444,6 +457,31 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
                 emit checkDatachange(m_iTableviewtabFlag);
                 emit signalCheckChange(value.toBool(), m_iTableviewtabFlag);
                 return true;
+            }
+            break;
+        }
+        case TableModel::FileName:
+        {
+            if(nColumn == 1) {
+                if(m_iTableviewtabFlag == 0) {
+                    data->fileName = value.toString();
+                    m_renderList.replace(index.row(), data);
+                } else {
+                    deldata->fileName = value.toString();
+                    m_recyleList.replace(index.row(), deldata);
+                }
+                return true;
+            }
+            break;
+        }
+        case TableModel::SavePath:
+        {
+            if(m_iTableviewtabFlag == 0) {
+                data->savePath = value.toString();
+                m_renderList.replace(index.row(), data);
+            } else {
+                deldata->savePath = value.toString();
+                m_recyleList.replace(index.row(), deldata);
             }
             break;
         }

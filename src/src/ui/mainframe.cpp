@@ -68,8 +68,9 @@ using namespace Global;
 #define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/"
 
 MainFrame::MainFrame(QWidget *parent) :
-    DMainWindow(parent),
-    m_pCheckItem(nullptr)
+    DMainWindow(parent)
+  , m_pCheckItem(nullptr)
+  , m_CheckIndex(QModelIndex())
 {
     init();
     initTray();
@@ -961,6 +962,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         QModelIndex realIndex =index.sibling(index.row(),0);
         QString gid = m_pDownLoadingTableView->getTableModel()->data(index, TableModel::GID).toString();
         m_pCheckItem = m_pDownLoadingTableView->getTableModel()->find(gid);
+        m_CheckIndex = index;
         if(!m_pDownLoadingTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()){
             getHeaderStatechanged(false);
         }
@@ -1866,7 +1868,8 @@ void MainFrame::onOpenFolderActionTriggered()
 
 void MainFrame::onRenameActionTriggered()
 {
-    showRenameMsgbox();
+    m_pDownLoadingTableView->setCurrentIndex(m_CheckIndex);
+    m_pDownLoadingTableView->edit(m_CheckIndex);
 }
 
 void MainFrame::onMoveToActionTriggered()

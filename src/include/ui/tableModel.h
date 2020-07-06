@@ -55,7 +55,7 @@ public:
      * @brief 数据角色
      */
     enum DataRole {
-        Ischecked = 0, Speed, Size, FileName, Time, Status, GID, Percent, TotalLength, SavePath
+        Ischecked = 0, Speed, Size, FileName, Time, Status, GID, Percent, TotalLength, SavePath, taskId
     };
 
 

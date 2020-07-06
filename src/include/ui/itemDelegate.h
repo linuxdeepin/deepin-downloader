@@ -58,18 +58,19 @@ public:
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
-private:
-    int m_iTableFlag;
-     //QProgressBar *progressbar;
-     int m_iHoverRow;
-     QPixmap *m_pBgImage;
-     QPixmap *m_pFront;
+
 public slots:
      /**
       * @brief 鼠标悬停行改变
       */
      void onHoverchanged(const QModelIndex &index);
 
+private:
+    int m_iTableFlag;
+     //QProgressBar *progressbar;
+     int m_iHoverRow;
+     QPixmap *m_pBgImage;
+     QPixmap *m_pFront;
 };
 
 #endif

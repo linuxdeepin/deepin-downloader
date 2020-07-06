@@ -109,8 +109,7 @@ void TableView::initUI()
     setContextMenuPolicy(Qt::CustomContextMenu);
     verticalHeader()->hide();
     setSelectionBehavior(QAbstractItemView::SelectRows);
-    setEditTriggers(QAbstractItemView::DoubleClicked
-                                      | QAbstractItemView::SelectedClicked);
+    setEditTriggers(QAbstractItemView::SelectedClicked);
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
