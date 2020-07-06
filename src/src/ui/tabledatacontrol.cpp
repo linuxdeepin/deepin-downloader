@@ -247,7 +247,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     if(statusStr == "active") {
         status = Global::Status::Active;
-        if(QFileInfo::exists(filePath) && (!fileName.contains("[METADATA]"))) {
+        if(!QFileInfo::exists(filePath) && (!fileName.contains("[METADATA]"))) {
             if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
                 removeDownloadListJob(data);
                 return;

@@ -534,6 +534,7 @@ private:
     QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
     QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
     Global::DataItem* m_pCheckItem;
+    QModelIndex m_CheckIndex;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 
