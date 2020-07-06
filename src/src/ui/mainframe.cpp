@@ -823,7 +823,7 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath, QString
         showRedownloadMsgbox(sameUrlList);
     }
     if(urlList.isEmpty()) {
-        qDebug() << "url is NULl";
+        //qDebug() << "url is NULl";
         return;
     }
 
@@ -937,7 +937,7 @@ void MainFrame::continueDownload(DataItem *pItem)
             } else {
                 // deal_download_upload_limit_period();
                 Aria2RPCInterface::Instance()->addUri(pItem->url, opt, pItem->taskId);
-                clearTableItemCheckStatus();
+                //clearTableItemCheckStatus();
                 if(m_pUpdateTimer->isActive() == false) {
                     m_pUpdateTimer->start(2 * 1000);
                 }
