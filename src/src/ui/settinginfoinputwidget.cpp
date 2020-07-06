@@ -127,3 +127,13 @@ void SettingInfoInputWidget::setRangeLabelPalette(DPalette palette)
     m_pRangeLabel->setPalette(palette);
 }
 
+void SettingInfoInputWidget::setLineEditAlert(bool bIsAlert)
+{
+    m_pLineEdit->setAlert(bIsAlert);
+}
+
+DLineEdit *SettingInfoInputWidget::getLineEdit()
+{
+    return m_pLineEdit;
+}
+

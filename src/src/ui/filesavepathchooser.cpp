@@ -121,7 +121,7 @@ void FileSavePathChooser::lineEditTextChanged(const QString &strText)
     if(!fileinfo.isWritable())
     {
         MessageBox *msg=new MessageBox();
-        QString title = tr("select directory not writeable!");
+        QString title = tr("Permission denied. Please try other folder.");
         msg->setWarings(title, tr("sure"));
         m_pFileChooserEdit->setText(m_strDownloadPath);
         msg->exec();

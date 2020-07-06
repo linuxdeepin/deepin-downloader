@@ -71,6 +71,9 @@ void DownloadSettingWidget::initUI()
     m_pMaxUploadSpeedLimit->setRangeLabelFont(font);
     m_pMaxUploadSpeedLimit->setRangeLabelPalette(palette);
 
+    m_pDownloadAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_pMaxDownloadSpeedLimit->getLineEdit(), m_pMaxDownloadSpeedLimit->getLineEdit());
+    m_pUploadAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_pMaxUploadSpeedLimit->getLineEdit(), m_pMaxUploadSpeedLimit->getLineEdit());
+
 //    QHBoxLayout *pFullSpeedLabelLayout = new QHBoxLayout;
 //    pFullSpeedLabelLayout->addWidget(pFullSpeedLabel);
 //    pFullSpeedLabelLayout->addStretch();
@@ -210,23 +213,47 @@ void DownloadSettingWidget::textChangedSlot(QString strText)
     SettingInfoInputWidget *pSettingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
     if(m_pMaxDownloadSpeedLimit == pSettingInfoInputWidget)
     {
-        QString strInfo = QString("speedlimit;%1;%2;%3;%4")
-                .arg(strText)
-                .arg(m_pMaxUploadSpeedLimit->getLineEditText())
-                .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
-                .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
+        if(strText.toInt() < 100 || strText.toInt() > 102400)
+        {
+            // 请输入100-102400之间的整数
+            m_pDownloadAlertControl->showAlertMessage(tr("Limited between 100-102400"), m_pMaxDownloadSpeedLimit->getLineEdit()->parentWidget()->parentWidget(), -1);
+            m_pMaxDownloadSpeedLimit->setLineEditAlert(true);
+            m_pDownloadAlertControl->setMessageAlignment(Qt::AlignLeft);
+        }
+        else {
+            m_pMaxDownloadSpeedLimit->setLineEditAlert(false);
+            m_pDownloadAlertControl->hideAlertMessage();
 
-        emit speedLimitInfoChanged(strInfo);
+            QString strInfo = QString("speedlimit;%1;%2;%3;%4")
+                    .arg(strText.toInt())
+                    .arg(m_pMaxUploadSpeedLimit->getLineEditText())
+                    .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
+                    .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
+
+            emit speedLimitInfoChanged(strInfo);
+        }
+
     }
     else if(m_pMaxUploadSpeedLimit == pSettingInfoInputWidget)
     {
-        QString strInfo = QString("speedlimit;%1;%2;%3;%4")
-                .arg(m_pMaxDownloadSpeedLimit->getLineEditText())
-                .arg(strText)
-                .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
-                .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
+        if(strText.toInt() < 16 || strText.toInt() > 5120)
+        {
+            // 请输入16-5120之间的整数
+            m_pUploadAlertControl->showAlertMessage(tr("Limited between 16-5120"), m_pMaxUploadSpeedLimit->getLineEdit()->parentWidget()->parentWidget(), -1);
+            m_pMaxUploadSpeedLimit->setLineEditAlert(true);
+            m_pUploadAlertControl->setMessageAlignment(Qt::AlignLeft);
+        }
+        else {
+            m_pMaxUploadSpeedLimit->setLineEditAlert(false);
+            m_pUploadAlertControl->hideAlertMessage();
+            QString strInfo = QString("speedlimit;%1;%2;%3;%4")
+                    .arg(m_pMaxDownloadSpeedLimit->getLineEditText())
+                    .arg(strText.toInt())
+                    .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
+                    .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
-        emit speedLimitInfoChanged(strInfo);
+            emit speedLimitInfoChanged(strInfo);
+        }
     }
 }
 
