@@ -805,7 +805,7 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath)
+void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath, QString fileName)
 {
     bool isExitsUrl = false;
     QStringList sameUrlList;
@@ -832,7 +832,7 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath)
     QMap<QString, QVariant> opt;
     opt.insert("dir", savePath);
     for(int i = 0; i < urlList.size(); i++) {
-        task = getUrlToName(urlList[i], savePath);
+        task = getUrlToName(urlList[i], savePath, fileName);
         DBInstance::addTask(task);
         Aria2RPCInterface::Instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
         clearTableItemCheckStatus();
@@ -846,12 +846,14 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath)
    // }
 }
 
-S_Task MainFrame::getUrlToName(QString url, QString savePath)
+S_Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
 {
     // 获取url文件名
     QString fileName;
 
-    if(url.startsWith("magnet")) {
+    if(name != ""){
+        fileName = name;
+    } else if(url.startsWith("magnet")) {
         fileName = url.split("&")[0];
         if(fileName.contains("btih:")) {
             fileName = fileName.split("btih:")[1] + ".torrent";
@@ -950,23 +952,27 @@ void MainFrame::onContextMenu(const QPoint &pos)
 {
     if(m_iCurrentLab == recycleLab){
         QModelIndex index = m_pRecycleTableView->indexAt(pos);
-        QModelIndex realIndex =index.sibling(index.row(),0);
-        QString gid = m_pRecycleTableView->getTableModel()->data(index, TableModel::GID).toString();
-        m_pCheckItem = m_pRecycleTableView->getTableModel()->find(gid);
-        if(!m_pRecycleTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()){
-            getHeaderStatechanged(false);
+        if(index.isValid()){
+            QModelIndex realIndex =index.sibling(index.row(),0);
+            QString gid = m_pRecycleTableView->getTableModel()->data(index, TableModel::GID).toString();
+            m_pCheckItem = m_pRecycleTableView->getTableModel()->find(gid);
+            if(!m_pRecycleTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()){
+                getHeaderStatechanged(false);
+            }
+            m_pRecycleTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
         }
-        m_pRecycleTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
     } else {
         QModelIndex index = m_pDownLoadingTableView->indexAt(pos);
-        QModelIndex realIndex =index.sibling(index.row(),0);
-        QString gid = m_pDownLoadingTableView->getTableModel()->data(index, TableModel::GID).toString();
-        m_pCheckItem = m_pDownLoadingTableView->getTableModel()->find(gid);
-        m_CheckIndex = index;
-        if(!m_pDownLoadingTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()){
-            getHeaderStatechanged(false);
+        if(index.isValid()){
+            QModelIndex realIndex =index.sibling(index.row(),0);
+            QString gid = m_pDownLoadingTableView->getTableModel()->data(index, TableModel::GID).toString();
+            m_pCheckItem = m_pDownLoadingTableView->getTableModel()->find(gid);
+            m_CheckIndex = index;
+            if(!m_pDownLoadingTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()){
+                getHeaderStatechanged(false);
+            }
+            m_pDownLoadingTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
         }
-        m_pDownLoadingTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
     }
 
     int chkedCnt = 0;
@@ -1987,7 +1993,7 @@ void MainFrame::getRedownloadConfirmSlot(const QList<QString> &sameUrlList)
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     opt.insert("dir", savePath);
     for(int i = 0; i < sameUrlList.size(); i++) {
-        task = getUrlToName(sameUrlList[i], savePath);
+        task = getUrlToName(sameUrlList[i], savePath, "");
         DBInstance::addTask(task);
         Aria2RPCInterface::Instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
         clearTableItemCheckStatus();

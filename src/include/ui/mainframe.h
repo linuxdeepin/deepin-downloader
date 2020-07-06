@@ -135,7 +135,7 @@ private slots:
      * @param url 收到url地址
      * @param savePath 保存路径
     */
-    void getNewDownloadUrl(QStringList url, QString savePath);
+    void getNewDownloadUrl(QStringList url, QString savePath, QString fileName);
 
     /**
      * @brief 收到新建任务orrent
@@ -375,7 +375,7 @@ private:
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    S_Task getUrlToName(QString url, QString savePaht);
+    S_Task getUrlToName(QString url, QString savePaht, QString name);
 
     /**
      * @brief 开始或者继续下载任务

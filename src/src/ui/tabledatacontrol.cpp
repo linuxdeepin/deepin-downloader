@@ -294,10 +294,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
 
     data->gid = gId;
-    if(totalLength <= 0) {
+    if(totalLength > 0) {
         data->totalLength = formatFileSize(totalLength);
     }
-    if(completedLength <= 0) {
+    if(completedLength > 0) {
         data->completedLength = formatFileSize(completedLength);
     }
     data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
