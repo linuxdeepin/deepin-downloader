@@ -108,7 +108,7 @@ private:
     void setOkBtnStatus(int count);    //根据选择文件设置确认按钮状态
 
 private:
-    QString m_torrentFile;
+    QString m_torrentFile;              //bt文件路径
     QString m_defaultDownloadDir;   //默热下载文件路径
     QStandardItemModel *m_model;    //tableview中的模型，数据交流
     BtInfoDelegate *m_delegate;     //tableview中选中表格item

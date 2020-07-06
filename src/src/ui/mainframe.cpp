@@ -215,6 +215,7 @@ void MainFrame::init()
     m_pClipboard = new ClipboardTimer; // 获取当前剪切板
     m_pUpdateTimer = new QTimer(this);
     m_TrayClickTimer = new QTimer(this);
+    m_curOpenBtDialogPath = "";
 }
 
 void MainFrame::initTray()
@@ -647,6 +648,14 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::onClipboardDataForBt(QString url)
 {
+    if(url == m_curOpenBtDialogPath)
+    {
+        return;
+    }
+    else
+    {
+        m_curOpenBtDialogPath = url;
+    }
     QString _savePath = Settings::getInstance()->getDownloadSavePath();
     BtInfoDialog *pBt = new BtInfoDialog(url, _savePath); // torrent文件路径
     QMap<QString, QVariant> opt;

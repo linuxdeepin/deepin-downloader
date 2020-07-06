@@ -263,8 +263,10 @@ void newTaskWidget::dropEvent(QDropEvent *event)
 
 void newTaskWidget::setUrl(QString url)
 {
-    m_texturl->clear();
-    m_texturl->setText(url);
+    QString tempUrl = m_texturl->toPlainText() + url;
+    // m_texturl->clear();
+    m_texturl->setText(tempUrl);
+
     QString _savePath =  Settings::getInstance()->getDownloadSavePath();
     this->m_editDir->setText(_savePath);
 }
@@ -353,8 +355,8 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
     QString _trueUrl;
     requset->setUrl(QUrl(redirecUrl)); // 设置服务器的uri
     requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    manager->get(*requset);
-    //manager->head(*requset);
+    //manager->get(*requset);
+    manager->head(*requset);
     // post信息到服务器
     QObject::connect(manager,
                      &QNetworkAccessManager::finished,

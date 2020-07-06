@@ -537,6 +537,8 @@ private:
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
 
+    QString m_curOpenBtDialogPath;  //当前打开bt文件地址
+
     bool m_bctrlkeyPress = false;
     bool m_bIsCopyUrlFromLocal = false;
 signals:
