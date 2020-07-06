@@ -104,6 +104,18 @@ public:
      */
     void setRangeLabelPalette(DPalette palette);
 
+    /**
+     * @brief 设置行编辑器是否处于警告模式
+     * @param bIsAlert 布尔值true或者false
+     */
+    void setLineEditAlert(bool bIsAlert);
+
+    /**
+     * @brief 获取行编辑器指针
+     * @return 行编辑器指针
+     */
+    DLineEdit *getLineEdit();
+
 signals:
     void textChanged(QString strText);
 
