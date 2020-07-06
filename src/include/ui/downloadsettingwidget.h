@@ -28,6 +28,7 @@
 #define DOWNLOADSETTINGWIDGET_H
 
 #include <DRadioButton>
+#include <DAlertControl>
 
 #include <QWidget>
 #include <QTimeEdit>
@@ -117,6 +118,8 @@ private:
     SettingInfoInputWidget *m_pMaxUploadSpeedLimit; // 最大上传限速输入框
     QTimeEdit *m_pStartTimeEdit; // 开始时间
     QTimeEdit *m_pEndTimeEdit; // 结束时间
+    DAlertControl *m_pDownloadAlertControl; // 最大下载限速输入错误提示
+    DAlertControl *m_pUploadAlertControl; // 最大上传限速输入错误提示
 
 };
 

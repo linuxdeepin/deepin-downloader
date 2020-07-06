@@ -326,7 +326,7 @@ void newTaskWidget::slot_filechoosed(const QString &filename)
     if(!fileinfo.isWritable())
     {
        MessageBox *msg=new MessageBox();
-       QString title = tr("select directory not writeable!");
+       QString title = tr("Permission denied. Please try other folder.");
        msg->setWarings(title, tr("sure"));
        msg->exec();
        _strPath = m_editDir->directoryUrl().toString();
