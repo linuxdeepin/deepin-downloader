@@ -353,8 +353,8 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
     QString _trueUrl;
     requset->setUrl(QUrl(redirecUrl)); // 设置服务器的uri
     requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    manager->get(*requset);
-    //manager->head(*requset);
+    //manager->get(*requset);
+    manager->head(*requset);
     // post信息到服务器
     QObject::connect(manager,
                      &QNetworkAccessManager::finished,

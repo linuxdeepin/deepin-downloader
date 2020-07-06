@@ -234,7 +234,7 @@ int TableModel::columnCount(const QModelIndex &parent) const
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
     const int row = index.row();
-    const DataItem *data = new DataItem();
+    const DataItem *data = nullptr;
     const DelDataItem *deldata = new DelDataItem();
     QChar sizeSepChar;
 
