@@ -138,7 +138,7 @@ private slots:
     void getNewDownloadUrl(QStringList url, QString savePath, QString fileName);
 
     /**
-     * @brief 收到新建bt任务
+     * @brief 收到新建任务
      * @param btName 文件路径
      * @param opt  下载参数
      * opt.insert("dir",下载到指定目录);
