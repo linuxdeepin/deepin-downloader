@@ -167,6 +167,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         }
         data->savePath = getTaskInfo.m_downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
         m_pDownloadTableView->getTableModel()->append(data);
+        m_pDownloadTableView->getTableHeader()->getClearHeaderCheck();
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_pDownloadTableView->getTableModel();
             m_pDownloadTableView->setRowHidden(dtModel->rowCount(), true);

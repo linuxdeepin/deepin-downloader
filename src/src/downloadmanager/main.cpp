@@ -71,12 +71,7 @@ int main(int argc, char *argv[])
     CheckFreeDisk();
     //创建新日志
     CreateNewLog();
-#ifdef QT_NO_DEBUG
-    qDebug() << "release mode";
     qInstallMessageHandler(customLogMessageHandler);
-#else
-qDebug() << "debug mode";
-#endif
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
