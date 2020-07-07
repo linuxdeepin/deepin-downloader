@@ -85,7 +85,6 @@ install(FILES ${CF_FILES} DESTINATION share/downloadmanager/config)
 #icon
 install(FILES data/downloadermanager.svg DESTINATION share/icons/hicolor/scalable/apps/)
 install(FILES data/downloadermanager.svg DESTINATION share/downloadmanager/icons/logo/)
-install(FILES data/downloadermanager_warning.svg DESTINATION share/icons/hicolor/scalable/apps/)
 
 install(TARGETS downloadmanager dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
