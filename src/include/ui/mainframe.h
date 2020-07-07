@@ -461,7 +461,7 @@ private:
     /**
      * @brief 处理设置界面通知设置函数
      */
-    void btNotificaitonSettings(QString fileName);
+    void btNotificaitonSettings(QString head,QString fileName,bool isBt=false);
 
 protected:
     /**

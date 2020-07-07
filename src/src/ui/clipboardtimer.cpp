@@ -73,10 +73,14 @@ void ClipboardTimer::getDataChanged()
         emit sentBtText(_url);
     }
     //是否调用下载器，不打开任何任务
-    if(isStartManager(_url))
+    if(!_urlList.isEmpty())
     {
-        emit showMainWindows();
+        if(isStartManager(_urlList[0]))
+        {
+            emit showMainWindows();
+        }
     }
+
 }
 
 bool ClipboardTimer::isMagnet(QString url)
