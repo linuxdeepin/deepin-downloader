@@ -594,3 +594,4 @@ void BtInfoDialog::setOkBtnStatus(int count)
         m_btnOK->setEnabled(true);
     }
 }
+

@@ -263,8 +263,10 @@ void newTaskWidget::dropEvent(QDropEvent *event)
 
 void newTaskWidget::setUrl(QString url)
 {
-    m_texturl->clear();
-    m_texturl->setText(url);
+    QString tempUrl = m_texturl->toPlainText() + url;
+    // m_texturl->clear();
+    m_texturl->setText(tempUrl);
+
     QString _savePath =  Settings::getInstance()->getDownloadSavePath();
     this->m_editDir->setText(_savePath);
 }
@@ -366,36 +368,35 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                         switch(statusCode) {
                             case 200: // redirect (Location: [URL])   真实链接
                             {
-                                QString length = reply->header(QNetworkRequest::ContentLengthHeader).toString();
-                                QString type = reply->header(QNetworkRequest::ContentTypeHeader).toString();
-                                emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,"");
+                                QProcess *p = new QProcess;
+                                QStringList _list;
+                                _list<<"-i"<< redirecUrl;
+                                p->start("curl", _list);
+                                p->waitForReadyRead();
+                                QString _str = p->readAllStandardOutput();
+                                if(!_str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
+                                {
+                                     emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,"");
+                                    return ;
+                                }
+                                QStringList _urlInfoList = _str.split("\r\n");
+                                for (int i = 0; i < _urlInfoList.size(); i++)
+                                {
+                                    if(_urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                                    {
+                                        int _start= _urlInfoList[i].lastIndexOf("'");
+                                        QString _urlName = _urlInfoList[i].mid(_start);
+                                        QString _urlNameForZH = QUrl::fromPercentEncoding(_urlName.toUtf8());
+                                        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
+                                        return ;
+                                    }
+                                }
                                 break;
                             }
                             case 302: // redirect (Location: [URL])  重定向链接
                             {
                                 QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
                                 emit NewDownload_sig(QStringList(strUrl),m_defaultDownloadDir, "");
-                               break;
-                            }
-                            case 405:   // 方法不被允许,不能使用head方法，使用 curl -i 查看文件名字
-                            {
-                                QProcess *p = new QProcess;
-                                QStringList _list;
-                                _list<<"-i"<< "redirecUrl";
-                                p->start("curl", _list);
-                                p->waitForReadyRead();
-                                QString _str = p->readAllStandardOutput();
-                                QStringList _urlInfoList = _str.split("\r\n");
-                                for (int i = 0; i < _urlInfoList.size(); i++)
-                                {
-                                    if(_urlInfoList[i].startsWith("Content-Disposition:"))
-                                    {
-                                        int _start= _urlInfoList[i].lastIndexOf("'");
-                                        QString _urlName = _urlInfoList[i].mid(_start);
-                                        QString _urlNameForZH = QUrl::fromPercentEncoding(_urlName.toUtf8());
-                                        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
-                                    }
-                                }
                                break;
                             }
                         }
