@@ -65,40 +65,6 @@ TableView::TableView(int Flag, TopButton *pToolBar)
 
 void TableView::initUI()
 {
-
-//    QStandardItemModel *pModel = new QStandardItemModel;
-//    setModel(pModel);
-//    pModel->setItem(0, 0, new QStandardItem(false));
-//    pModel->setItem(0, 1, new QStandardItem("3"));
-//    pModel->setItem(0, 2, new QStandardItem("男"));
-//    pModel->setItem(0, 3, new QStandardItem(5));
-//    pModel->setItem(0, 4, new QStandardItem(5));
-
-//    pModel->setItem(1, 0, new QStandardItem("张三"));
-//    pModel->setItem(1, 1, new QStandardItem("3"));
-//    pModel->setItem(1, 2, new QStandardItem("男"));
-//    pModel->setItem(1, 3, new QStandardItem(4));
-//    pModel->setItem(1, 4, new QStandardItem(5));
-
-
-//    pModel->setItem(2, 0, new QStandardItem(false));
-//    pModel->setItem(2, 1, new QStandardItem("3"));
-//    pModel->setItem(2, 2, new QStandardItem("男"));
-//    pModel->setItem(2, 3, new QStandardItem(3));
-//    pModel->setItem(2, 4, new QStandardItem(5));
-
-//    pModel->setItem(3, 0, new QStandardItem(false));
-//    pModel->setItem(3, 1, new QStandardItem("3"));
-//    pModel->setItem(3, 2, new QStandardItem("男"));
-//    pModel->setItem(3, 3, new QStandardItem(2));
-//    pModel->setItem(3, 4, new QStandardItem(5));
-
-//    pModel->setItem(4, 0, new QStandardItem(false));
-//    pModel->setItem(4, 1, new QStandardItem("3"));
-//    pModel->setItem(4, 2, new QStandardItem("男"));
-//    pModel->setItem(4, 3, new QStandardItem(2));
-//    pModel->setItem(4, 4, new QStandardItem(5));
-
     setModel(m_pTableModel);
     m_pItemdegegate = new ItemDelegate(this, m_iTableFlag);
     setItemDelegate(m_pItemdegegate);
@@ -119,24 +85,24 @@ void TableView::initUI()
 
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-    HeaderView *pHeaderView = new  HeaderView(Qt::Horizontal, this);
-    setHorizontalHeader(pHeaderView);
-    pHeaderView->setDefaultSectionSize(20);
-    //pHeaderView->setSortIndicatorShown(false);
-    pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-    pHeaderView->setSectionResizeMode(0, QHeaderView::Stretch);
-    pHeaderView->setSectionResizeMode(1, QHeaderView::Stretch);
-    pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
-    pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
-    pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
-    pHeaderView->setTextElideMode(Qt::ElideMiddle);
-    pHeaderView->setFixedHeight(36);
+    m_pHeaderView = new  HeaderView(Qt::Horizontal, this);
+    setHorizontalHeader(m_pHeaderView);
+    m_pHeaderView->setDefaultSectionSize(20);
+    //m_pHeaderView->setSortIndicatorShown(false);
+    m_pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+    m_pHeaderView->setSectionResizeMode(0, QHeaderView::Stretch);
+    m_pHeaderView->setSectionResizeMode(1, QHeaderView::Stretch);
+    m_pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
+    m_pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
+    m_pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
+    m_pHeaderView->setTextElideMode(Qt::ElideMiddle);
+    m_pHeaderView->setFixedHeight(36);
     setColumnWidth(0, 20);
 
-    connect(pHeaderView, &HeaderView::getStatechanged, this, &TableView::signalHeaderStatechanged);
-    connect(this, &TableView::signalClearHeaderCheck, pHeaderView, &HeaderView::getClearHeaderCheck);
+    connect(m_pHeaderView, &HeaderView::getStatechanged, this, &TableView::signalHeaderStatechanged);
+    connect(this, &TableView::signalClearHeaderCheck, m_pHeaderView, &HeaderView::getClearHeaderCheck);
     connect(m_pTableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::signalTableViewAllChecked);
-    connect(this, &TableView::signalTableViewAllChecked, pHeaderView, &HeaderView::getCheckall);
+    connect(this, &TableView::signalTableViewAllChecked, m_pHeaderView, &HeaderView::getCheckall);
     connect(this, &TableView::signalHoverchanged, m_pItemdegegate, &ItemDelegate::onHoverchanged);
 
 }
@@ -184,6 +150,11 @@ TableModel * TableView::getTableModel()
 tableDataControl *TableView::getTableControl()
 {
     return m_ptableDataControl;
+}
+
+HeaderView *TableView::getTableHeader()
+{
+    return m_pHeaderView;
 }
 
 void TableView::mouseMoveEvent(QMouseEvent *event)
