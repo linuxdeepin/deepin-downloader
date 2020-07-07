@@ -263,9 +263,17 @@ void newTaskWidget::dropEvent(QDropEvent *event)
 
 void newTaskWidget::setUrl(QString url)
 {
-    QString tempUrl = m_texturl->toPlainText() + url;
-    // m_texturl->clear();
-    m_texturl->setText(tempUrl);
+    QString _setTextUrl;
+    QString _textUrl = m_texturl->toPlainText();
+    if(_textUrl.isEmpty())
+    {
+        _setTextUrl = url;
+    }
+    else {
+        _setTextUrl = _textUrl + "\n" + url;
+    }
+
+    m_texturl->setText(_setTextUrl);
 
     QString _savePath =  Settings::getInstance()->getDownloadSavePath();
     this->m_editDir->setText(_savePath);
@@ -401,4 +409,9 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                             }
                         }
     });
+}
+
+void newTaskWidget::closeEvent(QCloseEvent *event)
+{
+    this->m_texturl->clear();
 }

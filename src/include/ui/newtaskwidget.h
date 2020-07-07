@@ -40,6 +40,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QCloseEvent>
 
 class BtInfoDialog;
 class MessageBox;
@@ -116,6 +117,8 @@ protected:
      * @param event 拖拽事件
     */
     void dropEvent(QDropEvent *event);
+
+    void closeEvent(QCloseEvent *event);
 
 signals:
     /**

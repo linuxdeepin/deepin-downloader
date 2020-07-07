@@ -671,7 +671,7 @@ void MainFrame::onClipboardDataForBt(QString url)
         pBt->getBtInfo(opt, infoName, infoHash);
         this->getNewDownloadTorrent(url, opt, infoName, infoHash);
         DBInstance::isExistBtInHash(infoHash, isExist);
-        this->btNotificaitonSettings(tr("Download failed"),QString(tr("%1 download finished.")).arg(infoName),true);
+        this->btNotificaitonSettings(tr("Download complated"),QString(tr("%1 download finished.")).arg(infoName),true);
         return;
     }
 
@@ -2387,7 +2387,7 @@ void MainFrame::btNotificaitonSettings(QString head,QString text,bool isBt)
         if(isBt)
         {
             in5<<"_cancel"<<tr("Cancel")<<"_view"<<tr("View");
-            in6["x-deepin-action-_view"] = "downloadmanager,""";
+            in6["x-deepin-action-_view"] = "downloadmanager";
         }
 
         int in7 = 5000;
