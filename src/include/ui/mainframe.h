@@ -461,7 +461,7 @@ private:
     /**
      * @brief 处理设置界面通知设置函数
      */
-    void btNotificaitonSettings(QString fileName);
+    void btNotificaitonSettings(QString head,QString fileName,bool isBt=false);
 
 protected:
     /**
@@ -537,6 +537,8 @@ private:
     QModelIndex m_CheckIndex;
     QList<Global::DataItem*> m_pDeleteList;
     QList<Global::DelDataItem*> m_pRecycleDeleteList;
+
+    QString m_curOpenBtDialogPath;  //当前打开bt文件地址
 
     bool m_bctrlkeyPress = false;
     bool m_bIsCopyUrlFromLocal = false;

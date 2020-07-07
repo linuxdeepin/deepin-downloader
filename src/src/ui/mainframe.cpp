@@ -44,6 +44,7 @@
 #include <QProcess>
 #include <QDesktopServices>
 #include <QDebug>
+#include <QDBusInterface>
 #include <DFontSizeManager>
 
 #include "aria2rpcinterface.h"
@@ -216,6 +217,7 @@ void MainFrame::init()
     m_pClipboard = new ClipboardTimer; // 获取当前剪切板
     m_pUpdateTimer = new QTimer(this);
     m_TrayClickTimer = new QTimer(this);
+    m_curOpenBtDialogPath = "";
 }
 
 void MainFrame::initTray()
@@ -648,6 +650,14 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::onClipboardDataForBt(QString url)
 {
+    if(url == m_curOpenBtDialogPath)
+    {
+        return;
+    }
+    else
+    {
+        m_curOpenBtDialogPath = url;
+    }
     QString _savePath = Settings::getInstance()->getDownloadSavePath();
     BtInfoDialog *pBt = new BtInfoDialog(url, _savePath); // torrent文件路径
     QMap<QString, QVariant> opt;
@@ -661,11 +671,7 @@ void MainFrame::onClipboardDataForBt(QString url)
         pBt->getBtInfo(opt, infoName, infoHash);
         this->getNewDownloadTorrent(url, opt, infoName, infoHash);
         DBInstance::isExistBtInHash(infoHash, isExist);
-        if(!isExist)
-        {
-            //若任务存在，将重新下载
-        }
-        this->btNotificaitonSettings(infoName);
+        this->btNotificaitonSettings(tr("Download failed"),QString(tr("%1 download finished.")).arg(infoName),true);
         return;
     }
 
@@ -679,12 +685,6 @@ void MainFrame::onClipboardDataForBt(QString url)
     if(ret == QDialog::Accepted) {
         pBt->getBtInfo(opt, infoName, infoHash);
         this->getNewDownloadTorrent(url, opt, infoName, infoHash);
-        DBInstance::isExistBtInHash(infoHash, isExist);
-        if(isExist)
-        {
-            //若任务存在，将重新下载
-        }
-        this->btNotificaitonSettings(infoName);
     }
 }
 
@@ -1932,11 +1932,10 @@ void MainFrame::onCopyUrlActionTriggered()
         QClipboard *clipboard = DApplication::clipboard();
         clipboard->setText(copyUrl);
         m_pTaskNum->setText(tr("Copied to clipboard"));
-        QProcess *p = new QProcess;
+
+        QString showHead(tr("Downloader"));
         QString showInfo(tr("Copied to clipboard"));
-        p->start("notify-send", QStringList() << showInfo << "--icon=/usr/share/downloadmanager/icons/logo/downloader4.svg");
-        p->waitForStarted();
-        p->waitForFinished();
+        this->btNotificaitonSettings(showHead, showInfo);
     }
 }
 
@@ -2363,28 +2362,37 @@ void MainFrame::endBtAssociat()
     _writerFile.close();
 }
 
-void MainFrame::btNotificaitonSettings(QString fileName)
+void MainFrame::btNotificaitonSettings(QString head,QString text,bool isBt)
 {
     // 获取免打扰模式值
     QVariant undisturbed_mode_switchbutton = Settings::getInstance()->m_pSettings->getOption(
         "basic.select_multiple.undisturbed_mode_switchbutton");
 
-
-    bool afterDownloadPlayTone = Settings::getInstance()->getDownloadFinishedPlayToneState();
-    if(afterDownloadPlayTone) {
-        //QSound::play(":/resources/wav/downloadfinish.wav");
-    } else {
-        qDebug() << " not in select down load finsh wav" << endl;
-    }
-
     bool downloadInfoNotify = Settings::getInstance()->getDownloadInfoSystemNotifyState();
     if(downloadInfoNotify) {
-        QProcess *p = new QProcess;
-        QString   showInfo;
-        showInfo = fileName + tr(" downloading");
-        p->start("notify-send", QStringList() << showInfo);
-        p->waitForStarted();
-        p->waitForFinished();
+        QDBusInterface  tInterNotify("com.deepin.dde.Notification",
+                                           "/com/deepin/dde/Notification",
+                                           "com.deepin.dde.Notification",
+                                           QDBusConnection::sessionBus());
+        QList<QVariant> arg;
+        QString in0(tr("Downloader"));      //下载器
+        uint in1 = 101;
+        QString in2;
+        in2 = "downloadmanager";
+        QString in3(head);
+        QString in4(text);
+
+        QStringList in5;
+        QVariantMap in6;
+        if(isBt)
+        {
+            in5<<"_cancel"<<tr("Cancel")<<"_view"<<tr("View");
+            in6["x-deepin-action-_view"] = "downloadmanager,""";
+        }
+
+        int in7 = 5000;
+        arg<<in0<<in1<<in2<<in3<<in4<<in5<<in6<<in7;
+        tInterNotify.callWithArgumentList(QDBus::AutoDetect,"Notify", arg);
     }
 }
 
