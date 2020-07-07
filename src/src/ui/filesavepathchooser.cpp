@@ -54,14 +54,11 @@ void FileSavePathChooser::initUI()
     m_pFileChooserEdit->lineEdit()->setClearButtonEnabled(false);
     m_pFileChooserEdit->setFileMode(QFileDialog::FileMode::DirectoryOnly);
 
-    if(m_nCurrentSelect == 1)
-    {
+    if (m_nCurrentSelect == 1) {
         m_pAutoLastPathRadioButton->setChecked(true);
         m_pCustomsPathRadioButton->setChecked(false);
         m_pFileChooserEdit->setDisabled(true);
-    }
-    else
-    {
+    } else {
         m_pAutoLastPathRadioButton->setChecked(false);
         m_pCustomsPathRadioButton->setChecked(true);
         m_pFileChooserEdit->setDisabled(false);
@@ -94,22 +91,22 @@ void FileSavePathChooser::initConnections()
 void FileSavePathChooser::radioButtonClickSlot()
 {
     DRadioButton *pRadioButton = qobject_cast<DRadioButton *>(sender());
-    if(m_pAutoLastPathRadioButton == pRadioButton)
-    {
+
+    if (m_pAutoLastPathRadioButton == pRadioButton) {
         m_pAutoLastPathRadioButton->setChecked(true);
         m_pCustomsPathRadioButton->setChecked(false);
         m_pFileChooserEdit->setDisabled(true);
 
         QString strText = "auto;" + m_pFileChooserEdit->text();
+
         emit textChanged(strText);
-    }
-    else if(m_pCustomsPathRadioButton == pRadioButton)
-    {
+    } else if (m_pCustomsPathRadioButton == pRadioButton) {
         m_pAutoLastPathRadioButton->setChecked(false);
         m_pCustomsPathRadioButton->setChecked(true);
         m_pFileChooserEdit->setDisabled(false);
 
         QString strText = "custom;" + m_pFileChooserEdit->text();
+
         emit textChanged(strText);
     }
 }
@@ -117,17 +114,19 @@ void FileSavePathChooser::radioButtonClickSlot()
 void FileSavePathChooser::lineEditTextChanged(const QString &strText)
 {
     QFileInfo fileinfo;
+
     fileinfo.setFile(strText);
-    if(!fileinfo.isWritable())
-    {
+    if (!fileinfo.isWritable()) {
         MessageBox *msg=new MessageBox();
         QString title = tr("Permission denied. Please try other folder.");
+
         msg->setWarings(title, tr("sure"));
         m_pFileChooserEdit->setText(m_strDownloadPath);
+
         msg->exec();
-    }
-    else {
+    } else {
         QString strChangedText = "custom;" + strText;
+
         emit textChanged(strChangedText);
     }
 }
@@ -140,14 +139,11 @@ void FileSavePathChooser::setLineEditText(const QString &strText)
 
 void FileSavePathChooser::setCurrentSelectRadioButton(int nCurrentSelect)
 {
-    if(nCurrentSelect == 1)
-    {
+    if (nCurrentSelect == 1) {
         m_pAutoLastPathRadioButton->setChecked(true);
         m_pCustomsPathRadioButton->setChecked(false);
         m_pFileChooserEdit->setDisabled(true);
-    }
-    else
-    {
+    } else {
         m_pAutoLastPathRadioButton->setChecked(false);
         m_pCustomsPathRadioButton->setChecked(true);
         m_pFileChooserEdit->setDisabled(false);

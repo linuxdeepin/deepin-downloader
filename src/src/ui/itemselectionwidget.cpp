@@ -62,12 +62,9 @@ void ItemSelectionWidget::initConnections()
 
 void ItemSelectionWidget::checkBoxstateChangedSlot(int nState)
 {
-    if(nState == 0)
-    {
+    if (nState == 0) {
         emit checkBoxIsChecked(false);
-    }
-    else if(nState == 2)
-    {
+    } else if(nState == 2) {
         emit checkBoxIsChecked(true);
     }
 }

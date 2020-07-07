@@ -147,8 +147,8 @@ void DownloadSettingWidget::initConnections()
 void DownloadSettingWidget::radioButtonClickSlot()
 {
     DRadioButton *pRadioButton = qobject_cast<DRadioButton *>(sender());
-    if(m_pFullSpeedDownloadButton == pRadioButton)
-    {
+
+    if (m_pFullSpeedDownloadButton == pRadioButton) {
         m_pFullSpeedDownloadButton->setChecked(true);
         m_pSpeedLimitDownloadButton->setChecked(false);
         m_pMaxDownloadSpeedLimit->setLineEditIsDisabled(true);
@@ -157,15 +157,13 @@ void DownloadSettingWidget::radioButtonClickSlot()
         m_pEndTimeEdit->setDisabled(true);
 
         QString strText = QString("fullspeed;%1;%2;%3;%4")
-                .arg(m_pMaxDownloadSpeedLimit->getLineEditText())
-                .arg(m_pMaxUploadSpeedLimit->getLineEditText())
+                .arg(m_pMaxDownloadSpeedLimit->getLineEditText().toInt())
+                .arg(m_pMaxUploadSpeedLimit->getLineEditText().toInt())
                 .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                 .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
         emit speedLimitInfoChanged(strText);
-    }
-    else if(m_pSpeedLimitDownloadButton == pRadioButton)
-    {
+    } else if (m_pSpeedLimitDownloadButton == pRadioButton) {
         m_pFullSpeedDownloadButton->setChecked(false);
         m_pSpeedLimitDownloadButton->setChecked(true);
         m_pMaxDownloadSpeedLimit->setLineEditIsDisabled(false);
@@ -174,8 +172,8 @@ void DownloadSettingWidget::radioButtonClickSlot()
         m_pEndTimeEdit->setDisabled(false);
 
         QString strText = QString("speedlimit;%1;%2;%3;%4")
-                .arg(m_pMaxDownloadSpeedLimit->getLineEditText())
-                .arg(m_pMaxUploadSpeedLimit->getLineEditText())
+                .arg(m_pMaxDownloadSpeedLimit->getLineEditText().toInt())
+                .arg(m_pMaxUploadSpeedLimit->getLineEditText().toInt())
                 .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                 .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
@@ -186,21 +184,19 @@ void DownloadSettingWidget::radioButtonClickSlot()
 void DownloadSettingWidget::timeChangedSlot(const QTime &time)
 {
     QTimeEdit *pTimeEdit = qobject_cast<QTimeEdit *>(sender());
-    if(m_pStartTimeEdit == pTimeEdit)
-    {
+
+    if (m_pStartTimeEdit == pTimeEdit) {
         QString strText = QString("speedlimit;%1;%2;%3;%4")
-                .arg(m_pMaxDownloadSpeedLimit->getLineEditText())
-                .arg(m_pMaxUploadSpeedLimit->getLineEditText())
+                .arg(m_pMaxDownloadSpeedLimit->getLineEditText().toInt())
+                .arg(m_pMaxUploadSpeedLimit->getLineEditText().toInt())
                 .arg(time.toString("hh:mm:ss"))
                 .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
         emit speedLimitInfoChanged(strText);
-    }
-    else if(m_pEndTimeEdit == pTimeEdit)
-    {
+    } else if (m_pEndTimeEdit == pTimeEdit) {
         QString strText = QString("speedlimit;%1;%2;%3;%4")
-                .arg(m_pMaxDownloadSpeedLimit->getLineEditText())
-                .arg(m_pMaxUploadSpeedLimit->getLineEditText())
+                .arg(m_pMaxDownloadSpeedLimit->getLineEditText().toInt())
+                .arg(m_pMaxUploadSpeedLimit->getLineEditText().toInt())
                 .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                 .arg(time.toString("hh:mm:ss"));
 
@@ -211,43 +207,38 @@ void DownloadSettingWidget::timeChangedSlot(const QTime &time)
 void DownloadSettingWidget::textChangedSlot(QString strText)
 {
     SettingInfoInputWidget *pSettingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
-    if(m_pMaxDownloadSpeedLimit == pSettingInfoInputWidget)
-    {
-        if(strText.toInt() < 100 || strText.toInt() > 102400)
-        {
+
+    if (m_pMaxDownloadSpeedLimit == pSettingInfoInputWidget) {
+        if (strText.toInt() < 100 || strText.toInt() > 102400) {
             // 请输入100-102400之间的整数
             m_pDownloadAlertControl->showAlertMessage(tr("Limited between 100-102400"), m_pMaxDownloadSpeedLimit->getLineEdit()->parentWidget()->parentWidget(), -1);
             m_pMaxDownloadSpeedLimit->setLineEditAlert(true);
             m_pDownloadAlertControl->setMessageAlignment(Qt::AlignLeft);
-        }
-        else {
+        } else {
             m_pMaxDownloadSpeedLimit->setLineEditAlert(false);
             m_pDownloadAlertControl->hideAlertMessage();
 
             QString strInfo = QString("speedlimit;%1;%2;%3;%4")
                     .arg(strText.toInt())
-                    .arg(m_pMaxUploadSpeedLimit->getLineEditText())
+                    .arg(m_pMaxUploadSpeedLimit->getLineEditText().toInt())
                     .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                     .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
             emit speedLimitInfoChanged(strInfo);
         }
 
-    }
-    else if(m_pMaxUploadSpeedLimit == pSettingInfoInputWidget)
-    {
-        if(strText.toInt() < 16 || strText.toInt() > 5120)
-        {
+    } else if (m_pMaxUploadSpeedLimit == pSettingInfoInputWidget) {
+        if (strText.toInt() < 16 || strText.toInt() > 5120) {
             // 请输入16-5120之间的整数
             m_pUploadAlertControl->showAlertMessage(tr("Limited between 16-5120"), m_pMaxUploadSpeedLimit->getLineEdit()->parentWidget()->parentWidget(), -1);
             m_pMaxUploadSpeedLimit->setLineEditAlert(true);
             m_pUploadAlertControl->setMessageAlignment(Qt::AlignLeft);
-        }
-        else {
+        } else {
             m_pMaxUploadSpeedLimit->setLineEditAlert(false);
             m_pUploadAlertControl->hideAlertMessage();
+
             QString strInfo = QString("speedlimit;%1;%2;%3;%4")
-                    .arg(m_pMaxDownloadSpeedLimit->getLineEditText())
+                    .arg(m_pMaxDownloadSpeedLimit->getLineEditText().toInt())
                     .arg(strText.toInt())
                     .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                     .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
@@ -259,17 +250,14 @@ void DownloadSettingWidget::textChangedSlot(QString strText)
 
 void DownloadSettingWidget::setCurrentSelectRadioButton(int nCurrentSelect)
 {
-    if(1 == nCurrentSelect)
-    {
+    if (1 == nCurrentSelect) {
         m_pFullSpeedDownloadButton->setChecked(true);
         m_pSpeedLimitDownloadButton->setChecked(false);
         m_pMaxDownloadSpeedLimit->setLineEditIsDisabled(true);
         m_pMaxUploadSpeedLimit->setLineEditIsDisabled(true);
         m_pStartTimeEdit->setDisabled(true);
         m_pEndTimeEdit->setDisabled(true);
-    }
-    else
-    {
+    } else {
         m_pFullSpeedDownloadButton->setChecked(false);
         m_pSpeedLimitDownloadButton->setChecked(true);
         m_pMaxDownloadSpeedLimit->setLineEditIsDisabled(false);
@@ -292,12 +280,14 @@ void DownloadSettingWidget::setMaxUploadSpeedLimit(QString strText)
 void DownloadSettingWidget::setStartTime(QString strText)
 {
     QTime time = QTime::fromString(strText, "hh:mm:ss");
+
     m_pStartTimeEdit->setTime(time);
 }
 
 void DownloadSettingWidget::setEndTime(QString strText)
 {
     QTime time = QTime::fromString(strText, "hh:mm:ss");
+
     m_pEndTimeEdit->setTime(time);
 }
 
