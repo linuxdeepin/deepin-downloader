@@ -544,7 +544,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
         in3 = tr("Download failed");     //下载失败
         in4 = QString(tr("%1 download failed. Network error.")).arg(fileName);      //【%1下载失败，网络故障。】
         in5<<"_cancel"<<tr("Cancel")<<"_view"<<tr("View");
-        in6["x-deepin-action-_view"] = "downloadmanager,""";
+        in6["x-deepin-action-_view"] = "downloadmanager";
         qDebug() << in4 + ("    errorCode: ") + errorCode;
     }
     else
