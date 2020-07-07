@@ -37,11 +37,11 @@
 const QString Aria2RPCInterface::basePath = "/usr/bin/";
 const QString Aria2RPCInterface::aria2cCmd = "aria2c"; // aria2c
 
-Aria2RPCInterface *Aria2RPCInterface::_pInstance = new Aria2RPCInterface;
+Aria2RPCInterface *Aria2RPCInterface::m_pInstance = new Aria2RPCInterface;
 
 Aria2RPCInterface *Aria2RPCInterface::Instance()
 {
-    return _pInstance;
+    return m_pInstance;
 }
 
 Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
@@ -85,17 +85,17 @@ bool Aria2RPCInterface::startUp()
 
     QStringList opt;
     opt << "--enable-rpc=true"; //启动RPC
-    opt << "--rpc-listen-port=" + this->rpcPort; //RPC监听的端口
+    opt << "--rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
     opt << "--check-certificate=false"; //停用rpc身份验证
     opt << "--rpc-allow-origin-all=true"; // 允许所有来源
     opt << "--rpc-save-upload-metadata=true"; //
 
     //opt << "--not-conf=true";//不使用配置文件
-    if (this->configPath != "") {
-        opt << "--conf-path=" + this->configPath; //加载指定的配置文件
+    if (this->m_configPath != "") {
+        opt << "--conf-path=" + this->m_configPath; //加载指定的配置文件
     }
-    if (this->defaultDownloadPath != "") {
-        opt << "--dir=" + this->defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
+    if (this->m_defaultDownloadPath != "") {
+        opt << "--dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
     opt << "--continue=true"; //http续传配置
     opt << "--disable-ipv6"; //禁用ipv6
@@ -191,22 +191,22 @@ int Aria2RPCInterface::killAria2cProc()
 
 void Aria2RPCInterface::setDefaultDownLoadDir(QString strDir)
 {
-    this->defaultDownloadPath = strDir;
+    this->m_defaultDownloadPath = strDir;
 }
 
 QString Aria2RPCInterface::getDefaultDownLoadDir()
 {
-    return defaultDownloadPath;
+    return m_defaultDownloadPath;
 }
 
 void Aria2RPCInterface::setConfigFilePath(const QString strPath)
 {
-    configPath = strPath;
+    m_configPath = strPath;
 }
 
 QString Aria2RPCInterface::getConfigFilePath() const
 {
-    return configPath;
+    return m_configPath;
 }
 
 void Aria2RPCInterface::addUri(QString strUri, QMap<QString, QVariant> opt, QString strId)
@@ -374,7 +374,7 @@ void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
 
     if (!jsonObj.isEmpty()) { //json如果不为空
         QNetworkRequest *requset = new QNetworkRequest; //定义请求对象
-        requset->setUrl(QUrl(this->rpcServer)); //设置服务器的uri
+        requset->setUrl(QUrl(this->m_rpcServer)); //设置服务器的uri
         requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
         manager->post(*requset, QJsonDocument(jsonObj).toJson()); //post信息到服务器
 
@@ -397,9 +397,9 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
         QByteArray buf = reply->readAll(); //获取信息
         QJsonDocument doc = QJsonDocument::fromJson(buf); //转换为json格式
         QJsonObject obj = doc.object();
-        emit signalRPCSuccess(method, obj);
+        emit signal_RPCSuccess(method, obj);
     } else { //错误
-        emit signalRPCError(method, id, code);
+        emit signal_RPCError(method, id, code);
     }
 
     reply->deleteLater();

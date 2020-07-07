@@ -466,14 +466,14 @@ private:
     QString processThunderUri(QString );
 
 private:
-    QString rpcPort = "16800"; //rpc端口
-    QString rpcServer = "http://localhost:" + rpcPort + "/jsonrpc"; //rpc服务器地址
-    QString defaultDownloadPath; //默认下载路径
-    QString configPath = "";//配置文件路径
+    QString m_rpcPort = "16800"; //rpc端口
+    QString m_rpcServer = "http://localhost:" + m_rpcPort + "/jsonrpc"; //rpc服务器地址
+    QString m_defaultDownloadPath; //默认下载路径
+    QString m_configPath = "";//配置文件路径
 
 signals:
-    void signalRPCSuccess(QString method, QJsonObject json);//rpc 正确返回处理信号
-    void signalRPCError(QString method, QString id, int errCode);//rpc错误返回处理信号
+    void signal_RPCSuccess(QString method, QJsonObject json);//rpc 正确返回处理信号
+    void signal_RPCError(QString method, QString id, int errCode);//rpc错误返回处理信号
 
 public slots:
 
@@ -482,7 +482,7 @@ public:
     static const QString aria2cCmd; //aria2c程序路径
     static const QString basePath; //下载器安装目录
 private:
-    static Aria2RPCInterface *_pInstance;
+    static Aria2RPCInterface *m_pInstance;
 
 public:
 

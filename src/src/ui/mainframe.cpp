@@ -416,9 +416,9 @@ MainFrame::~MainFrame()
 void MainFrame::initAria2()
 {
     Aria2RPCInterface::Instance()->init(); // 启动Aria2RPCInterface::Instance()
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signalRPCSuccess(QString,QJsonObject)), this,
+    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCSuccess(QString,QJsonObject)), this,
             SLOT(onRpcSuccess(QString,QJsonObject)));
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signalRPCError(QString,QString,int)), this,
+    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCError(QString,QString,int)), this,
             SLOT(onRpcError(QString,QString,int)));
     onDownloadLimitChanged();
     onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
