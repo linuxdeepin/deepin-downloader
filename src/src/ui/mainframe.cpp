@@ -2422,7 +2422,7 @@ void MainFrame::btNotificaitonSettings(QString head,QString text,bool isBt)
         if(isBt)
         {
             in5<<"_cancel"<<tr("Cancel")<<"_view"<<tr("View");
-            in6["x-deepin-action-_view"] = "downloadmanager,""";
+            in6["x-deepin-action-_view"] = "downloadmanager";
         }
 
         int in7 = 5000;
