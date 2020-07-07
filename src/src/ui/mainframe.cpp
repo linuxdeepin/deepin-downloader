@@ -671,7 +671,7 @@ void MainFrame::onClipboardDataForBt(QString url)
         pBt->getBtInfo(opt, infoName, infoHash);
         this->getNewDownloadTorrent(url, opt, infoName, infoHash);
         DBInstance::isExistBtInHash(infoHash, isExist);
-        this->btNotificaitonSettings(tr("Download failed"),QString(tr("%1 download finished.")).arg(infoName),true);
+        this->btNotificaitonSettings(tr("Download complated"),QString(tr("%1 download finished.")).arg(infoName),true);
         return;
     }
 
