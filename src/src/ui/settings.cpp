@@ -58,12 +58,9 @@ int isDigitStr(QString src)
 
     while(*s && *s>='0' && *s<='9') s++;
 
-    if (*s)
-    { //不是纯数字
+    if (*s) { //不是纯数字
         return -1;
-    }
-    else
-    { //纯数字
+    } else { //纯数字
         return 0;
     }
 }
@@ -71,8 +68,7 @@ int isDigitStr(QString src)
 Settings *Settings::s_pInstance = nullptr;
 Settings *Settings::getInstance()
 {
-    if(s_pInstance == nullptr)
-    {
+    if (s_pInstance == nullptr) {
         s_pInstance = new Settings;
     }
 
@@ -87,32 +83,32 @@ Settings::Settings(QObject *parent) : QObject(parent)
         .arg(qApp->applicationName());
 
     m_pBackend = new QSettingBackend(m_configPath);
-
     m_pSettings = DSettings::fromJsonFile(":/json/settings");
+
     m_pSettings->setBackend( m_pBackend );
 
     // 初始化同时下载最大任务数
     auto maxDownloadTaskOption = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
+
     QStringList values;
-    QStringList keys;
+    QStringList keys;    
     keys << "3" << "5" << "10" << "20";
     values << tr("3") << tr("5") << tr("10") << tr("20");
-    QMap<QString, QVariant> mapData;
 
+    QMap<QString, QVariant> mapData;
     mapData.insert("keys", keys);
     mapData.insert("values", values);
+
     maxDownloadTaskOption->setData("items", mapData);
 
-    if (maxDownloadTaskOption->value().toString().isEmpty())
-    {
+    if (maxDownloadTaskOption->value().toString().isEmpty()) {
         maxDownloadTaskOption->setValue("5");
     }
 
     // 最大下载任务数
     auto maxDownloadTaskNumber = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
     connect(maxDownloadTaskNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
+            if (!value.isNull()) {
                 emit maxDownloadTaskNumberChanged(value.toInt());
             }
         });
@@ -120,26 +116,24 @@ Settings::Settings(QObject *parent) : QObject(parent)
     // 下载设置
     auto downloadSettingInfo = m_pSettings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
     connect(downloadSettingInfo, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
+            if (!value.isNull()) {
                 QString strCurrentValue = value.toString();
                 S_DownloadSettings downloadSettings;
                 QStringList lstCurrentValue = strCurrentValue.split(';');
-                if(lstCurrentValue.count() > 4)
-                {
-                    if(strCurrentValue.contains("speedlimit;"))
-                    {
+
+                if (lstCurrentValue.count() > 4) {
+                    if (strCurrentValue.contains("speedlimit;")) {
                         downloadSettings.m_strType = "1";
-                    }
-                    else
-                    {
+                    } else {
                         downloadSettings.m_strType = "0";
                     }
+
                     downloadSettings.m_strMaxDownload = lstCurrentValue.at(1);
                     downloadSettings.m_strMaxUpload = lstCurrentValue.at(2);
                     downloadSettings.m_strStartTime = lstCurrentValue.at(3);
                     downloadSettings.m_strEndTime = lstCurrentValue.at(4);
                 }
+
                 emit downloadSettingsChanged();
             }
     });
@@ -147,8 +141,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     // 下载磁盘缓存
     auto diskCacheNum = m_pSettings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
     connect(diskCacheNum, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
+            if (!value.isNull()) {
                 emit disckCacheChanged(value.toInt());
             }
         });
@@ -156,8 +149,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     // 开机启动
     auto poweronSwitchbutton = m_pSettings->option("Basic.Start.PowerOn");
     connect(poweronSwitchbutton, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
+            if (!value.isNull()) {
                 emit poweronChanged(value.toBool());
             }
         });
@@ -178,21 +170,16 @@ Settings::Settings(QObject *parent) : QObject(parent)
 
     // 剪切板状态改变
     connect(optionClipBoard, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                if(value.toBool() == true)
-                {
-                    if(optionHttpDownload->value().toBool() == false
+            if (!value.isNull()) {
+                if (value.toBool() == true) {
+                    if (optionHttpDownload->value().toBool() == false
                             && optionBTDownload->value().toBool() == false
-                            && optionMagneticDownload->value().toBool() == false)
-                    {
+                            && optionMagneticDownload->value().toBool() == false) {
                         optionHttpDownload->setValue(true);
                         optionBTDownload->setValue(true);
                         optionMagneticDownload->setValue(true);
                     }
-                }
-                else
-                {
+                } else {
                     optionHttpDownload->setValue(false);
                     optionBTDownload->setValue(false);
                     optionMagneticDownload->setValue(false);
@@ -202,19 +189,13 @@ Settings::Settings(QObject *parent) : QObject(parent)
 
     // Http下载状态改变
     connect(optionHttpDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                if(value.toBool() == true)
-                {
-                    if(optionClipBoard->value().toBool() == false)
-                    {
+            if (!value.isNull()) {
+                if (value.toBool() == true) {
+                    if (optionClipBoard->value().toBool() == false) {
                         optionClipBoard->setValue(true);
                     }
-                }
-                else
-                {
-                    if(optionBTDownload->value().toBool() == false && optionMagneticDownload->value().toBool() == false)
-                    {
+                } else {
+                    if (optionBTDownload->value().toBool() == false && optionMagneticDownload->value().toBool() == false) {
                         optionClipBoard->setValue(false);
                     }
                 }
@@ -223,19 +204,13 @@ Settings::Settings(QObject *parent) : QObject(parent)
 
     // BT下载状态改变
     connect(optionBTDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                if(value.toBool() == true)
-                {
-                    if(optionClipBoard->value().toBool() == false)
-                    {
+            if (!value.isNull()) {
+                if (value.toBool() == true) {
+                    if (optionClipBoard->value().toBool() == false) {
                         optionClipBoard->setValue(true);
                     }
-                }
-                else
-                {
-                    if(optionHttpDownload->value().toBool() == false && optionMagneticDownload->value().toBool() == false)
-                    {
+                } else {
+                    if (optionHttpDownload->value().toBool() == false && optionMagneticDownload->value().toBool() == false) {
                         optionClipBoard->setValue(false);
                     }
                 }
@@ -244,19 +219,13 @@ Settings::Settings(QObject *parent) : QObject(parent)
 
     // 磁力链接下载状态改变
     connect(optionMagneticDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
-            if(!value.isNull())
-            {
-                if(value.toBool() == true)
-                {
-                    if(optionClipBoard->value().toBool() == false)
-                    {
+            if (!value.isNull()) {
+                if (value.toBool() == true) {
+                    if (optionClipBoard->value().toBool() == false) {
                         optionClipBoard->setValue(true);
                     }
-                }
-                else
-                {
-                    if(optionHttpDownload->value().toBool() == false && optionBTDownload->value().toBool() == false)
-                    {
+                } else {
+                    if (optionHttpDownload->value().toBool() == false && optionBTDownload->value().toBool() == false) {
                         optionClipBoard->setValue(false);
                     }
                 }
@@ -300,11 +269,14 @@ Settings::Settings(QObject *parent) : QObject(parent)
         .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
         .arg(qApp->organizationName())
         .arg(qApp->applicationName());
+
     m_pIniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
-    if(!m_pIniFile->contains("FilePath/Filename")){
+
+    if (!m_pIniFile->contains("FilePath/Filename")) {
         m_pIniFile->setValue("FilePath/Filename",  "");
     }
-    if(!m_pIniFile->contains("Close/showTip")){
+
+    if (!m_pIniFile->contains("Close/showTip")) {
         m_pIniFile->setValue("Close/showTip",  "true");
     }
 }
@@ -316,34 +288,29 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
     int nCurrentSelect = 2;
     QString strDownloadPath;
 
-    if(option->value().toString().isEmpty())
-    {
+    if (option->value().toString().isEmpty()) {
         strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
-    }
-    else
-    {
+    } else {
         QString strCurrentValue = option->value().toString();
-        if(strCurrentValue.contains("auto;"))
-        {
+
+        if (strCurrentValue.contains("auto;")) {
             nCurrentSelect = 1;
             QStringList lstCurrentValue = strCurrentValue.split(';');
-            if(lstCurrentValue.count() > 1)
-            {
+
+            if (lstCurrentValue.count() > 1) {
                 strDownloadPath = lstCurrentValue.at(1);
-                if(strDownloadPath.isEmpty())
-                {
+
+                if (strDownloadPath.isEmpty()) {
                     strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
                 }
             }
-        }
-        else
-        {
+        } else {
             QStringList lstCurrentValue = strCurrentValue.split(';');
-            if(lstCurrentValue.count() > 1)
-            {
+
+            if (lstCurrentValue.count() > 1) {
                 strDownloadPath = lstCurrentValue.at(1);
-                if(strDownloadPath.isEmpty())
-                {
+
+                if (strDownloadPath.isEmpty()) {
                     strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
                 }
             }
@@ -353,43 +320,35 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
     FileSavePathChooser *pFileSavePathChooser = new FileSavePathChooser(nCurrentSelect, strDownloadPath);
 
     connect(pFileSavePathChooser, &FileSavePathChooser::textChanged, pFileSavePathChooser, [=] (QVariant var) {
-
         QString strCurrentValue = var.toString();
         QString strOptionValue = option->value().toString();
 
-        if(strCurrentValue == "custom;" && !strOptionValue.isEmpty())
-        {
+        if (strCurrentValue == "custom;" && !strOptionValue.isEmpty()) {
             QString strOldPath = strOptionValue.section(QString(';'),1,1);
-            if(!strOldPath.isEmpty())
-            {
+
+            if (!strOldPath.isEmpty()) {
                 strCurrentValue = "custom;" + strOldPath;
                 option->setValue(strCurrentValue);
             }
-        }
-        else
-        {
+        } else {
             option->setValue(var.toString());
         }
     });
 
     connect(option, &DSettingsOption::valueChanged, pFileSavePathChooser, [=] (QVariant var) {
-        if(!var.toString().isEmpty())
-        {
+        if (!var.toString().isEmpty()) {
             QString strCurrentValue = var.toString();
             QString strCurrentPath = strCurrentValue.section(QString(';'),1,1);
 
-            if(strCurrentPath.isEmpty())
-            {
+            if (strCurrentPath.isEmpty()) {
                 strCurrentPath =  QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
             }
 
             pFileSavePathChooser->setLineEditText(strCurrentPath);
 
-            if(strCurrentValue.contains("custom;"))
-            {
+            if (strCurrentValue.contains("custom;")) {
                 pFileSavePathChooser->setCurrentSelectRadioButton(2);
-            }
-            else {
+            } else {
                 pFileSavePathChooser->setCurrentSelectRadioButton(1);
             }
         }
@@ -411,8 +370,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
     });
 
     connect(option, &DSettingsOption::valueChanged, pItemSelectionWidget, [=] (QVariant var) {
-        if(!var.toString().isEmpty())
-        {
+        if (!var.toString().isEmpty()) {
             pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
         }
     });
@@ -433,8 +391,7 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
     });
 
     connect(option, &DSettingsOption::valueChanged, pItemSelectionWidget, [=] (QVariant var) {
-        if(!var.toString().isEmpty())
-        {
+        if (!var.toString().isEmpty()) {
             pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
         }
     });
@@ -455,8 +412,7 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
     });
 
     connect(option, &DSettingsOption::valueChanged, pItemSelectionWidget, [=] (QVariant var) {
-        if(!var.toString().isEmpty())
-        {
+        if (!var.toString().isEmpty()) {
             pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
         }
     });
@@ -472,10 +428,9 @@ QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
     lstItemName << "显示"  << "下载时显示"  << "隐藏";
 
     QString strCurrentSelected = option->value().toString();
-    if(strCurrentSelected.isEmpty())
-    {
-        if(lstItemName.count() > 0)
-        {
+
+    if (strCurrentSelected.isEmpty()) {
+        if (lstItemName.count() > 0) {
             strCurrentSelected = lstItemName.at(0);
         }
     }
@@ -486,27 +441,26 @@ QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
 
     connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
-        if(strCurrentValue.isEmpty())
-        {
-            if(lstItemName.count() > 0)
-            {
+
+        if (strCurrentValue.isEmpty()) {
+            if (lstItemName.count() > 0) {
                 strCurrentValue = lstItemName.at(0);
             }
         }
+
         option->setValue(strCurrentValue);
     });
 
     connect(option, &DSettingsOption::valueChanged, pGroupSelectionWidget, [=] (QVariant var) {
-        if(!var.toString().isEmpty())
-        {
+        if (!var.toString().isEmpty()) {
             QString strCurrentSelected = option->value().toString();
-            if(strCurrentSelected.isEmpty())
-            {
-                if(lstItemName.count() > 0)
-                {
+
+            if (strCurrentSelected.isEmpty()) {
+                if (lstItemName.count() > 0) {
                     strCurrentSelected = lstItemName.at(0);
                 }
             }
+
             pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
         }
     });
@@ -522,10 +476,9 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     lstItemName << tr("128")  << tr("256")  << tr("512");
 
     QString strCurrentSelected = option->value().toString();
-    if(strCurrentSelected.isEmpty())
-    {
-        if(lstItemName.count() > 0)
-        {
+
+    if (strCurrentSelected.isEmpty()) {
+        if (lstItemName.count() > 0) {
             strCurrentSelected = lstItemName.at(0);
         }
     }
@@ -536,27 +489,26 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
 
     connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
-        if(strCurrentValue.isEmpty())
-        {
-            if(lstItemName.count() > 0)
-            {
+
+        if (strCurrentValue.isEmpty()) {
+            if (lstItemName.count() > 0) {
                 strCurrentValue = lstItemName.at(0);
             }
         }
+
         option->setValue(strCurrentValue);
     });
 
     connect(option, &DSettingsOption::valueChanged, pGroupSelectionWidget, [=] (QVariant var) {
-        if(!var.toString().isEmpty())
-        {
+        if (!var.toString().isEmpty()) {
             QString strCurrentSelected = option->value().toString();
-            if(strCurrentSelected.isEmpty())
-            {
-                if(lstItemName.count() > 0)
-                {
+
+            if (strCurrentSelected.isEmpty()) {
+                if (lstItemName.count() > 0) {
                     strCurrentSelected = lstItemName.at(0);
                 }
             }
+
             pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
         }
     });
@@ -574,23 +526,21 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     QString strStartTime;
     QString strEndTime;
 
-    if(option->value().toString().isEmpty())
-    {
+    if (option->value().toString().isEmpty()) {
         strMaxDownloadSpeedLimit = "10240";
         strMaxUploadSpeedLimit = "32";
         strStartTime = "08:00:00";
         strEndTime = "17:00:00";
-    }
-    else
-    {
+    } else {
         QString strCurrentValue = option->value().toString();
-        if(strCurrentValue.contains("fullspeed;"))
-        {
+
+        if (strCurrentValue.contains("fullspeed;")) {
             nCurrentSelect = 1;
         }
+
         QStringList lstCurrentValue = strCurrentValue.split(';');
-        if(lstCurrentValue.count() > 4)
-        {
+
+        if (lstCurrentValue.count() > 4) {
             strMaxDownloadSpeedLimit = lstCurrentValue.at(1);
             strMaxUploadSpeedLimit = lstCurrentValue.at(2);
             strStartTime = lstCurrentValue.at(3);
@@ -608,21 +558,20 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     connect(pDownloadSettingWidget, &DownloadSettingWidget::speedLimitInfoChanged, pDownloadSettingWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
         QStringList lstCurrentValue = strCurrentValue.split(';');
-        if(lstCurrentValue.count() > 4)
-        {
+
+        if (lstCurrentValue.count() > 4) {
             QString strMaxDownloadSpeedLimit = lstCurrentValue.at(1);
             QString strMaxUploadSpeedLimit = lstCurrentValue.at(2);
-            if(strMaxDownloadSpeedLimit.toInt() >= 100 && strMaxDownloadSpeedLimit.toInt() <= 102400
-                    && strMaxUploadSpeedLimit.toInt() >= 16 && strMaxUploadSpeedLimit.toInt() <= 5120)
-            {
+
+            if (strMaxDownloadSpeedLimit.toInt() >= 100 && strMaxDownloadSpeedLimit.toInt() <= 102400
+                    && strMaxUploadSpeedLimit.toInt() >= 16 && strMaxUploadSpeedLimit.toInt() <= 5120) {
                 option->setValue(strCurrentValue);
             }
         }
     });
 
     connect(option, &DSettingsOption::valueChanged, pDownloadSettingWidget, [=] (QVariant var) {
-        if(!var.toString().isEmpty())
-        {
+        if (!var.toString().isEmpty()) {
             QString strCurrentValue = option->value().toString();
             int nCurrentSelect = 2;
             QString strMaxDownloadSpeedLimit;
@@ -630,23 +579,19 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
             QString strStartTime;
             QString strEndTime;
 
-            if(strCurrentValue.isEmpty())
-            {
+            if (strCurrentValue.isEmpty()) {
                 strMaxDownloadSpeedLimit = "10240";
                 strMaxUploadSpeedLimit = "32";
                 strStartTime = "08:00:00";
                 strEndTime = "17:00:00";
-            }
-            else
-            {
-                if(strCurrentValue.contains("fullspeed;"))
-                {
+            } else {
+                if (strCurrentValue.contains("fullspeed;")) {
                     nCurrentSelect = 1;
                 }
 
                 QStringList lstCurrentValue = strCurrentValue.split(';');
-                if(lstCurrentValue.count() > 4)
-                {
+
+                if (lstCurrentValue.count() > 4) {
                     strMaxDownloadSpeedLimit = lstCurrentValue.at(1);
                     strMaxUploadSpeedLimit = lstCurrentValue.at(2);
                     strStartTime = lstCurrentValue.at(3);
@@ -688,12 +633,14 @@ QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
 bool Settings::getPowerOnState()
 {
     auto option = m_pSettings->option("Basic.Start.PowerOn");
+
     return option->value().toBool();
 }
 
 bool Settings::getAutostartUnfinishedTaskState()
 {
     auto option = m_pSettings->option("Basic.Start.AutoStartUnfinishedTask");
+
     return option->value().toBool();
 }
 
@@ -702,12 +649,10 @@ int Settings::getDownloadDirectorySelected()
     auto option = m_pSettings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
 
     QString strCurrentValue = option->value().toString();
-    if(strCurrentValue.contains("auto;"))
-    {
+
+    if (strCurrentValue.contains("auto;")) {
         return 1;
-    }
-    else
-    {
+    } else {
         return 0;
     }
 }
@@ -718,27 +663,23 @@ QString Settings::getDownloadSavePath()
 
     QString strCurrentValue = option->value().toString();
     QString strDownloadPath;
-    if(strCurrentValue.contains("custom;"))
-    {
+
+    if (strCurrentValue.contains("custom;")) {
         QStringList lstCurrentValue = strCurrentValue.split(';');
-        if(lstCurrentValue.count() > 1)
-        {
+
+        if (lstCurrentValue.count() > 1) {
             strDownloadPath = lstCurrentValue.at(1);
-            if(strDownloadPath.isEmpty())
-            {
+
+            if (strDownloadPath.isEmpty()) {
                 strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
             }
-        }
-        else
-        {
+        } else {
             strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
         }
-    }
-    else if(strCurrentValue.contains("auto;"))
-    {
+    } else if (strCurrentValue.contains("auto;")) {
         strDownloadPath = getCustomFilePath();
-        if(strDownloadPath.isEmpty())
-        {
+
+        if (strDownloadPath.isEmpty()) {
             strDownloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
         }
     }
@@ -749,30 +690,35 @@ QString Settings::getDownloadSavePath()
 bool Settings::getOneClickDownloadState()
 {
     auto option = m_pSettings->option("Basic.OnekeyDownload.onekeydownload");
+
     return option->value().toBool();
 }
 
 int Settings::getCloseMainWindowSelected()
 {
     auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
+
     return option->value().toInt();
 }
 
 int Settings::getMaxDownloadTaskNumber()
 {
     auto option = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
+
     return option->value().toInt();
 }
 
 bool Settings::getDownloadFinishedOpenState()
 {
     auto option = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.AutoOpen");
+
     return option->value().toBool();
 }
 
 bool Settings::getAutoDeleteFileNoExistentTaskState()
 {
     auto option = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.AutoDelete");
+
     return option->value().toBool();
 }
 
@@ -781,12 +727,10 @@ int Settings::getDownloadSettingSelected()
     auto option = m_pSettings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
 
     QString strCurrentValue = option->value().toString();
-    if(strCurrentValue.contains("speedlimit;"))
-    {
+
+    if (strCurrentValue.contains("speedlimit;")) {
         return 1;
-    }
-    else
-    {
+    } else {
         return 0;
     }
 }
@@ -798,11 +742,11 @@ QString Settings::getMaxDownloadSpeedLimit()
     QString strCurrentValue = option->value().toString();
     QString strMaxDownloadSpeedLimit;
     QStringList lstCurrentValue = strCurrentValue.split(';');
-    if(lstCurrentValue.count() > 4)
-    {
+
+    if (lstCurrentValue.count() > 4) {
         strMaxDownloadSpeedLimit = lstCurrentValue.at(1);
-        if(strMaxDownloadSpeedLimit.isEmpty())
-        {
+
+        if (strMaxDownloadSpeedLimit.isEmpty()) {
             strMaxDownloadSpeedLimit = "10240";
         }
     }
@@ -817,11 +761,11 @@ QString Settings::getMaxUploadSpeedLimit()
     QString strCurrentValue = option->value().toString();
     QString strMaxUploadSpeedLimit;
     QStringList lstCurrentValue = strCurrentValue.split(';');
-    if(lstCurrentValue.count() > 4)
-    {
+
+    if (lstCurrentValue.count() > 4) {
         strMaxUploadSpeedLimit = lstCurrentValue.at(2);
-        if(strMaxUploadSpeedLimit.isEmpty())
-        {
+
+        if (strMaxUploadSpeedLimit.isEmpty()) {
             strMaxUploadSpeedLimit = "32";
         }
     }
@@ -836,11 +780,11 @@ QString Settings::getSpeedLimitStartTime()
     QString strCurrentValue = option->value().toString();
     QString strStartTime;
     QStringList lstCurrentValue = strCurrentValue.split(';');
-    if(lstCurrentValue.count() > 4)
-    {
+
+    if (lstCurrentValue.count() > 4) {
         strStartTime = lstCurrentValue.at(3);
-        if(strStartTime.isEmpty())
-        {
+
+        if (strStartTime.isEmpty()) {
             strStartTime = "08:00:00";
         }
     }
@@ -855,11 +799,11 @@ QString Settings::getSpeedLimitEndTime()
     QString strCurrentValue = option->value().toString();
     QString strEndTime;
     QStringList lstCurrentValue = strCurrentValue.split(';');
-    if(lstCurrentValue.count() > 4)
-    {
+
+    if (lstCurrentValue.count() > 4) {
         strEndTime = lstCurrentValue.at(4);
-        if(strEndTime.isEmpty())
-        {
+
+        if (strEndTime.isEmpty()) {
             strEndTime = "17:00:00";
         }
     }
@@ -874,16 +818,14 @@ S_DownloadSettings Settings::getAllSpeedLimitInfo()
     QString strCurrentValue = option->value().toString();
     S_DownloadSettings downloadSettings;
     QStringList lstCurrentValue = strCurrentValue.split(';');
-    if(lstCurrentValue.count() > 4)
-    {
-        if(strCurrentValue.contains("speedlimit;"))
-        {
+
+    if (lstCurrentValue.count() > 4) {
+        if (strCurrentValue.contains("speedlimit;")) {
             downloadSettings.m_strType = "1";
-        }
-        else
-        {
+        } else {
             downloadSettings.m_strType = "0";
         }
+
         downloadSettings.m_strMaxDownload = lstCurrentValue.at(1);
         downloadSettings.m_strMaxUpload = lstCurrentValue.at(2);
         downloadSettings.m_strStartTime = lstCurrentValue.at(3);
@@ -896,60 +838,70 @@ S_DownloadSettings Settings::getAllSpeedLimitInfo()
 bool Settings::getClipBoardState()
 {
     auto option = m_pSettings->option("Monitoring.MonitoringObject.ClipBoard");
+
     return option->value().toBool();
 }
 
 bool Settings::getHttpDownloadState()
 {
     auto option = m_pSettings->option("Monitoring.MonitoringDownloadType.HttpDownload");
+
     return option->value().toBool();
 }
 
 bool Settings::getBtDownloadState()
 {
     auto option = m_pSettings->option("Monitoring.MonitoringDownloadType.BTDownload");
+
     return option->value().toBool();
 }
 
 bool Settings::getMagneticDownloadState()
 {
     auto option = m_pSettings->option("Monitoring.MonitoringDownloadType.MagneticDownload");
+
     return option->value().toBool();
 }
 
 bool Settings::getAutoOpenNewTaskWidgetState()
 {
     auto option = m_pSettings->option("Monitoring.BTRelation.OpenDownloadPanel");
+
     return option->value().toBool();
 }
 
 bool Settings::getStartAssociatedBTFileState()
 {
     auto option = m_pSettings->option("Monitoring.BTRelation.AssociateBTFileAtStartup");
+
     return option->value().toBool();
 }
 
 bool Settings::getDownloadInfoSystemNotifyState()
 {
     auto option = m_pSettings->option("Notifications.remind.downloadInfoNotify");
+
     return option->value().toBool();
 }
 
 bool Settings::getDownloadFinishedPlayToneState()
 {
     auto option = m_pSettings->option("Notifications.remind.afterDownloadPlayTone");
+
     return option->value().toBool();
 }
 
 bool Settings::getNewTaskShowMainWindowState()
 {
     auto option = m_pSettings->option("AdvancedSetting.ShortcutKeySetting.NewTaskShowMainwindow");
+
     return option->value().toBool();
 }
 
 QString Settings::getOpenMainWindowShortcutKey()
 {
     auto option = m_pSettings->option("AdvancedSetting.ShortcutKeySetting.OpenMainWindowShortcutKey");
+
     return option->value().toString();
 }
 
@@ -974,6 +926,7 @@ int Settings::getDisckcacheNum()
 void Settings::setCloseMainWindowSelected(int nSelect)
 {
     auto option = m_pSettings->option("Basic.CloseMainWindow.closemainwindow");
+
     option->setValue(nSelect);
 }
 
@@ -986,7 +939,6 @@ QString Settings::getCustomFilePath()
 void Settings::setCustomFilePath(const QString &path)
 {
     m_pIniFile->setValue( "FilePath/Filename",  path);
-
 }
 
 bool Settings::getIsShowTip()
@@ -996,7 +948,7 @@ bool Settings::getIsShowTip()
 
 void Settings::setIsShowTip(bool b)
 {
-    if(b){
+    if (b) {
         m_pIniFile->setValue( "Close/showTip",  "true");
     } else {
         m_pIniFile->setValue( "Close/showTip",  "false");
