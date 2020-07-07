@@ -385,7 +385,7 @@ void MainFrame::createNewTask(QString url)
 
 void MainFrame::onTrayQuitClick()
 {
-    if(m_pUpdateTimer->isActive()) {
+    if(!m_bShutdownOk) {
         MessageBox *pBox = new MessageBox();
         QString title = tr("Are you sure to exit? Tasks in download will be interrupted.");
         pBox->setWarings(title, tr("sure"), tr("cancel"));
@@ -440,10 +440,9 @@ void MainFrame::initTabledata()
         if(data->status != Global::Status::Removed) {
             if(data->status == Global::Status::Lastincomplete) {
                 m_pNotaskWidget->hide();
-                QVariant autostart_unfinished_task_switchbutton =
-                    Settings::getInstance()->getAutostartUnfinishedTaskState();
+                QVariant autostart = Settings::getInstance()->getAutostartUnfinishedTaskState();
                 m_pDownLoadingTableView->getTableModel()->append(data);
-                if(autostart_unfinished_task_switchbutton.toBool()) {
+                if(autostart.toBool()) {
                     QString savePath = data->savePath;
                     QMap<QString, QVariant> opt;
                     opt.insert("dir", savePath);
@@ -1260,16 +1259,18 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
     QStringList sameFileList;
     for(int i = 0; i < urlList.size(); i++){
         if((urlList[i].m_infoHash == infoHash) && (urlList[0].m_selectedNum == selectedNum)) {
-            sameFileList.append(btPath);
-            if(!showRedownloadMsgbox(sameFileList)){
-                return;
-            }
-            int count = DBInstance::getSameNameCount(infoName);
-            if(count > 0){
-                QString name1 = infoName.mid(0, infoName.lastIndexOf('.'));
-                name1 += QString("_%1").arg(count);
-                infoName = name1 + infoName.mid(infoName.lastIndexOf('.'), infoName.length());
-            }
+            showWarningMsgbox(tr("Task exist."));
+            return;
+//            sameFileList.append(btPath);
+//            if(!showRedownloadMsgbox(sameFileList)){
+//                return;
+//            }
+//            int count = DBInstance::getSameNameCount(infoName);
+//            if(count > 0){
+//                QString name1 = infoName.mid(0, infoName.lastIndexOf('.'));
+//                name1 += QString("_%1").arg(count);
+//                infoName = name1 + infoName.mid(infoName.lastIndexOf('.'), infoName.length());
+//            }
         }
     }
 
@@ -1657,17 +1658,18 @@ void MainFrame::updateMainUI()
     const QList<DataItem *> renderList = m_pDownLoadingTableView->getTableModel()->renderList();
     const QList<DataItem *> dataList = m_pDownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;
+    m_bShutdownOk = true;
     for(const auto *item : dataList) {
         if((item->status == Global::Status::Active) || (item->status == Global::Status::Waiting)) {
             Aria2RPCInterface::Instance()->tellStatus(item->gid, item->taskId);
         }
-    }
-
-    for(const auto *item : dataList) {
         if((item->status == Global::Status::Active) || (item->status == Global::Status::Waiting) ||
            (item->status == Global::Status::Paused) || (item->status == Global::Status::Lastincomplete) ||
            (item->status == Global::Status::Error)) {
             ++activeCount;
+        }
+        if(item->status == Global::Status::Active){
+            m_bShutdownOk = false;
         }
     }
 
@@ -2008,9 +2010,9 @@ void MainFrame::getRedownloadConfirmSlot(const QList<QString> &sameUrlList)
 
 void MainFrame::onDownloadLimitChanged()
 {
-    QTime   current_time = QTime::currentTime();
-    QTime  *periodStartTime = new QTime();
-    QTime  *periodEndTime = new QTime();
+    QTime   currentTime = QTime::currentTime();
+    QTime  periodStartTime;
+    QTime  periodEndTime;
     QString downloadSpeed, uploadSpeed;
 
     // get_limit_speed_time(period_start_time, period_end_time);
@@ -2020,11 +2022,11 @@ void MainFrame::onDownloadLimitChanged()
         return;
     }
 
-    periodStartTime->setHMS(settings.m_strStartTime.section(":", 0, 0).toInt(),
+    periodStartTime.setHMS(settings.m_strStartTime.section(":", 0, 0).toInt(),
                               settings.m_strStartTime.section(":", 1, 1).toInt(),
                               settings.m_strStartTime.section(":", 2, 2).toInt());
 
-    periodEndTime->setHMS(settings.m_strEndTime.section(":", 0, 0).toInt(),
+    periodEndTime.setHMS(settings.m_strEndTime.section(":", 0, 0).toInt(),
                             settings.m_strEndTime.section(":", 1, 1).toInt(),
                             settings.m_strEndTime.section(":", 2, 2).toInt());
 
@@ -2032,7 +2034,7 @@ void MainFrame::onDownloadLimitChanged()
     uploadSpeed = settings.m_strMaxUpload;
 
     // 判断当前时间是否在限速时间内
-    bool bInPeriod = checkIfInPeriod(&current_time, periodStartTime, periodEndTime);
+    bool bInPeriod = checkIfInPeriod(&currentTime, &periodStartTime, &periodEndTime);
     if(!bInPeriod) {
         Aria2RPCInterface::Instance()->setDownloadUploadSpeed("0", "0");
     } else {
@@ -2071,6 +2073,39 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     modifyConfigFile("max-concurrent-downloads=", value);
     opt.insert("max-concurrent-downloads", QString().number(nTaskNumber));
     Aria2RPCInterface::Instance()->changeGlobalOption(opt);
+
+    const QList<DataItem *> dataList = m_pDownLoadingTableView->getTableModel()->dataList();
+    int activeCount = 0;
+    m_bShutdownOk = true;
+    for(const auto *item : dataList) {
+        if(item->status == Global::Status::Active) {
+            activeCount ++;
+            if(activeCount > nTaskNumber){
+                Aria2RPCInterface::Instance()->pause(item->gid, item->taskId);
+                QTimer::singleShot(500, this, [=](){
+                    Aria2RPCInterface::Instance()->unpause(item->gid, item->taskId);
+                });
+                QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+                S_Task_Status get_status;
+                S_Task_Status downloadStatus(item->taskId,
+                                             Global::Status::Paused,
+                                             QDateTime::currentDateTime(),
+                                             item->completedLength,
+                                             item->speed,
+                                             item->totalLength,
+                                             item->percent,
+                                             item->total,
+                                             finish_time);
+
+                if(DBInstance::getTaskStatusById(item->taskId, get_status)) {
+                    DBInstance::updateTaskStatusById(downloadStatus);
+                } else {
+                    DBInstance::addTaskStatus(downloadStatus);
+                }
+            }
+        }
+
+    }
 }
 
 void MainFrame::onDisckCacheChanged(int nNum)
