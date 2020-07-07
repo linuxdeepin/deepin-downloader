@@ -83,9 +83,9 @@ install(FILES ${CF_FILES} DESTINATION share/downloadmanager/config)
 #install(FILES /usr/bin/aria2c DESTINATION share/downloadmanager)
 
 #icon
-install(FILES data/downloader4.svg DESTINATION share/icons/hicolor/scalable/apps/)
-install(FILES data/downloader4.svg DESTINATION share/downloadmanager/icons/logo/)
-
+install(FILES data/downloadermanager.svg DESTINATION share/icons/hicolor/scalable/apps/)
+install(FILES data/downloadermanager.svg DESTINATION share/downloadmanager/icons/logo/)
+install(FILES data/downloadermanager_warning.svg DESTINATION share/icons/hicolor/scalable/apps/)
 
 install(TARGETS downloadmanager dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
