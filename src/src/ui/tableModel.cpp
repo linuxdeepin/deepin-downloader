@@ -249,9 +249,6 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     } else {
         deldata = m_recyleList.at(row);
     }
-    if(data == nullptr) {
-        return QVariant();
-    }
 
     bool Ischecked;
     QString fileName;
@@ -334,6 +331,14 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
                 return deldata->taskId;
             }
         }
+    case TableModel::createTime:
+    {
+        if(m_iTableviewtabFlag == 0) {
+            return data->createTime;
+        } else {
+            return deldata->deleteTime;
+        }
+    }
 
         case TableModel::Percent:
         {
@@ -563,6 +568,9 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     QVector<int> unsortable;
     int role = 0;
     switch(column){
+            case 0:
+                role = TableModel::createTime;
+                break;
             case 1:
                 role = TableModel::FileName;
                 break;
