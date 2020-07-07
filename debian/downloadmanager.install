@@ -1,7 +1,7 @@
 translations/*.qm /usr/share/downloadmanager/translations
 desktop/downloadmanager.desktop /usr/share/applications
 data/uos-downloadmanager-task.db /usr/share/downloadmanager/database
-data/downloadermanager.svg /usr/share/icons/hicolor/scalable/apps
-data/downloadermanager.svg /usr/share/downloadmanager/icons/logo
+data/downloadmanager.svg /usr/share/icons/hicolor/scalable/apps
+data/downloadmanager.svg /usr/share/downloadmanager/icons/logo
 docs/aria2.conf /usr/share/downloadmanager/config
 docs/config.conf /usr/share/downloadmanager/config
