@@ -541,7 +541,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     QVariantMap in6;
     if(statusStr== "error")
     {
-        in3 = tr("Download complated");     //下载失败
+        in3 = tr("Download failed");     //下载失败
         in4 = QString(tr("%1 download failed. Network error.")).arg(fileName);      //【%1下载失败，网络故障。】
         in5<<"_cancel"<<tr("Cancel")<<"_view"<<tr("View");
         in6["x-deepin-action-_view"] = "downloadmanager,""";
@@ -549,7 +549,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     }
     else
     {
-        in3 = tr("Download failed");      //下载完成
+        in3 = tr("Download complated");      //下载完成
         in4 = QString(tr("%1 download finished.")).arg(fileName);      //【【%1下载完成。】
     }
 
