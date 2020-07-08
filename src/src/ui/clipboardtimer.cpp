@@ -122,8 +122,9 @@ bool ClipboardTimer::isHttp(QString url)
 
 bool ClipboardTimer::isStartManager(QString str)
 {
-    if(str == "start_manager_for_clipboard")
+    if(str.contains("start_manager_for_clipboard"))
     {
+        str.remove("start_manager_for_clipboard");
         return true;
     }
     return false;

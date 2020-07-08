@@ -40,20 +40,25 @@ int main(int argc, char *argv[])
     sharedMemory.setKey("downloadmanager");
     if (sharedMemory.attach())//设置成单例程序
     {
-        if(sharedMemory.isAttached()){
-            if(readShardMemary(sharedMemory) == comList[0]){
-                return 0;
-            } else {
-                writeShardMemary(sharedMemory, comList[0]);
-            }
-        }
-
-
         QClipboard *c = QApplication::clipboard();
-        QString str = c->text();
-        if(c->text() != comList[0]){
-            //发送以.torrent结尾文件
-            c->setText(comList[0]);
+        if(comList.isEmpty())
+        {
+            c->setText(c->text() + "\n" + "start_manager_for_clipboard");
+        } else {
+            if(sharedMemory.isAttached()){
+                if(readShardMemary(sharedMemory) == comList[0]){
+                    return 0;
+                } else {
+                    writeShardMemary(sharedMemory, comList[0]);
+                }
+            }
+
+
+            QString str = c->text();
+            if(c->text() != comList[0]){
+                //发送以.torrent结尾文件
+                c->setText(comList[0]);
+            }
         }
         return 0;
     }
