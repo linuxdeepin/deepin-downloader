@@ -365,8 +365,8 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         }
     }
 
-    m_pDownloadTableView->update();
-    m_pDownloadTableView->reset();
+    //m_pDownloadTableView->update();
+    //m_pDownloadTableView->reset();
     S_Task_Status getTaskStatus;
     DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
 

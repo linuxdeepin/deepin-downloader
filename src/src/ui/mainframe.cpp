@@ -754,6 +754,7 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
         }
         if(m_iCurrentLab == recycleLab) {
             m_pToolBar->enableStartBtn(true);
+            m_pToolBar->enablePauseBtn(isChecked);
         }
     } else {
         m_pToolBar->enableStartBtn(false);
