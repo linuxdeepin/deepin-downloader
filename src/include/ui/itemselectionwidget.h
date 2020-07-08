@@ -69,7 +69,7 @@ public:
     void setBlockSignals(bool block);
 
 signals:
-    void checkBoxIsChecked(bool bIsChecked);
+    void signal_checkBoxIsChecked(bool bIsChecked);
 
 public slots:
 
@@ -77,7 +77,7 @@ public slots:
      * @brief 复选框状态改变响应的槽函数
      * @param nState 状态值
      */
-    void checkBoxstateChangedSlot(int nState);
+    void slot_checkBoxstateChangedSlot(int nState);
 
 private:
 

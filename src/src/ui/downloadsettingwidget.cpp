@@ -136,15 +136,15 @@ void DownloadSettingWidget::initUI()
 // 初始化链接
 void DownloadSettingWidget::initConnections()
 {
-    connect(m_pFullSpeedDownloadButton,SIGNAL(clicked()),this,SLOT(radioButtonClickSlot()));
-    connect(m_pSpeedLimitDownloadButton,SIGNAL(clicked()),this,SLOT(radioButtonClickSlot()));
-    connect(m_pMaxDownloadSpeedLimit,&SettingInfoInputWidget::textChanged,this,&DownloadSettingWidget::textChangedSlot);
-    connect(m_pMaxUploadSpeedLimit,&SettingInfoInputWidget::textChanged,this,&DownloadSettingWidget::textChangedSlot);
-    connect(m_pStartTimeEdit,SIGNAL(timeChanged(const QTime &)),this,SLOT(timeChangedSlot(const QTime &)));
-    connect(m_pEndTimeEdit,SIGNAL(timeChanged(const QTime &)),this,SLOT(timeChangedSlot(const QTime &)));
+    connect(m_pFullSpeedDownloadButton,SIGNAL(clicked()),this,SLOT(slot_radioButtonClickSlot()));
+    connect(m_pSpeedLimitDownloadButton,SIGNAL(clicked()),this,SLOT(slot_radioButtonClickSlot()));
+    connect(m_pMaxDownloadSpeedLimit,&SettingInfoInputWidget::signal_textChanged,this,&DownloadSettingWidget::slot_textChangedSlot);
+    connect(m_pMaxUploadSpeedLimit,&SettingInfoInputWidget::signal_textChanged,this,&DownloadSettingWidget::slot_textChangedSlot);
+    connect(m_pStartTimeEdit,SIGNAL(timeChanged(const QTime &)),this,SLOT(slot_timeChangedSlot(const QTime &)));
+    connect(m_pEndTimeEdit,SIGNAL(timeChanged(const QTime &)),this,SLOT(slot_timeChangedSlot(const QTime &)));
 }
 
-void DownloadSettingWidget::radioButtonClickSlot()
+void DownloadSettingWidget::slot_radioButtonClickSlot()
 {
     DRadioButton *pRadioButton = qobject_cast<DRadioButton *>(sender());
 
@@ -162,7 +162,7 @@ void DownloadSettingWidget::radioButtonClickSlot()
                 .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                 .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
-        emit speedLimitInfoChanged(strText);
+        emit signal_speedLimitInfoChanged(strText);
     } else if (m_pSpeedLimitDownloadButton == pRadioButton) {
         m_pFullSpeedDownloadButton->setChecked(false);
         m_pSpeedLimitDownloadButton->setChecked(true);
@@ -177,11 +177,11 @@ void DownloadSettingWidget::radioButtonClickSlot()
                 .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                 .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
-        emit speedLimitInfoChanged(strText);
+        emit signal_speedLimitInfoChanged(strText);
     }
 }
 
-void DownloadSettingWidget::timeChangedSlot(const QTime &time)
+void DownloadSettingWidget::slot_timeChangedSlot(const QTime &time)
 {
     QTimeEdit *pTimeEdit = qobject_cast<QTimeEdit *>(sender());
 
@@ -192,7 +192,7 @@ void DownloadSettingWidget::timeChangedSlot(const QTime &time)
                 .arg(time.toString("hh:mm:ss"))
                 .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
-        emit speedLimitInfoChanged(strText);
+        emit signal_speedLimitInfoChanged(strText);
     } else if (m_pEndTimeEdit == pTimeEdit) {
         QString strText = QString("speedlimit;%1;%2;%3;%4")
                 .arg(m_pMaxDownloadSpeedLimit->getLineEditText().toInt())
@@ -200,11 +200,11 @@ void DownloadSettingWidget::timeChangedSlot(const QTime &time)
                 .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                 .arg(time.toString("hh:mm:ss"));
 
-        emit speedLimitInfoChanged(strText);
+        emit signal_speedLimitInfoChanged(strText);
     }
 }
 
-void DownloadSettingWidget::textChangedSlot(QString strText)
+void DownloadSettingWidget::slot_textChangedSlot(QString strText)
 {
     SettingInfoInputWidget *pSettingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
 
@@ -224,7 +224,7 @@ void DownloadSettingWidget::textChangedSlot(QString strText)
                     .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                     .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
-            emit speedLimitInfoChanged(strInfo);
+            emit signal_speedLimitInfoChanged(strInfo);
         }
 
     } else if (m_pMaxUploadSpeedLimit == pSettingInfoInputWidget) {
@@ -243,7 +243,7 @@ void DownloadSettingWidget::textChangedSlot(QString strText)
                     .arg(m_pStartTimeEdit->time().toString("hh:mm:ss"))
                     .arg(m_pEndTimeEdit->time().toString("hh:mm:ss"));
 
-            emit speedLimitInfoChanged(strInfo);
+            emit signal_speedLimitInfoChanged(strInfo);
         }
     }
 }
