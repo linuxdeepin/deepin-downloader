@@ -172,6 +172,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
             TableModel *dtModel = m_pDownloadTableView->getTableModel();
             m_pDownloadTableView->setRowHidden(dtModel->rowCount(), true);
         }
+        qDebug() << "aria2MethodAdd: " << getTaskInfo.m_url << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     }
 }
 

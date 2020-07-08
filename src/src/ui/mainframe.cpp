@@ -752,6 +752,9 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
             m_pToolBar->enablePauseBtn(false);
             m_pToolBar->enableDeleteBtn(isChecked);
         }
+        if(m_iCurrentLab == recycleLab) {
+            m_pToolBar->enableStartBtn(true);
+        }
     } else {
         m_pToolBar->enableStartBtn(false);
         m_pToolBar->enablePauseBtn(false);
@@ -806,6 +809,7 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
 
 void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath, QString fileName)
 {
+    qDebug() << "getNewDownloadUrl: " << urlList << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     bool isExitsUrl = false;
     QStringList sameUrlList;
 
@@ -834,7 +838,8 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath, QString
         task = getUrlToName(urlList[i], savePath, fileName);
         DBInstance::addTask(task);
         Aria2RPCInterface::Instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
-        clearTableItemCheckStatus();
+        //clearTableItemCheckStatus();
+        emit headerViewChecked(false);
     }
 
     m_pNotaskWidget->hide();

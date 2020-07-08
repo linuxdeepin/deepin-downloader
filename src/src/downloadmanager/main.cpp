@@ -4,13 +4,16 @@
 #include <DApplicationSettings>
 #include <QTranslator>
 #include <QClipboard>
+#include <QSharedMemory>
+#include <QBuffer>
 #include <QCommandLineParser>
 #include "mainframe.h"
 #include "log.h"
 #include "settings.h"
 DWIDGET_USE_NAMESPACE
 
-
+QString readShardMemary(QSharedMemory &sharedMemory);
+void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl);
 
 int main(int argc, char *argv[])
 {
@@ -25,31 +28,36 @@ int main(int argc, char *argv[])
     a.setProductIcon(QIcon(":/icons/icon/downloader4.svg"));//从系统主题中获取图标并设置成产品图标
     auto download_manager_name = QObject::tr("Download Manager");
     a.setProductName(download_manager_name);//设置产品的名称
-
     auto download_manager_info = QObject::tr("This is a download manage application.");
     a.setApplicationDescription(download_manager_info);//设置产品的描述信息
-
     a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application"));//设置应用程序的显示信息
 
     //处理命令行类
     QCommandLineParser parser;
     parser.process(a);
-    QStringList _comList = parser.positionalArguments();
-    if (!a.setSingleInstance("downloadmanager"))//设置成单例程序
+    QStringList comList = parser.positionalArguments();
+    QSharedMemory sharedMemory;
+    sharedMemory.setKey("downloadmanager");
+    if (sharedMemory.attach())//设置成单例程序
     {
-        QClipboard *_c = QApplication::clipboard();
-        if(_comList.isEmpty())
-        {
-            _c->setText("start_manager_for_clipboard");
-        }
-        else
-        {
-            //发送以.torrent结尾文件
-            _c->setText(_comList[0]);
+        if(sharedMemory.isAttached()){
+            if(readShardMemary(sharedMemory) == comList[0]){
+                return 0;
+            } else {
+                writeShardMemary(sharedMemory, comList[0]);
+            }
         }
 
+
+        QClipboard *c = QApplication::clipboard();
+        QString str = c->text();
+        if(c->text() != comList[0]){
+            //发送以.torrent结尾文件
+            c->setText(comList[0]);
+        }
         return 0;
     }
+    sharedMemory.create(199);
 
     // 保存程序的窗口主题设置
     DApplicationSettings as;
@@ -76,18 +84,41 @@ int main(int argc, char *argv[])
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
     w.show();
-    for (int i = 0; i < _comList.size(); i++)
+    for (int i = 0; i < comList.size(); i++)
     {
-        if(_comList[i].endsWith(".torrent"))
+        if(comList[i].endsWith(".torrent"))
         {
             if(Settings::getInstance()->getOneClickDownloadState())
             {
                 w.hide();
             }
-             w.onClipboardDataForBt(_comList[i]);     
+             w.onClipboardDataForBt(comList[i]);
         }
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloader4.svg"));
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
+}
+
+
+QString readShardMemary(QSharedMemory &sharedMemory)
+{
+    sharedMemory.lock();
+    char *to = static_cast<char*>(sharedMemory.data());
+    sharedMemory.unlock();
+    return QString(to);
+}
+
+void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
+{
+    sharedMemory.lock();
+    char *to = static_cast<char*>(sharedMemory.data());
+    QByteArray array = strUrl.toLocal8Bit();
+    QBuffer buffer;
+    buffer.setBuffer(&array);
+    const char *from = buffer.data().constData();
+    int size = strUrl.size();
+    size_t num = qMin(size,sharedMemory.size());
+    memcpy(to,from, num);
+    sharedMemory.unlock();
 }
