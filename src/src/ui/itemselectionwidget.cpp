@@ -57,15 +57,15 @@ void ItemSelectionWidget::initUI()
 // 初始化链接
 void ItemSelectionWidget::initConnections()
 {
-    connect(m_pCheckBox, &QCheckBox::stateChanged, this, &ItemSelectionWidget::checkBoxstateChangedSlot);
+    connect(m_pCheckBox, &QCheckBox::stateChanged, this, &ItemSelectionWidget::slot_checkBoxstateChangedSlot);
 }
 
-void ItemSelectionWidget::checkBoxstateChangedSlot(int nState)
+void ItemSelectionWidget::slot_checkBoxstateChangedSlot(int nState)
 {
     if (nState == 0) {
-        emit checkBoxIsChecked(false);
+        emit signal_checkBoxIsChecked(false);
     } else if(nState == 2) {
-        emit checkBoxIsChecked(true);
+        emit signal_checkBoxIsChecked(true);
     }
 }
 

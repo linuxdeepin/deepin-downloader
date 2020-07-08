@@ -83,12 +83,12 @@ void FileSavePathChooser::initUI()
 
 void FileSavePathChooser::initConnections()
 {
-    connect(m_pAutoLastPathRadioButton,SIGNAL(clicked()),this,SLOT(radioButtonClickSlot()));
-    connect(m_pCustomsPathRadioButton,SIGNAL(clicked()),this,SLOT(radioButtonClickSlot()));
-    connect(m_pFileChooserEdit,SIGNAL(textChanged(const QString &)),this,SLOT(lineEditTextChanged(const QString &)));
+    connect(m_pAutoLastPathRadioButton,SIGNAL(clicked()),this,SLOT(slot_radioButtonClickSlot()));
+    connect(m_pCustomsPathRadioButton,SIGNAL(clicked()),this,SLOT(slot_radioButtonClickSlot()));
+    connect(m_pFileChooserEdit,SIGNAL(textChanged(const QString &)),this,SLOT(slot_lineEditTextChanged(const QString &)));
 }
 
-void FileSavePathChooser::radioButtonClickSlot()
+void FileSavePathChooser::slot_radioButtonClickSlot()
 {
     DRadioButton *pRadioButton = qobject_cast<DRadioButton *>(sender());
 
@@ -99,7 +99,7 @@ void FileSavePathChooser::radioButtonClickSlot()
 
         QString strText = "auto;" + m_pFileChooserEdit->text();
 
-        emit textChanged(strText);
+        emit signal_textChanged(strText);
     } else if (m_pCustomsPathRadioButton == pRadioButton) {
         m_pAutoLastPathRadioButton->setChecked(false);
         m_pCustomsPathRadioButton->setChecked(true);
@@ -107,11 +107,11 @@ void FileSavePathChooser::radioButtonClickSlot()
 
         QString strText = "custom;" + m_pFileChooserEdit->text();
 
-        emit textChanged(strText);
+        emit signal_textChanged(strText);
     }
 }
 
-void FileSavePathChooser::lineEditTextChanged(const QString &strText)
+void FileSavePathChooser::slot_lineEditTextChanged(const QString &strText)
 {
     QFileInfo fileinfo;
 
@@ -127,7 +127,7 @@ void FileSavePathChooser::lineEditTextChanged(const QString &strText)
     } else {
         QString strChangedText = "custom;" + strText;
 
-        emit textChanged(strChangedText);
+        emit signal_textChanged(strChangedText);
     }
 }
 

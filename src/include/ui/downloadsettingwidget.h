@@ -78,7 +78,7 @@ public:
     void setEndTime(QString strText);
 
 signals:
-    void speedLimitInfoChanged(QString strText);
+    void signal_speedLimitInfoChanged(QString strText);
 
 public slots:
 
@@ -88,16 +88,18 @@ private slots:
      * @brief 限速时间改变响应的槽函数
      * @param time 改变后的时间
      */
-    void timeChangedSlot(const QTime &time);
+    void slot_timeChangedSlot(const QTime &time);
 
     /**
      * @brief 限速值改变响应的槽函数
      * @param strText 改变后的值
      */
-    void textChangedSlot(QString strText);
+    void slot_textChangedSlot(QString strText);
 
-private slots:
-    void radioButtonClickSlot();
+    /**
+     * @brief 单选按钮切换槽函数
+     */
+    void slot_radioButtonClickSlot();
 
 private:
 

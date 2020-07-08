@@ -322,11 +322,11 @@ void MainFrame::initConnection()
     connect(this, &MainFrame::tableChanged, m_pToolBar, &TopButton::getTableChanged);
     connect(this, &MainFrame::signalRedownload, this, &MainFrame::onRedownload, Qt::QueuedConnection);
 
-    connect(Settings::getInstance(), &Settings::downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
-    connect(Settings::getInstance(), &Settings::poweronChanged, this, &MainFrame::onPowerOnChanged);
-    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
-    connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
-    connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::startAssociatedBTFile);
+    connect(Settings::getInstance(), &Settings::signal_downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
+    connect(Settings::getInstance(), &Settings::signal_poweronChanged, this, &MainFrame::onPowerOnChanged);
+    connect(Settings::getInstance(), &Settings::signal_maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(Settings::getInstance(), &Settings::signal_disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
+    connect(Settings::getInstance(), &Settings::signal_startAssociatedBTFileChanged, this, &MainFrame::startAssociatedBTFile);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)

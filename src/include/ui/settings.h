@@ -298,16 +298,14 @@ public:
      */
     void setIsShowTip(bool b);
 
-
-
     DSettings *m_pSettings;
 
 signals:
-    void poweronChanged(bool bState);
-    void maxDownloadTaskNumberChanged(int nTaskNumber);
-    void downloadSettingsChanged();
-    void disckCacheChanged(int nNum);
-    void startAssociatedBTFileChanged(bool bState);
+    void signal_poweronChanged(bool bState);
+    void signal_maxDownloadTaskNumberChanged(int nTaskNumber);
+    void signal_downloadSettingsChanged();
+    void signal_disckCacheChanged(int nNum);
+    void signal_startAssociatedBTFileChanged(bool bState);
 
 public slots:
 

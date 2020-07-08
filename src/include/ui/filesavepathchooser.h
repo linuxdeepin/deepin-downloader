@@ -57,20 +57,20 @@ public:
     void setCurrentSelectRadioButton(int nCurrentSelect);
 
 signals:
-    void textChanged(QString strText);
+    void signal_textChanged(QString strText);
 
 public slots:
 
     /**
      * @brief 单选按钮选择响应的槽函数
      */
-    void radioButtonClickSlot();
+    void slot_radioButtonClickSlot();
 
     /**
      * @brief 文件保存路径改变响应的槽函数
      * @param strText 改变后的路径
      */
-    void lineEditTextChanged(const QString &strText);
+    void slot_lineEditTextChanged(const QString &strText);
 
 private:
 
