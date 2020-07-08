@@ -45,37 +45,37 @@ ClipboardTimer::~ClipboardTimer()
 
 void ClipboardTimer::getDataChanged()
 {
-    QStringList _urlList = m_clipboard->text().split("\n");
-    QString _url;
-    Settings *_setting =  Settings::getInstance();
-    bool _bIsHttp =  _setting->getHttpDownloadState();
-    bool _bIsMagnet = _setting->getMagneticDownloadState();
-    bool _bIsBt = _setting->getBtDownloadState();
+    QStringList urlList = m_clipboard->text().split("\n");
+    QString url;
+    Settings *setting =  Settings::getInstance();
+    bool bIsHttp =  setting->getHttpDownloadState();
+    bool bIsMagnet = setting->getMagneticDownloadState();
+    bool bIsBt = setting->getBtDownloadState();
     //将不符合规则链接剔除
-    for (int i = 0; i < _urlList.size(); i++)
+    for (int i = 0; i < urlList.size(); i++)
     {
-        if((isMagnet(_urlList[i]) && _bIsMagnet) ||
-                (isHttp(_urlList[i]) && _bIsHttp))
+        if((isMagnet(urlList[i]) && bIsMagnet) ||
+                (isHttp(urlList[i]) && bIsHttp))
         {
-            _url.append(_urlList[i]).append("\n");
+            url.append(urlList[i]).append("\n");
         }
     }
     //将符合规则链接发送至主页面
-    if(!_url.isEmpty())
+    if(!url.isEmpty())
     {
-        emit sendClipboardText(_url);
+        emit sendClipboardText(url);
     }
 
     //是否是BT文件托管，若是BT文件托管，打开BT文件
-    if(_url.endsWith(".torrent") && _bIsBt)
+    if(m_clipboard->text().endsWith(".torrent") && bIsBt)
     {
-        m_clipboard->clear();
-        emit sentBtText(_url);
+        emit sentBtText(m_clipboard->text());
+        m_clipboard->clear();        
     }
     //是否调用下载器，不打开任何任务
-    if(!_urlList.isEmpty())
+    if(!urlList.isEmpty())
     {
-        if(isStartManager(_urlList[0]))
+        if(isStartManager(urlList[0]))
         {
             emit showMainWindows();
         }
@@ -85,8 +85,8 @@ void ClipboardTimer::getDataChanged()
 
 bool ClipboardTimer::isMagnet(QString url)
 {
-    QString _str = url;
-    if(_str.mid(0,20) == "magnet:?xt=urn:btih:")
+    QString str = url;
+    if(str.mid(0,20) == "magnet:?xt=urn:btih:")
     {
         return  true;
     }
@@ -102,16 +102,16 @@ bool ClipboardTimer::isHttp(QString url)
     {
         return false;
     }
-    QStringList _list= url.split(".");
-    QString _suffix = _list[_list.size()-1];
-    QStringList _type;
-     _type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
-    if(_type.contains(_suffix))
+    QStringList list= url.split(".");
+    QString suffix = list[list.size()-1];
+    QStringList type;
+     type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
+    if(type.contains(suffix))
     {
         return true;
     }
-    for (int i = 0; i < _type.size(); i++) {
-        if(_type[i].toUpper() == _suffix)
+    for (int i = 0; i < type.size(); i++) {
+        if(type[i].toUpper() == suffix)
         {
             return true;
         }
@@ -120,9 +120,9 @@ bool ClipboardTimer::isHttp(QString url)
 }
 
 
-bool ClipboardTimer::isStartManager(QString _str)
+bool ClipboardTimer::isStartManager(QString str)
 {
-    if(_str == "start_manager_for_clipboard")
+    if(str == "start_manager_for_clipboard")
     {
         return true;
     }

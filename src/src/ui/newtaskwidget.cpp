@@ -407,6 +407,37 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                                 emit NewDownload_sig(QStringList(strUrl),m_defaultDownloadDir, "");
                                break;
                             }
+                            case 405:   //405链接
+                            {
+                                    QProcess *p = new QProcess;
+                                    QStringList _list;
+                                    _list<<"-i"<< redirecUrl;
+                                    p->start("curl", _list);
+                                    p->waitForReadyRead();
+                                    QString _str = p->readAllStandardOutput();
+                                    QStringList _urlInfoList = _str.split("\r\n");
+                                    for (int i = 0; i < _urlInfoList.size(); i++)
+                                    {
+                                        if(_urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                                        {
+                                            int _start= _urlInfoList[i].lastIndexOf("'");
+                                            QString _urlName = _urlInfoList[i].mid(_start);
+                                            QString _urlNameForZH = QUrl::fromPercentEncoding(_urlName.toUtf8());
+                                            emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
+                                            return ;
+                                        }
+                                    }
+                                    break;
+                            }
+                            default:
+                            {
+                                QString warning_msg = QString(tr("%1\nThe address you entered cannot be resolved correctly")).arg(redirecUrl);
+                                MessageBox *msg = new MessageBox();
+                                msg->setWarings(warning_msg, tr("sure"), "");
+                                msg->exec();
+                                return;
+                            }
+
                         }
     });
 }
