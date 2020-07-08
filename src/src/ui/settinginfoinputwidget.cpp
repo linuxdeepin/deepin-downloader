@@ -66,12 +66,12 @@ void SettingInfoInputWidget::initUI()
 
 void SettingInfoInputWidget::initConnections()
 {
-    connect(m_pLineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::lineEditTextChangedSlot);
+    connect(m_pLineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::slot_lineEditTextChangedSlot);
 }
 
-void SettingInfoInputWidget::lineEditTextChangedSlot(const QString &strText)
+void SettingInfoInputWidget::slot_lineEditTextChangedSlot(const QString &strText)
 {
-    emit textChanged(strText);
+    emit signal_textChanged(strText);
 }
 
 void SettingInfoInputWidget::setTitleLabelText(const QString &strText)

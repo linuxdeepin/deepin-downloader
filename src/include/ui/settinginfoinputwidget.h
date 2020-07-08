@@ -117,7 +117,7 @@ public:
     DLineEdit *getLineEdit();
 
 signals:
-    void textChanged(QString strText);
+    void signal_textChanged(QString strText);
 
 private slots:
 
@@ -125,7 +125,7 @@ private slots:
      * @brief 行编辑器文本改变响应的槽函数
      * @param strText 改变后的文本
      */
-    void lineEditTextChangedSlot(const QString &strText);
+    void slot_lineEditTextChangedSlot(const QString &strText);
 
 private:
 

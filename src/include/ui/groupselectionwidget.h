@@ -62,7 +62,7 @@ public:
     void setCurrentSelected(QString strName);
 
 signals:
-    void selectedChanged(QString strItemText);
+    void signal_selectedChanged(QString strItemText);
 
 public slots:
 
@@ -72,7 +72,7 @@ private slots:
      * @brief 选项选中响应的槽函数
      * @param bIsChecked 选项的选择状态
      */
-    void itemCheckedSlot(bool bIsChecked);
+    void slot_itemCheckedSlot(bool bIsChecked);
 
 private:
 
