@@ -142,7 +142,7 @@ private slots:
      * @param btName 文件路径
      * @param opt  下载参数
      * opt.insert("dir",下载到指定目录);
-     × opt.insert("select-file",选中下载的文件索引集合);
+     * opt.insert("select-file",选中下载的文件索引集合);
      * @param savePath 保存路径
      * @param infoName 文件名字
      * @param infoName 文件hash值

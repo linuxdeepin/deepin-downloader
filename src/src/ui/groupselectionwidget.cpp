@@ -53,7 +53,7 @@ void GroupSelectionWidget::initUI()
         pItemSelectionWidget->setLabelText(m_lstItemName.at(i));
         pItemSelectionWidget->setObjectName(m_lstItemName.at(i));
 
-        connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, this, &GroupSelectionWidget::itemCheckedSlot);
+        connect(pItemSelectionWidget, &ItemSelectionWidget::signal_checkBoxIsChecked, this, &GroupSelectionWidget::slot_itemCheckedSlot);
 
         if (i == 0) {
             pItemSelectionWidget->setCheckBoxChecked(true);
@@ -71,7 +71,7 @@ void GroupSelectionWidget::initConnections()
 
 }
 
-void GroupSelectionWidget::itemCheckedSlot(bool bIsChecked)
+void GroupSelectionWidget::slot_itemCheckedSlot(bool bIsChecked)
 {
     ItemSelectionWidget *pItemSelectionWidget = qobject_cast<ItemSelectionWidget *>(sender());
 
@@ -94,7 +94,7 @@ void GroupSelectionWidget::itemCheckedSlot(bool bIsChecked)
 
         QString strText = pItemSelectionWidget->objectName();
 
-        emit selectedChanged(strText);
+        emit signal_selectedChanged(strText);
     }
 }
 

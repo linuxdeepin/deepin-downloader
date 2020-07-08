@@ -322,11 +322,11 @@ void MainFrame::initConnection()
     connect(this, &MainFrame::tableChanged, m_pToolBar, &TopButton::getTableChanged);
     connect(this, &MainFrame::signalRedownload, this, &MainFrame::onRedownload, Qt::QueuedConnection);
 
-    connect(Settings::getInstance(), &Settings::downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
-    connect(Settings::getInstance(), &Settings::poweronChanged, this, &MainFrame::onPowerOnChanged);
-    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
-    connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
-    connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::startAssociatedBTFile);
+    connect(Settings::getInstance(), &Settings::signal_downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
+    connect(Settings::getInstance(), &Settings::signal_poweronChanged, this, &MainFrame::onPowerOnChanged);
+    connect(Settings::getInstance(), &Settings::signal_maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(Settings::getInstance(), &Settings::signal_disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
+    connect(Settings::getInstance(), &Settings::signal_startAssociatedBTFileChanged, this, &MainFrame::startAssociatedBTFile);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -416,9 +416,9 @@ MainFrame::~MainFrame()
 void MainFrame::initAria2()
 {
     Aria2RPCInterface::Instance()->init(); // 启动Aria2RPCInterface::Instance()
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signalRPCSuccess(QString,QJsonObject)), this,
+    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCSuccess(QString,QJsonObject)), this,
             SLOT(onRpcSuccess(QString,QJsonObject)));
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signalRPCError(QString,QString,int)), this,
+    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCError(QString,QString,int)), this,
             SLOT(onRpcError(QString,QString,int)));
     onDownloadLimitChanged();
     onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
@@ -445,7 +445,7 @@ void MainFrame::initTabledata()
                 if(autostart.toBool()) {
                     QString savePath = data->savePath;
                     QMap<QString, QVariant> opt;
-                    opt.insert("dir", savePath);
+                    opt.insert("dir", savePath.left(savePath.lastIndexOf("/")));
                     opt.insert("out", data->fileName);
                     S_Url_Info  getUrlInfo;
                     DBInstance::getUrlById(data->taskId, getUrlInfo);
@@ -1031,7 +1031,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             delmenlist->addAction(pActionPause);
             connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
         }
-        if(errorCount > 0) {
+        if((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction();
             pActionredownload->setText(tr("Download again"));
             delmenlist->addAction(pActionredownload);

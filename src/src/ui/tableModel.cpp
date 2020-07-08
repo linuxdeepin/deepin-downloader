@@ -548,9 +548,9 @@ bool itemGreaterThan(const QPair<QVariant, int> &left,
 
 void TableModel::sort(int column, Qt::SortOrder order)
 {
-    if(0 == column){
-        return;
-    }
+//    if(0 == column){
+//        return;
+//    }
     if(0 == m_iTableviewtabFlag){
         m_iSortColumn = column;
         m_SortOrder = order;
@@ -568,24 +568,24 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     QVector<int> unsortable;
     int role = 0;
     switch(column){
-            case 0:
-                role = TableModel::createTime;
-                break;
-            case 1:
-                role = TableModel::FileName;
-                break;
-            case 2:
-                if(Downloading == m_mode){
-                    role = TableModel::Speed;
-                } else {
-                    role = TableModel::TotalLength;
-                }
-                break;
-            case 3:
-                if(Downloading == m_mode){
-                    role = TableModel::Status;
-                }
-                break;
+        case 0:
+            role = TableModel::createTime;
+            break;
+        case 1:
+            role = TableModel::FileName;
+            break;
+        case 2:
+            if(Downloading == m_mode){
+                role = TableModel::Speed;
+            } else {
+                role = TableModel::TotalLength;
+            }
+            break;
+        case 3:
+            if(Downloading == m_mode){
+                role = TableModel::Status;
+            }
+            break;
         case 4:
             if(Finished == m_mode){
                 role = TableModel::Time;

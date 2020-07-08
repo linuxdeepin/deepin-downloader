@@ -34,14 +34,14 @@
 
 #define AIRA_CONFIG_PATH "/usr/share/downloadmanager/config/aria2.conf"
 
-const QString Aria2RPCInterface::basePath = "/usr/bin/";
-const QString Aria2RPCInterface::aria2cCmd = "aria2c"; // aria2c
+const QString Aria2RPCInterface::m_basePath = "/usr/bin/";
+const QString Aria2RPCInterface::m_aria2cCmd = "aria2c"; // aria2c
 
-Aria2RPCInterface *Aria2RPCInterface::_pInstance = new Aria2RPCInterface;
+Aria2RPCInterface *Aria2RPCInterface::m_pInstance = new Aria2RPCInterface;
 
 Aria2RPCInterface *Aria2RPCInterface::Instance()
 {
-    return _pInstance;
+    return m_pInstance;
 }
 
 Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
@@ -55,7 +55,7 @@ bool Aria2RPCInterface::startUp()
      *检测aria2c执行文件是否存在
      */
     if (!this->checkAria2cFile()) {
-        qDebug() << "未发现" << Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd;
+        qDebug() << "未发现" << Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd;
         return false;
     }
 
@@ -64,7 +64,7 @@ bool Aria2RPCInterface::startUp()
      */
     bool bCheck = checkAria2cProc();
     if (checkAria2cProc()) {
-        qDebug() << Aria2RPCInterface::aria2cCmd + "进程已存在,killAria2cProc()";
+        qDebug() << Aria2RPCInterface::m_aria2cCmd + "进程已存在,killAria2cProc()";
         killAria2cProc();
     }
 
@@ -85,17 +85,17 @@ bool Aria2RPCInterface::startUp()
 
     QStringList opt;
     opt << "--enable-rpc=true"; //启动RPC
-    opt << "--rpc-listen-port=" + this->rpcPort; //RPC监听的端口
+    opt << "--rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
     opt << "--check-certificate=false"; //停用rpc身份验证
     opt << "--rpc-allow-origin-all=true"; // 允许所有来源
     opt << "--rpc-save-upload-metadata=true"; //
 
     //opt << "--not-conf=true";//不使用配置文件
-    if (this->configPath != "") {
-        opt << "--conf-path=" + this->configPath; //加载指定的配置文件
+    if (this->m_configPath != "") {
+        opt << "--conf-path=" + this->m_configPath; //加载指定的配置文件
     }
-    if (this->defaultDownloadPath != "") {
-        opt << "--dir=" + this->defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
+    if (this->m_defaultDownloadPath != "") {
+        opt << "--dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
     opt << "--continue=true"; //http续传配置
     opt << "--disable-ipv6"; //禁用ipv6
@@ -113,10 +113,10 @@ bool Aria2RPCInterface::startUp()
     opt << "--dht-file-path=" + dhtFile;
     opt << "--dht-file-path6=" + dht6File;
 
-    qDebug() << Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd << opt.join(' ');
+    qDebug() << Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd << opt.join(' ');
 
     QProcess *proc = new QProcess;
-    proc->start(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd, opt);
+    proc->start(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd, opt);
     proc->waitForStarted();
     bCheck = checkAria2cProc();
     qDebug() << "启动aria2c完成！ " << proc->state() << bCheck;
@@ -125,7 +125,7 @@ bool Aria2RPCInterface::startUp()
 
 bool Aria2RPCInterface::checkAria2cFile()
 {
-    QFile file(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd);
+    QFile file(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd);
     return file.exists();
 }
 
@@ -155,7 +155,7 @@ bool Aria2RPCInterface::checkAria2cProc()
     QStringList opt;
     opt << "-c";
     //opt << "ps aux | grep aria2c";
-    opt << "ps aux|grep " + Aria2RPCInterface::aria2cCmd;
+    opt << "ps aux|grep " + Aria2RPCInterface::m_aria2cCmd;
     proc->start("/bin/bash", opt);
     proc->waitForFinished();
     QString output = QString::fromLocal8Bit(proc->readAllStandardOutput());
@@ -165,10 +165,10 @@ bool Aria2RPCInterface::checkAria2cProc()
         if(t == "") {
             continue;
         }
-        if(t.indexOf("grep " + Aria2RPCInterface::aria2cCmd) >= 0) {
+        if(t.indexOf("grep " + Aria2RPCInterface::m_aria2cCmd) >= 0) {
             continue;
         }
-        if(t.indexOf(Aria2RPCInterface::aria2cCmd) >= 0) {
+        if(t.indexOf(Aria2RPCInterface::m_aria2cCmd) >= 0) {
             cnt++;
             //break;
         }
@@ -185,28 +185,28 @@ int Aria2RPCInterface::killAria2cProc()
 {
     QStringList opt;
     opt << "-c";
-    opt << "ps -ef|grep " + Aria2RPCInterface::aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
+    opt << "ps -ef|grep " + Aria2RPCInterface::m_aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
     return QProcess::execute("/bin/bash", opt);
 }
 
 void Aria2RPCInterface::setDefaultDownLoadDir(QString strDir)
 {
-    this->defaultDownloadPath = strDir;
+    this->m_defaultDownloadPath = strDir;
 }
 
 QString Aria2RPCInterface::getDefaultDownLoadDir()
 {
-    return defaultDownloadPath;
+    return m_defaultDownloadPath;
 }
 
 void Aria2RPCInterface::setConfigFilePath(const QString strPath)
 {
-    configPath = strPath;
+    m_configPath = strPath;
 }
 
 QString Aria2RPCInterface::getConfigFilePath() const
 {
-    return configPath;
+    return m_configPath;
 }
 
 void Aria2RPCInterface::addUri(QString strUri, QMap<QString, QVariant> opt, QString strId)
@@ -282,7 +282,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
     QStringList opt;
     opt << "--show-files=true";
     opt << strTorrentPath;
-    pProc->start(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd, opt); //启动aria2c进程
+    pProc->start(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd, opt); //启动aria2c进程
     pProc->waitForFinished(); //等待执行完成
 
     QByteArray array = pProc->readAllStandardOutput(); //获取进程执行返回值
@@ -374,7 +374,7 @@ void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
 
     if (!jsonObj.isEmpty()) { //json如果不为空
         QNetworkRequest *requset = new QNetworkRequest; //定义请求对象
-        requset->setUrl(QUrl(this->rpcServer)); //设置服务器的uri
+        requset->setUrl(QUrl(this->m_rpcServer)); //设置服务器的uri
         requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
         manager->post(*requset, QJsonDocument(jsonObj).toJson()); //post信息到服务器
 
@@ -397,9 +397,9 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
         QByteArray buf = reply->readAll(); //获取信息
         QJsonDocument doc = QJsonDocument::fromJson(buf); //转换为json格式
         QJsonObject obj = doc.object();
-        emit signalRPCSuccess(method, obj);
+        emit signal_RPCSuccess(method, obj);
     } else { //错误
-        emit signalRPCError(method, id, code);
+        emit signal_RPCError(method, id, code);
     }
 
     reply->deleteLater();
