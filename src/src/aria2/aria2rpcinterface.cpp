@@ -34,8 +34,8 @@
 
 #define AIRA_CONFIG_PATH "/usr/share/downloadmanager/config/aria2.conf"
 
-const QString Aria2RPCInterface::basePath = "/usr/bin/";
-const QString Aria2RPCInterface::aria2cCmd = "aria2c"; // aria2c
+const QString Aria2RPCInterface::m_basePath = "/usr/bin/";
+const QString Aria2RPCInterface::m_aria2cCmd = "aria2c"; // aria2c
 
 Aria2RPCInterface *Aria2RPCInterface::m_pInstance = new Aria2RPCInterface;
 
@@ -55,7 +55,7 @@ bool Aria2RPCInterface::startUp()
      *检测aria2c执行文件是否存在
      */
     if (!this->checkAria2cFile()) {
-        qDebug() << "未发现" << Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd;
+        qDebug() << "未发现" << Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd;
         return false;
     }
 
@@ -64,7 +64,7 @@ bool Aria2RPCInterface::startUp()
      */
     bool bCheck = checkAria2cProc();
     if (checkAria2cProc()) {
-        qDebug() << Aria2RPCInterface::aria2cCmd + "进程已存在,killAria2cProc()";
+        qDebug() << Aria2RPCInterface::m_aria2cCmd + "进程已存在,killAria2cProc()";
         killAria2cProc();
     }
 
@@ -113,10 +113,10 @@ bool Aria2RPCInterface::startUp()
     opt << "--dht-file-path=" + dhtFile;
     opt << "--dht-file-path6=" + dht6File;
 
-    qDebug() << Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd << opt.join(' ');
+    qDebug() << Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd << opt.join(' ');
 
     QProcess *proc = new QProcess;
-    proc->start(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd, opt);
+    proc->start(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd, opt);
     proc->waitForStarted();
     bCheck = checkAria2cProc();
     qDebug() << "启动aria2c完成！ " << proc->state() << bCheck;
@@ -125,7 +125,7 @@ bool Aria2RPCInterface::startUp()
 
 bool Aria2RPCInterface::checkAria2cFile()
 {
-    QFile file(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd);
+    QFile file(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd);
     return file.exists();
 }
 
@@ -155,7 +155,7 @@ bool Aria2RPCInterface::checkAria2cProc()
     QStringList opt;
     opt << "-c";
     //opt << "ps aux | grep aria2c";
-    opt << "ps aux|grep " + Aria2RPCInterface::aria2cCmd;
+    opt << "ps aux|grep " + Aria2RPCInterface::m_aria2cCmd;
     proc->start("/bin/bash", opt);
     proc->waitForFinished();
     QString output = QString::fromLocal8Bit(proc->readAllStandardOutput());
@@ -165,10 +165,10 @@ bool Aria2RPCInterface::checkAria2cProc()
         if(t == "") {
             continue;
         }
-        if(t.indexOf("grep " + Aria2RPCInterface::aria2cCmd) >= 0) {
+        if(t.indexOf("grep " + Aria2RPCInterface::m_aria2cCmd) >= 0) {
             continue;
         }
-        if(t.indexOf(Aria2RPCInterface::aria2cCmd) >= 0) {
+        if(t.indexOf(Aria2RPCInterface::m_aria2cCmd) >= 0) {
             cnt++;
             //break;
         }
@@ -185,7 +185,7 @@ int Aria2RPCInterface::killAria2cProc()
 {
     QStringList opt;
     opt << "-c";
-    opt << "ps -ef|grep " + Aria2RPCInterface::aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
+    opt << "ps -ef|grep " + Aria2RPCInterface::m_aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
     return QProcess::execute("/bin/bash", opt);
 }
 
@@ -282,7 +282,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
     QStringList opt;
     opt << "--show-files=true";
     opt << strTorrentPath;
-    pProc->start(Aria2RPCInterface::basePath + Aria2RPCInterface::aria2cCmd, opt); //启动aria2c进程
+    pProc->start(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd, opt); //启动aria2c进程
     pProc->waitForFinished(); //等待执行完成
 
     QByteArray array = pProc->readAllStandardOutput(); //获取进程执行返回值
