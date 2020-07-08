@@ -445,7 +445,7 @@ void MainFrame::initTabledata()
                 if(autostart.toBool()) {
                     QString savePath = data->savePath;
                     QMap<QString, QVariant> opt;
-                    opt.insert("dir", savePath);
+                    opt.insert("dir", savePath.left(savePath.lastIndexOf("/")));
                     opt.insert("out", data->fileName);
                     S_Url_Info  getUrlInfo;
                     DBInstance::getUrlById(data->taskId, getUrlInfo);
@@ -1031,7 +1031,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             delmenlist->addAction(pActionPause);
             connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
         }
-        if(errorCount > 0) {
+        if((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction();
             pActionredownload->setText(tr("Download again"));
             delmenlist->addAction(pActionredownload);
