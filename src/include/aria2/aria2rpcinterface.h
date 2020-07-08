@@ -479,8 +479,8 @@ public slots:
 
 public:
     static Aria2RPCInterface *Instance();
-    static const QString aria2cCmd; //aria2c程序路径
-    static const QString basePath; //下载器安装目录
+    static const QString m_aria2cCmd; //aria2c程序路径
+    static const QString m_basePath; //下载器安装目录
 private:
     static Aria2RPCInterface *m_pInstance;
 
