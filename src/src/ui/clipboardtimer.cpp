@@ -46,6 +46,9 @@ ClipboardTimer::~ClipboardTimer()
 void ClipboardTimer::getDataChanged()
 {
     QStringList urlList = m_clipboard->text().split("\n");
+    for (int i = 0; i < urlList.size(); i++) {
+        urlList[i] = urlList[i].simplified();
+    }
     QString url;
     Settings *setting =  Settings::getInstance();
     bool bIsHttp =  setting->getHttpDownloadState();
