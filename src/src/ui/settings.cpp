@@ -109,7 +109,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     auto maxDownloadTaskNumber = m_pSettings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
     connect(maxDownloadTaskNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
             if (!value.isNull()) {
-                emit maxDownloadTaskNumberChanged(value.toInt());
+                emit signal_maxDownloadTaskNumberChanged(value.toInt());
             }
         });
 
@@ -134,7 +134,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
                     downloadSettings.m_strEndTime = lstCurrentValue.at(4);
                 }
 
-                emit downloadSettingsChanged();
+                emit signal_downloadSettingsChanged();
             }
     });
 
@@ -142,7 +142,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     auto diskCacheNum = m_pSettings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
     connect(diskCacheNum, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
             if (!value.isNull()) {
-                emit disckCacheChanged(value.toInt());
+                emit signal_disckCacheChanged(value.toInt());
             }
         });
 
@@ -150,7 +150,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     auto poweronSwitchbutton = m_pSettings->option("Basic.Start.PowerOn");
     connect(poweronSwitchbutton, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
             if (!value.isNull()) {
-                emit poweronChanged(value.toBool());
+                emit signal_poweronChanged(value.toBool());
             }
         });
 
@@ -158,7 +158,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     auto startAssociatedBTFile = m_pSettings->option("Monitoring.BTRelation.AssociateBTFileAtStartup");
     connect(startAssociatedBTFile, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
             if (!value.isNull()) {
-                emit startAssociatedBTFileChanged(value.toBool());
+                emit signal_startAssociatedBTFileChanged(value.toBool());
             }
         });
 
@@ -319,7 +319,7 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
 
     FileSavePathChooser *pFileSavePathChooser = new FileSavePathChooser(nCurrentSelect, strDownloadPath);
 
-    connect(pFileSavePathChooser, &FileSavePathChooser::textChanged, pFileSavePathChooser, [=] (QVariant var) {
+    connect(pFileSavePathChooser, &FileSavePathChooser::signal_textChanged, pFileSavePathChooser, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
         QString strOptionValue = option->value().toString();
 
@@ -365,7 +365,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
     pItemSelectionWidget->setLabelText(tr("HTTP")); // HTTP下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
+    connect(pItemSelectionWidget, &ItemSelectionWidget::signal_checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
 
@@ -386,7 +386,7 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
     pItemSelectionWidget->setLabelText(tr("BitTorrent")); // BT下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
+    connect(pItemSelectionWidget, &ItemSelectionWidget::signal_checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
 
@@ -407,7 +407,7 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
     pItemSelectionWidget->setLabelText(tr("Magnet URI scheme")); // 磁力链接下载
     pItemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    connect(pItemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
+    connect(pItemSelectionWidget, &ItemSelectionWidget::signal_checkBoxIsChecked, pItemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
 
@@ -439,7 +439,7 @@ QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
     pGroupSelectionWidget->setLabelIsHide(true);
     pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
 
-    connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
+    connect(pGroupSelectionWidget, &GroupSelectionWidget::signal_selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
 
         if (strCurrentValue.isEmpty()) {
@@ -487,7 +487,7 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     pGroupSelectionWidget->setLabelText(tr("More disk cache, faster download speed \nand more computer consume")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
     pGroupSelectionWidget->setCurrentSelected(strCurrentSelected);
 
-    connect(pGroupSelectionWidget, &GroupSelectionWidget::selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
+    connect(pGroupSelectionWidget, &GroupSelectionWidget::signal_selectedChanged, pGroupSelectionWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
 
         if (strCurrentValue.isEmpty()) {
@@ -555,7 +555,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     pDownloadSettingWidget->setStartTime(strStartTime);
     pDownloadSettingWidget->setEndTime(strEndTime);
 
-    connect(pDownloadSettingWidget, &DownloadSettingWidget::speedLimitInfoChanged, pDownloadSettingWidget, [=] (QVariant var) {
+    connect(pDownloadSettingWidget, &DownloadSettingWidget::signal_speedLimitInfoChanged, pDownloadSettingWidget, [=] (QVariant var) {
         QString strCurrentValue = var.toString();
         QStringList lstCurrentValue = strCurrentValue.split(';');
 
