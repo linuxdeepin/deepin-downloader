@@ -56,17 +56,18 @@ TableView::TableView(int Flag, TopButton *pToolBar)
     : QTableView()
     , m_iTableFlag(Flag)
     , m_pTableModel(new TableModel(Flag))
+    , m_ptableDataControl(new tableDataControl(this))
+    ,m_pItemdegegate(new ItemDelegate(this, m_iTableFlag))
     , m_pSetting(Settings::getInstance())
     , m_pToolBar(pToolBar)
 {
-    m_ptableDataControl = new tableDataControl(this);
     initUI();
+    initConnections();
 }
 
 void TableView::initUI()
 {
     setModel(m_pTableModel);
-    m_pItemdegegate = new ItemDelegate(this, m_iTableFlag);
     setItemDelegate(m_pItemdegegate);
     setFrameShape(QFrame::NoFrame);
     setMinimumWidth(636);
@@ -87,28 +88,30 @@ void TableView::initUI()
 
     m_pHeaderView = new  HeaderView(Qt::Horizontal, this);
     setHorizontalHeader(m_pHeaderView);
-    m_pHeaderView->setDefaultSectionSize(20);
+    //m_pHeaderView->setDefaultSectionSize(20);
     //m_pHeaderView->setSortIndicatorShown(false);
-    m_pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-    m_pHeaderView->setSectionResizeMode(0, QHeaderView::Stretch);
-    m_pHeaderView->setSectionResizeMode(1, QHeaderView::Stretch);
-    m_pHeaderView->setSectionResizeMode(2, QHeaderView::Stretch);
-    m_pHeaderView->setSectionResizeMode(3, QHeaderView::Stretch);
-    m_pHeaderView->setSectionResizeMode(4, QHeaderView::Stretch);
-    m_pHeaderView->setTextElideMode(Qt::ElideMiddle);
-    m_pHeaderView->setFixedHeight(36);
+//    m_pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+//    m_pHeaderView->setSectionResizeMode(0, QHeaderView::Interactive);
+//    m_pHeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
+//    m_pHeaderView->setSectionResizeMode(2, QHeaderView::Interactive);
+//    m_pHeaderView->setSectionResizeMode(3, QHeaderView::Interactive);
+//    m_pHeaderView->setSectionResizeMode(4, QHeaderView::Interactive);
+//    m_pHeaderView->setTextElideMode(Qt::ElideMiddle);
+//    m_pHeaderView->setFixedHeight(36);
     setColumnWidth(0, 20);
+    setColumnWidth(1, 260);
+    setColumnWidth(2, 110);
+    setColumnWidth(3, 200);
+    setColumnWidth(4, 200);
+}
 
+void TableView::initConnections()
+{
     connect(m_pHeaderView, &HeaderView::getStatechanged, this, &TableView::signalHeaderStatechanged);
     connect(this, &TableView::signalClearHeaderCheck, m_pHeaderView, &HeaderView::getClearHeaderCheck);
     connect(m_pTableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::signalTableViewAllChecked);
     connect(this, &TableView::signalTableViewAllChecked, m_pHeaderView, &HeaderView::getCheckall);
     connect(this, &TableView::signalHoverchanged, m_pItemdegegate, &ItemDelegate::onHoverchanged);
-
-}
-
-void TableView::initConnections()
-{
 }
 
 void TableView::initTableView()
@@ -131,14 +134,9 @@ void TableView::reset(bool switched)
 
 void TableView::mousePressEvent(QMouseEvent *event)
 {
-    int num = m_pTableModel->rowCount();
     if(event->button() == Qt::LeftButton) {
         setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
-        QModelIndex index = currentIndex();
-        if((index.row() < 0) && (index.column() < 0)) {
-            return;
-        }
     }
 }
 
@@ -165,6 +163,7 @@ void TableView::mouseMoveEvent(QMouseEvent *event)
 
 void TableView::leaveEvent(QEvent *event)
 {
+    Q_UNUSED(event);
     this->reset();
     emit signalHoverchanged(QModelIndex());
 }

@@ -77,7 +77,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     const bool  isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
 
     QFont font;
-    font.setPointSize(11);
+   // font.setPointSize(11);
     painter->setFont(font);
 
     painter->setRenderHint(QPainter::Antialiasing);
@@ -324,11 +324,12 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         QString FilePath = index.data(TableModel::SavePath).toString();
         FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
         FilePath = FilePath + filename;
-        if(QFileInfo::exists(FilePath)){
+        QFileInfo file(FilePath);
+        if(file.isFile()){
             pEdit->showAlertMessage(tr("Duplicate name!"));
             return;
         } else {
-            pEdit->setAlert(false);
+            pEdit->hideAlertMessage();
         }
     });
     pEdit->resize(parent->size());

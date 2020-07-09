@@ -50,7 +50,7 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
 
     m_headerCbx->setFixedSize(25, 25);
     m_headerCbx->setVisible(true);
-    this->setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
+    //this->setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
         getPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);

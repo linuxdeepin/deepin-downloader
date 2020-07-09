@@ -122,7 +122,7 @@ void MainFrame::init()
     m_pLeftWidget->setAutoFillBackground(true);
     QVBoxLayout *pLeftLayout = new QVBoxLayout(m_pLeftWidget);
     m_pLeftWidget->setPalette(p);
-    m_pLeftWidget->setFixedWidth(132);
+    m_pLeftWidget->setFixedWidth(155);
     pLeftLayout->setContentsMargins(10, 0, 10, 0);
 
     m_pRight_Widget = new QWidget;
