@@ -40,7 +40,7 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel(warningMsg);
+    this->signal_addLabel(warningMsg);
     this->addSpacing(10);
     if(sameurlCount!=0)
     {
@@ -76,7 +76,7 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel(tr("Task exist. Download again?"));
+    this->signal_addLabel(tr("Task exist. Download again?"));
     this->addSpacing(10);
     DTextEdit *urlText = new DTextEdit(this);
     urlText->setReadOnly(true);
@@ -109,7 +109,7 @@ void MessageBox::setUnusual(const QString &taskId)
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel(tr("Download Error. "));
+    this->signal_addLabel(tr("Download Error. "));
     this->addSpacing(10);
     addButton(tr("Download again"));
     addButton(tr("Delete task"));
@@ -131,7 +131,7 @@ void MessageBox::setDelete(bool permanentl, bool checked)
         this->setTitle(show_title);
         this->addSpacing(10);
         QString show_msg=tr("Local files will be deleted at the same time.");
-        this->addLabel(show_msg);
+        this->signal_addLabel(show_msg);
     }
     else
     {
@@ -139,10 +139,10 @@ void MessageBox::setDelete(bool permanentl, bool checked)
         this->setTitle(showTitle);
         this->addSpacing(10);
         if(checked){
-            this->addCheckbox(tr("Delete local files"), true);
+            this->signal_addCheckbox(tr("Delete local files"), true);
         }
         else{
-            this->addCheckbox(tr("Delete local files"));
+            this->signal_addCheckbox(tr("Delete local files"));
         }
     }
     this->addSpacing(10);
@@ -161,9 +161,9 @@ void MessageBox::setClear()
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     QString show_title=tr("Are you sure you want to delete all tasks in the trash?");
-    this->addLabel(show_title);
+    this->signal_addLabel(show_title);
     this->addSpacing(10);
-    this->addCheckbox(tr("Delete local files"));
+    this->signal_addCheckbox(tr("Delete local files"));
     this->addButton(tr("Cancel"));
     this->addButton(tr("Empty"));
     connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_clearBtn);
@@ -203,23 +203,23 @@ void MessageBox::setExit()
 
     setTitle(tr("You want to"));
     addSpacing(10);
-    addRadioGroup(tr("Exit"), tr("Minimize to System Tray"));
+    signal_addRadioGroup(tr("Exit"), tr("Minimize to System Tray"));
     addSpacing(10);
-    addCheckbox(tr("Don't ask again"));
+    signal_addCheckbox(tr("Don't ask again"));
     this->addButton(tr("Cancel"));
     this->addButton(tr("Confirm"));
 
     connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_ExitBtn);
 }
 
-void MessageBox::addLabel(QString text)
+void MessageBox::signal_addLabel(QString text)
 {
     DLabel * title= new DLabel(this);
     title->setText(text);
     this->addContent(title,Qt::AlignHCenter);
 }
 
-void MessageBox::addRadioGroup(QString quitText, QString minText)
+void MessageBox::signal_addRadioGroup(QString quitText, QString minText)
 {
     int status = Settings::getInstance()->getCloseMainWindowSelected();
     m_pButtonQuit = new  DRadioButton(quitText);
@@ -246,7 +246,7 @@ void MessageBox::addRadioGroup(QString quitText, QString minText)
             });
 }
 
-void MessageBox::addCheckbox(QString checkboxText, bool checked)
+void MessageBox::signal_addCheckbox(QString checkboxText, bool checked)
 {
     m_pCheckBox = new DCheckBox(this);
     m_pCheckBox->setText(checkboxText);
