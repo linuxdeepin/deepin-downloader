@@ -118,7 +118,7 @@ void DeleteItemThread::deleteDownloadData()
         QString taskId = m_DeleteList.at(i).taskId;
         QString savePath = m_DeleteList.at(i).savePath;
         QString filename = m_DeleteList.at(i).fileName;
-        emit    signalAria2Remove(m_DeleteList.at(i).gid, "");
+        emit    signal_Aria2Remove(m_DeleteList.at(i).gid, "");
         if(m_bIfDeleteLocal) {
             m_pAria2c->pause(gid, taskId);
 

@@ -269,67 +269,67 @@ void MainFrame::initTray()
 //            m_pUpdatetimer->stop();
 //        }
     });
-    connect(pQuitAct,      &QAction::triggered,         this, &MainFrame::onTrayQuitClick);
-    connect(m_pSystemTray, &QSystemTrayIcon::activated, this, &MainFrame::onActivated);
+    connect(pQuitAct,      &QAction::triggered,         this, &MainFrame::slot_TrayQuitClick);
+    connect(m_pSystemTray, &QSystemTrayIcon::activated, this, &MainFrame::slot_Activated);
     m_pSystemTray->setContextMenu(pTrayMenu);
     m_pSystemTray->show();
 }
 
 void MainFrame::initConnection()
 {
-    connect(m_pDownLoadingTableView, &TableView::signalHeaderStatechanged, this, &MainFrame::getHeaderStatechanged);
-    connect(m_pDownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
-    connect(m_pDownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
-    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalRedownload, this, &MainFrame::onRedownload);
-    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalAutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
-    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signalDownload, this, &MainFrame::getNewDownloadUrl);
-    connect(m_pDownLoadingTableView->getTableModel(), &TableModel::signalCheckChange, this, &MainFrame::onCheckChanged);
+    connect(m_pDownLoadingTableView, &TableView::signal_HeaderStatechanged, this, &MainFrame::slot_HeaderStatechanged);
+    connect(m_pDownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::slot_ContextMenu, Qt::QueuedConnection);
+    connect(m_pDownLoadingTableView, &TableView::pressed, this, &MainFrame::slot_TableItemSelected);
+    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signal_Redownload, this, &MainFrame::slot_Redownload);
+    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signal_AutoDownloadBt, this, &MainFrame::slot_ClipboardDataForBt);
+    connect(m_pDownLoadingTableView->getTableControl(), &tableDataControl::signal_Download, this, &MainFrame::slot_getNewDownloadUrl);
+    connect(m_pDownLoadingTableView->getTableModel(), &TableModel::signal_CheckChange, this, &MainFrame::slot_CheckChanged);
     connect(m_pDownLoadingTableView, &TableView::doubleClicked,[=](){
-        onOpenFileActionTriggered();
+        slot_OpenFileActionTriggered();
     });
 
-    connect(m_pRecycleTableView, &TableView::signalHeaderStatechanged, this, &MainFrame::getHeaderStatechanged);
-    connect(m_pRecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
-    connect(m_pRecycleTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
-    connect(m_pRecycleTableView->getTableControl(), &tableDataControl::signalRedownload, this, &MainFrame::onRedownload);
-    connect(m_pRecycleTableView->getTableControl(), &tableDataControl::signalAutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
-    connect(m_pRecycleTableView->getTableModel(), &TableModel::signalCheckChange, this, &MainFrame::onCheckChanged);
+    connect(m_pRecycleTableView, &TableView::signal_HeaderStatechanged, this, &MainFrame::slot_HeaderStatechanged);
+    connect(m_pRecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::slot_ContextMenu, Qt::QueuedConnection);
+    connect(m_pRecycleTableView, &TableView::pressed, this, &MainFrame::slot_TableItemSelected);
+    connect(m_pRecycleTableView->getTableControl(), &tableDataControl::signal_Redownload, this, &MainFrame::slot_Redownload);
+    connect(m_pRecycleTableView->getTableControl(), &tableDataControl::signal_AutoDownloadBt, this, &MainFrame::slot_ClipboardDataForBt);
+    connect(m_pRecycleTableView->getTableModel(), &TableModel::signal_CheckChange, this, &MainFrame::slot_CheckChanged);
     connect(m_pRecycleTableView, &TableView::doubleClicked,[=](){
-        onOpenFileActionTriggered();
+        slot_OpenFileActionTriggered();
     });
 
-    connect(this, &MainFrame::switchTableSignal, m_pDownLoadingTableView, &TableView::signalClearHeaderCheck);
-    connect(this, &MainFrame::switchTableSignal, m_pRecycleTableView, &TableView::signalClearHeaderCheck);
-    connect(this, &MainFrame::headerViewChecked, m_pDownLoadingTableView, &TableView::signalTableViewAllChecked);
-    connect(this, &MainFrame::headerViewChecked, m_pRecycleTableView, &TableView::signalTableViewAllChecked);
+    connect(this, &MainFrame::signal_switchTable, m_pDownLoadingTableView, &TableView::signal_ClearHeaderCheck);
+    connect(this, &MainFrame::signal_switchTable, m_pRecycleTableView, &TableView::signal_ClearHeaderCheck);
+    connect(this, &MainFrame::signal_headerViewChecked, m_pDownLoadingTableView, &TableView::signal_TableViewAllChecked);
+    connect(this, &MainFrame::signal_headerViewChecked, m_pRecycleTableView, &TableView::signal_TableViewAllChecked);
 
-    connect(m_pSettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
-    connect(m_pClipboard, &ClipboardTimer::sendClipboardText, this, &MainFrame::onClipboardDataChanged);
-    connect(m_pClipboard, &ClipboardTimer::sentBtText, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
-    connect(m_pClipboard, &ClipboardTimer::showMainWindows, this, &MainFrame::showWindowsForClipboard, Qt::UniqueConnection);
-    connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
+    connect(m_pSettingAction, &QAction::triggered, this, &MainFrame::slot_SettingsMenuClicked);
+    connect(m_pClipboard, &ClipboardTimer::sendClipboardText, this, &MainFrame::slot_ClipboardDataChanged);
+    connect(m_pClipboard, &ClipboardTimer::sentBtText, this, &MainFrame::slot_ClipboardDataForBt, Qt::UniqueConnection);
+    connect(m_pClipboard, &ClipboardTimer::showMainWindows, this, &MainFrame::slot_showWindowsForClipboard, Qt::UniqueConnection);
+    connect(m_pLeftList, &DListView::clicked, this, &MainFrame::slot_ListClicked);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::slot_Palettetypechanged);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::slot_Palettetypechanged);
 
     //connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
-    connect(m_pUpdateTimer, &QTimer::timeout, this, &MainFrame::updateMainUI);
+    connect(m_pUpdateTimer, &QTimer::timeout, this, &MainFrame::slot_updateMainUI);
 
-    connect(m_pToolBar, &TopButton::newDownloadBtnClicked, this, &MainFrame::onNewBtnClicked);
-    connect(m_pToolBar, &TopButton::getSearchEditTextChange, this, &MainFrame::onSearchEditTextChanged);
-    connect(m_pToolBar, &TopButton::startDownloadBtnClicked, this, &MainFrame::onStartDownloadBtnClicked);
-    connect(m_pToolBar, &TopButton::pauseDownloadBtnClicked, this, &MainFrame::onPauseDownloadBtnClicked);
-    connect(m_pToolBar, &TopButton::deleteDownloadBtnClicked, this, &MainFrame::onDeleteDownloadBtnClicked);
-    connect(this, &MainFrame::tableChanged, m_pToolBar, &TopButton::getTableChanged);
-    connect(this, &MainFrame::signalRedownload, this, &MainFrame::onRedownload, Qt::QueuedConnection);
+    connect(m_pToolBar, &TopButton::signal_newDownloadBtnClicked, this, &MainFrame::slot_NewBtnClicked);
+    connect(m_pToolBar, &TopButton::signal_SearchEditTextChange, this, &MainFrame::slot_SearchEditTextChanged);
+    connect(m_pToolBar, &TopButton::signal_startDownloadBtnClicked, this, &MainFrame::slot_StartDownloadBtnClicked);
+    connect(m_pToolBar, &TopButton::signal_pauseDownloadBtnClicked, this, &MainFrame::slot_PauseDownloadBtnClicked);
+    connect(m_pToolBar, &TopButton::signal_deleteDownloadBtnClicked, this, &MainFrame::slot_DeleteDownloadBtnClicked);
+    connect(this, &MainFrame::signal_tableChanged, m_pToolBar, &TopButton::slot_TableChanged);
+    connect(this, &MainFrame::signal_Redownload, this, &MainFrame::slot_Redownload, Qt::QueuedConnection);
 
-    connect(Settings::getInstance(), &Settings::signal_downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
-    connect(Settings::getInstance(), &Settings::signal_poweronChanged, this, &MainFrame::onPowerOnChanged);
-    connect(Settings::getInstance(), &Settings::signal_maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
-    connect(Settings::getInstance(), &Settings::signal_disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
-    connect(Settings::getInstance(), &Settings::signal_startAssociatedBTFileChanged, this, &MainFrame::startAssociatedBTFile);
+    connect(Settings::getInstance(), &Settings::signal_downloadSettingsChanged, this, &MainFrame::slot_DownloadLimitChanged);
+    connect(Settings::getInstance(), &Settings::signal_poweronChanged, this, &MainFrame::slot_PowerOnChanged);
+    connect(Settings::getInstance(), &Settings::signal_maxDownloadTaskNumberChanged, this, &MainFrame::slot_MaxDownloadTaskNumberChanged);
+    connect(Settings::getInstance(), &Settings::signal_disckCacheChanged, this, &MainFrame::slot_DisckCacheChanged);
+    connect(Settings::getInstance(), &Settings::signal_startAssociatedBTFileChanged, this, &MainFrame::slot_isStartAssociatedBTFile);
 }
 
-void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
+void MainFrame::slot_Activated(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason == QSystemTrayIcon::ActivationReason::Trigger) {
         //if(m_TrayClickTimer->isActive()){
@@ -354,11 +354,11 @@ void MainFrame::closeEvent(QCloseEvent *event)
 {
     if(Settings::getInstance()->getIsShowTip()) {
         MessageBox *msg = new MessageBox();
-        connect(msg, &MessageBox::closeConfirmSig, this, &MainFrame::onMessageBoxConfirmClick);
+        connect(msg, &MessageBox::signal_closeConfirm, this, &MainFrame::slot_MessageBoxConfirmClick);
         msg->setExit();
         msg->exec();
     } else {
-        onMessageBoxConfirmClick();
+        slot_MessageBoxConfirmClick();
     }
     event->ignore();
 }
@@ -378,12 +378,12 @@ void MainFrame::createNewTask(QString url)
     static newTaskWidget *pNewTaskWidget = new newTaskWidget();
 
     pNewTaskWidget->setUrl(url);
-    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getNewDownloadUrl, Qt::UniqueConnection);
-    connect(pNewTaskWidget, &newTaskWidget::newDownLoadTorrent, this, &MainFrame::getNewDownloadTorrent, Qt::UniqueConnection);
+    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::slot_getNewDownloadUrl, Qt::UniqueConnection);
+    connect(pNewTaskWidget, &newTaskWidget::newDownLoadTorrent, this, &MainFrame::slot_getNewDownloadTorrent, Qt::UniqueConnection);
     pNewTaskWidget->exec();
 }
 
-void MainFrame::onTrayQuitClick()
+void MainFrame::slot_TrayQuitClick()
 {
     if(!m_bShutdownOk) {
         MessageBox *pBox = new MessageBox();
@@ -400,10 +400,10 @@ void MainFrame::onTrayQuitClick()
     qApp->quit();
 }
 
-void MainFrame::onMessageBoxConfirmClick()
+void MainFrame::slot_MessageBoxConfirmClick()
 {
     if(Settings::getInstance()->getCloseMainWindowSelected()) {
-        onTrayQuitClick();
+        slot_TrayQuitClick();
     } else {
         hide();
     }
@@ -417,11 +417,11 @@ void MainFrame::initAria2()
 {
     Aria2RPCInterface::Instance()->init(); // 启动Aria2RPCInterface::Instance()
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCSuccess(QString,QJsonObject)), this,
-            SLOT(onRpcSuccess(QString,QJsonObject)));
+            SLOT(slot_RpcSuccess(QString,QJsonObject)));
     connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCError(QString,QString,int)), this,
-            SLOT(onRpcError(QString,QString,int)));
-    onDownloadLimitChanged();
-    onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
+            SLOT(slot_RpcError(QString,QString,int)));
+    slot_DownloadLimitChanged();
+    slot_MaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
     qDebug() << "MainFrame initAria2 Finished";
 }
 
@@ -467,7 +467,7 @@ void MainFrame::initTabledata()
                             }
                         }
                     } else {
-                        onDownloadLimitChanged();
+                        slot_DownloadLimitChanged();
                         Aria2RPCInterface::Instance()->addUri(data->url, opt, data->taskId);
                         clearTableItemCheckStatus();
                         if(m_pUpdateTimer->isActive() == false) {
@@ -619,7 +619,7 @@ void MainFrame::setPaletteType()
     }
 }
 
-void MainFrame::onSettingsMenuClicked()
+void MainFrame::slot_SettingsMenuClicked()
 {
     DSettingsDialog *pSettingsDialog = new DSettingsDialog(this);
 
@@ -638,7 +638,7 @@ void MainFrame::onSettingsMenuClicked()
     Settings::getInstance()->m_pSettings->sync();
 }
 
-void MainFrame::onClipboardDataChanged(QString url)
+void MainFrame::slot_ClipboardDataChanged(QString url)
 {
     if(!m_bIsCopyUrlFromLocal){
         createNewTask(url);
@@ -647,7 +647,7 @@ void MainFrame::onClipboardDataChanged(QString url)
     }
 }
 
-void MainFrame::onClipboardDataForBt(QString url)
+void MainFrame::slot_ClipboardDataForBt(QString url)
 {
     if(url == m_curOpenBtDialogPath)
     {
@@ -668,7 +668,7 @@ void MainFrame::onClipboardDataForBt(QString url)
     {
         pBt->slot_btnOK();
         pBt->getBtInfo(opt, infoName, infoHash);
-        this->getNewDownloadTorrent(url, opt, infoName, infoHash);
+        this->slot_getNewDownloadTorrent(url, opt, infoName, infoHash);
         DBInstance::isExistBtInHash(infoHash, isExist);
         this->btNotificaitonSettings(tr("Download"),QString(tr("%1 downloading...")).arg(infoName),true);
         return;
@@ -683,11 +683,11 @@ void MainFrame::onClipboardDataForBt(QString url)
 
     if(ret == QDialog::Accepted) {
         pBt->getBtInfo(opt, infoName, infoHash);
-        this->getNewDownloadTorrent(url, opt, infoName, infoHash);
+        this->slot_getNewDownloadTorrent(url, opt, infoName, infoHash);
     }
 }
 
-void MainFrame::onListClicked(const QModelIndex &index)
+void MainFrame::slot_ListClicked(const QModelIndex &index)
 {
     m_iCurrentLab = (currentLab)index.row();
     QString DownloadTask_Lable_Text;
@@ -725,18 +725,18 @@ void MainFrame::onListClicked(const QModelIndex &index)
 
 
     clearTableItemCheckStatus();
-    emit switchTableSignal();
+    emit signal_switchTable();
     setTaskNum(m_iCurrentLab);
-    onSearchEditTextChanged(this->m_pToolBar->getSearchText());
-    emit tableChanged(index.row());
+    slot_SearchEditTextChanged(this->m_pToolBar->getSearchText());
+    emit signal_tableChanged(index.row());
 }
 
-void MainFrame::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
+void MainFrame::slot_Palettetypechanged(DGuiApplicationHelper::ColorType type)
 {
     setPaletteType();
 }
 
-void MainFrame::getHeaderStatechanged(bool isChecked)
+void MainFrame::slot_HeaderStatechanged(bool isChecked)
 {
     // ToolBar禁用按钮联动：表头全选复选框状体变化 begin
     int cnt = (m_iCurrentLab == recycleLab ? m_pRecycleTableView->getTableModel()->rowCount()
@@ -766,7 +766,7 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     if((m_iCurrentLab == downloadingLab) || (m_iCurrentLab == finishLab)) {
         QList<DataItem *> render_list = m_pDownLoadingTableView->getTableModel()->renderList();
         if(0 == render_list.size()){
-            emit headerViewChecked(false);
+            emit signal_headerViewChecked(false);
         }
         for(int j = 0; j < render_list.size(); j++) {
             DataItem *data = render_list.at(j);
@@ -793,7 +793,7 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     } else {
         QList<DelDataItem *> recycle_list = m_pRecycleTableView->getTableModel()->recyleList();
         if(0 == recycle_list.size()){
-            emit headerViewChecked(false);
+            emit signal_headerViewChecked(false);
         }
         for(int j = 0; j < recycle_list.size(); j++) {
             DelDataItem *data = recycle_list.at(j);
@@ -808,7 +808,7 @@ void MainFrame::getHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath, QString fileName)
+void MainFrame::slot_getNewDownloadUrl(QStringList urlList, QString savePath, QString fileName)
 {
     qDebug() << "getNewDownloadUrl: " << urlList << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     bool isExitsUrl = false;
@@ -840,7 +840,7 @@ void MainFrame::getNewDownloadUrl(QStringList urlList, QString savePath, QString
         DBInstance::addTask(task);
         Aria2RPCInterface::Instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
         //clearTableItemCheckStatus();
-        emit headerViewChecked(false);
+        emit signal_headerViewChecked(false);
     }
 
     m_pNotaskWidget->hide();
@@ -953,7 +953,7 @@ void MainFrame::continueDownload(DataItem *pItem)
     }
 }
 
-void MainFrame::onContextMenu(const QPoint &pos)
+void MainFrame::slot_ContextMenu(const QPoint &pos)
 {
     if(m_iCurrentLab == recycleLab){
         QModelIndex index = m_pRecycleTableView->indexAt(pos);
@@ -962,7 +962,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             QString gid = m_pRecycleTableView->getTableModel()->data(index, TableModel::GID).toString();
             m_pCheckItem = m_pRecycleTableView->getTableModel()->find(gid);
             if(!m_pRecycleTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()){
-                getHeaderStatechanged(false);
+                slot_HeaderStatechanged(false);
             }
             m_pRecycleTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
         }
@@ -974,7 +974,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             m_pCheckItem = m_pDownLoadingTableView->getTableModel()->find(gid);
             m_CheckIndex = index;
             if(!m_pDownLoadingTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()){
-                getHeaderStatechanged(false);
+                slot_HeaderStatechanged(false);
             }
             m_pDownLoadingTableView->getTableModel()->setData(realIndex, true, TableModel::Ischecked);
         }
@@ -1029,19 +1029,19 @@ void MainFrame::onContextMenu(const QPoint &pos)
             QAction *pActionStart = new QAction();
             pActionStart->setText(tr("Continue"));
             delmenlist->addAction(pActionStart);
-            connect(pActionStart, &QAction::triggered, this, &MainFrame::onStartDownloadBtnClicked);
+            connect(pActionStart, &QAction::triggered, this, &MainFrame::slot_StartDownloadBtnClicked);
         }
         if(activeCount > 0) {
             QAction *pActionPause = new QAction();
             pActionPause->setText(tr("Pause"));
             delmenlist->addAction(pActionPause);
-            connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
+            connect(pActionPause, &QAction::triggered, this, &MainFrame::slot_PauseDownloadBtnClicked);
         }
         if((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction();
             pActionredownload->setText(tr("Download again"));
             delmenlist->addAction(pActionredownload);
-            connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
+            connect(pActionredownload, &QAction::triggered, this, &MainFrame::slot_RedownloadActionTriggered);
         }
         delmenlist->addSeparator();
     }
@@ -1050,13 +1050,13 @@ void MainFrame::onContextMenu(const QPoint &pos)
         QAction *returnedToOrigin = new QAction();
         returnedToOrigin->setText(tr("Restore"));
         delmenlist->addAction(returnedToOrigin);
-        connect(returnedToOrigin, &QAction::triggered, this, &MainFrame::onReturnOriginActionTriggered);
+        connect(returnedToOrigin, &QAction::triggered, this, &MainFrame::slot_ReturnOriginActionTriggered);
     }
     if((m_iCurrentLab == recycleLab) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
         pActionredownload->setText(tr("Download again"));
         delmenlist->addAction(pActionredownload);
-        connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
+        connect(pActionredownload, &QAction::triggered, this, &MainFrame::slot_RedownloadActionTriggered);
     }
     if((m_iCurrentLab == finishLab) || (m_iCurrentLab == recycleLab)) {
         if((1 == chkedCnt && m_iCurrentLab == finishLab && QFileInfo(pDownloadItem->savePath).exists()) ||
@@ -1064,7 +1064,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             QAction *pActionopenFile = new QAction();
             pActionopenFile->setText(tr("Open"));
             delmenlist->addAction(pActionopenFile);
-            connect(pActionopenFile, &QAction::triggered, this, &MainFrame::onOpenFileActionTriggered);
+            connect(pActionopenFile, &QAction::triggered, this, &MainFrame::slot_OpenFileActionTriggered);
         }
     }
     if((1 == chkedCnt && (m_iCurrentLab == finishLab) && QFileInfo(pDownloadItem->savePath).exists()) ||
@@ -1072,7 +1072,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         QAction *pActionopenFoler = new QAction();
         pActionopenFoler->setText(tr("Open folder"));
         delmenlist->addAction(pActionopenFoler);
-        connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
+        connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::slot_OpenFolderActionTriggered);
     }
 
     if(m_iCurrentLab == finishLab) {
@@ -1091,14 +1091,14 @@ void MainFrame::onContextMenu(const QPoint &pos)
             pactionRename->setText(tr("Rename"));
             delmenlist->addAction(pactionRename);
             delmenlist->addSeparator();
-            connect(pactionRename, &QAction::triggered, this, &MainFrame::onRenameActionTriggered);
+            connect(pactionRename, &QAction::triggered, this, &MainFrame::slot_RenameActionTriggered);
         }
         if(QFileInfo(pDownloadItem->savePath).exists()){
             QAction *pAction_move = new QAction();
             pAction_move->setText(tr("Move to"));
             delmenlist->addAction(pAction_move);
             delmenlist->addSeparator();
-            connect(pAction_move, &QAction::triggered, this, &MainFrame::onMoveToActionTriggered);
+            connect(pAction_move, &QAction::triggered, this, &MainFrame::slot_MoveToActionTriggered);
         }
 
     }
@@ -1108,7 +1108,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         pactionCopyDownloadUrl->setText(tr("Copy download link"));
         delmenlist->addAction(pactionCopyDownloadUrl);
         delmenlist->addSeparator();
-        connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
+        connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::slot_CopyUrlActionTriggered);
         if(m_iCurrentLab == downloadingLab) {
             delmenlist->addSeparator();
         }
@@ -1117,19 +1117,19 @@ void MainFrame::onContextMenu(const QPoint &pos)
     QAction *pactiondelDownloading = new QAction();
     pactiondelDownloading->setText(tr("Delete"));
     delmenlist->addAction(pactiondelDownloading);
-    connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::onDelActionTriggered);
+    connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::slot_DelActionTriggered);
 
     QAction *pactionDeletePermanently = new QAction();
     pactionDeletePermanently->setText(tr("Permanently delete"));
     delmenlist->addAction(pactionDeletePermanently);
-    connect(pactionDeletePermanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
+    connect(pactionDeletePermanently, &QAction::triggered, this, &MainFrame::slot_DeletePermanentActionTriggered);
 
     if(1 == chkedCnt && m_iCurrentLab == finishLab){
         QAction *pactionCopyDownloadUrl = new QAction();
         pactionCopyDownloadUrl->setText(tr("Copy download link"));
         delmenlist->addAction(pactionCopyDownloadUrl);
         delmenlist->addSeparator();
-        connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
+        connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::slot_CopyUrlActionTriggered);
         if(m_iCurrentLab == downloadingLab) {
             delmenlist->addSeparator();
         }
@@ -1140,28 +1140,28 @@ void MainFrame::onContextMenu(const QPoint &pos)
         pactionCopyDownloadUrl->setText(tr("Copy download link"));
         delmenlist->addAction(pactionCopyDownloadUrl);
         delmenlist->addSeparator();
-        connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
+        connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::slot_CopyUrlActionTriggered);
         if(m_iCurrentLab == downloadingLab) {
             delmenlist->addSeparator();
         }
         QAction *pActionopenFoler = new QAction();
         pActionopenFoler->setText(tr("Open folder"));
         delmenlist->addAction(pActionopenFoler);
-        connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
+        connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::slot_OpenFolderActionTriggered);
     }
 
     if(m_iCurrentLab == recycleLab) {
         QAction *pAction_clear_recycle = new QAction();
         pAction_clear_recycle->setText(tr("Empty"));
         delmenlist->addAction(pAction_clear_recycle);
-        connect(pAction_clear_recycle, &QAction::triggered, this, &MainFrame::onClearRecyleActionTriggered);
+        connect(pAction_clear_recycle, &QAction::triggered, this, &MainFrame::slot_ClearRecyleActionTriggered);
     }
 
     delmenlist->exec(QCursor::pos());
     delete  delmenlist;
 }
 
-void MainFrame::onCheckChanged(bool checked, int flag)
+void MainFrame::slot_CheckChanged(bool checked, int flag)
 {
     // ToolBar禁用按钮联动：列表内复选框状态变化 begin
     int chkedCnt = 0;
@@ -1228,10 +1228,10 @@ void MainFrame::clearTableItemCheckStatus()
             m_pRecycleTableView->reset();
         }
     }
-    emit headerViewChecked(false);
+    emit signal_headerViewChecked(false);
 }
 
-void MainFrame::onSearchEditTextChanged(QString text)
+void MainFrame::slot_SearchEditTextChanged(QString text)
 {
     if(text != ""){
         m_pNotaskLabel->hide();
@@ -1250,7 +1250,7 @@ void MainFrame::onSearchEditTextChanged(QString text)
     setTaskNum(m_iCurrentLab);
 }
 
-void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash)
+void MainFrame::slot_getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> opt, QString infoName, QString infoHash)
 {
     QString selectedNum = opt.value("select-file").toString();
 
@@ -1313,7 +1313,7 @@ void MainFrame::getNewDownloadTorrent(QString btPath, QMap<QString, QVariant> op
     }
 }
 
-void MainFrame::onRedownload(QString taskId, int rd)
+void MainFrame::slot_Redownload(QString taskId, int rd)
 {
     if((rd == 0) || (rd == 1)) {
         m_pDownLoadingTableView->getTableControl()->downloadListRedownload(taskId);
@@ -1321,7 +1321,7 @@ void MainFrame::onRedownload(QString taskId, int rd)
         m_pRecycleTableView->getTableControl()->recycleListRedownload(taskId);
     }
     clearTableItemCheckStatus();
-    updateMainUI();
+    slot_updateMainUI();
     if(m_pUpdateTimer->isActive() == false) {
         m_pUpdateTimer->start(2 * 1000);
     }
@@ -1339,7 +1339,7 @@ void MainFrame::showClearMsgbox()
 {
     MessageBox *msg = new MessageBox();
 
-    connect(msg, &MessageBox::ClearrecycleSig, this, &MainFrame::getClearRecycleSlot);
+    connect(msg, &MessageBox::signal_Clearrecycle, this, &MainFrame::slot_ClearRecycle);
     msg->setClear();
     int rs = msg->exec();
     if(rs == DDialog::Accepted) {
@@ -1347,11 +1347,11 @@ void MainFrame::showClearMsgbox()
         m_pToolBar->enableStartBtn(false);
         m_pToolBar->enablePauseBtn(false);
         m_pToolBar->enableDeleteBtn(false);
-        emit switchTableSignal();
+        emit signal_switchTable();
     }
 }
 
-void MainFrame::getClearRecycleSlot(bool ischecked)
+void MainFrame::slot_ClearRecycle(bool ischecked)
 {
     QList<DelDataItem *> recycle_list = m_pRecycleTableView->getTableModel()->recyleList();
 
@@ -1410,7 +1410,7 @@ void MainFrame::showDeleteMsgbox(bool permanently)
 {
     MessageBox *msg = new MessageBox();
 
-    connect(msg, &MessageBox::DeletedownloadSig, this, &MainFrame::onGetDeleteConfirm);
+    connect(msg, &MessageBox::signal_Deletedownload, this, &MainFrame::slot_GetDeleteConfirm);
     if(m_iCurrentLab == downloadingLab){
         msg->setDelete(permanently, true);
     } else {
@@ -1432,7 +1432,7 @@ void MainFrame::showRenameMsgbox()
 {
     MessageBox *msg = new MessageBox();
 
-    connect(msg, &MessageBox::RenameSig, this, &MainFrame::getRenameConfirmSlot);
+    connect(msg, &MessageBox::signal_Rename, this, &MainFrame::slot_RenameConfirmSlot);
     QString title = tr("Rename");
     msg->setReName(title, tr("sure"), tr("cancel"), m_pCheckItem->fileName);
     msg->exec();
@@ -1442,7 +1442,7 @@ bool MainFrame::showRedownloadMsgbox(QList<QString> sameUrlList)
 {
     MessageBox *msg = new MessageBox();
 
-    connect(msg, &MessageBox::reDownloadSig, this, &MainFrame::getRedownloadConfirmSlot);
+    connect(msg, &MessageBox::signal_reDownload, this, &MainFrame::slot_RedownloadConfirmSlot);
     QString title = tr("Redownload");
     msg->setRedownload(sameUrlList);
     int rs = msg->exec();
@@ -1458,12 +1458,12 @@ bool MainFrame::showRedownloadMsgbox(QList<QString> sameUrlList)
     return false;
 }
 
-void MainFrame::onAria2Remove(QString gId, QString id)
+void MainFrame::slot_Aria2Remove(QString gId, QString id)
 {
     Aria2RPCInterface::Instance()->remove(gId, id);
 }
 
-void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
+void MainFrame::slot_GetDeleteConfirm(bool ischecked, bool permanent)
 {
     if(m_pUpdateTimer->isActive()) {
         m_pUpdateTimer->stop();
@@ -1477,7 +1477,7 @@ void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
     setTaskNum(m_iCurrentLab);
 
     if(this->m_SearchContent != "") {
-        onSearchEditTextChanged(m_SearchContent);
+        slot_SearchEditTextChanged(m_SearchContent);
     }
     if(m_pUpdateTimer->isActive() == false) {
         m_pUpdateTimer->start(2 * 1000);
@@ -1497,8 +1497,8 @@ void MainFrame::keyPressEvent(QKeyEvent *event)
     }
     if(event->key() == Qt::Key_A) {
         if(m_bctrlkeyPress == true){
-            getHeaderStatechanged(true);
-            emit headerViewChecked(true);
+            slot_HeaderStatechanged(true);
+            emit signal_headerViewChecked(true);
             qDebug() << "Key_Control + Key_A";
         }
 
@@ -1522,12 +1522,12 @@ void MainFrame::resizeEvent(QResizeEvent *event)
     m_pRecycleTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
 }
 
-void MainFrame::onNewBtnClicked()
+void MainFrame::slot_NewBtnClicked()
 {
     createNewTask("");
 }
 
-void MainFrame::onStartDownloadBtnClicked()
+void MainFrame::slot_StartDownloadBtnClicked()
 {
     QList<DataItem *> selectList;
     int selectedCount = 0;
@@ -1542,13 +1542,13 @@ void MainFrame::onStartDownloadBtnClicked()
         }
 
     } else if(m_iCurrentLab == finishLab) {
-        onOpenFolderActionTriggered();
+        slot_OpenFolderActionTriggered();
     } else {
-        onClearRecyleActionTriggered();
+        slot_ClearRecyleActionTriggered();
     }
 }
 
-void MainFrame::onPauseDownloadBtnClicked()
+void MainFrame::slot_PauseDownloadBtnClicked()
 {
     QList<DataItem *> selectList;
     int selectedCount = 0;
@@ -1583,19 +1583,19 @@ void MainFrame::onPauseDownloadBtnClicked()
             }
         }
     } else if(m_iCurrentLab == finishLab) {
-        onOpenFileActionTriggered();
+        slot_OpenFileActionTriggered();
     } else {
-        onReturnOriginActionTriggered();
+        slot_ReturnOriginActionTriggered();
     }
 
 }
 
-void MainFrame::onDeleteDownloadBtnClicked()
+void MainFrame::slot_DeleteDownloadBtnClicked()
 {
-    onDelActionTriggered();
+    slot_DelActionTriggered();
 }
 
-void MainFrame::onRpcSuccess(QString method, QJsonObject json)
+void MainFrame::slot_RpcSuccess(QString method, QJsonObject json)
 {
     if((method == ARIA2C_METHOD_ADD_URI)
        || (method == ARIA2C_METHOD_ADD_TORRENT)
@@ -1616,7 +1616,7 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
     }
 }
 
-void MainFrame::onRpcError(QString method, QString id, int error)
+void MainFrame::slot_RpcError(QString method, QString id, int error)
 {
     qDebug() << "slot rpc error method is:" << method << error;
 
@@ -1627,12 +1627,12 @@ void MainFrame::onRpcError(QString method, QString id, int error)
             QStringList sp = id.split("_");
             QString     taskId = sp.at(2);
             int  rd = sp.at(1).toInt();
-            emit signalRedownload(taskId, rd);
+            emit signal_Redownload(taskId, rd);
         }
     }
 }
 
-void MainFrame::onTableItemSelected(const QModelIndex &selected)
+void MainFrame::slot_TableItemSelected(const QModelIndex &selected)
 {
     bool chked = selected.model()->data(selected, TableModel::DataRole::Ischecked).toBool();
 
@@ -1659,7 +1659,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
     }
 }
 
-void MainFrame::updateMainUI()
+void MainFrame::slot_updateMainUI()
 {
     const QList<DataItem *> renderList = m_pDownLoadingTableView->getTableModel()->renderList();
     const QList<DataItem *> dataList = m_pDownLoadingTableView->getTableModel()->dataList();
@@ -1691,7 +1691,7 @@ void MainFrame::updateMainUI()
     setTaskNum(m_iCurrentLab);
 }
 
-void MainFrame::onDelActionTriggered()
+void MainFrame::slot_DelActionTriggered()
 {
     int selectedCount = 0;
 
@@ -1707,7 +1707,7 @@ void MainFrame::onDelActionTriggered()
     }
 }
 
-void MainFrame::onRedownloadActionTriggered()
+void MainFrame::slot_RedownloadActionTriggered()
 {
     int selectedCount = 0;
 
@@ -1723,7 +1723,7 @@ void MainFrame::onRedownloadActionTriggered()
     }
 }
 
-void MainFrame::onReturnOriginActionTriggered()
+void MainFrame::slot_ReturnOriginActionTriggered()
 {
     int selectedCount = 0;
     QList<DelDataItem *> recycle_list = m_pRecycleTableView->getTableModel()->recyleList();
@@ -1805,7 +1805,7 @@ void MainFrame::onReturnOriginActionTriggered()
                         }
                     }
                 } else {
-                    onDownloadLimitChanged();
+                    slot_DownloadLimitChanged();
                     //Aria2RPCInterface::Instance()->addUri(returntoData->url, opt, returntoData->taskId);
                     //Aria2RPCInterface::Instance()->pause(returntoData->gid, returntoData->taskId);
                     if(m_pUpdateTimer->isActive() == false) {
@@ -1827,7 +1827,7 @@ void MainFrame::onReturnOriginActionTriggered()
     }
 }
 
-void MainFrame::onOpenFileActionTriggered()
+void MainFrame::slot_OpenFileActionTriggered()
 {
     QList<DataItem *> selectList;
     QList<DelDataItem *> delList;
@@ -1866,7 +1866,7 @@ void MainFrame::onOpenFileActionTriggered()
 //    }
 }
 
-void MainFrame::onOpenFolderActionTriggered()
+void MainFrame::slot_OpenFolderActionTriggered()
 {
     int selectedCount = 0;
 
@@ -1880,13 +1880,13 @@ void MainFrame::onOpenFolderActionTriggered()
     }
 }
 
-void MainFrame::onRenameActionTriggered()
+void MainFrame::slot_RenameActionTriggered()
 {
     m_pDownLoadingTableView->setCurrentIndex(m_CheckIndex);
     m_pDownLoadingTableView->edit(m_CheckIndex);
 }
 
-void MainFrame::onMoveToActionTriggered()
+void MainFrame::slot_MoveToActionTriggered()
 {
     QFileDialog *fileDialog = new QFileDialog(this);
     fileDialog->setFileMode(QFileDialog::Directory);
@@ -1916,12 +1916,12 @@ void MainFrame::onMoveToActionTriggered()
     }
 }
 
-void MainFrame::onClearRecyleActionTriggered()
+void MainFrame::slot_ClearRecyleActionTriggered()
 {
     showClearMsgbox();
 }
 
-void MainFrame::onCopyUrlActionTriggered()
+void MainFrame::slot_CopyUrlActionTriggered()
 {
     int selectedCount = 0;
     QString copyUrl = "";
@@ -1947,7 +1947,7 @@ void MainFrame::onCopyUrlActionTriggered()
     }
 }
 
-void MainFrame::onDeletePermanentActionTriggered()
+void MainFrame::slot_DeletePermanentActionTriggered()
 {
     int selectedCount = 0;
 
@@ -1963,7 +1963,7 @@ void MainFrame::onDeletePermanentActionTriggered()
     }
 }
 
-void MainFrame::getRenameConfirmSlot(QString &name)
+void MainFrame::slot_RenameConfirmSlot(QString &name)
 {
     if(name == m_pCheckItem->fileName){
         return;
@@ -1989,7 +1989,7 @@ void MainFrame::getRenameConfirmSlot(QString &name)
     DBInstance::updateTaskByID(task);
 }
 
-void MainFrame::getRedownloadConfirmSlot(const QList<QString> &sameUrlList)
+void MainFrame::slot_RedownloadConfirmSlot(const QList<QString> &sameUrlList)
 {
     if(sameUrlList.at(0).contains(".torrent")){
         return;
@@ -2014,7 +2014,7 @@ void MainFrame::getRedownloadConfirmSlot(const QList<QString> &sameUrlList)
     }
 }
 
-void MainFrame::onDownloadLimitChanged()
+void MainFrame::slot_DownloadLimitChanged()
 {
     QTime   currentTime = QTime::currentTime();
     QTime  periodStartTime;
@@ -2048,7 +2048,7 @@ void MainFrame::onDownloadLimitChanged()
     }
 }
 
-void MainFrame::onPowerOnChanged(bool isPowerOn)
+void MainFrame::slot_PowerOnChanged(bool isPowerOn)
 {
     QString autostartDesktop = "downloadmanager.desktop";
     QString defaultDesktop = "downloadmanager.desktop";
@@ -2071,7 +2071,7 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
     }
 }
 
-void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
+void MainFrame::slot_MaxDownloadTaskNumberChanged(int nTaskNumber)
 {
     QMap<QString, QVariant> opt;
     QString value = QString("max-concurrent-downloads=%1").arg(nTaskNumber);
@@ -2114,7 +2114,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     }
 }
 
-void MainFrame::onDisckCacheChanged(int nNum)
+void MainFrame::slot_DisckCacheChanged(int nNum)
 {
     QMap<QString, QVariant> opt;
     QString cacheNum = QString().number(nNum) + "M";
@@ -2256,7 +2256,7 @@ void MainFrame::initDelDataItem(Global::DataItem* data, Global::DelDataItem *del
     delData->finishTime = taskStatus.m_finishTime.toString("yyyy-MM-dd hh:mm:ss");
 }
 
-void MainFrame::startAssociatedBTFile(bool status)
+void MainFrame::slot_isStartAssociatedBTFile(bool status)
 {
     if(status)
     {
@@ -2437,7 +2437,7 @@ void MainFrame::btNotificaitonSettings(QString head,QString text,bool isBt)
     }
 }
 
-void MainFrame::showWindowsForClipboard()
+void MainFrame::slot_showWindowsForClipboard()
 {
     if(this->isHidden()) {
         // 恢复窗口显示

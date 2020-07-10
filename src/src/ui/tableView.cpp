@@ -107,11 +107,11 @@ void TableView::initUI()
 
 void TableView::initConnections()
 {
-    connect(m_pHeaderView, &HeaderView::getStatechanged, this, &TableView::signalHeaderStatechanged);
-    connect(this, &TableView::signalClearHeaderCheck, m_pHeaderView, &HeaderView::getClearHeaderCheck);
-    connect(m_pTableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::signalTableViewAllChecked);
-    connect(this, &TableView::signalTableViewAllChecked, m_pHeaderView, &HeaderView::getCheckall);
-    connect(this, &TableView::signalHoverchanged, m_pItemdegegate, &ItemDelegate::onHoverchanged);
+    connect(m_pHeaderView, &HeaderView::signal_Statechanged, this, &TableView::signal_HeaderStatechanged);
+    connect(this, &TableView::signal_ClearHeaderCheck, m_pHeaderView, &HeaderView::slot_ClearHeaderCheck);
+    connect(m_pTableModel, &TableModel::signal_tableviewAllcheckedOrAllunchecked, this, &TableView::signal_TableViewAllChecked);
+    connect(this, &TableView::signal_TableViewAllChecked, m_pHeaderView, &HeaderView::slot_Checkall);
+    connect(this, &TableView::signal_Hoverchanged, m_pItemdegegate, &ItemDelegate::slot_Hoverchanged);
 }
 
 void TableView::initTableView()
@@ -158,14 +158,14 @@ HeaderView *TableView::getTableHeader()
 void TableView::mouseMoveEvent(QMouseEvent *event)
 {
     QModelIndex idx = this->indexAt(event->pos());
-    emit signalHoverchanged(idx);
+    emit signal_Hoverchanged(idx);
 }
 
 void TableView::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
     this->reset();
-    emit signalHoverchanged(QModelIndex());
+    emit signal_Hoverchanged(QModelIndex());
 }
 
 void TableView::keyPressEvent(QKeyEvent *event)

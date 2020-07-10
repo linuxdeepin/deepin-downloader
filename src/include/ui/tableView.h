@@ -96,22 +96,22 @@ signals:
     /**
      * @brief 表头全选按键状态改变信号
      */
-    void signalHeaderStatechanged(bool checked);
+    void signal_HeaderStatechanged(bool checked);
 
     /**
      * @brief 清除表头选中状态信号
      */
-    void signalClearHeaderCheck();
+    void signal_ClearHeaderCheck();
 
     /**
      * @brief 表头全选按键选中
      */
-    void signalTableViewAllChecked(bool checked);
+    void signal_TableViewAllChecked(bool checked);
 
     /**
      * @brief 鼠标悬停行改变
      */
-    void signalHoverchanged(const QModelIndex &index);
+    void signal_Hoverchanged(const QModelIndex &index);
 protected:
     /**
      * @brief 鼠标按下事件

@@ -112,60 +112,60 @@ signals:
      * @brief 重命名信号
      * @param newname 新名字
     */
-    void RenameSig(QString &newname);
+    void signal_Rename(QString &newname);
 
     /**
      * @brief 重新下载信号
      * @param newname 新名字
     */
-    void reDownloadSig(const QList<QString> &sameUrlList);
+    void signal_reDownload(const QList<QString> &sameUrlList);
 
     /**
      * @brief 清空信号
      * @param ret 是否清空全部
     */
-    void ClearrecycleSig(bool ret);
+    void signal_Clearrecycle(bool ret);
 
     /**
      * @brief 删除信号
      * @param ret
      * @param ret1
     */
-    void DeletedownloadSig(bool ret,bool ret1);
+    void signal_Deletedownload(bool ret,bool ret1);
 
     /**
      * @brief 关闭确认信号
     */
-    void closeConfirmSig();
+    void signal_closeConfirm();
 
     /**
      * @brief 异常确认信号
     */
-    void unusualConfirmSig(int index, const QString &taskId);
+    void signal_unusualConfirm(int index, const QString &taskId);
 
 public slots:
     /**
      * @brief 重命名编辑框更新槽函数
      * @param text 更改内容
     */
-    void getRenamelineeditChanged(const QString &text);
+    void slot_RenamelineeditChanged(const QString &text);
     /**
      * @brief 确定重命名
     */
-    void renameSureBtn();
+    void slot_renameSureBtn();
     /**
      * @brief 确定清空
     */
-    void clearBtn(int index);
+    void slot_clearBtn(int index);
     /**
      * @brief 确定删除
     */
-    void deleteBtn(int index);
+    void slot_deleteBtn(int index);
 
     /** 右上角退出按钮按下弹出框的操作
      * @brief
     */
-    void ExitBtn(int index);
+    void slot_ExitBtn(int index);
 
 private:
     bool m_bDeleteFlag;

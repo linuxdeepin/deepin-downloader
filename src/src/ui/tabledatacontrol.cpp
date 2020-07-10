@@ -167,7 +167,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         }
         data->savePath = getTaskInfo.m_downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
         m_pDownloadTableView->getTableModel()->append(data);
-        m_pDownloadTableView->getTableHeader()->getClearHeaderCheck();
+        m_pDownloadTableView->getTableHeader()->slot_ClearHeaderCheck();
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_pDownloadTableView->getTableModel();
             m_pDownloadTableView->setRowHidden(dtModel->rowCount(), true);
@@ -258,7 +258,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             data->status = Global::Status::Error;
             MessageBox *msg = new MessageBox();
             msg->setUnusual(taskId);
-            connect(msg, &MessageBox::unusualConfirmSig, this, &tableDataControl::getUnusualConfirm);
+            connect(msg, &MessageBox::signal_unusualConfirm, this, &tableDataControl::slot_UnusualConfirm);
             msg->exec();
             //qDebug() << "文件不存在，";
             return;
@@ -275,7 +275,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //下载文件为种子文件
         if(fileName.endsWith(".torrent")) {
-            emit signalAutoDownloadBt(filePath);
+            emit signal_AutoDownloadBt(filePath);
         }
 
         //下载文件为磁链种子文件
@@ -283,7 +283,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if(filePath.startsWith("[METADATA]")) {
             QString dir = result.value("dir").toString();
             data->status = Global::Status::Complete;
-            emit signalAutoDownloadBt(dir + "/" + infoHash + ".torrent");
+            emit signal_AutoDownloadBt(dir + "/" + infoHash + ".torrent");
             fileName = infoHash + ".torrent";
         }
 
@@ -460,7 +460,7 @@ void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
         QString     taskId = sp.at(2);
         int rd = sp.at(1).toInt();
         QThread::msleep(500);
-        emit signalRedownload(taskId, rd);
+        emit signal_Redownload(taskId, rd);
     }
 }
 
@@ -619,7 +619,7 @@ bool tableDataControl::checkFileExist(QString &filePath)
     return fInfo.exists();
 }
 
-void tableDataControl::getUnusualConfirm(int index, const QString &taskId)
+void tableDataControl::slot_UnusualConfirm(int index, const QString &taskId)
 {
     DataItem *pItem = m_pDownloadTableView->getTableModel()->find(taskId);
     if( nullptr == pItem){
@@ -630,13 +630,13 @@ void tableDataControl::getUnusualConfirm(int index, const QString &taskId)
     strlist.append(pItem->url);
     if(0 == index){
         removeDownloadListJob(pItem, false);
-        emit signalDownload(strlist, Settings::getInstance()->getDownloadSavePath());
+        emit signal_Download(strlist, Settings::getInstance()->getDownloadSavePath());
     } else {
         removeDownloadListJob(pItem);
     }
 }
 
-void tableDataControl::Aria2RemoveSlot(QString gId, QString id)
+void tableDataControl::slot_Aria2Remove(QString gId, QString id)
 {
     auto basicLambda =[&gId, &id] { Aria2RPCInterface::Instance()->remove(gId, id);};
     basicLambda();
@@ -734,7 +734,7 @@ void tableDataControl::RedownloadErrorItem(DataItem *errorItem)
     DBInstance::delTask(errorItem->taskId);
     QStringList urlList;
     urlList << errorItem->url;
-    emit signalDownload(urlList, Settings::getInstance()->getDownloadSavePath());
+    emit signal_Download(urlList, Settings::getInstance()->getDownloadSavePath());
     m_pDownloadTableView->getTableModel()->removeItem(errorItem);
 
 }
@@ -1017,7 +1017,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     //connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
 
     qDebug() << "subThread: " << QThread::currentThreadId();
-    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, [](QString gId, QString id){
+    connect(pDeleteItemThread, &DeleteItemThread::signal_Aria2Remove, this, [](QString gId, QString id){
         qDebug() << "subThread: " << QThread::currentThreadId();
         Aria2RPCInterface::Instance()->remove(gId, id);
     });
@@ -1107,7 +1107,7 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
                                                                Aria2RPCInterface::Instance(),
                                                                ifDeleteLocal,
                                                                "recycle_delete");
-    connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, [=](QString gId, QString id){
+    connect(pDeleteItemThread, &DeleteItemThread::signal_Aria2Remove, [=](QString gId, QString id){
         Aria2RPCInterface::Instance()->remove(gId, id);
     });
     pDeleteItemThread->start();

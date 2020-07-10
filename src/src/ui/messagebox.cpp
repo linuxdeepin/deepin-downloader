@@ -40,7 +40,7 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel(warningMsg);
+    this->signal_addLabel(warningMsg);
     this->addSpacing(10);
     if(sameurlCount!=0)
     {
@@ -76,7 +76,7 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel(tr("Task exist. Download again?"));
+    this->signal_addLabel(tr("Task exist. Download again?"));
     this->addSpacing(10);
     DTextEdit *urlText = new DTextEdit(this);
     urlText->setReadOnly(true);
@@ -97,7 +97,7 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
             {
             if(index == 1)
             {
-                emit reDownloadSig(sameUrlList);
+                emit signal_reDownload(sameUrlList);
             }
             close();
     });
@@ -109,14 +109,14 @@ void MessageBox::setUnusual(const QString &taskId)
 
     this->setTitle(tr("Warning"));
 
-    this->addLabel(tr("Download Error. "));
+    this->signal_addLabel(tr("Download Error. "));
     this->addSpacing(10);
     addButton(tr("Download again"));
     addButton(tr("Delete task"));
     connect(this,&MessageBox::buttonClicked,this,
             [=](int index)
             {
-        emit unusualConfirmSig(index,taskId);
+        emit signal_unusualConfirm(index,taskId);
         close();
             });
 }
@@ -131,7 +131,7 @@ void MessageBox::setDelete(bool permanentl, bool checked)
         this->setTitle(show_title);
         this->addSpacing(10);
         QString show_msg=tr("Local files will be deleted at the same time.");
-        this->addLabel(show_msg);
+        this->signal_addLabel(show_msg);
     }
     else
     {
@@ -139,10 +139,10 @@ void MessageBox::setDelete(bool permanentl, bool checked)
         this->setTitle(showTitle);
         this->addSpacing(10);
         if(checked){
-            this->addCheckbox(tr("Delete local files"), true);
+            this->signal_addCheckbox(tr("Delete local files"), true);
         }
         else{
-            this->addCheckbox(tr("Delete local files"));
+            this->signal_addCheckbox(tr("Delete local files"));
         }
     }
     this->addSpacing(10);
@@ -155,18 +155,18 @@ void MessageBox::setDelete(bool permanentl, bool checked)
         this->addButton(tr("Delete"),true,ButtonType::ButtonWarning);
 
     }
-    connect(this,&MessageBox::buttonClicked,this,&MessageBox::deleteBtn);
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_deleteBtn);
 }
 void MessageBox::setClear()
 {
     this->setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     QString show_title=tr("Are you sure you want to delete all tasks in the trash?");
-    this->addLabel(show_title);
+    this->signal_addLabel(show_title);
     this->addSpacing(10);
-    this->addCheckbox(tr("Delete local files"));
+    this->signal_addCheckbox(tr("Delete local files"));
     this->addButton(tr("Cancel"));
     this->addButton(tr("Empty"));
-    connect(this,&MessageBox::buttonClicked,this,&MessageBox::clearBtn);
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_clearBtn);
 }
 void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
 {
@@ -191,10 +191,10 @@ void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtn
     layout->addWidget(cancel_button);
     m_pRenameSureButton = new QPushButton(button_box);
     m_pRenameSureButton->setText(surebtntext);
-    connect(m_pRenameSureButton,&DPushButton::clicked,this,&MessageBox::renameSureBtn);
+    connect(m_pRenameSureButton,&DPushButton::clicked,this,&MessageBox::slot_renameSureBtn);
     layout->addWidget(m_pRenameSureButton);
     this->addContent(button_box);
-    connect(m_pNewnameLineedit,&DLineEdit::textChanged,this,&MessageBox::getRenamelineeditChanged);
+    connect(m_pNewnameLineedit,&DLineEdit::textChanged,this,&MessageBox::slot_RenamelineeditChanged);
 }
 
 void MessageBox::setExit()
@@ -203,23 +203,23 @@ void MessageBox::setExit()
 
     setTitle(tr("You want to"));
     addSpacing(10);
-    addRadioGroup(tr("Exit"), tr("Minimize to System Tray"));
+    signal_addRadioGroup(tr("Exit"), tr("Minimize to System Tray"));
     addSpacing(10);
-    addCheckbox(tr("Don't ask again"));
+    signal_addCheckbox(tr("Don't ask again"));
     this->addButton(tr("Cancel"));
     this->addButton(tr("Confirm"));
 
-    connect(this,&MessageBox::buttonClicked,this,&MessageBox::ExitBtn);
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_ExitBtn);
 }
 
-void MessageBox::addLabel(QString text)
+void MessageBox::signal_addLabel(QString text)
 {
     DLabel * title= new DLabel(this);
     title->setText(text);
     this->addContent(title,Qt::AlignHCenter);
 }
 
-void MessageBox::addRadioGroup(QString quitText, QString minText)
+void MessageBox::signal_addRadioGroup(QString quitText, QString minText)
 {
     int status = Settings::getInstance()->getCloseMainWindowSelected();
     m_pButtonQuit = new  DRadioButton(quitText);
@@ -246,7 +246,7 @@ void MessageBox::addRadioGroup(QString quitText, QString minText)
             });
 }
 
-void MessageBox::addCheckbox(QString checkboxText, bool checked)
+void MessageBox::signal_addCheckbox(QString checkboxText, bool checked)
 {
     m_pCheckBox = new DCheckBox(this);
     m_pCheckBox->setText(checkboxText);
@@ -256,7 +256,7 @@ void MessageBox::addCheckbox(QString checkboxText, bool checked)
     this->addContent(m_pCheckBox,Qt::AlignHCenter);
 }
 
-void MessageBox::getRenamelineeditChanged(const QString &text)
+void MessageBox::slot_RenamelineeditChanged(const QString &text)
 {
 
     QString real_name= QString(text).left(text.lastIndexOf('.'));
@@ -270,7 +270,7 @@ void MessageBox::getRenamelineeditChanged(const QString &text)
     }
 }
 
-void MessageBox::renameSureBtn()
+void MessageBox::slot_renameSureBtn()
 {
     QString newname=m_pNewnameLineedit->text();
     if(newname.contains("\\")||newname.contains("/"))
@@ -280,22 +280,22 @@ void MessageBox::renameSureBtn()
         msg->exec();
         return;
     }
-    emit RenameSig(newname);
+    emit signal_Rename(newname);
    this->close();
 }
 
-void MessageBox::clearBtn(int index)
+void MessageBox::slot_clearBtn(int index)
 {
     if(index==1)
     {
         bool ischecked;
         ischecked= m_pCheckBox->isChecked();
-        emit ClearrecycleSig(ischecked);
+        emit signal_Clearrecycle(ischecked);
     }
     this->close();
 }
 
-void MessageBox::deleteBtn(int index)
+void MessageBox::slot_deleteBtn(int index)
 {
     if(index==1)
     {
@@ -303,19 +303,19 @@ void MessageBox::deleteBtn(int index)
     QAbstractButton *button= this->getButton(index);
         button->setEnabled(false);
         if(m_bDeleteFlag)
-             emit DeletedownloadSig(true,m_bDeleteFlag);
+             emit signal_Deletedownload(true,m_bDeleteFlag);
         else
         {
             bool ischecked;
             ischecked= m_pCheckBox->isChecked();
-            emit DeletedownloadSig(ischecked,m_bDeleteFlag);
+            emit signal_Deletedownload(ischecked,m_bDeleteFlag);
 
         }
     }
     this->close();
 }
 
-void MessageBox::ExitBtn(int index)
+void MessageBox::slot_ExitBtn(int index)
 {
     if(index==1)
     {
@@ -327,7 +327,7 @@ void MessageBox::ExitBtn(int index)
         if(m_pCheckBox->isChecked()) {
             Settings::getInstance()->setIsShowTip(false);
         }
-        emit closeConfirmSig();
+        emit signal_closeConfirm();
     }
     close();
 }

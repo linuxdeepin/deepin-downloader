@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
             {
                 w.hide();
             }
-             w.onClipboardDataForBt(comList[i]);
+             w.slot_ClipboardDataForBt(comList[i]);
         }
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloader4.svg"));

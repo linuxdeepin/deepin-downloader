@@ -37,25 +37,25 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
     connect(m_headerCbx,
             &DCheckBox::clicked,
             this,
-            &HeaderView::getStatechanged);
+            &HeaderView::signal_Statechanged);
     connect(DGuiApplicationHelper::instance(),
             &DGuiApplicationHelper::paletteTypeChanged,
             this,
-            &HeaderView::getPalettetypechanged);
+            &HeaderView::slot_Palettetypechanged);
 
     connect(DGuiApplicationHelper::instance(),
             &DGuiApplicationHelper::themeTypeChanged,
             this,
-            &HeaderView::getPalettetypechanged);
+            &HeaderView::slot_Palettetypechanged);
 
     m_headerCbx->setFixedSize(25, 25);
     m_headerCbx->setVisible(true);
     //this->setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
-        getPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
+        slot_Palettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     } else {
-        getPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
+        slot_Palettetypechanged(DGuiApplicationHelper::ColorType::LightType);
     }
     setSortIndicatorShown(true);
     setSectionsClickable(true);
@@ -66,17 +66,17 @@ void HeaderView::updateGeometries()
     m_headerCbx->move(sectionPosition(0) + 5, 5);
 }
 
-void HeaderView::getClearHeaderCheck()
+void HeaderView::slot_ClearHeaderCheck()
 {
     m_headerCbx->setChecked(false);
 }
 
-void HeaderView::getCheckall(bool checked)
+void HeaderView::slot_Checkall(bool checked)
 {
     m_headerCbx->setChecked(checked);
 }
 
-void HeaderView::getPalettetypechanged(DGuiApplicationHelper::ColorType type)
+void HeaderView::slot_Palettetypechanged(DGuiApplicationHelper::ColorType type)
 {
     QPalette p;
 

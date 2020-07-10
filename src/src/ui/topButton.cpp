@@ -100,15 +100,15 @@ void TopButton::Init()
 
 void TopButton::InitConnections()
 {
-    connect(   m_pNewDownloadBtn, &DIconButton::clicked,      this, &TopButton::newDownloadBtnClicked);
-    connect( m_pPauseDownloadBtn, &DIconButton::clicked,      this, &TopButton::pauseDownloadBtnClicked);
-    connect( m_pStartDownloadBtn, &DIconButton::clicked,      this, &TopButton::startDownloadBtnClicked);
-    connect(m_pDeleteDownloadBtn, &DIconButton::clicked,      this, &TopButton::deleteDownloadBtnClicked);
-    connect(       m_pSearchEdit, &DSearchEdit::focusChanged, this, &TopButton::getSearchEditFocus);
-    connect(       m_pSearchEdit, &DSearchEdit::textChanged,  this, &TopButton::getSearchEditTextChange);
+    connect(   m_pNewDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_newDownloadBtnClicked);
+    connect( m_pPauseDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_pauseDownloadBtnClicked);
+    connect( m_pStartDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_startDownloadBtnClicked);
+    connect(m_pDeleteDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_deleteDownloadBtnClicked);
+    connect(       m_pSearchEdit, &DSearchEdit::focusChanged, this, &TopButton::signal_SearchEditFocus);
+    connect(       m_pSearchEdit, &DSearchEdit::textChanged,  this, &TopButton::signal_SearchEditTextChange);
 }
 
-void TopButton::getTableChanged(int index)
+void TopButton::slot_TableChanged(int index)
 {
     if(index == 2) {
         m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
