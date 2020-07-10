@@ -2222,6 +2222,7 @@ void MainFrame::initDataItem(Global::DataItem *data, const S_Task &tbTask)
     data->taskId = tbTask.m_taskId;
     data->fileName = tbTask.m_downloadFilename;
     data->savePath = tbTask.m_downloadPath;
+    data->createTime = tbTask.m_createTime.toString("yyyy-MM-dd hh:mm:ss");
     S_Task_Status taskStatus;
     DBInstance::getTaskStatusById(data->taskId, taskStatus);
     if(taskStatus.m_taskId != "") {
