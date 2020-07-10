@@ -203,6 +203,7 @@ void newTaskWidget::onSureBtnClicked()
 //    }
     //发送至主窗口
     //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+    Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
     emit NewDownload_sig(_urlList,m_defaultDownloadDir, "");
     this->close();
 }
