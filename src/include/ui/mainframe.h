@@ -39,6 +39,8 @@
 #include <DApplication>
 #include <QJsonObject>
 #include <QUuid>
+#include <QNetworkReply>
+#include <QProcess>
 
 #include "settings.h"
 
@@ -326,7 +328,15 @@ private slots:
      */
     void slot_showWindowsForClipboard();
 
-    void getTruetUrlList(QStringList urlList, QString path, QString name="");
+    /**
+     * @brief 解析url
+     */
+    void slot_TruetUrlList(QStringList urlList, QString path, QString name="");
+
+    /**
+     * @brief 解析url请求返回处理
+     */
+    void slot_httpRequest(QNetworkReply *reply);
 private:
 
     /**

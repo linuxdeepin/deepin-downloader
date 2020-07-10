@@ -379,7 +379,7 @@ void MainFrame::createNewTask(QString url)
     static newTaskWidget *pNewTaskWidget = new newTaskWidget();
 
     pNewTaskWidget->setUrl(url);
-    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::getTruetUrlList, Qt::UniqueConnection);
+    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::slot_TruetUrlList, Qt::UniqueConnection);
     connect(pNewTaskWidget, &newTaskWidget::newDownLoadTorrent, this, &MainFrame::slot_getNewDownloadTorrent, Qt::UniqueConnection);
     pNewTaskWidget->exec();
 }
@@ -2451,7 +2451,7 @@ void MainFrame::slot_showWindowsForClipboard()
     m_pLeftList->setCurrentIndex(m_pLeftList->currentIndex().sibling(0,0));
 }
 
-void MainFrame::getTruetUrlList(QStringList urlList, QString path, QString urlName)
+void MainFrame::slot_TruetUrlList(QStringList urlList, QString path, QString urlName)
 {
 //    if(isMagnet(url))
 //    {
@@ -2467,88 +2467,98 @@ void MainFrame::getTruetUrlList(QStringList urlList, QString path, QString urlNa
         //manager->get(*requset);
         manager->head(*requset);
         // post信息到服务器
-        QObject::connect(manager,
-                         &QNetworkAccessManager::finished,
-                         this,
-                         [ = ](QNetworkReply *reply) {
-                            int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-                            switch(statusCode) {
-                                case 200: // redirect (Location: [URL])   真实链接
-                                {
-                                    QProcess *p = new QProcess;
-                                    QStringList _list;
-                                    _list<<"-i"<< urlList[i];
-                                    p->start("curl", _list);
-                                    connect(p, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                                          [=](int exitCode, QProcess::ExitStatus exitStatus){
-                                            QString _str = p->readAllStandardOutput();
-                                            if(!_str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
-                                            {
-                                                // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,"");
-                                                slot_getNewDownloadUrl(QStringList(urlList[i]),path,"");
-                                                return ;
-                                            }
-                                            QStringList _urlInfoList = _str.split("\r\n");
-                                            for (int i = 0; i < _urlInfoList.size(); i++)
-                                            {
-                                                if(_urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
-                                                {
-                                                    int _start= _urlInfoList[i].lastIndexOf("'");
-                                                    QString _urlName = _urlInfoList[i].mid(_start);
-                                                    QString urlName = QUrl::fromPercentEncoding(_urlName.toUtf8());
-                                                    slot_getNewDownloadUrl(QStringList(urlList[i]),path,urlName);
-                                                    return ;
-                                                }
-                                            }
-                                    });
-
-                                    break;
-                                }
-                                case 302: // redirect (Location: [URL])  重定向链接
-                                {
-                                    QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-                                    slot_getNewDownloadUrl(QStringList(strUrl),path,"");
-                                   break;
-                                }
-                                case 405:   //405链接
-                                {
-                                        QProcess *p = new QProcess;
-                                        QStringList _list;
-                                        _list<<"-i"<< urlList[i];
-                                        p->start("curl", _list);
-                                        connect(p, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                                              [=](int exitCode, QProcess::ExitStatus exitStatus){
-                                                QString _str = p->readAllStandardOutput();
-                                                QStringList _urlInfoList = _str.split("\r\n");
-                                                for (int i = 0; i < _urlInfoList.size(); i++)
-                                                {
-                                                    if(_urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
-                                                    {
-                                                        int _start= _urlInfoList[i].lastIndexOf("'");
-                                                        QString _urlName = _urlInfoList[i].mid(_start);
-                                                        QString _urlNameForZH = QUrl::fromPercentEncoding(_urlName.toUtf8());
-                                                       // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
-                                                        slot_getNewDownloadUrl(QStringList(_urlInfoList[i]),path,_urlNameForZH);
-                                                        return ;
-                                                    }
-                                                }
-                                        });
-
-                                        break;
-                                }
-                                default:
-                                {
-                                    QString warning_msg = QString(tr("%1\nThe address you entered cannot be resolved correctly")).arg(urlList[i]);
-                                    MessageBox *msg = new MessageBox();
-                                    msg->setWarings(warning_msg, tr("sure"), "");
-                                    msg->exec();
-                                    return;
-                                }
-
-                            }
-        });
+        QObject::connect(manager, &QNetworkAccessManager::finished, this, &MainFrame::slot_httpRequest);
     }
 
 }
 
+void MainFrame::slot_httpRequest(QNetworkReply *reply)
+{
+    int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    switch(statusCode) {
+        case 200: // redirect (Location: [URL])   真实链接
+        {
+            QProcess *process = new QProcess;
+            QStringList list;
+            list<<"-i"<< reply->url().toString();
+            process->start("curl", list);
+            connect(process, &QProcess::readyReadStandardOutput, this, [=](){
+                qDebug() << "readyReadStandardOutput" << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+                QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
+                proc->kill();
+                proc->close();
+                QString str = proc->readAllStandardOutput();
+                QStringList urlList;
+                urlList.append(proc->arguments().at(1));
+                proc->deleteLater();
+                if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
+                {
+
+                    slot_getNewDownloadUrl(urlList ,Settings::getInstance()->getDownloadSavePath() , "");
+                    return ;
+                }
+                QStringList urlInfoList = str.split("\r\n");
+                for (int i = 0; i < urlInfoList.size(); i++)
+                {
+                    if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                    {
+                        int _start= urlInfoList[i].lastIndexOf("'");
+                        QString _urlName = urlInfoList[i].mid(_start);
+                        QString urlName = QUrl::fromPercentEncoding(_urlName.toUtf8());
+                        slot_getNewDownloadUrl(urlList, Settings::getInstance()->getDownloadSavePath(), urlName);
+                        return ;
+                    }
+                }
+            });
+
+
+            break;
+        }
+        case 302: // redirect (Location: [URL])  重定向链接
+        {
+            QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
+            slot_getNewDownloadUrl(QStringList(strUrl), Settings::getInstance()->getDownloadSavePath(), "");
+           break;
+        }
+        case 405:   //405链接
+        {
+                QProcess *process = new QProcess;
+                QStringList list;
+                list<<"-i"<< reply->url().toString();
+                process->start("curl", list);
+                connect(process, &QProcess::readyReadStandardOutput, this, [=](){
+                    QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
+                    proc->kill();
+                    proc->close();
+                    QString _str = proc->readAllStandardOutput();
+                    proc->deleteLater();
+                    QStringList urlInfoList = _str.split("\r\n");
+                    for (int i = 0; i < urlInfoList.size(); i++)
+                    {
+                        if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                        {
+                            int start = urlInfoList[i].lastIndexOf("'");
+                            QString urlName = urlInfoList[i].mid(start);
+                            QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
+                           // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
+                            slot_getNewDownloadUrl(QStringList(urlInfoList[i]), Settings::getInstance()->getDownloadSavePath(), urlNameForZH);
+                            return ;
+                        }
+                    }
+                });
+
+                break;
+        }
+        default:
+        {
+            QString warning_msg = QString(tr("%1\nThe address you entered cannot be resolved correctly")).arg(reply->url().toString());
+            MessageBox *msg = new MessageBox();
+            msg->setWarings(warning_msg, tr("sure"), "");
+            msg->exec();
+            return;
+        }
+
+    }
+
+}
 
