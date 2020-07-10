@@ -326,6 +326,7 @@ private slots:
      */
     void slot_showWindowsForClipboard();
 
+    void getTruetUrlList(QStringList urlList, QString path, QString name="");
 private:
 
     /**
