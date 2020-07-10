@@ -211,23 +211,23 @@ signals:
      * @brief 改变选中
      * @param flag: 模式
      */
-    void checkDatachange(int flag);
+    void signal_checkDatachange(int flag);
     /**
      * @brief 全选或者全不选
      * @param checked: 选中状态
      */
-    void tableviewAllcheckedOrAllunchecked(bool checked);
+    void signal_tableviewAllcheckedOrAllunchecked(bool checked);
     /**
      * @brief 选中或者不选中
      * @param flag: 模式
      */
-    void signalCheckChange(bool checked, int  flag);
+    void signal_CheckChange(bool checked, int  flag);
 private slots:
     /**
      * @brief 获取选中改变
      * @param flag: 模式
      */
-    void getCheckDatachange(int flag);
+    void slot_CheckDatachange(int flag);
 private:
     QList<Global::DataItem *> m_dataList;
     QList<Global::DataItem *> m_renderList; //切换到正在下载列表就保存正在下载的数据，切换到已完成列表就保存已完成数据

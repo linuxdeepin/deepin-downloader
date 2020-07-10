@@ -99,7 +99,7 @@ public slots:
      * @brief 当前显示列表改变
      * @param index： 列表索引
     */
-    void getTableChanged(int index);
+    void slot_TableChanged(int index);
 private:
     /**
      * @brief 初始化界面
@@ -114,27 +114,27 @@ signals:
     /**
      * @brief 新建下载信号
     */
-    void newDownloadBtnClicked();
+    void signal_newDownloadBtnClicked();
     /**
      * @brief 暂停下载信号
     */
-    void pauseDownloadBtnClicked();
+    void signal_pauseDownloadBtnClicked();
     /**
      * @brief 开始下载信号
     */
-    void startDownloadBtnClicked();
+    void signal_startDownloadBtnClicked();
     /**
      * @brief 删除下载信号
     */
-    void deleteDownloadBtnClicked();
+    void signal_deleteDownloadBtnClicked();
     /**
      * @brief 搜索框焦点改变信号
     */
-    void getSearchEditFocus(bool focus);
+    void signal_SearchEditFocus(bool focus);
     /**
      * @brief 搜索框内容改变信号
     */
-    void getSearchEditTextChange(QString text);
+    void signal_SearchEditTextChange(QString text);
 private:
     Dtk::Widget::DLabel *m_pIconLable;
     Dtk::Widget::DIconButton *m_pNewDownloadBtn;

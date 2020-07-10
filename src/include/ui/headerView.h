@@ -58,22 +58,22 @@ signals:
     /**
      * @brief 表头全选按键状态改变按钮
      */
-    void getStatechanged(bool checked);
+    void signal_Statechanged(bool checked);
 public slots:
     /**
      * @brief 清除表头选中状态
      */
-    void getClearHeaderCheck();
+    void slot_ClearHeaderCheck();
 
     /**
      * @brief 表头全选按键选中
      */
-    void getCheckall(bool checked);
+    void slot_Checkall(bool checked);
 
     /**
      * @brief 调色板改变，重新设置颜色
      */
-    void getPalettetypechanged(DGuiApplicationHelper::ColorType type);
+    void slot_Palettetypechanged(DGuiApplicationHelper::ColorType type);
 };
 
 #endif // HEADERVIEW_H

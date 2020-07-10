@@ -219,28 +219,28 @@ public slots:
     /**
      * @brief 异常处理确认
      */
-    void getUnusualConfirm(int index, const QString &taskId);
+    void slot_UnusualConfirm(int index, const QString &taskId);
 
     /**
     * @brief 同志aria2删除任务
     */
-    void Aria2RemoveSlot(QString gId, QString id);
+    void slot_Aria2Remove(QString gId, QString id);
 
 signals:
     /**
      * @brief 文件为bt，自动开始下载
      */
-    void signalAutoDownloadBt(QString btFilePath);
+    void signal_AutoDownloadBt(QString btFilePath);
 
     /**
      * @brief 重新下载信号
      */
-    void signalRedownload(QString taskId, int rd);
+    void signal_Redownload(QString taskId, int rd);
 
     /**
      * @brief 开始下载信号
      */
-    void signalDownload(QStringList urlList, QString savePath, QString filename = "");
+    void signal_Download(QStringList urlList, QString savePath, QString filename = "");
 
 private:
     TableView *m_pDownloadTableView;

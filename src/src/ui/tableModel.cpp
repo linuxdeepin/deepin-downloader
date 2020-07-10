@@ -41,7 +41,7 @@ TableModel::TableModel(int Flag, QObject *parent)
     if(Flag == 0) {
         m_mode = Downloading;
     }
-    connect(this, &TableModel::checkDatachange, this, &TableModel::getCheckDatachange);
+    connect(this, &TableModel::signal_checkDatachange, this, &TableModel::slot_CheckDatachange);
     m_iSortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
 }
@@ -50,7 +50,7 @@ TableModel::~TableModel()
 {
 }
 
-void TableModel::getCheckDatachange(int flag)
+void TableModel::slot_CheckDatachange(int flag)
 {
     int check_num = 0;
     QList<DataItem *> active_list;
@@ -75,9 +75,9 @@ void TableModel::getCheckDatachange(int flag)
                 }
             }
             if(check_num == active_list.size()) {
-                emit tableviewAllcheckedOrAllunchecked(true);
+                emit signal_tableviewAllcheckedOrAllunchecked(true);
             } else {
-                emit tableviewAllcheckedOrAllunchecked(false);
+                emit signal_tableviewAllcheckedOrAllunchecked(false);
             }
         }
         if((m_mode == Finished) && (finish_list.size() > 0)) {
@@ -87,9 +87,9 @@ void TableModel::getCheckDatachange(int flag)
                 }
             }
             if(check_num == finish_list.size()) {
-                emit tableviewAllcheckedOrAllunchecked(true);
+                emit signal_tableviewAllcheckedOrAllunchecked(true);
             } else {
-                emit tableviewAllcheckedOrAllunchecked(false);
+                emit signal_tableviewAllcheckedOrAllunchecked(false);
             }
         }
     } else {
@@ -100,9 +100,9 @@ void TableModel::getCheckDatachange(int flag)
             }
         }
         if(check_num == m_recyleList.size()) {
-            emit tableviewAllcheckedOrAllunchecked(true);
+            emit signal_tableviewAllcheckedOrAllunchecked(true);
         } else {
-            emit tableviewAllcheckedOrAllunchecked(false);
+            emit signal_tableviewAllcheckedOrAllunchecked(false);
         }
     }
 }
@@ -459,8 +459,8 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
                 }
 
                 // emit dataChanged(index,index);
-                emit checkDatachange(m_iTableviewtabFlag);
-                emit signalCheckChange(value.toBool(), m_iTableviewtabFlag);
+                emit signal_checkDatachange(m_iTableviewtabFlag);
+                emit signal_CheckChange(value.toBool(), m_iTableviewtabFlag);
                 return true;
             }
             break;

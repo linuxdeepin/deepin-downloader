@@ -191,7 +191,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 font.setPointSize(10);
                 painter->setFont(font);
                 painter->setRenderHint(QPainter::Antialiasing);
-                painter->setPen(QColor("#FF6347"));
+                painter->setPen(QColor("#9a2f2f"));
                 const QRect   rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
                 const QString errorText = painter->fontMetrics().elidedText(tr("Failed"),
                                                                             Qt::ElideRight,
@@ -326,7 +326,7 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         FilePath = FilePath + filename;
         QFileInfo file(FilePath);
         if(file.isFile()){
-            pEdit->showAlertMessage(tr("Duplicate name!"));
+            pEdit->showAlertMessage(tr("Duplicate name!"), -1);
             return;
         } else {
             pEdit->hideAlertMessage();
@@ -363,7 +363,7 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
 }
 
 
-void ItemDelegate::onHoverchanged(const QModelIndex &index)
+void ItemDelegate::slot_Hoverchanged(const QModelIndex &index)
 {
     m_iHoverRow = index.row();
 }
