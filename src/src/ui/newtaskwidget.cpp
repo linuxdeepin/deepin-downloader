@@ -197,13 +197,13 @@ void newTaskWidget::onSureBtnClicked()
         _urlList.removeOne(_errorList[i]);
     }
     //获取真实url地址,发送到主界面
-    for (int i = 0;i < _urlList.size(); i++)
-    {
-        getTruetUrl(_urlList[i]);
-    }
+//    for (int i = 0;i < _urlList.size(); i++)
+//    {
+//        getTruetUrl(_urlList[i]);
+//    }
     //发送至主窗口
     //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
- //   emit NewDownload_sig(_urlList,m_defaultDownloadDir);
+    emit NewDownload_sig(_urlList,m_defaultDownloadDir, "");
     this->close();
 }
 
@@ -380,7 +380,7 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                                 QStringList _list;
                                 _list<<"-i"<< redirecUrl;
                                 p->start("curl", _list);
-                                p->waitForReadyRead();
+                                p->waitForReadyRead(1000);
                                 QString _str = p->readAllStandardOutput();
                                 if(!_str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                                 {
@@ -413,7 +413,7 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                                     QStringList _list;
                                     _list<<"-i"<< redirecUrl;
                                     p->start("curl", _list);
-                                    p->waitForReadyRead();
+                                    p->waitForReadyRead(1000);
                                     QString _str = p->readAllStandardOutput();
                                     QStringList _urlInfoList = _str.split("\r\n");
                                     for (int i = 0; i < _urlInfoList.size(); i++)
