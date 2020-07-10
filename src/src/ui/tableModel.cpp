@@ -548,9 +548,9 @@ bool itemGreaterThan(const QPair<QVariant, int> &left,
 
 void TableModel::sort(int column, Qt::SortOrder order)
 {
-//    if(0 == column){
-//        return;
-//    }
+    if(0 == column){
+        return;
+    }
     if(0 == m_iTableviewtabFlag){
         m_iSortColumn = column;
         m_SortOrder = order;
