@@ -108,7 +108,7 @@ void TopButton::InitConnections()
     connect(       m_pSearchEdit, &DSearchEdit::textChanged,  this, &TopButton::signal_SearchEditTextChange);
 }
 
-void TopButton::slot_TableChanged(int index)
+void TopButton::onTableChanged(int index)
 {
     if(index == 2) {
         m_pStartDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
