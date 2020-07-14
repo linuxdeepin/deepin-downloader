@@ -83,25 +83,25 @@ public slots:
     /**
      * @brief 剪切板数据改变，受到bt文件url
     */
-    void slot_ClipboardDataForBt(QString url);
+    void onClipboardDataForBt(QString url);
 
 private slots:
     /**
      * @brief 点击托盘图表的槽函数
      * @param reason 激活原因
      */
-    void slot_Activated(QSystemTrayIcon::ActivationReason reason);
+    void onActivated(QSystemTrayIcon::ActivationReason reason);
 
     /**
      * @brief 设置按钮槽函数
     */
-    void slot_SettingsMenuClicked();
+    void onSettingsMenuClicked();
     /**
      * @brief 处理rpc返回的信息
      * @param method: aria2调用的接口名称
      * @param json： 字符串
     */
-    void slot_RpcSuccess(QString method, QJsonObject json);
+    void onRpcSuccess(QString method, QJsonObject json);
 
     /**
      * @brief 处理rpc返回错误的信息
@@ -109,35 +109,35 @@ private slots:
      * @param id： 唯一id
      * @param error： 错误号
     */
-    void slot_RpcError(QString method, QString id, int error);
+    void onRpcError(QString method, QString id, int error);
 
     /**
      * @brief 表格中元素被选中
     */
-    void slot_TableItemSelected(const QModelIndex &selected);
+    void onTableItemSelected(const QModelIndex &selected);
 
     /**
      * @brief 剪切板数据改变，需要新建任务
     */
-    void slot_ClipboardDataChanged(QString url);
+    void onClipboardDataChanged(QString url);
 
     /**
      * @brief 切换显示列表
      * @param index 节点
     */
-    void slot_ListClicked(const QModelIndex &index);
+    void onListClicked(const QModelIndex &index);
     /**
      * @brief 主题改变
      * @param type 颜色类型
     */
-    void slot_Palettetypechanged(DGuiApplicationHelper::ColorType type);
+    void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
     /**
      * @brief 收到新建任务url
      * @param url 收到url地址
      * @param savePath 保存路径
     */
-    void slot_getNewDownloadUrl(QStringList url, QString savePath, QString fileName);
+    void ongetNewDownloadUrl(QStringList url, QString savePath, QString fileName);
 
     /**
      * @brief 收到新建任务
@@ -149,53 +149,53 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    void slot_getNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+    void ongetNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
 
     /**
      * @brief 表头全部选择按键
      * @param  isChecked ：是否全选
     */
-    void slot_HeaderStatechanged(bool isChecked);
+    void onHeaderStatechanged(bool isChecked);
 
     /**
      * @brief 设置右键菜单
     */
-    void slot_ContextMenu(const QPoint &pos);
+    void onContextMenu(const QPoint &pos);
 
     /**
      * @brief 查找的文本改变
     */
-    void slot_SearchEditTextChanged(QString text);
+    void onSearchEditTextChanged(QString text);
 
     /**
      * @brief 定时器更新界面显示
     */
-    void slot_updateMainUI();
+    void onupdateMainUI();
 
     /**
      * @brief 新建任务按钮槽函数
     */
-    void slot_NewBtnClicked();
+    void onNewBtnClicked();
 
     /**
      * @brief 开始下载按键按下槽函数
     */
-    void slot_StartDownloadBtnClicked();
+    void onStartDownloadBtnClicked();
 
     /**
      * @brief 暂停下载按键按下槽函数
     */
-    void slot_PauseDownloadBtnClicked();
+    void onPauseDownloadBtnClicked();
 
     /**
      * @brief 删除按键按下槽函数
     */
-    void slot_DeleteDownloadBtnClicked();
+    void onDeleteDownloadBtnClicked();
 
     /**
      * @brief 改变列表选中槽函数
     */
-    void slot_CheckChanged(bool checked, int flag);
+    void onCheckChanged(bool checked, int flag);
 
 
     /**
@@ -203,7 +203,7 @@ private slots:
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void slot_GetDeleteConfirm(bool ischecked,bool permanent);
+    void onGetDeleteConfirm(bool ischecked,bool permanent);
 
     /**
      * @brief 重新下载
@@ -211,132 +211,132 @@ private slots:
      * @param rd 重新开始前所在列表 正在下载、已完成、回收站
      */
 
-    void slot_Redownload(QString taskId, int rd);
+    void onRedownload(QString taskId, int rd);
 
     /**
      * @brief 移除指定下载
      */
-    void slot_Aria2Remove(QString gId, QString id);
+    void onAria2Remove(QString gId, QString id);
 
     /**
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
-    void slot_TrayQuitClick();
+    void onTrayQuitClick();
 
     /**
      * @brief messageBox关闭返回事件
      * @param index 按钮index
      */
-    void slot_MessageBoxConfirmClick();
+    void onMessageBoxConfirmClick();
 
     /**
      * @brief 删除ACtion槽函数
     */
-    void slot_DelActionTriggered();
+    void onDelActionTriggered();
 
     /**
      * @brief 重新下载ACtion槽函数
     */
-    void slot_RedownloadActionTriggered();
+    void onRedownloadActionTriggered();
 
     /**
      * @brief 还原下载ACtion槽函数
     */
-    void slot_ReturnOriginActionTriggered();
+    void onReturnOriginActionTriggered();
 
     /**
      * @brief 打开文件ACtion槽函数
     */
-    void slot_OpenFileActionTriggered();
+    void onOpenFileActionTriggered();
 
     /**
      * @brief 打开文件目录ACtion槽函数
     */
-    void slot_OpenFolderActionTriggered();
+    void onOpenFolderActionTriggered();
 
     /**
      * @brief 重命名文件ACtion槽函数
     */
-    void slot_RenameActionTriggered();
+    void onRenameActionTriggered();
 
     /**
      * @brief 移动到文件夹ACtion槽函数
     */
-    void slot_MoveToActionTriggered();
+    void onMoveToActionTriggered();
 
     /**
      * @brief 清除回收站ACtion槽函数
     */
-    void slot_ClearRecyleActionTriggered();
+    void onClearRecyleActionTriggered();
 
     /**
      * @brief 复制URL ACtion槽函数
     */
-    void slot_CopyUrlActionTriggered();
+    void onCopyUrlActionTriggered();
 
     /**
      * @brief 永久删除ACtion槽函数
     */
-    void slot_DeletePermanentActionTriggered();
+    void onDeletePermanentActionTriggered();
 
     /**
     * @brief 是否开启bt文件托管
     * @param status true 为开启 false为关闭
     */
-    void slot_isStartAssociatedBTFile(bool status);
+    void onisStartAssociatedBTFile(bool status);
 
     /**
     * @brief 重命名确认槽函数
     * @param name 新名称
     */
-    void slot_RenameConfirmSlot(QString &name);
+    void onRenameConfirmSlot(QString &name);
 
     /**
     * @brief 重新下载确认槽函数
     */
-    void slot_RedownloadConfirmSlot(const QList<QString> &sameUrlList);
+    void onRedownloadConfirmSlot(const QList<QString> &sameUrlList);
 
     /**
      * @brief 判断下载限速
      */
-    void slot_DownloadLimitChanged();
+    void onDownloadLimitChanged();
 
     /**
      * @brief 是否开机启动
      */
-    void slot_PowerOnChanged(bool isPowerOn);
+    void onPowerOnChanged(bool isPowerOn);
 
     /**
      * @brief 设置里最大任务数改变
      */
-    void slot_MaxDownloadTaskNumberChanged(int nTaskNumber) ;
+    void onMaxDownloadTaskNumberChanged(int nTaskNumber) ;
 
     /**
      * @brief 设置里磁盘缓存改变
      */
-    void slot_DisckCacheChanged(int nNum);
+    void onDisckCacheChanged(int nNum);
 
     /**
      * @brief 清空回收站确认槽函数
      */
-    void slot_ClearRecycle(bool ischecked);
+    void onClearRecycle(bool ischecked);
 
     /**
      * @brief 剪切板将
      * @param reason 激活原因
      */
-    void slot_showWindowsForClipboard();
+    void onshowWindowsForClipboard();
 
     /**
      * @brief 解析url
      */
-    void slot_TruetUrlList(QStringList urlList, QString path, QString name="");
+    void onTruetUrlList(QStringList urlList, QString path, QString name="");
 
     /**
      * @brief 解析url请求返回处理
      */
-    void slot_httpRequest(QNetworkReply *reply);
+    void onhttpRequest(QNetworkReply *reply);
 private:
 
     /**

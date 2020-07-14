@@ -99,7 +99,7 @@ public slots:
      * @brief 当前显示列表改变
      * @param index： 列表索引
     */
-    void slot_TableChanged(int index);
+    void onTableChanged(int index);
 private:
     /**
      * @brief 初始化界面
