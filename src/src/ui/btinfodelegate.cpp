@@ -130,8 +130,7 @@ bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     return false;
 }
 
-
-void BtInfoDelegate::hoverChanged(const QModelIndex &index)
+void BtInfoDelegate::onhoverChanged(const QModelIndex &index)
 {
     m_hoverRow = index.row();
 }

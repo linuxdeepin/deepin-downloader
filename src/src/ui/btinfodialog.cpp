@@ -170,6 +170,7 @@ void BtInfoDialog::initUI()
     this->m_checkAll->setChecked(true);
     connect(this->m_checkAll, SIGNAL(clicked()), this, SLOT(onAllCheck()));
 
+
     this->m_checkVideo = new DCheckBox(this);
     this->m_checkVideo->setGeometry(100, 401, 95, 29);
     this->m_checkVideo->setText(tr("Videos"));
@@ -181,6 +182,7 @@ void BtInfoDialog::initUI()
     this->m_checkPicture->setText(tr("Pictures"));
     this->m_checkPicture->setChecked(true);
     connect(this->m_checkPicture, SIGNAL(clicked()), this, SLOT(onPictureCheck()));
+
 
     this->m_checkAudio = new DCheckBox(this);
     this->m_checkAudio->setGeometry(270, 401, 95, 29);
@@ -222,7 +224,6 @@ void BtInfoDialog::initUI()
     this->m_btnOK->setGeometry(160, 480, 191, 35);
     this->m_btnOK->setText(tr("Download Now"));
     connect(this->m_btnOK, SIGNAL(clicked()), this, SLOT(onBtnOK()));
-
     //文件列表配置
     this->m_tableView->setShowGrid(false);
     this->m_tableView->setSelectionMode(QAbstractItemView::NoSelection);
@@ -279,9 +280,7 @@ void BtInfoDialog::initUI()
     this->m_tableView->horizontalHeader()->setStretchLastSection(true);
 
     DFontSizeManager::instance()->bind(this->m_tableView,DFontSizeManager::SizeType::T6, 0);
-
-    connect(this->m_tableView, &BtInfoTableView::hoverChanged, this->m_delegate, &BtInfoDelegate::hoverChanged);
-
+    connect(this->m_tableView, &BtInfoTableView::hoverChanged, this->m_delegate, &BtInfoDelegate::onhoverChanged);
     onPaletteTypeChanged(DGuiApplicationHelper::ColorType::LightType);
 }
 
@@ -293,7 +292,6 @@ int BtInfoDialog::exec()
 
     return DDialog::exec();
 }
-
 
 void BtInfoDialog::onBtnOK()
 {

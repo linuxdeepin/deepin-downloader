@@ -39,13 +39,13 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
-struct S_DownloadSettings
+struct DownloadSettings
 {
-    QString m_strType; // 下载类型，限速下载为1,全速下载为0
-    QString m_strMaxDownload; // 最大下载限速
-    QString m_strMaxUpload; // 最大上传限速
-    QString m_strStartTime; // 限速开始时间
-    QString m_strEndTime; // 限速结束时间
+    QString m_type; // 下载类型，限速下载为1,全速下载为0
+    QString m_maxDownload; // 最大下载限速
+    QString m_maxUpload; // 最大上传限速
+    QString m_startTime; // 限速开始时间
+    QString m_endTime; // 限速结束时间
 };
 
 /**
@@ -200,7 +200,7 @@ public:
      * @brief 获取所有限速下载限制参数
      * @return 限制参数
      */
-    S_DownloadSettings getAllSpeedLimitInfo();
+    DownloadSettings getAllSpeedLimitInfo();
 
     /**
      * @brief 获取剪切板状态值
@@ -230,7 +230,7 @@ public:
      * @brief 获取下载种子文件后自动打开新建窗口状态值
      * @return 开启返回true，否则返回false
      */
-    bool getAutoOpenNewTaskWidgetState();
+    bool getAutoOpennewTaskWidgetState();
 
     /**
      * @brief 获取启动时关联BT种子文件状态值
@@ -298,22 +298,22 @@ public:
      */
     void setIsShowTip(bool b);
 
-    DSettings *m_pSettings;
+    DSettings *m_settings;
 
 signals:
-    void signal_poweronChanged(bool bState);
-    void signal_maxDownloadTaskNumberChanged(int nTaskNumber);
-    void signal_downloadSettingsChanged();
-    void signal_disckCacheChanged(int nNum);
-    void signal_startAssociatedBTFileChanged(bool bState);
+    void poweronChanged(bool bState);
+    void maxDownloadTaskNumberChanged(int nTaskNumber);
+    void downloadSettingsChanged();
+    void disckCacheChanged(int nNum);
+    void startAssociatedBTFileChanged(bool bState);
 
 public slots:
 
 private:
-    static Settings *s_pInstance;
-    Dtk::Core::QSettingBackend *m_pBackend;
+    static Settings *m_instance;
+    Dtk::Core::QSettingBackend *m_backend;
     QString m_configPath; // 配置文件路径
-    QSettings *m_pIniFile;
+    QSettings *m_iniFile;
 
 };
 

@@ -49,7 +49,7 @@ public:
     static bool getTaskByID(QString id, Task &_task);
     /**
      * @brief 获取所有任务
-     * @param _taskList 传出QList<S_Task>任务
+     * @param _taskList 传出QList<Task>任务
      * @return true 执行成功 false执行失败
      */
     static bool getAllTask(QList<Task> &_taskList); //得到所有任务
@@ -72,13 +72,13 @@ public:
      * @param task 任务状态
      * @return true 执行成功 false执行失败
      */
-    static bool addTaskStatus(TaskStatus); //添加S_Task_Status任务状态
+    static bool addTaskStatus(TaskStatus); //添加TaskStatus任务状态
     /**
      * @brief 更新任务状态
      * @param @param _task 传入任务状态，根据类中id更新数据库中任务状态信息
      * @return true 执行成功 false执行失败
      */
-    static bool updateTaskStatusById(TaskStatus task); //根据id更新S_Task_Status任务
+    static bool updateTaskStatusById(TaskStatus task); //根据id更新TaskStatus任务
     /**
      * @brief 获取任务状态
      * @param id 需要查询任务状态id

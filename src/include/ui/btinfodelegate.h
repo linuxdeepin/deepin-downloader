@@ -81,7 +81,7 @@ public slots:
      * @brief 选择行变动槽函数
      * @param index 当前选择行
      */
-    void hoverChanged(const QModelIndex &index);
+    void onhoverChanged(const QModelIndex &index);
 };
 
 #endif // BTINFODELEGATE_H
