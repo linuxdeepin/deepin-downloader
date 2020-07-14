@@ -354,7 +354,7 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
         QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
         model->setData(index, pEdit->text(), TableModel::FileName);
         model->setData(index, FilePath, TableModel::SavePath);
-        S_Task task;
+        Task task;
         DBInstance::getTaskByID(index.data(TableModel::taskId).toString(),task);
         task.m_downloadPath = FilePath;
         task.m_downloadFilename = pEdit->text();

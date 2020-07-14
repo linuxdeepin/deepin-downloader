@@ -29,8 +29,8 @@
 #include <QClipboard>
 
 
-ClipboardTimer::ClipboardTimer(QObject *parent) :
-    QObject(parent)
+ClipboardTimer::ClipboardTimer(QObject *parent)
+    : QObject(parent)
 {
     m_clipboard = QApplication::clipboard();        //获取当前剪切板
     connect(m_clipboard,&QClipboard::dataChanged,this,&ClipboardTimer::getDataChanged);
@@ -66,13 +66,13 @@ void ClipboardTimer::getDataChanged()
     //将符合规则链接发送至主页面
     if(!url.isEmpty())
     {
-        emit sendClipboardText(url);
+        emit sendClipboardTextChange(url);
     }
 
     //是否是BT文件托管，若是BT文件托管，打开BT文件
     if(m_clipboard->text().endsWith(".torrent") && bIsBt)
     {
-        emit sentBtText(m_clipboard->text());
+        emit sentBtTextChange(m_clipboard->text());
         m_clipboard->clear();        
     }
     //是否调用下载器，不打开任何任务
@@ -80,7 +80,7 @@ void ClipboardTimer::getDataChanged()
     {
         if(isStartManager(urlList[0]))
         {
-            emit showMainWindows();
+            emit mainWindowsShow();
         }
     }
 

@@ -1,430 +1,430 @@
 #include "dbinstance.h"
 
-bool DBInstance::addTask(S_Task _task)
+bool DBInstance::addTask(Task task)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("insert into download_task values (?,?,?,?,?,?,?);");
-    _sql.addBindValue(_task.m_taskId);
-    _sql.addBindValue(_task.m_gid);
-    _sql.addBindValue(_task.m_gidIndex);
-    _sql.addBindValue(_task.m_url);
-    _sql.addBindValue(_task.m_downloadPath);
-    _sql.addBindValue(_task.m_downloadFilename);
-    _sql.addBindValue(_task.m_createTime);
-    if(!_sql.exec())
+    QSqlQuery sql;
+    sql.prepare("insert into download_task values (?,?,?,?,?,?,?);");
+    sql.addBindValue(task.m_taskId);
+    sql.addBindValue(task.m_gid);
+    sql.addBindValue(task.m_gidIndex);
+    sql.addBindValue(task.m_url);
+    sql.addBindValue(task.m_downloadPath);
+    sql.addBindValue(task.m_downloadFilename);
+    sql.addBindValue(task.m_createTime);
+    if(!sql.exec())
     {
-        qWarning()<<"Insert download_task table failed : " << _sql.lastError();
-        _q.close();
+        qWarning()<<"Insert download_task table failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    _q.close();
+    q.close();
     return true;
 }
 
-bool DBInstance::delTask(QString _taskId)
+bool DBInstance::delTask(QString taskId)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    QString _str = QString("delete from  download_task where task_id='%1';").arg(_taskId);
-    _sql.prepare(_str);
-    if (!_sql.exec()) {
-        QSqlError error = _sql.lastError();
+    QSqlQuery sql;
+    QString str = QString("delete from  download_task where task_id='%1';").arg(taskId);
+    sql.prepare(str);
+    if (!sql.exec()) {
+        QSqlError error = sql.lastError();
         qWarning() << "Delete download_task failed : " << error;
-        _q.close();
+        q.close();
         return false;
     }
-    _sql.clear();
-    _sql.prepare("delete from  download_task_status where task_id=?;");
-    _sql.addBindValue(_taskId);
-    if (!_sql.exec()) {
-        QSqlError error = _sql.lastError();
-        qWarning() << "Delete download_task_status failed : " << error;
-        _q.close();
+    sql.clear();
+    sql.prepare("delete from  download_TaskStatus where task_id=?;");
+    sql.addBindValue(taskId);
+    if (!sql.exec()) {
+        QSqlError error = sql.lastError();
+        qWarning() << "Delete download_TaskStatus failed : " << error;
+        q.close();
         return false;
     }
-    _sql.clear();
-    _sql.prepare("delete from  url_info where task_id=?;");
-    _sql.addBindValue(_taskId);
-    if (!_sql.exec()) {
-        QSqlError error = _sql.lastError();
-        qWarning() << "Delete url_info failed : " << error;
-        _q.close();
+    sql.clear();
+    sql.prepare("delete from  UrlInfo where task_id=?;");
+    sql.addBindValue(taskId);
+    if (!sql.exec()) {
+        QSqlError error = sql.lastError();
+        qWarning() << "Delete UrlInfo failed : " << error;
+        q.close();
         return false;
     }
-    _q.close();
+    q.close();
     return true;
 }
 
 bool DBInstance::delAllTask()
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("delete from  download_task;");
-    if (!_sql.exec()) {
-        qWarning() << "Delete download_task failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    sql.prepare("delete from  download_task;");
+    if (!sql.exec()) {
+        qWarning() << "Delete download_task failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    _sql.clear();
-    _sql.prepare("delete from download_task_status;");
-    if (!_sql.exec()) {
-        qWarning() << "Delete download_task failed : " << _sql.lastError();
-        _q.close();
+    sql.clear();
+    sql.prepare("delete from download_TaskStatus;");
+    if (!sql.exec()) {
+        qWarning() << "Delete download_task failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    _sql.clear();
-    _sql.prepare("delete from url_info;");
-    if (!_sql.exec()) {
-        qWarning() << "Delete download_task failed : " << _sql.lastError();
-        _q.close();
+    sql.clear();
+    sql.prepare("delete from UrlInfo;");
+    if (!sql.exec()) {
+        qWarning() << "Delete download_task failed : " << sql.lastError();
+        q.close();
         return false;
     }
 
     return true;
 }
 
-bool DBInstance::updateTaskByID(S_Task &_task)
+bool DBInstance::updateTaskByID(Task &task)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? where task_id= ?");
-    _sql.addBindValue(_task.m_gid);
-    _sql.addBindValue(_task.m_gidIndex);
-    _sql.addBindValue(_task.m_url);
-    _sql.addBindValue(_task.m_downloadPath);
-    _sql.addBindValue(_task.m_downloadFilename);
-    _sql.addBindValue(_task.m_createTime);
-    _sql.addBindValue(_task.m_taskId);
+    QSqlQuery sql;
+    sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? where task_id= ?");
+    sql.addBindValue(task.m_gid);
+    sql.addBindValue(task.m_gidIndex);
+    sql.addBindValue(task.m_url);
+    sql.addBindValue(task.m_downloadPath);
+    sql.addBindValue(task.m_downloadFilename);
+    sql.addBindValue(task.m_createTime);
+    sql.addBindValue(task.m_taskId);
 
-    if (!_sql.exec()) {
-        qWarning() << "Update download_task table failed : " << _sql.lastError();
-        _q.close();
+    if (!sql.exec()) {
+        qWarning() << "Update download_task table failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    _q.close();
+    q.close();
     return true;
 }
 
-bool DBInstance::getTaskByID(QString _taskId, S_Task &_task)
+bool DBInstance::getTaskByID(QString taskId, Task &task)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("select * from download_task where task_id=:index;");
-    _sql.addBindValue(_taskId);
-    if (!_sql.exec()) {
-        qDebug() << "Select download_task table failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    sql.prepare("select * from download_task where task_id=:index;");
+    sql.addBindValue(taskId);
+    if (!sql.exec()) {
+        qDebug() << "Select download_task table failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    while(_sql.next())
+    while(sql.next())
     {
 
-        _task.m_taskId = _sql.value(0).toString();
-        _task.m_gid = _sql.value(1).toString(); //下载gid
-        _task.m_gidIndex = _sql.value(2).toInt(); //位置index
-        _task.m_url = _sql.value(3).toString(); //下载url地址
-        _task.m_downloadPath  = _sql.value(4).toString(); //下载全路径包括文件名
-        _task.m_downloadFilename = _sql.value(5).toString(); //下载文件名
-        _task.m_createTime = _sql.value(6).toDateTime(); //任务创建时间
+        task.m_taskId = sql.value(0).toString();
+        task.m_gid = sql.value(1).toString(); //下载gid
+        task.m_gidIndex = sql.value(2).toInt(); //位置index
+        task.m_url = sql.value(3).toString(); //下载url地址
+        task.m_downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.m_downloadFilename = sql.value(5).toString(); //下载文件名
+        task.m_createTime = sql.value(6).toDateTime(); //任务创建时间
 
     }
-    _q.close();
+    q.close();
     return true;
 }
 
-bool DBInstance::getAllTask(QList<S_Task> &_taskList)
+bool DBInstance::getAllTask(QList<Task> &taskList)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("select * from download_task;");
-    if (!_sql.exec()) {
-        qDebug() << "getAllTask download_task table failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    sql.prepare("select * from download_task;");
+    if (!sql.exec()) {
+        qDebug() << "getAllTask download_task table failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    S_Task _task;
-    while (_sql.next())
+    Task task;
+    while (sql.next())
     {
-        _task.m_taskId = _sql.value(0).toString();
+        task.m_taskId = sql.value(0).toString();
 
-        _task.m_gid = _sql.value(1).toString(); //下载gid
-        _task.m_gidIndex = _sql.value(2).toInt(); //位置index
-        _task.m_url = _sql.value(3).toString(); //下载url地址
-        _task.m_downloadPath  = _sql.value(4).toString(); //下载全路径包括文件名
-        _task.m_downloadFilename = _sql.value(5).toString(); //下载文件名
-        _task.m_createTime = _sql.value(6).toDateTime(); //任务创建时间
-        _taskList.push_back(_task);
+        task.m_gid = sql.value(1).toString(); //下载gid
+        task.m_gidIndex = sql.value(2).toInt(); //位置index
+        task.m_url = sql.value(3).toString(); //下载url地址
+        task.m_downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.m_downloadFilename = sql.value(5).toString(); //下载文件名
+        task.m_createTime = sql.value(6).toDateTime(); //任务创建时间
+        taskList.push_back(task);
     }
-    _q.close();
+    q.close();
     return true;
 }
 
 bool DBInstance::isExistUrl(QString url, bool &ret)
 {
     ret = false;
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    QString select_all_sql = "select count(*)  from download_task where download_task.url='" + url + "' ;";
-    qDebug() << select_all_sql;
-    _sql.prepare(select_all_sql);
-    if (!_sql.exec()) {
-        qWarning() << "select download_task,download_task_status failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    QString selectAllSql = "select count(*)  from download_task where download_task.url='" + url + "' ;";
+    qDebug() << selectAllSql;
+    sql.prepare(selectAllSql);
+    if (!sql.exec()) {
+        qWarning() << "select download_task,download_TaskStatus failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    while (_sql.next()) {
-        if (_sql.value(0).toInt() >= 1) {
+    while (sql.next()) {
+        if (sql.value(0).toInt() >= 1) {
             ret = true;
         }
     }
-    _q.close();
+    q.close();
     return true;
 }
 
-bool DBInstance::addTaskStatus(S_Task_Status _task)
+bool DBInstance::addTaskStatus(TaskStatus task)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("insert into download_task_status values (?,?,?,?,?,?,?,?,?);");
-    _sql.addBindValue(_task.m_taskId);
-    _sql.addBindValue(_task.m_downloadStatus);
-    _sql.addBindValue(_task.m_modifyTime);
-    _sql.addBindValue(_task.m_compeletedLength);
-    _sql.addBindValue(_task.m_downloadSpeed);
-    _sql.addBindValue(_task.m_totalLength);
-    _sql.addBindValue(_task.m_percent);
-    _sql.addBindValue(_task.m_totalFromSource);
-    _sql.addBindValue(_task.m_finishTime);
-    if(!_sql.exec())
+    QSqlQuery sql;
+    sql.prepare("insert into download_TaskStatus values (?,?,?,?,?,?,?,?,?);");
+    sql.addBindValue(task.m_taskId);
+    sql.addBindValue(task.m_downloadStatus);
+    sql.addBindValue(task.m_modifyTime);
+    sql.addBindValue(task.m_compeletedLength);
+    sql.addBindValue(task.m_downloadSpeed);
+    sql.addBindValue(task.m_totalLength);
+    sql.addBindValue(task.m_percent);
+    sql.addBindValue(task.m_totalFromSource);
+    sql.addBindValue(task.m_finishTime);
+    if(!sql.exec())
     {
-        QSqlError error = _sql.lastError();
-        qWarning() << "insert download_task_status failed : " << _sql.lastError();
-        _q.close();
+        QSqlError error = sql.lastError();
+        qWarning() << "insert download_TaskStatus failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    _q.close();
+    q.close();
     return true;
 }
-bool DBInstance::updateTaskStatusById(S_Task_Status _task)
+bool DBInstance::updateTaskStatusById(TaskStatus task)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("update  download_task_status set  download_status=? , modify_time=? ,compeletedLength=? , download_speed=? , totalLength=? ,percent=? , totalFromSource=? ,finish_time=? where task_id= ?");
-    _sql.addBindValue(_task.m_downloadStatus);
-    _sql.addBindValue(_task.m_modifyTime);
-    _sql.addBindValue(_task.m_compeletedLength);
-    _sql.addBindValue(_task.m_downloadSpeed);
-    _sql.addBindValue(_task.m_totalLength);
-    _sql.addBindValue(_task.m_percent);
-    _sql.addBindValue(_task.m_totalFromSource);
-    _sql.addBindValue(_task.m_finishTime);
-    _sql.addBindValue(_task.m_taskId);
-    if(!_sql.exec())
+    QSqlQuery sql;
+    sql.prepare("update  download_TaskStatus set  download_status=? , modify_time=? ,compeletedLength=? , download_speed=? , totalLength=? ,percent=? , totalFromSource=? ,finish_time=? where task_id= ?");
+    sql.addBindValue(task.m_downloadStatus);
+    sql.addBindValue(task.m_modifyTime);
+    sql.addBindValue(task.m_compeletedLength);
+    sql.addBindValue(task.m_downloadSpeed);
+    sql.addBindValue(task.m_totalLength);
+    sql.addBindValue(task.m_percent);
+    sql.addBindValue(task.m_totalFromSource);
+    sql.addBindValue(task.m_finishTime);
+    sql.addBindValue(task.m_taskId);
+    if(!sql.exec())
     {
-        qWarning()<<"update download_task_status failed : " << _sql.lastError();
-        _q.close();
+        qWarning()<<"update download_TaskStatus failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    _q.close();
+    q.close();
     return true;
 }
-bool DBInstance::getTaskStatusById(QString _taskId, S_Task_Status &_task)
+bool DBInstance::getTaskStatusById(QString taskId, TaskStatus &task)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    QString select_all_sql = "select * from download_task_status where task_id='" + _taskId + "';";
-    _sql.prepare(select_all_sql);
-    if (!_sql.exec()) {
-        qWarning() << "update download_task_status failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    QString selectAllAql = "select * from download_TaskStatus where task_id='" + taskId + "';";
+    sql.prepare(selectAllAql);
+    if (!sql.exec()) {
+        qWarning() << "update download_TaskStatus failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    while(_sql.next())
+    while(sql.next())
     {
-        _task.m_taskId = _sql.value(0).toString();
-        _task.m_downloadStatus = _sql.value(1).toInt(); //下载状态
-        _task.m_modifyTime = _sql.value(2).toDateTime();
-        _task.m_compeletedLength = _sql.value(3).toString();
-        _task.m_downloadSpeed = _sql.value(4).toString();
-        _task.m_totalLength = _sql.value(5).toString();
-        _task.m_percent = _sql.value(6).toInt();
-        _task.m_totalFromSource = _sql.value(7).toInt();
-        _task.m_finishTime = _sql.value(8).toDateTime();
+        task.m_taskId = sql.value(0).toString();
+        task.m_downloadStatus = sql.value(1).toInt(); //下载状态
+        task.m_modifyTime = sql.value(2).toDateTime();
+        task.m_compeletedLength = sql.value(3).toString();
+        task.m_downloadSpeed = sql.value(4).toString();
+        task.m_totalLength = sql.value(5).toString();
+        task.m_percent = sql.value(6).toInt();
+        task.m_totalFromSource = sql.value(7).toInt();
+        task.m_finishTime = sql.value(8).toDateTime();
     }
-    _q.close();
+    q.close();
     return true;
 }
-bool DBInstance::getAllTaskStatus(QList<S_Task_Status> &_taskList)
+bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QString select_all_sql = "select * from download_task_status;";
-    QSqlQuery _sql;
-    _sql.prepare(select_all_sql);
-    if (!_sql.exec()) {
-        qWarning() << "get all download_task_status failed : " << _sql.lastError();
-        _q.close();
+    QString selectAllAql = "select * from download_TaskStatus;";
+    QSqlQuery sql;
+    sql.prepare(selectAllAql);
+    if (!sql.exec()) {
+        qWarning() << "get all download_TaskStatus failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    S_Task_Status _task;
-    while (_sql.next())
+    TaskStatus task;
+    while (sql.next())
     {
-        _task.m_taskId = _sql.value(0).toString();
-        _task.m_downloadStatus = _sql.value(1).toInt(); //下载状态
-        _task.m_modifyTime = _sql.value(2).toDateTime();
-        _task.m_compeletedLength = _sql.value(3).toString();
-        _task.m_downloadSpeed = _sql.value(4).toString();
-        _task.m_totalLength = _sql.value(5).toString();
-        _task.m_percent = _sql.value(6).toInt();
-        _task.m_totalFromSource = _sql.value(7).toInt();
-        _task.m_finishTime = _sql.value(8).toDateTime();
-        _taskList.push_back(_task);
+        task.m_taskId = sql.value(0).toString();
+        task.m_downloadStatus = sql.value(1).toInt(); //下载状态
+        task.m_modifyTime = sql.value(2).toDateTime();
+        task.m_compeletedLength = sql.value(3).toString();
+        task.m_downloadSpeed = sql.value(4).toString();
+        task.m_totalLength = sql.value(5).toString();
+        task.m_percent = sql.value(6).toInt();
+        task.m_totalFromSource = sql.value(7).toInt();
+        task.m_finishTime = sql.value(8).toDateTime();
+        taskList.push_back(task);
     }
-    _q.close();
+    q.close();
     return true;
 }
 
-bool DBInstance::addUrl(S_Url_Info _url)
+bool DBInstance::addUrl(UrlInfo url)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("insert into url_info values (?,?,?,?,?,?);");
-    _sql.addBindValue(_url.m_taskId);
-    _sql.addBindValue(_url.m_url);
-    _sql.addBindValue(_url.m_downloadType);
-    _sql.addBindValue(_url.m_seedFile);
-    _sql.addBindValue(_url.m_selectedNum);
-    _sql.addBindValue(_url.m_infoHash);
-    if (!_sql.exec()) {
-        qWarning() << "insert url_info failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    sql.prepare("insert into UrlInfo values (?,?,?,?,?,?);");
+    sql.addBindValue(url.m_taskId);
+    sql.addBindValue(url.m_url);
+    sql.addBindValue(url.m_downloadType);
+    sql.addBindValue(url.m_seedFile);
+    sql.addBindValue(url.m_selectedNum);
+    sql.addBindValue(url.m_infoHash);
+    if (!sql.exec()) {
+        qWarning() << "insert UrlInfo failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    _q.close();
+    q.close();
     return true;
 }
-bool DBInstance::updateUrlById(S_Url_Info _url)
+bool DBInstance::updateUrlById(UrlInfo url)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
-        _q.close();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
+        q.close();
         return false;
     }
-    QSqlQuery _sql;
-    _sql.prepare("update  url_info set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
-    _sql.addBindValue(_url.m_url);
-    _sql.addBindValue(_url.m_downloadType);
-    _sql.addBindValue(_url.m_seedFile);
-    _sql.addBindValue(_url.m_selectedNum);
-    _sql.addBindValue(_url.m_infoHash);
-    _sql.addBindValue(_url.m_taskId);
+    QSqlQuery sql;
+    sql.prepare("update  UrlInfo set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
+    sql.addBindValue(url.m_url);
+    sql.addBindValue(url.m_downloadType);
+    sql.addBindValue(url.m_seedFile);
+    sql.addBindValue(url.m_selectedNum);
+    sql.addBindValue(url.m_infoHash);
+    sql.addBindValue(url.m_taskId);
 
-    _q.close();
+    q.close();
     return true;
 }
-bool DBInstance::getUrlById(QString _urlId, S_Url_Info &_url)
+bool DBInstance::getUrlById(QString urdId, UrlInfo &url)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    QString select_all_sql = "select * from url_info where task_id='" + _urlId + "';";
-    _sql.prepare(select_all_sql);
-    if (!_sql.exec()) {
-        qWarning() << "select url_info failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    QString selectAllAql = "select * from UrlInfo where task_id='" + urdId + "';";
+    sql.prepare(selectAllAql);
+    if (!sql.exec()) {
+        qWarning() << "select UrlInfo failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    while(_sql.next())
+    while(sql.next())
     {
-        _url.m_taskId = _sql.value(0).toString(); //任务id
-        _url.m_url = _sql.value(1).toString(); // url 下载地址
-        _url.m_downloadType = _sql.value(2).toString();//下载类型
-        _url.m_seedFile = _sql.value(3).toString(); //种子文件
-        _url.m_selectedNum = _sql.value(4).toString(); //选择的种子文件号码
-        _url.m_infoHash = _sql.value(5).toString(); //种子文件hash值
+        url.m_taskId = sql.value(0).toString(); //任务id
+        url.m_url = sql.value(1).toString(); // url 下载地址
+        url.m_downloadType = sql.value(2).toString();//下载类型
+        url.m_seedFile = sql.value(3).toString(); //种子文件
+        url.m_selectedNum = sql.value(4).toString(); //选择的种子文件号码
+        url.m_infoHash = sql.value(5).toString(); //种子文件hash值
     }
-    _q.close();
+    q.close();
     return true;
 }
-bool DBInstance::getAllUrl(QList<S_Url_Info> &_urlList)
+bool DBInstance::getAllUrl(QList<UrlInfo> &urlList)
 {
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    QString select_all_sql = "select * from url_info;";
-    _sql.prepare(select_all_sql);
-    if (!_sql.exec()) {
-        qDebug() << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    QString selectAllSql = "select * from UrlInfo;";
+    sql.prepare(selectAllSql);
+    if (!sql.exec()) {
+        qDebug() << sql.lastError();
+        q.close();
         return false;
     }
-    S_Url_Info _url;
-    while(_sql.next())
+    UrlInfo url;
+    while(sql.next())
     {
-        _url.m_taskId = _sql.value(0).toString(); //任务id
-        _url.m_url = _sql.value(1).toString(); // url 下载地址
-        _url.m_downloadType = _sql.value(2).toString();//下载类型
-        _url.m_seedFile = _sql.value(3).toString(); //种子文件
-        _url.m_selectedNum = _sql.value(4).toString(); //选择的种子文件号码
-        _url.m_infoHash = _sql.value(5).toString(); //种子文件hash值
-        _urlList.push_back(_url);
+        url.m_taskId = sql.value(0).toString(); //任务id
+        url.m_url = sql.value(1).toString(); // url 下载地址
+        url.m_downloadType = sql.value(2).toString();//下载类型
+        url.m_seedFile = sql.value(3).toString(); //种子文件
+        url.m_selectedNum = sql.value(4).toString(); //选择的种子文件号码
+        url.m_infoHash = sql.value(5).toString(); //种子文件hash值
+        urlList.push_back(url);
     }
-    _q.close();
+    q.close();
     return true;
 }
 
@@ -457,25 +457,25 @@ int DBInstance::getSameNameCount(QString filename)
 bool DBInstance::isExistBtInHash(QString hash, bool &ret)
 {
     ret = false;
-    QSqlDatabase _q = DataBase::Instance().getDB();
-    if (!_q.open()) {
-        qDebug() << _q.lastError();
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
         return false;
     }
-    QSqlQuery _sql;
-    QString select_all_sql = "select count(*)  from url_info where url_info.infoHash='" + hash + "' ;";
-    qDebug() << select_all_sql;
-    _sql.prepare(select_all_sql);
-    if (!_sql.exec()) {
-        qWarning() << "select download_task,download_task_status failed : " << _sql.lastError();
-        _q.close();
+    QSqlQuery sql;
+    QString selectAllSql = "select count(*)  from UrlInfo where UrlInfo.infoHash='" + hash + "' ;";
+    qDebug() << selectAllSql;
+    sql.prepare(selectAllSql);
+    if (!sql.exec()) {
+        qWarning() << "select download_task,download_TaskStatus failed : " << sql.lastError();
+        q.close();
         return false;
     }
-    while (_sql.next()) {
-        if (_sql.value(0).toInt() >= 1) {
+    while (sql.next()) {
+        if (sql.value(0).toInt() >= 1) {
             ret = true;
         }
     }
-    _q.close();
+    q.close();
     return true;
 }

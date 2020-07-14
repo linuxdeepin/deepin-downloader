@@ -47,12 +47,12 @@ class MessageBox;
 
 DWIDGET_USE_NAMESPACE
 
-class  newTaskWidget :public DDialog
+class  CreateTaskWidget :public DDialog
 {
     Q_OBJECT
 public:
-    explicit newTaskWidget(DDialog *parent=0);
-    ~newTaskWidget();
+    explicit CreateTaskWidget(DDialog *parent=0);
+    ~CreateTaskWidget();
 
     void setUrl(QString url);
 private:
@@ -87,7 +87,7 @@ private slots:
     /**
      * @brief 打开选择文件窗口按钮
      */
-    void openfileDialog();
+    void onFileDialogOpen();
     /**
      * @brief 关闭窗口按钮
      */
@@ -104,7 +104,7 @@ private slots:
     /**
      * @brief 选择下载路径
      */
-    void slot_filechoosed(const QString &);
+    void onFilechoosed(const QString &);
 
 protected:
     /**
@@ -127,7 +127,7 @@ signals:
      * @param save_path 保存路径
      * @param path_name 文件名字
     */
-    void NewDownload_sig(QStringList urlList,QString save_path,QString path_name);
+    void downloadWidgetCreate(QStringList urlList,QString savePath,QString pathName);
     /**
      * @brief 新建bt下载任务
      * @param btPath bt下载地址
@@ -135,11 +135,11 @@ signals:
      * @param infoName bt文件名字
      * @param infoHash bt文件hash值
     */
-    void newDownLoadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+    void downLoadTorrentCreate(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
 
 private:
     DTextEdit *m_texturl;               //url文本框
-    DSuggestButton *m_sure_button;      //确认按钮
+    DSuggestButton *m_sureButton;      //确认按钮
     DFileChooserEdit *m_editDir;    //选择下载路径窗口
     QString m_defaultDownloadDir;   //默认文件路径
 };

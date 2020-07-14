@@ -31,7 +31,7 @@
 #include <QObject>
 
 class TableView;
-struct S_Task;
+struct Task;
 namespace Global {
     struct DataItem;
     struct DelDataItem;

@@ -58,7 +58,7 @@ signals:
      * @brief 发送选中表格信号
      * @return index 所选中行
      */
-    void signal_hoverChanged(const QModelIndex &index);
+    void hoverChanged(const QModelIndex &index);
 
 public slots:
 

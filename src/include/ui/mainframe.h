@@ -55,7 +55,7 @@ class QAction;
 class SettingsWidget;
 class TopButton;
 class TableView;
-class S_Task;
+class Task;
 class ClipboardTimer;
 class BtInfoDialog;
 class tableDataControl;
@@ -386,7 +386,7 @@ private:
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    S_Task getUrlToName(QString url, QString savePaht, QString name);
+    Task getUrlToName(QString url, QString savePaht, QString name);
 
     /**
      * @brief 开始或者继续下载任务
@@ -447,7 +447,7 @@ private:
     /**
      * @brief 初始化DataItem
      */
-    void initDataItem(Global::DataItem *data, const S_Task &tbTask);
+    void initDataItem(Global::DataItem *data, const Task &tbTask);
 
     /**
      * @brief 初始化DelDataItem

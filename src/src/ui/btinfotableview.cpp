@@ -28,8 +28,8 @@
 #include "btinfotableview.h"
 
 
-BtInfoTableView::BtInfoTableView(QWidget *parent) :
-    DTableView(parent)
+BtInfoTableView::BtInfoTableView(QWidget *parent)
+    : DTableView(parent)
 {
 
 }
@@ -38,12 +38,12 @@ void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
 {
     //qDebug()<<event->x()<<event->y();
     QModelIndex idx = this->indexAt(event->pos());
-    emit signal_hoverChanged(idx);
+    emit hoverChanged(idx);
 }
 
 void BtInfoTableView::leaveEvent(QEvent *event)
 {
     this->reset();
-    emit signal_hoverChanged(QModelIndex());
+    emit hoverChanged(QModelIndex());
 }
 

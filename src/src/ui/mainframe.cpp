@@ -53,7 +53,7 @@
 #include "tableView.h"
 #include "topButton.h"
 #include "aria2rpcinterface.h"
-#include "newtaskwidget.h"
+#include "createtaskwidget.h"
 #include "settingswidget.h"
 #include "tableModel.h"
 #include "log.h"
@@ -305,9 +305,9 @@ void MainFrame::initConnection()
     connect(this, &MainFrame::signal_headerViewChecked, m_pRecycleTableView, &TableView::signal_TableViewAllChecked);
 
     connect(m_pSettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
-    connect(m_pClipboard, &ClipboardTimer::sendClipboardText, this, &MainFrame::onClipboardDataChanged);
-    connect(m_pClipboard, &ClipboardTimer::sentBtText, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
-    connect(m_pClipboard, &ClipboardTimer::showMainWindows, this, &MainFrame::onshowWindowsForClipboard, Qt::UniqueConnection);
+    connect(m_pClipboard, &ClipboardTimer::sendClipboardTextChange, this, &MainFrame::onClipboardDataChanged);
+    connect(m_pClipboard, &ClipboardTimer::sentBtTextChange, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
+    connect(m_pClipboard, &ClipboardTimer::mainWindowsShow, this, &MainFrame::onshowWindowsForClipboard, Qt::UniqueConnection);
     connect(m_pLeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
@@ -376,11 +376,11 @@ void MainFrame::createNewTask(QString url)
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
         show();
     }
-    static newTaskWidget *pNewTaskWidget = new newTaskWidget();
+    static CreateTaskWidget *pNewTaskWidget = new CreateTaskWidget();
 
     pNewTaskWidget->setUrl(url);
-    connect(pNewTaskWidget, &newTaskWidget::NewDownload_sig, this, &MainFrame::onTruetUrlList, Qt::UniqueConnection);
-    connect(pNewTaskWidget, &newTaskWidget::newDownLoadTorrent, this, &MainFrame::ongetNewDownloadTorrent, Qt::UniqueConnection);
+    connect(pNewTaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onTruetUrlList, Qt::UniqueConnection);
+    connect(pNewTaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::ongetNewDownloadTorrent, Qt::UniqueConnection);
     pNewTaskWidget->exec();
 }
 
@@ -430,8 +430,8 @@ void MainFrame::initTabledata()
 {
     //m_ptableDataControl->initTabledata();
 
-    QList<S_Task> list;
-    S_Task tbTask;
+    QList<Task> list;
+    Task tbTask;
     int    task_num = 0;
 
     DBInstance::getAllTask(list);
@@ -448,7 +448,7 @@ void MainFrame::initTabledata()
                     QMap<QString, QVariant> opt;
                     opt.insert("dir", savePath.left(savePath.lastIndexOf("/")));
                     opt.insert("out", data->fileName);
-                    S_Url_Info  getUrlInfo;
+                    UrlInfo  getUrlInfo;
                     DBInstance::getUrlById(data->taskId, getUrlInfo);
                     if(getUrlInfo.m_taskId != "") {
                         if(getUrlInfo.m_downloadType == "torrent") {
@@ -667,7 +667,7 @@ void MainFrame::onClipboardDataForBt(QString url)
     bool _isOneClick = Settings::getInstance()->getOneClickDownloadState();
     if(_isOneClick)
     {
-        pBt->onbtnOK();
+        pBt->onBtnOK();
         pBt->getBtInfo(opt, infoName, infoHash);
         this->ongetNewDownloadTorrent(url, opt, infoName, infoHash);
         DBInstance::isExistBtInHash(infoHash, isExist);
@@ -833,7 +833,7 @@ void MainFrame::ongetNewDownloadUrl(QStringList urlList, QString savePath, QStri
     }
 
     // 将url加入数据库和aria
-    S_Task task;
+    Task task;
     QMap<QString, QVariant> opt;
     opt.insert("dir", savePath);
     for(int i = 0; i < urlList.size(); i++) {
@@ -852,7 +852,7 @@ void MainFrame::ongetNewDownloadUrl(QStringList urlList, QString savePath, QStri
    // }
 }
 
-S_Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
+Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
 {
     // 获取url文件名
     QString fileName;
@@ -889,7 +889,7 @@ S_Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
         fileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
     }
 
-    S_Task task;
+    Task task;
     task.m_taskId = QUuid::createUuid().toString();
     task.m_gid = "";
     task.m_gidIndex = 0;
@@ -922,7 +922,7 @@ void MainFrame::continueDownload(DataItem *pItem)
             QMap<QString, QVariant> opt;
             opt.insert("dir", savePath);
             opt.insert("out", fileName);
-            S_Url_Info  getUrlInfo;
+            UrlInfo  getUrlInfo;
             DBInstance::getUrlById(pItem->taskId, getUrlInfo);
             if(getUrlInfo.m_taskId != "") {
                 if(getUrlInfo.m_downloadType == "torrent") {
@@ -1261,7 +1261,7 @@ void MainFrame::ongetNewDownloadTorrent(QString btPath, QMap<QString, QVariant> 
     }
 
     // 数据库是否已存在相同的地址
-    QList<S_Url_Info> urlList;
+    QList<UrlInfo> urlList;
     DBInstance::getAllUrl(urlList);
     QStringList sameFileList;
     for(int i = 0; i < urlList.size(); i++){
@@ -1283,7 +1283,7 @@ void MainFrame::ongetNewDownloadTorrent(QString btPath, QMap<QString, QVariant> 
 
 
     // 将任务添加如task表中
-    S_Task  task;
+    Task  task;
     QString strId = QUuid::createUuid().toString();
     task.m_taskId = strId;
     task.m_gid = "";
@@ -1294,8 +1294,8 @@ void MainFrame::ongetNewDownloadTorrent(QString btPath, QMap<QString, QVariant> 
     task.m_createTime = QDateTime::currentDateTime();
     DBInstance::addTask(task);
 
-    // 将任务添加如url_info表中
-    S_Url_Info urlInfo;
+    // 将任务添加如UrlInfo表中
+    UrlInfo urlInfo;
     urlInfo.m_taskId = strId;
     urlInfo.m_url = "";
     urlInfo.m_downloadType = "torrent";
@@ -1562,8 +1562,8 @@ void MainFrame::onPauseDownloadBtnClicked()
                 if(selectList.at(i)->status != Global::Status::Paused) {
                     Aria2RPCInterface::Instance()->pause(selectList.at(i)->gid, selectList.at(i)->taskId);
                     QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-                    S_Task_Status get_status;
-                    S_Task_Status downloadStatus(selectList.at(i)->taskId,
+                    TaskStatus get_status;
+                    TaskStatus downloadStatus(selectList.at(i)->taskId,
                                                  Global::Status::Paused,
                                                  QDateTime::currentDateTime(),
                                                  selectList.at(
@@ -1786,7 +1786,7 @@ void MainFrame::onReturnOriginActionTriggered()
 
                 opt.insert("dir", savePath);
                 //opt.insert("out", fileName);
-                S_Url_Info  getUrlInfo;
+                UrlInfo  getUrlInfo;
                 DBInstance::getUrlById(returntoData->taskId, getUrlInfo);
                 if(getUrlInfo.m_taskId != "") {
                     if(getUrlInfo.m_downloadType == "torrent") {
@@ -1905,7 +1905,7 @@ void MainFrame::onMoveToActionTriggered()
                         DataItem *data = selectList.at(i);
                         QFile::rename(data->savePath, filePath + "/" + data->fileName);
                         data->savePath = filePath + "/" + data->fileName;
-                        S_Task task;
+                        Task task;
                         DBInstance::getTaskByID(data->taskId,task);
                         task.m_downloadPath = data->savePath;
                         task.m_downloadFilename = data->fileName;
@@ -1983,7 +1983,7 @@ void MainFrame::onRenameConfirmSlot(QString &name)
     m_pCheckItem->savePath = FilePath + name;
     m_pDownLoadingTableView->update();
     m_pCheckItem = nullptr;
-    S_Task task;
+    Task task;
     DBInstance::getTaskByID(m_pCheckItem->taskId,task);
     task.m_downloadPath = m_pCheckItem->savePath;
     task.m_downloadFilename = name;
@@ -1996,7 +1996,7 @@ void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList)
         return;
     }
     // 将url加入数据库和aria
-    S_Task task;
+    Task task;
     QMap<QString, QVariant> opt;
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     opt.insert("dir", savePath);
@@ -2093,8 +2093,8 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
                     Aria2RPCInterface::Instance()->unpause(item->gid, item->taskId);
                 });
                 QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-                S_Task_Status get_status;
-                S_Task_Status downloadStatus(item->taskId,
+                TaskStatus get_status;
+                TaskStatus downloadStatus(item->taskId,
                                              Global::Status::Paused,
                                              QDateTime::currentDateTime(),
                                              item->completedLength,
@@ -2213,7 +2213,7 @@ int  MainFrame::checkTime(QTime *startTime, QTime *endTime)
     return 0;
 }
 
-void MainFrame::initDataItem(Global::DataItem *data, const S_Task &tbTask)
+void MainFrame::initDataItem(Global::DataItem *data, const Task &tbTask)
 {
     data->gid = tbTask.m_gid;
     data->url = tbTask.m_url;
@@ -2223,7 +2223,7 @@ void MainFrame::initDataItem(Global::DataItem *data, const S_Task &tbTask)
     data->fileName = tbTask.m_downloadFilename;
     data->savePath = tbTask.m_downloadPath;
     data->createTime = tbTask.m_createTime.toString("yyyy-MM-dd hh:mm:ss");
-    S_Task_Status taskStatus;
+    TaskStatus taskStatus;
     DBInstance::getTaskStatusById(data->taskId, taskStatus);
     if(taskStatus.m_taskId != "") {
         data->percent = taskStatus.m_percent;
@@ -2244,7 +2244,7 @@ void MainFrame::initDataItem(Global::DataItem *data, const S_Task &tbTask)
 
 void MainFrame::initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData)
 {
-    S_Task_Status taskStatus;
+    TaskStatus taskStatus;
     DBInstance::getTaskStatusById(data->taskId, taskStatus);
     delData->taskId = data->taskId;
     delData->gid = data->gid;
@@ -2526,7 +2526,7 @@ void MainFrame::onhttpRequest(QNetworkReply *reply)
                 QStringList list;
                 list<<"-i"<< reply->url().toString();
                 process->start("curl", list);
-                connect(process, &QProcess::readyReadStandardOutput, this, [=](){ 
+                connect(process, &QProcess::readyReadStandardOutput, this, [=](){
                     QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
                     proc->kill();
                     proc->close();
