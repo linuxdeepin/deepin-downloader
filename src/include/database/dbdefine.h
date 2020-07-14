@@ -12,7 +12,7 @@
 * @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
 
-struct S_Task_Status
+struct TaskStatus
 {
     QString m_taskId; //任务id，主键唯一标识
     int m_downloadStatus; //任务状态
@@ -23,7 +23,7 @@ struct S_Task_Status
     int m_percent;
     int m_totalFromSource; //获取的下载文件大小
     QDateTime m_finishTime; //完成时间
-    S_Task_Status(){
+    TaskStatus(){
         m_taskId = "";
         m_downloadStatus = -1;
         m_compeletedLength = "";
@@ -32,7 +32,7 @@ struct S_Task_Status
         m_percent  = -1;
         m_totalFromSource = 0;
     };
-    S_Task_Status(QString task_id,int download_status,QDateTime modify_time,QString compeletedLength,
+    TaskStatus(QString task_id,int download_status,QDateTime modify_time,QString compeletedLength,
                   QString download_speed,QString totalLength,int percent,int totalFromSource, QDateTime finish_time)
     {
         m_taskId = task_id;
@@ -53,7 +53,7 @@ struct S_Task_Status
 };
 
 
-struct S_Task
+struct Task
 {
     QString m_taskId; //任务id，主键唯一标识
     QString m_gid; //下载gid
@@ -62,7 +62,7 @@ struct S_Task
     QString m_downloadPath; //下载全路径包括文件名
     QString m_downloadFilename; //下载文件名
     QDateTime m_createTime; //任务创建时间
-    S_Task(){
+    Task(){
         m_taskId = "";
         m_gid = "";
         m_gidIndex = -1;
@@ -70,7 +70,7 @@ struct S_Task
         m_downloadPath = "";
         m_downloadFilename = "";
     };
-    S_Task(QString task_id,QString gid,int gid_index,QString url,QString download_path,
+    Task(QString task_id,QString gid,int gid_index,QString url,QString download_path,
                 QString download_filename,QDateTime create_time)
     {
         m_taskId = task_id;
@@ -84,7 +84,7 @@ struct S_Task
     };
 };
 
-struct S_Url_Info
+struct UrlInfo
 {
     QString m_taskId ;//任务id唯一标识
     QString m_url; //下载url
@@ -92,7 +92,7 @@ struct S_Url_Info
     QString m_seedFile; //种子文件
     QString m_selectedNum; //选择的种子文件序号
     QString m_infoHash; //种子文件hash值
-    S_Url_Info(){
+    UrlInfo(){
         m_taskId = "" ;
         m_url = "";
         m_downloadType = "";
@@ -100,7 +100,7 @@ struct S_Url_Info
         m_selectedNum = "";
         m_infoHash = "";
     };
-    S_Url_Info(QString task_id ,QString url ,QString download_type,
+    UrlInfo(QString task_id ,QString url ,QString download_type,
                QString seedFile,QString selectedNum,QString infoHash)
     {
         m_taskId = task_id ;

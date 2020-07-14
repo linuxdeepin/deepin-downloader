@@ -53,9 +53,9 @@ private slots:
     void getDataChanged();              //得到剪切板内容
 
 signals:
-    emit void sendClipboardText(QString url); //发送url
-    emit void sentBtText(QString url);         //发送bt url
-    emit void showMainWindows();
+    emit void sendClipboardTextChange(QString url); //发送url
+    emit void sentBtTextChange(QString url);         //发送bt url
+    emit void mainWindowsShow();
 private:
     QClipboard *m_clipboard;            //剪切板
     bool m_isHttp;

@@ -19,7 +19,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/itemDelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/global.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/topButton.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/newtaskwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/createtaskwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodialog.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfotableview.h
@@ -68,7 +68,7 @@ add_library(dlmcontrolui SHARED
        headerView.cpp
        itemDelegate.cpp
        topButton.cpp
-       newtaskwidget.cpp
+       createtaskwidget.cpp
        btinfodelegate.cpp
        btinfodialog.cpp
        btinfotableview.cpp

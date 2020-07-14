@@ -50,7 +50,7 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
 
     this->setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::slot_paletteTypeChanged);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::onPaletteTypeChanged);
 
 
 }
@@ -168,31 +168,31 @@ void BtInfoDialog::initUI()
     this->m_checkAll->setGeometry(15, 401, 95, 29);
     this->m_checkAll->setText(tr("All"));
     this->m_checkAll->setChecked(true);
-    connect(this->m_checkAll, SIGNAL(clicked()), this, SLOT(slot_checkAll()));
+    connect(this->m_checkAll, SIGNAL(clicked()), this, SLOT(onAllCheck()));
 
     this->m_checkVideo = new DCheckBox(this);
     this->m_checkVideo->setGeometry(100, 401, 95, 29);
     this->m_checkVideo->setText(tr("Videos"));
     this->m_checkVideo->setChecked(true);
-    connect(this->m_checkVideo, SIGNAL(clicked()), this, SLOT(slot_checkVideo()));
+    connect(this->m_checkVideo, SIGNAL(clicked()), this, SLOT(onVideoCheck()));
 
     this->m_checkPicture = new DCheckBox(this);
     this->m_checkPicture->setGeometry(185, 401, 95, 29);
     this->m_checkPicture->setText(tr("Pictures"));
     this->m_checkPicture->setChecked(true);
-    connect(this->m_checkPicture, SIGNAL(clicked()), this, SLOT(slot_checkPicture()));
+    connect(this->m_checkPicture, SIGNAL(clicked()), this, SLOT(onPictureCheck()));
 
     this->m_checkAudio = new DCheckBox(this);
     this->m_checkAudio->setGeometry(270, 401, 95, 29);
     this->m_checkAudio->setText(tr("Music"));
     this->m_checkAudio->setChecked(true);
-    connect(this->m_checkAudio, SIGNAL(clicked()), this, SLOT(slot_checkAudio()));
+    connect(this->m_checkAudio, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
 
     this->m_checkOther = new DCheckBox(this);
     this->m_checkOther->setGeometry(355, 401, 95, 29);    //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
     this->m_checkOther->setText(tr("Others"));
     this->m_checkOther->setChecked(true);
-    connect(this->m_checkOther, SIGNAL(clicked()), this, SLOT(slot_checkOther()));
+    connect(this->m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
 
     //下载路径所在分区剩余磁盘容量
     this->m_labelCapacityFree = new DLabel();
@@ -210,7 +210,7 @@ void BtInfoDialog::initUI()
     this->m_editDir->setClearButtonEnabled(false);
     this->m_editDir->setFileMode(QFileDialog::DirectoryOnly);
     this->m_editDir->lineEdit()->setEnabled(false);
-    connect(this->m_editDir, &DFileChooserEdit::fileChoosed, this, &BtInfoDialog::slot_filechoosed);
+    connect(this->m_editDir, &DFileChooserEdit::fileChoosed, this, &BtInfoDialog::onFilechoosed);
     QList<DSuggestButton*> _btnList = this->m_editDir->findChildren<DSuggestButton *>();
     for (int i = 0; i < _btnList.size(); i++) {
         _btnList[i]->setToolTip(tr("Change download folder"));
@@ -221,7 +221,7 @@ void BtInfoDialog::initUI()
     //this->btnOK->setFixedWidth(190);
     this->m_btnOK->setGeometry(160, 480, 191, 35);
     this->m_btnOK->setText(tr("Download Now"));
-    connect(this->m_btnOK, SIGNAL(clicked()), this, SLOT(slot_btnOK()));
+    connect(this->m_btnOK, SIGNAL(clicked()), this, SLOT(onBtnOK()));
 
     //文件列表配置
     this->m_tableView->setShowGrid(false);
@@ -280,9 +280,9 @@ void BtInfoDialog::initUI()
 
     DFontSizeManager::instance()->bind(this->m_tableView,DFontSizeManager::SizeType::T6, 0);
 
-    connect(this->m_tableView, &BtInfoTableView::signal_hoverChanged, this->m_delegate, &BtInfoDelegate::slot_hoverChanged);
+    connect(this->m_tableView, &BtInfoTableView::hoverChanged, this->m_delegate, &BtInfoDelegate::hoverChanged);
 
-    slot_paletteTypeChanged(DGuiApplicationHelper::ColorType::LightType);
+    onPaletteTypeChanged(DGuiApplicationHelper::ColorType::LightType);
 }
 
 int BtInfoDialog::exec()
@@ -295,7 +295,7 @@ int BtInfoDialog::exec()
 }
 
 
-void BtInfoDialog::slot_btnOK()
+void BtInfoDialog::onBtnOK()
 {
     if(this->getSelected().isNull())
     {
@@ -323,7 +323,7 @@ void BtInfoDialog::slot_btnOK()
     this->accept();
 }
 
-void BtInfoDialog::slot_checkAll()
+void BtInfoDialog::onAllCheck()
 {
     int state = this->m_checkAll->checkState();
     if(state == Qt::Checked) {
@@ -367,7 +367,7 @@ bool BtInfoDialog::isPicture(QString ext) {
     return types.indexOf(ext) != -1;
 }
 
-void BtInfoDialog::slot_checkVideo()
+void BtInfoDialog::onVideoCheck()
 {
     int state = this->m_checkVideo->checkState();
     if(this->m_checkVideo->checkState() == Qt::Checked
@@ -397,7 +397,7 @@ void BtInfoDialog::slot_checkVideo()
     setOkBtnStatus(cnt);
 }
 
-void BtInfoDialog::slot_checkAudio()
+void BtInfoDialog::onAudioCheck()
 {
     int state = this->m_checkAudio->checkState();
     if(this->m_checkVideo->checkState() == Qt::Checked
@@ -427,7 +427,7 @@ void BtInfoDialog::slot_checkAudio()
     setOkBtnStatus(cnt);
 }
 
-void BtInfoDialog::slot_checkPicture()
+void BtInfoDialog::onPictureCheck()
 {
     int state = this->m_checkPicture->checkState();
     if(this->m_checkVideo->checkState() == Qt::Checked
@@ -457,7 +457,7 @@ void BtInfoDialog::slot_checkPicture()
     setOkBtnStatus(cnt);
 }
 
-void BtInfoDialog::slot_checkOther()
+void BtInfoDialog::onOtherCheck()
 {
     int state = this->m_checkOther->checkState();
     if(this->m_checkVideo->checkState() == Qt::Checked
@@ -502,7 +502,7 @@ void BtInfoDialog::updateSelectedInfo()
     setOkBtnStatus(cnt);
 }
 
-void BtInfoDialog::slot_filechoosed(const QString &filename)
+void BtInfoDialog::onFilechoosed(const QString &filename)
 {
     QFileInfo fileinfo;
     QString _strPath;
@@ -526,7 +526,7 @@ void BtInfoDialog::slot_filechoosed(const QString &filename)
     m_defaultDownloadDir = filename;
 }
 
-void BtInfoDialog::slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type)
+void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
 {
     int themeType = DGuiApplicationHelper::instance()->themeType();
     QPalette p;

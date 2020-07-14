@@ -140,35 +140,35 @@ public slots:
     /**
      * @brief 确定按钮
      */
-    void slot_btnOK();          //确定按钮
+    void onBtnOK();          //确定按钮
     /**
      * @brief 全选按钮
      */
-    void slot_checkAll();       //全选按钮
+    void onAllCheck();       //全选按钮
     /**
      * @brief 视频按钮
      */
-    void slot_checkVideo();     //视频按钮
+    void onVideoCheck();     //视频按钮
     /**
      * @brief 视频按钮
      */
-    void slot_checkAudio();     //音频按钮
+    void onAudioCheck();     //音频按钮
     /**
      * @brief 视频按钮
      */
-    void slot_checkPicture();   //图片按钮
+    void onPictureCheck();   //图片按钮
     /**
      * @brief 视频按钮
      */
-    void slot_checkOther();     //其他按钮
+    void onOtherCheck();     //其他按钮
     /**
      * @brief 选择下载路径
      */
-    void slot_filechoosed(const QString &);
+    void onFilechoosed(const QString &);
     /**
      * @brief 随dtk主题变化
      */
-    void slot_paletteTypeChanged(DGuiApplicationHelper::ColorType type);
+    void onPaletteTypeChanged(DGuiApplicationHelper::ColorType type);
 
 };
 
