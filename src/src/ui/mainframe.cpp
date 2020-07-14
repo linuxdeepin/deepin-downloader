@@ -323,11 +323,11 @@ void MainFrame::initConnection()
     connect(this, &MainFrame::signal_tableChanged, m_pToolBar, &TopButton::slot_TableChanged);
     connect(this, &MainFrame::signal_Redownload, this, &MainFrame::slot_Redownload, Qt::QueuedConnection);
 
-    connect(Settings::getInstance(), &Settings::signal_downloadSettingsChanged, this, &MainFrame::slot_DownloadLimitChanged);
-    connect(Settings::getInstance(), &Settings::signal_poweronChanged, this, &MainFrame::slot_PowerOnChanged);
-    connect(Settings::getInstance(), &Settings::signal_maxDownloadTaskNumberChanged, this, &MainFrame::slot_MaxDownloadTaskNumberChanged);
-    connect(Settings::getInstance(), &Settings::signal_disckCacheChanged, this, &MainFrame::slot_DisckCacheChanged);
-    connect(Settings::getInstance(), &Settings::signal_startAssociatedBTFileChanged, this, &MainFrame::slot_isStartAssociatedBTFile);
+    connect(Settings::getInstance(), &Settings::downloadSettingsChanged, this, &MainFrame::slot_DownloadLimitChanged);
+    connect(Settings::getInstance(), &Settings::poweronChanged, this, &MainFrame::slot_PowerOnChanged);
+    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::slot_MaxDownloadTaskNumberChanged);
+    connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::slot_DisckCacheChanged);
+    connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::slot_isStartAssociatedBTFile);
 }
 
 void MainFrame::slot_Activated(QSystemTrayIcon::ActivationReason reason)
@@ -633,10 +633,10 @@ void MainFrame::slot_SettingsMenuClicked()
                                                      Settings::createDownloadDiskCacheSettiingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting",
                                                      Settings::createDownloadSpeedLimitSettiingHandle);
-    pSettingsDialog->updateSettings("Settings", Settings::getInstance()->m_pSettings);
+    pSettingsDialog->updateSettings("Settings", Settings::getInstance()->m_settings);
     pSettingsDialog->exec();
     delete pSettingsDialog;
-    Settings::getInstance()->m_pSettings->sync();
+    Settings::getInstance()->m_settings->sync();
 }
 
 void MainFrame::slot_ClipboardDataChanged(QString url)
@@ -2023,22 +2023,22 @@ void MainFrame::slot_DownloadLimitChanged()
     QString downloadSpeed, uploadSpeed;
 
     // get_limit_speed_time(period_start_time, period_end_time);
-    S_DownloadSettings settings = Settings::getInstance()->getAllSpeedLimitInfo();
-    if("0" == settings.m_strType){
+    DownloadSettings settings = Settings::getInstance()->getAllSpeedLimitInfo();
+    if("0" == settings.m_type){
         Aria2RPCInterface::Instance()->setDownloadUploadSpeed("0", "0");
         return;
     }
 
-    periodStartTime.setHMS(settings.m_strStartTime.section(":", 0, 0).toInt(),
-                              settings.m_strStartTime.section(":", 1, 1).toInt(),
-                              settings.m_strStartTime.section(":", 2, 2).toInt());
+    periodStartTime.setHMS(settings.m_startTime.section(":", 0, 0).toInt(),
+                              settings.m_startTime.section(":", 1, 1).toInt(),
+                              settings.m_startTime.section(":", 2, 2).toInt());
 
-    periodEndTime.setHMS(settings.m_strEndTime.section(":", 0, 0).toInt(),
-                            settings.m_strEndTime.section(":", 1, 1).toInt(),
-                            settings.m_strEndTime.section(":", 2, 2).toInt());
+    periodEndTime.setHMS(settings.m_endTime.section(":", 0, 0).toInt(),
+                            settings.m_endTime.section(":", 1, 1).toInt(),
+                            settings.m_endTime.section(":", 2, 2).toInt());
 
-    downloadSpeed = settings.m_strMaxDownload;
-    uploadSpeed = settings.m_strMaxUpload;
+    downloadSpeed = settings.m_maxDownload;
+    uploadSpeed = settings.m_maxUpload;
 
     // 判断当前时间是否在限速时间内
     bool bInPeriod = checkIfInPeriod(&currentTime, &periodStartTime, &periodEndTime);
@@ -2408,7 +2408,7 @@ void MainFrame::endBtAssociat()
 void MainFrame::btNotificaitonSettings(QString head,QString text,bool isBt)
 {
     // 获取免打扰模式值
-    QVariant undisturbed_mode_switchbutton = Settings::getInstance()->m_pSettings->getOption(
+    QVariant undisturbed_mode_switchbutton = Settings::getInstance()->m_settings->getOption(
         "basic.select_multiple.undisturbed_mode_switchbutton");
 
     bool downloadInfoNotify = Settings::getInstance()->getDownloadInfoSystemNotifyState();
