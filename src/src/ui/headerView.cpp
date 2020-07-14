@@ -28,7 +28,7 @@
 #include "headerView.h"
 #include <QDebug>
 
-HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
+DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
     m_headerCbx = new QCheckBox(this);
@@ -37,46 +37,41 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent)
     connect(m_headerCbx,
             &DCheckBox::clicked,
             this,
-            &HeaderView::signal_Statechanged);
+            &DownloadHeaderView::Statechanged);
     connect(DGuiApplicationHelper::instance(),
             &DGuiApplicationHelper::paletteTypeChanged,
             this,
-            &HeaderView::slot_Palettetypechanged);
+            &DownloadHeaderView::onPalettetypechanged);
 
     connect(DGuiApplicationHelper::instance(),
             &DGuiApplicationHelper::themeTypeChanged,
             this,
-            &HeaderView::slot_Palettetypechanged);
+            &DownloadHeaderView::onPalettetypechanged);
 
     m_headerCbx->setFixedSize(25, 25);
     m_headerCbx->setVisible(true);
     //this->setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
-        slot_Palettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
+        onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     } else {
-        slot_Palettetypechanged(DGuiApplicationHelper::ColorType::LightType);
+        onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
     }
     setSortIndicatorShown(true);
     setSectionsClickable(true);
 }
 
-void HeaderView::updateGeometries()
+void DownloadHeaderView::updateGeometries()
 {
     m_headerCbx->move(sectionPosition(0) + 5, 5);
 }
 
-void HeaderView::slot_ClearHeaderCheck()
-{
-    m_headerCbx->setChecked(false);
-}
-
-void HeaderView::slot_Checkall(bool checked)
+void DownloadHeaderView::onHeaderChecked(bool checked)
 {
     m_headerCbx->setChecked(checked);
 }
 
-void HeaderView::slot_Palettetypechanged(DGuiApplicationHelper::ColorType type)
+void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
     QPalette p;
 

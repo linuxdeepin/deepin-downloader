@@ -65,7 +65,7 @@ signals:
      /**
       * @brief 通知主界面调用aria2删除任务
      */
-     void signal_Aria2Remove(QString gId, QString id);
+     void Aria2Remove(QString gId, QString id);
 
 private:
      QList<DelDataItem> m_pRecycleDeleteList;
