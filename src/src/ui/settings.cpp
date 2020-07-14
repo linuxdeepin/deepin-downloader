@@ -56,7 +56,7 @@ int isDigitStr(QString src)
     QByteArray ba = src.toLatin1();//QString 转换为 char*
      const char *s = ba.data();
 
-    while(*s && *s>='0' && *s<='9') s++;
+    while(*s && *s >= '0' && *s <= '9') s++;
 
     if (*s) { //不是纯数字
         return -1;
@@ -75,7 +75,8 @@ Settings *Settings::getInstance()
     return m_instance;
 }
 
-Settings::Settings(QObject *parent) : QObject(parent)
+Settings::Settings(QObject *parent)
+    : QObject(parent)
 {
     m_configPath = QString("%1/%2/%3/config.conf")
         .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
@@ -86,6 +87,22 @@ Settings::Settings(QObject *parent) : QObject(parent)
     m_settings = DSettings::fromJsonFile(":/json/settings");
 
     m_settings->setBackend(m_backend);
+
+    //上次保存文件位置以及右上角关闭时是否显示提示框
+    QString iniConfigPath = QString("%1/%2/%3/usrConfig.conf")
+        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+        .arg(qApp->organizationName())
+        .arg(qApp->applicationName());
+
+    m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
+
+    if (!m_iniFile->contains("FilePath/Filename")) {
+        m_iniFile->setValue("FilePath/Filename",  "");
+    }
+
+    if (!m_iniFile->contains("Close/showTip")) {
+        m_iniFile->setValue("Close/showTip",  "true");
+    }
 
     // 初始化同时下载最大任务数
     auto maxDownloadTaskOption = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
@@ -242,24 +259,7 @@ Settings::Settings(QObject *parent) : QObject(parent)
     auto shortcutsName = tr("Shortcuts"); // 快捷设置
     auto newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
     auto showMainName = tr("Show main window"); // 打开主界面快捷键
-    auto diskCacheName = tr("Cache"); // 下载磁盘缓存
-
-    //上次保存文件位置以及右上角关闭时是否显示提示框
-
-    QString iniConfigPath = QString("%1/%2/%3/usrConfig.conf")
-        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-        .arg(qApp->organizationName())
-        .arg(qApp->applicationName());
-
-    m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
-
-    if (!m_iniFile->contains("FilePath/Filename")) {
-        m_iniFile->setValue("FilePath/Filename",  "");
-    }
-
-    if (!m_iniFile->contains("Close/showTip")) {
-        m_iniFile->setValue("Close/showTip",  "true");
-    }
+    auto diskCacheName = tr("Cache"); // 下载磁盘缓存  
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
@@ -300,12 +300,12 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
 
     FileSavePathChooser *fileSavePathChooser = new FileSavePathChooser(currentSelect, downloadPath);
 
-    connect(fileSavePathChooser, &FileSavePathChooser::signal_textChanged, fileSavePathChooser, [=] (QVariant var) {
+    connect(fileSavePathChooser, &FileSavePathChooser::textChanged, fileSavePathChooser, [=] (QVariant var) {
         QString currentValue = var.toString();
         QString optionValue = option->value().toString();
 
         if (currentValue == "custom;" && !optionValue.isEmpty()) {
-            QString oldPath = optionValue.section(QString(';'),1,1);
+            QString oldPath = optionValue.section(QString(';'), 1, 1);
 
             if (!oldPath.isEmpty()) {
                 currentValue = "custom;" + oldPath;
@@ -346,7 +346,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
     itemSelectionWidget->setLabelText(tr("HTTP")); // HTTP下载
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    connect(itemSelectionWidget, &ItemSelectionWidget::signal_checkBoxIsChecked, itemSelectionWidget, [=] (QVariant var) {
+    connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
 
@@ -367,7 +367,7 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
     itemSelectionWidget->setLabelText(tr("BitTorrent")); // BT下载
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    connect(itemSelectionWidget, &ItemSelectionWidget::signal_checkBoxIsChecked, itemSelectionWidget, [=] (QVariant var) {
+    connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
 
@@ -388,7 +388,7 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
     itemSelectionWidget->setLabelText(tr("Magnet URI scheme")); // 磁力链接下载
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
-    connect(itemSelectionWidget, &ItemSelectionWidget::signal_checkBoxIsChecked, itemSelectionWidget, [=] (QVariant var) {
+    connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=] (QVariant var) {
         option->setValue(var.toString());
     });
 
@@ -420,7 +420,7 @@ QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
     groupSelectionWidget->setLabelIsHide(true);
     groupSelectionWidget->setCurrentSelected(currentSelected);
 
-    connect(groupSelectionWidget, &GroupSelectionWidget::signal_selectedChanged, groupSelectionWidget, [=] (QVariant var) {
+    connect(groupSelectionWidget, &GroupSelectionWidget::selectedChanged, groupSelectionWidget, [=] (QVariant var) {
         QString currentValue = var.toString();
 
         if (currentValue.isEmpty()) {
@@ -468,7 +468,7 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     groupSelectionWidget->setLabelText(tr("More disk cache, faster download speed \nand more computer consume")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
     groupSelectionWidget->setCurrentSelected(currentSelected);
 
-    connect(groupSelectionWidget, &GroupSelectionWidget::signal_selectedChanged, groupSelectionWidget, [=] (QVariant var) {
+    connect(groupSelectionWidget, &GroupSelectionWidget::selectedChanged, groupSelectionWidget, [=] (QVariant var) {
         QString currentValue = var.toString();
 
         if (currentValue.isEmpty()) {
@@ -536,7 +536,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     downloadSettingWidget->setStartTime(startTime);
     downloadSettingWidget->setEndTime(endTime);
 
-    connect(downloadSettingWidget, &DownloadSettingWidget::signal_speedLimitInfoChanged, downloadSettingWidget, [=] (QVariant var) {
+    connect(downloadSettingWidget, &DownloadSettingWidget::speedLimitInfoChanged, downloadSettingWidget, [=] (QVariant var) {
         QString currentValue = var.toString();
         QStringList currentValueList = currentValue.split(';');
 
@@ -908,11 +908,11 @@ int Settings::getDisckcacheNum()
     return number;
 }
 
-void Settings::setCloseMainWindowSelected(int nSelect)
+void Settings::setCloseMainWindowSelected(int select)
 {
     auto option = m_settings->option("Basic.CloseMainWindow.closemainwindow");
 
-    option->setValue(nSelect);
+    option->setValue(select);
 }
 
 
@@ -923,7 +923,7 @@ QString Settings::getCustomFilePath()
 
 void Settings::setCustomFilePath(const QString &path)
 {
-    m_iniFile->setValue( "FilePath/Filename",  path);
+    m_iniFile->setValue("FilePath/Filename", path);
 }
 
 bool Settings::getIsShowTip()
@@ -934,8 +934,8 @@ bool Settings::getIsShowTip()
 void Settings::setIsShowTip(bool b)
 {
     if (b) {
-        m_iniFile->setValue( "Close/showTip",  "true");
+        m_iniFile->setValue("Close/showTip", "true");
     } else {
-        m_iniFile->setValue( "Close/showTip",  "false");
+        m_iniFile->setValue("Close/showTip", "false");
     }
 }

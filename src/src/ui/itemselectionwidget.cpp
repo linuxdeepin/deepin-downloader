@@ -29,7 +29,8 @@
 #include <QHBoxLayout>
 #include <QDebug>
 
-ItemSelectionWidget::ItemSelectionWidget(QWidget *parent) : QWidget(parent)
+ItemSelectionWidget::ItemSelectionWidget(QWidget *parent)
+    : QWidget(parent)
 {
     initUI();
     initConnections();
@@ -40,52 +41,52 @@ void ItemSelectionWidget::initUI()
 {
 //    setStyleSheet("background:rgba(211, 211, 211, 1)");
 
-    m_pLabel = new DLabel("HTTP下载");
-    m_pCheckBox = new DCheckBox;
+    m_label = new DLabel("HTTP下载");
+    m_checkBox = new DCheckBox;
 //    m_pCheckBox->setStyleSheet("QCheckBox::indicator:unchecked{image:url(:/icons/unchecked);width:24px;height:24px;}"
 //                               "QCheckBox::indicator:checked{image:url(:/icons/checked);width:24px;height:24px;}");
 
-    QHBoxLayout *pMainLayout = new QHBoxLayout;
-    pMainLayout->addWidget(m_pCheckBox);
-    pMainLayout->addWidget(m_pLabel);
-    pMainLayout->addStretch();
-    pMainLayout->setContentsMargins(0, 0, 0, 0);
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(m_checkBox);
+    mainLayout->addWidget(m_label);
+    mainLayout->addStretch();
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
-    setLayout(pMainLayout);
+    setLayout(mainLayout);
 }
 
 // 初始化链接
 void ItemSelectionWidget::initConnections()
 {
-    connect(m_pCheckBox, &QCheckBox::stateChanged, this, &ItemSelectionWidget::slot_checkBoxstateChangedSlot);
+    connect(m_checkBox, &QCheckBox::stateChanged, this, &ItemSelectionWidget::onCheckBoxStateChanged);
 }
 
-void ItemSelectionWidget::slot_checkBoxstateChangedSlot(int nState)
+void ItemSelectionWidget::onCheckBoxStateChanged(int state)
 {
-    if (nState == 0) {
-        emit signal_checkBoxIsChecked(false);
-    } else if(nState == 2) {
-        emit signal_checkBoxIsChecked(true);
+    if (state == Qt::Unchecked) {
+        emit checkBoxIsChecked(false);
+    } else if(state == Qt::Checked) {
+        emit checkBoxIsChecked(true);
     }
 }
 
-void ItemSelectionWidget::setLabelText(const QString &strText)
+void ItemSelectionWidget::setLabelText(const QString &text)
 {
-    m_pLabel->setText(strText);
+    m_label->setText(text);
 }
 
-void ItemSelectionWidget::setCheckBoxChecked(bool bIsChecked)
+void ItemSelectionWidget::setCheckBoxChecked(bool isChecked)
 {
-    m_pCheckBox->setChecked(bIsChecked);
+    m_checkBox->setChecked(isChecked);
 }
 
-void ItemSelectionWidget::setCheckboxState(Qt::CheckState State)
+void ItemSelectionWidget::setCheckboxState(Qt::CheckState state)
 {
-    m_pCheckBox->setCheckState(State);
+    m_checkBox->setCheckState(state);
 }
 
-void ItemSelectionWidget::setBlockSignals(bool block)
+void ItemSelectionWidget::setBlockSignals(bool lock)
 {
-    m_pCheckBox->blockSignals(block);
+    m_checkBox->blockSignals(lock);
 }
 

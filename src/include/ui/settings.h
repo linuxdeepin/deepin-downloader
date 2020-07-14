@@ -270,9 +270,9 @@ public:
 
     /**
      * @brief 设置关闭主界面选择选项
-     * @param nSelect 设置选中选项，退出下载器设置1,最小化到托盘设置0
+     * @param select 设置选中选项，退出下载器设置1,最小化到托盘设置0
      */
-    void setCloseMainWindowSelected(int nSelect);
+    void setCloseMainWindowSelected(int select);
 
     /**
      * @brief 获取自定义文件路径
@@ -282,30 +282,30 @@ public:
 
     /**
      * @brief 设置自定义文件路径
-     * @return 返回数值
+     * @param path文件保存路径
      */
     void setCustomFilePath(const QString &path);
 
     /**
      * @brief 获取关闭时是否显示提示
-     * @return 返回数值
+     * @return 显示提示返回true，否则返回false
      */
     bool getIsShowTip();
 
     /**
      * @brief 设置关闭时是否显示提示
-     * @return 返回数值
+     * @param b 布尔值true或者false
      */
     void setIsShowTip(bool b);
 
     DSettings *m_settings;
 
 signals:
-    void poweronChanged(bool bState);
-    void maxDownloadTaskNumberChanged(int nTaskNumber);
+    void poweronChanged(bool state);
+    void maxDownloadTaskNumberChanged(int taskNumber);
     void downloadSettingsChanged();
-    void disckCacheChanged(int nNum);
-    void startAssociatedBTFileChanged(bool bState);
+    void disckCacheChanged(int number);
+    void startAssociatedBTFileChanged(bool state);
 
 public slots:
 
