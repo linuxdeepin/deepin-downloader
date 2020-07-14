@@ -39,11 +39,11 @@ DWIDGET_USE_NAMESPACE
  * @class HeaderView
  * @brief 表头
  */
-class HeaderView : public QHeaderView
+class DownloadHeaderView : public QHeaderView
 {
     Q_OBJECT
 public:
-    explicit HeaderView(Qt::Orientation orientation,
+    explicit DownloadHeaderView(Qt::Orientation orientation,
                         QWidget        *parent = 0);
 
 protected:
@@ -58,22 +58,22 @@ signals:
     /**
      * @brief 表头全选按键状态改变按钮
      */
-    void signal_Statechanged(bool checked);
+    void Statechanged(bool checked);
 public slots:
     /**
      * @brief 清除表头选中状态
      */
-    void slot_ClearHeaderCheck();
+//    void onClearHeaderChecked();
 
     /**
      * @brief 表头全选按键选中
      */
-    void slot_Checkall(bool checked);
+    void onHeaderChecked(bool checked);
 
     /**
      * @brief 调色板改变，重新设置颜色
      */
-    void slot_Palettetypechanged(DGuiApplicationHelper::ColorType type);
+    void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 };
 
 #endif // HEADERVIEW_H

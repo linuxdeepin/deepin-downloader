@@ -9,13 +9,13 @@ bool DBInstance::addTask(Task task)
     }
     QSqlQuery sql;
     sql.prepare("insert into download_task values (?,?,?,?,?,?,?);");
-    sql.addBindValue(task.m_taskId);
-    sql.addBindValue(task.m_gid);
-    sql.addBindValue(task.m_gidIndex);
-    sql.addBindValue(task.m_url);
-    sql.addBindValue(task.m_downloadPath);
-    sql.addBindValue(task.m_downloadFilename);
-    sql.addBindValue(task.m_createTime);
+    sql.addBindValue(task.taskId);
+    sql.addBindValue(task.gid);
+    sql.addBindValue(task.gidIndex);
+    sql.addBindValue(task.url);
+    sql.addBindValue(task.downloadPath);
+    sql.addBindValue(task.downloadFilename);
+    sql.addBindValue(task.createTime);
     if(!sql.exec())
     {
         qWarning()<<"Insert download_task table failed : " << sql.lastError();
@@ -105,13 +105,13 @@ bool DBInstance::updateTaskByID(Task &task)
     }
     QSqlQuery sql;
     sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? where task_id= ?");
-    sql.addBindValue(task.m_gid);
-    sql.addBindValue(task.m_gidIndex);
-    sql.addBindValue(task.m_url);
-    sql.addBindValue(task.m_downloadPath);
-    sql.addBindValue(task.m_downloadFilename);
-    sql.addBindValue(task.m_createTime);
-    sql.addBindValue(task.m_taskId);
+    sql.addBindValue(task.gid);
+    sql.addBindValue(task.gidIndex);
+    sql.addBindValue(task.url);
+    sql.addBindValue(task.downloadPath);
+    sql.addBindValue(task.downloadFilename);
+    sql.addBindValue(task.createTime);
+    sql.addBindValue(task.taskId);
 
     if (!sql.exec()) {
         qWarning() << "Update download_task table failed : " << sql.lastError();
@@ -140,13 +140,13 @@ bool DBInstance::getTaskByID(QString taskId, Task &task)
     while(sql.next())
     {
 
-        task.m_taskId = sql.value(0).toString();
-        task.m_gid = sql.value(1).toString(); //下载gid
-        task.m_gidIndex = sql.value(2).toInt(); //位置index
-        task.m_url = sql.value(3).toString(); //下载url地址
-        task.m_downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
-        task.m_downloadFilename = sql.value(5).toString(); //下载文件名
-        task.m_createTime = sql.value(6).toDateTime(); //任务创建时间
+        task.taskId = sql.value(0).toString();
+        task.gid = sql.value(1).toString(); //下载gid
+        task.gidIndex = sql.value(2).toInt(); //位置index
+        task.url = sql.value(3).toString(); //下载url地址
+        task.downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.downloadFilename = sql.value(5).toString(); //下载文件名
+        task.createTime = sql.value(6).toDateTime(); //任务创建时间
 
     }
     q.close();
@@ -170,14 +170,14 @@ bool DBInstance::getAllTask(QList<Task> &taskList)
     Task task;
     while (sql.next())
     {
-        task.m_taskId = sql.value(0).toString();
+        task.taskId = sql.value(0).toString();
 
-        task.m_gid = sql.value(1).toString(); //下载gid
-        task.m_gidIndex = sql.value(2).toInt(); //位置index
-        task.m_url = sql.value(3).toString(); //下载url地址
-        task.m_downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
-        task.m_downloadFilename = sql.value(5).toString(); //下载文件名
-        task.m_createTime = sql.value(6).toDateTime(); //任务创建时间
+        task.gid = sql.value(1).toString(); //下载gid
+        task.gidIndex = sql.value(2).toInt(); //位置index
+        task.url = sql.value(3).toString(); //下载url地址
+        task.downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.downloadFilename = sql.value(5).toString(); //下载文件名
+        task.createTime = sql.value(6).toDateTime(); //任务创建时间
         taskList.push_back(task);
     }
     q.close();
@@ -219,15 +219,15 @@ bool DBInstance::addTaskStatus(TaskStatus task)
     }
     QSqlQuery sql;
     sql.prepare("insert into download_TaskStatus values (?,?,?,?,?,?,?,?,?);");
-    sql.addBindValue(task.m_taskId);
-    sql.addBindValue(task.m_downloadStatus);
-    sql.addBindValue(task.m_modifyTime);
-    sql.addBindValue(task.m_compeletedLength);
-    sql.addBindValue(task.m_downloadSpeed);
-    sql.addBindValue(task.m_totalLength);
-    sql.addBindValue(task.m_percent);
-    sql.addBindValue(task.m_totalFromSource);
-    sql.addBindValue(task.m_finishTime);
+    sql.addBindValue(task.taskId);
+    sql.addBindValue(task.downloadStatus);
+    sql.addBindValue(task.modifyTime);
+    sql.addBindValue(task.compeletedLength);
+    sql.addBindValue(task.downloadSpeed);
+    sql.addBindValue(task.totalLength);
+    sql.addBindValue(task.percent);
+    sql.addBindValue(task.totalFromSource);
+    sql.addBindValue(task.finishTime);
     if(!sql.exec())
     {
         QSqlError error = sql.lastError();
@@ -247,15 +247,15 @@ bool DBInstance::updateTaskStatusById(TaskStatus task)
     }
     QSqlQuery sql;
     sql.prepare("update  download_TaskStatus set  download_status=? , modify_time=? ,compeletedLength=? , download_speed=? , totalLength=? ,percent=? , totalFromSource=? ,finish_time=? where task_id= ?");
-    sql.addBindValue(task.m_downloadStatus);
-    sql.addBindValue(task.m_modifyTime);
-    sql.addBindValue(task.m_compeletedLength);
-    sql.addBindValue(task.m_downloadSpeed);
-    sql.addBindValue(task.m_totalLength);
-    sql.addBindValue(task.m_percent);
-    sql.addBindValue(task.m_totalFromSource);
-    sql.addBindValue(task.m_finishTime);
-    sql.addBindValue(task.m_taskId);
+    sql.addBindValue(task.downloadStatus);
+    sql.addBindValue(task.modifyTime);
+    sql.addBindValue(task.compeletedLength);
+    sql.addBindValue(task.downloadSpeed);
+    sql.addBindValue(task.totalLength);
+    sql.addBindValue(task.percent);
+    sql.addBindValue(task.totalFromSource);
+    sql.addBindValue(task.finishTime);
+    sql.addBindValue(task.taskId);
     if(!sql.exec())
     {
         qWarning()<<"update download_TaskStatus failed : " << sql.lastError();
@@ -282,15 +282,15 @@ bool DBInstance::getTaskStatusById(QString taskId, TaskStatus &task)
     }
     while(sql.next())
     {
-        task.m_taskId = sql.value(0).toString();
-        task.m_downloadStatus = sql.value(1).toInt(); //下载状态
-        task.m_modifyTime = sql.value(2).toDateTime();
-        task.m_compeletedLength = sql.value(3).toString();
-        task.m_downloadSpeed = sql.value(4).toString();
-        task.m_totalLength = sql.value(5).toString();
-        task.m_percent = sql.value(6).toInt();
-        task.m_totalFromSource = sql.value(7).toInt();
-        task.m_finishTime = sql.value(8).toDateTime();
+        task.taskId = sql.value(0).toString();
+        task.downloadStatus = sql.value(1).toInt(); //下载状态
+        task.modifyTime = sql.value(2).toDateTime();
+        task.compeletedLength = sql.value(3).toString();
+        task.downloadSpeed = sql.value(4).toString();
+        task.totalLength = sql.value(5).toString();
+        task.percent = sql.value(6).toInt();
+        task.totalFromSource = sql.value(7).toInt();
+        task.finishTime = sql.value(8).toDateTime();
     }
     q.close();
     return true;
@@ -313,15 +313,15 @@ bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
     TaskStatus task;
     while (sql.next())
     {
-        task.m_taskId = sql.value(0).toString();
-        task.m_downloadStatus = sql.value(1).toInt(); //下载状态
-        task.m_modifyTime = sql.value(2).toDateTime();
-        task.m_compeletedLength = sql.value(3).toString();
-        task.m_downloadSpeed = sql.value(4).toString();
-        task.m_totalLength = sql.value(5).toString();
-        task.m_percent = sql.value(6).toInt();
-        task.m_totalFromSource = sql.value(7).toInt();
-        task.m_finishTime = sql.value(8).toDateTime();
+        task.taskId = sql.value(0).toString();
+        task.downloadStatus = sql.value(1).toInt(); //下载状态
+        task.modifyTime = sql.value(2).toDateTime();
+        task.compeletedLength = sql.value(3).toString();
+        task.downloadSpeed = sql.value(4).toString();
+        task.totalLength = sql.value(5).toString();
+        task.percent = sql.value(6).toInt();
+        task.totalFromSource = sql.value(7).toInt();
+        task.finishTime = sql.value(8).toDateTime();
         taskList.push_back(task);
     }
     q.close();
@@ -337,12 +337,12 @@ bool DBInstance::addUrl(UrlInfo url)
     }
     QSqlQuery sql;
     sql.prepare("insert into UrlInfo values (?,?,?,?,?,?);");
-    sql.addBindValue(url.m_taskId);
-    sql.addBindValue(url.m_url);
-    sql.addBindValue(url.m_downloadType);
-    sql.addBindValue(url.m_seedFile);
-    sql.addBindValue(url.m_selectedNum);
-    sql.addBindValue(url.m_infoHash);
+    sql.addBindValue(url.taskId);
+    sql.addBindValue(url.url);
+    sql.addBindValue(url.downloadType);
+    sql.addBindValue(url.seedFile);
+    sql.addBindValue(url.selectedNum);
+    sql.addBindValue(url.infoHash);
     if (!sql.exec()) {
         qWarning() << "insert UrlInfo failed : " << sql.lastError();
         q.close();
@@ -361,12 +361,12 @@ bool DBInstance::updateUrlById(UrlInfo url)
     }
     QSqlQuery sql;
     sql.prepare("update  UrlInfo set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
-    sql.addBindValue(url.m_url);
-    sql.addBindValue(url.m_downloadType);
-    sql.addBindValue(url.m_seedFile);
-    sql.addBindValue(url.m_selectedNum);
-    sql.addBindValue(url.m_infoHash);
-    sql.addBindValue(url.m_taskId);
+    sql.addBindValue(url.url);
+    sql.addBindValue(url.downloadType);
+    sql.addBindValue(url.seedFile);
+    sql.addBindValue(url.selectedNum);
+    sql.addBindValue(url.infoHash);
+    sql.addBindValue(url.taskId);
 
     q.close();
     return true;
@@ -388,12 +388,12 @@ bool DBInstance::getUrlById(QString urdId, UrlInfo &url)
     }
     while(sql.next())
     {
-        url.m_taskId = sql.value(0).toString(); //任务id
-        url.m_url = sql.value(1).toString(); // url 下载地址
-        url.m_downloadType = sql.value(2).toString();//下载类型
-        url.m_seedFile = sql.value(3).toString(); //种子文件
-        url.m_selectedNum = sql.value(4).toString(); //选择的种子文件号码
-        url.m_infoHash = sql.value(5).toString(); //种子文件hash值
+        url.taskId = sql.value(0).toString(); //任务id
+        url.url = sql.value(1).toString(); // url 下载地址
+        url.downloadType = sql.value(2).toString();//下载类型
+        url.seedFile = sql.value(3).toString(); //种子文件
+        url.selectedNum = sql.value(4).toString(); //选择的种子文件号码
+        url.infoHash = sql.value(5).toString(); //种子文件hash值
     }
     q.close();
     return true;
@@ -416,12 +416,12 @@ bool DBInstance::getAllUrl(QList<UrlInfo> &urlList)
     UrlInfo url;
     while(sql.next())
     {
-        url.m_taskId = sql.value(0).toString(); //任务id
-        url.m_url = sql.value(1).toString(); // url 下载地址
-        url.m_downloadType = sql.value(2).toString();//下载类型
-        url.m_seedFile = sql.value(3).toString(); //种子文件
-        url.m_selectedNum = sql.value(4).toString(); //选择的种子文件号码
-        url.m_infoHash = sql.value(5).toString(); //种子文件hash值
+        url.taskId = sql.value(0).toString(); //任务id
+        url.url = sql.value(1).toString(); // url 下载地址
+        url.downloadType = sql.value(2).toString();//下载类型
+        url.seedFile = sql.value(3).toString(); //种子文件
+        url.selectedNum = sql.value(4).toString(); //选择的种子文件号码
+        url.infoHash = sql.value(5).toString(); //种子文件hash值
         urlList.push_back(url);
     }
     q.close();

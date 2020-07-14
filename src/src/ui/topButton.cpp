@@ -100,12 +100,12 @@ void TopButton::Init()
 
 void TopButton::InitConnections()
 {
-    connect(   m_pNewDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_newDownloadBtnClicked);
-    connect( m_pPauseDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_pauseDownloadBtnClicked);
-    connect( m_pStartDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_startDownloadBtnClicked);
-    connect(m_pDeleteDownloadBtn, &DIconButton::clicked,      this, &TopButton::signal_deleteDownloadBtnClicked);
-    connect(       m_pSearchEdit, &DSearchEdit::focusChanged, this, &TopButton::signal_SearchEditFocus);
-    connect(       m_pSearchEdit, &DSearchEdit::textChanged,  this, &TopButton::signal_SearchEditTextChange);
+    connect(   m_pNewDownloadBtn, &DIconButton::clicked,      this, &TopButton::newDownloadBtnClicked);
+    connect( m_pPauseDownloadBtn, &DIconButton::clicked,      this, &TopButton::pauseDownloadBtnClicked);
+    connect( m_pStartDownloadBtn, &DIconButton::clicked,      this, &TopButton::startDownloadBtnClicked);
+    connect(m_pDeleteDownloadBtn, &DIconButton::clicked,      this, &TopButton::deleteDownloadBtnClicked);
+    connect(       m_pSearchEdit, &DSearchEdit::focusChanged, this, &TopButton::SearchEditFocus);
+    connect(       m_pSearchEdit, &DSearchEdit::textChanged,  this, &TopButton::SearchEditTextChange);
 }
 
 void TopButton::onTableChanged(int index)
