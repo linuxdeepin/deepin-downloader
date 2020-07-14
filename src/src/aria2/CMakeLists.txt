@@ -1,5 +1,6 @@
 include_directories(${PROJECT_SOURCE_DIR}/src/include/aria2
                     ${PROJECT_SOURCE_DIR}/src/include/log
+                    ${CMAKE_CURRENT_BINARY_DIR}
     )
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
