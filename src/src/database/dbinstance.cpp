@@ -43,7 +43,7 @@ bool DBInstance::delTask(QString taskId)
         return false;
     }
     sql.clear();
-    sql.prepare("delete from  download_TaskStatus where task_id=?;");
+    sql.prepare("delete from  download_taskstatus where task_id=?;");
     sql.addBindValue(taskId);
     if (!sql.exec()) {
         QSqlError error = sql.lastError();
@@ -52,11 +52,11 @@ bool DBInstance::delTask(QString taskId)
         return false;
     }
     sql.clear();
-    sql.prepare("delete from  UrlInfo where task_id=?;");
+    sql.prepare("delete from  urlInfo where task_id=?;");
     sql.addBindValue(taskId);
     if (!sql.exec()) {
         QSqlError error = sql.lastError();
-        qWarning() << "Delete UrlInfo failed : " << error;
+        qWarning() << "Delete urlInfo failed : " << error;
         q.close();
         return false;
     }
@@ -79,14 +79,14 @@ bool DBInstance::delAllTask()
         return false;
     }
     sql.clear();
-    sql.prepare("delete from download_TaskStatus;");
+    sql.prepare("delete from download_taskstatus;");
     if (!sql.exec()) {
         qWarning() << "Delete download_task failed : " << sql.lastError();
         q.close();
         return false;
     }
     sql.clear();
-    sql.prepare("delete from UrlInfo;");
+    sql.prepare("delete from urlInfo;");
     if (!sql.exec()) {
         qWarning() << "Delete download_task failed : " << sql.lastError();
         q.close();
@@ -218,7 +218,7 @@ bool DBInstance::addTaskStatus(TaskStatus task)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("insert into download_TaskStatus values (?,?,?,?,?,?,?,?,?);");
+    sql.prepare("insert into download_taskstatus values (?,?,?,?,?,?,?,?,?);");
     sql.addBindValue(task.taskId);
     sql.addBindValue(task.downloadStatus);
     sql.addBindValue(task.modifyTime);
@@ -246,7 +246,7 @@ bool DBInstance::updateTaskStatusById(TaskStatus task)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("update  download_TaskStatus set  download_status=? , modify_time=? ,compeletedLength=? , download_speed=? , totalLength=? ,percent=? , totalFromSource=? ,finish_time=? where task_id= ?");
+    sql.prepare("update  download_taskstatus set  download_status=? , modify_time=? ,compeletedLength=? , download_speed=? , totalLength=? ,percent=? , totalFromSource=? ,finish_time=? where task_id= ?");
     sql.addBindValue(task.downloadStatus);
     sql.addBindValue(task.modifyTime);
     sql.addBindValue(task.compeletedLength);
@@ -273,7 +273,7 @@ bool DBInstance::getTaskStatusById(QString taskId, TaskStatus &task)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllAql = "select * from download_TaskStatus where task_id='" + taskId + "';";
+    QString selectAllAql = "select * from download_taskstatus where task_id='" + taskId + "';";
     sql.prepare(selectAllAql);
     if (!sql.exec()) {
         qWarning() << "update download_TaskStatus failed : " << sql.lastError();
@@ -302,7 +302,7 @@ bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
         qDebug() << q.lastError();
         return false;
     }
-    QString selectAllAql = "select * from download_TaskStatus;";
+    QString selectAllAql = "select * from download_taskstatus;";
     QSqlQuery sql;
     sql.prepare(selectAllAql);
     if (!sql.exec()) {
@@ -336,7 +336,7 @@ bool DBInstance::addUrl(UrlInfo url)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("insert into UrlInfo values (?,?,?,?,?,?);");
+    sql.prepare("insert into urlInfo values (?,?,?,?,?,?);");
     sql.addBindValue(url.taskId);
     sql.addBindValue(url.url);
     sql.addBindValue(url.downloadType);
@@ -344,7 +344,7 @@ bool DBInstance::addUrl(UrlInfo url)
     sql.addBindValue(url.selectedNum);
     sql.addBindValue(url.infoHash);
     if (!sql.exec()) {
-        qWarning() << "insert UrlInfo failed : " << sql.lastError();
+        qWarning() << "insert urlInfo failed : " << sql.lastError();
         q.close();
         return false;
     }
@@ -360,14 +360,13 @@ bool DBInstance::updateUrlById(UrlInfo url)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("update  UrlInfo set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
+    sql.prepare("update  urlInfo set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
     sql.addBindValue(url.url);
     sql.addBindValue(url.downloadType);
     sql.addBindValue(url.seedFile);
     sql.addBindValue(url.selectedNum);
     sql.addBindValue(url.infoHash);
     sql.addBindValue(url.taskId);
-
     q.close();
     return true;
 }
@@ -379,10 +378,10 @@ bool DBInstance::getUrlById(QString urdId, UrlInfo &url)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllAql = "select * from UrlInfo where task_id='" + urdId + "';";
+    QString selectAllAql = "select * from urlInfo where task_id='" + urdId + "';";
     sql.prepare(selectAllAql);
     if (!sql.exec()) {
-        qWarning() << "select UrlInfo failed : " << sql.lastError();
+        qWarning() << "select urlInfo failed : " << sql.lastError();
         q.close();
         return false;
     }
@@ -406,7 +405,7 @@ bool DBInstance::getAllUrl(QList<UrlInfo> &urlList)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllSql = "select * from UrlInfo;";
+    QString selectAllSql = "select * from urlInfo;";
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
         qDebug() << sql.lastError();
@@ -463,11 +462,11 @@ bool DBInstance::isExistBtInHash(QString hash, bool &ret)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllSql = "select count(*)  from UrlInfo where UrlInfo.infoHash='" + hash + "' ;";
+    QString selectAllSql = "select count(*)  from urlInfo where urlInfo.infoHash='" + hash + "' ;";
     qDebug() << selectAllSql;
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
-        qWarning() << "select download_task,download_TaskStatus failed : " << sql.lastError();
+        qWarning() << "select download_task,download_TaskStatus failed :  " << sql.lastError();
         q.close();
         return false;
     }
