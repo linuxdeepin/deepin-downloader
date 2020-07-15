@@ -114,27 +114,27 @@ signals:
     /**
      * @brief 新建下载信号
     */
-    void signal_newDownloadBtnClicked();
+    void newDownloadBtnClicked();
     /**
      * @brief 暂停下载信号
     */
-    void signal_pauseDownloadBtnClicked();
+    void pauseDownloadBtnClicked();
     /**
      * @brief 开始下载信号
     */
-    void signal_startDownloadBtnClicked();
+    void startDownloadBtnClicked();
     /**
      * @brief 删除下载信号
     */
-    void signal_deleteDownloadBtnClicked();
+    void deleteDownloadBtnClicked();
     /**
      * @brief 搜索框焦点改变信号
     */
-    void signal_SearchEditFocus(bool focus);
+    void SearchEditFocus(bool focus);
     /**
      * @brief 搜索框内容改变信号
     */
-    void signal_SearchEditTextChange(QString text);
+    void SearchEditTextChange(QString text);
 private:
     Dtk::Widget::DLabel *m_pIconLable;
     Dtk::Widget::DIconButton *m_pNewDownloadBtn;

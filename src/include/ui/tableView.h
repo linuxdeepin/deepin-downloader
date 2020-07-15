@@ -36,7 +36,7 @@ class TableModel;
 class ItemDelegate;
 class TopButton;
 class tableDataControl;
-class HeaderView;
+class DownloadHeaderView;
 /**
  * @class TableView
  * @brief 下载条目列表
@@ -63,7 +63,7 @@ public:
      * @brief 获取header
      * @return header
     */
-    HeaderView* getTableHeader();
+    DownloadHeaderView* getTableHeader();
 
     /**
      * @brief 刷新列表
@@ -96,22 +96,22 @@ signals:
     /**
      * @brief 表头全选按键状态改变信号
      */
-    void signal_HeaderStatechanged(bool checked);
+    void HeaderStatechanged(bool checked);
 
     /**
      * @brief 清除表头选中状态信号
      */
-    void signal_ClearHeaderCheck();
+  //  void ClearHeaderCheck();
 
     /**
      * @brief 表头全选按键选中
      */
-    void signal_TableViewAllChecked(bool checked);
+    void isCheckHeader(bool checked);
 
     /**
      * @brief 鼠标悬停行改变
      */
-    void signal_Hoverchanged(const QModelIndex &index);
+    void Hoverchanged(const QModelIndex &index);
 protected:
     /**
      * @brief 鼠标按下事件
@@ -133,7 +133,7 @@ private:
     int m_iTableFlag;
     TableModel *m_pTableModel;
     tableDataControl * m_ptableDataControl;
-    HeaderView* m_pHeaderView;
+    DownloadHeaderView* m_pHeaderView;
     ItemDelegate *m_pItemdegegate;
     Settings *m_pSetting;
     TopButton *m_pToolBar;

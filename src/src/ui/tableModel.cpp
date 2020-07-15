@@ -41,7 +41,7 @@ TableModel::TableModel(int Flag, QObject *parent)
     if(Flag == 0) {
         m_mode = Downloading;
     }
-    connect(this, &TableModel::signal_checkDatachange, this, &TableModel::slot_CheckDatachange);
+    connect(this, &TableModel::checkDatachange, this, &TableModel::slot_CheckDatachange);
     m_iSortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
 }
@@ -75,9 +75,9 @@ void TableModel::slot_CheckDatachange(int flag)
                 }
             }
             if(check_num == active_list.size()) {
-                emit signal_tableviewAllcheckedOrAllunchecked(true);
+                emit tableviewAllcheckedOrAllunchecked(true);
             } else {
-                emit signal_tableviewAllcheckedOrAllunchecked(false);
+                emit tableviewAllcheckedOrAllunchecked(false);
             }
         }
         if((m_mode == Finished) && (finish_list.size() > 0)) {
@@ -87,9 +87,9 @@ void TableModel::slot_CheckDatachange(int flag)
                 }
             }
             if(check_num == finish_list.size()) {
-                emit signal_tableviewAllcheckedOrAllunchecked(true);
+                emit tableviewAllcheckedOrAllunchecked(true);
             } else {
-                emit signal_tableviewAllcheckedOrAllunchecked(false);
+                emit tableviewAllcheckedOrAllunchecked(false);
             }
         }
     } else {
@@ -100,9 +100,9 @@ void TableModel::slot_CheckDatachange(int flag)
             }
         }
         if(check_num == m_recyleList.size()) {
-            emit signal_tableviewAllcheckedOrAllunchecked(true);
+            emit tableviewAllcheckedOrAllunchecked(true);
         } else {
-            emit signal_tableviewAllcheckedOrAllunchecked(false);
+            emit tableviewAllcheckedOrAllunchecked(false);
         }
     }
 }
@@ -459,8 +459,8 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
                 }
 
                 // emit dataChanged(index,index);
-                emit signal_checkDatachange(m_iTableviewtabFlag);
-                emit signal_CheckChange(value.toBool(), m_iTableviewtabFlag);
+                emit checkDatachange(m_iTableviewtabFlag);
+                emit CheckChange(value.toBool(), m_iTableviewtabFlag);
                 return true;
             }
             break;

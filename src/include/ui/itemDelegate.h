@@ -63,7 +63,7 @@ public slots:
      /**
       * @brief 鼠标悬停行改变
       */
-     void slot_Hoverchanged(const QModelIndex &index);
+     void onHoverchanged(const QModelIndex &index);
 
 private:
     int m_iTableFlag;

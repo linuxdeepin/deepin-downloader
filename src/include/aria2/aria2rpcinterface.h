@@ -472,8 +472,8 @@ private:
     QString m_configPath = "";//配置文件路径
 
 signals:
-    void signal_RPCSuccess(QString method, QJsonObject json);//rpc 正确返回处理信号
-    void signal_RPCError(QString method, QString id, int errCode);//rpc错误返回处理信号
+    void RPCSuccess(QString method, QJsonObject json);//rpc 正确返回处理信号
+    void RPCError(QString method, QString id, int errCode);//rpc错误返回处理信号
 
 public slots:
 

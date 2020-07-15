@@ -356,14 +356,14 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
         model->setData(index, FilePath, TableModel::SavePath);
         Task task;
         DBInstance::getTaskByID(index.data(TableModel::taskId).toString(),task);
-        task.m_downloadPath = FilePath;
-        task.m_downloadFilename = pEdit->text();
+        task.downloadPath = FilePath;
+        task.downloadFilename = pEdit->text();
         DBInstance::updateTaskByID(task);
     }
 }
 
 
-void ItemDelegate::slot_Hoverchanged(const QModelIndex &index)
+void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
     m_iHoverRow = index.row();
 }

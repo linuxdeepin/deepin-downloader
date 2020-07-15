@@ -46,9 +46,9 @@ public:
 
     /**
      * @brief 设置文本
-     * @param strText 文本
+     * @param text 文本
      */
-    void setLabelText(const QString &strText);
+    void setLabelText(const QString &text);
 
     /**
      * @brief 设置字体样式
@@ -67,7 +67,7 @@ signals:
 public slots:
 
 private:
-    DLabel *m_pLabel;
+    DLabel *m_label;
 };
 
 #endif // SETTINGSLABEL_H

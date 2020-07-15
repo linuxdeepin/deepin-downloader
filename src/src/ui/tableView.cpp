@@ -86,7 +86,7 @@ void TableView::initUI()
 
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-    m_pHeaderView = new  HeaderView(Qt::Horizontal, this);
+    m_pHeaderView = new  DownloadHeaderView(Qt::Horizontal, this);
     setHorizontalHeader(m_pHeaderView);
     //m_pHeaderView->setDefaultSectionSize(20);
     //m_pHeaderView->setSortIndicatorShown(false);
@@ -107,11 +107,11 @@ void TableView::initUI()
 
 void TableView::initConnections()
 {
-    connect(m_pHeaderView, &HeaderView::signal_Statechanged, this, &TableView::signal_HeaderStatechanged);
-    connect(this, &TableView::signal_ClearHeaderCheck, m_pHeaderView, &HeaderView::slot_ClearHeaderCheck);
-    connect(m_pTableModel, &TableModel::signal_tableviewAllcheckedOrAllunchecked, this, &TableView::signal_TableViewAllChecked);
-    connect(this, &TableView::signal_TableViewAllChecked, m_pHeaderView, &HeaderView::slot_Checkall);
-    connect(this, &TableView::signal_Hoverchanged, m_pItemdegegate, &ItemDelegate::slot_Hoverchanged);
+    connect(m_pHeaderView, &DownloadHeaderView::Statechanged, this, &TableView::HeaderStatechanged);
+    //connect(this, &TableView::ClearHeaderCheck, m_pHeaderView, &HeaderView::onClearHeaderChecked);
+    connect(m_pTableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
+    connect(this, &TableView::isCheckHeader, m_pHeaderView, &DownloadHeaderView::onHeaderChecked);
+    connect(this, &TableView::Hoverchanged, m_pItemdegegate, &ItemDelegate::onHoverchanged);
 }
 
 void TableView::initTableView()
@@ -150,7 +150,7 @@ tableDataControl *TableView::getTableControl()
     return m_ptableDataControl;
 }
 
-HeaderView *TableView::getTableHeader()
+DownloadHeaderView *TableView::getTableHeader()
 {
     return m_pHeaderView;
 }
@@ -158,14 +158,14 @@ HeaderView *TableView::getTableHeader()
 void TableView::mouseMoveEvent(QMouseEvent *event)
 {
     QModelIndex idx = this->indexAt(event->pos());
-    emit signal_Hoverchanged(idx);
+    emit Hoverchanged(idx);
 }
 
 void TableView::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
     this->reset();
-    emit signal_Hoverchanged(QModelIndex());
+    emit Hoverchanged(QModelIndex());
 }
 
 void TableView::keyPressEvent(QKeyEvent *event)

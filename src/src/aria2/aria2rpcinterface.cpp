@@ -397,9 +397,9 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
         QByteArray buf = reply->readAll(); //获取信息
         QJsonDocument doc = QJsonDocument::fromJson(buf); //转换为json格式
         QJsonObject obj = doc.object();
-        emit signal_RPCSuccess(method, obj);
+        emit RPCSuccess(method, obj);
     } else { //错误
-        emit signal_RPCError(method, id, code);
+        emit RPCError(method, id, code);
     }
 
     reply->deleteLater();
