@@ -101,6 +101,12 @@ private slots:
      */
     void onRadioButtonClicked();
 
+    /**
+     * @brief 焦点是否在输入框响应的槽函数
+     * @param onFocus 布尔值
+     */
+    void onFocusChanged(bool onFocus);
+
 private:
 
     /**
@@ -122,6 +128,8 @@ private:
     QTimeEdit *m_endTimeEdit; // 结束时间
     DAlertControl *m_downloadAlertControl; // 最大下载限速输入错误提示
     DAlertControl *m_uploadAlertControl; // 最大上传限速输入错误提示
+    int m_DownloadSpeedLimitValue;
+    int m_UploadSpeedLimitValue;
 
 };
 

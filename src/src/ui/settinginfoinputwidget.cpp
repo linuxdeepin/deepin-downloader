@@ -68,6 +68,7 @@ void SettingInfoInputWidget::initUI()
 void SettingInfoInputWidget::initConnections()
 {
     connect(m_lineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::onLineEditTextChanged);
+    connect(m_lineEdit, &DLineEdit::focusChanged, this, &SettingInfoInputWidget::focusChanged);
 }
 
 void SettingInfoInputWidget::onLineEditTextChanged(const QString &text)
@@ -136,5 +137,10 @@ void SettingInfoInputWidget::setLineEditAlert(bool isAlert)
 DLineEdit *SettingInfoInputWidget::getLineEdit()
 {
     return m_lineEdit;
+}
+
+bool SettingInfoInputWidget::getIsAlert()
+{
+    return m_lineEdit->isAlert();
 }
 
