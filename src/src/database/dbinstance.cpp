@@ -466,7 +466,7 @@ bool DBInstance::isExistBtInHash(QString hash, bool &ret)
     qDebug() << selectAllSql;
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
-        qWarning() << "select download_task,download_TaskStatus failed : " << sql.lastError();
+        qWarning() << "select download_task,download_TaskStatus failed :  " << sql.lastError();
         q.close();
         return false;
     }
