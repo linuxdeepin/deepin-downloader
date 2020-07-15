@@ -116,8 +116,15 @@ public:
      */
     DLineEdit *getLineEdit();
 
+    /**
+     * @brief 获取行编辑器是否处于警告模式
+     * @return 布尔值，是返回true，否则返回false
+     */
+    bool getIsAlert();
+
 signals:
     void textChanged(QString text);
+    void focusChanged(bool onFocus);
 
 private slots:
 

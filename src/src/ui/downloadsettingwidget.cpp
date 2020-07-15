@@ -45,6 +45,9 @@ DownloadSettingWidget::DownloadSettingWidget(QWidget *parent)
 // 初始化界面
 void DownloadSettingWidget::initUI()
 {
+    m_DownloadSpeedLimitValue = 102400;
+    m_UploadSpeedLimitValue = 32;
+
     m_fullSpeedDownloadButton = new DRadioButton(tr("Speed unlimited")); // 全速下载
     m_fullSpeedDownloadButton->setToolTip(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
 //    m_fullSpeedDownloadButton->toolTip()
@@ -143,6 +146,8 @@ void DownloadSettingWidget::initConnections()
     connect(m_maxUploadSpeedLimit, &SettingInfoInputWidget::textChanged, this, &DownloadSettingWidget::onTextChanged);
     connect(m_startTimeEdit, &QTimeEdit::timeChanged, this, &DownloadSettingWidget::onTimeChanged);
     connect(m_endTimeEdit, &QTimeEdit::timeChanged, this, &DownloadSettingWidget::onTimeChanged);
+    connect(m_maxDownloadSpeedLimit, &SettingInfoInputWidget::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
+    connect(m_maxUploadSpeedLimit, &SettingInfoInputWidget::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
 }
 
 void DownloadSettingWidget::onRadioButtonClicked()
@@ -219,6 +224,8 @@ void DownloadSettingWidget::onTextChanged(QString text)
             m_maxDownloadSpeedLimit->setLineEditAlert(false);
             m_downloadAlertControl->hideAlertMessage();
 
+            m_DownloadSpeedLimitValue = text.toInt();
+
             QString info = QString("speedlimit;%1;%2;%3;%4")
                     .arg(text.toInt())
                     .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
@@ -238,6 +245,8 @@ void DownloadSettingWidget::onTextChanged(QString text)
             m_maxUploadSpeedLimit->setLineEditAlert(false);
             m_uploadAlertControl->hideAlertMessage();
 
+            m_UploadSpeedLimitValue = text.toInt();
+
             QString info = QString("speedlimit;%1;%2;%3;%4")
                     .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
                     .arg(text.toInt())
@@ -245,6 +254,26 @@ void DownloadSettingWidget::onTextChanged(QString text)
                     .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
 
             emit speedLimitInfoChanged(info);
+        }
+    }
+}
+
+void DownloadSettingWidget::onFocusChanged(bool onFocus)
+{
+    SettingInfoInputWidget *settingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
+
+    if (m_maxDownloadSpeedLimit == settingInfoInputWidget) {
+        if (!onFocus && m_maxDownloadSpeedLimit->getIsAlert()) {
+            m_maxDownloadSpeedLimit->setLineEditAlert(false);
+            m_downloadAlertControl->hideAlertMessage();
+            m_maxDownloadSpeedLimit->setLineEditText(QString::number(m_DownloadSpeedLimitValue));
+        }
+
+    } else if (m_maxUploadSpeedLimit == settingInfoInputWidget) {
+        if (!onFocus && m_maxUploadSpeedLimit->getIsAlert()) {
+            m_maxUploadSpeedLimit->setLineEditAlert(false);
+            m_uploadAlertControl->hideAlertMessage();
+            m_maxUploadSpeedLimit->setLineEditText(QString::number(m_UploadSpeedLimitValue));
         }
     }
 }
@@ -270,11 +299,13 @@ void DownloadSettingWidget::setCurrentSelectRadioButton(const int &currentSelect
 
 void DownloadSettingWidget::setMaxDownloadSpeedLimit(const QString &text)
 {
+    m_DownloadSpeedLimitValue = text.toInt();
     m_maxDownloadSpeedLimit->setLineEditText(text);
 }
 
 void DownloadSettingWidget::setMaxUploadSpeedLimit(const QString &text)
 {
+    m_UploadSpeedLimitValue = text.toInt();
     m_maxUploadSpeedLimit->setLineEditText(text);
 }
 
