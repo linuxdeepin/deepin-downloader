@@ -1,7 +1,9 @@
 include_directories(${PROJECT_SOURCE_DIR}/src/include/aria2
                     ${PROJECT_SOURCE_DIR}/src/include/log
-                    ${CMAKE_CURRENT_BINARY_DIR}
+                    ${CMAKE_BINARY_DIR}
     )
+message(${CMAKE_BINARY_DIR})
+message(aria2 123)
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
 #预定义宏，主要用于共享库导出

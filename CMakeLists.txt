@@ -4,6 +4,11 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloadmanager)
+set(PROJECT_VERSION "5.1.0.3")
+set(PROJECT_VERSION_MAJOR 5)
+set(QT_MIN_VERSION "5.11.0")
+set(DLM_NAME "downloadmanager")
+set(ARIA2_NAME "aria2c")
 
 # 设置C++标准为 C++ 11
 set(CMAKE_CXX_STANDARD 11)
@@ -12,7 +17,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置Debug  Release
-set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_BUILD_TYPE "Debug")
 
 #设置安装路径
 set(CMAKE_INSTALL_PREFIX /usr)
@@ -82,8 +87,6 @@ install(FILES data/uos-downloadmanager-task.db DESTINATION share/downloadmanager
 file(GLOB CF_FILES "docs/*.conf")
 install(FILES ${CF_FILES} DESTINATION share/downloadmanager/config)
 
-#aria2c
-#install(FILES /usr/bin/aria2c DESTINATION share/downloadmanager)
 
 #icon
 install(FILES data/downloadmanager.svg DESTINATION share/icons/hicolor/scalable/apps/)

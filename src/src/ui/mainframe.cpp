@@ -64,10 +64,11 @@
 #include "btinfodialog.h"
 #include "../database/dbinstance.h"
 #include "tabledatacontrol.h"
+#include "config.h"
 
 using namespace Global;
 
-#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/"
+//#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
@@ -259,13 +260,13 @@ void MainFrame::initTray()
             continueDownload(pData);
         }
 
-        Aria2RPCInterface::Instance()->unpauseAll();
+        Aria2RPCInterface::instance()->unpauseAll();
         if(m_pUpdateTimer->isActive() == false) {
             m_pUpdateTimer->start(2 * 1000);
         }
     });
     connect(pPauseAllAct, &QAction::triggered,  [=](){
-        Aria2RPCInterface::Instance()->pauseAll();
+        Aria2RPCInterface::instance()->pauseAll();
 //        if(m_pUpdatetimer->isActive()) {
 //            m_pUpdatetimer->stop();
 //        }
@@ -397,7 +398,7 @@ void MainFrame::onTrayQuitClick()
     }
     m_pDownLoadingTableView->getTableControl()->saveDataBeforeClose();
     m_pRecycleTableView->getTableControl()->saveDataBeforeClose();
-    Aria2RPCInterface::Instance()->shutdown();
+    Aria2RPCInterface::instance()->shutdown();
     qApp->quit();
 }
 
@@ -416,10 +417,10 @@ MainFrame::~MainFrame()
 
 void MainFrame::initAria2()
 {
-    Aria2RPCInterface::Instance()->init(); // 启动Aria2RPCInterface::Instance()
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCSuccess(QString,QJsonObject)), this,
+    Aria2RPCInterface::instance()->init(); // 启动Aria2RPCInterface::Instance()
+    connect(Aria2RPCInterface::instance(), SIGNAL(signal_RPCSuccess(QString,QJsonObject)), this,
             SLOT(onRpcSuccess(QString,QJsonObject)));
-    connect(Aria2RPCInterface::Instance(), SIGNAL(signal_RPCError(QString,QString,int)), this,
+    connect(Aria2RPCInterface::instance(), SIGNAL(signal_RPCError(QString,QString,int)), this,
             SLOT(onRpcError(QString,QString,int)));
     onDownloadLimitChanged();
     onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
@@ -458,7 +459,7 @@ void MainFrame::initTabledata()
                                 showWarningMsgbox(tr("seed file not exists or broken;"));
                                 qDebug() << "seed file not exists or broken;";
                             } else {
-                                Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile,
+                                Aria2RPCInterface::instance()->addTorrent(getUrlInfo.m_seedFile,
                                                                           opt,
                                                                           getUrlInfo.m_taskId);
                                 clearTableItemCheckStatus();
@@ -469,7 +470,7 @@ void MainFrame::initTabledata()
                         }
                     } else {
                         onDownloadLimitChanged();
-                        Aria2RPCInterface::Instance()->addUri(data->url, opt, data->taskId);
+                        Aria2RPCInterface::instance()->addUri(data->url, opt, data->taskId);
                         clearTableItemCheckStatus();
                         if(m_pUpdateTimer->isActive() == false) {
                             m_pUpdateTimer->start(2 * 1000);
@@ -839,7 +840,7 @@ void MainFrame::ongetNewDownloadUrl(QStringList urlList, QString savePath, QStri
     for(int i = 0; i < urlList.size(); i++) {
         task = getUrlToName(urlList[i], savePath, fileName);
         DBInstance::addTask(task);
-        Aria2RPCInterface::Instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
+        Aria2RPCInterface::instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
         //clearTableItemCheckStatus();
         emit signal_headerViewChecked(false);
     }
@@ -932,7 +933,7 @@ void MainFrame::continueDownload(DataItem *pItem)
                         showWarningMsgbox(tr("seed file not exists or broken;"));
                         qDebug() << "seed file not exists or broken;";
                     } else {
-                        Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile,
+                        Aria2RPCInterface::instance()->addTorrent(getUrlInfo.m_seedFile,
                                                                   opt,
                                                                   getUrlInfo.m_taskId);
                         if(m_pUpdateTimer->isActive() == false) {
@@ -942,14 +943,14 @@ void MainFrame::continueDownload(DataItem *pItem)
                 }
             } else {
                 // deal_download_upload_limit_period();
-                Aria2RPCInterface::Instance()->addUri(pItem->url, opt, pItem->taskId);
+                Aria2RPCInterface::instance()->addUri(pItem->url, opt, pItem->taskId);
                 //clearTableItemCheckStatus();
                 if(m_pUpdateTimer->isActive() == false) {
                     m_pUpdateTimer->start(2 * 1000);
                 }
             }
         } else {
-            Aria2RPCInterface::Instance()->unpause(pItem->gid, pItem->taskId);
+            Aria2RPCInterface::instance()->unpause(pItem->gid, pItem->taskId);
         }
     }
 }
@@ -1306,7 +1307,7 @@ void MainFrame::ongetNewDownloadTorrent(QString btPath, QMap<QString, QVariant> 
 
     opt.insert("out", infoName);
     // 开始下载
-    Aria2RPCInterface::Instance()->addTorrent(btPath, opt, strId);
+    Aria2RPCInterface::instance()->addTorrent(btPath, opt, strId);
     clearTableItemCheckStatus();
     // 定时器打开
     if(m_pUpdateTimer->isActive() == false) {
@@ -1366,7 +1367,7 @@ void MainFrame::onClearRecycle(bool ischecked)
                     QFile::remove(aria_temp_file);
                 }
             }
-            Aria2RPCInterface::Instance()->removeDownloadResult(data->gid);
+            Aria2RPCInterface::instance()->removeDownloadResult(data->gid);
         }
     }
     for(int i = 0; i < recycle_list.size(); ++i) {
@@ -1396,12 +1397,12 @@ void MainFrame::showReloadMsgbox()
         if((m_iCurrentLab == downloadingLab) || (m_iCurrentLab == finishLab)) {
             for(int i = 0; i < m_reloadList.size(); i++) {
                 DataItem *data = m_reloadList.at(i);
-                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_"+ QString::number(m_iCurrentLab)+ "_" + data->taskId);
+                Aria2RPCInterface::instance()->forceRemove(data->gid,"REDOWNLOAD_"+ QString::number(m_iCurrentLab)+ "_" + data->taskId);
             }
         } else {
             for(int i = 0; i < m_recycleReloadList.size(); i++) {
                 DelDataItem *data = m_recycleReloadList.at(i);
-                Aria2RPCInterface::Instance()->forceRemove(data->gid,"REDOWNLOAD_" + QString::number(m_iCurrentLab) + "_" + data->taskId);
+                Aria2RPCInterface::instance()->forceRemove(data->gid,"REDOWNLOAD_" + QString::number(m_iCurrentLab) + "_" + data->taskId);
             }
         }
     }
@@ -1461,7 +1462,7 @@ bool MainFrame::showRedownloadMsgbox(QList<QString> sameUrlList)
 
 void MainFrame::onAria2Remove(QString gId, QString id)
 {
-    Aria2RPCInterface::Instance()->remove(gId, id);
+    Aria2RPCInterface::instance()->remove(gId, id);
 }
 
 void MainFrame::onGetDeleteConfirm(bool ischecked, bool permanent)
@@ -1560,7 +1561,7 @@ void MainFrame::onPauseDownloadBtnClicked()
             if(selectList.at(i)->Ischecked && !m_pDownLoadingTableView->isRowHidden(i)) {
                 ++selectedCount;
                 if(selectList.at(i)->status != Global::Status::Paused) {
-                    Aria2RPCInterface::Instance()->pause(selectList.at(i)->gid, selectList.at(i)->taskId);
+                    Aria2RPCInterface::instance()->pause(selectList.at(i)->gid, selectList.at(i)->taskId);
                     QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
                     S_Task_Status get_status;
                     S_Task_Status downloadStatus(selectList.at(i)->taskId,
@@ -1668,7 +1669,7 @@ void MainFrame::onupdateMainUI()
     m_bShutdownOk = true;
     for(const auto *item : dataList) {
         if((item->status == Global::Status::Active) || (item->status == Global::Status::Waiting)) {
-            Aria2RPCInterface::Instance()->tellStatus(item->gid, item->taskId);
+            Aria2RPCInterface::instance()->tellStatus(item->gid, item->taskId);
         }
         if((item->status == Global::Status::Active) || (item->status == Global::Status::Waiting) ||
            (item->status == Global::Status::Paused) || (item->status == Global::Status::Lastincomplete) ||
@@ -1798,7 +1799,7 @@ void MainFrame::onReturnOriginActionTriggered()
                         if(!QFile(seed_file_path).exists()) {
                             showWarningMsgbox(tr("seed file not exists or broken;"));
                         } else {
-                            Aria2RPCInterface::Instance()->addTorrent(seed_file_path, opt, getUrlInfo.m_taskId);
+                            Aria2RPCInterface::instance()->addTorrent(seed_file_path, opt, getUrlInfo.m_taskId);
                             clearTableItemCheckStatus();
                             if(m_pUpdateTimer->isActive() == false) {
                                 m_pUpdateTimer->start(2 * 1000);
@@ -2003,7 +2004,7 @@ void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList)
     for(int i = 0; i < sameUrlList.size(); i++) {
         task = getUrlToName(sameUrlList[i], savePath, "");
         DBInstance::addTask(task);
-        Aria2RPCInterface::Instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
+        Aria2RPCInterface::instance()->addNewUri(task.m_url, savePath, task.m_downloadFilename, task.m_taskId);
         clearTableItemCheckStatus();
     }
 
@@ -2025,7 +2026,7 @@ void MainFrame::onDownloadLimitChanged()
     // get_limit_speed_time(period_start_time, period_end_time);
     S_DownloadSettings settings = Settings::getInstance()->getAllSpeedLimitInfo();
     if("0" == settings.m_strType){
-        Aria2RPCInterface::Instance()->setDownloadUploadSpeed("0", "0");
+        Aria2RPCInterface::instance()->setDownloadUploadSpeed("0", "0");
         return;
     }
 
@@ -2043,9 +2044,9 @@ void MainFrame::onDownloadLimitChanged()
     // 判断当前时间是否在限速时间内
     bool bInPeriod = checkIfInPeriod(&currentTime, &periodStartTime, &periodEndTime);
     if(!bInPeriod) {
-        Aria2RPCInterface::Instance()->setDownloadUploadSpeed("0", "0");
+        Aria2RPCInterface::instance()->setDownloadUploadSpeed("0", "0");
     } else {
-        Aria2RPCInterface::Instance()->setDownloadUploadSpeed(downloadSpeed, uploadSpeed);
+        Aria2RPCInterface::instance()->setDownloadUploadSpeed(downloadSpeed, uploadSpeed);
     }
 }
 
@@ -2079,7 +2080,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
 
     modifyConfigFile("max-concurrent-downloads=", value);
     opt.insert("max-concurrent-downloads", QString().number(nTaskNumber));
-    Aria2RPCInterface::Instance()->changeGlobalOption(opt);
+    Aria2RPCInterface::instance()->changeGlobalOption(opt);
 
     const QList<DataItem *> dataList = m_pDownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;
@@ -2088,9 +2089,9 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
         if(item->status == Global::Status::Active) {
             activeCount ++;
             if(activeCount > nTaskNumber){
-                Aria2RPCInterface::Instance()->pause(item->gid, item->taskId);
+                Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
                 QTimer::singleShot(500, this, [=](){
-                    Aria2RPCInterface::Instance()->unpause(item->gid, item->taskId);
+                    Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
                 });
                 QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
                 S_Task_Status get_status;
@@ -2121,7 +2122,7 @@ void MainFrame::onDisckCacheChanged(int nNum)
     QString cacheNum = QString().number(nNum) + "M";
 
     opt.insert("disk-cache", cacheNum);
-    Aria2RPCInterface::Instance()->changeGlobalOption(opt);
+    Aria2RPCInterface::instance()->changeGlobalOption(opt);
     QString value = "disk-cache=" + cacheNum;
     modifyConfigFile("disk-cache=", value);
 }

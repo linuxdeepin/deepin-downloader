@@ -74,7 +74,7 @@ public:
      *@param strDir
      *@return
      */
-    void setDefaultDownLoadDir(QString strDir);
+    void setDefaultDownLoadDir(QString dir);
 
     /**
      *@brief 获得默认的下载路径
@@ -87,7 +87,7 @@ public:
      *@param strPath
      *@return
      */
-    void setConfigFilePath(const QString strPath);
+    void setConfigFilePath(const QString path);
 
     /**
      *@brief 获得配置文件路径
@@ -121,7 +121,7 @@ public:
      * {id:"", jsonrpc:"2.0", result:"gid"}
      * QString gId = json.value("result").toString();
      */
-    void addUri(QString strUri, QMap<QString, QVariant> opt, QString strId); //添加uri地址
+    void addUri(QString uri, QMap<QString, QVariant> opt, QString id); //添加uri地址
 
     /**
      * @brief addNewUri 添加下载 HTTP(S)/FTP/BitTorrent Magnet 链接 ，
@@ -130,7 +130,7 @@ public:
      * @param filename  文件名称
      * @param strId     Gid
      */
-    void addNewUri(QString uri, QString savepath, QString filename, QString strId);
+    void addNewUri(QString uri, QString savepath, QString filename, QString id);
 
     /**
      * @brief addTorrent 添加下载Torrent
@@ -154,7 +154,7 @@ public:
      * {id:"", jsonrpc:"2.0", result:"gid"}
      * QString gId = json.value("result").toString();
      */
-    void addTorrent(QString strTorrentFile, QMap<QString, QVariant> opt, QString strId); //添加bt文件
+    void addTorrent(QString torrentFile, QMap<QString, QVariant> opt, QString id); //添加bt文件
 
     /**
      * @brief addMetalink 添加Metalink
@@ -167,7 +167,7 @@ public:
      * {id:"", jsonrpc:"2.0", result:"gid"}
      * QString gId = json.value("result").toString();
      */
-    void addMetalink(QString strMetalink, QMap<QString, QVariant> opt, QString strId); //
+    void addMetalink(QString metalink, QMap<QString, QVariant> opt, QString id); //
 
     /**
      * @brief tellStatus 获取下载状态
@@ -301,13 +301,13 @@ public:
     void getFiles(QString gId, QString id = "");
 
     /**
-     * @brief modify_config_file 写入配置文件
+     * @brief modifyConfigFile 写入配置文件
      * @param config_item 配置项
      * @param value 配置值
      *
      * signal_success信号中异步返回，参数结构见aria2文档
      */
-    void modify_config_file(QString config_item, QString value);
+    void modifyConfigFile(QString configItem, QString value);
 
     /**
      * @brief changeGlobalOption 变更全局配置
@@ -345,21 +345,21 @@ public:
      * @param downloadlimitSpeed
      *
      */
-    void setDownloadLimitSpeed(QString downloadlimitSpeed);
+    void setDownloadLimitSpeed(QString downloadLimitSpeed);
 
     /**
      * @brief setUploadLimitSpeed 设置最大上传速度
      * @param UploadlimitSpeed
      *
      */
-    void setUploadLimitSpeed(QString UploadlimitSpeed);
+    void setUploadLimitSpeed(QString UploadLimitSpeed);
 
     /**
      * @brief getBtToMetalink bt文件转磁力链
      * @param strFileName bt文件名
      *
      */
-    QString getBtToMetalink(QString strFilePath);
+    QString getBtToMetalink(QString filePath);
 
     /**
      * @brief bytesFormat 格式化字节
@@ -381,7 +381,7 @@ public:
      * @param strTorrentPath  bt文件路径
      * @return Aria2cBtInfo
      */
-    Aria2cBtInfo getBtInfo(QString strTorrentPath); //得到bt文件信息
+    Aria2cBtInfo getBtInfo(QString torrentPath); //得到bt文件信息
 
     /**
      * @brief getCapacityFree 获取指定路径所在分区的磁盘剩余容量
@@ -478,13 +478,14 @@ signals:
 public slots:
 
 public:
-    static Aria2RPCInterface *Instance();
-    static const QString m_aria2cCmd; //aria2c程序路径
-    static const QString m_basePath; //下载器安装目录
+    static Aria2RPCInterface *instance();
+
 private:
-    static Aria2RPCInterface *m_pInstance;
+    static Aria2RPCInterface *m_instance;
 
 public:
+    const QString m_aria2cCmd; //aria2c程序路径
+    const QString m_basePath; //下载器安装目录
 
 };
 

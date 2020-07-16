@@ -108,7 +108,7 @@ QString BtInfoDialog::getName()
 
 void BtInfoDialog::initUI()
 {
-    m_ariaInfo = Aria2RPCInterface::Instance()->getBtInfo(m_torrentFile);
+    m_ariaInfo = Aria2RPCInterface::instance()->getBtInfo(m_torrentFile);
     this->setTitle(" ");
     this->setWindowTitle(tr(""));
 
@@ -134,7 +134,7 @@ void BtInfoDialog::initUI()
     pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     this->m_labelFileSize = new DLabel(this);
     this->m_labelFileSize->setAlignment(Qt::AlignRight);
-    QString _size = Aria2RPCInterface::Instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
+    QString _size = Aria2RPCInterface::instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
     m_labelFileSize->setText(QString(tr("Total ")+ _size));
     this->m_labelFileSize->setFont(font2);
     this->m_labelFileSize->setPalette(pal);
@@ -197,7 +197,7 @@ void BtInfoDialog::initUI()
     //下载路径所在分区剩余磁盘容量
     this->m_labelCapacityFree = new DLabel();
     this->m_labelCapacityFree->setGeometry(350, 363, 86, 23);
-    QString _freeSize = Aria2RPCInterface::Instance()->getCapacityFree(this->m_defaultDownloadDir);
+    QString _freeSize = Aria2RPCInterface::instance()->getCapacityFree(this->m_defaultDownloadDir);
    // this->m_labelCapacityFree->setText(tr("Free space:") + _freeSize);
     this->m_labelCapacityFree->setPalette(pal);
     this->m_labelCapacityFree->setFont(font2);
@@ -303,7 +303,7 @@ void BtInfoDialog::onbtnOK()
         return;
     }
 
-    long _free = Aria2RPCInterface::Instance()->getCapacityFreeByte(m_editDir->text().split("  ")[0]);
+    long _free = Aria2RPCInterface::instance()->getCapacityFreeByte(m_editDir->text().split("  ")[0]);
     long _total = 0;//选中文件总大小（字节）
     for(int i = 0;i < m_model->rowCount();i++) {
         if(m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -331,7 +331,7 @@ void BtInfoDialog::oncheckAll()
             m_model->setData(m_model->index(i, 0), "1");
         }
 
-        QString _size = Aria2RPCInterface::Instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
+        QString _size = Aria2RPCInterface::instance()->bytesFormat(this->m_ariaInfo.totalLengthByets);
         this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(m_model->rowCount())).arg(_size));
         this->m_checkVideo->setCheckState(Qt::Checked);
         this->m_checkAudio->setCheckState(Qt::Checked);
@@ -392,7 +392,7 @@ void BtInfoDialog::oncheckVideo()
             cnt++;
         }
     }
-    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    QString _size = Aria2RPCInterface::instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
     setOkBtnStatus(cnt);
 }
@@ -422,7 +422,7 @@ void BtInfoDialog::oncheckAudio()
             cnt++;
         }
     }
-    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    QString _size = Aria2RPCInterface::instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
     setOkBtnStatus(cnt);
 }
@@ -452,7 +452,7 @@ void BtInfoDialog::oncheckPicture()
             cnt++;
         }
     }
-    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    QString _size = Aria2RPCInterface::instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
     setOkBtnStatus(cnt);
 }
@@ -481,7 +481,7 @@ void BtInfoDialog::oncheckOther()
             cnt++;
         }
     }
-    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    QString _size = Aria2RPCInterface::instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
     this->setOkBtnStatus(cnt);
 }
@@ -497,7 +497,7 @@ void BtInfoDialog::updateSelectedInfo()
             cnt++;
         }
     }
-    QString _size = Aria2RPCInterface::Instance()->bytesFormat(total);
+    QString _size = Aria2RPCInterface::instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
     setOkBtnStatus(cnt);
 }
@@ -561,7 +561,7 @@ void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QSt
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    QString _flieEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::Instance()->getCapacityFree(text);
+    QString _flieEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(text);
     int _count = _flieEditText.count();
 
     for (int i =0 ; i < _flieEditText.size();i++)

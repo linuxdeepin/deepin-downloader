@@ -29,24 +29,23 @@
 #include "aria2rpcinterface.h"
 
 #include "log.h"
-
+#include "config.h"
 #include <QProcess>
 
-#define AIRA_CONFIG_PATH "/usr/share/downloadmanager/config/aria2.conf"
 
-const QString Aria2RPCInterface::m_basePath = "/usr/bin/";
-const QString Aria2RPCInterface::m_aria2cCmd = "aria2c"; // aria2c
+Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 
-Aria2RPCInterface *Aria2RPCInterface::m_pInstance = new Aria2RPCInterface;
-
-Aria2RPCInterface *Aria2RPCInterface::Instance()
+Aria2RPCInterface *Aria2RPCInterface::instance()
 {
-    return m_pInstance;
+    return m_instance;
 }
 
 Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
     : QObject(parent)
+    , m_aria2cCmd(ARIA2C_NAME)
+    , m_basePath(ARIA2C_PATH)
 {
+
 }
 
 bool Aria2RPCInterface::startUp()
@@ -54,8 +53,8 @@ bool Aria2RPCInterface::startUp()
     /*
      *检测aria2c执行文件是否存在
      */
-    if (!this->checkAria2cFile()) {
-        qDebug() << "未发现" << Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd;
+    if (!checkAria2cFile()) {
+        qDebug() << "未发现" << m_basePath + m_aria2cCmd;
         return false;
     }
 
@@ -64,7 +63,7 @@ bool Aria2RPCInterface::startUp()
      */
     bool bCheck = checkAria2cProc();
     if (checkAria2cProc()) {
-        qDebug() << Aria2RPCInterface::m_aria2cCmd + "进程已存在,killAria2cProc()";
+        qDebug() << m_aria2cCmd + "进程已存在,killAria2cProc()";
         killAria2cProc();
     }
 
@@ -113,10 +112,10 @@ bool Aria2RPCInterface::startUp()
     opt << "--dht-file-path=" + dhtFile;
     opt << "--dht-file-path6=" + dht6File;
 
-    qDebug() << Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd << opt.join(' ');
+    qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
     QProcess *proc = new QProcess;
-    proc->start(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd, opt);
+    proc->start(m_basePath + m_aria2cCmd, opt);
     proc->waitForStarted();
     bCheck = checkAria2cProc();
     qDebug() << "启动aria2c完成！ " << proc->state() << bCheck;
@@ -125,7 +124,7 @@ bool Aria2RPCInterface::startUp()
 
 bool Aria2RPCInterface::checkAria2cFile()
 {
-    QFile file(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd);
+    QFile file(m_basePath + m_aria2cCmd);
     return file.exists();
 }
 
@@ -140,7 +139,7 @@ void Aria2RPCInterface::Aria2RPCInterface::init()
     //判断文件是否存在,如果不存在复制配置文件内容到目录下
     QFileInfo fileInfo(m_aria2configPath);
     if (!fileInfo.exists()) {
-        QFile::copy(AIRA_CONFIG_PATH, m_aria2configPath);
+        QFile::copy(ARIA_CONFIG_PATH, m_aria2configPath);
     }
 
     //设置配置文件路径
@@ -155,7 +154,7 @@ bool Aria2RPCInterface::checkAria2cProc()
     QStringList opt;
     opt << "-c";
     //opt << "ps aux | grep aria2c";
-    opt << "ps aux|grep " + Aria2RPCInterface::m_aria2cCmd;
+    opt << "ps aux|grep " + m_aria2cCmd;
     proc->start("/bin/bash", opt);
     proc->waitForFinished();
     QString output = QString::fromLocal8Bit(proc->readAllStandardOutput());
@@ -165,10 +164,10 @@ bool Aria2RPCInterface::checkAria2cProc()
         if(t == "") {
             continue;
         }
-        if(t.indexOf("grep " + Aria2RPCInterface::m_aria2cCmd) >= 0) {
+        if(t.indexOf("grep " + m_aria2cCmd) >= 0) {
             continue;
         }
-        if(t.indexOf(Aria2RPCInterface::m_aria2cCmd) >= 0) {
+        if(t.indexOf(m_aria2cCmd) >= 0) {
             cnt++;
             //break;
         }
@@ -185,13 +184,13 @@ int Aria2RPCInterface::killAria2cProc()
 {
     QStringList opt;
     opt << "-c";
-    opt << "ps -ef|grep " + Aria2RPCInterface::m_aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
+    opt << "ps -ef|grep " + m_aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
     return QProcess::execute("/bin/bash", opt);
 }
 
-void Aria2RPCInterface::setDefaultDownLoadDir(QString strDir)
+void Aria2RPCInterface::setDefaultDownLoadDir(QString dir)
 {
-    this->m_defaultDownloadPath = strDir;
+    this->m_defaultDownloadPath = dir;
 }
 
 QString Aria2RPCInterface::getDefaultDownLoadDir()
@@ -199,9 +198,9 @@ QString Aria2RPCInterface::getDefaultDownLoadDir()
     return m_defaultDownloadPath;
 }
 
-void Aria2RPCInterface::setConfigFilePath(const QString strPath)
+void Aria2RPCInterface::setConfigFilePath(const QString path)
 {
-    m_configPath = strPath;
+    m_configPath = path;
 }
 
 QString Aria2RPCInterface::getConfigFilePath() const
@@ -209,34 +208,34 @@ QString Aria2RPCInterface::getConfigFilePath() const
     return m_configPath;
 }
 
-void Aria2RPCInterface::addUri(QString strUri, QMap<QString, QVariant> opt, QString strId)
+void Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString id)
 {
-    strUri = processThunderUri(strUri); //处理迅雷链接
+    uri = processThunderUri(uri); //处理迅雷链接
     QJsonArray ja, inner;
-    inner.append(strUri); //可支持多个URI
+    inner.append(uri); //可支持多个URI
     ja.append(inner);
 
     QJsonDocument doc = QJsonDocument::fromVariant(QVariant(opt));
     QJsonObject optJson = doc.object();
     ja.append(optJson);
 
-    callRPC(ARIA2C_METHOD_ADD_URI, ja, strId);
+    callRPC(ARIA2C_METHOD_ADD_URI, ja, id);
 }
 
-void Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filename, QString strId)
+void Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filename, QString id)
 {
     QMap<QString, QVariant> opt;
     opt.insert("dir", savepath);
     opt.insert("out", filename);
 
-    addUri(uri, opt, strId);
+    addUri(uri, opt, id);
 
     qDebug() << "Add new uri" << uri;
 }
 
-void Aria2RPCInterface::addTorrent(QString strTorrentFile, QMap<QString, QVariant> opt, QString strId)
+void Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> opt, QString id)
 {
-    QString torrentB64Str = fileToBase64(strTorrentFile); //把bt文件转成base64编码
+    QString torrentB64Str = fileToBase64(torrentFile); //把bt文件转成base64编码
     QJsonArray ja;
     ja.append(torrentB64Str);
     ja.append(QJsonArray());
@@ -245,12 +244,12 @@ void Aria2RPCInterface::addTorrent(QString strTorrentFile, QMap<QString, QVarian
     QJsonObject optJson = doc.object();
     ja.append(optJson);
 
-    callRPC(ARIA2C_METHOD_ADD_TORRENT, ja, strId);
+    callRPC(ARIA2C_METHOD_ADD_TORRENT, ja, id);
 }
 
-void Aria2RPCInterface::addMetalink(QString strMetalink, QMap<QString, QVariant> opt, QString strId)
+void Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> opt, QString id)
 {
-    QString metalinkB64Str = fileToBase64(strMetalink);
+    QString metalinkB64Str = fileToBase64(metalink);
     QJsonArray ja;
     ja.append(metalinkB64Str);
     ja.append(QJsonArray());
@@ -259,7 +258,7 @@ void Aria2RPCInterface::addMetalink(QString strMetalink, QMap<QString, QVariant>
     QJsonObject optJson = doc.object();
     ja.append(optJson);
 
-    callRPC(ARIA2C_METHOD_ADD_METALINK, ja, strId);
+    callRPC(ARIA2C_METHOD_ADD_METALINK, ja, id);
 }
 
 QString Aria2RPCInterface::fileToBase64(QString filePath)
@@ -276,13 +275,13 @@ void Aria2RPCInterface::purgeDownloadResult(QString id)
     callRPC(ARIA2C_METHOD_PURGE_DOWNLOAD_RESULT, id);
 }
 
-Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString strTorrentPath)
+Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
 {
     QProcess *pProc = new QProcess; //进程调用指针
     QStringList opt;
     opt << "--show-files=true";
-    opt << strTorrentPath;
-    pProc->start(Aria2RPCInterface::m_basePath + Aria2RPCInterface::m_aria2cCmd, opt); //启动aria2c进程
+    opt << torrentPath;
+    pProc->start(m_basePath + m_aria2cCmd, opt); //启动aria2c进程
     pProc->waitForFinished(); //等待执行完成
 
     QByteArray array = pProc->readAllStandardOutput(); //获取进程执行返回值
@@ -502,7 +501,7 @@ void Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QStr
     callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);
 }
 
-void Aria2RPCInterface::modify_config_file(QString config_item, QString value)
+void Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
 {
     QString strAll;
     QStringList strList;
@@ -523,7 +522,7 @@ void Aria2RPCInterface::modify_config_file(QString config_item, QString value)
         QTextStream stream(&writeFile);
         strList = strAll.split("\n");
         for (int i = 0; i < strList.count(); i++) {
-            if (strList.at(i).contains(config_item)) {
+            if (strList.at(i).contains(configItem)) {
                 QString tempStr = strList.at(i);
                 tempStr.replace(0, tempStr.length(), value);
                 stream << tempStr << '\n';
@@ -544,7 +543,7 @@ void Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
 {
     QMap<QString, QVariant> opt;
     QString value = "max-concurrent-downloads=" + maxDownload;
-    modify_config_file("max-concurrent-downloads=", value);
+    modifyConfigFile("max-concurrent-downloads=", value);
     opt.insert("max-concurrent-downloads", maxDownload);
     changeGlobalOption(opt);
     qDebug() << "set max download num:" << maxDownload;
@@ -561,10 +560,10 @@ void Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString up
     changeGlobalOption(opt);
 
     QString value = "max-overall-download-limit=" + down_speed;
-    modify_config_file("max-overall-download-limit=", value);
+    modifyConfigFile("max-overall-download-limit=", value);
 
     value = "max-overall-upload-limit=" + upload_speed;
-    modify_config_file("max-overall-upload-limit=", value);
+    modifyConfigFile("max-overall-upload-limit=", value);
 
     qDebug() << "set download upload limit speed:" << downloadSpeed << uploadSpeed;
 }
@@ -576,37 +575,37 @@ void Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)
     opt.insert("disk-cache", cacheNum);
     changeGlobalOption(opt);
     QString value = "disk-cache=" + cacheNum;
-    modify_config_file("disk-cache=", value);
+    modifyConfigFile("disk-cache=", value);
 
     qDebug() << "set disk cache num:" << disckCacheNum;
 }
 
-void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadlimitSpeed)
+void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadLimitSpeed)
 {
     QMap<QString, QVariant> opt;
 
-    QString speed = downloadlimitSpeed + "K";
+    QString speed = downloadLimitSpeed + "K";
 
     opt.insert("max-overall-download-limit", speed);
     changeGlobalOption(opt);
 
     QString value = "max-overall-download-limit=" + speed;
-    modify_config_file("max-overall-download-limit=", value);
+    modifyConfigFile("max-overall-download-limit=", value);
 
-    qDebug() << "set download limit speed:" << downloadlimitSpeed;
+    qDebug() << "set download limit speed:" << downloadLimitSpeed;
 }
 
-void Aria2RPCInterface::setUploadLimitSpeed(QString UploadlimitSpeed)
+void Aria2RPCInterface::setUploadLimitSpeed(QString UploadLimitSpeed)
 {
     QMap<QString, QVariant> opt;
-    QString speed = UploadlimitSpeed + "K";
+    QString speed = UploadLimitSpeed + "K";
     opt.insert("max-overall-upload-limit", speed);
     changeGlobalOption(opt);
 
     QString value = "max-overall-upload-limit=" + speed;
-    modify_config_file("max-overall-upload-limit=", value);
+    modifyConfigFile("max-overall-upload-limit=", value);
 
-    qDebug() << "set upload limit speed:" << UploadlimitSpeed;
+    qDebug() << "set upload limit speed:" << UploadLimitSpeed;
 }
 
 QString Aria2RPCInterface::processThunderUri(QString thunder)
@@ -686,11 +685,11 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
     return free.toLong();
 }
 
-QString Aria2RPCInterface::getBtToMetalink(QString strFilePath)
+QString Aria2RPCInterface::getBtToMetalink(QString filePath)
 {
     QString strMetaLink = ""; //磁力链
 
-    QFile file(strFilePath); //strFilePath文件的绝对路径
+    QFile file(filePath); //strFilePath文件的绝对路径
     if (file.open(QIODevice::ReadOnly)) //只读方式打开
     {
         QCryptographicHash hash(QCryptographicHash::Sha1);

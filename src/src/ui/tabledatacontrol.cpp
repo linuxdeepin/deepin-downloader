@@ -67,7 +67,7 @@ void tableDataControl::setRecycleTable(TableView *pRecycleTable)
 
 void tableDataControl::removeDownloadListJob(DataItem *pData, bool isAddToRecycle)
 {
-    Aria2RPCInterface::Instance()->remove(pData->gid);
+    Aria2RPCInterface::instance()->remove(pData->gid);
     DBInstance::delTask(pData->taskId);
 
     QFileInfo fileinfo(pData->savePath);
@@ -140,7 +140,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
     } else {
         // 获取下载信息
         // aria2c->tellStatus(gId, gId);
-        Aria2RPCInterface::Instance()->getFiles(gId, id);
+        Aria2RPCInterface::instance()->getFiles(gId, id);
         DataItem *data = new DataItem;
         data->taskId = id;
         data->gid = gId;
@@ -638,7 +638,7 @@ void tableDataControl::slot_UnusualConfirm(int index, const QString &taskId)
 
 void tableDataControl::slot_Aria2Remove(QString gId, QString id)
 {
-    auto basicLambda =[&gId, &id] { Aria2RPCInterface::Instance()->remove(gId, id);};
+    auto basicLambda =[&gId, &id] { Aria2RPCInterface::instance()->remove(gId, id);};
     basicLambda();
 }
 
@@ -730,7 +730,7 @@ int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DataItem*> &
 
 void tableDataControl::RedownloadErrorItem(DataItem *errorItem)
 {
-    Aria2RPCInterface::Instance()->remove(errorItem->gid);
+    Aria2RPCInterface::instance()->remove(errorItem->gid);
     DBInstance::delTask(errorItem->taskId);
     QStringList urlList;
     urlList << errorItem->url;
@@ -1011,7 +1011,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
 
     DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadDeleteList,
                                                                m_pDownloadTableView,
-                                                               Aria2RPCInterface::Instance(),
+                                                               Aria2RPCInterface::instance(),
                                                                ifDeleteLocal,
                                                                "download_delete");
     //connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
@@ -1019,7 +1019,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     qDebug() << "subThread: " << QThread::currentThreadId();
     connect(pDeleteItemThread, &DeleteItemThread::signal_Aria2Remove, this, [](QString gId, QString id){
         qDebug() << "subThread: " << QThread::currentThreadId();
-        Aria2RPCInterface::Instance()->remove(gId, id);
+        Aria2RPCInterface::instance()->remove(gId, id);
     });
     pDeleteItemThread->start();
     //pDeleteItemThread->deleteLater();
@@ -1052,7 +1052,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         if(permanent || ischecked) {
             DBInstance::delTask(taskId);
 
-            Aria2RPCInterface::Instance()->purgeDownloadResult(data->gid);
+            Aria2RPCInterface::instance()->purgeDownloadResult(data->gid);
         }
 
         if(!permanent && !ischecked) {
@@ -1104,11 +1104,11 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
     }
     DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadRecycleDeleteList,
                                                                m_pDownloadTableView,
-                                                               Aria2RPCInterface::Instance(),
+                                                               Aria2RPCInterface::instance(),
                                                                ifDeleteLocal,
                                                                "recycle_delete");
     connect(pDeleteItemThread, &DeleteItemThread::signal_Aria2Remove, [=](QString gId, QString id){
-        Aria2RPCInterface::Instance()->remove(gId, id);
+        Aria2RPCInterface::instance()->remove(gId, id);
     });
     pDeleteItemThread->start();
 
@@ -1177,7 +1177,7 @@ void tableDataControl::downloadListRedownload(QString id)
                            fileName,
                            QDateTime::currentDateTime());
             DBInstance::addTask(addTask);
-            Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
+            Aria2RPCInterface::instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
         }
     } else {
         QUuid   uuid = QUuid::createUuid();
@@ -1192,7 +1192,7 @@ void tableDataControl::downloadListRedownload(QString id)
         }
         opt.insert("dir", savePath);
         opt.insert("out", outFileName);
-        Aria2RPCInterface::Instance()->addUri(url, opt, strId);
+        Aria2RPCInterface::instance()->addUri(url, opt, strId);
 
         QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
         if(!filename.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
@@ -1268,7 +1268,7 @@ void tableDataControl::recycleListRedownload(QString id)
                            QDateTime::currentDateTime());
 
             DBInstance::addTask(addTask);
-            Aria2RPCInterface::Instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
+            Aria2RPCInterface::instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
         }
     } else {
         QMap<QString, QVariant> opt;
@@ -1281,7 +1281,7 @@ void tableDataControl::recycleListRedownload(QString id)
         }
         opt.insert("dir", savePath);
         opt.insert("out", outFileName);
-        Aria2RPCInterface::Instance()->addUri(url, opt, strId);
+        Aria2RPCInterface::instance()->addUri(url, opt, strId);
         QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
         if(!filename.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
             const QByteArray filename_byte = filename.toLatin1();

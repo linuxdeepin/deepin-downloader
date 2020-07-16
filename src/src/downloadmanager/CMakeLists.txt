@@ -1,6 +1,7 @@
 #设置包含目录
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui
                     ${PROJECT_SOURCE_DIR}/src/include/log
+                    ${CMAKE_BINARY_DIR}
     )
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
