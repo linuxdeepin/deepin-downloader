@@ -30,8 +30,8 @@
 #include <QStyleOptionButton>
 #include <QLabel>
 
-headerView::headerView(Qt::Orientation orientation, QWidget *parent):
-    QHeaderView(orientation, parent)
+headerView::headerView(Qt::Orientation orientation, QWidget *parent)
+    : QHeaderView(orientation, parent)
 {
 
 }

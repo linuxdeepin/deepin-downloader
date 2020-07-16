@@ -73,8 +73,8 @@ protected:
 private:
     DDialog* m_dialog;      //父类窗口指针
     QCheckBox *m_checkBtn;
-    int hoverRow;           //当前选择行
-    QBrush hoverColor = QColor(0,0,0,13);
+    int m_hoverRow;           //当前选择行
+    QBrush m_hoverColor = QColor(0,0,0,13);
 
 public slots:
     /**

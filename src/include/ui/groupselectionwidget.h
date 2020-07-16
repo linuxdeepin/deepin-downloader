@@ -41,28 +41,28 @@ class GroupSelectionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GroupSelectionWidget(QStringList lstItemName,QWidget *parent = nullptr);
+    explicit GroupSelectionWidget(QStringList itemNameList,QWidget *parent = nullptr);
 
     /**
      * @brief 设置描述信息
-     * @param strText 描述信息
+     * @param text 描述信息
      */
-    void setLabelText(QString strText);
+    void setLabelText(const QString &text);
 
     /**
      * @brief 设置描述信息Label是否隐藏，隐藏则表示没有描述
-     * @param bIsHide 布尔值true或者false
+     * @param isHide 布尔值true或者false
      */
-    void setLabelIsHide(bool bIsHide);
+    void setLabelIsHide(bool isHide);
 
     /**
      * @brief 设置当前选择项
-     * @param strName 选择项名称
+     * @param name 选择项名称
      */
-    void setCurrentSelected(QString strName);
+    void setCurrentSelected(const QString &name);
 
 signals:
-    void signal_selectedChanged(QString strItemText);
+    void selectedChanged(QString itemText);
 
 public slots:
 
@@ -70,9 +70,9 @@ private slots:
 
     /**
      * @brief 选项选中响应的槽函数
-     * @param bIsChecked 选项的选择状态
+     * @param isChecked 选项的选择状态
      */
-    void slot_itemCheckedSlot(bool bIsChecked);
+    void onItemChecked(bool isChecked);
 
 private:
 
@@ -87,8 +87,8 @@ private:
     void initConnections();
 
 private:
-    DLabel *m_pLabel; // 描述信息
-    QStringList m_lstItemName; // 选项名称列表
+    DLabel *m_label; // 描述信息
+    QStringList m_itemNameList; // 选项名称列表
 
 };
 

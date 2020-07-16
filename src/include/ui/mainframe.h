@@ -55,7 +55,7 @@ class QAction;
 class SettingsWidget;
 class TopButton;
 class TableView;
-class S_Task;
+class Task;
 class ClipboardTimer;
 class BtInfoDialog;
 class tableDataControl;
@@ -137,7 +137,7 @@ private slots:
      * @param url 收到url地址
      * @param savePath 保存路径
     */
-    void ongetNewDownloadUrl(QStringList url, QString savePath, QString fileName);
+    void onDownloadNewUrl(QStringList url, QString savePath, QString fileName);
 
     /**
      * @brief 收到新建任务
@@ -149,7 +149,7 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    void ongetNewDownloadTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+    void onDownloadNewTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
 
     /**
      * @brief 表头全部选择按键
@@ -203,7 +203,7 @@ private slots:
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void onGetDeleteConfirm(bool ischecked,bool permanent);
+    void onDeleteConfirm(bool ischecked,bool permanent);
 
     /**
      * @brief 重新下载
@@ -284,7 +284,7 @@ private slots:
     * @brief 是否开启bt文件托管
     * @param status true 为开启 false为关闭
     */
-    void onisStartAssociatedBTFile(bool status);
+    void onIsStartAssociatedBTFile(bool status);
 
     /**
     * @brief 重命名确认槽函数
@@ -326,17 +326,17 @@ private slots:
      * @brief 剪切板将
      * @param reason 激活原因
      */
-    void onshowWindowsForClipboard();
+    void onShowWindowsForClipboard();
 
     /**
      * @brief 解析url
      */
-    void onTruetUrlList(QStringList urlList, QString path, QString name="");
+    void onParseUrlList(QStringList urlList, QString path, QString name="");
 
     /**
      * @brief 解析url请求返回处理
      */
-    void onhttpRequest(QNetworkReply *reply);
+    void onHttpRequest(QNetworkReply *reply);
 private:
 
     /**
@@ -368,7 +368,7 @@ private:
      * @brief 设置任务数
      * @param currentLab 当前显示列表，正在下载、已完成、回收站
     */
-    void setTaskNum(int currentLab);
+    void setTaskNum();
 
     /**
      * @brief 设置主题模式
@@ -386,7 +386,7 @@ private:
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    S_Task getUrlToName(QString url, QString savePaht, QString name);
+    Task getUrlToName(QString url, QString savePaht, QString name);
 
     /**
      * @brief 开始或者继续下载任务
@@ -447,7 +447,7 @@ private:
     /**
      * @brief 初始化DataItem
      */
-    void initDataItem(Global::DataItem *data, const S_Task &tbTask);
+    void initDataItem(Global::DataItem *data, const Task &tbTask);
 
     /**
      * @brief 初始化DelDataItem
@@ -510,54 +510,52 @@ private:
     enum tableviewFlag{
         downloading,recycle
     };
-    enum currentLab{
-        downloadingLab = 0,finishLab,recycleLab
+    enum CurrentTab{
+        downloadingTab = 0,finishTab,recycleTab
     };
-    TopButton *m_pToolBar;
-    TableView *m_pDownLoadingTableView, *m_pRecycleTableView;
-    QWidget *m_pLeftWidget;
-    QWidget *m_pRight_Widget;
-    QWidget *m_pNotaskWidget;
-    DLabel *m_pNotaskLabel;
-    DLabel *m_pNoResultlabel;
-    DLabel *m_pNotaskTipLabel;
-    QStackedWidget *m_pRightStackwidget;
-    QWidget *m_pTaskNumWidget;
-    QLabel  *m_pTaskNum;
-    DListView *m_pLeftList;
+    TopButton *m_ToolBar;
+    TableView *m_DownLoadingTableView, *m_RecycleTableView;
+    QWidget *m_LeftWidget;
+    QWidget *m_RightWidget;
+    QWidget *m_NotaskWidget;
+    DLabel *m_NotaskLabel;
+    DLabel *m_NoResultlabel;
+    DLabel *m_NotaskTipLabel;
+    QStackedWidget *m_RightStackwidget;
+    QWidget *m_TaskNumWidget;
+    QLabel  *m_TaskNum;
+    DListView *m_LeftList;
 
-    DStandardItem *m_pdownloadingItem;
-    QStandardItem *m_pdownloadfinishItem;
-    QStandardItem *m_precycleItem;
-    QSystemTrayIcon *m_pSystemTray;
-    ClipboardTimer *m_pClipboard;
-    QAction *m_pSettingAction;
-    QTimer *m_pUpdateTimer;
+    DStandardItem *m_DownloadingItem;
+    QStandardItem *m_DownloadFinishItem;
+    QStandardItem *m_RecycleItem;
+    QSystemTrayIcon *m_SystemTray;
+    ClipboardTimer *m_Clipboard;
+    QAction *m_SettingAction;
+    QTimer *m_UpdateTimer;
     QTimer *m_TrayClickTimer;
 
-    SettingsWidget *m_pSettingWidget;
-    currentLab m_iCurrentLab; // 当前显示列表，正在下载、已完成、回收站
-    int m_iDownloadingHeaderCheckStatus=0;
-    int m_iFinishHeaderCheckStatus=0;
+    SettingsWidget *m_SettingWidget;
+    CurrentTab m_CurrentTab; // 当前显示列表，正在下载、已完成、回收站
     QString m_SearchContent;
-    bool m_bShutdownOk = true;
+    bool m_ShutdownOk = true;
 
-    QList<Global::DataItem*> m_reloadList;  /*已完成界面点击重新下载的数据列表*/
-    QList<Global::DelDataItem*> m_recycleReloadList;  /*回收站界面点击重新下载的数据列表*/
-    Global::DataItem* m_pCheckItem;
+    QList<Global::DataItem*> m_ReloadList;  /*已完成界面点击重新下载的数据列表*/
+    QList<Global::DelDataItem*> m_RecycleReloadList;  /*回收站界面点击重新下载的数据列表*/
+    Global::DataItem* m_CheckItem;
+    Global::DelDataItem* m_DelCheckItem;
     QModelIndex m_CheckIndex;
-    QList<Global::DataItem*> m_pDeleteList;
-    QList<Global::DelDataItem*> m_pRecycleDeleteList;
+    QList<Global::DataItem*> m_DeleteList;
+    QList<Global::DelDataItem*> m_RecycleDeleteList;
 
-    QString m_curOpenBtDialogPath;  //当前打开bt文件地址
+    QString m_CurOpenBtDialogPath;  //当前打开bt文件地址
 
-    bool m_bctrlkeyPress = false;
-    bool m_bIsCopyUrlFromLocal = false;
+    bool m_CtrlkeyPress = false;
+    bool m_CopyUrlFromLocal = false;
 signals:
-     void signal_switchTable();
-     void signal_headerViewChecked(bool checked);
-     void signal_tableChanged(int index);
-     void signal_Redownload(QString taskId, int rd);
+     void isHeaderChecked(bool checked);
+     void tableChanged(int index);
+     void redownload(QString taskId, int rd);
 };
 
 #endif // MAINFRAME_H

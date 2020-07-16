@@ -211,17 +211,17 @@ signals:
      * @brief 改变选中
      * @param flag: 模式
      */
-    void signal_checkDatachange(int flag);
+    void checkDatachange(int flag);
     /**
      * @brief 全选或者全不选
      * @param checked: 选中状态
      */
-    void signal_tableviewAllcheckedOrAllunchecked(bool checked);
+    void tableviewAllcheckedOrAllunchecked(bool checked);
     /**
      * @brief 选中或者不选中
      * @param flag: 模式
      */
-    void signal_CheckChange(bool checked, int  flag);
+    void CheckChange(bool checked, int  flag);
 private slots:
     /**
      * @brief 获取选中改变

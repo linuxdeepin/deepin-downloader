@@ -173,12 +173,6 @@
                             "name": "Allow notifications when downloading succeed or failed",
                             "type": "switchbutton",
                             "default": true
-                        },
-                        {
-                            "key": "afterDownloadPlayTone",
-                            "name": "Allow sounds when downloading succeed",
-                            "type": "switchbutton",
-                            "default": true
                         }
                 ]
               }

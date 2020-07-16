@@ -12,103 +12,103 @@
 * @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
 
-struct S_Task_Status
+struct TaskStatus
 {
-    QString m_taskId; //任务id，主键唯一标识
-    int m_downloadStatus; //任务状态
-    QDateTime m_modifyTime; //修改时间
-    QString m_compeletedLength ; //已下载大小
-    QString  m_downloadSpeed ; //下载速度
-    QString  m_totalLength; //下载总文件大小
-    int m_percent;
-    int m_totalFromSource; //获取的下载文件大小
-    QDateTime m_finishTime; //完成时间
-    S_Task_Status(){
-        m_taskId = "";
-        m_downloadStatus = -1;
-        m_compeletedLength = "";
-        m_downloadSpeed = "";
-        m_totalLength = "";
-        m_percent  = -1;
-        m_totalFromSource = 0;
+    QString taskId; //任务id，主键唯一标识
+    int downloadStatus; //任务状态
+    QDateTime modifyTime; //修改时间
+    QString compeletedLength ; //已下载大小
+    QString  downloadSpeed ; //下载速度
+    QString  totalLength; //下载总文件大小
+    int percent;
+    int totalFromSource; //获取的下载文件大小
+    QDateTime finishTime; //完成时间
+    TaskStatus(){
+        taskId = "";
+        downloadStatus = -1;
+        compeletedLength = "";
+        downloadSpeed = "";
+        totalLength = "";
+        percent  = -1;
+        totalFromSource = 0;
     };
-    S_Task_Status(QString task_id,int download_status,QDateTime modify_time,QString compeletedLength,
+    TaskStatus(QString task_id,int download_status,QDateTime modify_time,QString compeletedLength,
                   QString download_speed,QString totalLength,int percent,int totalFromSource, QDateTime finish_time)
     {
-        m_taskId = task_id;
-        m_downloadStatus = download_status;
-        m_modifyTime.setDate(modify_time.date());
-        m_modifyTime.setTime(modify_time.time());
-        m_compeletedLength = compeletedLength ;
-        m_downloadSpeed = download_speed;
-        m_totalLength = totalLength;
+        taskId = task_id;
+        downloadStatus = download_status;
+        modifyTime.setDate(modify_time.date());
+        modifyTime.setTime(modify_time.time());
+        compeletedLength = compeletedLength ;
+        downloadSpeed = download_speed;
+        totalLength = totalLength;
         if (percent < 0 || percent > 100) {
-            m_percent = 0;
+            percent = 0;
         } else {
-            m_percent = percent;
+            percent = percent;
         }
-        m_totalFromSource = totalFromSource;
-        m_finishTime = finish_time;
+        totalFromSource = totalFromSource;
+        finishTime = finish_time;
     };
 };
 
 
-struct S_Task
+struct Task
 {
-    QString m_taskId; //任务id，主键唯一标识
-    QString m_gid; //下载gid
-    int m_gidIndex; //位置index
-    QString m_url; //下载url地址
-    QString m_downloadPath; //下载全路径包括文件名
-    QString m_downloadFilename; //下载文件名
-    QDateTime m_createTime; //任务创建时间
-    S_Task(){
-        m_taskId = "";
-        m_gid = "";
-        m_gidIndex = -1;
-        m_url = "";
-        m_downloadPath = "";
-        m_downloadFilename = "";
+    QString taskId; //任务id，主键唯一标识
+    QString gid; //下载gid
+    int gidIndex; //位置index
+    QString url; //下载url地址
+    QString downloadPath; //下载全路径包括文件名
+    QString downloadFilename; //下载文件名
+    QDateTime createTime; //任务创建时间
+    Task(){
+        taskId = "";
+        gid = "";
+        gidIndex = -1;
+        url = "";
+        downloadPath = "";
+        downloadFilename = "";
     };
-    S_Task(QString task_id,QString gid,int gid_index,QString url,QString download_path,
+    Task(QString task_id,QString gid,int gid_index,QString url,QString download_path,
                 QString download_filename,QDateTime create_time)
     {
-        m_taskId = task_id;
-        m_gid = gid;
-        m_gidIndex = gid_index;
-        m_url = url;
-        m_downloadPath = download_path;
-        m_downloadFilename = download_filename;
-        m_createTime.setDate(create_time.date());
-        m_createTime.setTime(create_time.time());
+        taskId = task_id;
+        gid = gid;
+        gidIndex = gid_index;
+        url = url;
+        downloadPath = download_path;
+        downloadFilename = download_filename;
+        createTime.setDate(create_time.date());
+        createTime.setTime(create_time.time());
     };
 };
 
-struct S_Url_Info
+struct UrlInfo
 {
-    QString m_taskId ;//任务id唯一标识
-    QString m_url; //下载url
-    QString m_downloadType; //下载类型
-    QString m_seedFile; //种子文件
-    QString m_selectedNum; //选择的种子文件序号
-    QString m_infoHash; //种子文件hash值
-    S_Url_Info(){
-        m_taskId = "" ;
-        m_url = "";
-        m_downloadType = "";
-        m_seedFile = "";
-        m_selectedNum = "";
-        m_infoHash = "";
+    QString taskId ;//任务id唯一标识
+    QString url; //下载url
+    QString downloadType; //下载类型
+    QString seedFile; //种子文件
+    QString selectedNum; //选择的种子文件序号
+    QString infoHash; //种子文件hash值
+    UrlInfo(){
+        taskId = "" ;
+        url = "";
+        downloadType = "";
+        seedFile = "";
+        selectedNum = "";
+        infoHash = "";
     };
-    S_Url_Info(QString task_id ,QString url ,QString download_type,
+    UrlInfo(QString task_id ,QString url ,QString download_type,
                QString seedFile,QString selectedNum,QString infoHash)
     {
-        m_taskId = task_id ;
-        m_url = url;
-        m_downloadType = download_type;
-        m_seedFile = seedFile;
-        m_selectedNum = selectedNum;
-        m_infoHash = infoHash;
+        taskId = task_id ;
+        url = url;
+        downloadType = download_type;
+        seedFile = seedFile;
+        selectedNum = selectedNum;
+        infoHash = infoHash;
     }
 };
 

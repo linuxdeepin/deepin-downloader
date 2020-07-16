@@ -54,15 +54,15 @@ BtInfoDelegate::~BtInfoDelegate()
 
 void BtInfoDelegate::setHoverColor(QBrush c)
 {
-    this->hoverColor = c;
+    this->m_hoverColor = c;
 }
 
 void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     painter->save();
 
-    if(index.row() == this->hoverRow) {
-        painter->fillRect(option.rect, this->hoverColor);//QColor(0,0,0,13)QColor(255,255,255,26)
+    if(index.row() == this->m_hoverRow) {
+        painter->fillRect(option.rect, this->m_hoverColor);//QColor(0,0,0,13)QColor(255,255,255,26)
     }
     else {
         if(index.row() % 2 == 1) {
@@ -130,8 +130,7 @@ bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     return false;
 }
 
-
 void BtInfoDelegate::onhoverChanged(const QModelIndex &index)
 {
-    hoverRow = index.row();
+    m_hoverRow = index.row();
 }

@@ -46,38 +46,38 @@ public:
 
     /**
      * @brief 设置标题
-     * @param strText 标题文本
+     * @param text 标题文本
      */
-    void setLabelText(const QString &strText);
+    void setLabelText(const QString &text);
 
     /**
      * @brief 设置复选框是否选中
-     * @param bIsChecked 布尔值true或者false
+     * @param isChecked 布尔值true或者false
      */
-    void setCheckBoxChecked(bool bIsChecked);
+    void setCheckBoxChecked(bool isChecked);
 
     /**
      * @brief 设置复选框当前状态
-     * @param State 状态
+     * @param state 状态
      */
-    void setCheckboxState(Qt::CheckState State);
+    void setCheckboxState(Qt::CheckState state);
 
     /**
      * @brief 设置是否阻塞复选框信号
-     * @param block 布尔值true或者false
+     * @param lock 布尔值true或者false
      */
-    void setBlockSignals(bool block);
+    void setBlockSignals(bool lock);
 
 signals:
-    void signal_checkBoxIsChecked(bool bIsChecked);
+    void checkBoxIsChecked(bool isChecked);
 
 public slots:
 
     /**
      * @brief 复选框状态改变响应的槽函数
-     * @param nState 状态值
+     * @param state 状态值
      */
-    void slot_checkBoxstateChangedSlot(int nState);
+    void onCheckBoxStateChanged(int state);
 
 private:
 
@@ -92,8 +92,8 @@ private:
     void initConnections();
 
 private:
-    DLabel *m_pLabel; // 标题
-    DCheckBox *m_pCheckBox; // 复选框
+    DLabel *m_label; // 标题
+    DCheckBox *m_checkBox; // 复选框
 
 };
 

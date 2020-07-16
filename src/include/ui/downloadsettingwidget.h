@@ -49,36 +49,36 @@ public:
 
     /**
      * @brief 设置当前选择的选项，当传入为1时，选中全速下载
-     * @param nCurrentSelect 当前选项值
+     * @param currentSelect 当前选项值
      */
-    void setCurrentSelectRadioButton(int nCurrentSelect);
+    void setCurrentSelectRadioButton(const int &currentSelect);
 
     /**
      * @brief 设置最大下载限速值
-     * @param strText 限速值
+     * @param text 限速值
      */
-    void setMaxDownloadSpeedLimit(QString strText);
+    void setMaxDownloadSpeedLimit(const QString &text);
 
     /**
      * @brief 设置最大上传限速值
-     * @param strText 限速值
+     * @param text 限速值
      */
-    void setMaxUploadSpeedLimit(QString strText);
+    void setMaxUploadSpeedLimit(const QString &text);
 
     /**
      * @brief 设置限速开始时间
-     * @param strText 开始时间
+     * @param text 开始时间
      */
-    void setStartTime(QString strText);
+    void setStartTime(const QString &text);
 
     /**
      * @brief 设置限速结束时间
-     * @param strText 结束时间
+     * @param text 结束时间
      */
-    void setEndTime(QString strText);
+    void setEndTime(const QString &text);
 
 signals:
-    void signal_speedLimitInfoChanged(QString strText);
+    void speedLimitInfoChanged(QString text);
 
 public slots:
 
@@ -88,18 +88,24 @@ private slots:
      * @brief 限速时间改变响应的槽函数
      * @param time 改变后的时间
      */
-    void slot_timeChangedSlot(const QTime &time);
+    void onTimeChanged(const QTime &time);
 
     /**
      * @brief 限速值改变响应的槽函数
-     * @param strText 改变后的值
+     * @param text 改变后的值
      */
-    void slot_textChangedSlot(QString strText);
+    void onTextChanged(QString text);
 
     /**
      * @brief 单选按钮切换槽函数
      */
-    void slot_radioButtonClickSlot();
+    void onRadioButtonClicked();
+
+    /**
+     * @brief 焦点是否在输入框响应的槽函数
+     * @param onFocus 布尔值
+     */
+    void onFocusChanged(bool onFocus);
 
 private:
 
@@ -114,14 +120,16 @@ private:
     void initConnections();
 
 private:
-    DRadioButton *m_pFullSpeedDownloadButton; // 全速下载按钮
-    DRadioButton *m_pSpeedLimitDownloadButton; // 限速下载按钮
-    SettingInfoInputWidget *m_pMaxDownloadSpeedLimit; //最大下载限速输入框
-    SettingInfoInputWidget *m_pMaxUploadSpeedLimit; // 最大上传限速输入框
-    QTimeEdit *m_pStartTimeEdit; // 开始时间
-    QTimeEdit *m_pEndTimeEdit; // 结束时间
-    DAlertControl *m_pDownloadAlertControl; // 最大下载限速输入错误提示
-    DAlertControl *m_pUploadAlertControl; // 最大上传限速输入错误提示
+    DRadioButton *m_fullSpeedDownloadButton; // 全速下载按钮
+    DRadioButton *m_speedLimitDownloadButton; // 限速下载按钮
+    SettingInfoInputWidget *m_maxDownloadSpeedLimit; //最大下载限速输入框
+    SettingInfoInputWidget *m_maxUploadSpeedLimit; // 最大上传限速输入框
+    QTimeEdit *m_startTimeEdit; // 开始时间
+    QTimeEdit *m_endTimeEdit; // 结束时间
+    DAlertControl *m_downloadAlertControl; // 最大下载限速输入错误提示
+    DAlertControl *m_uploadAlertControl; // 最大上传限速输入错误提示
+    int m_DownloadSpeedLimitValue;
+    int m_UploadSpeedLimitValue;
 
 };
 

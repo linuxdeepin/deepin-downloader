@@ -117,8 +117,8 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         finddata->gid = gId;
         finddata->taskId = id;
         QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-        S_Task_Status get_status;
-        S_Task_Status downloadStatus(finddata->taskId,
+        TaskStatus get_status;
+        TaskStatus downloadStatus(finddata->taskId,
                                      Global::Status::Active,
                                      QDateTime::currentDateTime(),
                                      finddata->completedLength,
@@ -129,9 +129,9 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
                                      finish_time);
 
 
-        S_Task_Status task;
+        TaskStatus task;
         DBInstance::getTaskStatusById(finddata->taskId, task);
-        if(task.m_taskId != "") {
+        if(task.taskId != "") {
             DBInstance::updateTaskStatusById(downloadStatus);
         } else {
             DBInstance::addTaskStatus(downloadStatus);
@@ -148,31 +148,31 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         QDateTime time = QDateTime::currentDateTime();
         data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
 
-        S_Task getTaskInfo;
+        Task getTaskInfo;
         DBInstance::getTaskByID(id, getTaskInfo);
-        S_Task task;
-        if(getTaskInfo.m_taskId != "") {
-            task = S_Task(getTaskInfo.m_taskId,
+        Task task;
+        if(getTaskInfo.taskId != "") {
+            task = Task(getTaskInfo.taskId,
                           gId,
                           0,
-                          getTaskInfo.m_url,
-                          getTaskInfo.m_downloadPath,
-                          getTaskInfo.m_downloadFilename,
+                          getTaskInfo.url,
+                          getTaskInfo.downloadPath,
+                          getTaskInfo.downloadFilename,
                           time);
             DBInstance::updateTaskByID(task);
-            data->fileName = getTaskInfo.m_downloadFilename;
+            data->fileName = getTaskInfo.downloadFilename;
         } else {
-            task = S_Task(id, gId, 0, "", "", "Unknow", time);
+            task = Task(id, gId, 0, "", "", "Unknow", time);
             DBInstance::addTask(task);
         }
-        data->savePath = getTaskInfo.m_downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
+        data->savePath = getTaskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
         m_pDownloadTableView->getTableModel()->append(data);
-        m_pDownloadTableView->getTableHeader()->slot_ClearHeaderCheck();
+        m_pDownloadTableView->getTableHeader()->onHeaderChecked(false);
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_pDownloadTableView->getTableModel();
             m_pDownloadTableView->setRowHidden(dtModel->rowCount(), true);
         }
-        qDebug() << "aria2MethodAdd: " << getTaskInfo.m_url << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+        qDebug() << "aria2MethodAdd: " << getTaskInfo.url << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     }
 }
 
@@ -193,18 +193,18 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         QJsonObject btInfo = bittorrent.value("info").toObject();
         bittorrent_name = btInfo.value("name").toString();
         QString infoHash = result.value("infoHash").toString();
-        S_Url_Info tbUrlInfo;
-        S_Url_Info getUrlInfo;
+        UrlInfo tbUrlInfo;
+        UrlInfo getUrlInfo;
         DBInstance::getUrlById(taskId, getUrlInfo);
-        if(getUrlInfo.m_taskId != "") {
-            if(getUrlInfo.m_infoHash.isEmpty()) {
-                S_Url_Info *url_info = new S_Url_Info(getUrlInfo.m_taskId,
-                                                      getUrlInfo.m_url,
-                                                      getUrlInfo.m_downloadType,
-                                                      getUrlInfo.m_seedFile,
-                                                      getUrlInfo.m_selectedNum,
+        if(getUrlInfo.taskId != "") {
+            if(getUrlInfo.infoHash.isEmpty()) {
+                UrlInfo *urlInfo = new UrlInfo(getUrlInfo.taskId,
+                                                      getUrlInfo.url,
+                                                      getUrlInfo.downloadType,
+                                                      getUrlInfo.seedFile,
+                                                      getUrlInfo.selectedNum,
                                                       infoHash);
-                DBInstance::updateUrlById(*url_info);
+                DBInstance::updateUrlById(*urlInfo);
             }
         }
     }
@@ -258,7 +258,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             data->status = Global::Status::Error;
             MessageBox *msg = new MessageBox();
             msg->setUnusual(taskId);
-            connect(msg, &MessageBox::signal_unusualConfirm, this, &tableDataControl::slot_UnusualConfirm);
+            connect(msg, &MessageBox::unusualConfirm, this, &tableDataControl::onUnusualConfirm);
             msg->exec();
             //qDebug() << "文件不存在，";
             return;
@@ -275,7 +275,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //下载文件为种子文件
         if(fileName.endsWith(".torrent")) {
-            emit signal_AutoDownloadBt(filePath);
+            emit AutoDownloadBt(filePath);
         }
 
         //下载文件为磁链种子文件
@@ -283,7 +283,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if(filePath.startsWith("[METADATA]")) {
             QString dir = result.value("dir").toString();
             data->status = Global::Status::Complete;
-            emit signal_AutoDownloadBt(dir + "/" + infoHash + ".torrent");
+            emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
             fileName = infoHash + ".torrent";
         }
 
@@ -356,22 +356,22 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //              updatetimer->stop();
     }
-    S_Task task;
-    S_Task getTask;
+    Task task;
+    Task getTask;
     DBInstance::getTaskByID(data->taskId, getTask);
-    if(getTask.m_taskId != "") {
-        if(getTask.m_url != "") {
-            data->url = getTask.m_url;
+    if(getTask.taskId != "") {
+        if(getTask.url != "") {
+            data->url = getTask.url;
         }
     }
 
     //m_pDownloadTableView->update();
     //m_pDownloadTableView->reset();
-    S_Task_Status getTaskStatus;
+    TaskStatus getTaskStatus;
     DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
 
     QDateTime getTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
-    S_Task_Status saveTaskStatus(data->taskId,
+    TaskStatus saveTaskStatus(data->taskId,
                                  data->status,
                                  getTime,
                                  data->completedLength,
@@ -380,10 +380,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
                                  data->percent,
                                  data->total,
                                  getTime);
-    if(getTaskStatus.m_taskId == "") {
+    if(getTaskStatus.taskId == "") {
         DBInstance::addTaskStatus(saveTaskStatus);
     } else {
-        if((getTaskStatus.m_downloadStatus != data->status) || (getTaskStatus.m_percent != data->speed)) {
+        if((getTaskStatus.downloadStatus != data->status) || (getTaskStatus.percent != data->speed)) {
             DBInstance::updateTaskStatusById(saveTaskStatus);
         }
     }
@@ -460,7 +460,7 @@ void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
         QString     taskId = sp.at(2);
         int rd = sp.at(1).toInt();
         QThread::msleep(500);
-        emit signal_Redownload(taskId, rd);
+        emit Redownload(taskId, rd);
     }
 }
 
@@ -473,7 +473,7 @@ void tableDataControl::saveDataBeforeClose()
         for(int j = 0; j < recyclelist.size(); j++) {
             DelDataItem *pDelData = recyclelist.at(j);
             QDateTime    deltime = QDateTime::fromString(pDelData->deleteTime, "yyyy-MM-dd hh:mm:ss");
-            S_Task task(pDelData->taskId, pDelData->gid, 0, pDelData->url, pDelData->savePath,
+            Task task(pDelData->taskId, pDelData->gid, 0, pDelData->url, pDelData->savePath,
                         pDelData->fileName, deltime);
 
             DBInstance::updateTaskByID(task);
@@ -485,7 +485,7 @@ void tableDataControl::saveDataBeforeClose()
             QDateTime time = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
 
 
-            S_Task task(data->taskId, data->gid, 0, data->url, data->savePath,
+            Task task(data->taskId, data->gid, 0, data->url, data->savePath,
                         data->fileName, time);
 
             DBInstance::updateTaskByID(task);
@@ -495,7 +495,7 @@ void tableDataControl::saveDataBeforeClose()
             } else {
                 finishTime = QDateTime::currentDateTime();
             }
-            S_Task_Status get_status;
+            TaskStatus get_status;
             int status;
             if((data->status == Global::Status::Complete) || (data->status == Global::Status::Removed)) {
                 status = data->status;
@@ -503,7 +503,7 @@ void tableDataControl::saveDataBeforeClose()
                 status = Global::Status::Lastincomplete;
             }
 
-            S_Task_Status downloadStatus(data->taskId, status, finishTime, data->completedLength, data->speed,
+            TaskStatus downloadStatus(data->taskId, status, finishTime, data->completedLength, data->speed,
                                           data->totalLength,data->percent,data->total,finishTime);
 
             if(DBInstance::getTaskStatusById(data->taskId, get_status) != false) {
@@ -619,7 +619,7 @@ bool tableDataControl::checkFileExist(QString &filePath)
     return fInfo.exists();
 }
 
-void tableDataControl::slot_UnusualConfirm(int index, const QString &taskId)
+void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
 {
     DataItem *pItem = m_pDownloadTableView->getTableModel()->find(taskId);
     if( nullptr == pItem){
@@ -630,13 +630,13 @@ void tableDataControl::slot_UnusualConfirm(int index, const QString &taskId)
     strlist.append(pItem->url);
     if(0 == index){
         removeDownloadListJob(pItem, false);
-        emit signal_Download(strlist, Settings::getInstance()->getDownloadSavePath());
+        emit Download(strlist, Settings::getInstance()->getDownloadSavePath());
     } else {
         removeDownloadListJob(pItem);
     }
 }
 
-void tableDataControl::slot_Aria2Remove(QString gId, QString id)
+void tableDataControl::onAria2Remove(QString gId, QString id)
 {
     auto basicLambda =[&gId, &id] { Aria2RPCInterface::instance()->remove(gId, id);};
     basicLambda();
@@ -734,7 +734,7 @@ void tableDataControl::RedownloadErrorItem(DataItem *errorItem)
     DBInstance::delTask(errorItem->taskId);
     QStringList urlList;
     urlList << errorItem->url;
-    emit signal_Download(urlList, Settings::getInstance()->getDownloadSavePath());
+    emit Download(urlList, Settings::getInstance()->getDownloadSavePath());
     m_pDownloadTableView->getTableModel()->removeItem(errorItem);
 
 }
@@ -876,11 +876,11 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
         for(int i = 0; i < recycle_selectList.size(); ++i) {
             DelDataItem *data = recycle_selectList.at(i);
             if((data->Ischecked == 1) && !m_pDownloadTableView->isRowHidden(i)) {
-                S_Url_Info getUrlInfo;
+                UrlInfo getUrlInfo;
                 DBInstance::getUrlById(data->taskId, getUrlInfo);
-                if(getUrlInfo.m_taskId != "") {
-                    if(getUrlInfo.m_downloadType == "torrent") {
-                        url = "magnet:?xt=urn:btih:" + getUrlInfo.m_infoHash;
+                if(getUrlInfo.taskId != "") {
+                    if(getUrlInfo.downloadType == "torrent") {
+                        url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
                     }
                 } else {
                     url = data->url;
@@ -916,12 +916,12 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
                 }
             }
             if(isSelect) {
-                S_Url_Info getUrlInfo;
+                UrlInfo getUrlInfo;
                 QString    url;
                 DBInstance::getUrlById(data->taskId, getUrlInfo);
-                if(getUrlInfo.m_taskId != "") {
-                    if(getUrlInfo.m_downloadType == "torrent") {
-                        url = "magnet:?xt=urn:btih:" + getUrlInfo.m_infoHash;
+                if(getUrlInfo.taskId != "") {
+                    if(getUrlInfo.downloadType == "torrent") {
+                        url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
                     }
                 } else {
                     url = data->url;
@@ -1017,7 +1017,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     //connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
 
     qDebug() << "subThread: " << QThread::currentThreadId();
-    connect(pDeleteItemThread, &DeleteItemThread::signal_Aria2Remove, this, [](QString gId, QString id){
+    connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, this, [](QString gId, QString id){
         qDebug() << "subThread: " << QThread::currentThreadId();
         Aria2RPCInterface::instance()->remove(gId, id);
     });
@@ -1037,8 +1037,8 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
             finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
         }
 
-        S_Task_Status getStatus;
-        S_Task_Status downloadStatus(data->taskId,
+        TaskStatus getStatus;
+        TaskStatus downloadStatus(data->taskId,
                                      Global::Status::Removed,
                                      QDateTime::currentDateTime(),
                                      data->completedLength,
@@ -1107,8 +1107,9 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
                                                                Aria2RPCInterface::instance(),
                                                                ifDeleteLocal,
                                                                "recycle_delete");
-    connect(pDeleteItemThread, &DeleteItemThread::signal_Aria2Remove, [=](QString gId, QString id){
+    connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, [=](QString gId, QString id){
         Aria2RPCInterface::instance()->remove(gId, id);
+
     });
     pDeleteItemThread->start();
 
@@ -1160,16 +1161,16 @@ void tableDataControl::downloadListRedownload(QString id)
     //m_pTableView->getTableModel()->removeItem(data);
     //DBInstance::delTask(taskId);
 
-    S_Url_Info getUrlInfo;
+    UrlInfo getUrlInfo;
     DBInstance::getUrlById(taskId, getUrlInfo);
-    if(getUrlInfo.m_taskId != "") {
-        if(getUrlInfo.m_downloadType == "torrent") {
+    if(getUrlInfo.taskId != "") {
+        if(getUrlInfo.downloadType == "torrent") {
             QMap<QString, QVariant> opt;
             opt.insert("dir",          savePath);
-            opt.insert("select-file", getUrlInfo.m_selectedNum);
+            opt.insert("select-file", getUrlInfo.selectedNum);
 
-            // aria2c->addTorrent(get_url_info->seedFile,opt,get_url_info->task_id);
-            S_Task addTask(getUrlInfo.m_taskId,
+            // aria2c->addTorrent(get_UrlInfo->seedFile,opt,get_UrlInfo->task_id);
+            Task addTask(getUrlInfo.taskId,
                            "",
                            0,
                            "",
@@ -1177,7 +1178,8 @@ void tableDataControl::downloadListRedownload(QString id)
                            fileName,
                            QDateTime::currentDateTime());
             DBInstance::addTask(addTask);
-            Aria2RPCInterface::instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
+            Aria2RPCInterface::instance()->addTorrent(getUrlInfo.seedFile, opt, getUrlInfo.taskId);
+
         }
     } else {
         QUuid   uuid = QUuid::createUuid();
@@ -1201,7 +1203,7 @@ void tableDataControl::downloadListRedownload(QString id)
             filename = filename_decode;
         }
 
-        S_Task addTask(strId, "", 0, url, filePath, filename, QDateTime::currentDateTime());
+        Task addTask(strId, "", 0, url, filePath, filename, QDateTime::currentDateTime());
         DBInstance::addTask(addTask);
     }
 }
@@ -1246,20 +1248,20 @@ void tableDataControl::recycleListRedownload(QString id)
    // DBInstance::delTask(taskId);
     QUuid   uuid = QUuid::createUuid();
     QString strId = uuid.toString();
-    S_Url_Info getUrlInfo;
+    UrlInfo getUrlInfo;
     DBInstance::getUrlById(taskId, getUrlInfo);
-    if(getUrlInfo.m_taskId != "") {
-        if(getUrlInfo.m_downloadType == "torrent") {
-            if(!getUrlInfo.m_infoHash.isEmpty()) {
-                QFile::remove(getUrlInfo.m_infoHash + ".torrent");
+    if(getUrlInfo.taskId != "") {
+        if(getUrlInfo.downloadType == "torrent") {
+            if(!getUrlInfo.infoHash.isEmpty()) {
+                QFile::remove(getUrlInfo.infoHash + ".torrent");
             }
             QMap<QString, QVariant> opt;
             opt.insert("dir",          savePath);
-            opt.insert("select-file", getUrlInfo.m_selectedNum);
+            opt.insert("select-file", getUrlInfo.selectedNum);
 
-            // aria2c->addTorrent(get_url_info->seedFile,opt,get_url_info->task_id);
+            // aria2c->addTorrent(get_UrlInfo->seedFile,opt,get_UrlInfo->task_id);
 
-            S_Task addTask(getUrlInfo.m_taskId,
+            Task addTask(getUrlInfo.taskId,
                            "",
                            0,
                            "",
@@ -1268,7 +1270,8 @@ void tableDataControl::recycleListRedownload(QString id)
                            QDateTime::currentDateTime());
 
             DBInstance::addTask(addTask);
-            Aria2RPCInterface::instance()->addTorrent(getUrlInfo.m_seedFile, opt, getUrlInfo.m_taskId);
+            Aria2RPCInterface::instance()->addTorrent(getUrlInfo.seedFile, opt, getUrlInfo.taskId);
+
         }
     } else {
         QMap<QString, QVariant> opt;
@@ -1288,7 +1291,7 @@ void tableDataControl::recycleListRedownload(QString id)
             QString filename_decode = QUrl::fromPercentEncoding(filename_byte);
             filename = filename_decode;
         }
-        S_Task addTask(strId, "", 0, url, filePath, filename, QDateTime::currentDateTime());
+        Task addTask(strId, "", 0, url, filePath, filename, QDateTime::currentDateTime());
         DBInstance::addTask(addTask);
     }
 }

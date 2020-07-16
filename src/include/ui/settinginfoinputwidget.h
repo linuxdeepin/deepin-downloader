@@ -46,39 +46,39 @@ public:
 
     /**
      * @brief 设置标题
-     * @param strText 标题文本
+     * @param text 标题文本
      */
-    void setTitleLabelText(const QString &strText);
+    void setTitleLabelText(const QString &text);
 
     /**
      * @brief 设置单位
-     * @param strText 单位文本
+     * @param text 单位文本
      */
-    void setUnitLabelText(const QString &strText);
+    void setUnitLabelText(const QString &text);
 
     /**
      * @brief 设置范围
-     * @param strText 范围文本
+     * @param text 范围文本
      */
-    void setRangeLabelText(const QString &strText);
+    void setRangeLabelText(const QString &text);
 
     /**
      * @brief 设置行编辑器当前值
-     * @param strText 当前值
+     * @param text 当前值
      */
-    void setLineEditText(const QString &strText);
+    void setLineEditText(const QString &text);
 
     /**
      * @brief 设置行编辑器是否可编辑
-     * @param bIsDisabled 布尔值true或者false
+     * @param isDisabled 布尔值true或者false
      */
-    void setLineEditIsDisabled(bool bIsDisabled);
+    void setLineEditIsDisabled(bool isDisabled);
 
     /**
      * @brief 设置行编辑器数值输入范围
-     * @param minValid 最小输入值；nMaxValid 最大输入值
+     * @param minValid 最小输入值；maxValid 最大输入值
      */
-    void setValid(int nMinValid ,int nMaxValid);
+    void setValid(const int &minValid, const int &maxValid);
 
     /**
      * @brief 获取行编辑器数值
@@ -88,9 +88,9 @@ public:
 
     /**
      * @brief 设置左侧窗口的宽度
-     * @param nWidth 宽
+     * @param width 宽
      */
-    void setWidgetWidth(int nWidth);
+    void setWidgetWidth(const int &width);
 
     /**
      * @brief 设置范围字体样式
@@ -106,9 +106,9 @@ public:
 
     /**
      * @brief 设置行编辑器是否处于警告模式
-     * @param bIsAlert 布尔值true或者false
+     * @param isAlert 布尔值true或者false
      */
-    void setLineEditAlert(bool bIsAlert);
+    void setLineEditAlert(bool isAlert);
 
     /**
      * @brief 获取行编辑器指针
@@ -116,16 +116,23 @@ public:
      */
     DLineEdit *getLineEdit();
 
+    /**
+     * @brief 获取行编辑器是否处于警告模式
+     * @return 布尔值，是返回true，否则返回false
+     */
+    bool getIsAlert();
+
 signals:
-    void signal_textChanged(QString strText);
+    void textChanged(QString text);
+    void focusChanged(bool onFocus);
 
 private slots:
 
     /**
      * @brief 行编辑器文本改变响应的槽函数
-     * @param strText 改变后的文本
+     * @param text 改变后的文本
      */
-    void slot_lineEditTextChangedSlot(const QString &strText);
+    void onLineEditTextChanged(const QString &text);
 
 private:
 
@@ -140,11 +147,11 @@ private:
     void initConnections();
 
 private:
-    DLineEdit *m_pLineEdit; // 行编辑器
-    DLabel *m_pTitleLabel; // 标题
-    DLabel *m_pUnitLabel; // 单位
-    DLabel *m_pRangeLabel; // 范围
-    QWidget *m_pWidget;
+    DLineEdit *m_lineEdit; // 行编辑器
+    DLabel *m_titleLabel; // 标题
+    DLabel *m_unitLabel; // 单位
+    DLabel *m_rangeLabel; // 范围
+    QWidget *m_widget;
 };
 
 #endif // SETTINGINFOINPUTWIDGET_H

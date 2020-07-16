@@ -97,7 +97,7 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
             {
             if(index == 1)
             {
-                emit signal_reDownload(sameUrlList);
+                emit reDownload(sameUrlList);
             }
             close();
     });
@@ -116,7 +116,7 @@ void MessageBox::setUnusual(const QString &taskId)
     connect(this,&MessageBox::buttonClicked,this,
             [=](int index)
             {
-        emit signal_unusualConfirm(index,taskId);
+        emit unusualConfirm(index,taskId);
         close();
             });
 }
@@ -155,7 +155,7 @@ void MessageBox::setDelete(bool permanentl, bool checked)
         this->addButton(tr("Delete"),true,ButtonType::ButtonWarning);
 
     }
-    connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_deleteBtn);
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::onDeleteBtnClicked);
 }
 void MessageBox::setClear()
 {
@@ -166,7 +166,7 @@ void MessageBox::setClear()
     this->addCheckbox(tr("Delete local files"));
     this->addButton(tr("Cancel"));
     this->addButton(tr("Empty"));
-    connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_clearBtn);
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::onClearBtnClicked);
 }
 void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
 {
@@ -191,10 +191,10 @@ void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtn
     layout->addWidget(cancel_button);
     m_pRenameSureButton = new QPushButton(button_box);
     m_pRenameSureButton->setText(surebtntext);
-    connect(m_pRenameSureButton,&DPushButton::clicked,this,&MessageBox::slot_renameSureBtn);
+    connect(m_pRenameSureButton,&DPushButton::clicked,this,&MessageBox::onRenameSureBtnClicked);
     layout->addWidget(m_pRenameSureButton);
     this->addContent(button_box);
-    connect(m_pNewnameLineedit,&DLineEdit::textChanged,this,&MessageBox::slot_RenamelineeditChanged);
+    connect(m_pNewnameLineedit,&DLineEdit::textChanged,this,&MessageBox::onRenamelineeditChanged);
 }
 
 void MessageBox::setExit()
@@ -209,7 +209,7 @@ void MessageBox::setExit()
     this->addButton(tr("Cancel"));
     this->addButton(tr("Confirm"));
 
-    connect(this,&MessageBox::buttonClicked,this,&MessageBox::slot_ExitBtn);
+    connect(this,&MessageBox::buttonClicked,this,&MessageBox::onExitBtnClicked);
 }
 
 void MessageBox::addLabel(QString text)
@@ -256,7 +256,7 @@ void MessageBox::addCheckbox(QString checkboxText, bool checked)
     this->addContent(m_pCheckBox,Qt::AlignHCenter);
 }
 
-void MessageBox::slot_RenamelineeditChanged(const QString &text)
+void MessageBox::onRenamelineeditChanged(const QString &text)
 {
 
     QString real_name= QString(text).left(text.lastIndexOf('.'));
@@ -270,7 +270,7 @@ void MessageBox::slot_RenamelineeditChanged(const QString &text)
     }
 }
 
-void MessageBox::slot_renameSureBtn()
+void MessageBox::onRenameSureBtnClicked()
 {
     QString newname=m_pNewnameLineedit->text();
     if(newname.contains("\\")||newname.contains("/"))
@@ -280,22 +280,22 @@ void MessageBox::slot_renameSureBtn()
         msg->exec();
         return;
     }
-    emit signal_Rename(newname);
+    emit Rename(newname);
    this->close();
 }
 
-void MessageBox::slot_clearBtn(int index)
+void MessageBox::onClearBtnClicked(int index)
 {
     if(index==1)
     {
         bool ischecked;
         ischecked= m_pCheckBox->isChecked();
-        emit signal_Clearrecycle(ischecked);
+        emit Clearrecycle(ischecked);
     }
     this->close();
 }
 
-void MessageBox::slot_deleteBtn(int index)
+void MessageBox::onDeleteBtnClicked(int index)
 {
     if(index==1)
     {
@@ -303,19 +303,18 @@ void MessageBox::slot_deleteBtn(int index)
     QAbstractButton *button= this->getButton(index);
         button->setEnabled(false);
         if(m_bDeleteFlag)
-             emit signal_Deletedownload(true,m_bDeleteFlag);
+             emit Deletedownload(true,m_bDeleteFlag);
         else
         {
             bool ischecked;
             ischecked= m_pCheckBox->isChecked();
-            emit signal_Deletedownload(ischecked,m_bDeleteFlag);
-
+            emit Deletedownload(ischecked,m_bDeleteFlag);
         }
     }
     this->close();
 }
 
-void MessageBox::slot_ExitBtn(int index)
+void MessageBox::onExitBtnClicked(int index)
 {
     if(index==1)
     {
@@ -327,7 +326,7 @@ void MessageBox::slot_ExitBtn(int index)
         if(m_pCheckBox->isChecked()) {
             Settings::getInstance()->setIsShowTip(false);
         }
-        emit signal_closeConfirm();
+        emit closeConfirm();
     }
     close();
 }

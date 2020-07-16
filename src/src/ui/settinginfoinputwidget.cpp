@@ -31,7 +31,8 @@
 
 #include <QHBoxLayout>
 
-SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent) : QWidget(parent)
+SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent)
+    : QWidget(parent)
 {
     initUI();
     initConnections();
@@ -39,101 +40,107 @@ SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent) : QWidget(parent
 
 void SettingInfoInputWidget::initUI()
 {
-    m_pLineEdit = new DLineEdit;
-    m_pTitleLabel = new DLabel;
-    m_pUnitLabel = new DLabel;
-    m_pRangeLabel = new DLabel;
+    m_lineEdit = new DLineEdit;
+    m_titleLabel = new DLabel;
+    m_unitLabel = new DLabel;
+    m_rangeLabel = new DLabel;
 
-    QHBoxLayout *pHLayout = new QHBoxLayout;
-    pHLayout->addWidget(m_pTitleLabel);
-    pHLayout->addWidget(m_pLineEdit);
-    pHLayout->setContentsMargins(0, 0, 0, 0);
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    hLayout->addWidget(m_titleLabel);
+    hLayout->addWidget(m_lineEdit);
+    hLayout->setContentsMargins(0, 0, 0, 0);
 
-    m_pWidget = new QWidget;
-    m_pWidget->setLayout(pHLayout);
+    m_widget = new QWidget;
+    m_widget->setLayout(hLayout);
 
-    QHBoxLayout *pMainLayout = new QHBoxLayout;
-//    pMainLayout->addWidget(m_pTitleLabel);
-//    pMainLayout->addWidget(m_pLineEdit);
-    pMainLayout->addWidget(m_pWidget);
-    pMainLayout->addWidget(m_pUnitLabel);
-    pMainLayout->addWidget(m_pRangeLabel);
-    pMainLayout->addStretch();
-    pMainLayout->setContentsMargins(0, 0, 0, 0);
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+//    pMainLayout->addWidget(m_titleLabel);
+//    pMainLayout->addWidget(m_lineEdit);
+    mainLayout->addWidget(m_widget);
+    mainLayout->addWidget(m_unitLabel);
+    mainLayout->addWidget(m_rangeLabel);
+    mainLayout->addStretch();
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
-    setLayout(pMainLayout);
+    setLayout(mainLayout);
 }
 
 void SettingInfoInputWidget::initConnections()
 {
-    connect(m_pLineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::slot_lineEditTextChangedSlot);
+    connect(m_lineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::onLineEditTextChanged);
+    connect(m_lineEdit, &DLineEdit::focusChanged, this, &SettingInfoInputWidget::focusChanged);
 }
 
-void SettingInfoInputWidget::slot_lineEditTextChangedSlot(const QString &strText)
+void SettingInfoInputWidget::onLineEditTextChanged(const QString &text)
 {
-    emit signal_textChanged(strText);
+    emit textChanged(text);
 }
 
-void SettingInfoInputWidget::setTitleLabelText(const QString &strText)
+void SettingInfoInputWidget::setTitleLabelText(const QString &text)
 {
-    m_pTitleLabel->setText(strText);
+    m_titleLabel->setText(text);
 }
 
-void SettingInfoInputWidget::setUnitLabelText(const QString &strText)
+void SettingInfoInputWidget::setUnitLabelText(const QString &text)
 {
-    m_pUnitLabel->setText(strText);
+    m_unitLabel->setText(text);
 }
 
-void SettingInfoInputWidget::setRangeLabelText(const QString &strText)
+void SettingInfoInputWidget::setRangeLabelText(const QString &text)
 {
-    m_pRangeLabel->setText(strText);
+    m_rangeLabel->setText(text);
 }
 
-void SettingInfoInputWidget::setLineEditText(const QString &strText)
+void SettingInfoInputWidget::setLineEditText(const QString &text)
 {
-    m_pLineEdit->setText(strText);
+    m_lineEdit->setText(text);
 }
 
-void SettingInfoInputWidget::setLineEditIsDisabled(bool bIsDisabled)
+void SettingInfoInputWidget::setLineEditIsDisabled(bool isDisabled)
 {
-    m_pLineEdit->setDisabled(bIsDisabled);
+    m_lineEdit->setDisabled(isDisabled);
 }
 
-void SettingInfoInputWidget::setValid(int nMinValid ,int nMaxValid)
+void SettingInfoInputWidget::setValid(const int &minValid, const int &maxValid)
 {
-    QIntValidator *validator = new QIntValidator(nMinValid, nMaxValid, this);
-    m_pLineEdit->lineEdit()->setValidator(validator);
+    QIntValidator *validator = new QIntValidator(minValid, maxValid, this);
+    m_lineEdit->lineEdit()->setValidator(validator);
 }
 
 QString SettingInfoInputWidget::getLineEditText()
 {
-    QString strText = m_pLineEdit->text();
+    QString strText = m_lineEdit->text();
 
     return strText;
 }
 
-void SettingInfoInputWidget::setWidgetWidth(int nWidth)
+void SettingInfoInputWidget::setWidgetWidth(const int &width)
 {
-    m_pWidget->setFixedWidth(nWidth);
+    m_widget->setFixedWidth(width);
 }
 
 void SettingInfoInputWidget::setRangeLabelFont(QFont font)
 {
-    m_pRangeLabel->setFont(font);
+    m_rangeLabel->setFont(font);
 }
 
 void SettingInfoInputWidget::setRangeLabelPalette(DPalette palette)
 {
-    m_pRangeLabel->setPalette(palette);
+    m_rangeLabel->setPalette(palette);
 }
 
-void SettingInfoInputWidget::setLineEditAlert(bool bIsAlert)
+void SettingInfoInputWidget::setLineEditAlert(bool isAlert)
 {
-    m_pLineEdit->setAlert(bIsAlert);
+    m_lineEdit->setAlert(isAlert);
 }
 
 DLineEdit *SettingInfoInputWidget::getLineEdit()
 {
-    return m_pLineEdit;
+    return m_lineEdit;
+}
+
+bool SettingInfoInputWidget::getIsAlert()
+{
+    return m_lineEdit->isAlert();
 }
 

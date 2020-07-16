@@ -25,7 +25,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "newtaskwidget.h"
+#include "createtaskwidget.h"
 #include "btinfodialog.h"
 #include "messagebox.h"
 #include <QHBoxLayout>
@@ -36,19 +36,19 @@
 #include <QStandardPaths>
 #include <QProcess>
 
-newTaskWidget::newTaskWidget(DDialog *parent):
+CreateTaskWidget::CreateTaskWidget(DDialog *parent):
     DDialog(parent)
 {
     initUi();
 
 }
 
-newTaskWidget::~newTaskWidget()
+CreateTaskWidget::~CreateTaskWidget()
 {
 
 }
 
-void newTaskWidget::initUi()
+void CreateTaskWidget::initUi()
 {
     setCloseButtonVisible(true);
     setAcceptDrops(true);
@@ -59,11 +59,11 @@ void newTaskWidget::initUi()
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMinMaxButtonsHint);
     this->setTitle(tr("New Task"));
 
-    QString _msg = tr("When adding download links, please enter one URL in each line");
+    QString msg = tr("When adding download links, please enter one URL in each line");
     this->addSpacing(15);
-    DLabel * _msgLab= new DLabel(this);
-    _msgLab->setText(_msg);
-    this->addContent(_msgLab,Qt::AlignHCenter);
+    DLabel * msgLab= new DLabel(this);
+    msgLab->setText(msg);
+    this->addContent(msgLab,Qt::AlignHCenter);
     this->addSpacing(15);
     m_texturl= new DTextEdit(this);
 
@@ -71,10 +71,10 @@ void newTaskWidget::initUi()
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
     m_texturl->setFixedSize(QSize(454,154));
-    connect(m_texturl,&DTextEdit::textChanged,this,&newTaskWidget::onTextChanged);
-    QPalette _pal;
-    _pal.setColor(QPalette::Base, QColor(0,0,0,20));
-    m_texturl->setPalette(_pal);
+    connect(m_texturl,&DTextEdit::textChanged,this,&CreateTaskWidget::onTextChanged);
+    QPalette pal;
+    pal.setColor(QPalette::Base, QColor(0,0,0,20));
+    m_texturl->setPalette(pal);
     this->addContent(m_texturl);
     this->addSpacing(15);
 
@@ -82,104 +82,104 @@ void newTaskWidget::initUi()
     this->m_editDir->lineEdit()->setReadOnly(true);
     this->m_editDir->lineEdit()->setClearButtonEnabled(false);
     this->m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
-    connect(this->m_editDir, &DFileChooserEdit::fileChoosed, this, &newTaskWidget::slot_filechoosed);
-    QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-    this->m_editDir->setText(_savePath);
+    connect(this->m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
+    QString savePath =  Settings::getInstance()->getDownloadSavePath();
+    this->m_editDir->setText(savePath);
     this->addContent(m_editDir);
     this->addSpacing(15);
-    m_defaultDownloadDir = _savePath;
+    m_defaultDownloadDir = savePath;
 
 
-    QWidget *_boxBtn= new QWidget(this);
-    QHBoxLayout *layout=new QHBoxLayout(_boxBtn);
+    QWidget *boxBtn= new QWidget(this);
+    QHBoxLayout *layout=new QHBoxLayout(boxBtn);
     layout->setMargin(0);
     layout->setContentsMargins(0,0,10,0);
-    DIconButton *_iconBtn= new DIconButton(_boxBtn);
-    QIcon _tryIcon=QIcon(QIcon::fromTheme("dcc_bt"));
-    _iconBtn->setIcon(_tryIcon);
-    _iconBtn->setIconSize(QSize(18,15));
-    _iconBtn->setFixedSize(QSize(40,35));
-    connect(_iconBtn,&DIconButton::clicked,this,&newTaskWidget::openfileDialog);
-    _iconBtn->setToolTip(tr("Select file"));
-    layout->addWidget(_iconBtn);
+    DIconButton *iconBtn= new DIconButton(boxBtn);
+    QIcon tryIcon1=QIcon(QIcon::fromTheme("dcc_bt"));
+    iconBtn->setIcon(tryIcon1);
+    iconBtn->setIconSize(QSize(18,15));
+    iconBtn->setFixedSize(QSize(40,35));
+    connect(iconBtn,&DIconButton::clicked,this,&CreateTaskWidget::onFileDialogOpen);
+    iconBtn->setToolTip(tr("Select file"));
+    layout->addWidget(iconBtn);
 
-    QWidget *_rightBox= new QWidget(_boxBtn);
-    QHBoxLayout *layout_right=new QHBoxLayout(_rightBox);
+    QWidget *rightBox= new QWidget(boxBtn);
+    QHBoxLayout *layout_right=new QHBoxLayout(rightBox);
     layout->setSpacing(10);
     layout_right->setContentsMargins(0,0,0,0);
 
-    DPushButton *cancel_button = new DPushButton(_boxBtn);
-    QSizePolicy _policy;
-    _policy = cancel_button->sizePolicy();
-    _policy.setHorizontalPolicy(QSizePolicy::Expanding);
-    cancel_button->setSizePolicy(_policy);
-    cancel_button->setText(tr("Cancel"));
-    connect(cancel_button,&DPushButton::clicked,this,&newTaskWidget::onCancelBtnClicked);
-    layout_right->addWidget(cancel_button);
+    DPushButton *cancelButton = new DPushButton(boxBtn);
+    QSizePolicy policy;
+    policy = cancelButton->sizePolicy();
+    policy.setHorizontalPolicy(QSizePolicy::Expanding);
+    cancelButton->setSizePolicy(policy);
+    cancelButton->setText(tr("Cancel"));
+    connect(cancelButton,&DPushButton::clicked,this,&CreateTaskWidget::onCancelBtnClicked);
+    layout_right->addWidget(cancelButton);
 
 
 
-    m_sure_button = new DSuggestButton(_boxBtn);
-    m_sure_button->setText(tr("Confirm"));
-    _policy = m_sure_button->sizePolicy();
-    _policy.setHorizontalPolicy(QSizePolicy::Expanding);
-    m_sure_button->setSizePolicy(_policy);
-    connect(m_sure_button,&DPushButton::clicked,this,&newTaskWidget::onSureBtnClicked);
+    m_sureButton = new DSuggestButton(boxBtn);
+    m_sureButton->setText(tr("Confirm"));
+    policy = m_sureButton->sizePolicy();
+    policy.setHorizontalPolicy(QSizePolicy::Expanding);
+    m_sureButton->setSizePolicy(policy);
+    connect(m_sureButton,&DPushButton::clicked,this,&CreateTaskWidget::onSureBtnClicked);
     layout_right->addSpacing(20);
-    layout_right->addWidget(m_sure_button);
-    layout->addWidget(_rightBox);
-    this->addContent(_boxBtn);
+    layout_right->addWidget(m_sureButton);
+    layout->addWidget(rightBox);
+    this->addContent(boxBtn);
 
     setMaximumSize(this->width(),this->height());
 }
 
 
-void newTaskWidget::openfileDialog()
+void CreateTaskWidget::onFileDialogOpen()
 {
-    QString _btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
-    if(_btFile != "") {
+    QString btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
+    if(btFile != "") {
         //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-        BtInfoDialog *_dialog = new BtInfoDialog(_btFile,m_defaultDownloadDir);//torrent文件路径
-        if(_dialog->exec() == QDialog::Accepted) {
+        BtInfoDialog *dialog = new BtInfoDialog(btFile,m_defaultDownloadDir);//torrent文件路径
+        if(dialog->exec() == QDialog::Accepted) {
             QMap<QString,QVariant> opt;
-            QString _infoName;
-            QString _infoHash;
-            _dialog->getBtInfo(opt, _infoName, _infoHash);
-            emit newDownLoadTorrent(_btFile,opt,_infoName,_infoHash);
+            QString infoName;
+            QString infoHash;
+            dialog->getBtInfo(opt, infoName, infoHash);
+            emit downLoadTorrentCreate(btFile,opt,infoName,infoHash);
             this->close();
         }
-        delete _dialog;
+        delete dialog;
     }
 }
 
-void newTaskWidget::onCancelBtnClicked()
+void CreateTaskWidget::onCancelBtnClicked()
 {
     this->close();
 }
 
-void newTaskWidget::onSureBtnClicked()
+void CreateTaskWidget::onSureBtnClicked()
 {
-    QString _strUrl = m_texturl->toPlainText();
-    if(_strUrl.isEmpty())
+    QString strUrl = m_texturl->toPlainText();
+    if(strUrl.isEmpty())
     {
         qDebug()<<"url is NUll";
         return;
     }
     //获取当前错误地址
-    QStringList _urlList = _strUrl.split("\n");
-    _urlList = _urlList.toSet().toList();
-    QStringList _errorList;
-    for (int i = 0; i < _urlList.size(); i++) {
-        if(!(isHttp(_urlList[i]) || isMagnet(_urlList[i])))
+    QStringList urlList = strUrl.split("\n");
+    urlList = urlList.toSet().toList();
+    QStringList errorList;
+    for (int i = 0; i < urlList.size(); i++) {
+        if(!(isHttp(urlList[i]) || isMagnet(urlList[i])))
         {
-            _errorList.append(_urlList[i]);
+            errorList.append(urlList[i]);
         }
     }
-    if(_errorList == _urlList)
+    if(errorList == urlList)
     {
-        QString warning_msg = tr("The address you entered cannot be resolved correctly. Please try again");
+        QString warningMsg = tr("The address you entered cannot be resolved correctly. Please try again");
         MessageBox *msg = new MessageBox();
-        msg->setWarings(warning_msg, tr("sure"), "");
+        msg->setWarings(warningMsg, tr("sure"), "");
         msg->exec();
         return;
     }
@@ -192,9 +192,9 @@ void newTaskWidget::onSureBtnClicked()
 //        msg->exec();
 //    }
     //删除错误地址
-    for (int i = 0;i < _errorList.size() ; i++)
+    for (int i = 0;i < errorList.size() ; i++)
     {
-        _urlList.removeOne(_errorList[i]);
+        urlList.removeOne(errorList[i]);
     }
     //获取真实url地址,发送到主界面
 //    for (int i = 0;i < _urlList.size(); i++)
@@ -204,11 +204,11 @@ void newTaskWidget::onSureBtnClicked()
     //发送至主窗口
     //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
     Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
-    emit NewDownload_sig(_urlList,m_defaultDownloadDir, "");
+    emit downloadWidgetCreate(urlList,m_defaultDownloadDir, "");
     this->close();
 }
 
-void newTaskWidget::dragEnterEvent(QDragEnterEvent *event)
+void CreateTaskWidget::dragEnterEvent(QDragEnterEvent *event)
 {
     if(event->mimeData()->hasUrls()) //数据中是否包含URL
     {
@@ -219,7 +219,7 @@ void newTaskWidget::dragEnterEvent(QDragEnterEvent *event)
 }
 
 
-void newTaskWidget::dropEvent(QDropEvent *event)
+void CreateTaskWidget::dropEvent(QDropEvent *event)
 {
 
     const QMimeData *mineData=event->mimeData();//获取MIME数据
@@ -241,17 +241,17 @@ void newTaskWidget::dropEvent(QDropEvent *event)
             {
                 fileName=fileName.right(fileName.length()-6);
               //  QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-                BtInfoDialog *_dialog = new BtInfoDialog(fileName,m_defaultDownloadDir);//torrent文件路径
-                int ret = _dialog->exec();
+                BtInfoDialog *dialog = new BtInfoDialog(fileName,m_defaultDownloadDir);//torrent文件路径
+                int ret = dialog->exec();
                 if(ret == QDialog::Accepted) {
                     QMap<QString,QVariant> opt;
-                    QString _infoName;
-                    QString _infoHash;
-                    _dialog->getBtInfo(opt, _infoName, _infoHash);
-                    emit newDownLoadTorrent(fileName,opt,_infoName,_infoHash);
+                    QString infoName;
+                    QString infoHash;
+                    dialog->getBtInfo(opt, infoName, infoHash);
+                    emit downLoadTorrentCreate(fileName,opt,infoName,infoHash);
                     this->close();
                 }
-                delete _dialog;
+                delete dialog;
              }
             else
             {
@@ -262,28 +262,28 @@ void newTaskWidget::dropEvent(QDropEvent *event)
     }
 }
 
-void newTaskWidget::setUrl(QString url)
+void CreateTaskWidget::setUrl(QString url)
 {
-    QString _setTextUrl;
-    QString _textUrl = m_texturl->toPlainText();
-    if(_textUrl.isEmpty())
+    QString setTextUrl;
+    QString textUrl = m_texturl->toPlainText();
+    if(textUrl.isEmpty())
     {
-        _setTextUrl = url;
+        setTextUrl = url;
     }
     else {
-        _setTextUrl = _textUrl + "\n" + url;
+        setTextUrl = textUrl + "\n" + url;
     }
 
-    m_texturl->setText(_setTextUrl);
+    m_texturl->setText(setTextUrl);
 
-    QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-    this->m_editDir->setText(_savePath);
+    QString savePath =  Settings::getInstance()->getDownloadSavePath();
+    this->m_editDir->setText(savePath);
 }
 
-bool newTaskWidget::isMagnet(QString url)
+bool CreateTaskWidget::isMagnet(QString url)
 {
-    QString _str = url;
-    if(_str.mid(0,20) == "magnet:?xt=urn:btih:")
+    QString str = url;
+    if(str.mid(0,20) == "magnet:?xt=urn:btih:")
     {
         return  true;
     }
@@ -293,7 +293,7 @@ bool newTaskWidget::isMagnet(QString url)
     }
 }
 
-bool newTaskWidget::isHttp(QString url)
+bool CreateTaskWidget::isHttp(QString url)
 {
 
     if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://")))
@@ -317,22 +317,22 @@ bool newTaskWidget::isHttp(QString url)
     return true;
 }
 
-void newTaskWidget::onTextChanged()
+void CreateTaskWidget::onTextChanged()
 {
     if(m_texturl->toPlainText().isEmpty())
     {
-        m_sure_button->setEnabled(false);
+        m_sureButton->setEnabled(false);
     }
     else
     {
-        m_sure_button->setEnabled(true);
+        m_sureButton->setEnabled(true);
     }
 }
 
-void newTaskWidget::slot_filechoosed(const QString &filename)
+void CreateTaskWidget::onFilechoosed(const QString &filename)
 {
     QFileInfo fileinfo;
-    QString _strPath;
+    QString strPath;
     fileinfo.setFile(filename);
     if(!fileinfo.isWritable())
     {
@@ -340,7 +340,7 @@ void newTaskWidget::slot_filechoosed(const QString &filename)
        QString title = tr("Permission denied. Please try other folder.");
        msg->setWarings(title, tr("sure"));
        msg->exec();
-       _strPath = m_editDir->directoryUrl().toString();
+       strPath = m_editDir->directoryUrl().toString();
       // QString _text = this->getFileEditText(m_defaultDownloadDir);
        this->m_editDir->lineEdit()->setText(m_defaultDownloadDir);
        m_editDir->setDirectoryUrl(m_defaultDownloadDir);
@@ -352,16 +352,15 @@ void newTaskWidget::slot_filechoosed(const QString &filename)
     m_defaultDownloadDir = filename;
 }
 
-void newTaskWidget::getTruetUrl(QString redirecUrl)
+void CreateTaskWidget::getTruetUrl(QString redirecUrl)
 {
     if(isMagnet(redirecUrl))
     {
-        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir, "");
+        emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir, "");
         return;
     }
     QNetworkAccessManager *manager = new QNetworkAccessManager;
-    QNetworkRequest *requset = new QNetworkRequest;                       // 定义请求对象
-    QString _trueUrl;
+    QNetworkRequest *requset = new QNetworkRequest;                       // 定义请求对象    QString _trueUrl;
     requset->setUrl(QUrl(redirecUrl)); // 设置服务器的uri
     requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     //manager->get(*requset);
@@ -378,25 +377,25 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                             case 200: // redirect (Location: [URL])   真实链接
                             {
                                 QProcess *p = new QProcess;
-                                QStringList _list;
-                                _list<<"-i"<< redirecUrl;
-                                p->start("curl", _list);
+                                QStringList list;
+                                list<<"-i"<< redirecUrl;
+                                p->start("curl", list);
                                 p->waitForReadyRead(1000);
-                                QString _str = p->readAllStandardOutput();
-                                if(!_str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
+                                QString str = p->readAllStandardOutput();
+                                if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                                 {
-                                     emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,"");
+                                     emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,"");
                                     return ;
                                 }
-                                QStringList _urlInfoList = _str.split("\r\n");
-                                for (int i = 0; i < _urlInfoList.size(); i++)
+                                QStringList urlInfoList = str.split("\r\n");
+                                for (int i = 0; i < urlInfoList.size(); i++)
                                 {
-                                    if(_urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                                    if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
                                     {
-                                        int _start= _urlInfoList[i].lastIndexOf("'");
-                                        QString _urlName = _urlInfoList[i].mid(_start);
-                                        QString _urlNameForZH = QUrl::fromPercentEncoding(_urlName.toUtf8());
-                                        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
+                                        int start= urlInfoList[i].lastIndexOf("'");
+                                        QString urlName = urlInfoList[i].mid(start);
+                                        QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
+                                        emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,urlNameForZH);
                                         return ;
                                     }
                                 }
@@ -405,26 +404,26 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                             case 302: // redirect (Location: [URL])  重定向链接
                             {
                                 QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-                                emit NewDownload_sig(QStringList(strUrl),m_defaultDownloadDir, "");
+                                emit downloadWidgetCreate(QStringList(strUrl),m_defaultDownloadDir, "");
                                break;
                             }
                             case 405:   //405链接
                             {
                                     QProcess *p = new QProcess;
-                                    QStringList _list;
-                                    _list<<"-i"<< redirecUrl;
-                                    p->start("curl", _list);
+                                    QStringList list;
+                                    list<<"-i"<< redirecUrl;
+                                    p->start("curl", list);
                                     p->waitForReadyRead(1000);
-                                    QString _str = p->readAllStandardOutput();
-                                    QStringList _urlInfoList = _str.split("\r\n");
-                                    for (int i = 0; i < _urlInfoList.size(); i++)
+                                    QString str = p->readAllStandardOutput();
+                                    QStringList urlInfoList = str.split("\r\n");
+                                    for (int i = 0; i < urlInfoList.size(); i++)
                                     {
-                                        if(_urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                                        if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
                                         {
-                                            int _start= _urlInfoList[i].lastIndexOf("'");
-                                            QString _urlName = _urlInfoList[i].mid(_start);
-                                            QString _urlNameForZH = QUrl::fromPercentEncoding(_urlName.toUtf8());
-                                            emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
+                                            int start= urlInfoList[i].lastIndexOf("'");
+                                            QString urlName = urlInfoList[i].mid(start);
+                                            QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
+                                            emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,urlNameForZH);
                                             return ;
                                         }
                                     }
@@ -432,9 +431,9 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
                             }
                             default:
                             {
-                                QString warning_msg = QString(tr("%1\nThe address you entered cannot be resolved correctly")).arg(redirecUrl);
+                                QString warningMsg = QString(tr("%1\nThe address you entered cannot be resolved correctly")).arg(redirecUrl);
                                 MessageBox *msg = new MessageBox();
-                                msg->setWarings(warning_msg, tr("sure"), "");
+                                msg->setWarings(warningMsg, tr("sure"), "");
                                 msg->exec();
                                 return;
                             }
@@ -443,7 +442,7 @@ void newTaskWidget::getTruetUrl(QString redirecUrl)
     });
 }
 
-void newTaskWidget::closeEvent(QCloseEvent *event)
+void CreateTaskWidget::closeEvent(QCloseEvent *event)
 {
     this->m_texturl->clear();
 }

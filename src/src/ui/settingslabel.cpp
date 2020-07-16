@@ -28,28 +28,29 @@
 
 #include <QHBoxLayout>
 
-SettingsLabel::SettingsLabel(QWidget *parent) : QWidget(parent)
+SettingsLabel::SettingsLabel(QWidget *parent)
+    : QWidget(parent)
 {
-    m_pLabel = new DLabel;
+    m_label = new DLabel;
 
-    QHBoxLayout *pMainLayout = new QHBoxLayout;
-    pMainLayout->addWidget(m_pLabel);
-    pMainLayout->setContentsMargins(0, 0, 0, 0);
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(m_label);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
-    setLayout(pMainLayout);
+    setLayout(mainLayout);
 }
 
-void SettingsLabel::setLabelText(const QString &strText)
+void SettingsLabel::setLabelText(const QString &text)
 {
-    m_pLabel->setText(strText);
+    m_label->setText(text);
 }
 
 void SettingsLabel::setLabelFont(QFont font)
 {
-    m_pLabel->setFont(font);
+    m_label->setFont(font);
 }
 
 void SettingsLabel::setLabelPalette(DPalette palette)
 {
-    m_pLabel->setPalette(palette);
+    m_label->setPalette(palette);
 }
