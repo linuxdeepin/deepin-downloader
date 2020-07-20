@@ -2515,12 +2515,10 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
 bool MainFrame::isMagnet(QString url)
 {
     QString str = url;
-    if(str.mid(0,20) == "magnet:?xt=urn:btih:")
-    {
+    if(str.mid(0,20) == "magnet:?xt=urn:btih:"){
         return  true;
     }
-    else
-    {
+    else{
         return  false;
     }
 }

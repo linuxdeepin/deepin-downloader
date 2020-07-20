@@ -49,7 +49,7 @@ void headerView::paintSection(QPainter *painter, const QRect &rect, int logicalI
 
     QPixmap pixmap;
     pixmap.load(":/icons/icon/headerIcon.png");
-    style()->drawItemPixmap(painter, option.rect, logicalIndex, _p);
+    style()->drawItemPixmap(painter, option.rect, logicalIndex, pixmap);
 }
 
 QRect headerView::checkBoxRect(const QRect &sourceRect) const
