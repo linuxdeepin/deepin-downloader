@@ -47,6 +47,7 @@
 #include <QDBusInterface>
 #include <DFontSizeManager>
 #include <QNetworkAccessManager>
+#include <QSharedMemory>
 
 #include "aria2rpcinterface.h"
 #include "aria2const.h"
@@ -669,6 +670,7 @@ void MainFrame::onClipboardDataForBt(QString url)
         this->onDownloadNewTorrent(url, opt, infoName, infoHash);
         DBInstance::isExistBtInHash(infoHash, isExist);
         this->btNotificaitonSettings(tr("Download"),QString(tr("%1 downloading...")).arg(infoName),true);
+        clearSharedMemory();
         return;
     }
 
@@ -683,6 +685,7 @@ void MainFrame::onClipboardDataForBt(QString url)
         pBt->getBtInfo(opt, infoName, infoHash);
         this->onDownloadNewTorrent(url, opt, infoName, infoHash);
     }
+    clearSharedMemory();
 }
 
 void MainFrame::onListClicked(const QModelIndex &index)
@@ -2413,12 +2416,18 @@ void MainFrame::onShowWindowsForClipboard()
 
 void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlName)
 {
+    m_ErrorUrlList.clear();
 //    if(isMagnet(url))
 //    {
 //        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir, "");
 //        return;
 //    }
     for (int i = 0; i < urlList.size(); i++) {
+        if(isMagnet(urlList[i]))
+        {
+            emit onDownloadNewUrl(QStringList(urlList[i]),Settings::getInstance()->getDownloadSavePath(), "");
+            continue;
+        }
         QNetworkAccessManager *manager = new QNetworkAccessManager;
         QNetworkRequest *requset = new QNetworkRequest;                       // 定义请求对象
         QString _trueUrl;
@@ -2429,11 +2438,16 @@ void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlNam
         // post信息到服务器
         QObject::connect(manager, &QNetworkAccessManager::finished, this, &MainFrame::onHttpRequest);
     }
-
+    if(urlList == m_ErrorUrlList){
+        MessageBox msg;
+        msg.setWarings(tr("The address you entered cannot be resolved correctly"), tr("sure"), "");
+        msg.exec();
+    }
 }
 
 void MainFrame::onHttpRequest(QNetworkReply *reply)
 {
+
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     switch(statusCode) {
         case 200: // redirect (Location: [URL])   真实链接
@@ -2477,7 +2491,13 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
         case 302: // redirect (Location: [URL])  重定向链接
         {
             QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-            onDownloadNewUrl(QStringList(strUrl), Settings::getInstance()->getDownloadSavePath(), "");
+            QStringList strList = strUrl.split("/");
+            QStringList strUrlName = strList[strList.size()-1].split(".");
+            //需要转两次
+            QString encodingUrlName = QUrl::fromPercentEncoding(strUrlName[0].toStdString().c_str());
+            encodingUrlName = QUrl::fromPercentEncoding(encodingUrlName.toStdString().c_str());
+            qDebug()<<"encodingUrlName"<< encodingUrlName;
+            onDownloadNewUrl(QStringList(strUrl), Settings::getInstance()->getDownloadSavePath(), encodingUrlName);
            break;
         }
         case 405:   //405链接
@@ -2511,12 +2531,38 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
         }
         default:
         {
-            QString warningMsg = QString(tr("%1\nThe address you entered cannot be resolved correctly")).arg(reply->url().toString());
-            MessageBox msg;
-            msg.setWarings(warningMsg, tr("sure"), "");
-            msg.exec();
+            m_ErrorUrlList.append(reply->url().toString());
             return;
         }
     }
 }
 
+bool MainFrame::isMagnet(QString url)
+{
+    QString str = url;
+    if(str.mid(0,20) == "magnet:?xt=urn:btih:")
+    {
+        return  true;
+    }
+    else
+    {
+        return  false;
+    }
+}
+
+bool MainFrame::clearSharedMemory()
+{
+    QSharedMemory sharedMemory;
+    sharedMemory.setKey("downloadmanager");
+    if(sharedMemory.attach())
+    {
+        if(sharedMemory.isAttached())
+        {
+            sharedMemory.lock();
+            char *to = static_cast<char*>(sharedMemory.data());
+            size_t num = strlen(to);
+            memset(to,0, num);
+            sharedMemory.unlock();
+        }
+    }
+}

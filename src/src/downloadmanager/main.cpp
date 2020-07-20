@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
         QClipboard *c = QApplication::clipboard();
         if(comList.isEmpty())
         {
+            QString _str = c->text();
             c->setText(c->text() + "\n" + "start_manager_for_clipboard");
         } else {
             if(sharedMemory.isAttached()){

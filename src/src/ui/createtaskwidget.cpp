@@ -205,7 +205,8 @@ void CreateTaskWidget::onSureBtnClicked()
     //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
     Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
     emit downloadWidgetCreate(urlList,m_defaultDownloadDir, "");
-    this->close();
+    m_texturl->clear();
+    this->hide();
 }
 
 void CreateTaskWidget::dragEnterEvent(QDragEnterEvent *event)

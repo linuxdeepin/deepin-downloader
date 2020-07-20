@@ -474,6 +474,19 @@ private:
      */
     void btNotificaitonSettings(QString head,QString fileName,bool isBt=false);
 
+    /**
+     * @brief 是否为磁力链接
+     * @param url 路径
+     * @return  true 为磁力链接  false 为不是磁力链接
+    */
+    bool isMagnet(QString url);
+
+    /**
+     * @brief 清空共享内存
+    */
+    bool clearSharedMemory();
+
+
 protected:
     /**
      * @brief 键盘按下事件
@@ -549,6 +562,7 @@ private:
     QList<Global::DelDataItem*> m_RecycleDeleteList;
 
     QString m_CurOpenBtDialogPath;  //当前打开bt文件地址
+    QStringList m_ErrorUrlList;
 
     bool m_CtrlkeyPress = false;
     bool m_CopyUrlFromLocal = false;

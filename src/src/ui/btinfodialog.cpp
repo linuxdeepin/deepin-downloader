@@ -497,6 +497,12 @@ void BtInfoDialog::updateSelectedInfo()
     }
     QString _size = Aria2RPCInterface::instance()->bytesFormat(total);
     this->m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(_size));
+    if(cnt == _size){
+        m_checkAll->setCheckState(Qt::Checked);
+    }
+    else {
+        m_checkAll->setCheckState(Qt::Unchecked);
+    }
     setOkBtnStatus(cnt);
 }
 

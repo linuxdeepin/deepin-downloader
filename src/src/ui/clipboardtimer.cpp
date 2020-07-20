@@ -78,8 +78,15 @@ void ClipboardTimer::getDataChanged()
     //是否调用下载器，不打开任何任务
     if(!urlList.isEmpty())
     {
-        if(isStartManager(urlList[0]))
+
+        if(isStartManager(urlList[urlList.size()-1]))
         {
+            QString clipboardText;
+            for (int i = 0; i < urlList.size()-1; i++) {
+                clipboardText.append(urlList[i]);
+            }
+            m_clipboard->clear();
+            m_clipboard->setText(clipboardText);
             emit mainWindowsShow();
         }
     }
