@@ -33,8 +33,8 @@
 class TableView;
 struct Task;
 namespace Global {
-    struct DataItem;
-    struct DelDataItem;
+    struct DownloadDataItem;
+    struct DeleteDataItem;
 }
 
 class tableDataControl : public QObject
@@ -53,7 +53,7 @@ public:
     /**
      * @brief 将正在下载列表里文件不存在的任务移到回收站
      */
-    void removeDownloadListJob(Global::DataItem *pData, bool isAddToRecycle = true);
+    void removeDownloadListJob(Global::DownloadDataItem *pData, bool isAddToRecycle = true);
 
     /**
      * @brief aria2下载事件
@@ -109,17 +109,17 @@ public:
     /**
      * @brief 正在下载和已完成列表重新下载ACtion槽函数
     */
-    int RedownloadDownloadAndFinishList(QList<Global::DataItem*> &reloadList);
+    int RedownloadDownloadAndFinishList(QList<Global::DownloadDataItem*> &reloadList);
 
     /**
      * @brief 下载错误重新下载ACtion槽函数
     */
-    void RedownloadErrorItem(Global::DataItem* errorItem);
+    void RedownloadErrorItem(Global::DownloadDataItem* errorItem);
 
     /**
      * @brief 回收站重新下载ACtion槽函数
     */
-    int RedownloadTrashList(QList<Global::DelDataItem*> &reloadList);
+    int RedownloadTrashList(QList<Global::DeleteDataItem*> &reloadList);
 
     /**
      * @brief 还原下载ACtion槽函数
@@ -235,18 +235,18 @@ signals:
     /**
      * @brief 重新下载信号
      */
-    void Redownload(QString taskId, int rd);
+    void RedownloadJob(QString taskId, int rd);
 
     /**
      * @brief 开始下载信号
      */
-    void Download(QStringList urlList, QString savePath, QString filename = "");
+    void DownloadUnusuaJob(QStringList &urlList, QString savePath, QString filename = "");
 
 private:
-    TableView *m_pDownloadTableView;
-    TableView *m_pRececleTableView;
-    QList<Global::DataItem*> m_pDeleteList;
-    QList<Global::DelDataItem*> m_pRecycleDeleteList;
+    TableView *m_DownloadTableView;
+    TableView *m_RececleTableView;
+    QList<Global::DownloadDataItem*> m_DeleteList;
+    QList<Global::DeleteDataItem*> m_RecycleDeleteList;
 };
 
 #endif // TABLEDATACONTROL_H

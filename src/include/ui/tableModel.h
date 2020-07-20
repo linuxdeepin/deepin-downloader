@@ -31,8 +31,8 @@
 #include <QAbstractTableModel>
 
 namespace Global {
-    struct DataItem;
-    struct DelDataItem;
+    struct DownloadDataItem;
+    struct DeleteDataItem;
 }
 
 /**
@@ -48,7 +48,7 @@ public:
     /**
      * @brief 列表模式
      */
-    enum Mode {
+    enum DownloadMode {
         Downloading = 0, Finished
     };
     /**
@@ -67,38 +67,38 @@ public:
      */
     bool setData(const QModelIndex &ndex,
                  const QVariant    &value,
-                 int                role);
+                 int                role) override;
 
     /**
      * @brief 在正在下载列表添加一列
      * @param data: 数据
      */
-    void append(Global::DataItem *data);
+    void append(Global::DownloadDataItem *data);
 
     /**
      * @brief 排序
      * @param column: 列
      * @param order: 排序方式
      */
-    virtual void sort(int column, Qt::SortOrder order);
+    virtual void sort(int column, Qt::SortOrder order) override;
 
     /**
      * @brief 在回收站列表添加一列
      * @param data: 数据
      */
-    void append(Global::DelDataItem *data);
+    void append(Global::DeleteDataItem *data);
 
     /**
      * @brief 在正在下载列表删除一列
      * @param data: 数据
      */
-    void removeItem(Global::DataItem *data);
+    void removeItem(Global::DownloadDataItem *data);
 
     /**
      * @brief 在回收站列表删除一列
      * @param data: 数据
      */
-    void removeItem(Global::DelDataItem *data);
+    void removeItem(Global::DeleteDataItem *data);
 
     /**
      * @brief 清空下载列表
@@ -122,35 +122,35 @@ public:
 
     /**
      * @brief 根据id查找正在下载item
-     * @param gid: id
+     * @param taskId: 任务id
      * @return 查找到的item数据
      */
-    Global::DataItem* find(const QString &gid);
+    Global::DownloadDataItem* find(const QString &taskId);
 
     /**
      * @brief 根据id查找回收站item
      * @param gid: id
      * @return 查找到的item数据
      */
-    Global::DelDataItem* find(const QString &gid, int flag);
+    Global::DeleteDataItem* find(const QString &gid, int flag);
 
     /**
      * @brief 获取正在下载列表
      * @return item列表
      */
-    const QList<Global::DataItem *>    dataList();
+    const QList<Global::DownloadDataItem *>    dataList();
 
     /**
      * @brief 获取已完成下载列表
      * @return item列表
      */
-    const QList<Global::DataItem *>    renderList();
+    const QList<Global::DownloadDataItem *>    renderList();
 
     /**
      * @brief 获取回收站下载列表
      * @return item列表
      */
-    const QList<Global::DelDataItem *> recyleList();
+    const QList<Global::DeleteDataItem *> &recyleList();
 
     /**
      * @brief 获取列表展示模式
@@ -162,7 +162,7 @@ public:
      * @brief 获取列表展示模式
      * @return 模式map
      */
-    QMap<QString, Global::DataItem *>  getTableModelMap();
+    QMap<QString, Global::DownloadDataItem *>  getTableModelMap();
 
     /**
      * @brief 获取正在下载的个数
@@ -175,14 +175,14 @@ public:
      * @param index: 索引
      * @return 行数
      */
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
     /**
      * @brief 获取列数
      * @param index: 索引
      * @return 列数
      */
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
     /**
      * @brief 获取数据
@@ -190,16 +190,16 @@ public:
      * @param role: 角色
      * @return 数据
      */
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &index, int role) const override;
 
     /**
      * @brief 获取表头
      * @param role: 角色
      * @return 表头数据
      */
-    QVariant headerData(int ection, Qt::Orientation orientation, int role) const;
+    QVariant headerData(int ection, Qt::Orientation orientation, int role) const override;
 
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
     ~TableModel();
 
 private:
@@ -229,15 +229,15 @@ private slots:
      */
     void slot_CheckDatachange(int flag);
 private:
-    QList<Global::DataItem *> m_dataList;
-    QList<Global::DataItem *> m_renderList; //切换到正在下载列表就保存正在下载的数据，切换到已完成列表就保存已完成数据
-    QMap<QString, Global::DataItem *> m_map;
-    Mode m_mode;
-    int m_iTableviewtabFlag;
-    int m_iDownloadingCount;
-    QMap<QString, Global::DelDataItem *> m_Deletemap;
-    QList<Global::DelDataItem *> m_recyleList;
-    int m_iSortColumn;
+    QList<Global::DownloadDataItem *> m_DataList;
+    QList<Global::DownloadDataItem *> m_RenderList; //切换到正在下载列表就保存正在下载的数据，切换到已完成列表就保存已完成数据
+    QMap<QString, Global::DownloadDataItem *> m_Map;
+    DownloadMode m_Mode;
+    int m_TableviewtabFlag;
+    int m_DownloadingCount;
+    QMap<QString, Global::DeleteDataItem *> m_Deletemap;
+    QList<Global::DeleteDataItem *> m_RecyleList;
+    int m_SortColumn;
     Qt::SortOrder m_SortOrder;
 };
 

@@ -66,7 +66,7 @@ public:
     */
     QString getSearchText()
     {
-        return m_pSearchEdit->text();
+        return m_SearchEdit->text();
     }
 
     /**
@@ -75,7 +75,7 @@ public:
     */
     void enableStartBtn(bool enable)
     {
-        m_pStartDownloadBtn->setEnabled(enable);
+        m_StartDownloadBtn->setEnabled(enable);
     }
     /**
      * @brief 启用暂停按键
@@ -83,7 +83,7 @@ public:
     */
     void enablePauseBtn(bool enable)
     {
-        m_pPauseDownloadBtn->setEnabled(enable);
+        m_PauseDownloadBtn->setEnabled(enable);
     }
     /**
      * @brief 启用删除按键
@@ -91,7 +91,7 @@ public:
     */
     void enableDeleteBtn(bool enable)
     {
-        m_pDeleteDownloadBtn->setEnabled(enable);
+        m_DeleteDownloadBtn->setEnabled(enable);
     }
 
 public slots:
@@ -136,13 +136,13 @@ signals:
     */
     void SearchEditTextChange(QString text);
 private:
-    Dtk::Widget::DLabel *m_pIconLable;
-    Dtk::Widget::DIconButton *m_pNewDownloadBtn;
-    Dtk::Widget::DIconButton *m_pStartDownloadBtn;
-    Dtk::Widget::DIconButton *m_pStopDownloadBtn;
-    Dtk::Widget::DIconButton *m_pPauseDownloadBtn;
-    Dtk::Widget::DIconButton *m_pDeleteDownloadBtn;
-    Dtk::Widget::DSearchEdit *m_pSearchEdit;
+    Dtk::Widget::DLabel *m_IconLable;
+    Dtk::Widget::DIconButton *m_NewDownloadBtn;
+    Dtk::Widget::DIconButton *m_StartDownloadBtn;
+    Dtk::Widget::DIconButton *m_StopDownloadBtn;
+    Dtk::Widget::DIconButton *m_PauseDownloadBtn;
+    Dtk::Widget::DIconButton *m_DeleteDownloadBtn;
+    Dtk::Widget::DSearchEdit *m_SearchEdit;
 };
 
 

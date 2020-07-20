@@ -55,11 +55,11 @@ DTK_USE_NAMESPACE
 ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     : QStyledItemDelegate(parent)
 {
-    m_iTableFlag = Flag;
-
+    m_TableFlag = Flag;
+    m_IsFirstInside = true;
     // progressbar = new QProgressBar;
-    m_pBgImage = new QPixmap(":/icons/icon/bar-bg.png");
-    m_pFront = new QPixmap(":/icons/icon/bar-front.png");
+    m_BgImage = new QPixmap(":/icons/icon/bar-bg.png");
+    m_Front = new QPixmap(":/icons/icon/bar-front.png");
 }
 
 ItemDelegate::~ItemDelegate()
@@ -68,7 +68,7 @@ ItemDelegate::~ItemDelegate()
 
 void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if(index.row() == this->m_iHoverRow) {
+    if(index.row() == this->m_HoverRow) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder()); //
                                                                                                                          // QColor(0,0,0,13)QColor(255,255,255,26)
     }
@@ -157,7 +157,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         const QString size = index.data(TableModel::Size).toString();
         painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
     } else if(column == 3) {
-        if(m_iTableFlag == 0) {
+        if(m_TableFlag == 0) {
             QFont font;
             font.setPointSize(10);
             painter->setPen(Qt::red);
@@ -221,19 +221,19 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
             }
 
-            QRect s1(0, 0, 3, this->m_pBgImage->height());
-            QRect t1(sizeRect.x(), sizeRect.y(), 3, this->m_pBgImage->height());
-            painter->drawPixmap(t1, *this->m_pBgImage, s1);
+            QRect s1(0, 0, 3, this->m_BgImage->height());
+            QRect t1(sizeRect.x(), sizeRect.y(), 3, this->m_BgImage->height());
+            painter->drawPixmap(t1, *this->m_BgImage, s1);
 
             // bg m
-            QRect s2(this->m_pBgImage->width() - 3, 0, 3, this->m_pBgImage->height());
-            QRect t2(sizeRect.x() + sizeRect.width() - 16, sizeRect.y(), 3, this->m_pBgImage->height());
-            painter->drawPixmap(t2, *this->m_pBgImage, s2);
+            QRect s2(this->m_BgImage->width() - 3, 0, 3, this->m_BgImage->height());
+            QRect t2(sizeRect.x() + sizeRect.width() - 16, sizeRect.y(), 3, this->m_BgImage->height());
+            painter->drawPixmap(t2, *this->m_BgImage, s2);
 
             // bg t
-            QRect s3(3, 0, this->m_pBgImage->width() - 6, this->m_pBgImage->height());
-            QRect t3(sizeRect.x() + 3, sizeRect.y(), sizeRect.width() - 19, this->m_pBgImage->height());
-            painter->drawPixmap(t3, *this->m_pBgImage, s3);
+            QRect s3(3, 0, this->m_BgImage->width() - 6, this->m_BgImage->height());
+            QRect t3(sizeRect.x() + 3, sizeRect.y(), sizeRect.width() - 19, this->m_BgImage->height());
+            painter->drawPixmap(t3, *this->m_BgImage, s3);
 
             float p = index.data(TableModel::Percent).toFloat() / 100.0f;
             int   w = static_cast<int>((sizeRect.width() - 16) * p); // (int)((sizeRect.width()
@@ -241,24 +241,24 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                                                                      // p);
 
             if(w <= 3) {
-                QRect s(sizeRect.x(), sizeRect.y(), w, this->m_pFront->height());
-                QRect f(0, 0, 3, this->m_pFront->height());
-                painter->drawPixmap(s, *this->m_pFront, f);
+                QRect s(sizeRect.x(), sizeRect.y(), w, this->m_Front->height());
+                QRect f(0, 0, 3, this->m_Front->height());
+                painter->drawPixmap(s, *this->m_Front, f);
             } else if((w > 3) && (w <= sizeRect.width() - 10)) {
                 // front h
-                QRect s(sizeRect.x(), sizeRect.y(), 3, this->m_pFront->height());
-                QRect f(0, 0, 3, this->m_pFront->height());
-                painter->drawPixmap(s, *this->m_pFront, f);
+                QRect s(sizeRect.x(), sizeRect.y(), 3, this->m_Front->height());
+                QRect f(0, 0, 3, this->m_Front->height());
+                painter->drawPixmap(s, *this->m_Front, f);
 
                 // front m
-                QRect fs3(sizeRect.x() + 3, sizeRect.y(), w - 3, this->m_pFront->height());
-                QRect ft3(3, 0, this->m_pFront->width() - 6, this->m_pFront->height());
-                painter->drawPixmap(fs3, *this->m_pFront, ft3);
+                QRect fs3(sizeRect.x() + 3, sizeRect.y(), w - 3, this->m_Front->height());
+                QRect ft3(3, 0, this->m_Front->width() - 6, this->m_Front->height());
+                painter->drawPixmap(fs3, *this->m_Front, ft3);
 
                 // front td
-                QRect s4(sizeRect.x() + w, sizeRect.y(), 3, this->m_pFront->height());
-                QRect f4(m_pFront->width() - 3, 0, 3, this->m_pFront->height());
-                painter->drawPixmap(s4, *this->m_pFront, f4);
+                QRect s4(sizeRect.x() + w, sizeRect.y(), 3, this->m_Front->height());
+                QRect f4(m_Front->width() - 3, 0, 3, this->m_Front->height());
+                painter->drawPixmap(s4, *this->m_Front, f4);
             }
         }
     } else if(column == 4) {
@@ -318,6 +318,10 @@ bool ItemDelegate::editorEvent(QEvent                     *event,
 
 QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    Q_UNUSED(option);
+
+    static bool  firstInside = true;
+    firstInside = true;
     DLineEdit *pEdit = new DLineEdit(parent);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename){
         DLineEdit *pEdit=qobject_cast<DLineEdit *>(sender());
@@ -325,12 +329,12 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
         FilePath = FilePath + filename;
         QFileInfo file(FilePath);
-        if(file.isFile()){
+        if(file.isFile() && !firstInside){
             pEdit->showAlertMessage(tr("Duplicate name!"), -1);
-            return;
         } else {
             pEdit->hideAlertMessage();
         }
+        firstInside = false;
     });
     pEdit->resize(parent->size());
     QString FilePath = index.data(TableModel::SavePath).toString();
@@ -339,14 +343,14 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 
 void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    DLineEdit *pEdit =(DLineEdit *)editor;
+    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
     pEdit->setText(str);
 }
 
 void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    DLineEdit *pEdit =(DLineEdit *)editor;
+    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
     QString FilePath = index.data(TableModel::SavePath).toString();
     FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
     FilePath = FilePath + pEdit->text();
@@ -365,5 +369,6 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
 
 void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
-    m_iHoverRow = index.row();
+    m_HoverRow = index.row();
 }
+

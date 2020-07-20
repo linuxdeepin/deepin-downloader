@@ -54,12 +54,12 @@ using namespace Global;
 
 TableView::TableView(int Flag, TopButton *pToolBar)
     : QTableView()
-    , m_iTableFlag(Flag)
-    , m_pTableModel(new TableModel(Flag))
-    , m_ptableDataControl(new tableDataControl(this))
-    ,m_pItemdegegate(new ItemDelegate(this, m_iTableFlag))
-    , m_pSetting(Settings::getInstance())
-    , m_pToolBar(pToolBar)
+    , m_TableFlag(Flag)
+    , m_TableModel(new TableModel(Flag))
+    , m_TableDataControl(new tableDataControl(this))
+    ,m_Itemdegegate(new ItemDelegate(this, m_TableFlag))
+    , m_Setting(Settings::getInstance())
+    , m_ToolBar(pToolBar)
 {
     initUI();
     initConnections();
@@ -67,8 +67,8 @@ TableView::TableView(int Flag, TopButton *pToolBar)
 
 void TableView::initUI()
 {
-    setModel(m_pTableModel);
-    setItemDelegate(m_pItemdegegate);
+    setModel(m_TableModel);
+    setItemDelegate(m_Itemdegegate);
     setFrameShape(QFrame::NoFrame);
     setMinimumWidth(636);
     setMouseTracking(true);
@@ -86,8 +86,8 @@ void TableView::initUI()
 
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-    m_pHeaderView = new  DownloadHeaderView(Qt::Horizontal, this);
-    setHorizontalHeader(m_pHeaderView);
+    m_HeaderView = new  DownloadHeaderView(Qt::Horizontal, this);
+    setHorizontalHeader(m_HeaderView);
     //m_pHeaderView->setDefaultSectionSize(20);
     //m_pHeaderView->setSortIndicatorShown(false);
 //    m_pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -107,11 +107,11 @@ void TableView::initUI()
 
 void TableView::initConnections()
 {
-    connect(m_pHeaderView, &DownloadHeaderView::Statechanged, this, &TableView::HeaderStatechanged);
+    connect(m_HeaderView, &DownloadHeaderView::Statechanged, this, &TableView::HeaderStatechanged);
     //connect(this, &TableView::ClearHeaderCheck, m_pHeaderView, &HeaderView::onClearHeaderChecked);
-    connect(m_pTableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
-    connect(this, &TableView::isCheckHeader, m_pHeaderView, &DownloadHeaderView::onHeaderChecked);
-    connect(this, &TableView::Hoverchanged, m_pItemdegegate, &ItemDelegate::onHoverchanged);
+    connect(m_TableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
+    connect(this, &TableView::isCheckHeader, m_HeaderView, &DownloadHeaderView::onHeaderChecked);
+    connect(this, &TableView::Hoverchanged, m_Itemdegegate, &ItemDelegate::onHoverchanged);
 }
 
 void TableView::initTableView()
@@ -142,17 +142,17 @@ void TableView::mousePressEvent(QMouseEvent *event)
 
 TableModel * TableView::getTableModel()
 {
-    return m_pTableModel;
+    return m_TableModel;
 }
 
 tableDataControl *TableView::getTableControl()
 {
-    return m_ptableDataControl;
+    return m_TableDataControl;
 }
 
 DownloadHeaderView *TableView::getTableHeader()
 {
-    return m_pHeaderView;
+    return m_HeaderView;
 }
 
 void TableView::mouseMoveEvent(QMouseEvent *event)
@@ -188,20 +188,20 @@ void TableView::refreshTableView(const int &index)
 
         // 联动工具栏按钮 begin
         int chkedCnt = 0;
-        QList<DataItem *> selectList = getTableModel()->renderList();
+        QList<DownloadDataItem *> selectList = getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); i++) {
             if(selectList.at(i)->Ischecked) {
                 chkedCnt++;
             }
         }
         if(chkedCnt > 0) {
-            m_pToolBar->enableStartBtn(true);
-            m_pToolBar->enablePauseBtn(true);
-            m_pToolBar->enableDeleteBtn(true);
+            m_ToolBar->enableStartBtn(true);
+            m_ToolBar->enablePauseBtn(true);
+            m_ToolBar->enableDeleteBtn(true);
         } else {
-            m_pToolBar->enableStartBtn(false);
-            m_pToolBar->enablePauseBtn(false);
-            m_pToolBar->enableDeleteBtn(false);
+            m_ToolBar->enableStartBtn(false);
+            m_ToolBar->enablePauseBtn(false);
+            m_ToolBar->enableDeleteBtn(false);
         }
         break;
     }

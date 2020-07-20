@@ -938,4 +938,5 @@ void Settings::setIsShowTip(bool b)
     } else {
         m_iniFile->setValue("Close/showTip", "false");
     }
+    m_iniFile->sync();
 }

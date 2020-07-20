@@ -116,27 +116,27 @@ protected:
     /**
      * @brief 鼠标按下事件
     */
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) override;
     /**
      * @brief 离开事件
     */
-    void leaveEvent(QEvent *event);
+    void leaveEvent(QEvent *event) override;
     /**
      * @brief 鼠标移动事件
     */
-    void mouseMoveEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event) override;
     /**
      * @brief 键盘按下事件
     */
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 private:
-    int m_iTableFlag;
-    TableModel *m_pTableModel;
-    tableDataControl * m_ptableDataControl;
-    DownloadHeaderView* m_pHeaderView;
-    ItemDelegate *m_pItemdegegate;
-    Settings *m_pSetting;
-    TopButton *m_pToolBar;
+    int m_TableFlag;
+    TableModel *m_TableModel;
+    tableDataControl * m_TableDataControl;
+    DownloadHeaderView* m_HeaderView;
+    ItemDelegate *m_Itemdegegate;
+    Settings *m_Setting;
+    TopButton *m_ToolBar;
 };
 
 #endif // TABLEVIEW_H
