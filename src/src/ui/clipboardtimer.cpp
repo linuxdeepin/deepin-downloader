@@ -55,11 +55,9 @@ void ClipboardTimer::getDataChanged()
     bool bIsMagnet = setting->getMagneticDownloadState();
     bool bIsBt = setting->getBtDownloadState();
     //将不符合规则链接剔除
-    for (int i = 0; i < urlList.size(); i++)
-    {
+    for (int i = 0; i < urlList.size(); i++){
         if((isMagnet(urlList[i]) && bIsMagnet) ||
-                (isHttp(urlList[i]) && bIsHttp))
-        {
+                (isHttp(urlList[i]) && bIsHttp)){
             url.append(urlList[i]).append("\n");
         }
     }
@@ -70,17 +68,13 @@ void ClipboardTimer::getDataChanged()
     }
 
     //是否是BT文件托管，若是BT文件托管，打开BT文件
-    if(m_clipboard->text().endsWith(".torrent") && bIsBt)
-    {
+    if(m_clipboard->text().endsWith(".torrent") && bIsBt){
         emit sentBtTextChange(m_clipboard->text());
         m_clipboard->clear();        
     }
     //是否调用下载器，不打开任何任务
-    if(!urlList.isEmpty())
-    {
-
-        if(isStartManager(urlList[urlList.size()-1]))
-        {
+    if(!urlList.isEmpty()){
+        if(isStartManager(urlList[urlList.size()-1])){
             QString clipboardText;
             for (int i = 0; i < urlList.size()-1; i++) {
                 clipboardText.append(urlList[i]);
@@ -96,33 +90,27 @@ void ClipboardTimer::getDataChanged()
 bool ClipboardTimer::isMagnet(QString url)
 {
     QString str = url;
-    if(str.mid(0,20) == "magnet:?xt=urn:btih:")
-    {
+    if(str.mid(0,20) == "magnet:?xt=urn:btih:"){
         return  true;
-    }
-    else
-    {
+    }else{
         return  false;
     }
 }
 
 bool ClipboardTimer::isHttp(QString url)
 {
-    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://")))
-    {
+    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))){
         return false;
     }
     QStringList list= url.split(".");
     QString suffix = list[list.size()-1];
     QStringList type;
      type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
-    if(type.contains(suffix))
-    {
+    if(type.contains(suffix)){
         return true;
     }
     for (int i = 0; i < type.size(); i++) {
-        if(type[i].toUpper() == suffix)
-        {
+        if(type[i].toUpper() == suffix){
             return true;
         }
     }
@@ -132,8 +120,7 @@ bool ClipboardTimer::isHttp(QString url)
 
 bool ClipboardTimer::isStartManager(QString str)
 {
-    if(str.contains("start_manager_for_clipboard"))
-    {
+    if(str.contains("start_manager_for_clipboard")){
         str.remove("start_manager_for_clipboard");
         return true;
     }
