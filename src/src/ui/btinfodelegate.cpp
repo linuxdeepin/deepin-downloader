@@ -43,8 +43,8 @@
 
 BtInfoDelegate::BtInfoDelegate(DDialog *dialog)
 {
-    this->m_dialog = dialog;
-    this->m_checkBtn = new QCheckBox;
+    m_dialog = dialog;
+    m_checkBtn = new QCheckBox;
 }
 
 BtInfoDelegate::~BtInfoDelegate()
@@ -54,15 +54,15 @@ BtInfoDelegate::~BtInfoDelegate()
 
 void BtInfoDelegate::setHoverColor(QBrush c)
 {
-    this->m_hoverColor = c;
+    m_hoverColor = c;
 }
 
 void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     painter->save();
 
-    if(index.row() == this->m_hoverRow) {
-        painter->fillRect(option.rect, this->m_hoverColor);//QColor(0,0,0,13)QColor(255,255,255,26)
+    if(index.row() == m_hoverRow) {
+        painter->fillRect(option.rect, m_hoverColor);//QColor(0,0,0,13)QColor(255,255,255,26)
     }
     else {
         if(index.row() % 2 == 1) {

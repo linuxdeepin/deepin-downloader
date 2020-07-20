@@ -41,11 +41,9 @@ int main(int argc, char *argv[])
     sharedMemory.setKey("downloadmanager");
     if (sharedMemory.attach())//设置成单例程序
     {
-        QClipboard *c = QApplication::clipboard();
-        if(comList.isEmpty())
-        {
-            QString _str = c->text();
-            c->setText(c->text() + "\n" + "start_manager_for_clipboard");
+        QClipboard *clipboard = QApplication::clipboard();
+        if(comList.isEmpty()){
+            clipboard->setText(clipboard->text() + "\n" + "start_manager_for_clipboard");
         } else {
             if(sharedMemory.isAttached()){
                 if(readShardMemary(sharedMemory) == comList[0]){
@@ -56,10 +54,10 @@ int main(int argc, char *argv[])
             }
 
 
-            QString str = c->text();
-            if(c->text() != comList[0]){
+            QString str = clipboard->text();
+            if(clipboard->text() != comList[0]){
                 //发送以.torrent结尾文件
-                c->setText(comList[0]);
+                clipboard->setText(comList[0]);
             }
         }
         return 0;

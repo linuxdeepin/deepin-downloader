@@ -2382,7 +2382,7 @@ void MainFrame::onShowWindowsForClipboard()
         show();
         setWindowState(Qt::WindowActive);
         activateWindow();
-        setWindowState((this->windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+        setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
     }
     m_LeftList->setCurrentIndex(m_LeftList->currentIndex().sibling(0,0));
 }

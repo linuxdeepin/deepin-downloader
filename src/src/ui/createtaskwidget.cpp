@@ -53,18 +53,17 @@ void CreateTaskWidget::initUi()
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
-
     QIcon tryIcon=QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"))  ;
-    this->setIcon(tryIcon);
-    this->setWindowFlags(this->windowFlags()&~Qt::WindowMinMaxButtonsHint);
-    this->setTitle(tr("New Task"));
+    setIcon(tryIcon);
+    setWindowFlags(windowFlags()&~Qt::WindowMinMaxButtonsHint);
+    setTitle(tr("New Task"));
 
     QString msg = tr("When adding download links, please enter one URL in each line");
-    this->addSpacing(15);
+    addSpacing(15);
     DLabel * msgLab= new DLabel(this);
     msgLab->setText(msg);
-    this->addContent(msgLab,Qt::AlignHCenter);
-    this->addSpacing(15);
+    addContent(msgLab,Qt::AlignHCenter);
+    addSpacing(15);
     m_texturl= new DTextEdit(this);
 
     m_texturl->setReadOnly(false);
@@ -75,20 +74,19 @@ void CreateTaskWidget::initUi()
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0,0,0,20));
     m_texturl->setPalette(pal);
-    this->addContent(m_texturl);
-    this->addSpacing(15);
+    addContent(m_texturl);
+    addSpacing(15);
 
-    this->m_editDir = new DFileChooserEdit(this);
-    this->m_editDir->lineEdit()->setReadOnly(true);
-    this->m_editDir->lineEdit()->setClearButtonEnabled(false);
-    this->m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
-    connect(this->m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
+    m_editDir = new DFileChooserEdit(this);
+    m_editDir->lineEdit()->setReadOnly(true);
+    m_editDir->lineEdit()->setClearButtonEnabled(false);
+    m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
+    connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
     QString savePath =  Settings::getInstance()->getDownloadSavePath();
-    this->m_editDir->setText(savePath);
-    this->addContent(m_editDir);
-    this->addSpacing(15);
+    m_editDir->setText(savePath);
+    addContent(m_editDir);
+    addSpacing(15);
     m_defaultDownloadDir = savePath;
-
 
     QWidget *boxBtn= new QWidget(this);
     QHBoxLayout *layout=new QHBoxLayout(boxBtn);
@@ -117,8 +115,6 @@ void CreateTaskWidget::initUi()
     connect(cancelButton,&DPushButton::clicked,this,&CreateTaskWidget::onCancelBtnClicked);
     layout_right->addWidget(cancelButton);
 
-
-
     m_sureButton = new DSuggestButton(boxBtn);
     m_sureButton->setText(tr("Confirm"));
     policy = m_sureButton->sizePolicy();
@@ -128,9 +124,9 @@ void CreateTaskWidget::initUi()
     layout_right->addSpacing(20);
     layout_right->addWidget(m_sureButton);
     layout->addWidget(rightBox);
-    this->addContent(boxBtn);
+    addContent(boxBtn);
 
-    setMaximumSize(this->width(),this->height());
+    setMaximumSize(width(),height());
 }
 
 
@@ -146,7 +142,7 @@ void CreateTaskWidget::onFileDialogOpen()
             QString infoHash;
             dialog->getBtInfo(opt, infoName, infoHash);
             emit downLoadTorrentCreate(btFile,opt,infoName,infoHash);
-            this->close();
+            close();
         }
         delete dialog;
     }
@@ -154,7 +150,7 @@ void CreateTaskWidget::onFileDialogOpen()
 
 void CreateTaskWidget::onCancelBtnClicked()
 {
-    this->close();
+    close();
 }
 
 void CreateTaskWidget::onSureBtnClicked()
@@ -175,8 +171,7 @@ void CreateTaskWidget::onSureBtnClicked()
             errorList.append(urlList[i]);
         }
     }
-    if(errorList == urlList)
-    {
+    if(errorList == urlList){
         QString warningMsg = tr("The address you entered cannot be resolved correctly. Please try again");
         MessageBox *msg = new MessageBox();
         msg->setWarings(warningMsg, tr("sure"), "");
@@ -206,13 +201,13 @@ void CreateTaskWidget::onSureBtnClicked()
     Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
     emit downloadWidgetCreate(urlList,m_defaultDownloadDir, "");
     m_texturl->clear();
-    this->hide();
+    hide();
 }
 
 void CreateTaskWidget::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(event->mimeData()->hasUrls()) //数据中是否包含URL
-    {
+    //数据中是否包含URL
+    if(event->mimeData()->hasUrls()) {
         event->acceptProposedAction(); //如果是则接受动作
     }
     else
@@ -224,41 +219,33 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
 {
 
     const QMimeData *mineData=event->mimeData();//获取MIME数据
-    if(mineData->hasUrls())                     //如数据中包含URL
-    {
+    if(mineData->hasUrls()){        //如数据中包含URL
         QList<QUrl>urlList=mineData->urls();    //获取URL列表
         if(urlList.isEmpty())return ;
         QString fileName;
-        for(int i=0;i<urlList.size();++i)
-        {
+        for(int i=0;i<urlList.size();++i){
             fileName=urlList.at(i).toString();
+            if(fileName.isEmpty())
+                return;
+            if(!fileName.isEmpty()){                     //若文件路径不为空
+                if(fileName.startsWith("file:")&&fileName.endsWith(".torrent")){
+                    fileName=fileName.right(fileName.length()-6);
+                    BtInfoDialog *dialog = new BtInfoDialog(fileName,m_defaultDownloadDir);//torrent文件路径
+                    int ret = dialog->exec();
+                    if(ret == QDialog::Accepted) {
+                        QMap<QString,QVariant> opt;
+                        QString infoName;
+                        QString infoHash;
+                        dialog->getBtInfo(opt, infoName, infoHash);
+                        emit downLoadTorrentCreate(fileName,opt,infoName,infoHash);
+                        this->close();
+                    }
+                    delete dialog;
+                 }
+                else{
 
-
-        if(fileName.isEmpty())return;
-
-        if(!fileName.isEmpty())                 //若文件路径不为空
-        {
-            if(fileName.startsWith("file:")&&fileName.endsWith(".torrent"))
-            {
-                fileName=fileName.right(fileName.length()-6);
-              //  QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-                BtInfoDialog *dialog = new BtInfoDialog(fileName,m_defaultDownloadDir);//torrent文件路径
-                int ret = dialog->exec();
-                if(ret == QDialog::Accepted) {
-                    QMap<QString,QVariant> opt;
-                    QString infoName;
-                    QString infoHash;
-                    dialog->getBtInfo(opt, infoName, infoHash);
-                    emit downLoadTorrentCreate(fileName,opt,infoName,infoHash);
-                    this->close();
                 }
-                delete dialog;
-             }
-            else
-            {
-                 //textBrowser->append(fileName);
             }
-        }
        }
     }
 }
@@ -267,38 +254,31 @@ void CreateTaskWidget::setUrl(QString url)
 {
     QString setTextUrl;
     QString textUrl = m_texturl->toPlainText();
-    if(textUrl.isEmpty())
-    {
+    if(textUrl.isEmpty()){
         setTextUrl = url;
     }
     else {
         setTextUrl = textUrl + "\n" + url;
     }
-
     m_texturl->setText(setTextUrl);
-
     QString savePath =  Settings::getInstance()->getDownloadSavePath();
-    this->m_editDir->setText(savePath);
+    m_editDir->setText(savePath);
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
 {
     QString str = url;
-    if(str.mid(0,20) == "magnet:?xt=urn:btih:")
-    {
+    if(str.mid(0,20) == "magnet:?xt=urn:btih:"){
         return  true;
     }
-    else
-    {
+    else{
         return  false;
     }
 }
 
 bool CreateTaskWidget::isHttp(QString url)
 {
-
-    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://")))
-    {
+    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))){
         return false;
     }
 //    QStringList _list= url.split(".");
@@ -320,12 +300,10 @@ bool CreateTaskWidget::isHttp(QString url)
 
 void CreateTaskWidget::onTextChanged()
 {
-    if(m_texturl->toPlainText().isEmpty())
-    {
+    if(m_texturl->toPlainText().isEmpty()){
         m_sureButton->setEnabled(false);
     }
-    else
-    {
+    else{
         m_sureButton->setEnabled(true);
     }
 }
@@ -335,28 +313,25 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
     QFileInfo fileinfo;
     QString strPath;
     fileinfo.setFile(filename);
-    if(!fileinfo.isWritable())
-    {
+    if(!fileinfo.isWritable()){
        MessageBox *msg=new MessageBox();
        QString title = tr("Permission denied. Please try other folder.");
        msg->setWarings(title, tr("sure"));
        msg->exec();
        strPath = m_editDir->directoryUrl().toString();
       // QString _text = this->getFileEditText(m_defaultDownloadDir);
-       this->m_editDir->lineEdit()->setText(m_defaultDownloadDir);
+       m_editDir->lineEdit()->setText(m_defaultDownloadDir);
        m_editDir->setDirectoryUrl(m_defaultDownloadDir);
        return;
     }
-
-    this->m_editDir->lineEdit()->setText(filename);
+    m_editDir->lineEdit()->setText(filename);
     m_editDir->setDirectoryUrl(filename);
     m_defaultDownloadDir = filename;
 }
 
 void CreateTaskWidget::getTruetUrl(QString redirecUrl)
 {
-    if(isMagnet(redirecUrl))
-    {
+    if(isMagnet(redirecUrl)){
         emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir, "");
         return;
     }
@@ -445,5 +420,5 @@ void CreateTaskWidget::getTruetUrl(QString redirecUrl)
 
 void CreateTaskWidget::closeEvent(QCloseEvent *event)
 {
-    this->m_texturl->clear();
+    m_texturl->clear();
 }

@@ -37,13 +37,13 @@ BtInfoTableView::BtInfoTableView(QWidget *parent)
 void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
 {
     //qDebug()<<event->x()<<event->y();
-    QModelIndex idx = this->indexAt(event->pos());
+    QModelIndex idx = indexAt(event->pos());
     emit hoverChanged(idx);
 }
 
 void BtInfoTableView::leaveEvent(QEvent *event)
 {
-    this->reset();
+    reset();
     emit hoverChanged(QModelIndex());
 }
 
