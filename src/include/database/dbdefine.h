@@ -32,23 +32,23 @@ struct TaskStatus
         percent  = -1;
         totalFromSource = 0;
     };
-    TaskStatus(QString task_id,int download_status,QDateTime modify_time,QString compeletedLength,
-                  QString download_speed,QString totalLength,int percent,int totalFromSource, QDateTime finish_time)
+    TaskStatus(QString task_id,int download_status,QDateTime modify_time,QString compLength,
+                  QString downSpeed,QString totalLen,int per,int total, QDateTime finishTi)
     {
         taskId = task_id;
         downloadStatus = download_status;
         modifyTime.setDate(modify_time.date());
         modifyTime.setTime(modify_time.time());
-        compeletedLength = compeletedLength ;
-        downloadSpeed = download_speed;
-        totalLength = totalLength;
-        if (percent < 0 || percent > 100) {
+        compeletedLength = compLength ;
+        downloadSpeed = downSpeed;
+        totalLength = totalLen;
+        if (per < 0 || per > 100) {
             percent = 0;
         } else {
-            percent = percent;
+            percent = per;
         }
-        totalFromSource = totalFromSource;
-        finishTime = finish_time;
+        totalFromSource = total;
+        finishTime = finishTi;
     };
 };
 
@@ -70,13 +70,13 @@ struct Task
         downloadPath = "";
         downloadFilename = "";
     };
-    Task(QString task_id,QString gid,int gid_index,QString url,QString download_path,
+    Task(QString task_id,QString gId,int gid_index,QString Url,QString download_path,
                 QString download_filename,QDateTime create_time)
     {
         taskId = task_id;
-        gid = gid;
+        gid = gId;
         gidIndex = gid_index;
-        url = url;
+        url = Url;
         downloadPath = download_path;
         downloadFilename = download_filename;
         createTime.setDate(create_time.date());
@@ -100,15 +100,15 @@ struct UrlInfo
         selectedNum = "";
         infoHash = "";
     };
-    UrlInfo(QString task_id ,QString url ,QString download_type,
-               QString seedFile,QString selectedNum,QString infoHash)
+    UrlInfo(QString task_id ,QString Url ,QString type,
+               QString seed,QString selNum,QString hash)
     {
         taskId = task_id ;
-        url = url;
-        downloadType = download_type;
-        seedFile = seedFile;
-        selectedNum = selectedNum;
-        infoHash = infoHash;
+        url = Url;
+        downloadType = type;
+        seedFile = seed;
+        selectedNum = selNum;
+        infoHash = hash;
     }
 };
 

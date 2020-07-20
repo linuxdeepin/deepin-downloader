@@ -135,7 +135,7 @@ signals:
      * @param infoName bt文件名字
      * @param infoHash bt文件hash值
     */
-    void downLoadTorrentCreate(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+    void downLoadTorrentCreate(QString btPath,QMap<QString,QVariant> &opt,QString infoName, QString infoHash);
 
 private:
     DTextEdit *m_texturl;               //url文本框

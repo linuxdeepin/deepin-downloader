@@ -29,7 +29,7 @@ namespace Global {
      * @struct DataItem
      * @brief 下载列结构体
      */
-    struct DataItem {
+    struct DownloadDataItem {
         int status = 0;
         int percent = 0;
         int total = 0;
@@ -51,7 +51,7 @@ namespace Global {
      * @struct DataItem
      * @brief 删除列结构体
      */
-    struct DelDataItem{
+    struct DeleteDataItem{
         int status=5;
         bool Ischecked ;
         QString taskId;
@@ -69,7 +69,7 @@ namespace Global {
      * @enum Status
      * @brief 列表项当前状态
      */
-    enum Status {
+    enum DownloadJobStatus {
         Active = 0, Waiting, Paused, Error, Complete, Removed,Lastincomplete
     };
     /**

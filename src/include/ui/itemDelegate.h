@@ -46,18 +46,18 @@ public:
     /**
      * @brief 绘图事件
      */
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     /**
      * @brief 大小
      */
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     /**
      * @brief 开始编辑前调用
      */
-    bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index);
-    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    void setEditorData(QWidget *editor, const QModelIndex &index) const;
-    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
+    bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index) override;
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 
 public slots:
      /**
@@ -66,11 +66,13 @@ public slots:
      void onHoverchanged(const QModelIndex &index);
 
 private:
-    int m_iTableFlag;
+     int m_TableFlag;
      //QProgressBar *progressbar;
-     int m_iHoverRow;
-     QPixmap *m_pBgImage;
-     QPixmap *m_pFront;
+     int m_HoverRow;
+     QPixmap *m_BgImage;
+     QPixmap *m_Front;
+     bool m_IsFirstInside;
+     QString m_FilePath;
 };
 
 #endif

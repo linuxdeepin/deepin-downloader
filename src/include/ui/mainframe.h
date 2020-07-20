@@ -59,10 +59,11 @@ class Task;
 class ClipboardTimer;
 class BtInfoDialog;
 class tableDataControl;
+class CreateTaskWidget;
 
 namespace Global {
-class DataItem;
-class DelDataItem;
+class DownloadDataItem;
+class DeleteDataItem;
 }
 
 
@@ -137,7 +138,7 @@ private slots:
      * @param url 收到url地址
      * @param savePath 保存路径
     */
-    void onDownloadNewUrl(QStringList url, QString savePath, QString fileName);
+    void onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName);
 
     /**
      * @brief 收到新建任务
@@ -149,7 +150,7 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    void onDownloadNewTorrent(QString btPath,QMap<QString,QVariant> opt,QString infoName, QString infoHash);
+    void onDownloadNewTorrent(QString btPath,QMap<QString,QVariant> &opt,QString infoName, QString infoHash);
 
     /**
      * @brief 表头全部选择按键
@@ -170,7 +171,7 @@ private slots:
     /**
      * @brief 定时器更新界面显示
     */
-    void onupdateMainUI();
+    void onUpdateMainUI();
 
     /**
      * @brief 新建任务按钮槽函数
@@ -298,6 +299,11 @@ private slots:
     void onRedownloadConfirmSlot(const QList<QString> &sameUrlList);
 
     /**
+    * @brief 列表项双击事件，打开文件
+    */
+    void onTableViewItemDoubleClicked(QModelIndex index);
+
+    /**
      * @brief 判断下载限速
      */
     void onDownloadLimitChanged();
@@ -391,7 +397,7 @@ private:
     /**
      * @brief 开始或者继续下载任务
     */
-    void continueDownload(Global::DataItem *pItem);
+    void continueDownload(Global::DownloadDataItem *pItem);
 
     /**
      * @brief 清除item的选中状态
@@ -427,7 +433,7 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    bool showRedownloadMsgbox(QList<QString> sameUrlList);
+    bool showRedownloadMsgbox(QList<QString> &sameUrlList);
 
     /**
      * @brief 从配置文件中获取下载路径
@@ -447,12 +453,12 @@ private:
     /**
      * @brief 初始化DataItem
      */
-    void initDataItem(Global::DataItem *data, const Task &tbTask);
+    void initDataItem(Global::DownloadDataItem *data, const Task &tbTask);
 
     /**
      * @brief 初始化DelDataItem
      */
-    void initDelDataItem(Global::DataItem* data, Global::DelDataItem *delData);
+    void initDelDataItem(Global::DownloadDataItem* data, Global::DeleteDataItem *delData);
 
     /**
      * @brief 将bt文件设置右键启动
@@ -474,37 +480,42 @@ private:
      */
     void btNotificaitonSettings(QString head,QString fileName,bool isBt=false);
 
+    /**
+     * @brief 开始下载任务
+     */
+    void startDownloadTask(Global::DownloadDataItem *pItem);
+
 protected:
     /**
      * @brief 键盘按下事件
      * @param event 事件类型
      */
 
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
     /**
      * @brief 键盘释放事件set_rename_MsgBox
      * @param event 事件类型
      */
 
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event) override;
     /**
      * @brief 主窗口大小变化事件
      * @param event 事件类型
      */
 
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
     /**
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
     /**
      * @brief 绘图事件
      * @param event 事件类型
      */
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     enum tableviewFlag{
@@ -534,19 +545,19 @@ private:
     QAction *m_SettingAction;
     QTimer *m_UpdateTimer;
     QTimer *m_TrayClickTimer;
-
+    CreateTaskWidget *m_TaskWidget;
     SettingsWidget *m_SettingWidget;
     CurrentTab m_CurrentTab; // 当前显示列表，正在下载、已完成、回收站
     QString m_SearchContent;
     bool m_ShutdownOk = true;
 
-    QList<Global::DataItem*> m_ReloadList;  /*已完成界面点击重新下载的数据列表*/
-    QList<Global::DelDataItem*> m_RecycleReloadList;  /*回收站界面点击重新下载的数据列表*/
-    Global::DataItem* m_CheckItem;
-    Global::DelDataItem* m_DelCheckItem;
+    QList<Global::DownloadDataItem*> m_ReloadList;  /*已完成界面点击重新下载的数据列表*/
+    QList<Global::DeleteDataItem*> m_RecycleReloadList;  /*回收站界面点击重新下载的数据列表*/
+    Global::DownloadDataItem* m_CheckItem;
+    Global::DeleteDataItem* m_DelCheckItem;
     QModelIndex m_CheckIndex;
-    QList<Global::DataItem*> m_DeleteList;
-    QList<Global::DelDataItem*> m_RecycleDeleteList;
+    QList<Global::DownloadDataItem*> m_DeleteList;
+    QList<Global::DeleteDataItem*> m_RecycleDeleteList;
 
     QString m_CurOpenBtDialogPath;  //当前打开bt文件地址
 

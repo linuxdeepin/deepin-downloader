@@ -168,13 +168,13 @@ public slots:
     void onExitBtnClicked(int index);
 
 private:
-    bool m_bDeleteFlag;
-    DCheckBox *m_pCheckBox;
-    DLineEdit *m_pNewnameLineedit;
-    QPushButton *m_pRenameSureButton;
+    bool m_DeleteFlag;
+    DCheckBox *m_CheckBox;
+    DLineEdit *m_NewnameLineedit;
+    QPushButton *m_RenameSureButton;
 
-    DRadioButton *m_pButtonQuit;
-    DRadioButton *m_pButtonMin;
+    DRadioButton *m_ButtonQuit;
+    DRadioButton *m_ButtonMin;
 };
 
 #endif // MESSAGEBOX_H

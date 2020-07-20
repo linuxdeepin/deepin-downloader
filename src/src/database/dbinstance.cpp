@@ -52,11 +52,11 @@ bool DBInstance::delTask(QString taskId)
         return false;
     }
     sql.clear();
-    sql.prepare("delete from  urlInfo where task_id=?;");
+    sql.prepare("delete from  url_info where task_id=?;");
     sql.addBindValue(taskId);
     if (!sql.exec()) {
         QSqlError error = sql.lastError();
-        qWarning() << "Delete urlInfo failed : " << error;
+        qWarning() << "Delete url_info failed : " << error;
         q.close();
         return false;
     }
@@ -86,9 +86,9 @@ bool DBInstance::delAllTask()
         return false;
     }
     sql.clear();
-    sql.prepare("delete from urlInfo;");
+    sql.prepare("delete from url_info;");
     if (!sql.exec()) {
-        qWarning() << "Delete download_task failed : " << sql.lastError();
+        qWarning() << "Delete url_info failed : " << sql.lastError();
         q.close();
         return false;
     }
@@ -336,7 +336,7 @@ bool DBInstance::addUrl(UrlInfo url)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("insert into urlInfo values (?,?,?,?,?,?);");
+    sql.prepare("insert into url_info values (?,?,?,?,?,?);");
     sql.addBindValue(url.taskId);
     sql.addBindValue(url.url);
     sql.addBindValue(url.downloadType);
@@ -344,7 +344,7 @@ bool DBInstance::addUrl(UrlInfo url)
     sql.addBindValue(url.selectedNum);
     sql.addBindValue(url.infoHash);
     if (!sql.exec()) {
-        qWarning() << "insert urlInfo failed : " << sql.lastError();
+        qWarning() << "insert url_info failed : " << sql.lastError();
         q.close();
         return false;
     }
@@ -360,7 +360,7 @@ bool DBInstance::updateUrlById(UrlInfo url)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("update  urlInfo set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
+    sql.prepare("update  url_info set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
     sql.addBindValue(url.url);
     sql.addBindValue(url.downloadType);
     sql.addBindValue(url.seedFile);
@@ -378,10 +378,10 @@ bool DBInstance::getUrlById(QString urdId, UrlInfo &url)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllAql = "select * from urlInfo where task_id='" + urdId + "';";
+    QString selectAllAql = "select * from url_info where task_id='" + urdId + "';";
     sql.prepare(selectAllAql);
     if (!sql.exec()) {
-        qWarning() << "select urlInfo failed : " << sql.lastError();
+        qWarning() << "select url_info failed : " << sql.lastError();
         q.close();
         return false;
     }
@@ -405,7 +405,7 @@ bool DBInstance::getAllUrl(QList<UrlInfo> &urlList)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllSql = "select * from urlInfo;";
+    QString selectAllSql = "select * from url_info;";
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
         qDebug() << sql.lastError();
@@ -462,7 +462,7 @@ bool DBInstance::isExistBtInHash(QString hash, bool &ret)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllSql = "select count(*)  from urlInfo where urlInfo.infoHash='" + hash + "' ;";
+    QString selectAllSql = "select count(*)  from url_info where url_info.infoHash='" + hash + "' ;";
     qDebug() << selectAllSql;
     sql.prepare(selectAllSql);
     if (!sql.exec()) {

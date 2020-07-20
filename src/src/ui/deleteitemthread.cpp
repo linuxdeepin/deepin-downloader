@@ -35,29 +35,25 @@ DeleteItemThread::DeleteItemThread()
 {
 }
 
-DeleteItemThread::DeleteItemThread(QList<DelDataItem> recycleDeleteList,
+DeleteItemThread::DeleteItemThread(QList<DeleteDataItem> recycleDeleteList,
                                    TableView         *recycleTableview,
-                                   Aria2RPCInterface *aria2c,
                                    bool               ifDeleteLocal,
                                    QString            deleteType)
 {
-    m_pRecycleDeleteList = recycleDeleteList;
-    m_pRecycleTableview = recycleTableview;
-    m_pAria2c = aria2c;
-    m_bIfDeleteLocal = ifDeleteLocal;
+    m_RecycleDeleteList = recycleDeleteList;
+    m_RecycleTableview = recycleTableview;
+    m_IfDeleteLocal = ifDeleteLocal;
     m_StrDeleteType = deleteType;
 }
 
-DeleteItemThread::DeleteItemThread(QList<DataItem>    deleteList,
+DeleteItemThread::DeleteItemThread(QList<DownloadDataItem>    deleteList,
                                    TableView         *downloadingTableview,
-                                   Aria2RPCInterface *aria2c,
                                    bool               ifDeleteLocal,
                                    QString            deleteType)
 {
     m_DeleteList = deleteList;
-    m_pDownloadingTableview = downloadingTableview;
-    m_pAria2c = aria2c;
-    m_bIfDeleteLocal = ifDeleteLocal;
+    m_DownloadingTableview = downloadingTableview;
+    m_IfDeleteLocal = ifDeleteLocal;
     m_StrDeleteType = deleteType;
 }
 
@@ -85,23 +81,23 @@ bool DeleteItemThread::DelDir(const QString &path)
 
 void DeleteItemThread::deleteRecycleData()
 {
-    if(m_bIfDeleteLocal) {
-        for(int i = 0; i < m_pRecycleDeleteList.size(); i++) {
-            QString savePath = m_pRecycleDeleteList.at(i).savePath;
-            QString gid = m_pRecycleDeleteList.at(i).gid;
-            QString taskId = m_pRecycleDeleteList.at(i).taskId;
-            QString filename = m_pRecycleDeleteList.at(i).fileName;
+    if(m_IfDeleteLocal) {
+        for(int i = 0; i < m_RecycleDeleteList.size(); i++) {
+            QString savePath = m_RecycleDeleteList.at(i).savePath;
+            QString gid = m_RecycleDeleteList.at(i).gid;
+            QString taskId = m_RecycleDeleteList.at(i).taskId;
+            QString filename = m_RecycleDeleteList.at(i).fileName;
             if(savePath != "") {
                 QFileInfo fileinfo(savePath);
                 if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
-                    QDir tar(m_pRecycleDeleteList.at(i).savePath);
+                    QDir tar(m_RecycleDeleteList.at(i).savePath);
                     tar.removeRecursively();
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
                     if(!savePath.isEmpty()) {
                         QFile::remove(savePath);
                         if(QFile::exists(ariaTempFile)) {
-                            QThread::sleep(1);
+                            QThread::msleep(100);
                             QFile::remove(ariaTempFile);
                         }
                     }
@@ -119,10 +115,10 @@ void DeleteItemThread::deleteDownloadData()
         QString savePath = m_DeleteList.at(i).savePath;
         QString filename = m_DeleteList.at(i).fileName;
         emit    Aria2Remove(m_DeleteList.at(i).gid, "");
-        if(m_bIfDeleteLocal) {
-            m_pAria2c->pause(gid, taskId);
+        if(m_IfDeleteLocal) {
+            Aria2RPCInterface::instance()->pause(gid, taskId);
 
-            if(savePath != "") {
+            if(savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
                     QDir tar(savePath);
@@ -132,7 +128,7 @@ void DeleteItemThread::deleteDownloadData()
                     if(!savePath.isEmpty()) {
                         QFile::remove(savePath);
                         if(QFile::exists(ariaTempFile)) {
-                            QThread::sleep(1);
+                            QThread::msleep(100);
                             QFile::remove(ariaTempFile);
                         }
                     }

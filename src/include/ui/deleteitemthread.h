@@ -45,8 +45,8 @@ class DeleteItemThread:public QThread
     Q_OBJECT
 public:
     DeleteItemThread();
-    DeleteItemThread(QList<DelDataItem>,TableView *pRecycleTableview,Aria2RPCInterface *m_pAria2c,bool m_bIfDeleteLocal,QString m_StrDeleteType);
-    DeleteItemThread( QList<DataItem> deleteList,TableView *pDownloadingTableview,Aria2RPCInterface *m_pAria2c ,bool m_bIfDeleteLocal,QString m_StrDeleteType);
+    DeleteItemThread(QList<DeleteDataItem>, TableView *pRecycleTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
+    DeleteItemThread( QList<DownloadDataItem> deleteList, TableView *pDownloadingTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
     void run();
     bool DelDir(const QString &path);
 
@@ -68,13 +68,12 @@ signals:
      void Aria2Remove(QString gId, QString id);
 
 private:
-     QList<DelDataItem> m_pRecycleDeleteList;
-     TableView *m_pRecycleTableview;
-     Aria2RPCInterface *m_pAria2c;
-     bool m_bIfDeleteLocal;
+     QList<DeleteDataItem> m_RecycleDeleteList;
+     TableView *m_RecycleTableview;
+     bool m_IfDeleteLocal;
      QString m_StrDeleteType;
-     QList<DataItem> m_DeleteList;
-     TableView *m_pDownloadingTableview;
+     QList<DownloadDataItem> m_DeleteList;
+     TableView *m_DownloadingTableview;
 };
 
 #endif // DELETEITEMTHREAD_H
