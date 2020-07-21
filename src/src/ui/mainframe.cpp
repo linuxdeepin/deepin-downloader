@@ -2629,14 +2629,11 @@ bool MainFrame::setAutoStart(bool ret)
     //将替换以后的字符串，重新写入到文件中去
     QFile writerFile(path);
     writerFile.setPermissions(QFile::WriteUser | QFile::ReadUser);
-    if(writerFile.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
+    if(writerFile.open(QIODevice::WriteOnly | QIODevice::Text)){
         qDebug()<< "open error";
     }
     QTextStream writeData(&writerFile);
-
-    for (int i =0 ;i < list.size(); i++)
-    {
+    for (int i =0 ;i < list.size(); i++){
         writeData<<list[i] << endl;
     }
     writeData.flush();
