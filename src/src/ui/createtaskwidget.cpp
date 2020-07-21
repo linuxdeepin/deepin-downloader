@@ -422,3 +422,10 @@ void CreateTaskWidget::closeEvent(QCloseEvent *event)
 {
     m_texturl->clear();
 }
+
+void CreateTaskWidget::showNetErrorMsg()
+{
+    MessageBox *msg = new MessageBox();
+    msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), "");     //网络连接失败
+    msg->exec();
+}

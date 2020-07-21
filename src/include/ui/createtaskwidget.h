@@ -55,6 +55,8 @@ public:
     ~CreateTaskWidget();
 
     void setUrl(QString url);
+
+    void showNetErrorMsg();
 private:
     /**
      * @brief 初始化ui
@@ -81,7 +83,6 @@ private:
      * @return  返回真是url地址
     */
     void getTruetUrl(QString redirecUrl);
-
 
 private slots:
     /**
