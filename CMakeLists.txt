@@ -78,7 +78,7 @@ install(FILES ${QM_FILES} DESTINATION share/downloadmanager/translations)
 
 #desktop
 install(FILES desktop/downloadmanager.desktop DESTINATION share/applications)
-install(FILES desktop/downloadmanager.desktop DESTINATION ~/.config/autostart)
+install(FILES desktop/auto-desktop/downloadmanager.desktop DESTINATION ~/.config/autostart)
 
 #datebases
 install(FILES data/uos-downloadmanager-task.db DESTINATION share/downloadmanager/database)
