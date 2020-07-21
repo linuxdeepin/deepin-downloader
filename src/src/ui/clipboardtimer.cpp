@@ -69,8 +69,8 @@ void ClipboardTimer::getDataChanged()
 
     //是否是BT文件托管，若是BT文件托管，打开BT文件
     QString btUrl = m_clipboard->text();
-    m_clipboard->clear();
     if(btUrl.endsWith(".torrent") && bIsBt){
+        m_clipboard->clear();
         emit sentBtTextChange(btUrl);
     }
     //是否调用下载器，不打开任何任务
