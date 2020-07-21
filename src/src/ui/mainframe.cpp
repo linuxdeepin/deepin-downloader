@@ -68,7 +68,7 @@
 
 using namespace Global;
 
-#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/"
+#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/desktop/auto-desktop/"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
@@ -381,6 +381,7 @@ void MainFrame::createNewTask(QString url)
     m_TaskWidget->setUrl(url);
     if(!isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
+        return;
     }
     m_TaskWidget->exec();
 }
@@ -1972,26 +1973,26 @@ void MainFrame::onDownloadLimitChanged()
 
 void MainFrame::onPowerOnChanged(bool isPowerOn)
 {
-    setAutoStart(isPowerOn);
-//    QString autostartDesktop = "downloadmanager.desktop";
-//    QString defaultDesktop = "downloadmanager.desktop";
-//    QString userDefaultDesktopPath = QString("%1/autostart/")
-//                                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+   // setAutoStart(isPowerOn);
+    QString autostartDesktop = "downloadmanager.desktop";
+    QString defaultDesktop = "downloadmanager.desktop";
+    QString userDefaultDesktopPath = QString("%1/autostart/")
+                                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
 
-//    if(isPowerOn == 1) {
-//        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(
-//            userDefaultDesktopPath);
-//        char *ch;
-//        QByteArray ba = cmd.toLatin1();
-//        ch = ba.data();
-//        system(ch);
-//    } else {
-//        QString cmd = QString("rm -f %1").arg(userDefaultDesktopPath + defaultDesktop);
-//        char *ch;
-//        QByteArray ba = cmd.toLatin1();
-//        ch = ba.data();
-//        system(ch);
-//    }
+    if(isPowerOn == 1) {
+        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(
+            userDefaultDesktopPath);
+        char *ch;
+        QByteArray ba = cmd.toLatin1();
+        ch = ba.data();
+        system(ch);
+    } else {
+        QString cmd = QString("rm -f %1").arg(userDefaultDesktopPath + defaultDesktop);
+        char *ch;
+        QByteArray ba = cmd.toLatin1();
+        ch = ba.data();
+        system(ch);
+    }
 }
 
 void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
@@ -2572,6 +2573,7 @@ bool MainFrame::isAutoStart()
     QFile readFile(path);
     if(!readFile.open(QIODevice::ReadOnly)){
         qDebug()<<"error";
+        return false;
     }
     QTextStream data(&readFile);
     QString str;
@@ -2588,7 +2590,7 @@ bool MainFrame::isAutoStart()
             }
         }
     }
-
+    return false;
 }
 
 bool MainFrame::setAutoStart(bool ret)
@@ -2628,7 +2630,6 @@ bool MainFrame::setAutoStart(bool ret)
     system(ch);
     //将替换以后的字符串，重新写入到文件中去
     QFile writerFile(path);
-    writerFile.setPermissions(QFile::WriteUser | QFile::ReadUser);
     if(writerFile.open(QIODevice::WriteOnly | QIODevice::Text)){
         qDebug()<< "open error";
     }

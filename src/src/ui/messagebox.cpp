@@ -31,7 +31,7 @@
 
 MessageBox::MessageBox(DDialog *parent) : DDialog(parent)
 {
-
+        setMaximumWidth(600);
 }
 
 void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cancelbtntext,int sameurlCount,QList<QString> sameUrlList)
