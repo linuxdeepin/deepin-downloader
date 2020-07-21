@@ -68,7 +68,7 @@
 
 using namespace Global;
 
-#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/downloadmanager/desktop/auto-desktop/"
+#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
