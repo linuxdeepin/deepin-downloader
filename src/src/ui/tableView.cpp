@@ -120,12 +120,12 @@ void TableView::initTableView()
 
 void TableView::reset(bool switched)
 {
-    QModelIndex idx = this->selectionModel()->currentIndex();
+    QModelIndex idx = selectionModel()->currentIndex();
     int size = QTableView::verticalScrollBar()->value();
 
     QTableView::reset();
 
-    this->selectRow(idx.row());
+    selectRow(idx.row());
     if(switched) {
         size = 0;
     }
@@ -135,8 +135,14 @@ void TableView::reset(bool switched)
 void TableView::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton) {
-        setCurrentIndex(QModelIndex());
+        //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
+        QModelIndex index = indexAt(event->pos());
+        if((index.row() < 0) && (index.column() < 0)) {
+            emit HeaderStatechanged(false);
+            emit isCheckHeader(false);
+            return;
+        }
     }
 }
 
@@ -157,14 +163,19 @@ DownloadHeaderView *TableView::getTableHeader()
 
 void TableView::mouseMoveEvent(QMouseEvent *event)
 {
-    QModelIndex idx = this->indexAt(event->pos());
+    QModelIndex idx = indexAt(event->pos());
     emit Hoverchanged(idx);
+}
+
+void TableView::mouseReleaseEvent(QMouseEvent *event)
+{
+    reset();
 }
 
 void TableView::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    this->reset();
+    reset();
     emit Hoverchanged(QModelIndex());
 }
 

@@ -67,6 +67,11 @@ signals:
      */
      void Aria2Remove(QString gId, QString id);
 
+     /**
+      * @brief 删除完成
+     */
+     void removeFinished();
+
 private:
      QList<DeleteDataItem> m_RecycleDeleteList;
      TableView *m_RecycleTableview;

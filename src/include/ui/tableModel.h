@@ -227,7 +227,7 @@ private slots:
      * @brief 获取选中改变
      * @param flag: 模式
      */
-    void slot_CheckDatachange(int flag);
+    void onCheckdatachange(int flag);
 private:
     QList<Global::DownloadDataItem *> m_DataList;
     QList<Global::DownloadDataItem *> m_RenderList; //切换到正在下载列表就保存正在下载的数据，切换到已完成列表就保存已完成数据

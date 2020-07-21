@@ -459,7 +459,7 @@ void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
         QStringList sp = id.split("_");
         QString     taskId = sp.at(2);
         int rd = sp.at(1).toInt();
-        QThread::msleep(500);
+        QThread::msleep(100);
         emit RedownloadJob(taskId, rd);
     }
 }
@@ -1023,6 +1023,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         qDebug() << "subThread: " << QThread::currentThreadId();
         Aria2RPCInterface::instance()->remove(gId, id);
     });
+    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &tableDataControl::removeFinished);
     pDeleteItemThread->start();
     //pDeleteItemThread->deleteLater();
 
@@ -1080,6 +1081,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         }
 
         m_DownloadTableView->getTableModel()->removeItem(data);
+        QThread::usleep(10);
     }
     if(m_DownloadTableView->getTableModel()->recyleList().isEmpty()){
         m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
@@ -1112,8 +1114,8 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
                                                                "recycle_delete");
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, [=](QString gId, QString id){
         Aria2RPCInterface::instance()->remove(gId, id);
-
     });
+    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &tableDataControl::removeFinished);
     pDeleteItemThread->start();
 
     for(int i = 0; i < m_RecycleDeleteList.size(); i++) {
