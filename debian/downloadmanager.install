@@ -1,6 +1,5 @@
 translations/*.qm /usr/share/downloadmanager/translations
 desktop/downloadmanager.desktop /usr/share/applications
-desktop/auto-desktop/downloadmanager.desktop /usr/share/downloadmanager/desktop/auto-desktop
 data/uos-downloadmanager-task.db /usr/share/downloadmanager/database
 data/downloadmanager.svg /usr/share/icons/hicolor/scalable/apps
 data/downloadmanager.svg /usr/share/downloadmanager/icons/logo
