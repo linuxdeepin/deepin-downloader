@@ -68,7 +68,7 @@ ItemDelegate::~ItemDelegate()
 
 void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if(index.row() == this->m_HoverRow) {
+    if(index.row() == m_HoverRow) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder()); //
                                                                                                                          // QColor(0,0,0,13)QColor(255,255,255,26)
     }
@@ -155,7 +155,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
         }
         const QString size = index.data(TableModel::Size).toString();
-        painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
+        painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignHCenter, size);
     } else if(column == 3) {
         if(m_TableFlag == 0) {
             QFont font;
@@ -221,19 +221,19 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
             }
 
-            QRect s1(0, 0, 3, this->m_BgImage->height());
-            QRect t1(sizeRect.x(), sizeRect.y(), 3, this->m_BgImage->height());
-            painter->drawPixmap(t1, *this->m_BgImage, s1);
+            QRect s1(0, 0, 3, m_BgImage->height());
+            QRect t1(sizeRect.x(), sizeRect.y(), 3, m_BgImage->height());
+            painter->drawPixmap(t1, *m_BgImage, s1);
 
             // bg m
-            QRect s2(this->m_BgImage->width() - 3, 0, 3, this->m_BgImage->height());
-            QRect t2(sizeRect.x() + sizeRect.width() - 16, sizeRect.y(), 3, this->m_BgImage->height());
-            painter->drawPixmap(t2, *this->m_BgImage, s2);
+            QRect s2(m_BgImage->width() - 3, 0, 3, m_BgImage->height());
+            QRect t2(sizeRect.x() + sizeRect.width() - 16, sizeRect.y(), 3, m_BgImage->height());
+            painter->drawPixmap(t2, *m_BgImage, s2);
 
             // bg t
-            QRect s3(3, 0, this->m_BgImage->width() - 6, this->m_BgImage->height());
-            QRect t3(sizeRect.x() + 3, sizeRect.y(), sizeRect.width() - 19, this->m_BgImage->height());
-            painter->drawPixmap(t3, *this->m_BgImage, s3);
+            QRect s3(3, 0, m_BgImage->width() - 6, m_BgImage->height());
+            QRect t3(sizeRect.x() + 3, sizeRect.y(), sizeRect.width() - 19, m_BgImage->height());
+            painter->drawPixmap(t3, *m_BgImage, s3);
 
             float p = index.data(TableModel::Percent).toFloat() / 100.0f;
             int   w = static_cast<int>((sizeRect.width() - 16) * p); // (int)((sizeRect.width()
@@ -241,24 +241,24 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                                                                      // p);
 
             if(w <= 3) {
-                QRect s(sizeRect.x(), sizeRect.y(), w, this->m_Front->height());
-                QRect f(0, 0, 3, this->m_Front->height());
-                painter->drawPixmap(s, *this->m_Front, f);
+                QRect s(sizeRect.x(), sizeRect.y(), w, m_Front->height());
+                QRect f(0, 0, 3, m_Front->height());
+                painter->drawPixmap(s, *m_Front, f);
             } else if((w > 3) && (w <= sizeRect.width() - 10)) {
                 // front h
-                QRect s(sizeRect.x(), sizeRect.y(), 3, this->m_Front->height());
-                QRect f(0, 0, 3, this->m_Front->height());
-                painter->drawPixmap(s, *this->m_Front, f);
+                QRect s(sizeRect.x(), sizeRect.y(), 3, m_Front->height());
+                QRect f(0, 0, 3, m_Front->height());
+                painter->drawPixmap(s, *m_Front, f);
 
                 // front m
-                QRect fs3(sizeRect.x() + 3, sizeRect.y(), w - 3, this->m_Front->height());
-                QRect ft3(3, 0, this->m_Front->width() - 6, this->m_Front->height());
-                painter->drawPixmap(fs3, *this->m_Front, ft3);
+                QRect fs3(sizeRect.x() + 3, sizeRect.y(), w - 3, m_Front->height());
+                QRect ft3(3, 0, m_Front->width() - 6, m_Front->height());
+                painter->drawPixmap(fs3, *m_Front, ft3);
 
                 // front td
-                QRect s4(sizeRect.x() + w, sizeRect.y(), 3, this->m_Front->height());
-                QRect f4(m_Front->width() - 3, 0, 3, this->m_Front->height());
-                painter->drawPixmap(s4, *this->m_Front, f4);
+                QRect s4(sizeRect.x() + w, sizeRect.y(), 3, m_Front->height());
+                QRect f4(m_Front->width() - 3, 0, 3, m_Front->height());
+                painter->drawPixmap(s4, *m_Front, f4);
             }
         }
     } else if(column == 4) {

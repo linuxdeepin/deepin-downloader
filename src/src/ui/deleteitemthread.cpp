@@ -87,7 +87,7 @@ void DeleteItemThread::deleteRecycleData()
             QString gid = m_RecycleDeleteList.at(i).gid;
             QString taskId = m_RecycleDeleteList.at(i).taskId;
             QString filename = m_RecycleDeleteList.at(i).fileName;
-            if(savePath != "") {
+            if(!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
                     QDir tar(m_RecycleDeleteList.at(i).savePath);
@@ -97,14 +97,16 @@ void DeleteItemThread::deleteRecycleData()
                     if(!savePath.isEmpty()) {
                         QFile::remove(savePath);
                         if(QFile::exists(ariaTempFile)) {
-                            QThread::msleep(100);
+                            QThread::msleep(200);
                             QFile::remove(ariaTempFile);
                         }
+
                     }
                 }
             }
         }
     }
+    emit removeFinished();
 }
 
 void DeleteItemThread::deleteDownloadData()
@@ -118,7 +120,7 @@ void DeleteItemThread::deleteDownloadData()
         if(m_IfDeleteLocal) {
             Aria2RPCInterface::instance()->pause(gid, taskId);
 
-            if(savePath.isEmpty()) {
+            if(!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
                     QDir tar(savePath);
@@ -127,8 +129,9 @@ void DeleteItemThread::deleteDownloadData()
                     QString ariaTempFile = savePath + ".aria2";
                     if(!savePath.isEmpty()) {
                         QFile::remove(savePath);
+                        qDebug() << savePath;
                         if(QFile::exists(ariaTempFile)) {
-                            QThread::msleep(100);
+                            QThread::msleep(200);
                             QFile::remove(ariaTempFile);
                         }
                     }
@@ -136,6 +139,7 @@ void DeleteItemThread::deleteDownloadData()
             }
         }
     }
+    emit removeFinished();
 }
 
 void DeleteItemThread::run()

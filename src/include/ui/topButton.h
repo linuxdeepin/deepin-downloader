@@ -70,6 +70,15 @@ public:
     }
 
     /**
+     * @brief 启用新建任务按键
+     * @param enable： 启用开关
+    */
+    void enableCreateTaskBtn(bool enable)
+    {
+        m_NewDownloadBtn->setEnabled(enable);
+    }
+
+    /**
      * @brief 启用开始按键
      * @param enable： 启用开关
     */
@@ -77,6 +86,7 @@ public:
     {
         m_StartDownloadBtn->setEnabled(enable);
     }
+
     /**
      * @brief 启用暂停按键
      * @param enable： 启用开关
@@ -85,6 +95,7 @@ public:
     {
         m_PauseDownloadBtn->setEnabled(enable);
     }
+
     /**
      * @brief 启用删除按键
      * @param enable： 启用开关

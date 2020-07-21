@@ -285,6 +285,7 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onDownloadNewUrl);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_DownLoadingTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
@@ -294,6 +295,7 @@ void MainFrame::initConnection()
     connect(m_RecycleTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_RecycleTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
     connect(m_RecycleTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
+    connect(m_RecycleTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_RecycleTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
@@ -333,7 +335,7 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason == QSystemTrayIcon::ActivationReason::Trigger) {
         //if(m_TrayClickTimer->isActive()){
-            if(this->isHidden()) {
+            if(isHidden()) {
                 // 恢复窗口显示
                 show();
                 setWindowState(Qt::WindowActive);
@@ -828,6 +830,12 @@ Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
         QString name1 = fileName.mid(0, fileName.lastIndexOf('.'));
         name1 += QString("_%1").arg(count);
         fileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
+        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(".")));
+        if(count1 > 0){
+            QString name2 = fileName.mid(0, fileName.lastIndexOf((".")));
+            name2 += QString("_%1").arg(count1);
+            fileName = name2 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
+        }
     }
 
     Task task;
@@ -1230,6 +1238,11 @@ void MainFrame::onRedownload(QString taskId, int rd)
     }
 }
 
+void MainFrame::onRemoveFinished()
+{
+    m_ToolBar->enableCreateTaskBtn(true);
+}
+
 void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList)
 {
     MessageBox msg;
@@ -1370,6 +1383,10 @@ void MainFrame::onDeleteConfirm(bool ischecked, bool permanent)
 {
     if(m_UpdateTimer->isActive()) {
         m_UpdateTimer->stop();
+    }
+
+    if(ischecked || permanent){
+        m_ToolBar->enableCreateTaskBtn(false);
     }
 
     if(m_CurrentTab == recycleTab) {
