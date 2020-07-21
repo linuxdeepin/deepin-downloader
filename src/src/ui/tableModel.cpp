@@ -41,7 +41,7 @@ TableModel::TableModel(int Flag, QObject *parent)
     if(Flag == 0) {
         m_Mode = Downloading;
     }
-    connect(this, &TableModel::checkDatachange, this, &TableModel::slot_CheckDatachange);
+    connect(this, &TableModel::checkDatachange, this, &TableModel::onCheckdatachange);
     m_SortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
 }
@@ -50,7 +50,7 @@ TableModel::~TableModel()
 {
 }
 
-void TableModel::slot_CheckDatachange(int flag)
+void TableModel::onCheckdatachange(int flag)
 {
     int check_num = 0;
     QList<DownloadDataItem *> active_list;
@@ -282,7 +282,12 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             if(m_TableviewtabFlag == 0) {
                 // return QString("%1%2%3
                 //  %4").arg(data->completedLength).arg(sizeSepChar).arg(data->totalLength).arg(data->percent);
-                return QString("%1%2%3 ").arg(data->completedLength).arg(sizeSepChar).arg(data->totalLength);
+                if(m_Mode == Downloading) {
+                    return QString("%1%2%3 ").arg(data->completedLength).arg(sizeSepChar).arg(data->totalLength);
+                } else {
+                    return QString("%1 ").arg(data->totalLength);
+                }
+
             } else {
                 return deldata->totalLength;
             }
@@ -576,7 +581,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             break;
         case 2:
             if(Downloading == m_Mode){
-                role = TableModel::Speed;
+                role = TableModel::TotalLength;
             } else {
                 role = TableModel::TotalLength;
             }
@@ -594,7 +599,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     }
     double num = -1;
     for(int row = 0; row < rowCount(); ++row) {
-        QVariant itm = data(this->index(row, column), role);
+        QVariant itm = data(index(row, column), role);
         if(role == TableModel::Size){
             num = formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
@@ -645,7 +650,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
     }
     double num = -1;
     for(int row = 0; row < rowCount(); ++row) {
-        QVariant itm = data(this->index(row, column), role);
+        QVariant itm = data(index(row, column), role);
         if(role == TableModel::TotalLength){
             num = formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));

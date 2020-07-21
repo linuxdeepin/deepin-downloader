@@ -42,7 +42,8 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
 
     addLabel(warningMsg);
     addSpacing(10);
-    if(sameurlCount!=0){
+    if(sameurlCount!=0)
+    {
         DTextEdit *urlText = new DTextEdit(this);
         urlText->setReadOnly(true);
         urlText->setFixedSize(QSize(454,154));
@@ -55,7 +56,8 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
         }
         addContent(urlText);
     }
-    if(cancelbtntext!=""){
+    if(cancelbtntext!="")
+    {
         addButton(cancelbtntext);
 
     }
@@ -140,7 +142,8 @@ void MessageBox::setDelete(bool permanentl, bool checked)
     }
     addSpacing(10);
     addButton(tr("Cancel"));
-    if(permanentl){
+    if(permanentl)
+    {
         addButton(tr("Permanently delete"),true,ButtonType::ButtonWarning);
     }
     else {
@@ -286,8 +289,10 @@ void MessageBox::onClearBtnClicked(int index)
 
 void MessageBox::onDeleteBtnClicked(int index)
 {
-    if(index==1){
-         QAbstractButton *button= getButton(index);
+    if(index==1)
+    {
+
+    QAbstractButton *button= getButton(index);
         button->setEnabled(false);
         if(m_DeleteFlag)
              emit Deletedownload(true,m_DeleteFlag);

@@ -242,6 +242,10 @@ signals:
      */
     void DownloadUnusuaJob(QStringList &urlList, QString savePath, QString filename = "");
 
+    /**
+     * @brief 删除完成
+    */
+    void removeFinished();
 private:
     TableView *m_DownloadTableView;
     TableView *m_RececleTableView;

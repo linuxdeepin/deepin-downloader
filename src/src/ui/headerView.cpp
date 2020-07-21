@@ -50,7 +50,7 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
 
     m_headerCbx->setFixedSize(25, 25);
     m_headerCbx->setVisible(true);
-    //this->setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
+    //setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
         onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
@@ -80,5 +80,5 @@ void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType t
     } else {
         p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());
     }
-    this->setPalette(p);
+    setPalette(p);
 }

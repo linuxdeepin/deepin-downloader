@@ -1,10 +1,19 @@
 [Desktop Entry]
-Exec=/usr/bin/downloadmanager
-Hidden=false
-Name=downloadmanager
-NoDisplay=true
-Terminal=false
+Categories=downloadManager;
+Comment=download manager
+Exec=downloadmanager %F
+GenericName=download manager
+Icon=downloadmanager
+MimeType=application/torrent;application/x-bittorrent;
+Name=DownloadManager
+StartupNotify=false
 Type=Application
-X-Deepin-AppID=downloadmanager
-X-Deepin-CreatedBy=com.deepin.SessionManager
 X-Deepin-Vendor=user-custom
+Hidden=true
+
+# Translations:
+# Do not manually modify!
+GenericName[zh_CN]=下载器
+GenericName[zh_TW]=下载器
+Name[zh_CN]=下载器
+Name[zh_TW]=下载器

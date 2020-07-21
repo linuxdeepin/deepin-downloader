@@ -194,7 +194,7 @@ private slots:
     void onDeleteDownloadBtnClicked();
 
     /**
-     * @brief 改变列表选中槽函数
+     * @brief 改变列表选中槽函数,设置顶部按钮是否可用
     */
     void onCheckChanged(bool checked, int flag);
 
@@ -213,6 +213,11 @@ private slots:
      */
 
     void onRedownload(QString taskId, int rd);
+
+    /**
+     * @brief 删除任务完成
+     */
+    void onRemoveFinished();
 
     /**
      * @brief 移除指定下载

@@ -1,3 +1,9 @@
+downloadmanager (5.1.0.3) stable; urgency=low
+
+  * 修改完成二期测试的bug,详情见:https://pms.uniontech.com/zentao/project-bug-508.html
+
+ -- unknown <unknown@uniontech.com>  Tue, 21 July 2020 10:34:16 +0800
+
 downloadmanager (5.1.0.2) stable; urgency=low
 
   * 修改完成一期测试的bug,详情见:https://pms.uniontech.com/zentao/project-bug-508.html

@@ -156,7 +156,7 @@ void TopButton::onTableChanged(int index)
 
 //void DownloadManagerBtn::onTimeOut()
 //{
-//    if(geometry().contains(this->mapFromGlobal(QCursor::pos()))){
+//    if(geometry().contains(mapFromGlobal(QCursor::pos()))){
 //        DToolTip* pTip = new DToolTip("Stop");
 //        pTip->show(QCursor::pos(), 1000);
 //    }
