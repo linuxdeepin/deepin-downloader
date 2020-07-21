@@ -595,7 +595,6 @@ void MainFrame::onSettingsMenuClicked()
                                                      Settings::createDownloadSpeedLimitSettiingHandle);
     pSettingsDialog->updateSettings("Settings", Settings::getInstance()->m_settings);
 
-
     Settings::getInstance()->setAutoStart(isAutoStart());
 
     pSettingsDialog->exec();
@@ -1977,25 +1976,26 @@ void MainFrame::onDownloadLimitChanged()
 
 void MainFrame::onPowerOnChanged(bool isPowerOn)
 {
-    QString autostartDesktop = "downloadmanager.desktop";
-    QString defaultDesktop = "downloadmanager.desktop";
-    QString userDefaultDesktopPath = QString("%1/autostart/")
-                                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+    setAutoStart(isPowerOn);
+//    QString autostartDesktop = "downloadmanager.desktop";
+//    QString defaultDesktop = "downloadmanager.desktop";
+//    QString userDefaultDesktopPath = QString("%1/autostart/")
+//                                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
 
-    if(isPowerOn == 1) {
-        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(
-            userDefaultDesktopPath);
-        char *ch;
-        QByteArray ba = cmd.toLatin1();
-        ch = ba.data();
-        system(ch);
-    } else {
-        QString cmd = QString("rm -f %1").arg(userDefaultDesktopPath + defaultDesktop);
-        char *ch;
-        QByteArray ba = cmd.toLatin1();
-        ch = ba.data();
-        system(ch);
-    }
+//    if(isPowerOn == 1) {
+//        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(
+//            userDefaultDesktopPath);
+//        char *ch;
+//        QByteArray ba = cmd.toLatin1();
+//        ch = ba.data();
+//        system(ch);
+//    } else {
+//        QString cmd = QString("rm -f %1").arg(userDefaultDesktopPath + defaultDesktop);
+//        char *ch;
+//        QByteArray ba = cmd.toLatin1();
+//        ch = ba.data();
+//        system(ch);
+//    }
 }
 
 void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
@@ -2585,17 +2585,17 @@ bool MainFrame::isAutoStart()
             QStringList list = str.split('=');
             readFile.close();
             if(list[1] == "false"){
-                return false;
+                return true;
             }
             else {
-                return true;
+                return false;
             }
         }
     }
 
 }
 
-bool setAutoStart(bool ret)
+bool MainFrame::setAutoStart(bool ret)
 {
     QString path = QString("%1/autostart/downloadmanager.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
     QFile readFile(path);
@@ -2609,21 +2609,33 @@ bool setAutoStart(bool ret)
     }
     readFile.close();
 
+//    QProcess *process = new QProcess;
+//    QStringList "";
+//    list<<"-i"<< reply->url().toString();
+//    process->start("sudo chmod", list);
+
     for (int i = 0; i < list.size(); i++) {
         if(list[i].contains("Hidden=")){
             if(ret){
-                list[i] = "Hidden=true";
+                list[i] = "Hidden=false";
             }
             else {
-                list[i] = "Hidden=false";
+                list[i] = "Hidden=true";
             }
         }
     }
+
+    QString cmd = QString("rm -f %1").arg(path);
+    char *ch;
+    QByteArray ba = cmd.toLatin1();
+    ch = ba.data();
+    system(ch);
     //将替换以后的字符串，重新写入到文件中去
     QFile writerFile(path);
+    writerFile.setPermissions(QFile::WriteUser | QFile::ReadUser);
     if(writerFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-
+        qDebug()<< "open error";
     }
     QTextStream writeData(&writerFile);
 
