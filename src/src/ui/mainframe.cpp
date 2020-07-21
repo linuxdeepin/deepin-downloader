@@ -68,7 +68,7 @@
 
 using namespace Global;
 
-#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/desktop/auto-desktop/"
+#define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "/usr/share/applications/"
 
 MainFrame::MainFrame(QWidget *parent) :
     DMainWindow(parent)
@@ -1982,6 +1982,7 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
     if(isPowerOn == 1) {
         QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(
             userDefaultDesktopPath);
+        qDebug()<< cmd;
         char *ch;
         QByteArray ba = cmd.toLatin1();
         ch = ba.data();
