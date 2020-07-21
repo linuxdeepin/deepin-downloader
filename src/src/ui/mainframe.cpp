@@ -2558,7 +2558,7 @@ bool MainFrame::clearSharedMemory()
 
 bool MainFrame::isNetConnect()
 {
-    std::string strping = "ping -c 3 -i 0.5 www.baidu.com";
+    std::string strping = "ping -c 1 www.baidu.com";
     if (!system(strping.c_str())) {
         return true;
     } else {
