@@ -145,6 +145,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         data->taskId = id;
         data->gid = gId;
         data->Ischecked = 0;
+        data->completedLength = "0Kb";
         QDateTime time = QDateTime::currentDateTime();
         data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
 
@@ -303,7 +304,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if(completedLength > 0) {
         data->completedLength = formatFileSize(completedLength);
     }
-    data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0kb/s";
+    data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0Kb/s";
 
     if(bittorrent.isEmpty()) {
         if(!fileName.isEmpty() && (data->fileName != fileName)) {
