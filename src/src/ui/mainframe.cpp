@@ -592,6 +592,10 @@ void MainFrame::onSettingsMenuClicked()
     pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting",
                                                      Settings::createDownloadSpeedLimitSettiingHandle);
     pSettingsDialog->updateSettings("Settings", Settings::getInstance()->m_settings);
+
+
+    Settings::getInstance()->setAutoStart(isAutoStart());
+
     pSettingsDialog->exec();
     delete pSettingsDialog;
     Settings::getInstance()->m_settings->sync();
@@ -2178,8 +2182,7 @@ void MainFrame::startBtAssociat()
 {
     QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     QFile readFile(path);
-    if(!readFile.open(QIODevice::ReadOnly))
-    {
+    if(!readFile.open(QIODevice::ReadOnly)){
         qDebug()<<"error";
         return;
     }
@@ -2189,8 +2192,7 @@ void MainFrame::startBtAssociat()
     QStringList DefaultList;
     QStringList AddedList;
     //找到 [Default Applications] 和[Added Associations] 下面中的 application/x-bittorrent=字段
-    while(!data.atEnd())
-    {
+    while(!data.atEnd()){
 
         QString sLine = data.readLine();
         if(sLine == "[Default Applications]")
@@ -2274,15 +2276,13 @@ void MainFrame::endBtAssociat()
 {
     QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     QFile readFile(path);
-    if(!readFile.open(QIODevice::ReadOnly))
-    {
+    if(!readFile.open(QIODevice::ReadOnly)){
         qDebug()<<"open file error";
         return;
     }
     QTextStream data(&readFile);
     QStringList list;
-    while(!data.atEnd())
-    {
+    while(!data.atEnd()){
         QString sLine = data.readLine();
         list.append(sLine);
     }
@@ -2551,4 +2551,69 @@ bool MainFrame::isNetConnect()
     } else {
         return false;
     }
+}
+
+bool MainFrame::isAutoStart()
+{
+    QString path = QString("%1/autostart/downloadmanager.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+    QFile readFile(path);
+    if(!readFile.open(QIODevice::ReadOnly)){
+        qDebug()<<"error";
+    }
+    QTextStream data(&readFile);
+    QString str;
+    while(!data.atEnd()){
+        str = data.readLine();
+        if(str.contains("Hidden=")){
+            QStringList list = str.split('=');
+            readFile.close();
+            if(list[1] == "false"){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }
+
+}
+
+bool setAutoStart(bool ret)
+{
+    QString path = QString("%1/autostart/downloadmanager.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+    QFile readFile(path);
+    if(!readFile.open(QIODevice::ReadOnly)){
+        qDebug()<<"error";
+    }
+    QTextStream data(&readFile);
+    QStringList list;
+    while(!data.atEnd()){
+        list.append(data.readLine());
+    }
+    readFile.close();
+
+    for (int i = 0; i < list.size(); i++) {
+        if(list[i].contains("Hidden=")){
+            if(ret){
+                list[i] = "Hidden=true";
+            }
+            else {
+                list[i] = "Hidden=false";
+            }
+        }
+    }
+    //将替换以后的字符串，重新写入到文件中去
+    QFile writerFile(path);
+    if(writerFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+
+    }
+    QTextStream writeData(&writerFile);
+
+    for (int i =0 ;i < list.size(); i++)
+    {
+        writeData<<list[i] << endl;
+    }
+    writeData.flush();
+    writerFile.close();
 }

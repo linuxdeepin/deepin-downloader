@@ -503,6 +503,17 @@ private:
      */
     bool isNetConnect();
 
+    /**
+     * @brief 当前是否是自动开启
+     * @return true为是 false为否
+     */
+    bool isAutoStart();
+
+    /**
+     * @brief 设置开机自启
+     * @return true为是 false为否
+     */
+    bool setAutoStart(bool ret);
 
 protected:
     /**

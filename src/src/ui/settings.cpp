@@ -618,6 +618,13 @@ bool Settings::getPowerOnState()
     return option->value().toBool();
 }
 
+void Settings::setAutoStart(bool ret)
+{
+    auto option = m_settings->option("Basic.Start.PowerOn");
+
+    option->setValue(ret);
+}
+
 bool Settings::getAutostartUnfinishedTaskState()
 {
     auto option = m_settings->option("Basic.Start.AutoStartUnfinishedTask");

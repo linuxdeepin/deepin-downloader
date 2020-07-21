@@ -119,6 +119,12 @@ public:
     bool getPowerOnState();
 
     /**
+     * @brief 获取开机启动状态值
+     * @return 开启返回true，否则返回false
+     */
+    void setAutoStart(bool ret);
+
+    /**
      * @brief 获取启动后自动获取未完成的任务状态值
      * @return 开启返回true，否则返回false
      */
