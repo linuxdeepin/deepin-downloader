@@ -613,14 +613,10 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::onClipboardDataForBt(QString url)
 {
-    if(url == m_CurOpenBtDialogPath)
-    {
+    if(url == m_CurOpenBtDialogPath){
         return;
     }
-    else
-    {
-        m_CurOpenBtDialogPath = url;
-    }
+    m_CurOpenBtDialogPath = url;
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     BtInfoDialog btDiag(url, savePath); // torrent文件路径
     QMap<QString, QVariant> opt;
