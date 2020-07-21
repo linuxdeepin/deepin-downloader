@@ -379,6 +379,9 @@ void MainFrame::createNewTask(QString url)
         show();
     }
     m_TaskWidget->setUrl(url);
+    if(!isNetConnect()){
+        m_TaskWidget->showNetErrorMsg();
+    }
     m_TaskWidget->exec();
 }
 
@@ -2554,5 +2557,15 @@ bool MainFrame::clearSharedMemory()
             memset(to,0, num);
             sharedMemory.unlock();
         }
+    }
+}
+
+bool MainFrame::isNetConnect()
+{
+    std::string strping = "ping -c 3 -i 0.5 www.baidu.com";
+    if (!system(strping.c_str())) {
+        return true;
+    } else {
+        return false;
     }
 }

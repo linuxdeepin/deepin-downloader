@@ -502,6 +502,12 @@ private:
      */
     void startDownloadTask(Global::DownloadDataItem *pItem);
 
+    /**
+     * @brief 网络是否联通
+     * @return true为通 false为不通
+     */
+    bool isNetConnect();
+
 
 protected:
     /**
