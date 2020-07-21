@@ -3,17 +3,14 @@ Categories=downloadManager;
 Comment=download manager
 Exec=downloadmanager %F
 GenericName=download manager
+GenericName[zh_CN]=下载器
+GenericName[zh_TW]=下载器
+Hidden=true
 Icon=downloadmanager
 MimeType=application/torrent;application/x-bittorrent;
 Name=DownloadManager
+Name[zh_CN]=下载器
+Name[zh_TW]=下载器
 StartupNotify=false
 Type=Application
 X-Deepin-Vendor=user-custom
-Hidden=true
-
-# Translations:
-# Do not manually modify!
-GenericName[zh_CN]=下载器
-GenericName[zh_TW]=下载器
-Name[zh_CN]=下载器
-Name[zh_TW]=下载器
