@@ -7,6 +7,10 @@
 #include <QSharedMemory>
 #include <QBuffer>
 #include <QCommandLineParser>
+#include <QDBusMessage>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusPendingCall>
 #include "mainframe.h"
 #include "log.h"
 #include "settings.h"
@@ -41,24 +45,26 @@ int main(int argc, char *argv[])
     sharedMemory.setKey("downloadmanager");
     if (sharedMemory.attach())//设置成单例程序
     {
-        QClipboard *clipboard = QApplication::clipboard();
         if(comList.isEmpty()){
-            clipboard->setText(clipboard->text() + "\n" + "start_manager_for_clipboard");
+            QDBusInterface iface("com.downloadmanager.service",
+                                 "/downloadmanager/path",
+                                 "local.downloadmanager.MainFrame",
+                                 QDBusConnection::sessionBus());
+            iface.asyncCall("Raise");
         } else {
             if(sharedMemory.isAttached()){
                 if(readShardMemary(sharedMemory) == comList[0]){
                     return 0;
-                } else {
+                }
+                else{
                     writeShardMemary(sharedMemory, comList[0]);
                 }
             }
-
-
-            QString str = clipboard->text();
-            if(clipboard->text() != comList[0]){
-                //发送以.torrent结尾文件
-                clipboard->setText(comList[0]);
-            }
+            QDBusInterface iface("com.downloadmanager.service",
+                                 "/downloadmanager/path",
+                                 "local.downloadmanager.MainFrame",
+                                 QDBusConnection::sessionBus());
+            iface.asyncCall("OpenBt", comList[0]);
         }
         return 0;
     }
@@ -97,7 +103,7 @@ int main(int argc, char *argv[])
             {
                 w.hide();
             }
-             w.onClipboardDataForBt(comList[i]);
+             w.OpenBt(comList[i]);
         }
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloader4.svg"));

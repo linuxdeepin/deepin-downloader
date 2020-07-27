@@ -84,7 +84,13 @@ public slots:
     /**
      * @brief 剪切板数据改变，受到bt文件url
     */
-    void onClipboardDataForBt(QString url);
+    void OpenBt(QString url);
+
+    /**
+     * @brief 剪切板将
+     * @param reason 激活原因
+     */
+    void Raise();
 
 private slots:
     /**
@@ -333,11 +339,7 @@ private slots:
      */
     void onClearRecycle(bool ischecked);
 
-    /**
-     * @brief 剪切板将
-     * @param reason 激活原因
-     */
-    void onShowWindowsForClipboard();
+
 
     /**
      * @brief 解析url
@@ -519,6 +521,12 @@ private:
      * @return true为是 false为否
      */
     bool setAutoStart(bool ret);
+
+    /**
+     * @brief 初始化dbus
+     * @return
+     */
+    bool initDbus();
 
 protected:
     /**

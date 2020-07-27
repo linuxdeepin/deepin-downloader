@@ -67,25 +67,6 @@ void ClipboardTimer::getDataChanged()
         emit sendClipboardTextChange(url);
     }
 
-    //是否是BT文件托管，若是BT文件托管，打开BT文件
-    QString btUrl = m_clipboard->text();
-    if(btUrl.endsWith(".torrent") && bIsBt){
-        m_clipboard->clear();
-        emit sentBtTextChange(btUrl);
-    }
-    //是否调用下载器，不打开任何任务
-    if(!urlList.isEmpty()){
-        if(isStartManager(urlList[urlList.size()-1])){
-            QString clipboardText;
-            for (int i = 0; i < urlList.size()-1; i++) {
-                clipboardText.append(urlList[i]);
-            }
-            m_clipboard->clear();
-            m_clipboard->setText(clipboardText);
-            emit mainWindowsShow();
-        }
-    }
-
 }
 
 bool ClipboardTimer::isMagnet(QString url)
@@ -118,12 +99,3 @@ bool ClipboardTimer::isHttp(QString url)
     return false;
 }
 
-
-bool ClipboardTimer::isStartManager(QString str)
-{
-    if(str.contains("start_manager_for_clipboard")){
-        str.remove("start_manager_for_clipboard");
-        return true;
-    }
-    return false;
-}

@@ -78,6 +78,7 @@ MainFrame::MainFrame(QWidget *parent) :
   , m_CheckIndex(QModelIndex())
 {
     init();
+    initDbus();
     initTray();
     initAria2();
     initConnection();
@@ -284,7 +285,7 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
     connect(m_DownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onDownloadNewUrl);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
@@ -294,7 +295,7 @@ void MainFrame::initConnection()
     connect(m_RecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
     connect(m_RecycleTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_RecycleTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
-    connect(m_RecycleTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::onClipboardDataForBt);
+    connect(m_RecycleTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
     connect(m_RecycleTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_RecycleTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
@@ -304,8 +305,6 @@ void MainFrame::initConnection()
 
     connect(m_SettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_Clipboard, &ClipboardTimer::sendClipboardTextChange, this, &MainFrame::onClipboardDataChanged);
-    connect(m_Clipboard, &ClipboardTimer::sentBtTextChange, this, &MainFrame::onClipboardDataForBt, Qt::UniqueConnection);
-    connect(m_Clipboard, &ClipboardTimer::mainWindowsShow, this, &MainFrame::onShowWindowsForClipboard, Qt::UniqueConnection);
     connect(m_LeftList, &DListView::clicked, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
@@ -612,7 +611,7 @@ void MainFrame::onClipboardDataChanged(QString url)
     }
 }
 
-void MainFrame::onClipboardDataForBt(QString url)
+void MainFrame::OpenBt(QString url)
 {
     if(url == m_CurOpenBtDialogPath){
         return;
@@ -2393,7 +2392,7 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
     }
 }
 
-void MainFrame::onShowWindowsForClipboard()
+void MainFrame::Raise()
 {
     if(isHidden()) {
         // 恢复窗口显示
@@ -2640,4 +2639,11 @@ bool MainFrame::setAutoStart(bool ret)
     }
     writeData.flush();
     writerFile.close();
+}
+
+bool MainFrame::initDbus()
+{
+    QDBusConnection::sessionBus().unregisterService("com.downloadmanager.service");
+    QDBusConnection::sessionBus().registerService("com.downloadmanager.service");
+    QDBusConnection::sessionBus().registerObject("/downloadmanager/path", this,QDBusConnection :: ExportAllSlots | QDBusConnection :: ExportAllSignals);
 }

@@ -20,7 +20,7 @@ struct TaskStatus
     QString compeletedLength ; //已下载大小
     QString  downloadSpeed ; //下载速度
     QString  totalLength; //下载总文件大小
-    int percent;
+    int percent;          //当前下载百分比
     int totalFromSource; //获取的下载文件大小
     QDateTime finishTime; //完成时间
     TaskStatus(){

@@ -47,19 +47,15 @@ private:
     bool isMagnet(QString str);        //是否是磁力链接
     bool isHttp(QString str);          //是否是http+后缀
 
-    bool isStartManager(QString str);  //是否是启动下载器命令
 
 private slots:
     void getDataChanged();              //得到剪切板内容
 
 signals:
     emit void sendClipboardTextChange(QString url); //发送url
-    emit void sentBtTextChange(QString url);         //发送bt url
-    emit void mainWindowsShow();
 private:
     QClipboard *m_clipboard;            //剪切板
     bool m_isHttp;
-    bool m_isBt;
     bool m_isMagnet;
 };
 
