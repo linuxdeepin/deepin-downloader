@@ -43,6 +43,8 @@
 #include <QProgressBar>
 #include <QMouseEvent>
 #include <QItemEditorFactory>
+#include <QMimeType>
+#include <QMimeDatabase>
 
 #include "tableView.h"
 #include "tableModel.h"
@@ -345,23 +347,32 @@ void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
 {
     DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
+
+    QMimeDatabase db;
+    QString mime = db.suffixForFileName(str);
+    str = str.left(str.size() - mime.size() -1);
     pEdit->setText(str);
 }
 
 void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+    QString str = index.data(TableModel::FileName).toString();
+    QMimeDatabase db;
+    QString mime = db.suffixForFileName(str);
+    QString fileName = pEdit->text() + "." + mime;
+
     QString FilePath = index.data(TableModel::SavePath).toString();
     FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-    FilePath = FilePath + pEdit->text();
+    FilePath = FilePath + fileName;
     if(!QFileInfo::exists(FilePath)){
         QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
-        model->setData(index, pEdit->text(), TableModel::FileName);
+        model->setData(index, fileName, TableModel::FileName);
         model->setData(index, FilePath, TableModel::SavePath);
         Task task;
         DBInstance::getTaskByID(index.data(TableModel::taskId).toString(),task);
         task.downloadPath = FilePath;
-        task.downloadFilename = pEdit->text();
+        task.downloadFilename = fileName;
         DBInstance::updateTaskByID(task);
     }
 }

@@ -39,7 +39,6 @@
         <file>icon/downloader1.svg</file>
         <file>icon/downloader2.svg</file>
         <file>icon/downloader3.svg</file>
-        <file>icon/downloader4.svg</file>
         <file>icon/downloader5.svg</file>
         <file>icon/downloader6.svg</file>
         <file>icon/downloader7.svg</file>
@@ -52,6 +51,7 @@
         <file>icon/folder.svg</file>
         <file>icon/bar-bg.png</file>
         <file>icon/bar-front.png</file>
+        <file>icon/downloadmanager.svg</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>

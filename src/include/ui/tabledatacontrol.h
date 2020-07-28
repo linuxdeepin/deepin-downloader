@@ -31,12 +31,18 @@
 #include <QObject>
 
 class TableView;
+class QSharedMemory;
 struct Task;
 namespace Global {
     struct DownloadDataItem;
     struct DeleteDataItem;
 }
 
+
+/**
+ * @class tableDataControl
+ * @brief 列表数据管理，包括一些新建、删除等
+ */
 class tableDataControl : public QObject
 {
     Q_OBJECT
@@ -214,6 +220,10 @@ private:
      */
     bool checkFileExist(QString &filePath);
 
+    /**
+     * @brief 清空共享内存
+     */
+    void clearShardMemary(QSharedMemory &sharedMemory, QString strUrl);
 public slots:
 
     /**
@@ -222,7 +232,7 @@ public slots:
     void onUnusualConfirm(int index, const QString &taskId);
 
     /**
-    * @brief 同志aria2删除任务
+    * @brief 通知aria2删除任务
     */
     void onAria2Remove(QString gId, QString id);
 

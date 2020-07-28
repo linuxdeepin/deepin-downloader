@@ -48,6 +48,7 @@ public:
      */
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     /**
+
      * @brief 大小
      */
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;

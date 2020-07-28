@@ -43,8 +43,7 @@ class TableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    TableModel(int      Flag,
-               QObject *parent = nullptr);
+
     /**
      * @brief 列表模式
      */
@@ -58,6 +57,11 @@ public:
         Ischecked = 0, Speed, Size, FileName, Time, Status, GID, Percent, TotalLength, SavePath, taskId, createTime
     };
 
+    /**
+     * @brief 构造函数
+     */
+    TableModel(int      Flag,
+               QObject *parent = nullptr);
 
     /**
      * @brief 父类虚函数，设置数据

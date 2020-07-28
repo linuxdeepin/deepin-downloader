@@ -391,14 +391,20 @@ void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
 
 void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &method, const QString id)
 {
+    if(method == ARIA2C_METHOD_FORCE_PAUSE){
+        method.size();
+    }
+    if(method == ARIA2C_METHOD_PAUSE){
+        method.size();
+    }
     int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(); //请求返回的属性值
+    QByteArray buf = reply->readAll(); //获取信息
+    QJsonDocument doc = QJsonDocument::fromJson(buf); //转换为json格式
+    QJsonObject obj = doc.object();
     if (code == 200) { //返回正常
-        QByteArray buf = reply->readAll(); //获取信息
-        QJsonDocument doc = QJsonDocument::fromJson(buf); //转换为json格式
-        QJsonObject obj = doc.object();
         emit RPCSuccess(method, obj);
     } else { //错误
-        emit RPCError(method, id, code);
+        emit RPCError(method, id, code, obj);
     }
 
     reply->deleteLater();

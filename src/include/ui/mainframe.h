@@ -75,9 +75,14 @@ class MainFrame : public Dtk::Widget::DMainWindow
 {
     Q_OBJECT
 public:
+    /**
+     * @brief 构造函数
+     */
     explicit MainFrame(QWidget *parent = Q_NULLPTR);
 
-
+    /**
+     * @brief 析构函数
+     */
     ~MainFrame();
 
 public slots:
@@ -110,7 +115,7 @@ private slots:
      * @param id： 唯一id
      * @param error： 错误号
     */
-    void onRpcError(QString method, QString id, int error);
+    void onRpcError(QString method, QString id, int error, QJsonObject obj);
 
     /**
      * @brief 表格中元素被选中
@@ -211,7 +216,6 @@ private slots:
      * @param taskId 任务ID
      * @param rd 重新开始前所在列表 正在下载、已完成、回收站
      */
-
     void onRedownload(QString taskId, int rd);
 
     /**
@@ -521,23 +525,23 @@ private:
     bool setAutoStart(bool ret);
 
 protected:
+
     /**
      * @brief 键盘按下事件
      * @param event 事件类型
      */
-
     void keyPressEvent(QKeyEvent *event) override;
+
     /**
      * @brief 键盘释放事件set_rename_MsgBox
      * @param event 事件类型
      */
-
     void keyReleaseEvent(QKeyEvent *event) override;
+
     /**
      * @brief 主窗口大小变化事件
      * @param event 事件类型
      */
-
     void resizeEvent(QResizeEvent *event) override;
 
     /**
