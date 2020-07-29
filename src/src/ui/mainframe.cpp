@@ -649,7 +649,7 @@ void MainFrame::OpenBt(QString url)
         onDownloadNewTorrent(url, opt, infoName, infoHash);
         DBInstance::isExistBtInHash(infoHash, isExist);
         btNotificaitonSettings(tr("Download"),QString(tr("%1 downloading...")).arg(infoName),true);
-        clearSharedMemory();
+        //clearSharedMemory();
         return;
     }
 
@@ -664,7 +664,7 @@ void MainFrame::OpenBt(QString url)
         btDiag.getBtInfo(opt, infoName, infoHash);
         onDownloadNewTorrent(url, opt, infoName, infoHash);
     }
-    clearSharedMemory();
+    //clearSharedMemory();
 }
 
 void MainFrame::onListClicked(const QModelIndex &index)
@@ -2618,8 +2618,7 @@ bool MainFrame::isMagnet(QString url)
 
 bool MainFrame::clearSharedMemory()
 {
-    QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloadmanager");
+    QSharedMemory sharedMemory("downloadmanager");
     if(sharedMemory.attach())
     {
         if(sharedMemory.isAttached())

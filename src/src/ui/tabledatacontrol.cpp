@@ -283,6 +283,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if(fileName.endsWith(".torrent")) {
             if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
                 emit AutoDownloadBt(filePath);
+                clearShardMemary();
             }
         }
 
