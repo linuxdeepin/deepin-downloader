@@ -532,10 +532,10 @@ void BtInfoDialog::updateSelectedInfo()
                 allOther++;
             }
     }
-    allVideo == selectVideoCount ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
-    allAudio == selectAudioCount ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
-    allPic == selectPictureCount ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
-    allOther == selectOtherCount ? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
+    allVideo == selectVideoCount && allVideo > 0 ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
+    allAudio == selectAudioCount && allAudio > 0 ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
+    allPic == selectPictureCount && allPic > 0 ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
+    allOther == selectOtherCount && allOther > 0? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     cnt == m_model->rowCount() ? m_checkAll->setCheckState(Qt::Checked) : m_checkAll->setCheckState(Qt::Unchecked);
