@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("uos");//设置公司名
     a.setApplicationName("downloadmanager");//设置应用程序名
     a.setApplicationVersion(DLM_VERSION_STRING);//设置应用程序版本
-    a.setProductIcon(QIcon(":/icons/icon/downloader4.svg"));//从系统主题中获取图标并设置成产品图标
+    a.setProductIcon(QIcon(":/icons/icon/downloadmanager.svg"));//从系统主题中获取图标并设置成产品图标
     auto download_manager_name = QObject::tr("Download Manager");
     a.setProductName(download_manager_name);//设置产品的名称
     auto download_manager_info = QObject::tr("This is a download manage application.");
@@ -69,6 +69,8 @@ int main(int argc, char *argv[])
         return 0;
     }
     sharedMemory.create(199);
+    char *to = static_cast<char*>(sharedMemory.data());
+    memset(to,0, 199);
 
     // 保存程序的窗口主题设置
     DApplicationSettings as;
@@ -106,7 +108,7 @@ int main(int argc, char *argv[])
              w.OpenBt(comList[i]);
         }
     }
-    w.setWindowIcon(QIcon(":/icons/icon/downloader4.svg"));
+    w.setWindowIcon(QIcon(":/icons/icon/downloadmanager.svg"));
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
 }
