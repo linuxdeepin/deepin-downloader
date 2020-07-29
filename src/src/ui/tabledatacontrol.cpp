@@ -39,6 +39,8 @@
 #include <QUuid>
 #include <QSound>
 #include <QDBusInterface>
+#include <QSharedMemory>
+#include <QBuffer>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -1054,6 +1056,16 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
 
 
         if(permanent || ischecked) {
+            UrlInfo info;
+            DBInstance::getUrlById(taskId, info);
+            if(info.downloadType == "torrent"){
+                QSharedMemory sharedMemory;
+                sharedMemory.setKey("downloadmanager");
+                if (sharedMemory.attach())//设置成单例程序
+                {
+                    clearShardMemary(sharedMemory, "");
+                }
+            }
             DBInstance::delTask(taskId);
             Aria2RPCInterface::instance()->purgeDownloadResult(data->gid);
         }
@@ -1305,3 +1317,11 @@ void tableDataControl::recycleListRedownload(QString id)
     }
 }
 
+void tableDataControl::clearShardMemary(QSharedMemory &sharedMemory, QString strUrl)
+{
+    sharedMemory.lock();
+    char *to = static_cast<char*>(sharedMemory.data());
+    int num = sharedMemory.size();
+    memset(to, 0, num);
+    sharedMemory.unlock();
+}

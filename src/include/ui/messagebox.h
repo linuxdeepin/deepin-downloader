@@ -38,6 +38,11 @@ DWIDGET_USE_NAMESPACE
 
 class QPushButton;
 
+
+/**
+ * @class MessageBox
+ * @brief 弹窗消息
+ */
 class MessageBox : public DDialog
 {
     Q_OBJECT

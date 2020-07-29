@@ -48,6 +48,9 @@
 #include <DFontSizeManager>
 #include <QNetworkAccessManager>
 #include <QSharedMemory>
+#include <QMutexLocker>
+#include <QMutex>
+#include <QMimeDatabase>
 
 #include "aria2rpcinterface.h"
 #include "aria2const.h"
@@ -247,7 +250,7 @@ void MainFrame::initTray()
 
     // 连接信号与槽
     connect(pShowMainAct,    &QAction::triggered, [ = ]() {
-        show();
+        showNormal();
         setWindowState(Qt::WindowActive);
         activateWindow();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
@@ -332,23 +335,36 @@ void MainFrame::initConnection()
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
-    if(reason == QSystemTrayIcon::ActivationReason::Trigger) {
-        //if(m_TrayClickTimer->isActive()){
-            if(isHidden()) {
-                // 恢复窗口显示
-                show();
+    if (QSystemTrayIcon::Trigger == reason) {
+        if (isVisible()) {
+            if (isMinimized()) {
                 setWindowState(Qt::WindowActive);
                 activateWindow();
-                setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
             } else {
-                hide();
+                showMinimized();
             }
-        //} else {
-            //m_TrayClickTimer->start(200);
-            //m_TrayClickTimer->setSingleShot(true);
-        //}
-        return;
+        } else {
+            showNormal();
+        }
     }
+
+//    if(reason == QSystemTrayIcon::ActivationReason::Trigger) {
+//        //if(m_TrayClickTimer->isActive()){
+//            if(isHidden()) {
+//                // 恢复窗口显示
+//                show();
+//                setWindowState(Qt::WindowActive);
+//                activateWindow();
+//                setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+//            } else {
+//                hide();
+//            }
+//        //} else {
+//            //m_TrayClickTimer->start(200);
+//            //m_TrayClickTimer->setSingleShot(true);
+//        //}
+//        return;
+//    }
 }
 
 void MainFrame::closeEvent(QCloseEvent *event)
@@ -407,7 +423,9 @@ void MainFrame::onMessageBoxConfirmClick()
     if(Settings::getInstance()->getCloseMainWindowSelected()) {
         onTrayQuitClick();
     } else {
-        hide();
+        showMinimized();
+        //setWindowState(Qt::WindowActive);
+        //activateWindow();
     }
 }
 
@@ -416,8 +434,8 @@ void MainFrame::initAria2()
     Aria2RPCInterface::instance()->init(); // 启动Aria2RPCInterface::instance()
     connect(Aria2RPCInterface::instance(), SIGNAL(RPCSuccess(QString,QJsonObject)), this,
             SLOT(onRpcSuccess(QString,QJsonObject)));
-    connect(Aria2RPCInterface::instance(), SIGNAL(RPCError(QString,QString,int)), this,
-            SLOT(onRpcError(QString,QString,int)));
+    connect(Aria2RPCInterface::instance(), SIGNAL(RPCError(QString, QString, int, QJsonObject)), this,
+            SLOT(onRpcError(QString, QString, int, QJsonObject)));
     onDownloadLimitChanged();
     onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
     qDebug() << "MainFrame initAria2 Finished";
@@ -827,16 +845,18 @@ Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
     if(fileName.contains(".torrent")){
         fileName = fileName.remove(".torrent");
     }
-    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(".")));
+    QMimeDatabase db;
+    QString mime = db.suffixForFileName(fileName);
+    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
     if(count > 0){
-        QString name1 = fileName.mid(0, fileName.lastIndexOf('.'));
+        QString name1 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
         name1 += QString("_%1").arg(count);
-        fileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
-        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(".")));
+        fileName = name1 + "." + mime;
+        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
         if(count1 > 0){
-            QString name2 = fileName.mid(0, fileName.lastIndexOf((".")));
+            QString name2 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
             name2 += QString("_%1").arg(count1);
-            fileName = name2 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
+            fileName = name2 + "." + mime;
         }
     }
 
@@ -936,7 +956,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
                 }
             }
         }
-        if(pauseCount > 0) {
+        if(pauseCount > 0 || errorCount > 0) {
             QAction *pActionStart = new QAction();
             pActionStart->setText(tr("Continue"));
             delmenlist->addAction(pActionStart);
@@ -1118,7 +1138,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
         m_ToolBar->enableStartBtn(false);
         m_ToolBar->enablePauseBtn(false);
         m_ToolBar->enableDeleteBtn(false);
-        if(m_CurrentTab == recycleTab){
+        if(m_CurrentTab == recycleTab && m_RecycleTableView->getTableModel()->recyleList().count() > 0){
             m_ToolBar->enableStartBtn(true);
         }
     }
@@ -1146,7 +1166,7 @@ void MainFrame::clearTableItemCheckStatus()
 
 void MainFrame::onSearchEditTextChanged(QString text)
 {
-    if(text.isEmpty()){
+    if(!text.isEmpty()){
         m_NotaskLabel->hide();
         m_NotaskTipLabel->hide();
         m_NoResultlabel->show();
@@ -1482,9 +1502,16 @@ void MainFrame::onPauseDownloadBtnClicked()
             if(selectList.at(i)->Ischecked && !m_DownLoadingTableView->isRowHidden(i)) {
                 ++selectedCount;
                 if(selectList.at(i)->status != Global::DownloadJobStatus::Paused) {
-                    Aria2RPCInterface::instance()->pause(selectList.at(i)->gid, selectList.at(i)->taskId);
-                    QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-                    TaskStatus get_status;
+                    UrlInfo info;
+                    DBInstance::getUrlById(selectList.at(i)->taskId, info);
+                    if(info.downloadType == "torrent" || selectList.at(i)->savePath.contains("[METADATA]")){
+                        Aria2RPCInterface::instance()->forcePause(selectList.at(i)->gid, selectList.at(i)->taskId);
+                    } else {
+                        Aria2RPCInterface::instance()->pause(selectList.at(i)->gid, selectList.at(i)->taskId);
+                    }
+                    QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+
+                    TaskStatus getStatus;
                     TaskStatus downloadStatus(selectList.at(i)->taskId,
                                                  Global::DownloadJobStatus::Paused,
                                                  QDateTime::currentDateTime(),
@@ -1495,9 +1522,9 @@ void MainFrame::onPauseDownloadBtnClicked()
                                                      i)->totalLength,
                                                  selectList.at(i)->percent,
                                                  selectList.at(i)->total,
-                                                 finish_time);
+                                                 finishTime);
 
-                    if(DBInstance::getTaskStatusById(selectList.at(i)->taskId, get_status)) {
+                    if(DBInstance::getTaskStatusById(selectList.at(i)->taskId, getStatus)) {
                         DBInstance::updateTaskStatusById(downloadStatus);
                     } else {
                         DBInstance::addTaskStatus(downloadStatus);
@@ -1539,10 +1566,20 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
     }
 }
 
-void MainFrame::onRpcError(QString method, QString id, int error)
+void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject obj)
 {
-    qDebug() << "slot rpc error method is:" << method << error;
 
+    QJsonObject result = obj.value("error").toObject();
+    int  errNo = result.value("code").toInt();
+    QString message = result.value("message").toString();
+    qDebug() << "slot rpc error method is:" << method << error << message;
+    if(1 == errNo){
+        if(message.contains("cannot be paused now")){
+            //showWarningMsgbox("current task cannot be paused now!");
+            DownloadDataItem * item = m_DownLoadingTableView->getTableModel()->find(id);
+            Aria2RPCInterface::instance()->forcePause(item->gid, "");
+        }
+    }
     // save_data_before_close();
     if(error == 400) {
         if((method == ARIA2C_METHOD_FORCE_REMOVE) && id.startsWith("REDOWNLOAD_")) {
@@ -1674,6 +1711,7 @@ void MainFrame::onReturnOriginActionTriggered()
 
                     if((returntoData->percent < 0) || (returntoData->percent > 100)) {
                         returntoData->status = Global::DownloadJobStatus::Lastincomplete;
+                        getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
                         //returntoData->percent = 0;
                     }
                 } else {
@@ -1763,8 +1801,8 @@ void MainFrame::onOpenFileActionTriggered()
         QString path = QString("file:///") + m_CheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
     } else {
-        QString path = QString("file:///") + m_DelCheckItem->savePath;
-        QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
+        //QString path = QString("file:///") + m_DelCheckItem->savePath;
+        //QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
     }
 }
 
@@ -1926,12 +1964,12 @@ void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList)
 
 void MainFrame::onTableViewItemDoubleClicked(QModelIndex index)
 {
-    if(m_CurrentTab = finishTab){
+    if(m_CurrentTab == finishTab){
         QString taskId = m_DownLoadingTableView->getTableModel()->data(index, TableModel::taskId).toString();
         m_CheckItem = m_DownLoadingTableView->getTableModel()->find(taskId);
     } else {
-        QString taskId = m_RecycleTableView->getTableModel()->data(index, TableModel::taskId).toString();
-        m_CheckItem = m_RecycleTableView->getTableModel()->find(taskId);
+       // QString taskId = m_RecycleTableView->getTableModel()->data(index, TableModel::taskId).toString();
+        //m_CheckItem = m_RecycleTableView->getTableModel()->find(taskId);
     }
     onOpenFileActionTriggered();
 }
@@ -2448,31 +2486,36 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
             list<<"-i"<< reply->url().toString();
             process->start("curl", list);
             connect(process, &QProcess::readyReadStandardOutput, this, [=](){
-                qDebug() << "readyReadStandardOutput" << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
-                QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
-                proc->kill();
-                proc->close();
-                QString str = proc->readAllStandardOutput();
-                QStringList urlList;
-                urlList.append(proc->arguments().at(1));
-                proc->deleteLater();
-                if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
-                {
-                    onDownloadNewUrl(urlList ,Settings::getInstance()->getDownloadSavePath() , "");
-                    return ;
-                }
-                QStringList urlInfoList = str.split("\r\n");
-                for (int i = 0; i < urlInfoList.size(); i++)
-                {
-                    if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                static QMutex mutex;
+                bool isLock =  mutex.tryLock();
+                if(isLock){
+                    qDebug() << "readyReadStandardOutput" << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+                    QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
+                    proc->kill();
+                    proc->close();
+                    QString str = proc->readAllStandardOutput();
+                    QStringList urlList;
+                    urlList.append(proc->arguments().at(1));
+                    proc->deleteLater();
+                    if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                     {
-                        int start= urlInfoList[i].lastIndexOf("'");
-                        QString urlName = urlInfoList[i].mid(start);
-                        QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
-
-                        onDownloadNewUrl(urlList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName);
+                        onDownloadNewUrl(urlList ,Settings::getInstance()->getDownloadSavePath() , "");
                         return ;
                     }
+                    QStringList urlInfoList = str.split("\r\n");
+                    for (int i = 0; i < urlInfoList.size(); i++)
+                    {
+                        if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                        {
+                            int start= urlInfoList[i].lastIndexOf("'");
+                            QString urlName = urlInfoList[i].mid(start);
+                            QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
+
+                            onDownloadNewUrl(urlList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName);
+
+                        }
+                    }
+                   mutex.unlock();
                 }
             });
             break;
@@ -2484,21 +2527,27 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
             list<<"-i"<< reply->url().toString();
             process->start("curl", list);
             connect(process, &QProcess::readyReadStandardOutput, this, [=](){
-                QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
-                proc->kill();
-                proc->close();
-                QString str = proc->readAllStandardOutput();
-                proc->deleteLater();
-                QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-                QStringList strList = strUrl.split("/");
-                QStringList strUrlName = strList[strList.size()-1].split(".");
-                //需要转两次
-                QString encodingUrlName = QUrl::fromPercentEncoding(strUrlName[0].toStdString().c_str());
-                encodingUrlName = QUrl::fromPercentEncoding(encodingUrlName.toStdString().c_str());
-                qDebug()<<"encodingUrlName"<< encodingUrlName;
-                QStringList urlStrList = QStringList(strUrl);
-                QString type = getUrlType(str);
-                onDownloadNewUrl(urlStrList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName, type);
+                static QMutex mutex;
+                bool isLock =  mutex.tryLock();
+                if(isLock){
+                    QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
+                    proc->kill();
+                    proc->close();
+                    QString str = proc->readAllStandardOutput();
+                    proc->deleteLater();
+                    QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
+                    QStringList strList = strUrl.split("/");
+                    QStringList strUrlName = strList[strList.size()-1].split(".");
+                    //需要转两次
+                    QString encodingUrlName = QUrl::fromPercentEncoding(strUrlName[0].toStdString().c_str());
+                    encodingUrlName = QUrl::fromPercentEncoding(encodingUrlName.toStdString().c_str());
+                    qDebug()<<"encodingUrlName"<< encodingUrlName;
+                    QStringList urlStrList = QStringList(strUrl);
+                    QString type = getUrlType(str);
+                    onDownloadNewUrl(urlStrList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName, type);
+
+                    mutex.unlock();
+                }
             });
 
 
@@ -2511,24 +2560,29 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                 list<<"-i"<< reply->url().toString();
                 process->start("curl", list);
                 connect(process, &QProcess::readyReadStandardOutput, this, [=](){
-                    QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
-                    proc->kill();
-                    proc->close();
-                    QString str = proc->readAllStandardOutput();
-                    proc->deleteLater();
-                    QStringList urlInfoList = str.split("\r\n");
-                    for (int i = 0; i < urlInfoList.size(); i++)
-                    {
-                        if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                    static QMutex mutex;
+                    bool isLock =  mutex.tryLock();
+                    if(isLock){
+                        QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
+                        proc->kill();
+                        proc->close();
+                        QString str = proc->readAllStandardOutput();
+                        proc->deleteLater();
+                        QStringList urlInfoList = str.split("\r\n");
+                        for (int i = 0; i < urlInfoList.size(); i++)
                         {
-                            int start = urlInfoList[i].lastIndexOf("'");
-                            QString urlName = urlInfoList[i].mid(start);
-                            QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
-                           // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
-                            QStringList strList = QStringList(urlInfoList[i]);
-                            onDownloadNewUrl(strList, Settings::getInstance()->getDownloadSavePath(), urlNameForZH);
-                            return ;
+                            if(urlInfoList[i].startsWith("Content-Disposition:"))  //为405链接
+                            {
+                                int start = urlInfoList[i].lastIndexOf("'");
+                                QString urlName = urlInfoList[i].mid(start);
+                                QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
+                               // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
+                                QStringList strList = QStringList(urlInfoList[i]);
+                                onDownloadNewUrl(strList, Settings::getInstance()->getDownloadSavePath(), urlNameForZH);
+                                return ;
+                            }
                         }
+                        mutex.unlock();
                     }
                 });
 
