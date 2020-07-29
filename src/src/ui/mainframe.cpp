@@ -669,6 +669,9 @@ void MainFrame::OpenBt(QString url)
 
 void MainFrame::onListClicked(const QModelIndex &index)
 {
+    m_ToolBar->enablePauseBtn(false);
+    m_ToolBar->enableStartBtn(false);
+    m_ToolBar->enableDeleteBtn(false);
     m_CurrentTab = static_cast<CurrentTab>(index.row());
     QString DownloadTaskLableText;
     if((index.row() == 0) || (index.row() == 1)) {
@@ -692,6 +695,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_NotaskWidget->show();
             m_NotaskTipLabel->show();
             m_NoResultlabel->hide();
+
         }
     } else {
         m_RightStackwidget->setCurrentIndex(1);
@@ -701,9 +705,6 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_NotaskTipLabel->hide();
         m_NoResultlabel->hide();
     }
-
-
-
     clearTableItemCheckStatus();
     emit isHeaderChecked(false);
     setTaskNum();
@@ -788,7 +789,7 @@ void MainFrame::onDownloadNewUrl(QStringList &urlList, QString savePath, QString
         }
     }
     if(!sameUrlList.isEmpty()) {
-        showRedownloadMsgbox(sameUrlList);
+        showRedownloadMsgbox(sameUrlList, fileName, type);
     }
     if(urlList.isEmpty()) {
         //qDebug() << "url is NULl";
@@ -800,8 +801,9 @@ void MainFrame::onDownloadNewUrl(QStringList &urlList, QString savePath, QString
     QMap<QString, QVariant> opt;
     opt.insert("dir", savePath);
     for(int i = 0; i < urlList.size(); i++) {
-        task = getUrlToName(urlList[i], savePath, fileName);
+        getUrlToName(task, urlList[i], savePath, fileName, type);
         DBInstance::addTask(task);
+        qDebug() << task.gid << "   " << task.url;
         Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
         //clearTableItemCheckStatus();
         emit isHeaderChecked(false);
@@ -815,7 +817,7 @@ void MainFrame::onDownloadNewUrl(QStringList &urlList, QString savePath, QString
    // }
 }
 
-Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
+void MainFrame::getUrlToName(Task &task, QString url, QString savePath, QString name, QString type)
 {
     // 获取url文件名
     QString fileName;
@@ -859,8 +861,7 @@ Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
             fileName = name2 + "." + mime;
         }
     }
-
-    Task task;
+    fileName = fileName + "." + type;
     task.taskId = QUuid::createUuid().toString();
     task.gid = "";
     task.gidIndex = 0;
@@ -869,7 +870,7 @@ Task MainFrame::getUrlToName(QString url, QString savePath, QString name)
     task.downloadPath = savePath + "/" + urlDecode;
     task.downloadFilename = urlDecode;
     task.createTime = QDateTime::currentDateTime();
-    return task;
+    return;
 }
 
 
@@ -1376,13 +1377,13 @@ void MainFrame::showRenameMsgbox()
     msg.exec();
 }
 
-bool MainFrame::showRedownloadMsgbox(QList<QString>& sameUrlList)
+bool MainFrame::showRedownloadMsgbox(QList<QString>& sameUrlList, QString fileName, QString type)
 {
     MessageBox msg;
 
     connect(&msg, &MessageBox::reDownload, this, &MainFrame::onRedownloadConfirmSlot);
     QString title = tr("Redownload");
-    msg.setRedownload(sameUrlList);
+    msg.setRedownload(sameUrlList, fileName, type);
     int rs = msg.exec();
     if(rs == DDialog::Accepted){
         return true;
@@ -1937,7 +1938,7 @@ void MainFrame::onRenameConfirmSlot(QString &name)
     DBInstance::updateTaskByID(task);
 }
 
-void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList)
+void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList, QString fileName, QString type)
 {
     if(sameUrlList.at(0).contains(".torrent")){
         return;
@@ -1948,7 +1949,7 @@ void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList)
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     opt.insert("dir", savePath);
     for(int i = 0; i < sameUrlList.size(); i++) {
-        task = getUrlToName(sameUrlList[i], savePath, "");
+        getUrlToName(task, sameUrlList[i], savePath, fileName, type);
         DBInstance::addTask(task);
         Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
         clearTableItemCheckStatus();
@@ -2178,7 +2179,7 @@ void MainFrame::initDataItem(Global::DownloadDataItem *data, const Task &tbTask)
     data->gid = tbTask.gid;
     data->url = tbTask.url;
     data->time = "0";
-    data->speed = "0kb/s";
+    data->speed = "0KB/s";
     data->taskId = tbTask.taskId;
     data->fileName = tbTask.downloadFilename;
     data->savePath = tbTask.downloadPath;
@@ -2471,6 +2472,7 @@ void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlNam
         manager->head(*requset);
         // post信息到服务器
         QObject::connect(manager, &QNetworkAccessManager::finished, this, &MainFrame::onHttpRequest);
+        QThread::usleep(100);
     }
 }
 
@@ -2521,6 +2523,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
             });
             break;
         }
+        case 301:
         case 302: // redirect (Location: [URL])  重定向链接
         {
             QProcess *process = new QProcess;
@@ -2532,21 +2535,20 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                 bool isLock =  mutex.tryLock();
                 if(isLock){
                     QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
-                    proc->kill();
-                    proc->close();
                     QString str = proc->readAllStandardOutput();
                     proc->deleteLater();
                     QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
                     QStringList strList = strUrl.split("/");
                     QStringList strUrlName = strList[strList.size()-1].split(".");
                     //需要转两次
-                    QString encodingUrlName = QUrl::fromPercentEncoding(strUrlName[0].toStdString().c_str());
-                    encodingUrlName = QUrl::fromPercentEncoding(encodingUrlName.toStdString().c_str());
+                    QString encodingUrlName = strUrlName[0]; //QUrl::fromPercentEncoding(strUrlName[0].toUtf8());
+                    //encodingUrlName = QUrl::fromPercentEncoding(encodingUrlName.toUtf8());
                     qDebug()<<"encodingUrlName"<< encodingUrlName;
                     QStringList urlStrList = QStringList(strUrl);
                     QString type = getUrlType(str);
                     onDownloadNewUrl(urlStrList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName, type);
-
+                    proc->kill();
+                    proc->close();
                     mutex.unlock();
                 }
             });

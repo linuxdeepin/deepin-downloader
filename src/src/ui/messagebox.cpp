@@ -69,7 +69,7 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
     });
 }
 
-void MessageBox::setRedownload(const QList<QString> &sameUrlList)
+void MessageBox::setRedownload(const QList<QString> &sameUrlList, QString fileName, QString type)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -94,7 +94,7 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList)
             [=](int index)
             {
             if(index == 1){
-                emit reDownload(sameUrlList);
+                emit reDownload(sameUrlList, fileName, type);
             }
             close();
     });

@@ -26,6 +26,7 @@
  */
 
 #include "tabledatacontrol.h"
+#include <unistd.h>
 #include <QDebug>
 #include <QScrollBar>
 #include <QMouseEvent>
@@ -119,7 +120,6 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         finddata->gid = gId;
         finddata->taskId = id;
         QDateTime finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-        TaskStatus get_status;
         TaskStatus downloadStatus(finddata->taskId,
                                      Global::DownloadJobStatus::Active,
                                      QDateTime::currentDateTime(),
@@ -129,7 +129,6 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
                                      finddata->percent,
                                      finddata->total,
                                      finish_time);
-
 
         TaskStatus task;
         DBInstance::getTaskStatusById(finddata->taskId, task);
@@ -147,7 +146,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         data->taskId = id;
         data->gid = gId;
         data->Ischecked = 0;
-        data->completedLength = "0Kb";
+        data->completedLength = "0KB";
         QDateTime time = QDateTime::currentDateTime();
         data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
 
@@ -169,6 +168,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
             DBInstance::addTask(task);
         }
         data->savePath = getTaskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
+        data->url = getTaskInfo.url;
         m_DownloadTableView->getTableModel()->append(data);
         m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
         if((searchContent != "") && !data->fileName.contains(searchContent)) {
@@ -253,18 +253,21 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     if(statusStr == "active") {
         status = Global::DownloadJobStatus::Active;
-        if(!QFileInfo::exists(filePath) && (!fileName.contains("[METADATA]"))) {
-            if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
-                removeDownloadListJob(data);
+        int n = access(filePath.toStdString().c_str(), 0);
+        if(-1 == n && data->completedLength.toLong() > 0) {
+            if(!fileName.contains("[METADATA]")){
+                if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
+                    removeDownloadListJob(data);
+                    return;
+                }
+                data->status = Global::DownloadJobStatus::Error;
+                MessageBox *msg = new MessageBox();
+                msg->setUnusual(taskId);
+                connect(msg, &MessageBox::unusualConfirm, this, &tableDataControl::onUnusualConfirm);
+                msg->exec();
+                //qDebug() << "文件不存在，";
                 return;
             }
-            data->status = Global::DownloadJobStatus::Error;
-            MessageBox *msg = new MessageBox();
-            msg->setUnusual(taskId);
-            connect(msg, &MessageBox::unusualConfirm, this, &tableDataControl::onUnusualConfirm);
-            msg->exec();
-            //qDebug() << "文件不存在，";
-            return;
         }
     } else if(statusStr == "waiting") {
         status = Global::DownloadJobStatus::Waiting;
@@ -278,16 +281,20 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //下载文件为种子文件
         if(fileName.endsWith(".torrent")) {
-            emit AutoDownloadBt(filePath);
+            if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
+                emit AutoDownloadBt(filePath);
+            }
         }
 
         //下载文件为磁链种子文件
         QString infoHash = result.value("infoHash").toString();
         if(filePath.startsWith("[METADATA]")) {
-            QString dir = result.value("dir").toString();
-            data->status = Global::DownloadJobStatus::Complete;
-            emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
-            fileName = infoHash + ".torrent";
+            if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
+                QString dir = result.value("dir").toString();
+                data->status = Global::DownloadJobStatus::Complete;
+                emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
+                fileName = infoHash + ".torrent";
+            }
         }
 
         //
@@ -306,7 +313,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if(completedLength > 0) {
         data->completedLength = formatFileSize(completedLength);
     }
-    data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0Kb/s";
+    data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0KB/s";
 
     if(bittorrent.isEmpty()) {
         if(!fileName.isEmpty() && (data->fileName != fileName)) {
@@ -498,7 +505,7 @@ void tableDataControl::saveDataBeforeClose()
             } else {
                 finishTime = QDateTime::currentDateTime();
             }
-            TaskStatus get_status;
+            TaskStatus getStatus;
             int status;
             if((data->status == Global::DownloadJobStatus::Complete) || (data->status == Global::DownloadJobStatus::Removed)) {
                 status = data->status;
@@ -509,7 +516,7 @@ void tableDataControl::saveDataBeforeClose()
             TaskStatus downloadStatus(data->taskId, status, finishTime, data->completedLength, data->speed,
                                           data->totalLength,data->percent,data->total,finishTime);
 
-            if(DBInstance::getTaskStatusById(data->taskId, get_status) != false) {
+            if(DBInstance::getTaskStatusById(data->taskId, getStatus) != false) {
                 DBInstance::updateTaskStatusById(downloadStatus);
             } else {
                 DBInstance::addTaskStatus(downloadStatus);
@@ -1063,7 +1070,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                 sharedMemory.setKey("downloadmanager");
                 if (sharedMemory.attach())//设置成单例程序
                 {
-                    clearShardMemary(sharedMemory, "");
+                    clearShardMemary();
                 }
             }
             DBInstance::delTask(taskId);
@@ -1317,11 +1324,17 @@ void tableDataControl::recycleListRedownload(QString id)
     }
 }
 
-void tableDataControl::clearShardMemary(QSharedMemory &sharedMemory, QString strUrl)
+void tableDataControl::clearShardMemary()
 {
-    sharedMemory.lock();
-    char *to = static_cast<char*>(sharedMemory.data());
-    int num = sharedMemory.size();
-    memset(to, 0, num);
-    sharedMemory.unlock();
+    QSharedMemory sharedMemory;
+    sharedMemory.setKey("downloadmanager");
+    if (sharedMemory.attach())//设置成单例程序
+    {
+        sharedMemory.lock();
+        char *to = static_cast<char*>(sharedMemory.data());
+        int num = sharedMemory.size();
+        memset(to, 0, num);
+        sharedMemory.unlock();
+    }
+
 }
