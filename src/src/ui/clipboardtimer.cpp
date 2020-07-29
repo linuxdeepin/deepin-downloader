@@ -57,7 +57,8 @@ void ClipboardTimer::getDataChanged()
     //将不符合规则链接剔除
     for (int i = 0; i < urlList.size(); i++){
         if((isMagnet(urlList[i]) && bIsMagnet) ||
-                (isHttp(urlList[i]) && bIsHttp)){
+                (isHttp(urlList[i]) && bIsHttp) ||
+                (isBt(urlList[i]) && bIsBt)){
             url.append(urlList[i]).append("\n");
         }
     }
@@ -87,7 +88,7 @@ bool ClipboardTimer::isHttp(QString url)
     QStringList list= url.split(".");
     QString suffix = list[list.size()-1];
     QStringList type;
-     type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
+     type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
     if(type.contains(suffix)){
         return true;
     }
@@ -99,3 +100,22 @@ bool ClipboardTimer::isHttp(QString url)
     return false;
 }
 
+bool ClipboardTimer::isBt(QString url)
+{
+    if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))){
+        return false;
+    }
+    QStringList list= url.split(".");
+    QString suffix = list[list.size()-1];
+    QStringList type;
+    type << "torrent";
+    if(type.contains(suffix)){
+        return true;
+    }
+    for (int i = 0; i < type.size(); i++) {
+        if(type[i].toUpper() == suffix){
+            return true;
+        }
+    }
+    return false;
+}

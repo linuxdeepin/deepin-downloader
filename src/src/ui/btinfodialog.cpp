@@ -488,22 +488,65 @@ void BtInfoDialog::updateSelectedInfo()
 {
     int cnt = 0;
     long total = 0;
+    int selectVideoCount = 0;
+    int selectAudioCount = 0;
+    int selectPictureCount = 0;
+    int selectOtherCount = 0;
+    int allVideo = 0;
+    int allAudio = 0;
+    int allPic = 0;
+    int allOther = 0;
+    int all = 0;
     for(int i = 0;i < m_model->rowCount();i++) {
         QString v = m_model->data(m_model->index(i, 0)).toString();
+        QString type = m_model->data(m_model->index(i, 2)).toString();
         if(v == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
+            if(isVideo(type)){
+                selectVideoCount++;
+            }
+            else if(isAudio(type)){
+                selectAudioCount++;
+            }
+            else if(isPicture(type)){
+                selectPictureCount++;
+            }
+            else {
+                selectOtherCount++;
+            }
             cnt++;
         }
     }
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString type = m_model->data(m_model->index(i, 2)).toString();
+            if(isVideo(type)){
+                allVideo++;
+            }
+            else if(isAudio(type)){
+                allAudio++;
+            }
+            else if(isPicture(type)){
+                allPic++;
+            }
+            else {
+                allOther++;
+            }
+    }
+    allVideo == selectVideoCount ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
+    allAudio == selectAudioCount ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
+    allPic == selectPictureCount ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
+    allOther == selectOtherCount ? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
-    if(cnt == size){
-        m_checkAll->setCheckState(Qt::Checked);
-    }
-    else {
-        m_checkAll->setCheckState(Qt::Unchecked);
-    }
+    cnt == m_model->rowCount() ? m_checkAll->setCheckState(Qt::Checked) : m_checkAll->setCheckState(Qt::Unchecked);
+//    if(cnt == size){
+//        m_checkAll->setCheckState(Qt::Checked);
+//    }
+//    else {
+//        m_checkAll->setCheckState(Qt::Unchecked);
+//    }
     setOkBtnStatus(cnt);
+
 }
 
 void BtInfoDialog::onFilechoosed(const QString &filename)

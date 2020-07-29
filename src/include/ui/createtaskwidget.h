@@ -119,6 +119,10 @@ protected:
     */
     void dropEvent(QDropEvent *event);
 
+    /**
+     * @brief 关闭事件
+     * @param event 关闭事件
+    */
     void closeEvent(QCloseEvent *event);
 
 signals:

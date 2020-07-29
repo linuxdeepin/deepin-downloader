@@ -143,8 +143,9 @@ private slots:
      * @brief 收到新建任务url
      * @param url 收到url地址
      * @param savePath 保存路径
+     * @param url类型
     */
-    void onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName);
+    void onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName, QString type = "");
 
     /**
      * @brief 收到新建任务
@@ -520,13 +521,19 @@ private:
      * @brief 设置开机自启
      * @return true为是 false为否
      */
-    bool setAutoStart(bool ret);
+    void setAutoStart(bool ret);
 
     /**
      * @brief 初始化dbus
      * @return
      */
-    bool initDbus();
+    void initDbus();
+
+    /**
+     * @brief 解析url获取url 类型
+     * @return
+     */
+    QString getUrlType(QString url);
 
 protected:
     /**
@@ -603,7 +610,8 @@ private:
     QList<Global::DeleteDataItem*> m_RecycleDeleteList;
 
     QString m_CurOpenBtDialogPath;  //当前打开bt文件地址
-    QStringList m_ErrorUrlList;
+    QStringList m_ErrorUrlList;     //当前错误链接
+    QStringList m_CurUrlList;       //当前正在下载的url链接
 
     bool m_CtrlkeyPress = false;
     bool m_CopyUrlFromLocal = false;

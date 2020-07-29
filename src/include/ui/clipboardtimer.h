@@ -46,6 +46,7 @@ public:
 private:
     bool isMagnet(QString str);        //是否是磁力链接
     bool isHttp(QString str);          //是否是http+后缀
+    bool isBt(QString str);             //是否是 http + bt后缀
 
 
 private slots:

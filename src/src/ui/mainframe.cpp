@@ -287,7 +287,7 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onDownloadNewUrl);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onParseUrlList);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_DownLoadingTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
@@ -613,10 +613,10 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::OpenBt(QString url)
 {
-    if(url == m_CurOpenBtDialogPath){
+    bool bIsBt = Settings::getInstance()->getStartAssociatedBTFileState();
+    if(!bIsBt){
         return;
     }
-    m_CurOpenBtDialogPath = url;
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     BtInfoDialog btDiag(url, savePath); // torrent文件路径
     QMap<QString, QVariant> opt;
@@ -754,7 +754,7 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName)
+void MainFrame::onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName, QString type)
 {
     qDebug() << "getNewDownloadUrl: " << urlList << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     bool isExitsUrl = false;
@@ -2394,24 +2394,28 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
 
 void MainFrame::Raise()
 {
-    if(isHidden()) {
-        // 恢复窗口显示
-        show();
-        setWindowState(Qt::WindowActive);
-        activateWindow();
-        setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-    }
+    // 恢复窗口显示
+    show();
+    setWindowState(Qt::WindowActive);
+    activateWindow();
+    setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
     m_LeftList->setCurrentIndex(m_LeftList->currentIndex().sibling(0,0));
 }
 
 void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlName)
 {
+    if(!isNetConnect())
+    {
+        MessageBox *msg = new MessageBox();
+        msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), "");     //网络连接失败
+        msg->exec();
+        return;
+    }
+
     m_ErrorUrlList.clear();
-//    if(isMagnet(url))
-//    {
-//        emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir, "");
-//        return;
-//    }
+    m_CurUrlList.clear();
+    m_CurUrlList = urlList;
+
     for (int i = 0; i < urlList.size(); i++) {
         if(isMagnet(urlList[i]))
         {
@@ -2429,11 +2433,6 @@ void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlNam
         manager->head(*requset);
         // post信息到服务器
         QObject::connect(manager, &QNetworkAccessManager::finished, this, &MainFrame::onHttpRequest);
-    }
-    if(urlList == m_ErrorUrlList){
-        MessageBox msg;
-        msg.setWarings(tr("The address you entered cannot be resolved correctly"), tr("sure"), "");
-        msg.exec();
     }
 }
 
@@ -2459,7 +2458,6 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                 proc->deleteLater();
                 if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                 {
-
                     onDownloadNewUrl(urlList ,Settings::getInstance()->getDownloadSavePath() , "");
                     return ;
                 }
@@ -2471,6 +2469,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                         int start= urlInfoList[i].lastIndexOf("'");
                         QString urlName = urlInfoList[i].mid(start);
                         QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
+
                         onDownloadNewUrl(urlList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName);
                         return ;
                     }
@@ -2480,16 +2479,30 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
         }
         case 302: // redirect (Location: [URL])  重定向链接
         {
-            QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-            QStringList strList = strUrl.split("/");
-            QStringList strUrlName = strList[strList.size()-1].split(".");
-            //需要转两次
-            QString encodingUrlName = QUrl::fromPercentEncoding(strUrlName[0].toStdString().c_str());
-            encodingUrlName = QUrl::fromPercentEncoding(encodingUrlName.toStdString().c_str());
-            qDebug()<<"encodingUrlName"<< encodingUrlName;
-            QStringList urlStrList = QStringList(strUrl);
-            onDownloadNewUrl(urlStrList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName);
-           break;
+            QProcess *process = new QProcess;
+            QStringList list;
+            list<<"-i"<< reply->url().toString();
+            process->start("curl", list);
+            connect(process, &QProcess::readyReadStandardOutput, this, [=](){
+                QProcess* proc = dynamic_cast<QProcess*>(sender()) ;
+                proc->kill();
+                proc->close();
+                QString str = proc->readAllStandardOutput();
+                proc->deleteLater();
+                QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
+                QStringList strList = strUrl.split("/");
+                QStringList strUrlName = strList[strList.size()-1].split(".");
+                //需要转两次
+                QString encodingUrlName = QUrl::fromPercentEncoding(strUrlName[0].toStdString().c_str());
+                encodingUrlName = QUrl::fromPercentEncoding(encodingUrlName.toStdString().c_str());
+                qDebug()<<"encodingUrlName"<< encodingUrlName;
+                QStringList urlStrList = QStringList(strUrl);
+                QString type = getUrlType(str);
+                onDownloadNewUrl(urlStrList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName, type);
+            });
+
+
+            break;
         }
         case 405:   //405链接
         {
@@ -2524,6 +2537,11 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
         default:
         {
             m_ErrorUrlList.append(reply->url().toString());
+            if(m_ErrorUrlList.size() == m_CurUrlList.size()) {
+                MessageBox msg;
+                msg.setWarings(tr("The address you entered cannot be resolved correctly"), tr("sure"), "");
+                msg.exec();
+            }
             return;
         }
     }
@@ -2593,7 +2611,7 @@ bool MainFrame::isAutoStart()
     return false;
 }
 
-bool MainFrame::setAutoStart(bool ret)
+void MainFrame::setAutoStart(bool ret)
 {
     QString path = QString("%1/autostart/downloadmanager.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
     QFile readFile(path);
@@ -2606,11 +2624,6 @@ bool MainFrame::setAutoStart(bool ret)
         list.append(data.readLine());
     }
     readFile.close();
-
-//    QProcess *process = new QProcess;
-//    QStringList "";
-//    list<<"-i"<< reply->url().toString();
-//    process->start("sudo chmod", list);
 
     for (int i = 0; i < list.size(); i++) {
         if(list[i].contains("Hidden=")){
@@ -2641,9 +2654,36 @@ bool MainFrame::setAutoStart(bool ret)
     writerFile.close();
 }
 
-bool MainFrame::initDbus()
+void MainFrame::initDbus()
 {
     QDBusConnection::sessionBus().unregisterService("com.downloadmanager.service");
     QDBusConnection::sessionBus().registerService("com.downloadmanager.service");
     QDBusConnection::sessionBus().registerObject("/downloadmanager/path", this,QDBusConnection :: ExportAllSlots | QDBusConnection :: ExportAllSignals);
+}
+
+
+QString MainFrame::getUrlType(QString url)
+{
+    QStringList urlInfoList = url.split("\r\n");
+    for (int i = 0; i < urlInfoList.size(); i++) {
+        if(urlInfoList[i].startsWith("content-type:", Qt::CaseInsensitive)){
+            QString type;
+            QByteArray ba = urlInfoList[i].split("/")[1].toLatin1();
+            const char *s = ba.data();
+               while(*s)
+               {
+                   if((*s>='A' && *s<='Z') || (*s>='a' && *s<='z'))
+                   {
+                        type.append(*s);
+                   }
+                   else
+                   {
+                       break;
+                   }
+                   s++;
+               }
+               return type;
+        }
+    }
+    return "";
 }
