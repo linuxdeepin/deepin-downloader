@@ -2500,6 +2500,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                     if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                     {
                         onDownloadNewUrl(urlList ,Settings::getInstance()->getDownloadSavePath() , "");
+                        mutex.unlock();
                         return ;
                     }
                     QStringList urlInfoList = str.split("\r\n");
@@ -2579,6 +2580,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                                // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
                                 QStringList strList = QStringList(urlInfoList[i]);
                                 onDownloadNewUrl(strList, Settings::getInstance()->getDownloadSavePath(), urlNameForZH);
+                                mutex.unlock();
                                 return ;
                             }
                         }
