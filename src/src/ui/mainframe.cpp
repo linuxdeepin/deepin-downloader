@@ -861,7 +861,9 @@ void MainFrame::getUrlToName(Task &task, QString url, QString savePath, QString 
             fileName = name2 + "." + mime;
         }
     }
-    fileName = fileName + "." + type;
+    if(!type.isEmpty()){
+        fileName = fileName + "." + type;
+    }
     task.taskId = QUuid::createUuid().toString();
     task.gid = "";
     task.gidIndex = 0;
