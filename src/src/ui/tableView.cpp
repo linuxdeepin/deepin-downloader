@@ -154,12 +154,6 @@ void TableView::mousePressEvent(QMouseEvent *event)
     if(event->button() == Qt::LeftButton) {
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
-        QModelIndex index = indexAt(event->pos());
-        if((index.row() < 0) && (index.column() < 0)) {
-            emit HeaderStatechanged(false);
-            emit isCheckHeader(false);
-            return;
-        }
     }
 }
 
@@ -171,6 +165,12 @@ void TableView::mouseMoveEvent(QMouseEvent *event)
 
 void TableView::mouseReleaseEvent(QMouseEvent *event)
 {
+    QModelIndex index = indexAt(event->pos());
+    if((index.row() < 0) && (index.column() < 0)) {
+        emit HeaderStatechanged(false);
+        emit isCheckHeader(false);
+        //return;
+    }
     reset();
     QTableView::mouseReleaseEvent(event);
 }
