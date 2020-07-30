@@ -646,19 +646,12 @@ void MainFrame::OpenBt(QString url)
     {
         btDiag.onBtnOK();
         btDiag.getBtInfo(opt, infoName, infoHash);
-        onDownloadNewTorrent(url, opt, infoName, infoHash);
-        // 数据库是否已存在相同的地址
-        QList<UrlInfo> urlList;
-        QString selectedNum = opt.value("select-file").toString();
-        DBInstance::getAllUrl(urlList);
-        QStringList sameFileList;
-        for(int i = 0; i < urlList.size(); i++){
-            if((urlList[i].infoHash == infoHash) && (urlList[0].selectedNum == selectedNum)) {
-                return;
-            }
-        }
+        bool ret = onDownloadNewTorrent(url, opt, infoName, infoHash);
+
         DBInstance::isExistBtInHash(infoHash, isExist);
-        btNotificaitonSettings(tr("Download"),QString(tr("%1 downloading...")).arg(infoName),true);
+        if(ret) {
+            btNotificaitonSettings(tr("Download"),QString(tr("%1 downloading...")).arg(infoName),true);
+        }
         //clearSharedMemory();
         return;
     }
@@ -1196,13 +1189,13 @@ void MainFrame::onSearchEditTextChanged(QString text)
     setTaskNum();
 }
 
-void MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash)
+bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash)
 {
     QString selectedNum = opt.value("select-file").toString();
 
     if(selectedNum.isNull()) {
         qDebug() << "select is null";
-        return;
+        return false;
     }
 
     // 数据库是否已存在相同的地址
@@ -1212,7 +1205,7 @@ void MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     for(int i = 0; i < urlList.size(); i++){
         if((urlList[i].infoHash == infoHash) && (urlList[0].selectedNum == selectedNum)) {
             showWarningMsgbox(tr("Task exist."));
-            return;
+            return false;
         }
     }
 
@@ -1247,6 +1240,7 @@ void MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     if(m_UpdateTimer->isActive() == false) {
         m_UpdateTimer->start(2 * 1000);
     }
+    return true;
 }
 
 void MainFrame::onRedownload(QString taskId, int rd)
