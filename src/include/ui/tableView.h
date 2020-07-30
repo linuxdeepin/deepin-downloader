@@ -120,11 +120,6 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
 
     /**
-     * @brief 离开事件
-    */
-    void leaveEvent(QEvent *event) override;
-
-    /**
      * @brief 鼠标移动事件
     */
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -133,6 +128,12 @@ protected:
      * @brief 鼠标释放事件
     */
     void mouseReleaseEvent(QMouseEvent *event) override;
+
+    /**
+     * @brief 离开事件
+    */
+    void leaveEvent(QEvent *event) override;
+
 
     /**
      * @brief 键盘按下事件
