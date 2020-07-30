@@ -647,6 +647,16 @@ void MainFrame::OpenBt(QString url)
         btDiag.onBtnOK();
         btDiag.getBtInfo(opt, infoName, infoHash);
         onDownloadNewTorrent(url, opt, infoName, infoHash);
+        // 数据库是否已存在相同的地址
+        QList<UrlInfo> urlList;
+        QString selectedNum = opt.value("select-file").toString();
+        DBInstance::getAllUrl(urlList);
+        QStringList sameFileList;
+        for(int i = 0; i < urlList.size(); i++){
+            if((urlList[i].infoHash == infoHash) && (urlList[0].selectedNum == selectedNum)) {
+                return;
+            }
+        }
         DBInstance::isExistBtInHash(infoHash, isExist);
         btNotificaitonSettings(tr("Download"),QString(tr("%1 downloading...")).arg(infoName),true);
         //clearSharedMemory();
@@ -1203,16 +1213,6 @@ void MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
         if((urlList[i].infoHash == infoHash) && (urlList[0].selectedNum == selectedNum)) {
             showWarningMsgbox(tr("Task exist."));
             return;
-//            sameFileList.append(btPath);
-//            if(!showRedownloadMsgbox(sameFileList)){
-//                return;
-//            }
-//            int count = DBInstance::getSameNameCount(infoName);
-//            if(count > 0){
-//                QString name1 = infoName.mid(0, infoName.lastIndexOf('.'));
-//                name1 += QString("_%1").arg(count);
-//                infoName = name1 + infoName.mid(infoName.lastIndexOf('.'), infoName.length());
-//            }
         }
     }
 

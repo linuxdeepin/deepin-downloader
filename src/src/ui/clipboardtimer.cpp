@@ -27,6 +27,7 @@
 
 #include "clipboardtimer.h"
 #include <QClipboard>
+#include <QtDebug>
 
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
@@ -50,6 +51,7 @@ void ClipboardTimer::getDataChanged()
         urlList[i] = urlList[i].simplified();
     }
     QString url;
+    qDebug()<< "class::ClipboardTimer getDataChanged() url <<  "<< urlList;
     Settings *setting =  Settings::getInstance();
     bool bIsHttp =  setting->getHttpDownloadState();
     bool bIsMagnet = setting->getMagneticDownloadState();
