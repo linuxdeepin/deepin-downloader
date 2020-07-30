@@ -1475,6 +1475,12 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onStartDownloadBtnClicked()
 {
+    if(!isNetConnect()){
+        MessageBox *msg = new MessageBox();
+        msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), "");     //网络连接失败
+        msg->exec();
+        return;
+    }
     QList<DownloadDataItem *> selectList;
     int selectedCount = 0;
 
@@ -1496,6 +1502,12 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::onPauseDownloadBtnClicked()
 {
+    if(!isNetConnect()){
+        MessageBox *msg = new MessageBox();
+        msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), "");     //网络连接失败
+        msg->exec();
+        return;
+    }
     QList<DownloadDataItem *> selectList;
     int selectedCount = 0;
 
