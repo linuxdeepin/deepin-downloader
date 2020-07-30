@@ -290,11 +290,14 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         //下载文件为磁链种子文件
         QString infoHash = result.value("infoHash").toString();
         if(filePath.startsWith("[METADATA]")) {
-            if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
+
                 QString dir = result.value("dir").toString();
                 data->status = Global::DownloadJobStatus::Complete;
-                emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
                 fileName = infoHash + ".torrent";
+                filePath = dir + "/" + fileName;
+                data->fileName = fileName;
+            if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
+                emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
             }
         }
 
