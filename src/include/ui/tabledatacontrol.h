@@ -223,7 +223,7 @@ private:
     /**
      * @brief 清空共享内存
      */
-    void clearShardMemary(QSharedMemory &sharedMemory, QString strUrl);
+    void clearShardMemary();
 public slots:
 
     /**

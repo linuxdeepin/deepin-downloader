@@ -296,7 +296,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         case TableModel::Speed:
         {
             if(m_TableviewtabFlag == 0) {
-                return (data->status != Global::DownloadJobStatus::Paused) ? data->speed : "0kb/s";
+                return (data->status != Global::DownloadJobStatus::Paused) ? data->speed : "0KB/s";
             }
             break;
         }

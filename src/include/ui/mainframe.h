@@ -145,7 +145,7 @@ private slots:
     void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
     /**
-     * @brief 收到新建任务url
+     * @brief 收到新建http任务
      * @param url 收到url地址
      * @param savePath 保存路径
      * @param url类型
@@ -153,11 +153,9 @@ private slots:
     void onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName, QString type = "");
 
     /**
-     * @brief 收到新建任务
+     * @brief 收到新建bt任务
      * @param btName 文件路径
      * @param opt  下载参数
-     * opt.insert("dir",下载到指定目录);
-     * opt.insert("select-file",选中下载的文件索引集合);
      * @param savePath 保存路径
      * @param infoName 文件名字
      * @param infoName 文件hash值
@@ -312,7 +310,7 @@ private slots:
     /**
     * @brief 重新下载确认槽函数
     */
-    void onRedownloadConfirmSlot(const QList<QString> &sameUrlList);
+    void onRedownloadConfirmSlot(const QList<QString> &sameUrlList, QString fileName, QString type);
 
     /**
     * @brief 列表项双击事件，打开文件
@@ -404,7 +402,7 @@ private:
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    Task getUrlToName(QString url, QString savePaht, QString name);
+    void getUrlToName(Task &task, QString url, QString savePaht, QString name, QString type = "");
 
     /**
      * @brief 开始或者继续下载任务
@@ -445,7 +443,7 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    bool showRedownloadMsgbox(QList<QString> &sameUrlList);
+    bool showRedownloadMsgbox(QList<QString> &sameUrlList, QString fileName, QString type);
 
     /**
      * @brief 从配置文件中获取下载路径
