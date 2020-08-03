@@ -84,6 +84,7 @@ MainFrame::MainFrame(QWidget *parent) :
     initDbus();
     initTray();
     initAria2();
+    updateDHTFile();
     initConnection();
     initTabledata();
     setPaletteType();
@@ -153,7 +154,7 @@ void MainFrame::init()
 
     m_NoResultlabel = new Dtk::Widget::DLabel();
     m_NoResultlabel->setFont(lableFont);
-    m_NoResultlabel->setText(tr("No result"));
+    m_NoResultlabel->setText(tr("No match result"));
     m_NoResultlabel->setAlignment(Qt::AlignHCenter);
     m_NoResultlabel->setForegroundRole(DPalette::PlaceholderText);
     m_NoResultlabel->hide();
@@ -280,6 +281,27 @@ void MainFrame::initTray()
     connect(m_SystemTray, &QSystemTrayIcon::activated, this, &MainFrame::onActivated);
     m_SystemTray->setContextMenu(pTrayMenu);
     m_SystemTray->show();
+}
+
+void MainFrame::updateDHTFile()
+{
+    QFileInfo f(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
+    QDateTime t = f.fileTime(QFileDevice::FileModificationTime);
+    if(t.date() == QDate::currentDate()){
+        return;
+    }
+
+    QMap<QString, QVariant> opt;
+    opt.insert("dir", QString(QDir::homePath() + "/.config/uos/downloadmanager"));
+    opt.insert("out", "dht.dat");
+    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht.dat",
+                                         opt, QUuid::createUuid().toString());
+
+    QMap<QString, QVariant> opt2;
+    opt2.insert("dir", QString(QDir::homePath() + "/.config/uos/downloadmanager"));
+    opt2.insert("out", "dht6.dat");
+    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht6.dat",
+                                             opt2, QUuid::createUuid().toString());
 }
 
 void MainFrame::initConnection()
@@ -1310,7 +1332,7 @@ void MainFrame::onClearRecycle(bool ischecked)
         }
     }
     for(int i = 0; i < recycleList.size(); ++i) {
-        DBInstance::delAllTask();
+        DBInstance::delTask(recycleList.at(i)->taskId);
     }
 
     m_RecycleTableView->getTableModel()->removeItems(true);
@@ -1581,7 +1603,7 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
     }
 }
 
-void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject obj)
+void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject &obj)
 {
 
     QJsonObject result = obj.value("error").toObject();
@@ -1813,6 +1835,7 @@ void MainFrame::onOpenFileActionTriggered()
 {
 
     if(m_CurrentTab == finishTab) {
+        QThread::usleep(100);
         QString path = QString("file:///") + m_CheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
     } else {

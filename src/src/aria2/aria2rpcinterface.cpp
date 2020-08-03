@@ -78,8 +78,8 @@ bool Aria2RPCInterface::startUp()
 
     qDebug() << "创建session缓存文件: " << sessionCacheFile;
     QProcess::execute("/usr/bin/touch", QStringList() << sessionCacheFile); //创建session缓存文件
-    QProcess::execute("/usr/bin/touch", QStringList() << dhtFile); //创建dht文件
-    QProcess::execute("/usr/bin/touch", QStringList() << dht6File); //创建dht6文件
+    //QProcess::execute("/usr/bin/touch", QStringList() << dhtFile); //创建dht文件
+    //QProcess::execute("/usr/bin/touch", QStringList() << dht6File); //创建dht6文件
 
 
     QStringList opt;

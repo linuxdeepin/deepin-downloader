@@ -121,7 +121,7 @@ private slots:
      * @param id： 唯一id
      * @param error： 错误号
     */
-    void onRpcError(QString method, QString id, int error, QJsonObject obj);
+    void onRpcError(QString method, QString id, int error, QJsonObject &obj);
 
     /**
      * @brief 表格中元素被选中
@@ -370,6 +370,8 @@ private:
     */
     void initTray();
 
+    void updateDHTFile();
+
     /**
      * @brief 新建连接
     */
@@ -488,7 +490,7 @@ private:
     /**
      * @brief 处理设置界面通知设置函数
      */
-    void btNotificaitonSettings(QString head,QString fileName,bool isBt=false);
+    void btNotificaitonSettings(QString head, QString fileName, bool isBt=false);
 
     /**
      * @brief 是否为磁力链接

@@ -1070,12 +1070,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
             UrlInfo info;
             DBInstance::getUrlById(taskId, info);
             if(info.downloadType == "torrent"){
-                QSharedMemory sharedMemory;
-                sharedMemory.setKey("downloadmanager");
-                if (sharedMemory.attach())//设置成单例程序
-                {
-                    clearShardMemary();
-                }
+                clearShardMemary();
             }
             DBInstance::delTask(taskId);
             Aria2RPCInterface::instance()->purgeDownloadResult(data->gid);
