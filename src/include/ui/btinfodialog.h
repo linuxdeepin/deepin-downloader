@@ -102,10 +102,15 @@ private:
     bool isVideo(QString ext);//判断扩展名是否是常见视频格式
     bool isAudio(QString ext);//判断扩展名是否是常见音频格式
     bool isPicture(QString ext);//判断扩展名是否是常见图片格式
-
     QString getFileEditText(QString text);
-
     void setOkBtnStatus(int count);    //根据选择文件设置确认按钮状态
+
+protected:
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void closeEvent(QCloseEvent *event) override;
 
 private:
     QString m_torrentFile;              //bt文件路径

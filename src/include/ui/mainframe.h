@@ -160,7 +160,7 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    void onDownloadNewTorrent(QString btPath,QMap<QString,QVariant> &opt,QString infoName, QString infoHash);
+    bool onDownloadNewTorrent(QString btPath,QMap<QString,QVariant> &opt,QString infoName, QString infoHash);
 
     /**
      * @brief 表头全部选择按键

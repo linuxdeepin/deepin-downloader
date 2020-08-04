@@ -38,6 +38,7 @@
 #include <QPixmap>
 #include <QStandardItemModel>
 #include <QStandardPaths>
+#include <QSharedMemory>
 
 
 
@@ -637,3 +638,16 @@ void BtInfoDialog::setOkBtnStatus(int count)
     }
 }
 
+void BtInfoDialog::closeEvent(QCloseEvent *event)
+{
+    QSharedMemory sharedMemory;
+    sharedMemory.setKey("downloadmanager");
+    if (sharedMemory.attach())//设置成单例程序
+    {
+        sharedMemory.lock();
+        char *to = static_cast<char*>(sharedMemory.data());
+        int num = sharedMemory.size();
+        memset(to, 0, num);
+        sharedMemory.unlock();
+    }
+}
