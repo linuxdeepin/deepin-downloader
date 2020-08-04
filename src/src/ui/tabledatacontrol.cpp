@@ -112,6 +112,9 @@ void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAdd
 void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
 {
     QString id = json.value("id").toString();
+    if(id == "dht.dat" || id == "dht6.dat"){
+        return;
+    }
     QString gId = json.value("result").toString();
 
     DownloadDataItem *finddata = m_DownloadTableView->getTableModel()->find(id);
@@ -221,7 +224,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         QJsonArray uri = file.value("uris").toArray();
         for(int j = 0; j < uri.size(); ++j) {
             QJsonObject uriObject = uri[j].toObject();
-            fileUri = uriObject.value("uri").toString();
+            fileUri = uriObject.value("uzhaoyueri").toString();
         }
     }
 
