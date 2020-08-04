@@ -81,8 +81,8 @@ MainFrame::MainFrame(QWidget *parent) :
   , m_CheckIndex(QModelIndex())
 {
     init();
-    initDbus();
     initTray();
+    initDbus();
     initAria2();
     updateDHTFile();
     initConnection();
