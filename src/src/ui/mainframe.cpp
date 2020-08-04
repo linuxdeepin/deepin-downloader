@@ -28,6 +28,7 @@
 #include "mainframe.h"
 #include <DMenu>
 #include <DLabel>
+#include <DFontSizeManager>
 #include <DTitlebar>
 
 #include <QLayout>
@@ -45,7 +46,6 @@
 #include <QDesktopServices>
 #include <QDebug>
 #include <QDBusInterface>
-#include <DFontSizeManager>
 #include <QNetworkAccessManager>
 #include <QSharedMemory>
 #include <QMutexLocker>
@@ -242,6 +242,16 @@ void MainFrame::init()
     m_UpdateTimer = new QTimer(this);
     m_TrayClickTimer = new QTimer(this);
     m_CurOpenBtDialogPath = "";
+
+//   QApplication *pApp = dynamic_cast<QApplication *>(QApplication::instance()) ;
+//    connect(pApp, &QApplication::lastWindowClosed,
+//      this, [ & ]() {
+//          auto quit = Settings::getInstance()->getCloseMainWindowSelected();
+//          if (quit == 1) {
+//              qApp->quit();
+//          }
+//    });
+
 }
 
 void MainFrame::initTray()
@@ -410,6 +420,9 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
             if (isMinimized()) {
                 setWindowState(Qt::WindowActive);
                 activateWindow();
+                showNormal();
+                //hide();
+                //show();
             } else {
                 showMinimized();
             }
@@ -439,6 +452,7 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainFrame::closeEvent(QCloseEvent *event)
 {
+    int type = event->type();
     if(Settings::getInstance()->getIsShowTip()) {
         MessageBox msg;
         connect(&msg, &MessageBox::closeConfirm, this, &MainFrame::onMessageBoxConfirmClick);
@@ -447,7 +461,9 @@ void MainFrame::closeEvent(QCloseEvent *event)
     } else {
         onMessageBoxConfirmClick();
     }
+   // setWindowFlags(Qt::Tool);
     event->ignore();
+    DMainWindow::closeEvent(event);
 }
 
 void MainFrame::paintEvent(QPaintEvent *event)
@@ -1278,7 +1294,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
             int ret = msg.exec();
             if(ret == 0){
                 return false;
-            } else{
+            } else {
                 DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(urlList[i].taskId);
                 Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
                 Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
@@ -1661,7 +1677,7 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
     }
 }
 
-void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject &obj)
+void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject obj)
 {
 
     QJsonObject result = obj.value("error").toObject();

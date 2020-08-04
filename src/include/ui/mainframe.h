@@ -121,7 +121,7 @@ private slots:
      * @param id： 唯一id
      * @param error： 错误号
     */
-    void onRpcError(QString method, QString id, int error, QJsonObject &obj);
+    void onRpcError(QString method, QString id, int error, QJsonObject obj);
 
     /**
      * @brief 表格中元素被选中
