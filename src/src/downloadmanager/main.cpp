@@ -8,6 +8,7 @@
 #include <QBuffer>
 #include <QCommandLineParser>
 #include <QDBusMessage>
+#include <QStringList>
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
@@ -19,6 +20,7 @@ DWIDGET_USE_NAMESPACE
 
 QString readShardMemary(QSharedMemory &sharedMemory);
 void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl);
+bool checkProcessExist();
 
 int main(int argc, char *argv[])
 {
@@ -45,28 +47,33 @@ int main(int argc, char *argv[])
     sharedMemory.setKey("downloadmanager");
     if (sharedMemory.attach())//设置成单例程序
     {
-        if(comList.isEmpty()){
-            QDBusInterface iface("com.downloadmanager.service",
-                                 "/downloadmanager/path",
-                                 "local.downloadmanager.MainFrame",
-                                 QDBusConnection::sessionBus());
-            iface.asyncCall("Raise");
-        } else {
-            if(sharedMemory.isAttached()){
-                if(readShardMemary(sharedMemory) == comList[0]){
-                    return 0;
+
+        if(!checkProcessExist()){ //下载器任务不存在，清空共享内存并启动
+            sharedMemory.detach();
+        } else { //下载器任务存在
+            if(comList.isEmpty()){
+                QDBusInterface iface("com.downloadmanager.service",
+                                     "/downloadmanager/path",
+                                     "local.downloadmanager.MainFrame",
+                                     QDBusConnection::sessionBus());
+                iface.asyncCall("Raise");
+            } else {
+                if(sharedMemory.isAttached()){
+                    if(readShardMemary(sharedMemory) == comList[0]){
+                        return 0;
+                    } else {
+                        writeShardMemary(sharedMemory, comList[0]);
+                    }
                 }
-                else{
-                    writeShardMemary(sharedMemory, comList[0]);
-                }
+                QDBusInterface iface("com.downloadmanager.service",
+                                     "/downloadmanager/path",
+                                     "local.downloadmanager.MainFrame",
+                                     QDBusConnection::sessionBus());
+                iface.asyncCall("OpenBt", comList[0]);
             }
-            QDBusInterface iface("com.downloadmanager.service",
-                                 "/downloadmanager/path",
-                                 "local.downloadmanager.MainFrame",
-                                 QDBusConnection::sessionBus());
-            iface.asyncCall("OpenBt", comList[0]);
+            return 0;
         }
-        return 0;
+
     }
     sharedMemory.create(199);
     char *to = static_cast<char*>(sharedMemory.data());
@@ -113,7 +120,6 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-
 QString readShardMemary(QSharedMemory &sharedMemory)
 {
     sharedMemory.lock();
@@ -134,4 +140,20 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
     size_t num = qMin(size,sharedMemory.size());
     memcpy(to,from, num);
     sharedMemory.unlock();
+}
+
+bool checkProcessExist()
+{
+    QProcess *process = new QProcess;
+    QStringList list;
+    process->start("pgrep downloadmanager");
+    process->start();
+    process->waitForStarted(1000);
+    process->waitForFinished(1000);
+    QString str = process->readAll();
+    QStringList strList = str.split('\n');
+    if(strList.at(strList.size() - 1).isEmpty()){
+        return false;
+    }
+    return true;
 }

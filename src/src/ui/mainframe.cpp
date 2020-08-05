@@ -28,6 +28,7 @@
 #include "mainframe.h"
 #include <DMenu>
 #include <DLabel>
+#include <DFontSizeManager>
 #include <DTitlebar>
 
 #include <QLayout>
@@ -45,7 +46,6 @@
 #include <QDesktopServices>
 #include <QDebug>
 #include <QDBusInterface>
-#include <DFontSizeManager>
 #include <QNetworkAccessManager>
 #include <QSharedMemory>
 #include <QMutexLocker>
@@ -81,9 +81,10 @@ MainFrame::MainFrame(QWidget *parent) :
   , m_CheckIndex(QModelIndex())
 {
     init();
-    initDbus();
     initTray();
+    initDbus();
     initAria2();
+    updateDHTFile();
     initConnection();
     initTabledata();
     setPaletteType();
@@ -103,6 +104,22 @@ void MainFrame::init()
     DMenu *pSettingsMenu = new DMenu;
     m_SettingAction = new QAction(tr("Settings"), this);
     pSettingsMenu->addAction(m_SettingAction);
+
+    QAction *pFinishAction = new QAction(tr("When download completed"), this);
+    DMenu *pFinishMenu = new DMenu(tr("When download completed"), this);
+    QAction *pShutdownAct = new QAction(tr("Shut down"), this);
+    pShutdownAct->setCheckable(true);
+    QAction *pSleepAct = new QAction(tr("Hibernate"), this);
+    pSleepAct->setCheckable(true);
+    QAction *pQuitProcessAct = new QAction(tr("Exit download manager"), this);
+    pQuitProcessAct->setCheckable(true);
+
+    pFinishMenu->addAction(pShutdownAct);
+    pFinishMenu->addAction(pSleepAct);
+    pFinishMenu->addAction(pQuitProcessAct);
+    pFinishAction->setMenu(pFinishMenu);
+    pSettingsMenu->addAction(pFinishAction);
+
     titlebar()->setMenu(pSettingsMenu);
     m_ToolBar = new TopButton(this);
     titlebar()->setCustomWidget(m_ToolBar, false);
@@ -153,7 +170,7 @@ void MainFrame::init()
 
     m_NoResultlabel = new Dtk::Widget::DLabel();
     m_NoResultlabel->setFont(lableFont);
-    m_NoResultlabel->setText(tr("No result"));
+    m_NoResultlabel->setText(tr("No match result"));
     m_NoResultlabel->setAlignment(Qt::AlignHCenter);
     m_NoResultlabel->setForegroundRole(DPalette::PlaceholderText);
     m_NoResultlabel->hide();
@@ -225,6 +242,16 @@ void MainFrame::init()
     m_UpdateTimer = new QTimer(this);
     m_TrayClickTimer = new QTimer(this);
     m_CurOpenBtDialogPath = "";
+
+//   QApplication *pApp = dynamic_cast<QApplication *>(QApplication::instance()) ;
+//    connect(pApp, &QApplication::lastWindowClosed,
+//      this, [ & ]() {
+//          auto quit = Settings::getInstance()->getCloseMainWindowSelected();
+//          if (quit == 1) {
+//              qApp->quit();
+//          }
+//    });
+
 }
 
 void MainFrame::initTray()
@@ -239,13 +266,24 @@ void MainFrame::initTray()
     QAction *pNewDownloadAct = new QAction(tr("New task"), this);
     QAction *pStartAllAct = new QAction(tr("Continue all tasks"), this);
     QAction *pPauseAllAct = new QAction(tr("Pause all tasks"), this);
+    QMenu *pFinishMenu= new QMenu(tr("When download completed"), this);
+    QAction *pShutdownAct = new QAction(tr("Shut down"), this);
+    pShutdownAct->setCheckable(true);
+    QAction *pSleepAct = new QAction(tr("Hibernate"), this);
+    pSleepAct->setCheckable(true);
+    QAction *pQuitProcessAct = new QAction(tr("Exit download manager"), this);
+    pQuitProcessAct->setCheckable(true);
     QAction *pQuitAct = new QAction(tr("Exit"), this);
+    pFinishMenu->addAction(pShutdownAct);
+    pFinishMenu->addAction(pSleepAct);
+    pFinishMenu->addAction(pQuitProcessAct);
 
     QMenu *pTrayMenu = new QMenu(this);
     pTrayMenu->addAction(pShowMainAct);
     pTrayMenu->addAction(pNewDownloadAct);
     pTrayMenu->addAction(pStartAllAct);
     pTrayMenu->addAction(pPauseAllAct);
+    pTrayMenu->addMenu(pFinishMenu);
     pTrayMenu->addAction(pQuitAct);
 
     // 连接信号与槽
@@ -258,6 +296,27 @@ void MainFrame::initTray()
     connect(pNewDownloadAct, &QAction::triggered, [ = ]() {
         createNewTask("");
     });
+
+    connect(pShutdownAct, &QAction::triggered, [ = ](bool checked) {
+        if(checked){
+            pSleepAct->setChecked(false);
+            pQuitProcessAct->setChecked(false);
+        }
+    });
+    connect(pSleepAct, &QAction::triggered, [ = ](bool checked) {
+        if(checked){
+            pShutdownAct->setChecked(false);
+            pQuitProcessAct->setChecked(false);
+        }
+    });
+    connect(pQuitProcessAct, &QAction::triggered, [ = ](bool checked) {
+        if(checked){
+            pShutdownAct->setChecked(false);
+            pSleepAct->setChecked(false);
+        }
+    });
+
+
     connect(pStartAllAct, &QAction::triggered, [=](){
         const QList<DownloadDataItem *> selectList = m_DownLoadingTableView->getTableModel()->renderList();
         foreach(DownloadDataItem* pData, selectList){
@@ -280,6 +339,27 @@ void MainFrame::initTray()
     connect(m_SystemTray, &QSystemTrayIcon::activated, this, &MainFrame::onActivated);
     m_SystemTray->setContextMenu(pTrayMenu);
     m_SystemTray->show();
+}
+
+void MainFrame::updateDHTFile()
+{
+    QFileInfo f(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
+    QDateTime t = f.fileTime(QFileDevice::FileModificationTime);
+    if(t.date() == QDate::currentDate()){
+        return;
+    }
+
+    QMap<QString, QVariant> opt;
+    opt.insert("dir", QString(QDir::homePath() + "/.config/uos/downloadmanager"));
+    opt.insert("out", "dht.dat");
+    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht.dat",
+                                         opt, "dht.dat");
+
+    QMap<QString, QVariant> opt2;
+    opt2.insert("dir", QString(QDir::homePath() + "/.config/uos/downloadmanager"));
+    opt2.insert("out", "dht6.dat");
+    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht6.dat",
+                                             opt2, "dht6.dat");
 }
 
 void MainFrame::initConnection()
@@ -340,6 +420,9 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
             if (isMinimized()) {
                 setWindowState(Qt::WindowActive);
                 activateWindow();
+                showNormal();
+                //hide();
+                //show();
             } else {
                 showMinimized();
             }
@@ -369,6 +452,7 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainFrame::closeEvent(QCloseEvent *event)
 {
+    int type = event->type();
     if(Settings::getInstance()->getIsShowTip()) {
         MessageBox msg;
         connect(&msg, &MessageBox::closeConfirm, this, &MainFrame::onMessageBoxConfirmClick);
@@ -377,7 +461,9 @@ void MainFrame::closeEvent(QCloseEvent *event)
     } else {
         onMessageBoxConfirmClick();
     }
+   // setWindowFlags(Qt::Tool);
     event->ignore();
+    DMainWindow::closeEvent(event);
 }
 
 void MainFrame::paintEvent(QPaintEvent *event)
@@ -1201,11 +1287,27 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     // 数据库是否已存在相同的地址
     QList<UrlInfo> urlList;
     DBInstance::getAllUrl(urlList);
-    QStringList sameFileList;
     for(int i = 0; i < urlList.size(); i++){
-        if((urlList[i].infoHash == infoHash) && (urlList[0].selectedNum == selectedNum)) {
-            showWarningMsgbox(tr("Task exist."));
-            return false;
+        if(urlList[i].infoHash == infoHash) {
+            MessageBox msg;
+            msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("Redownload"), tr("View"), 0, QList<QString>());
+            int ret = msg.exec();
+            if(ret == 0){
+                return false;
+            } else {
+                DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(urlList[i].taskId);
+                Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
+                Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
+                QString ariaTempFile = pItem->savePath + ".aria2";
+                if(!pItem->savePath.isEmpty()) {
+                    QFile::remove(pItem->savePath);
+                    if(QFile::exists(ariaTempFile)) {
+                        QFile::remove(ariaTempFile);
+                    }
+                }
+                DBInstance::delTask(urlList[i].taskId);
+                m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+            }
         }
     }
 
@@ -1293,18 +1395,18 @@ void MainFrame::onClearRecycle(bool ischecked)
     if(ischecked) {
         for(int i = 0; i < recycleList.size(); ++i) {
             DeleteDataItem *data = recycleList.at(i);
-            QString aria_temp_file = data->savePath + ".aria2";
+            QString ariaTempFile = data->savePath + ".aria2";
             if(!data->savePath.isEmpty()) {
                 QFile::remove(data->savePath);
-                if(QFile::exists(aria_temp_file)) {
-                    QFile::remove(aria_temp_file);
+                if(QFile::exists(ariaTempFile)) {
+                    QFile::remove(ariaTempFile);
                 }
             }
             Aria2RPCInterface::instance()->removeDownloadResult(data->gid);
         }
     }
     for(int i = 0; i < recycleList.size(); ++i) {
-        DBInstance::delAllTask();
+        DBInstance::delTask(recycleList.at(i)->taskId);
     }
 
     m_RecycleTableView->getTableModel()->removeItems(true);
@@ -1635,9 +1737,9 @@ void MainFrame::onUpdateMainUI()
         if((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting)) {
             Aria2RPCInterface::instance()->tellStatus(item->gid, item->taskId);
         }
-        if((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting) ||
-           (item->status == Global::DownloadJobStatus::Paused) || (item->status == Global::DownloadJobStatus::Lastincomplete) ||
-           (item->status == Global::DownloadJobStatus::Error)) {
+        if((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting)
+                || (item->status == Global::DownloadJobStatus::Lastincomplete))
+            {
             ++activeCount;
         }
         if(item->status == Global::DownloadJobStatus::Active){
@@ -1803,6 +1905,7 @@ void MainFrame::onOpenFileActionTriggered()
 {
 
     if(m_CurrentTab == finishTab) {
+        QThread::usleep(100);
         QString path = QString("file:///") + m_CheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
     } else {

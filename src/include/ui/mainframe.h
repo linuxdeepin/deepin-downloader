@@ -370,6 +370,8 @@ private:
     */
     void initTray();
 
+    void updateDHTFile();
+
     /**
      * @brief 新建连接
     */
@@ -488,7 +490,7 @@ private:
     /**
      * @brief 处理设置界面通知设置函数
      */
-    void btNotificaitonSettings(QString head,QString fileName,bool isBt=false);
+    void btNotificaitonSettings(QString head, QString fileName, bool isBt=false);
 
     /**
      * @brief 是否为磁力链接
