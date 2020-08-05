@@ -172,7 +172,7 @@ void CreateTaskWidget::onSureBtnClicked()
         }
     }
     if(errorList == urlList){
-        QString warningMsg = tr("The address you entered cannot be resolved correctly. Please try again");
+        QString warningMsg = tr("The address you entered cannot be resolved correctly");
         MessageBox *msg = new MessageBox();
         msg->setWarings(warningMsg, tr("sure"), "");
         msg->exec();

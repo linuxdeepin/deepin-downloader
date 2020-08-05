@@ -1217,7 +1217,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     task.gid = "";
     task.gidIndex = 0;
     task.url = "";
-    task.downloadPath = Settings::getInstance()->getDownloadSavePath();
+    task.downloadPath = Settings::getInstance()->getCustomFilePath();
     task.downloadFilename = infoName;
     task.createTime = QDateTime::currentDateTime();
     DBInstance::addTask(task);
@@ -1470,9 +1470,7 @@ void MainFrame::onNewBtnClicked()
 void MainFrame::onStartDownloadBtnClicked()
 {
     if(!isNetConnect()){
-        MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), "");     //网络连接失败
-        msg->exec();
+        m_TaskWidget->showNetErrorMsg();
         return;
     }
     QList<DownloadDataItem *> selectList;
@@ -1497,9 +1495,7 @@ void MainFrame::onStartDownloadBtnClicked()
 void MainFrame::onPauseDownloadBtnClicked()
 {
     if(!isNetConnect()){
-        MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), "");     //网络连接失败
-        msg->exec();
+        m_TaskWidget->showNetErrorMsg();
         return;
     }
     QList<DownloadDataItem *> selectList;
@@ -2451,11 +2447,8 @@ void MainFrame::Raise()
 
 void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlName)
 {
-    if(!isNetConnect())
-    {
-        MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), "");     //网络连接失败
-        msg->exec();
+    if(!isNetConnect()){
+        m_TaskWidget->showNetErrorMsg();
         return;
     }
 
@@ -2509,7 +2502,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                     proc->deleteLater();
                     if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                     {
-                        onDownloadNewUrl(urlList ,Settings::getInstance()->getDownloadSavePath() , "");
+                        onDownloadNewUrl(urlList ,Settings::getInstance()->getCustomFilePath() , "");
                         mutex.unlock();
                         return ;
                     }
@@ -2522,7 +2515,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                             QString urlName = urlInfoList[i].mid(start);
                             QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
 
-                            onDownloadNewUrl(urlList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName);
+                            onDownloadNewUrl(urlList, Settings::getInstance()->getCustomFilePath(), encodingUrlName);
 
                         }
                     }
@@ -2554,7 +2547,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                     qDebug()<<"encodingUrlName"<< encodingUrlName;
                     QStringList urlStrList = QStringList(strUrl);
                     QString type = getUrlType(str);
-                    onDownloadNewUrl(urlStrList, Settings::getInstance()->getDownloadSavePath(), encodingUrlName, type);
+                    onDownloadNewUrl(urlStrList, Settings::getInstance()->getCustomFilePath(), encodingUrlName, type);
                     proc->kill();
                     proc->close();
                     mutex.unlock();
@@ -2589,7 +2582,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                                 QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
                                // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
                                 QStringList strList = QStringList(urlInfoList[i]);
-                                onDownloadNewUrl(strList, Settings::getInstance()->getDownloadSavePath(), urlNameForZH);
+                                onDownloadNewUrl(strList, Settings::getInstance()->getCustomFilePath(), urlNameForZH);
                                 mutex.unlock();
                                 return ;
                             }
