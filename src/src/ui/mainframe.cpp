@@ -2052,11 +2052,18 @@ void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList, QStri
     }
     // 将url加入数据库和aria
     Task task;
+    Task tempTask;
     QMap<QString, QVariant> opt;
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     opt.insert("dir", savePath);
     for(int i = 0; i < sameUrlList.size(); i++) {
         getUrlToName(task, sameUrlList[i], savePath, fileName, type);
+        DBInstance::getTaskForUrl(sameUrlList[i],tempTask);
+        QStringList tempPathList = tempTask.downloadPath.split("/");
+        savePath.clear();
+        for (int i = 0; i < tempPathList.size() - 1; i++) {
+            savePath += tempPathList[i] + "/";
+        }
         DBInstance::addTask(task);
         Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
         clearTableItemCheckStatus();

@@ -60,6 +60,14 @@ public:
      * @return true 执行成功 false执行失败
      */
     static bool isExistUrl(QString url, bool &ret);
+
+    /**
+     * @brief 根据url查询任务数据
+     * @param url 需要查询url
+     * @param ret 传出参数，真为存在，假为不存在
+     * @return true 执行成功 false执行失败
+     */
+    static bool getTaskForUrl(QString url, Task &task);
     /**
      * @brief 判断Url是否存在
      * @param hash 需要查询hash
@@ -125,6 +133,7 @@ public:
      * @return 重复名称个数
      */
     static int getSameNameCount(QString filename);
+    
 };
 
 #endif // DBINSTANCE_H
