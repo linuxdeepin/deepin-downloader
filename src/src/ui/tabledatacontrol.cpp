@@ -458,7 +458,7 @@ void tableDataControl::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
 
 void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
 {
-    QList<Global::DownloadDataItem *> pItemList = m_DownloadTableView->getTableModel()->dataList();
+    const QList<Global::DownloadDataItem *>& pItemList = m_DownloadTableView->getTableModel()->dataList();
 
     foreach(DownloadDataItem * pItem, pItemList){
         if(pItem->status != Global::DownloadJobStatus::Complete) {
@@ -483,8 +483,8 @@ void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
 
 void tableDataControl::saveDataBeforeClose()
 {
-    QList<DownloadDataItem *> dataList = m_DownloadTableView->getTableModel()->dataList();
-    QList<DeleteDataItem *> recyclelist = m_DownloadTableView->getTableModel()->recyleList();
+    const QList<DownloadDataItem *>& dataList = m_DownloadTableView->getTableModel()->dataList();
+    const QList<DeleteDataItem *>& recyclelist = m_DownloadTableView->getTableModel()->recyleList();
 
     if(recyclelist.size() > 0) {
         for(int j = 0; j < recyclelist.size(); j++) {
@@ -685,9 +685,8 @@ int tableDataControl::onDelAction(int currentLab)
 {
     int selectedCount = 0;
     if(currentLab == 2) {
-        QList<DeleteDataItem *> pList;
         m_RecycleDeleteList.clear();
-        pList = m_DownloadTableView->getTableModel()->recyleList();
+        const QList<DeleteDataItem *>& pList = m_DownloadTableView->getTableModel()->recyleList();
         for(int i = 0; i < pList.size(); ++i) {
             if((pList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
                 m_RecycleDeleteList.append(pList.at(i));
@@ -759,9 +758,8 @@ void tableDataControl::RedownloadErrorItem(DownloadDataItem *errorItem)
 int tableDataControl::RedownloadTrashList(QList<DeleteDataItem *> &reloadList)
 {
     int selectedCount = 0;
-    QList<DeleteDataItem *> selectList;
     reloadList.clear();
-    selectList = m_DownloadTableView->getTableModel()->recyleList();
+    const QList<DeleteDataItem *>& selectList = m_DownloadTableView->getTableModel()->recyleList();
     for(int i = 0; i < selectList.size(); ++i) {
         if(selectList.at(i)->status == Removed) {
             if((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
@@ -788,10 +786,10 @@ void tableDataControl::onOpenFileAction()
 int tableDataControl::onOpenFolderAction(int currentLab)
 {
     QList<DownloadDataItem *> selectList;
-    QList<DeleteDataItem *> delList;
+
     int selectedCount = 0;
     if(currentLab == 2) {
-        delList = m_DownloadTableView->getTableModel()->recyleList();
+        const QList<DeleteDataItem *>& delList = m_DownloadTableView->getTableModel()->recyleList();
         for(int j = 0; j < delList.size(); ++j) {
             if((delList.at(j)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(j)) {
                 DeleteDataItem *deldata = delList.at(j);
@@ -884,14 +882,14 @@ void tableDataControl::onClearRecyleAction()
 
 int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
 {
-    QList<DeleteDataItem *> recycle_selectList;
+
     int selectedCount = 0;
     QString url;
 
     if(currentLab == 2) {
-        recycle_selectList = m_DownloadTableView->getTableModel()->recyleList();
-        for(int i = 0; i < recycle_selectList.size(); ++i) {
-            DeleteDataItem *data = recycle_selectList.at(i);
+        const QList<DeleteDataItem *>& recycleSelectList = m_DownloadTableView->getTableModel()->recyleList();
+        for(int i = 0; i < recycleSelectList.size(); ++i) {
+            DeleteDataItem *data = recycleSelectList.at(i);
             if((data->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
                 UrlInfo getUrlInfo;
                 DBInstance::getUrlById(data->taskId, getUrlInfo);
@@ -959,12 +957,12 @@ int tableDataControl::onDeletePermanentAction(int currentLab)
     int selectedCount = 0;
 
     if(currentLab == 2) {
-        QList<DeleteDataItem *> recycle_selectList;
+
         m_RecycleDeleteList.clear();
-        recycle_selectList = m_DownloadTableView->getTableModel()->recyleList();
-        for(int i = 0; i < recycle_selectList.size(); ++i) {
-            if((recycle_selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
-                m_RecycleDeleteList.append(recycle_selectList.at(i));
+        const QList<DeleteDataItem *>& recycleSelectList = m_DownloadTableView->getTableModel()->recyleList();
+        for(int i = 0; i < recycleSelectList.size(); ++i) {
+            if((recycleSelectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
+                m_RecycleDeleteList.append(recycleSelectList.at(i));
                 selectedCount++;
             }
         }
@@ -1010,7 +1008,6 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     QList<DownloadDataItem> threadDeleteList;
     for(int i = 0; i < m_DeleteList.size(); i++) {
         DownloadDataItem tempdata;
-
         tempdata.status = m_DeleteList.at(i)->status;
         tempdata.percent = m_DeleteList.at(i)->percent;
         tempdata.total = m_DeleteList.at(i)->total;
@@ -1025,7 +1022,6 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         tempdata.url = m_DeleteList.at(i)->url;
         tempdata.time = m_DeleteList.at(i)->time;
         tempdata.createTime = m_DeleteList.at(i)->createTime;
-
         threadDeleteList.append(tempdata);
     }
 

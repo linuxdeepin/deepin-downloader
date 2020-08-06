@@ -107,16 +107,16 @@ void MainFrame::init()
 
     QAction *pFinishAction = new QAction(tr("When download completed"), this);
     DMenu *pFinishMenu = new DMenu(tr("When download completed"), this);
-    QAction *pShutdownAct = new QAction(tr("Shut down"), this);
-    pShutdownAct->setCheckable(true);
-    QAction *pSleepAct = new QAction(tr("Hibernate"), this);
-    pSleepAct->setCheckable(true);
-    QAction *pQuitProcessAct = new QAction(tr("Exit download manager"), this);
-    pQuitProcessAct->setCheckable(true);
+    m_ShutdownAct = new QAction(tr("Shut down"), this);
+    m_ShutdownAct->setCheckable(true);
+    m_SleepAct = new QAction(tr("Hibernate"), this);
+    m_SleepAct->setCheckable(true);
+    m_QuitProcessAct = new QAction(tr("Exit download manager"), this);
+    m_QuitProcessAct->setCheckable(true);
 
-    pFinishMenu->addAction(pShutdownAct);
-    pFinishMenu->addAction(pSleepAct);
-    pFinishMenu->addAction(pQuitProcessAct);
+    pFinishMenu->addAction(m_ShutdownAct);
+    pFinishMenu->addAction(m_SleepAct);
+    pFinishMenu->addAction(m_QuitProcessAct);
     pFinishAction->setMenu(pFinishMenu);
     pSettingsMenu->addAction(pFinishAction);
 
@@ -267,16 +267,10 @@ void MainFrame::initTray()
     QAction *pStartAllAct = new QAction(tr("Continue all tasks"), this);
     QAction *pPauseAllAct = new QAction(tr("Pause all tasks"), this);
     QMenu *pFinishMenu= new QMenu(tr("When download completed"), this);
-    QAction *pShutdownAct = new QAction(tr("Shut down"), this);
-    pShutdownAct->setCheckable(true);
-    QAction *pSleepAct = new QAction(tr("Hibernate"), this);
-    pSleepAct->setCheckable(true);
-    QAction *pQuitProcessAct = new QAction(tr("Exit download manager"), this);
-    pQuitProcessAct->setCheckable(true);
+    pFinishMenu->addAction(m_ShutdownAct);
+    pFinishMenu->addAction(m_SleepAct);
+    pFinishMenu->addAction(m_QuitProcessAct);
     QAction *pQuitAct = new QAction(tr("Exit"), this);
-    pFinishMenu->addAction(pShutdownAct);
-    pFinishMenu->addAction(pSleepAct);
-    pFinishMenu->addAction(pQuitProcessAct);
 
     QMenu *pTrayMenu = new QMenu(this);
     pTrayMenu->addAction(pShowMainAct);
@@ -297,22 +291,22 @@ void MainFrame::initTray()
         createNewTask("");
     });
 
-    connect(pShutdownAct, &QAction::triggered, [ = ](bool checked) {
+    connect(m_ShutdownAct, &QAction::triggered, [ = ](bool checked) {
         if(checked){
-            pSleepAct->setChecked(false);
-            pQuitProcessAct->setChecked(false);
+            m_SleepAct->setChecked(false);
+            m_QuitProcessAct->setChecked(false);
         }
     });
-    connect(pSleepAct, &QAction::triggered, [ = ](bool checked) {
+    connect(m_SleepAct, &QAction::triggered, [ = ](bool checked) {
         if(checked){
-            pShutdownAct->setChecked(false);
-            pQuitProcessAct->setChecked(false);
+            m_ShutdownAct->setChecked(false);
+            m_QuitProcessAct->setChecked(false);
         }
     });
-    connect(pQuitProcessAct, &QAction::triggered, [ = ](bool checked) {
+    connect(m_QuitProcessAct, &QAction::triggered, [ = ](bool checked) {
         if(checked){
-            pShutdownAct->setChecked(false);
-            pSleepAct->setChecked(false);
+            m_ShutdownAct->setChecked(false);
+            m_SleepAct->setChecked(false);
         }
     });
 
@@ -1287,15 +1281,15 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     // 数据库是否已存在相同的地址
     QList<UrlInfo> urlList;
     DBInstance::getAllUrl(urlList);
-    for(int i = 0; i < urlList.size(); i++){
-        if(urlList[i].infoHash == infoHash) {
+    for(int i = 0; i < urlList.size(); i++) {
+        DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(urlList[i].taskId);
+        if(urlList[i].infoHash == infoHash && pItem->status != DownloadJobStatus::Complete) {
             MessageBox msg;
             msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("Redownload"), tr("View"), 0, QList<QString>());
             int ret = msg.exec();
             if(ret == 0){
                 return false;
             } else {
-                DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(urlList[i].taskId);
                 Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
                 Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
                 QString ariaTempFile = pItem->savePath + ".aria2";
@@ -1708,7 +1702,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
     bool chked = selected.model()->data(selected, TableModel::DataRole::Ischecked).toBool();
 
     if(m_CtrlkeyPress == false && selected.column() != 0) {
-        QList<DownloadDataItem *> dataList = m_DownLoadingTableView->getTableModel()->dataList();
+        const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
         for(int i = 0; i < dataList.size(); i++) {
             dataList.at(i)->Ischecked = false;
         }
@@ -1733,8 +1727,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
 
 void MainFrame::onUpdateMainUI()
 {
-    const QList<DownloadDataItem *> renderList = m_DownLoadingTableView->getTableModel()->renderList();
-    const QList<DownloadDataItem *> dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;
     m_ShutdownOk = true;
     for(const auto *item : dataList) {
@@ -2154,7 +2147,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     opt.insert("max-concurrent-downloads", QString().number(nTaskNumber));
     Aria2RPCInterface::instance()->changeGlobalOption(opt);
 
-    const QList<DownloadDataItem *> dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;
     m_ShutdownOk = true;
     for(const auto *item : dataList) {
@@ -2575,12 +2568,11 @@ void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlNam
             continue;
         }
         QNetworkAccessManager *manager = new QNetworkAccessManager;
-        QNetworkRequest *requset = new QNetworkRequest;                       // 定义请求对象
-        QString _trueUrl;
-        requset->setUrl(QUrl(urlList[i])); // 设置服务器的uri
-        requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+        QNetworkRequest requset;                       // 定义请求对象
+        requset.setUrl(QUrl(urlList[i])); // 设置服务器的uri
+        requset.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
         //manager->get(*requset);
-        manager->head(*requset);
+        manager->head(requset);
         // post信息到服务器
         QObject::connect(manager, &QNetworkAccessManager::finished, this, &MainFrame::onHttpRequest);
         QThread::usleep(100);

@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
             }
             return 0;
         }
-
     }
     sharedMemory.create(199);
     char *to = static_cast<char*>(sharedMemory.data());
@@ -144,13 +143,13 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
 
 bool checkProcessExist()
 {
-    QProcess *process = new QProcess;
+    QProcess process;
     QStringList list;
-    process->start("pgrep downloadmanager");
-    process->start();
-    process->waitForStarted(1000);
-    process->waitForFinished(1000);
-    QString str = process->readAll();
+    process.start("pgrep downloadmanager");
+    process.start();
+    process.waitForStarted(1000);
+    process.waitForFinished(1000);
+    QString str = process.readAll();
     QStringList strList = str.split('\n');
     if(strList.at(strList.size() - 1).isEmpty()){
         return false;

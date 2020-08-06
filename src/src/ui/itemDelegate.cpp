@@ -56,6 +56,7 @@ DTK_USE_NAMESPACE
 
 ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     : QStyledItemDelegate(parent)
+    , m_HoverRow(-1)
 {
     m_TableFlag = Flag;
     m_IsFirstInside = true;
@@ -73,6 +74,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     if(index.row() == m_HoverRow) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder()); //
                                                                                                                          // QColor(0,0,0,13)QColor(255,255,255,26)
+    }
+    if(index.row() % 2 != 0) {
+        painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
+                                                                                                                         // QColor(0,0,0,13)QColor(255,255,255,26)
+    } else{
+        painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10))); //
     }
     const QRect rect(option.rect);
     const int   column(index.column());
@@ -139,6 +146,13 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
 
         painter->drawPixmap(x, y, pic);
+
+        const QString path = index.data(TableModel::SavePath).toString();
+        if(!QFileInfo::exists(path)){ //文件不存在的任务，添加提示
+            QPixmap   errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
+            painter->drawPixmap(x+ 10, y + 10, errorPic);
+        }
+
         const QRect rect_text = rect.marginsRemoved(QMargins(25, 2, 0, 5));
         QString     name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(),
                                                              Qt::ElideRight,
@@ -278,6 +292,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
         const QString time = index.data(TableModel::Time).toString();
         painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, time);
+
     } else {
         QStyledItemDelegate::paint(painter, option, index);
     }

@@ -142,19 +142,19 @@ public:
      * @brief 获取正在下载列表
      * @return item列表
      */
-    const QList<Global::DownloadDataItem *>    dataList();
+    const QList<Global::DownloadDataItem *>&    dataList();
 
     /**
      * @brief 获取已完成下载列表
      * @return item列表
      */
-    const QList<Global::DownloadDataItem *>    renderList();
+    const QList<Global::DownloadDataItem *>&    renderList();
 
     /**
      * @brief 获取回收站下载列表
      * @return item列表
      */
-    const QList<Global::DeleteDataItem *> &recyleList();
+    const QList<Global::DeleteDataItem *>& recyleList();
 
     /**
      * @brief 获取列表展示模式
@@ -166,7 +166,7 @@ public:
      * @brief 获取列表展示模式
      * @return 模式map
      */
-    QMap<QString, Global::DownloadDataItem *>  getTableModelMap();
+    QMap<QString, Global::DownloadDataItem *>&  getTableModelMap();
 
     /**
      * @brief 获取正在下载的个数

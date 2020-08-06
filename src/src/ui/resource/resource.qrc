@@ -52,6 +52,7 @@
         <file>icon/bar-bg.png</file>
         <file>icon/bar-front.png</file>
         <file>icon/downloadmanager.svg</file>
+        <file>icon/error.svg</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>

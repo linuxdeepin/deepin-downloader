@@ -150,14 +150,14 @@ void Aria2RPCInterface::Aria2RPCInterface::init()
 
 bool Aria2RPCInterface::checkAria2cProc()
 {
-    QProcess *proc = new QProcess;
+    QProcess proc;
     QStringList opt;
     opt << "-c";
     //opt << "ps aux | grep aria2c";
     opt << "ps aux|grep " + m_aria2cCmd;
-    proc->start("/bin/bash", opt);
-    proc->waitForFinished();
-    QString output = QString::fromLocal8Bit(proc->readAllStandardOutput());
+    proc.start("/bin/bash", opt);
+    proc.waitForFinished();
+    QString output = QString::fromLocal8Bit(proc.readAllStandardOutput());
     QStringList lineList = output.split("\n");
     int cnt = 0;
     foreach(QString t, lineList) {
@@ -372,10 +372,10 @@ void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
     QNetworkAccessManager *manager = new QNetworkAccessManager; //定义网络对象
 
     if (!jsonObj.isEmpty()) { //json如果不为空
-        QNetworkRequest *requset = new QNetworkRequest; //定义请求对象
-        requset->setUrl(QUrl(this->m_rpcServer)); //设置服务器的uri
-        requset->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        manager->post(*requset, QJsonDocument(jsonObj).toJson()); //post信息到服务器
+        QNetworkRequest requset; //定义请求对象
+        requset.setUrl(QUrl(this->m_rpcServer)); //设置服务器的uri
+        requset.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+        manager->post(requset, QJsonDocument(jsonObj).toJson()); //post信息到服务器
 
         //调用返回的信息
         QObject::connect(manager,
