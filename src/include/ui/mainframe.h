@@ -539,6 +539,12 @@ private:
      */
     QString getUrlType(QString url);
 
+    /**
+     * @brief 删除目录
+     * @return
+     */
+    bool DeleteDirectory(const QString &path);
+
 protected:
 
     /**
