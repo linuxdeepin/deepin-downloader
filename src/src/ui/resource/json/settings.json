@@ -9,14 +9,14 @@
                             "key":"PowerOn",
                             "name":"Auto start after boot",
                             "type":"switchbutton",
-                            "default":true,
+                            "default":false,
                             "visible": false
                         },
                         {
                             "key":"AutoStartUnfinishedTask",
                             "name":"Auto download after start-up",
                             "type":"switchbutton",
-                            "default":false
+                            "default":true
                         }
 
                     ]
