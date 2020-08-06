@@ -478,3 +478,32 @@ bool DBInstance::isExistBtInHash(QString hash, bool &ret)
     q.close();
     return true;
 }
+
+bool DBInstance::getTaskForUrl(QString url, Task &task)
+{
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
+        return false;
+    }
+    QSqlQuery sql;
+    QString str = QString("select * from download_task where url = '%1';").arg(url);
+    sql.prepare(str);
+    if (!sql.exec()) {
+        qDebug() << "getAllTask download_task table failed : " << sql.lastError();
+        q.close();
+        return false;
+    }
+    while (sql.next())
+    {
+        task.taskId = sql.value(0).toString();
+        task.gid = sql.value(1).toString(); //下载gid
+        task.gidIndex = sql.value(2).toInt(); //位置index
+        task.url = sql.value(3).toString(); //下载url地址
+        task.downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.downloadFilename = sql.value(5).toString(); //下载文件名
+        task.createTime = sql.value(6).toDateTime(); //任务创建时间
+    }
+    q.close();
+    return true;
+}
