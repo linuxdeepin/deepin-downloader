@@ -342,7 +342,8 @@ void MainFrame::updateDHTFile()
     if(t.date() == QDate::currentDate()){
         return;
     }
-
+    QFile::remove(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
+     QFile::remove(QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat");
     QMap<QString, QVariant> opt;
     opt.insert("dir", QString(QDir::homePath() + "/.config/uos/downloadmanager"));
     opt.insert("out", "dht.dat");
