@@ -16,7 +16,7 @@
                             "key":"AutoStartUnfinishedTask",
                             "name":"Auto download after start-up",
                             "type":"switchbutton",
-                            "default":true
+                            "default":false
                         }
 
                     ]
