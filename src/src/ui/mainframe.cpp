@@ -1292,9 +1292,10 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
             } else {
                 Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
                 Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
+                QThread::usleep(2000);
                 QString ariaTempFile = pItem->savePath + ".aria2";
                 if(!pItem->savePath.isEmpty()) {
-                    QFile::remove(pItem->savePath);
+                    bool b = DeleteDirectory(pItem->savePath);
                     if(QFile::exists(ariaTempFile)) {
                         QFile::remove(ariaTempFile);
                     }
@@ -1678,7 +1679,9 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
         if(message.contains("cannot be paused now")){
             //showWarningMsgbox("current task cannot be paused now!");
             DownloadDataItem * item = m_DownLoadingTableView->getTableModel()->find(id);
-            Aria2RPCInterface::instance()->forcePause(item->gid, "");
+            if(nullptr != item){
+                Aria2RPCInterface::instance()->forcePause(item->gid, "");
+            }
         }
     }
     // save_data_before_close();
@@ -2846,4 +2849,33 @@ QString MainFrame::getUrlType(QString url)
         }
     }
     return "";
+}
+
+bool MainFrame::DeleteDirectory(const QString &path)
+{
+    if (path.isEmpty())
+    {
+        return false;
+    }
+
+    QDir dir(path);
+    if(!dir.exists())
+    {
+        return true;
+    }
+
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    QFileInfoList fileList = dir.entryInfoList();
+    foreach (QFileInfo fi, fileList)
+    {
+        if (fi.isFile())
+        {
+            fi.dir().remove(fi.fileName());
+        }
+        else
+        {
+            DeleteDirectory(fi.absoluteFilePath());
+        }
+    }
+    return dir.rmpath(dir.absolutePath());
 }

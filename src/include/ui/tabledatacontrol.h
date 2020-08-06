@@ -256,6 +256,8 @@ signals:
      * @brief 删除完成
     */
     void removeFinished();
+
+    void startDownload();
 private:
     TableView *m_DownloadTableView;
     TableView *m_RececleTableView;

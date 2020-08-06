@@ -420,6 +420,7 @@ void CreateTaskWidget::getTruetUrl(QString redirecUrl)
 
 void CreateTaskWidget::closeEvent(QCloseEvent *event)
 {
+    Q_UNUSED(event);
     m_texturl->clear();
 }
 

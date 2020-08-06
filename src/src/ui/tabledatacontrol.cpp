@@ -564,6 +564,9 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
         in5<<"_cancel"<<tr("Cancel")<<"_view"<<tr("View");
         in6["x-deepin-action-_view"] = "downloadmanager";
         qDebug() << in4 + ("    errorCode: ") + errorCode;
+        if("12" == errorCode){
+
+        }
     }
     else
     {

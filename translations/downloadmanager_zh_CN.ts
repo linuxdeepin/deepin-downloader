@@ -166,7 +166,7 @@ The address you entered cannot be resolved correctly</source>
     <message>
         <location filename="../src/src/ui/createtaskwidget.cpp" line="429"/>
         <source>Unable to connect to the network the internet connection failed</source>
-        <translation>网络连接失败</translation>
+        <translation type="unfinished">网络错误，请检查网络后重试</translation>
     </message>
 </context>
 <context>
