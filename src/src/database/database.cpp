@@ -9,10 +9,10 @@ DataBase::DataBase()
                                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                                        .arg(qApp->organizationName())
                                        .arg(qApp->applicationName());
-       QFileInfo *databaseFile = new QFileInfo(dbPath);
+       QFileInfo databaseFile(dbPath);
 
        //如果数据库文件不存在
-       if (!databaseFile->isFile()) {
+       if (!databaseFile.isFile()) {
            //拷贝数据库文件
            qDebug() << "error: no db file  "; //<< QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_FILENAME << QString(_dataBasePath) + UOS_DOWNLOAD_DATABASE_FILENAME << endl;
            QFile::copy(QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_OLD_FILENAME,

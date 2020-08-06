@@ -235,7 +235,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 {
     const int row = index.row();
     const DownloadDataItem *data = nullptr;
-    const DeleteDataItem *deldata = new DeleteDataItem();
+    const DeleteDataItem *deldata = nullptr;
     QChar sizeSepChar;
 
 
@@ -442,8 +442,8 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
     int nColumn = index.column();
     const int row = index.row();
 
-    DownloadDataItem *data = new DownloadDataItem;
-    DeleteDataItem *deldata = new DeleteDataItem;
+    DownloadDataItem *data = nullptr;
+    DeleteDataItem *deldata = nullptr;
 
     if(m_TableviewtabFlag == 0) {
         data = m_RenderList.at(row);
@@ -507,22 +507,22 @@ int  TableModel::getTablemodelMode()
     return m_Mode;
 }
 
-const QList<DownloadDataItem *> TableModel::dataList()
+const QList<DownloadDataItem *>& TableModel::dataList()
 {
     return m_DataList;
 }
 
-const QList<DownloadDataItem *> TableModel::renderList()
+const QList<DownloadDataItem *>& TableModel::renderList()
 {
     return m_RenderList;
 }
 
-const QList<DeleteDataItem *> &TableModel::recyleList()
+const QList<DeleteDataItem *>& TableModel::recyleList()
 {
     return m_RecyleList;
 }
 
-QMap<QString, DownloadDataItem *> TableModel::getTableModelMap()
+QMap<QString, DownloadDataItem *>& TableModel::getTableModelMap()
 {
     return m_Map;
 }

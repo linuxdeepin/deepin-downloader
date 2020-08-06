@@ -619,6 +619,10 @@ private:
 
     bool m_CtrlkeyPress = false;
     bool m_CopyUrlFromLocal = false;
+
+    QAction *m_ShutdownAct;
+    QAction *m_SleepAct;
+    QAction *m_QuitProcessAct;
 signals:
      void isHeaderChecked(bool checked);
      void tableChanged(int index);
