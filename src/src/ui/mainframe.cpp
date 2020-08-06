@@ -118,7 +118,7 @@ void MainFrame::init()
     pFinishMenu->addAction(m_SleepAct);
     pFinishMenu->addAction(m_QuitProcessAct);
     pFinishAction->setMenu(pFinishMenu);
-    pSettingsMenu->addAction(pFinishAction);
+    //pSettingsMenu->addAction(pFinishAction);
 
     titlebar()->setMenu(pSettingsMenu);
     m_ToolBar = new TopButton(this);
@@ -277,7 +277,7 @@ void MainFrame::initTray()
     pTrayMenu->addAction(pNewDownloadAct);
     pTrayMenu->addAction(pStartAllAct);
     pTrayMenu->addAction(pPauseAllAct);
-    pTrayMenu->addMenu(pFinishMenu);
+    //pTrayMenu->addMenu(pFinishMenu);
     pTrayMenu->addAction(pQuitAct);
 
     // 连接信号与槽

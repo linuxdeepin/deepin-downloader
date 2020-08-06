@@ -61,11 +61,9 @@ set(CMAKE_AUTOUIC ON)
 set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
-
 #应用DTK库
 set(DTK Widget Core Gui Wm)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
-
 
 #加载子模块
 add_subdirectory(src)
