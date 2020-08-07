@@ -1774,22 +1774,39 @@ void MainFrame::onDelActionTriggered()
 
 void MainFrame::onRedownloadActionTriggered()
 {
-    MessageBox msg;
-    msg.setWarings(tr("Do you continue?"), tr("sure"), tr("cancel"));
-    int rs = msg.exec();
-    if(rs == DDialog::Accepted) {
-        // ToolBar禁用按钮联动：确认后禁用按钮
-        m_ToolBar->enableStartBtn(false);
-        m_ToolBar->enablePauseBtn(false);
-        m_ToolBar->enableDeleteBtn(false);
-
-        // 重新下载：通知aria2移除下载项
-
-        if((m_CurrentTab == downloadingTab) || (m_CurrentTab == finishTab)) {
-            Aria2RPCInterface::instance()->forceRemove(m_CheckItem->gid,"REDOWNLOAD_"+ QString::number(m_CurrentTab)+ "_" + m_CheckItem->taskId);
-        } else {
-            Aria2RPCInterface::instance()->forceRemove(m_DelCheckItem->gid,"REDOWNLOAD_" + QString::number(m_CurrentTab) + "_" + m_DelCheckItem->taskId);
+    if(QFileInfo::exists(m_DelCheckItem->savePath)){
+        MessageBox msg;
+        msg.setWarings(tr("Do you want to delete the downloaded files and download again?"), tr("sure"), tr("cancel"));
+        int rs = msg.exec();
+        if(rs == DDialog::Rejected) {
+            return;
         }
+    }
+
+    // ToolBar禁用按钮联动：确认后禁用按钮
+    m_ToolBar->enableStartBtn(false);
+    m_ToolBar->enablePauseBtn(false);
+    m_ToolBar->enableDeleteBtn(false);
+
+    // 重新下载：通知aria2移除下载项
+
+    if((m_CurrentTab == downloadingTab) || (m_CurrentTab == finishTab)) {
+        Aria2RPCInterface::instance()->forceRemove(m_CheckItem->gid,"REDOWNLOAD_"+ QString::number(m_CurrentTab)+ "_" + m_CheckItem->taskId);
+    } else {
+        //Aria2RPCInterface::instance()->forceRemove(m_DelCheckItem->gid,"REDOWNLOAD_" + QString::number(m_CurrentTab) + "_" + m_DelCheckItem->taskId);
+        Task task;
+        QMap<QString, QVariant> opt;
+        opt.insert("dir", m_DelCheckItem->savePath);
+        deleteTaskByUrl(m_DelCheckItem->url);
+        QString filePath = QString(m_DelCheckItem->savePath).left(m_DelCheckItem->savePath.lastIndexOf('/'));
+        getUrlToName(task, m_DelCheckItem->url, filePath, m_DelCheckItem->fileName, "");
+        DBInstance::addTask(task);
+        qDebug() << task.gid << "   " << task.url;
+        Aria2RPCInterface::instance()->addNewUri(task.url,filePath, task.downloadFilename, task.taskId);
+        emit isHeaderChecked(false);
+        m_NotaskWidget->hide();
+        m_UpdateTimer->start(2 * 1000);
+
     }
 }
 
@@ -2927,5 +2944,5 @@ void MainFrame::deleteTaskByUrl(QString url)
             }
         }
     }
-    QThread::sleep(1);
+    QThread::usleep(100);
 }
