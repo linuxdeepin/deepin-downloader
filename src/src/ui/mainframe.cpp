@@ -857,41 +857,32 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName, QString type)
+void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type)
 {
-    qDebug() << "getNewDownloadUrl: " << urlList << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+    qDebug() << "getNewDownloadUrl: " << url << "    "  << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     bool isExitsUrl = false;
-    QStringList sameUrlList;
 
     // 判断url是否在数据中已存在
-    for(int i = 0; i < urlList.size(); i++) {
-        DBInstance::isExistUrl(urlList[i], isExitsUrl);
-        if(isExitsUrl) {
-            sameUrlList.append(urlList[i]);
-            urlList.removeAt(i);
-            --i;
+    DBInstance::isExistUrl(url, isExitsUrl);
+    if(isExitsUrl) {
+        //showRedownloadMsgbox(url, fileName, type);
+        if(showRedownloadMsgbox(url)){
+           deleteTaskByUrl(url);
+        } else {
+            return;
         }
-    }
-    if(!sameUrlList.isEmpty()) {
-        showRedownloadMsgbox(sameUrlList, fileName, type);
-    }
-    if(urlList.isEmpty()) {
-        //qDebug() << "url is NULl";
-        return;
     }
 
     // 将url加入数据库和aria
     Task task;
     QMap<QString, QVariant> opt;
     opt.insert("dir", savePath);
-    for(int i = 0; i < urlList.size(); i++) {
-        getUrlToName(task, urlList[i], savePath, fileName, type);
-        DBInstance::addTask(task);
-        qDebug() << task.gid << "   " << task.url;
-        Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
-        //clearTableItemCheckStatus();
-        emit isHeaderChecked(false);
-    }
+    getUrlToName(task, url, savePath, fileName, type);
+    DBInstance::addTask(task);
+    qDebug() << task.gid << "   " << task.url;
+    Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
+    //clearTableItemCheckStatus();
+    emit isHeaderChecked(false);
 
     m_NotaskWidget->hide();
 
@@ -1296,7 +1287,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
                 QThread::usleep(2000);
                 QString ariaTempFile = pItem->savePath + ".aria2";
                 if(!pItem->savePath.isEmpty()) {
-                    bool b = DeleteDirectory(pItem->savePath);
+                    bool b = deleteDirectory(pItem->savePath);
                     if(QFile::exists(ariaTempFile)) {
                         QFile::remove(ariaTempFile);
                     }
@@ -1471,24 +1462,37 @@ void MainFrame::showRenameMsgbox()
     msg.exec();
 }
 
-bool MainFrame::showRedownloadMsgbox(QList<QString>& sameUrlList, QString fileName, QString type)
+bool MainFrame::showRedownloadMsgbox(QString sameUrl, QString fileName, QString type)
 {
     MessageBox msg;
 
     connect(&msg, &MessageBox::reDownload, this, &MainFrame::onRedownloadConfirmSlot);
     QString title = tr("Redownload");
-    msg.setRedownload(sameUrlList, fileName, type);
+    msg.setRedownload(sameUrl, fileName, type);
     int rs = msg.exec();
     if(rs == DDialog::Accepted){
         return true;
     }
     QString url;
-    foreach(QString str, sameUrlList){
+    foreach(QString str, sameUrl){
         url.append(str);
         url.append("/n");
     }
     createNewTask(url);
     return false;
+}
+
+bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
+{
+    MessageBox msg;
+
+    connect(&msg, &MessageBox::reDownload, this, &MainFrame::onRedownloadConfirmSlot);
+    QString title = tr("Redownload");
+    msg.setRedownload(sameUrl);
+    int rs = msg.exec();
+    if(rs == DDialog::Accepted){
+        return true;
+    }
 }
 
 void MainFrame::onAria2Remove(QString gId, QString id)
@@ -2042,9 +2046,9 @@ void MainFrame::onRenameConfirmSlot(QString &name)
     DBInstance::updateTaskByID(task);
 }
 
-void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList, QString fileName, QString type)
+void MainFrame::onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type)
 {
-    if(sameUrlList.at(0).contains(".torrent")){
+    if(sameUrl.contains(".torrent")){
         return;
     }
     // 将url加入数据库和aria
@@ -2053,18 +2057,16 @@ void MainFrame::onRedownloadConfirmSlot(const QList<QString> &sameUrlList, QStri
     QMap<QString, QVariant> opt;
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     opt.insert("dir", savePath);
-    for(int i = 0; i < sameUrlList.size(); i++) {
-        getUrlToName(task, sameUrlList[i], savePath, fileName, type);
-        DBInstance::getTaskForUrl(sameUrlList[i],tempTask);
-        QStringList tempPathList = tempTask.downloadPath.split("/");
-        savePath.clear();
-        for (int i = 0; i < tempPathList.size() - 1; i++) {
-            savePath += tempPathList[i] + "/";
-        }
-        DBInstance::addTask(task);
-        Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
-        clearTableItemCheckStatus();
+    getUrlToName(task, sameUrl, savePath, fileName, type);
+    DBInstance::getTaskForUrl(sameUrl,tempTask);
+    QStringList tempPathList = tempTask.downloadPath.split("/");
+    savePath.clear();
+    for (int i = 0; i < tempPathList.size() - 1; i++) {
+        savePath += tempPathList[i] + "/";
     }
+    DBInstance::addTask(task);
+    Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
+    clearTableItemCheckStatus();
 
     m_NotaskWidget->hide();
 
@@ -2568,7 +2570,7 @@ void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlNam
         {
             QStringList strList;
             strList<<urlList[i];
-            emit onDownloadNewUrl(strList,Settings::getInstance()->getDownloadSavePath(), "");
+            emit onDownloadNewUrl(urlList[i],Settings::getInstance()->getDownloadSavePath(), "");
             continue;
         }
         QNetworkAccessManager *manager = new QNetworkAccessManager;
@@ -2608,7 +2610,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                     proc->deleteLater();
                     if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                     {
-                        onDownloadNewUrl(urlList ,Settings::getInstance()->getCustomFilePath() , "");
+                        onDownloadNewUrl(proc->arguments().at(1) ,Settings::getInstance()->getCustomFilePath() , "");
                         mutex.unlock();
                         return ;
                     }
@@ -2621,7 +2623,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                             QString urlName = urlInfoList[i].mid(start);
                             QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
 
-                            onDownloadNewUrl(urlList, Settings::getInstance()->getCustomFilePath(), encodingUrlName);
+                            onDownloadNewUrl(proc->arguments().at(1), Settings::getInstance()->getCustomFilePath(), encodingUrlName);
 
                         }
                     }
@@ -2653,7 +2655,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                     qDebug()<<"encodingUrlName"<< encodingUrlName;
                     QStringList urlStrList = QStringList(strUrl);
                     QString type = getUrlType(str);
-                    onDownloadNewUrl(urlStrList, Settings::getInstance()->getCustomFilePath(), encodingUrlName, type);
+                    onDownloadNewUrl(strUrl, Settings::getInstance()->getCustomFilePath(), encodingUrlName, type);
                     proc->kill();
                     proc->close();
                     mutex.unlock();
@@ -2688,7 +2690,7 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
                                 QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
                                // emit NewDownload_sig(QStringList(redirecUrl),m_defaultDownloadDir,_urlNameForZH);
                                 QStringList strList = QStringList(urlInfoList[i]);
-                                onDownloadNewUrl(strList, Settings::getInstance()->getCustomFilePath(), urlNameForZH);
+                                onDownloadNewUrl(urlInfoList[i], Settings::getInstance()->getCustomFilePath(), urlNameForZH);
                                 mutex.unlock();
                                 return ;
                             }
@@ -2852,7 +2854,7 @@ QString MainFrame::getUrlType(QString url)
     return "";
 }
 
-bool MainFrame::DeleteDirectory(const QString &path)
+bool MainFrame::deleteDirectory(const QString &path)
 {
     if (path.isEmpty())
     {
@@ -2862,6 +2864,7 @@ bool MainFrame::DeleteDirectory(const QString &path)
     QDir dir(path);
     if(!dir.exists())
     {
+        QFile::remove(path);
         return true;
     }
 
@@ -2875,8 +2878,54 @@ bool MainFrame::DeleteDirectory(const QString &path)
         }
         else
         {
-            DeleteDirectory(fi.absoluteFilePath());
+            deleteDirectory(fi.absoluteFilePath());
         }
     }
     return dir.rmpath(dir.absolutePath());
+}
+
+void MainFrame::deleteTaskByUrl(QString url)
+{
+    bool isExist = false;
+    const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    foreach(DownloadDataItem * pItem, dataList){
+        if(pItem->url == url) {
+            isExist = true;
+
+            Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
+            Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
+            QString ariaTempFile = pItem->savePath + ".aria2";
+            if(!pItem->savePath.isEmpty()) {
+                deleteDirectory(pItem->savePath);
+                if(QFile::exists(ariaTempFile)) {
+                    QFile::remove(ariaTempFile);
+                }
+            }
+            DBInstance::delTask(pItem->taskId);
+            m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+            break;
+        }
+    }
+    if(!isExist){
+        const QList<DeleteDataItem *>& dataList = m_RecycleTableView->getTableModel()->recyleList();
+        foreach(DeleteDataItem * pItem, dataList){
+            if(pItem->url == url) {
+                isExist = true;
+
+                Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
+                Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
+                QString ariaTempFile = pItem->savePath + ".aria2";
+                if(!pItem->savePath.isEmpty()) {
+                    deleteDirectory(pItem->savePath);
+                    if(QFile::exists(ariaTempFile)) {
+                        QFile::remove(ariaTempFile);
+                    }
+                }
+                DBInstance::delTask(pItem->taskId);
+                m_RecycleTableView->getTableModel()->removeItem(pItem);
+                break;
+            }
+        }
+    }
+    QThread::sleep(1);
 }

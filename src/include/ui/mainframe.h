@@ -150,7 +150,7 @@ private slots:
      * @param savePath 保存路径
      * @param url类型
     */
-    void onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName, QString type = "");
+    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "");
 
     /**
      * @brief 收到新建bt任务
@@ -310,7 +310,7 @@ private slots:
     /**
     * @brief 重新下载确认槽函数
     */
-    void onRedownloadConfirmSlot(const QList<QString> &sameUrlList, QString fileName, QString type);
+    void onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type);
 
     /**
     * @brief 列表项双击事件，打开文件
@@ -445,7 +445,12 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    bool showRedownloadMsgbox(QList<QString> &sameUrlList, QString fileName, QString type);
+    bool showRedownloadMsgbox(QString sameUrl, QString fileName, QString type);
+
+    /**
+     * @brief 显示重新下载窗口
+     */
+    bool showRedownloadMsgbox(const QString sameUrl);
 
     /**
      * @brief 从配置文件中获取下载路径
@@ -543,8 +548,12 @@ private:
      * @brief 删除目录
      * @return
      */
-    bool DeleteDirectory(const QString &path);
+    bool deleteDirectory(const QString &path);
 
+    /**
+     * @brief 删除任务
+     */
+    void deleteTaskByUrl(QString url);
 protected:
 
     /**
