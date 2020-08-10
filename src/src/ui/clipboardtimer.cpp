@@ -28,6 +28,7 @@
 #include "clipboardtimer.h"
 #include <QClipboard>
 #include <QtDebug>
+#include <QMimeData>
 
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
@@ -46,6 +47,10 @@ ClipboardTimer::~ClipboardTimer()
 
 void ClipboardTimer::getDataChanged()
 {
+    const QMimeData *mimeData = m_clipboard->mimeData();
+    if(mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER") == "1"){
+        return;
+    }
     QStringList urlList = m_clipboard->text().split("\n");
     for (int i = 0; i < urlList.size(); i++) {
         urlList[i] = urlList[i].simplified();

@@ -34,6 +34,7 @@
 #include <QSystemTrayIcon>
 
 class QClipboard;
+class QMimeData;
 
 
 class ClipboardTimer : public QObject
