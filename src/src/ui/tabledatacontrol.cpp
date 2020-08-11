@@ -280,8 +280,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         status = Global::DownloadJobStatus::Error;
         dealNotificaitonSettings(statusStr, fileName, errorCode);
     } else if(statusStr == "complete") {
-        status = Global::DownloadJobStatus::Complete;
 
+        data->status = Global::DownloadJobStatus::Complete;
+        status = Global::DownloadJobStatus::Complete;
         //下载文件为种子文件
         if(fileName.endsWith(".torrent")) {
             if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
@@ -308,6 +309,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         dealNotificaitonSettings(statusStr, fileName, errorCode);
         if(Settings::getInstance()->getDownloadFinishedOpenState()) {
             QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
+        }
+        if(!checkTaskStatus()) {
+            emit whenDownloadFinish();
         }
     } else if(statusStr == "removed") {
         status = Global::DownloadJobStatus::Removed;
@@ -1042,11 +1046,11 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         save_path = data->savePath;
         gid = data->gid;
         taskId = data->taskId;
-        QDateTime finish_time;
+        QDateTime finishTime;
         if(data->status == Complete) {
-            finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+            finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
         } else {
-            finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+            finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
         }
 
         TaskStatus getStatus;
@@ -1058,7 +1062,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                      data->totalLength,
                                      data->percent,
                                      data->total,
-                                     finish_time);
+                                     finishTime);
 
 
         if(permanent || ischecked) {
@@ -1330,5 +1334,15 @@ void tableDataControl::clearShardMemary()
         memset(to, 0, num);
         sharedMemory.unlock();
     }
+}
 
+bool tableDataControl::checkTaskStatus()
+{
+    const QList<DownloadDataItem *>& dataList = m_DownloadTableView->getTableModel()->dataList();
+    for(const auto *item : dataList) {
+        if((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting)) {
+            return true;
+        }
+    }
+    return false;
 }

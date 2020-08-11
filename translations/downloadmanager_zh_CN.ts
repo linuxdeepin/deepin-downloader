@@ -459,7 +459,7 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="109"/>
         <location filename="../src/src/ui/mainframe.cpp" line="269"/>
         <source>When download completed</source>
-        <translation type="unfinished"></translation>
+        <translation>下载完成后</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="110"/>
@@ -479,7 +479,7 @@ does not involve the privacy.</source>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="173"/>
         <source>No match result</source>
-        <translation type="unfinished"></translation>
+        <translation>无搜索结果</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="733"/>
@@ -575,7 +575,7 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="1885"/>
         <location filename="../src/src/ui/mainframe.cpp" line="2009"/>
         <source>no item is selected,please check items!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">没有选中，请检查！</translation>
     </message>
 </context>
 <context>

@@ -237,7 +237,7 @@ private slots:
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
-    void onTrayQuitClick();
+    void onTrayQuitClick(bool force = false);
 
     /**
      * @brief messageBox关闭返回事件
@@ -342,8 +342,6 @@ private slots:
      */
     void onClearRecycle(bool ischecked);
 
-
-
     /**
      * @brief 解析url
      */
@@ -353,6 +351,11 @@ private slots:
      * @brief 解析url请求返回处理
      */
     void onHttpRequest(QNetworkReply *reply);
+
+    /**
+     * @brief 下载完成的一些操作
+     */
+    void onDownloadFinish();
 private:
 
     /**

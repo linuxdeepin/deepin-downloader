@@ -30,6 +30,7 @@
 #include <DToolTip>
 #include <QTimer>
 #include <QCursor>
+#include <QMouseEvent>
 
 DWIDGET_USE_NAMESPACE
 
@@ -106,6 +107,14 @@ void TopButton::InitConnections()
     connect(m_DeleteDownloadBtn, &DIconButton::clicked,      this, &TopButton::deleteDownloadBtnClicked);
     connect(       m_SearchEdit, &DSearchEdit::focusChanged, this, &TopButton::SearchEditFocus);
     connect(       m_SearchEdit, &DSearchEdit::textChanged,  this, &TopButton::SearchEditTextChange);
+}
+
+void TopButton::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::RightButton){
+        return;
+    }
+    QWidget::mousePressEvent(event);
 }
 
 void TopButton::onTableChanged(int index)

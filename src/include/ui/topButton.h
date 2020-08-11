@@ -120,7 +120,8 @@ private:
      * @brief 初始化信号槽
     */
     void InitConnections();
-
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
 signals:
     /**
      * @brief 新建下载信号

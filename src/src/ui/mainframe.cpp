@@ -118,7 +118,7 @@ void MainFrame::init()
     pFinishMenu->addAction(m_SleepAct);
     pFinishMenu->addAction(m_QuitProcessAct);
     pFinishAction->setMenu(pFinishMenu);
-    //pSettingsMenu->addAction(pFinishAction);
+    pSettingsMenu->addAction(pFinishAction);
 
     titlebar()->setMenu(pSettingsMenu);
     m_ToolBar = new TopButton(this);
@@ -277,7 +277,7 @@ void MainFrame::initTray()
     pTrayMenu->addAction(pNewDownloadAct);
     pTrayMenu->addAction(pStartAllAct);
     pTrayMenu->addAction(pPauseAllAct);
-    //pTrayMenu->addMenu(pFinishMenu);
+    pTrayMenu->addMenu(pFinishMenu);
     pTrayMenu->addAction(pQuitAct);
 
     // 连接信号与槽
@@ -366,6 +366,7 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onParseUrlList);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_DownLoadingTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
@@ -482,9 +483,9 @@ void MainFrame::createNewTask(QString url)
     m_TaskWidget->exec();
 }
 
-void MainFrame::onTrayQuitClick()
+void MainFrame::onTrayQuitClick(bool force)
 {
-    if(!m_ShutdownOk) {
+    if(!m_ShutdownOk && !force) {
         MessageBox msgBox;
         QString title = tr("Are you sure to exit? Tasks in download will be interrupted.");
         msgBox.setWarings(title, tr("sure"), tr("cancel"));
@@ -2209,7 +2210,6 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
                 }
             }
         }
-
     }
 }
 
@@ -2734,6 +2734,22 @@ void MainFrame::onHttpRequest(QNetworkReply *reply)
             }
             return;
         }
+    }
+}
+
+void MainFrame::onDownloadFinish()
+{
+    m_UpdateTimer->stop();
+    if(m_ShutdownAct->isChecked()) {
+        QProcess p ;
+        p.start("shutdown -h now");
+        p.waitForFinished();
+    } else if(m_SleepAct->isChecked()) {
+        QProcess p ;
+        p.start("systemctl suspend");
+        p.waitForFinished();
+    } else if(m_QuitProcessAct->isChecked()) {
+        onTrayQuitClick(true);
     }
 }
 

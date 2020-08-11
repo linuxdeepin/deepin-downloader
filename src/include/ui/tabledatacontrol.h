@@ -224,6 +224,13 @@ private:
      * @brief 清空共享内存
      */
     void clearShardMemary();
+
+    /**
+     * @brief 检查任务状态
+     * @return true: 有激活的任务  false：没有激活的任务
+     */
+    bool checkTaskStatus();
+
 public slots:
 
     /**
@@ -257,7 +264,15 @@ signals:
     */
     void removeFinished();
 
+    /**
+     * @brief 受到删除bt的回复，开始下载任务
+    */
     void startDownload();
+
+    /**
+     * @brief 进行下载完成后的操作
+    */
+    void whenDownloadFinish();
 private:
     TableView *m_DownloadTableView;
     TableView *m_RececleTableView;
