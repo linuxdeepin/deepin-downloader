@@ -28,6 +28,7 @@
 #include "clipboardtimer.h"
 #include <QClipboard>
 #include <QtDebug>
+#include <QMimeData>
 
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
@@ -46,6 +47,24 @@ ClipboardTimer::~ClipboardTimer()
 
 void ClipboardTimer::getDataChanged()
 {
+    const QMimeData *mimeData = m_clipboard->mimeData();
+    if(mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER") == "1"){
+        return;
+    }
+    if(mimeData->data("TIMESTAMP") == m_timeStamp){
+        return;
+    }
+    m_timeStamp  = mimeData->data("TIMESTAMP");
+    const QMimeData* data = m_clipboard->mimeData();
+    if (data->hasText()) {
+        QString text = data->text();
+    }
+    for (int i = 0; i < data->formats().size(); ++i) {
+        QString format = data->formats()[i];
+        QString formatData = data->data(data->formats()[i]);
+        int a = 10;
+    }
+
     QStringList urlList = m_clipboard->text().split("\n");
     for (int i = 0; i < urlList.size(); i++) {
         urlList[i] = urlList[i].simplified();
