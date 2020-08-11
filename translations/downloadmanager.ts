@@ -403,8 +403,8 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="1358"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1410"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1461"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1778"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2709"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1779"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2726"/>
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -412,7 +412,7 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="490"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1410"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1461"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1779"/>
         <source>cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -526,48 +526,52 @@ does not involve the privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="1280"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2502"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2519"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="1408"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1778"/>
         <source>Do you continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="1769"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1893"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2017"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1910"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2034"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1869"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2526"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1779"/>
+        <source>Do you want to delete the downloaded files and download again?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1886"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2543"/>
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2000"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2003"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2017"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2020"/>
         <source>Copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2002"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2491"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2019"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2508"/>
         <source>Downloader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2502"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2519"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2709"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2726"/>
         <source>The address you entered cannot be resolved correctly</source>
         <translation type="unfinished"></translation>
     </message>

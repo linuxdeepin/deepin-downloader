@@ -52,9 +52,18 @@ void ClipboardTimer::getDataChanged()
         return;
     }
     if(mimeData->data("TIMESTAMP") == m_timeStamp){
-            return;
+        return;
     }
-    m_timeStamp = mimeData->data("TIMESTAMP");
+    m_timeStamp  = mimeData->data("TIMESTAMP");
+    const QMimeData* data = m_clipboard->mimeData();
+    if (data->hasText()) {
+        QString text = data->text();
+    }
+    for (int i = 0; i < data->formats().size(); ++i) {
+        QString format = data->formats()[i];
+        QString formatData = data->data(data->formats()[i]);
+        int a = 10;
+    }
 
     QStringList urlList = m_clipboard->text().split("\n");
     for (int i = 0; i < urlList.size(); i++) {
