@@ -342,8 +342,6 @@ private slots:
      */
     void onClearRecycle(bool ischecked);
 
-
-
     /**
      * @brief 解析url
      */
