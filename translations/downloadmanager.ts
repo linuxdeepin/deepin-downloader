@@ -403,12 +403,8 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="1358"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1410"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1461"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1779"/>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="2734"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="2726"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="1777"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2732"/>
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -416,7 +412,7 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="490"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1410"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1461"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1779"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1777"/>
         <source>cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -530,11 +526,7 @@ does not involve the privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="1280"/>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="2527"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="2519"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="2525"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -544,70 +536,42 @@ does not involve the privacy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1769"/>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="1914"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2042"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="1910"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2034"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="1767"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1913"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2040"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1779"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1777"/>
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="1890"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2551"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="1886"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2543"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="1889"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2549"/>
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="2025"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2028"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="2017"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2020"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="2023"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2026"/>
         <source>Copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="2027"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2516"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="2019"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2508"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="2025"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2514"/>
         <source>Downloader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="2527"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="2519"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="2525"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="2734"/>
-=======
-        <location filename="../src/src/ui/mainframe.cpp" line="2726"/>
->>>>>>> maintain
+        <location filename="../src/src/ui/mainframe.cpp" line="2732"/>
         <source>The address you entered cannot be resolved correctly</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1030,30 +994,30 @@ and more computer consume</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="397"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="395"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="400"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="398"/>
         <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/tableModel.cpp" line="402"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="411"/>
+        <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/tableModel.cpp" line="404"/>
         <location filename="../src/src/ui/tableModel.cpp" line="413"/>
-        <source>Status</source>
+        <source>Time finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/tableModel.cpp" line="406"/>
         <location filename="../src/src/ui/tableModel.cpp" line="415"/>
-        <source>Time finished</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="408"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="417"/>
         <source>Time deleted</source>
         <translation type="unfinished"></translation>
     </message>
