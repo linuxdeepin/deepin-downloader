@@ -35,12 +35,10 @@ using namespace Global;
 
 TableModel::TableModel(int Flag, QObject *parent)
     : QAbstractTableModel(parent)
+    , m_Mode(Downloading)
     , m_TableviewtabFlag(Flag)
     , m_DownloadingCount(0)
 {
-    if(Flag == 0) {
-        m_Mode = Downloading;
-    }
     connect(this, &TableModel::checkDatachange, this, &TableModel::onCheckdatachange);
     m_SortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
@@ -53,40 +51,40 @@ TableModel::~TableModel()
 void TableModel::onCheckdatachange(int flag)
 {
     int check_num = 0;
-    QList<DownloadDataItem *> active_list;
-    QList<DownloadDataItem *> finish_list;
+    QList<DownloadDataItem *> activeList;
+    QList<DownloadDataItem *> finishList;
 
     if(flag == 0) {
         for(DownloadDataItem *item : m_DataList) {
             if(m_Mode == Downloading) {
                 if(item->status != Global::DownloadJobStatus::Complete) {
-                    active_list.append(item);
+                    activeList.append(item);
                 }
             } else {
                 if(item->status == Global::DownloadJobStatus::Complete) {
-                    finish_list.append(item);
+                    finishList.append(item);
                 }
             }
         }
-        if((m_Mode == Downloading) && (active_list.size() > 0)) {
-            for(DownloadDataItem *item :active_list) {
+        if((m_Mode == Downloading) && (activeList.size() > 0)) {
+            for(DownloadDataItem *item :activeList) {
                 if(item->Ischecked) {
                     check_num++;
                 }
             }
-            if(check_num == active_list.size()) {
+            if(check_num == activeList.size()) {
                 emit tableviewAllcheckedOrAllunchecked(true);
             } else {
                 emit tableviewAllcheckedOrAllunchecked(false);
             }
         }
-        if((m_Mode == Finished) && (finish_list.size() > 0)) {
-            for(DownloadDataItem *item :finish_list) {
+        if((m_Mode == Finished) && (finishList.size() > 0)) {
+            for(DownloadDataItem *item :finishList) {
                 if(item->Ischecked) {
                     check_num++;
                 }
             }
-            if(check_num == finish_list.size()) {
+            if(check_num == finishList.size()) {
                 emit tableviewAllcheckedOrAllunchecked(true);
             } else {
                 emit tableviewAllcheckedOrAllunchecked(false);

@@ -87,6 +87,7 @@ bool Aria2RPCInterface::startUp()
     opt << "--rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
     opt << "--check-certificate=false"; //停用rpc身份验证
     opt << "--rpc-allow-origin-all=true"; // 允许所有来源
+    opt << "--rpc-max-request-size=99999999"; //设置rpc最大接收数
     opt << "--rpc-save-upload-metadata=true"; //
 
     //opt << "--not-conf=true";//不使用配置文件

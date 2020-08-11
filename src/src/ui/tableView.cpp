@@ -88,16 +88,16 @@ void TableView::initUI()
 
     m_HeaderView = new  DownloadHeaderView(Qt::Horizontal, this);
     setHorizontalHeader(m_HeaderView);
-    //m_pHeaderView->setDefaultSectionSize(20);
-    //m_pHeaderView->setSortIndicatorShown(false);
-//    m_pHeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-//    m_pHeaderView->setSectionResizeMode(0, QHeaderView::Interactive);
-//    m_pHeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
-//    m_pHeaderView->setSectionResizeMode(2, QHeaderView::Interactive);
-//    m_pHeaderView->setSectionResizeMode(3, QHeaderView::Interactive);
-//    m_pHeaderView->setSectionResizeMode(4, QHeaderView::Interactive);
-//    m_pHeaderView->setTextElideMode(Qt::ElideMiddle);
-//    m_pHeaderView->setFixedHeight(36);
+    m_HeaderView->setDefaultSectionSize(20);
+    //m_HeaderView->setSortIndicatorShown(false);
+    m_HeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+    m_HeaderView->setSectionResizeMode(0, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(2, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(3, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(4, QHeaderView::Interactive);
+    m_HeaderView->setTextElideMode(Qt::ElideMiddle);
+    m_HeaderView->setFixedHeight(36);
     setColumnWidth(0, 20);
     setColumnWidth(1, 260);
     setColumnWidth(2, 110);
@@ -108,7 +108,7 @@ void TableView::initUI()
 void TableView::initConnections()
 {
     connect(m_HeaderView, &DownloadHeaderView::Statechanged, this, &TableView::HeaderStatechanged);
-    //connect(this, &TableView::ClearHeaderCheck, m_pHeaderView, &HeaderView::onClearHeaderChecked);
+    //connect(this, &TableView::ClearHeaderCheck, m_HeaderView, &HeaderView::onClearHeaderChecked);
     connect(m_TableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
     connect(this, &TableView::isCheckHeader, m_HeaderView, &DownloadHeaderView::onHeaderChecked);
     connect(this, &TableView::Hoverchanged, m_Itemdegegate, &ItemDelegate::onHoverchanged);
@@ -202,7 +202,7 @@ void TableView::refreshTableView(const int &index)
 
         // 联动工具栏按钮 begin
         int chkedCnt = 0;
-        QList<DownloadDataItem *> selectList = getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); i++) {
             if(selectList.at(i)->Ischecked) {
                 chkedCnt++;

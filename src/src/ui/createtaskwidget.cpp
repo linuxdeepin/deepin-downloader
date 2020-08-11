@@ -229,7 +229,7 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
                 return;
             if(!fileName.isEmpty()){                     //若文件路径不为空
                 if(fileName.startsWith("file:")&&fileName.endsWith(".torrent")){
-                    fileName=fileName.right(fileName.length()-6);
+                    fileName=fileName.right(fileName.length()-7);
                     BtInfoDialog *dialog = new BtInfoDialog(fileName,m_defaultDownloadDir);//torrent文件路径
                     int ret = dialog->exec();
                     if(ret == QDialog::Accepted) {

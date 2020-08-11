@@ -697,9 +697,8 @@ int tableDataControl::onDelAction(int currentLab)
             }
         }
     } else {
-        QList<DownloadDataItem *> pSelectList;
         m_DeleteList.clear();
-        pSelectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& pSelectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < pSelectList.size(); ++i) {
             DownloadDataItem *data;
             if(currentLab == 1) {
@@ -728,9 +727,8 @@ int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DownloadData
 {
     int selectedCount = 0;
 
-    QList<DownloadDataItem *> selectList;
     reloadList.clear();
-    selectList = m_DownloadTableView->getTableModel()->renderList();
+    const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
     for(int i = 0; i < selectList.size(); ++i) {
         if(selectList.at(i)->status == Complete || selectList.at(i)->status == Error) {
             if((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
@@ -788,8 +786,6 @@ void tableDataControl::onOpenFileAction()
 
 int tableDataControl::onOpenFolderAction(int currentLab)
 {
-    QList<DownloadDataItem *> selectList;
-
     int selectedCount = 0;
     if(currentLab == 2) {
         const QList<DeleteDataItem *>& delList = m_DownloadTableView->getTableModel()->recyleList();
@@ -816,7 +812,7 @@ int tableDataControl::onOpenFolderAction(int currentLab)
             }
         }
     } else {
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(currentLab == 1) {
                 if(selectList.at(i)->status == Complete) {
@@ -913,12 +909,10 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
             }
         }
     } else {
-        QList<DownloadDataItem *> selectList;
-
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
 
         for(int i = 0; i < selectList.size(); ++i) {
-            DownloadDataItem *data;
+            DownloadDataItem *data = nullptr;
             bool isSelect = false;
             if((currentLab == 1) && (selectList.at(i)->status == Complete)) {
                 if((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
@@ -970,9 +964,8 @@ int tableDataControl::onDeletePermanentAction(int currentLab)
             }
         }
     } else {
-        QList<DownloadDataItem *> selectList;
         m_DeleteList.clear();
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             DownloadDataItem *data;
             if(currentLab == 1) {
