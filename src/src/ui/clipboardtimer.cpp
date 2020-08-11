@@ -51,6 +51,11 @@ void ClipboardTimer::getDataChanged()
     if(mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER") == "1"){
         return;
     }
+    if(mimeData->data("TIMESTAMP") == m_timeStamp){
+            return;
+    }
+    m_timeStamp = mimeData->data("TIMESTAMP");
+
     QStringList urlList = m_clipboard->text().split("\n");
     for (int i = 0; i < urlList.size(); i++) {
         urlList[i] = urlList[i].simplified();

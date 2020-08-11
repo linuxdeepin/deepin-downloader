@@ -82,25 +82,25 @@ int main(int argc, char *argv[])
     DApplicationSettings as;
     Q_UNUSED(as)
     QDir dirCheck;
-    QString Log_path = QString("%1/%2/%3/Log/")
-        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-        .arg(qApp->organizationName())
-        .arg(qApp->applicationName());
+//    QString Log_path = QString("%1/%2/%3/Log/")
+//        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+//        .arg(qApp->organizationName())
+//        .arg(qApp->applicationName());
 
-    setLogDir(Log_path);
-    if (!dirCheck.exists(Log_path))
-    {
-        dirCheck.mkpath(Log_path);
-    }
+//    setLogDir(Log_path);
+//    if (!dirCheck.exists(Log_path))
+//    {
+//        dirCheck.mkpath(Log_path);
+//    }
     //检查日志是否过期
-    CheckLogTime();
+   // CheckLogTime();
     //磁盘剩余空间小于阈值，清除早期日志
-    CheckFreeDisk();
+  //  CheckFreeDisk();
     //创建新日志
-    CreateNewLog();
-    qInstallMessageHandler(customLogMessageHandler);
+   // CreateNewLog();
+//    qInstallMessageHandler(customLogMessageHandler);
 
-    qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
+  //  qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
     w.show();
     for (int i = 0; i < comList.size(); i++)

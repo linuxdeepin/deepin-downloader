@@ -57,6 +57,7 @@ signals:
     emit void sendClipboardTextChange(QString url); //发送url
 private:
     QClipboard *m_clipboard;            //剪切板
+    QByteArray m_timeStamp;
     bool m_isHttp;
     bool m_isMagnet;
 };
