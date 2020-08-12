@@ -2779,13 +2779,13 @@ bool MainFrame::clearSharedMemory()
 
 bool MainFrame::isNetConnect()
 {
-    std::string strping = "curl -i www.baidu.com";
-    if (!system(strping.c_str())) {
-        return true;
-    } else {
-        return false;
-    }
-
+    QProcess *process = new QProcess(this);
+    QStringList list;
+    list<<"-i"<< "www.baidu.com";
+    process->start("curl", list);
+    process->waitForFinished();
+    int ret = process->exitCode();
+    return ret ? false : true;
 }
 
 bool MainFrame::isAutoStart()
