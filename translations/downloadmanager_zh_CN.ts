@@ -140,6 +140,7 @@
     </message>
     <message>
         <location filename="../src/src/ui/createtaskwidget.cpp" line="175"/>
+        <location filename="../src/src/ui/createtaskwidget.cpp" line="410"/>
         <source>The address you entered cannot be resolved correctly</source>
         <translation>您输入的地址不能被正确解析</translation>
     </message>
@@ -147,7 +148,7 @@
         <location filename="../src/src/ui/createtaskwidget.cpp" line="177"/>
         <location filename="../src/src/ui/createtaskwidget.cpp" line="319"/>
         <location filename="../src/src/ui/createtaskwidget.cpp" line="412"/>
-        <location filename="../src/src/ui/createtaskwidget.cpp" line="429"/>
+        <location filename="../src/src/ui/createtaskwidget.cpp" line="430"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
@@ -157,14 +158,7 @@
         <translation>选择的目录无操作权限，请重新选择。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createtaskwidget.cpp" line="410"/>
-        <source>%1
-The address you entered cannot be resolved correctly</source>
-        <translation>%1
-该地址不能被正确解析</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createtaskwidget.cpp" line="429"/>
+        <location filename="../src/src/ui/createtaskwidget.cpp" line="430"/>
         <source>Unable to connect to the network the internet connection failed</source>
         <translation type="unfinished">网络错误，请检查网络后重试</translation>
     </message>
@@ -309,148 +303,292 @@ does not involve the privacy.</source>
     <name>MainFrame</name>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="105"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="166"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="777"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="167"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="779"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="167"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="779"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="166"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="778"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="167"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="779"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="166"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="778"/>
         <source>No download tasks</source>
         <translation>暂无下载任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="184"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="186"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="186"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="184"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="186"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="184"/>
         <source>Click + to create new task</source>
         <translation>点击添加按钮新建下载任务</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="202"/>
         <source>0 task</source>
         <translation>0项任务</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="227"/>
         <source>Downloading</source>
         <translation>正在下载</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="228"/>
         <source>Completed</source>
         <translation>下载完成</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="229"/>
         <source>Trash</source>
         <translation>回收站</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="263"/>
         <source>Download Manager</source>
         <translation>下载器</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="265"/>
         <source>Show main window</source>
         <translation>显示主界面</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="266"/>
         <source>New task</source>
         <translation>新建任务</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="267"/>
         <source>Continue all tasks</source>
         <translation>全部开始</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="268"/>
         <source>Pause all tasks</source>
         <translation>全部暂停</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="273"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="488"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="489"/>
         <source>Are you sure to exit? Tasks in download will be interrupted.</source>
         <translation>有正在下载中的任务，退出程序将中断下载，是否退出程序？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1288"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1280"/>
         <source>Task exist, Downloading again will delete the downloaded content!</source>
         <translation>该任务已存在，重新下载将会删除已下载的内容!</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1861"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2520"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1783"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1778"/>
+        <source>Do you want to delete the downloaded files and download again?</source>
+        <translation>重新下载将删除原来的文件，确定重新下载？</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainframe.cpp" line="1937"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2598"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1906"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2567"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1902"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2562"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1906"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2567"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1902"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2562"/>
         <source>seed file not exists or broken;</source>
         <translation>种子文件不存在</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2703"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2781"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2745"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2745"/>
         <source>The address you entered cannot be resolved correctly</source>
         <translation>您输入的地址不能被正确解析</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="574"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="575"/>
         <source> item tasks</source>
         <translation> 项任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="590"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="605"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="606"/>
         <source> files</source>
         <translation> 个文件</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="771"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="773"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="773"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="772"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="773"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="772"/>
         <source>No finished tasks</source>
         <translation>暂无下载完成的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="787"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="789"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="789"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="788"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="789"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="788"/>
         <source>No deleted tasks</source>
         <translation>暂无删除的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1415"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1770"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1413"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1412"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1408"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1412"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1408"/>
         <source>Do you continue?</source>
         <translation>是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1992"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1995"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2071"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2074"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2040"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2043"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2036"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2039"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2040"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2043"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2036"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2039"/>
         <source>Copied to clipboard</source>
         <translation>已复制到剪切板</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1994"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2485"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2073"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2563"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2042"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2532"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2038"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2527"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2042"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2532"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2038"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2527"/>
         <source>Downloader</source>
         <translation>下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2496"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2574"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2538"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2538"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1288"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2496"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2574"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2538"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2538"/>
         <source>View</source>
         <translation>查看</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1047"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1043"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1043"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1039"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1043"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1039"/>
         <source>Continue</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="733"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="734"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="734"/>
         <source>Download</source>
         <translation>开始下载</translation>
     </message>
@@ -458,122 +596,283 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="108"/>
         <location filename="../src/src/ui/mainframe.cpp" line="109"/>
         <location filename="../src/src/ui/mainframe.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="269"/>
         <source>When download completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="110"/>
         <source>Shut down</source>
         <translation>关机</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="112"/>
         <source>Hibernate</source>
         <translation>休眠</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="114"/>
         <source>Exit download manager</source>
         <translation>退出下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="173"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="174"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="174"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="173"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="174"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="173"/>
         <source>No match result</source>
-        <translation type="unfinished"></translation>
+        <translation>没有匹配的搜索结果</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="733"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="734"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="734"/>
         <source>%1 downloading...</source>
         <translation>%1 正在下载...</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1053"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1049"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1049"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1045"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1049"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1045"/>
         <source>Pause</source>
         <translation>暂停</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1059"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1074"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1055"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1070"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1055"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1070"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1051"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1066"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1055"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1070"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1051"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1066"/>
         <source>Download again</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1068"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1064"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1064"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1060"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1064"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1060"/>
         <source>Restore</source>
         <translation>还原</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1082"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1078"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1078"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1074"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1078"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1074"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1108"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1467"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1104"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1104"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1464"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1100"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1460"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1104"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1464"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1100"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1460"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1115"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1111"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1111"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1107"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1111"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1107"/>
         <source>Move to</source>
         <translation>移动到文件夹</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1125"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1146"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1157"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1121"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1142"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1153"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1121"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1142"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1153"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1117"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1138"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1149"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1121"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1142"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1153"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1117"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1138"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1149"/>
         <source>Copy download link</source>
         <translation>复制下载链接</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1090"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1165"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1086"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1161"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1086"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1161"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1082"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1157"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1086"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1161"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1082"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1157"/>
         <source>Open folder</source>
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1135"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1131"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1131"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1127"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1131"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1127"/>
         <source>Delete</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1140"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1136"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1136"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1132"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1136"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1132"/>
         <source>Permanently delete</source>
         <translation>彻底删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1172"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1168"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1168"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1164"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1168"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1164"/>
         <source>Empty</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="489"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1365"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1417"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1468"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1770"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2703"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1363"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1415"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1466"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1783"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2781"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1362"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1358"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2745"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1362"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1358"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2745"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="489"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1417"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1468"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1770"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1415"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1466"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1783"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1778"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1288"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1477"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1475"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1495"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1474"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1494"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1470"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1490"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1474"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1494"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1470"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1490"/>
         <source>Redownload</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1761"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1885"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2009"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1772"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1961"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2088"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1771"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1930"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2057"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1767"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1926"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2053"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1771"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1930"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2057"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1767"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1926"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2053"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -583,37 +882,39 @@ does not involve the privacy.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="41"/>
         <location filename="../src/src/ui/messagebox.cpp" line="76"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="107"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="105"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="131"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="126"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="150"/>
         <source>Are you sure you want to delete this download task permanently?</source>
         <translation>您确认要彻底删除此下载任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="129"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="153"/>
         <source>Local files will be deleted at the same time.</source>
         <translation>选择彻底删除后，本地文件也将被删除。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="157"/>
         <source>Are you sure you want to delete this download task?</source>
         <translation>您确认要删除此下载任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="137"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="140"/>
         <location filename="../src/src/ui/messagebox.cpp" line="161"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="164"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="185"/>
         <source>Delete local files</source>
         <translation>同时删除本地文件</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="91"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="162"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="204"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="89"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="116"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="168"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="228"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -623,82 +924,88 @@ does not involve the privacy.</source>
         <translation>该任务已存在，是否重新下载？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="92"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="90"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="117"/>
         <source>Ok</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="109"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="107"/>
+        <source>Task exist. Do you want to delete the downloaded files and download again?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
         <source>Download Error. </source>
         <translation>任务下载异常。 </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="111"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="135"/>
         <source>Download again</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="112"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="136"/>
         <source>Delete task</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="147"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="171"/>
         <source>Permanently delete</source>
         <translation>彻底删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="150"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
         <source>Delete</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="158"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="182"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
         <translation>您确认清空回收站里的所有任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="163"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Empty</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="171"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="195"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="199"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="223"/>
         <source>You want to</source>
         <translation>请选择您的操作</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="201"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="225"/>
         <source>Exit</source>
         <translation>退出下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="201"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="225"/>
         <source>Minimize to System Tray</source>
         <translation>最小化到托盘</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="203"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="227"/>
         <source>Don&apos;t ask again</source>
         <translation>不再询问</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="205"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="229"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="272"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="296"/>
         <source>file name can not containts &apos;\&apos; or &apos;/&apos; </source>
         <translation>文件名称不能包含 &apos;\&apos;或者 &apos;/&apos; </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="272"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="296"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
@@ -988,30 +1295,30 @@ and more computer consume</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="397"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="395"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="400"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="398"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="404"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="413"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="402"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="411"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="406"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="415"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="404"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="413"/>
         <source>Time finished</source>
         <translation>完成时间</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="408"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="417"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="406"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="415"/>
         <source>Time deleted</source>
         <translation>删除时间</translation>
     </message>
@@ -1072,7 +1379,7 @@ and more computer consume</source>
         <translation>下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tabledatacontrol.cpp" line="570"/>
+        <location filename="../src/src/ui/tabledatacontrol.cpp" line="573"/>
         <source>Download complated</source>
         <translation>下载完成</translation>
     </message>
@@ -1097,7 +1404,7 @@ and more computer consume</source>
         <translation>下载失败</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tabledatacontrol.cpp" line="571"/>
+        <location filename="../src/src/ui/tabledatacontrol.cpp" line="574"/>
         <source>%1 download finished.</source>
         <translation>%1下载完成。</translation>
     </message>
