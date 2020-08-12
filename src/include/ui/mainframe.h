@@ -640,6 +640,7 @@ signals:
      void isHeaderChecked(bool checked);
      void tableChanged(int index);
      void redownload(QString taskId, int rd);
+     void isNetworkConnect(bool ret);
 };
 
 #endif // MAINFRAME_H

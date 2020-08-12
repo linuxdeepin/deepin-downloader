@@ -406,6 +406,13 @@ void MainFrame::initConnection()
 
     connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList, Qt::UniqueConnection);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::onDownloadNewTorrent, Qt::UniqueConnection);
+    connect(this, &MainFrame::isNetworkConnect, this, [=](bool ret){
+        if(ret){
+            m_TaskWidget->showNetErrorMsg();
+            return;
+        }
+        m_TaskWidget->exec();
+    });
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -475,11 +482,12 @@ void MainFrame::createNewTask(QString url)
         show();
     }
     m_TaskWidget->setUrl(url);
-    if(!isNetConnect()){
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
-    m_TaskWidget->exec();
+    isNetConnect();
+//    if(!isNetConnect()){
+//        m_TaskWidget->showNetErrorMsg();
+//        return;
+//    }
+//    m_TaskWidget->exec();
 }
 
 void MainFrame::onTrayQuitClick()
@@ -1571,10 +1579,11 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onStartDownloadBtnClicked()
 {
-    if(!isNetConnect()){
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
+    isNetConnect();
+//    if(!isNetConnect()){
+//        m_TaskWidget->showNetErrorMsg();
+//        return;
+//    }
     int selectedCount = 0;
 
     if(m_CurrentTab == downloadingTab) {
@@ -1595,10 +1604,11 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::onPauseDownloadBtnClicked()
 {
-    if(!isNetConnect()){
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
+    isNetConnect();
+//    if(!isNetConnect()){
+//        m_TaskWidget->showNetErrorMsg();
+//        return;
+//    }
     int selectedCount = 0;
 
     if(m_CurrentTab == downloadingTab) {
@@ -2592,10 +2602,11 @@ void MainFrame::Raise()
 
 void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlName)
 {
-    if(!isNetConnect()){
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
+    isNetConnect();
+//    if(!isNetConnect()){
+//        m_TaskWidget->showNetErrorMsg();
+//        return;
+//    }
 
     m_ErrorUrlList.clear();
     m_CurUrlList.clear();
@@ -2779,12 +2790,18 @@ bool MainFrame::clearSharedMemory()
 
 bool MainFrame::isNetConnect()
 {
-    std::string strping = "ping -c 1 www.baidu.com";
-    if (!system(strping.c_str())) {
-        return true;
-    } else {
-        return false;
-    }
+    QProcess *process = new QProcess(this);
+    QStringList list;
+    list<<"-i"<< "www.baidu.com";
+    process->start("curl", list);
+    connect(process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, [=](int exitCode,QProcess::ExitStatus exitStatus){
+            if(exitCode == 0){
+                emit isNetworkConnect(false);
+                return  false;
+            }
+            emit isNetworkConnect(true);
+            return  true;
+     });
 }
 
 bool MainFrame::isAutoStart()
