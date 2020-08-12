@@ -115,11 +115,11 @@ public:
     static bool updateUrlById(UrlInfo _url); //根据id更新Url
     /**
      * @brief 获取url信息
-     * @param id 需要查url信息id
+     * @param taskId 任务id
      * @param task 传出根据id所得url信息
      * @return true 执行成功 false执行失败
      */
-    static bool getUrlById(QString urlId, UrlInfo &url); //根据id得到Url
+    static bool getUrlById(QString taskId, UrlInfo &url); //根据id得到Url
     /**
      * @brief 获取所有url
      * @param urlList 传出所有任务
