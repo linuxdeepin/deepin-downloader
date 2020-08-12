@@ -119,8 +119,8 @@ void TopButton::onTableChanged(int index)
         m_PauseDownloadBtn->setToolTip(tr("Restore"));
         m_DeleteDownloadBtn->setToolTip(tr("Delete"));
     } else if(index == 1)   {
-        m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
-        m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfolder"));
+        m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfolder"));
+        m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
         m_DeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
 
         m_StartDownloadBtn->setToolTip(tr("Open Folder"));

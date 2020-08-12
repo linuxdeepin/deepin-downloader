@@ -159,10 +159,11 @@ void MainFrame::init()
 
     QFont lableFont;
     lableFont.setPointSize(15);
-    lableFont.setBold(QFont::DemiBold);
-    lableFont.setFamily("T5");
+    lableFont.setBold(QFont::ExtraLight);
+    //lableFont.setFamily("T5");
     m_NotaskLabel = new Dtk::Widget::DLabel();
     m_NotaskLabel->setFont(lableFont);
+    m_NotaskLabel->setWindowOpacity(0.2);
     m_NotaskLabel->setText(tr("No download tasks"));
     m_NotaskLabel->setAlignment(Qt::AlignHCenter);
     m_NotaskLabel->setForegroundRole(DPalette::PlaceholderText);
@@ -171,8 +172,9 @@ void MainFrame::init()
     m_NoResultlabel = new Dtk::Widget::DLabel();
     m_NoResultlabel->setFont(lableFont);
     m_NoResultlabel->setText(tr("No match result"));
+    m_NoResultlabel->setWindowOpacity(0.2);
     m_NoResultlabel->setAlignment(Qt::AlignHCenter);
-    m_NoResultlabel->setForegroundRole(DPalette::PlaceholderText);
+    m_NoResultlabel->setForegroundRole(DPalette::TextTitle);
     m_NoResultlabel->hide();
     pnotaskWidgetlayout->addWidget(m_NoResultlabel);
 
@@ -192,8 +194,6 @@ void MainFrame::init()
     m_RightStackwidget = new QStackedWidget(this);
     m_RightStackwidget->setCurrentIndex(0);
 
-    QPalette pa;
-    pa.setColor(QPalette::Background, QColor(255, 0, 0));
     m_TaskNumWidget = new QWidget;
     m_TaskNumWidget->setFixedHeight(30);
     //m_pTaskNumWidget->setPalette(pa);
@@ -227,9 +227,9 @@ void MainFrame::init()
     m_DownloadingItem = new DStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
     m_DownloadFinishItem = new DStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
     m_RecycleItem = new DStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
-    m_DownloadingItem->setEditable(false);
-    m_DownloadFinishItem->setEditable(false);
-    m_RecycleItem->setEditable(false);
+//    m_DownloadingItem->setEditable(false);
+//    m_DownloadFinishItem->setEditable(false);
+//    m_RecycleItem->setEditable(false);
     pleftlistModel->appendRow(m_DownloadingItem);
     pleftlistModel->appendRow(m_DownloadFinishItem);
     pleftlistModel->appendRow(m_RecycleItem);
@@ -643,6 +643,7 @@ void MainFrame::setPaletteType()
         c.setAlpha(70);
         palette.setColor(DPalette::Background,c);
         m_TaskNumWidget->setPalette(palette);
+        m_NotaskLabel->setWindowOpacity(0.2);
         m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading_dark"));
         m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done_dark"));
         m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete_dark"));
@@ -665,7 +666,7 @@ void MainFrame::setPaletteType()
         c.setAlpha(70);
         palette.setColor(DPalette::Background,c);
         m_TaskNumWidget->setPalette(palette);
-
+        m_NotaskLabel->setWindowOpacity(0.2);
         m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading"));
         m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done"));
         m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete"));
@@ -958,6 +959,9 @@ void MainFrame::continueDownload(DownloadDataItem *pItem)
             startDownloadTask(pItem);
         } else {
             Aria2RPCInterface::instance()->unpause(pItem->gid, pItem->taskId);
+            if(m_UpdateTimer->isActive() == false) {
+                m_UpdateTimer->start(2 * 1000);
+            }
         }
     }
 }
@@ -2340,7 +2344,8 @@ void MainFrame::initDataItem(Global::DownloadDataItem *data, const Task &tbTask)
         data->Ischecked = 0;
         data->totalLength = taskStatus.totalLength;
         data->completedLength = taskStatus.compeletedLength;
-        if(taskStatus.downloadStatus == Global::DownloadJobStatus::Active) {
+        if(taskStatus.downloadStatus == Global::DownloadJobStatus::Active ||
+           taskStatus.downloadStatus == Global::DownloadJobStatus::Paused) {
             data->status = Global::DownloadJobStatus::Lastincomplete;
         } else {
             data->status = taskStatus.downloadStatus;
@@ -2779,7 +2784,7 @@ bool MainFrame::clearSharedMemory()
 
 bool MainFrame::isNetConnect()
 {
-    std::string strping = "ping -c 1 www.baidu.com";
+    std::string strping = "curl -i www.baidu.com";
     if (!system(strping.c_str())) {
         return true;
     } else {
