@@ -1905,7 +1905,7 @@ void MainFrame::onReturnOriginActionTriggered()
                         if(!QFile(seedFilePath).exists()) {
                             showWarningMsgbox(tr("seed file not exists or broken;"));
                         } else {
-                            Aria2RPCInterface::instance()->addTorrent(seedFilePath, opt, getUrlInfo.taskId);
+                            //Aria2RPCInterface::instance()->addTorrent(seedFilePath, opt, getUrlInfo.taskId);
                             //clearTableItemCheckStatus();
                             if(m_UpdateTimer->isActive() == false) {
                                 m_UpdateTimer->start(2 * 1000);
