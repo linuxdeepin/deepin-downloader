@@ -552,6 +552,11 @@ private:
      * @brief 删除任务
      */
     void deleteTaskByUrl(QString url);
+
+    /**
+     * @brief 删除任务
+     */
+    void deleteTaskByTaskID(QString taskID);
 protected:
 
     /**

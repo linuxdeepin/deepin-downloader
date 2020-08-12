@@ -159,10 +159,11 @@ void MainFrame::init()
 
     QFont lableFont;
     lableFont.setPointSize(15);
-    lableFont.setBold(QFont::DemiBold);
-    lableFont.setFamily("T5");
+    lableFont.setBold(QFont::ExtraLight);
+    //lableFont.setFamily("T5");
     m_NotaskLabel = new Dtk::Widget::DLabel();
     m_NotaskLabel->setFont(lableFont);
+    m_NotaskLabel->setWindowOpacity(0.2);
     m_NotaskLabel->setText(tr("No download tasks"));
     m_NotaskLabel->setAlignment(Qt::AlignHCenter);
     m_NotaskLabel->setForegroundRole(DPalette::PlaceholderText);
@@ -171,8 +172,9 @@ void MainFrame::init()
     m_NoResultlabel = new Dtk::Widget::DLabel();
     m_NoResultlabel->setFont(lableFont);
     m_NoResultlabel->setText(tr("No match result"));
+    m_NoResultlabel->setWindowOpacity(0.2);
     m_NoResultlabel->setAlignment(Qt::AlignHCenter);
-    m_NoResultlabel->setForegroundRole(DPalette::PlaceholderText);
+    m_NoResultlabel->setForegroundRole(DPalette::TextTitle);
     m_NoResultlabel->hide();
     pnotaskWidgetlayout->addWidget(m_NoResultlabel);
 
@@ -192,8 +194,6 @@ void MainFrame::init()
     m_RightStackwidget = new QStackedWidget(this);
     m_RightStackwidget->setCurrentIndex(0);
 
-    QPalette pa;
-    pa.setColor(QPalette::Background, QColor(255, 0, 0));
     m_TaskNumWidget = new QWidget;
     m_TaskNumWidget->setFixedHeight(30);
     //m_pTaskNumWidget->setPalette(pa);
@@ -227,9 +227,9 @@ void MainFrame::init()
     m_DownloadingItem = new DStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
     m_DownloadFinishItem = new DStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
     m_RecycleItem = new DStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
-    m_DownloadingItem->setEditable(false);
-    m_DownloadFinishItem->setEditable(false);
-    m_RecycleItem->setEditable(false);
+//    m_DownloadingItem->setEditable(false);
+//    m_DownloadFinishItem->setEditable(false);
+//    m_RecycleItem->setEditable(false);
     pleftlistModel->appendRow(m_DownloadingItem);
     pleftlistModel->appendRow(m_DownloadFinishItem);
     pleftlistModel->appendRow(m_RecycleItem);
@@ -475,7 +475,7 @@ void MainFrame::createNewTask(QString url)
         show();
     }
     m_TaskWidget->setUrl(url);
-    if(!isNetConnect()){
+    if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -643,6 +643,7 @@ void MainFrame::setPaletteType()
         c.setAlpha(70);
         palette.setColor(DPalette::Background,c);
         m_TaskNumWidget->setPalette(palette);
+        m_NotaskLabel->setWindowOpacity(0.2);
         m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading_dark"));
         m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done_dark"));
         m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete_dark"));
@@ -665,7 +666,7 @@ void MainFrame::setPaletteType()
         c.setAlpha(70);
         palette.setColor(DPalette::Background,c);
         m_TaskNumWidget->setPalette(palette);
-
+        m_NotaskLabel->setWindowOpacity(0.2);
         m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading"));
         m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done"));
         m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete"));
@@ -958,6 +959,9 @@ void MainFrame::continueDownload(DownloadDataItem *pItem)
             startDownloadTask(pItem);
         } else {
             Aria2RPCInterface::instance()->unpause(pItem->gid, pItem->taskId);
+            if(m_UpdateTimer->isActive() == false) {
+                m_UpdateTimer->start(2 * 1000);
+            }
         }
     }
 }
@@ -1275,7 +1279,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     DBInstance::getAllUrl(urlList);
     for(int i = 0; i < urlList.size(); i++) {
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(urlList[i].taskId);
-        if(urlList[i].infoHash == infoHash && pItem->status != DownloadJobStatus::Complete) {
+        if(urlList[i].infoHash == infoHash) {
             MessageBox msg;
             msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("Redownload"), tr("View"), 0, QList<QString>());
             int ret = msg.exec();
@@ -1295,6 +1299,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
                 DBInstance::delTask(urlList[i].taskId);
                 m_DownLoadingTableView->getTableModel()->removeItem(pItem);
             }
+            break;
         }
     }
 
@@ -1571,7 +1576,7 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onStartDownloadBtnClicked()
 {
-    if(!isNetConnect()){
+    if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -1595,7 +1600,7 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::onPauseDownloadBtnClicked()
 {
-    if(!isNetConnect()){
+    if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -1800,25 +1805,55 @@ void MainFrame::onRedownloadActionTriggered()
         DBInstance::addTask(task);
         qDebug() << task.gid << "   " << task.url;
         Aria2RPCInterface::instance()->addNewUri(task.url,filePath, task.downloadFilename, task.taskId);
-        emit isHeaderChecked(false);
-        m_NotaskWidget->hide();
-        m_UpdateTimer->start(2 * 1000);
-    } else {
-        //Aria2RPCInterface::instance()->forceRemove(m_DelCheckItem->gid,"REDOWNLOAD_" + QString::number(m_CurrentTab) + "_" + m_DelCheckItem->taskId);
-        Task task;
-        QMap<QString, QVariant> opt;
-        opt.insert("dir", m_DelCheckItem->savePath);
-        QString filePath = QString(m_DelCheckItem->savePath).left(m_DelCheckItem->savePath.lastIndexOf('/'));
-        getUrlToName(task, m_DelCheckItem->url, filePath, m_DelCheckItem->fileName, "");
-        deleteTaskByUrl(m_DelCheckItem->url);
-        DBInstance::addTask(task);
-        qDebug() << task.gid << "   " << task.url;
-        Aria2RPCInterface::instance()->addNewUri(task.url,filePath, task.downloadFilename, task.taskId);
-        emit isHeaderChecked(false);
-        m_NotaskWidget->hide();
-        m_UpdateTimer->start(2 * 1000);
 
+    } else {
+        if(m_DelCheckItem->url.isEmpty()){ //bt任务
+            Task task;
+            QMap<QString, QVariant> opt;
+
+            QString filePath = QString(m_DelCheckItem->savePath).left(m_DelCheckItem->savePath.lastIndexOf('/'));
+            UrlInfo info;
+            DBInstance::getUrlById(m_DelCheckItem->taskId, info);
+
+            QString strId = QUuid::createUuid().toString();
+            task.taskId = strId;
+            task.gid = "";
+            task.gidIndex = 0;
+            task.url = "";
+            task.downloadPath = Settings::getInstance()->getCustomFilePath();
+            task.downloadFilename = m_DelCheckItem->fileName;
+            task.createTime = QDateTime::currentDateTime();
+            DBInstance::addTask(task);
+
+            UrlInfo urlInfo;
+            urlInfo.taskId = strId;
+            urlInfo.url = "";
+            urlInfo.downloadType = "torrent";
+            urlInfo.seedFile = info.seedFile;
+            urlInfo.selectedNum = info.selectedNum;
+            urlInfo.infoHash = info.infoHash;
+            DBInstance::addUrl(urlInfo);
+
+            deleteTaskByTaskID(m_DelCheckItem->taskId);
+            QString selectNum = info.selectedNum;
+            opt.insert("select-file", selectNum);
+            Aria2RPCInterface::instance()->addTorrent(info.seedFile, opt, strId);
+        } else { // 非bt任务
+            Task task;
+            QMap<QString, QVariant> opt;
+            opt.insert("dir", m_DelCheckItem->savePath);
+            QString filePath = QString(m_DelCheckItem->savePath).left(m_DelCheckItem->savePath.lastIndexOf('/'));
+            getUrlToName(task, m_DelCheckItem->url, filePath, m_DelCheckItem->fileName, "");
+            deleteTaskByUrl(m_DelCheckItem->url);
+            DBInstance::addTask(task);
+            qDebug() << task.gid << "   " << task.url;
+            Aria2RPCInterface::instance()->addNewUri(task.url,filePath, task.downloadFilename, task.taskId);
+        }
+        //Aria2RPCInterface::instance()->forceRemove(m_DelCheckItem->gid,"REDOWNLOAD_" + QString::number(m_CurrentTab) + "_" + m_DelCheckItem->taskId);
     }
+    emit isHeaderChecked(false);
+    m_NotaskWidget->hide();
+    m_UpdateTimer->start(2 * 1000);
 }
 
 void MainFrame::onReturnOriginActionTriggered()
@@ -1901,7 +1936,7 @@ void MainFrame::onReturnOriginActionTriggered()
                         if(!QFile(seedFilePath).exists()) {
                             showWarningMsgbox(tr("seed file not exists or broken;"));
                         } else {
-                            Aria2RPCInterface::instance()->addTorrent(seedFilePath, opt, getUrlInfo.taskId);
+                            //Aria2RPCInterface::instance()->addTorrent(seedFilePath, opt, getUrlInfo.taskId);
                             //clearTableItemCheckStatus();
                             if(m_UpdateTimer->isActive() == false) {
                                 m_UpdateTimer->start(2 * 1000);
@@ -2340,7 +2375,8 @@ void MainFrame::initDataItem(Global::DownloadDataItem *data, const Task &tbTask)
         data->Ischecked = 0;
         data->totalLength = taskStatus.totalLength;
         data->completedLength = taskStatus.compeletedLength;
-        if(taskStatus.downloadStatus == Global::DownloadJobStatus::Active) {
+        if(taskStatus.downloadStatus == Global::DownloadJobStatus::Active ||
+           taskStatus.downloadStatus == Global::DownloadJobStatus::Paused) {
             data->status = Global::DownloadJobStatus::Lastincomplete;
         } else {
             data->status = taskStatus.downloadStatus;
@@ -2592,7 +2628,7 @@ void MainFrame::Raise()
 
 void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlName)
 {
-    if(!isNetConnect()){
+    if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -2779,12 +2815,13 @@ bool MainFrame::clearSharedMemory()
 
 bool MainFrame::isNetConnect()
 {
-    std::string strping = "ping -c 1 www.baidu.com";
-    if (!system(strping.c_str())) {
-        return true;
-    } else {
-        return false;
-    }
+    QProcess *process = new QProcess(this);
+    QStringList list;
+    list<<"-i"<< "www.baidu.com";
+    process->start("curl", list);
+    process->waitForFinished();
+    int ret = process->exitCode();
+    return ret ? true : false;
 }
 
 bool MainFrame::isAutoStart()
@@ -2946,6 +2983,52 @@ void MainFrame::deleteTaskByUrl(QString url)
         const QList<DeleteDataItem *>& dataList = m_RecycleTableView->getTableModel()->recyleList();
         foreach(DeleteDataItem * pItem, dataList){
             if(pItem->url == url) {
+                isExist = true;
+
+                Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
+                Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
+                QString ariaTempFile = pItem->savePath + ".aria2";
+                if(!pItem->savePath.isEmpty()) {
+                    deleteDirectory(pItem->savePath);
+                    if(QFile::exists(ariaTempFile)) {
+                        QFile::remove(ariaTempFile);
+                    }
+                }
+                DBInstance::delTask(pItem->taskId);
+                m_RecycleTableView->getTableModel()->removeItem(pItem);
+                break;
+            }
+        }
+    }
+    QThread::usleep(100);
+}
+
+void MainFrame::deleteTaskByTaskID(QString taskID)
+{
+    bool isExist = false;
+    const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    foreach(DownloadDataItem * pItem, dataList){
+        if(pItem->taskId == taskID) {
+            isExist = true;
+
+            Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
+            Aria2RPCInterface::instance()->remove(pItem->gid,pItem->taskId);
+            QString ariaTempFile = pItem->savePath + ".aria2";
+            if(!pItem->savePath.isEmpty()) {
+                deleteDirectory(pItem->savePath);
+                if(QFile::exists(ariaTempFile)) {
+                    QFile::remove(ariaTempFile);
+                }
+            }
+            DBInstance::delTask(pItem->taskId);
+            m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+            break;
+        }
+    }
+    if(!isExist){
+        const QList<DeleteDataItem *>& dataList = m_RecycleTableView->getTableModel()->recyleList();
+        foreach(DeleteDataItem * pItem, dataList){
+            if(pItem->taskId == taskID) {
                 isExist = true;
 
                 Aria2RPCInterface::instance()->forcePause(pItem->gid,pItem->taskId);
