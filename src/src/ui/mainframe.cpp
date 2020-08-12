@@ -2790,7 +2790,7 @@ bool MainFrame::isNetConnect()
     process->start("curl", list);
     process->waitForFinished();
     int ret = process->exitCode();
-    return ret ? false : true;
+    return ret ? true : false;
 }
 
 bool MainFrame::isAutoStart()
