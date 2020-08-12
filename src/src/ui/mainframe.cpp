@@ -1575,7 +1575,7 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onStartDownloadBtnClicked()
 {
-    if(!isNetConnect()){
+    if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -1599,7 +1599,7 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::onPauseDownloadBtnClicked()
 {
-    if(!isNetConnect()){
+    if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -2597,7 +2597,7 @@ void MainFrame::Raise()
 
 void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlName)
 {
-    if(!isNetConnect()){
+    if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
     }
