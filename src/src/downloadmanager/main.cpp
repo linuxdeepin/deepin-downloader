@@ -151,7 +151,7 @@ bool checkProcessExist()
     process.waitForFinished(1000);
     QString str = process.readAll();
     QStringList strList = str.split('\n');
-    if(strList.at(strList.size() - 1).isEmpty()){
+    if(strList.at(1).isEmpty()){
         return false;
     }
     return true;
