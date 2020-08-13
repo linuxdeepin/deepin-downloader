@@ -294,7 +294,7 @@ does not involve the privacy.</source>
 <context>
     <name>Main</name>
     <message>
-        <location filename="../src/src/downloadmanager/main.cpp" line="40"/>
+        <location filename="../src/src/downloadmanager/main.cpp" line="41"/>
         <source>Uos Download Management Application</source>
         <translation>Uos下载管理工具</translation>
     </message>
@@ -378,18 +378,18 @@ does not involve the privacy.</source>
         <translation>该任务已存在，重新下载将会删除已下载的内容!</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1783"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1784"/>
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation>重新下载将删除原来的文件，确定重新下载？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1937"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2598"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1939"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2600"/>
         <source>seed file not exists or broken;</source>
         <translation>种子文件不存在</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2781"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2783"/>
         <source>The address you entered cannot be resolved correctly</source>
         <translation>您输入的地址不能被正确解析</translation>
     </message>
@@ -420,25 +420,25 @@ does not involve the privacy.</source>
         <translation>是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2071"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2074"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2073"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2076"/>
         <source>Copied to clipboard</source>
         <translation>已复制到剪切板</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2073"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2563"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2075"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2565"/>
         <source>Downloader</source>
         <translation>下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2574"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2576"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="1284"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2574"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2576"/>
         <source>View</source>
         <translation>查看</translation>
     </message>
@@ -549,8 +549,8 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="1363"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1415"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1466"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1783"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2781"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1784"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2783"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
@@ -558,7 +558,7 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="490"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1415"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1466"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1783"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1784"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
@@ -570,9 +570,9 @@ does not involve the privacy.</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="1772"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="1961"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2088"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1773"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1963"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2090"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -583,38 +583,38 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="41"/>
         <location filename="../src/src/ui/messagebox.cpp" line="76"/>
         <location filename="../src/src/ui/messagebox.cpp" line="105"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="131"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="124"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="150"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="143"/>
         <source>Are you sure you want to delete this download task permanently?</source>
         <translation>您确认要彻底删除此下载任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="153"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="146"/>
         <source>Local files will be deleted at the same time.</source>
         <translation>选择彻底删除后，本地文件也将被删除。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="157"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="150"/>
         <source>Are you sure you want to delete this download task?</source>
         <translation>您确认要删除此下载任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="161"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="164"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="185"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="154"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="157"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="178"/>
         <source>Delete local files</source>
         <translation>同时删除本地文件</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="89"/>
         <location filename="../src/src/ui/messagebox.cpp" line="116"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="168"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="228"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="161"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="179"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="221"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -635,77 +635,77 @@ does not involve the privacy.</source>
         <translation>该任务已存在，是否删除已下载内容并重新下载？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="126"/>
         <source>Download Error. </source>
         <translation>任务下载异常。 </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="135"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="128"/>
         <source>Download again</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="136"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="129"/>
         <source>Delete task</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="171"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="164"/>
         <source>Permanently delete</source>
         <translation>彻底删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="167"/>
         <source>Delete</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="182"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="175"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
         <translation>您确认清空回收站里的所有任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="180"/>
         <source>Empty</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="195"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="188"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="223"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>You want to</source>
         <translation>请选择您的操作</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="225"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="218"/>
         <source>Exit</source>
         <translation>退出下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="225"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="218"/>
         <source>Minimize to System Tray</source>
         <translation>最小化到托盘</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="227"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="220"/>
         <source>Don&apos;t ask again</source>
         <translation>不再询问</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="229"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="222"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="296"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="289"/>
         <source>file name can not containts &apos;\&apos; or &apos;/&apos; </source>
         <translation>文件名称不能包含 &apos;\&apos;或者 &apos;/&apos; </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="296"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="289"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
@@ -749,12 +749,12 @@ does not involve the privacy.</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../src/src/downloadmanager/main.cpp" line="36"/>
+        <location filename="../src/src/downloadmanager/main.cpp" line="37"/>
         <source>Download Manager</source>
         <translation>下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/downloadmanager/main.cpp" line="38"/>
+        <location filename="../src/src/downloadmanager/main.cpp" line="39"/>
         <source>This is a download manage application.</source>
         <translation>这是一个下载管理工具。</translation>
     </message>
