@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     CheckFreeDisk();
     //创建新日志
     CreateNewLog();
-    //qInstallMessageHandler(customLogMessageHandler);
+    qInstallMessageHandler(customLogMessageHandler);
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
@@ -151,7 +151,7 @@ bool checkProcessExist()
     process.waitForFinished(1000);
     QString str = process.readAll();
     QStringList strList = str.split('\n');
-    if(strList.at(strList.size() - 1).isEmpty()){
+    if(strList.at(1).isEmpty()){
         return false;
     }
     return true;
