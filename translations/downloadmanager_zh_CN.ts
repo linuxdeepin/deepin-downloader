@@ -632,7 +632,7 @@ does not involve the privacy.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="107"/>
         <source>Task exist. Do you want to delete the downloaded files and download again?</source>
-        <translation type="unfinished"></translation>
+        <translation>该任务已存在，是否删除已下载内容并重新下载？</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="133"/>
