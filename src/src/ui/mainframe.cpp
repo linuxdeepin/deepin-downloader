@@ -1877,7 +1877,7 @@ void MainFrame::onReturnOriginActionTriggered()
                     getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
                 }
             } else {
-                if((returntoData->completedLength != "0B") && (returntoData->totalLength != "0B")) {
+                if((data->completedLength != "0B") && (data->totalLength != "0B")) {
                     returntoData->percent =  returntoData->completedLength.toLong() * 100.0 /
                                              returntoData->totalLength.toLong();
 
@@ -1898,7 +1898,8 @@ void MainFrame::onReturnOriginActionTriggered()
             returntoData->gid = data->gid;
             returntoData->time = data->finishTime;
             returntoData->taskId = data->taskId;
-            if(returntoData->status == Global::DownloadJobStatus::Removed){
+            if(returntoData->status == Global::DownloadJobStatus::Removed ||
+               getStatus.downloadStatus == Global::DownloadJobStatus::Removed){
                 returntoData->status = Global::DownloadJobStatus::Lastincomplete;
                 getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
             }
