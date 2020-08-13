@@ -115,13 +115,6 @@ void MessageBox::setRedownload(const QString sameUrl)
     addContent(urlText);
     addButton(tr("Cancel"));
     addButton(tr("Ok"));
-    connect(this,&MessageBox::buttonClicked,this,
-            [=](int index)
-            {
-            if(index == 1){
-            }
-            close();
-    });
 }
 
 void MessageBox::setUnusual(const QString &taskId)

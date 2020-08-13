@@ -1498,6 +1498,7 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
     if(rs == DDialog::Accepted){
         return true;
     }
+    return false;
 }
 
 void MainFrame::onAria2Remove(QString gId, QString id)
