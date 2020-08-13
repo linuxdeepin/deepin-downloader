@@ -39,6 +39,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/deleteitemthread.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tabledatacontrol.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settingslabel.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/dlmapplication.h
 )
 
 #添加资源文件
@@ -87,6 +88,7 @@ add_library(dlmcontrolui SHARED
        btheaderview.cpp
        deleteitemthread.cpp
        settingslabel.cpp
+       dlmapplication.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
        ${QM_FILES}

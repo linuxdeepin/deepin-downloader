@@ -97,6 +97,12 @@ public slots:
      */
     void Raise();
 
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void onTrayQuitClick();
+
 private slots:
     /**
      * @brief 点击托盘图表的槽函数
@@ -233,11 +239,7 @@ private slots:
      */
     void onAria2Remove(QString gId, QString id);
 
-    /**
-     * @brief mainwidow关闭事件
-     * @param event 事件类型
-     */
-    void onTrayQuitClick();
+
 
     /**
      * @brief messageBox关闭返回事件
