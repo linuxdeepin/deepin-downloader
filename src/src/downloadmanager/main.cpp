@@ -16,6 +16,7 @@
 #include "log.h"
 #include "settings.h"
 #include "config.h"
+#include "dlmapplication.h"
 DWIDGET_USE_NAMESPACE
 
 QString readShardMemary(QSharedMemory &sharedMemory);
@@ -24,9 +25,9 @@ bool checkProcessExist();
 
 int main(int argc, char *argv[])
 {
-    DApplication::loadDXcbPlugin();
+    DlmApplication::loadDXcbPlugin();
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    DApplication a(argc, argv);
+    DlmApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);
     a.loadTranslator();//加载程序的翻译文件
     a.setOrganizationName("uos");//设置公司名
@@ -98,7 +99,7 @@ int main(int argc, char *argv[])
     CheckFreeDisk();
     //创建新日志
     CreateNewLog();
-    //qInstallMessageHandler(customLogMessageHandler);
+    qInstallMessageHandler(customLogMessageHandler);
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
@@ -115,6 +116,7 @@ int main(int argc, char *argv[])
         }
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloadmanager.svg"));
+    QObject::connect(&a, &DlmApplication::applicatinQuit, &w, &MainFrame::onTrayQuitClick);
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
 }
@@ -151,7 +153,7 @@ bool checkProcessExist()
     process.waitForFinished(1000);
     QString str = process.readAll();
     QStringList strList = str.split('\n');
-    if(strList.at(strList.size() - 1).isEmpty()){
+    if(strList.at(1).isEmpty()){
         return false;
     }
     return true;

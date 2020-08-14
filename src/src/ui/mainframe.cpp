@@ -1180,18 +1180,24 @@ void MainFrame::onCheckChanged(bool checked, int flag)
     Q_UNUSED(flag);
     // ToolBar禁用按钮联动：列表内复选框状态变化 begin
     int chkedCnt = 0;
+    int fileExistCnt = 0;
 
     if(m_CurrentTab == recycleTab) {
         const QList<DeleteDataItem *>& recyleList = m_RecycleTableView->getTableModel()->recyleList();
         for(int i = 0; i < recyleList.size(); i++) {
             if(recyleList.at(i)->Ischecked) {
+                m_DelCheckItem = recyleList.at(i);
                 chkedCnt++;
+                if(QFileInfo::exists(recyleList.at(i)->savePath)){
+                    fileExistCnt ++;
+                }
             }
         }
     } else {
         const QList<DownloadDataItem *>& selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); i++) {
-            if(selectList.at(i)->Ischecked) {
+            if(selectList.at(i)->Ischecked ) {
+                m_CheckItem = selectList.at(i);
                 chkedCnt++;
             }
         }
@@ -1202,6 +1208,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
             m_ToolBar->enableStartBtn(true);
             m_ToolBar->enablePauseBtn(true);
             m_ToolBar->enableDeleteBtn(true);
+
         } else if(m_CurrentTab == finishTab) {
             m_ToolBar->enableDeleteBtn(true);
             if(1 == chkedCnt){
@@ -1213,7 +1220,11 @@ void MainFrame::onCheckChanged(bool checked, int flag)
             }
         } else if(m_CurrentTab == recycleTab) {
             m_ToolBar->enableStartBtn(true);
-            m_ToolBar->enablePauseBtn(true);
+            if(fileExistCnt > 0){
+                m_ToolBar->enablePauseBtn(true);
+            } else {
+                m_ToolBar->enablePauseBtn(false);
+            }
             m_ToolBar->enableDeleteBtn(true);
         }
     } else {
@@ -1498,6 +1509,7 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
     if(rs == DDialog::Accepted){
         return true;
     }
+    return false;
 }
 
 void MainFrame::onAria2Remove(QString gId, QString id)
@@ -1865,7 +1877,8 @@ void MainFrame::onReturnOriginActionTriggered()
     for(int i = size - 1; i >= 0 ; i--) {
         DeleteDataItem *data = recycleList.at(i);
         DBInstance::getTaskStatusById(data->taskId, getStatus);
-        if((data->Ischecked == 1) && !m_RecycleTableView->isRowHidden(i)) {
+        if((data->Ischecked == 1) && !m_RecycleTableView->isRowHidden(i)
+                && QFileInfo(data->savePath).exists()) {
             DownloadDataItem *returntoData = new DownloadDataItem;
             ++selectedCount;
             if(data->completedLength == data->totalLength) {
@@ -1877,7 +1890,7 @@ void MainFrame::onReturnOriginActionTriggered()
                     getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
                 }
             } else {
-                if((returntoData->completedLength != "0B") && (returntoData->totalLength != "0B")) {
+                if((data->completedLength != "0B") && (data->totalLength != "0B")) {
                     returntoData->percent =  returntoData->completedLength.toLong() * 100.0 /
                                              returntoData->totalLength.toLong();
 
@@ -1898,7 +1911,8 @@ void MainFrame::onReturnOriginActionTriggered()
             returntoData->gid = data->gid;
             returntoData->time = data->finishTime;
             returntoData->taskId = data->taskId;
-            if(returntoData->status == Global::DownloadJobStatus::Removed){
+            if(returntoData->status == Global::DownloadJobStatus::Removed ||
+               getStatus.downloadStatus == Global::DownloadJobStatus::Removed){
                 returntoData->status = Global::DownloadJobStatus::Lastincomplete;
                 getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
             }
@@ -1958,7 +1972,7 @@ void MainFrame::onReturnOriginActionTriggered()
         DBInstance::updateTaskStatusById(getStatus);
     }
     if(selectedCount == 0) {
-        showWarningMsgbox(tr("no item is selected,please check items!"));
+        //showWarningMsgbox(tr("no item is selected,please check items!"));
     } else {
         // ToolBar禁用按钮联动：还原后禁用按钮
         if(m_RecycleTableView->getTableModel()->recyleList().size() > 0){
