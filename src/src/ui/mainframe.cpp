@@ -447,7 +447,6 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainFrame::closeEvent(QCloseEvent *event)
 {
-    int type = event->type();
     if(Settings::getInstance()->getIsShowTip()) {
         MessageBox msg;
         connect(&msg, &MessageBox::closeConfirm, this, &MainFrame::onMessageBoxConfirmClick);
@@ -1713,15 +1712,17 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
         m_DownLoadingTableView->reset();
         m_RecycleTableView->reset();
         //TableModel *pModel =  dynamic_cast<TableModel *>(selected.model());
-        const QAbstractItemModel *pAbsModel = selected.model();
-        //TableModel *pModel = dynamic_cast<TableModel*>(pAbsModel);
-        ((TableModel *)selected.model())->setData(selected.model()->index(selected.row(), 0),
+        //const QAbstractItemModel *pAbsModel = selected.model();
+        //TableModel *pModel = qobject_cast<TableModel*>(pAbsModel);
+        ((TableModel*)selected.model())->setData(selected.model()->index(selected.row(), 0),
                                                   true,
                                                   TableModel::Ischecked);
     } else if(m_CtrlkeyPress == true || selected.column() == 0) {
         m_DownLoadingTableView->reset();
         m_RecycleTableView->reset();
-        ((TableModel *)selected.model())->setData(selected.model()->index(selected.row(), 0),
+        //const QAbstractItemModel *pAbsModel = selected.model();
+        //TableModel *pModel = qobject_cast<TableModel*>(pAbsModel);
+        ((TableModel*)selected.model())->setData(selected.model()->index(selected.row(), 0),
                                                   !chked,
                                                   TableModel::Ischecked);
     }
@@ -2627,6 +2628,8 @@ void MainFrame::Raise()
 
 void MainFrame::onParseUrlList(QStringList urlList, QString path, QString urlName)
 {
+    Q_UNUSED(path);
+    Q_UNUSED(urlName);
     if(isNetConnect()){
         m_TaskWidget->showNetErrorMsg();
         return;
