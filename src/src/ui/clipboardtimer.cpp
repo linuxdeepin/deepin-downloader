@@ -48,10 +48,17 @@ ClipboardTimer::~ClipboardTimer()
 void ClipboardTimer::getDataChanged()
 {
     const QMimeData *mimeData = m_clipboard->mimeData();
-    if(mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER") == "1"){
+    QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
+    qDebug()<< "isDeepinCilpboard" <<isDeepinCilpboard;
+    if(mimeData->data("TIMESTAMP") == m_timeStamp){
         return;
     }
-    if(mimeData->data("TIMESTAMP") == m_timeStamp){
+    if(isDeepinCilpboard == "1"){
+        qDebug()<<"!!!!!!!!!!";
+        return;
+    }
+    if(m_clipboard->ownsClipboard())
+    {
         return;
     }
     m_timeStamp  = mimeData->data("TIMESTAMP");
