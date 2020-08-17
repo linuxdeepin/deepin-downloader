@@ -14,10 +14,10 @@
 #include <QPainter>
 #include <QListWidget>
 
-SettingsWidget *SettingsWidget::s_pInstance = NULL;
+SettingsWidget *SettingsWidget::s_pInstance = nullptr;
 SettingsWidget *SettingsWidget::getInstance()
 {
-    if(s_pInstance == NULL)
+    if(s_pInstance == nullptr)
     {
         s_pInstance = new SettingsWidget;
     }

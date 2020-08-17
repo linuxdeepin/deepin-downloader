@@ -1,10 +1,3 @@
-#ifndef DBINSTANCE_H
-#define DBINSTANCE_H
-#include "database.h"
-#include "dbdefine.h"
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlError>
-
 /**
 * @file %{CurrentDocument:dbinstance.h}
 * @brief 数据库接口库
@@ -13,6 +6,13 @@
 * @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
 * @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
+
+#ifndef DBINSTANCE_H
+#define DBINSTANCE_H
+#include "database.h"
+#include "dbdefine.h"
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
 
 class DBInstance
 {

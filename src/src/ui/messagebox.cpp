@@ -113,8 +113,9 @@ void MessageBox::setRedownload(const QString sameUrl)
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0,0,0,20));
     addContent(urlText);
-    addButton(tr("Cancel"));
     addButton(tr("Ok"));
+    addButton(tr("Cancel"));
+
 }
 
 void MessageBox::setUnusual(const QString &taskId)
@@ -182,6 +183,7 @@ void MessageBox::setClear()
 }
 void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
 {
+    Q_UNUSED(title);
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setCloseButtonVisible(false);

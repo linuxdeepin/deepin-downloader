@@ -507,7 +507,7 @@ private:
     /**
      * @brief 清空共享内存
     */
-    bool clearSharedMemory();
+    void clearSharedMemory();
 
     /**
      * @brief 开始下载任务
@@ -559,6 +559,12 @@ private:
      * @brief 删除任务
      */
     void deleteTaskByTaskID(QString taskID);
+
+    /**
+     * @brief 检查磁力链接是否和已下载的bt文件重复
+     */
+    bool checkIsHasSameTask(QString infoHash);
+
 protected:
 
     /**

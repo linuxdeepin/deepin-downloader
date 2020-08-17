@@ -241,7 +241,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
     if((completedLength != 0) && (totalLength != 0)) {
         double tempPercent = completedLength * 100.0 / totalLength;
-        percent = tempPercent;
+        percent = static_cast<int>(tempPercent);
         if((percent < 0) || (percent > 100)) {
             percent = 0;
         }
@@ -277,6 +277,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     } else if(statusStr == "paused") {
         status = Global::DownloadJobStatus::Paused;
     } else if(statusStr == "error") {
+        if("12" == errorCode){
+
+        }
         status = Global::DownloadJobStatus::Error;
         dealNotificaitonSettings(statusStr, fileName, errorCode);
     } else if(statusStr == "complete") {
@@ -349,7 +352,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         fileUri = "";
     }
     data->percent = percent;
-    data->total = totalLength;
+    data->total = static_cast<int>(totalLength);
     if(filePath != "") {
         data->savePath = filePath;
     } else {
@@ -362,7 +365,8 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if((totalLength != completedLength) && (totalLength != 0) &&
        (data->status == Global::DownloadJobStatus::Active)) {
         QTime t(0, 0, 0);
-        t = t.addSecs((totalLength - completedLength * 1.0) / downloadSpeed);
+        double d = (totalLength - completedLength * 1.0) / downloadSpeed;
+        t = t.addSecs(static_cast<int>(d));
         data->time = t.toString("mm:ss");
     } else if((totalLength == 0) && (data->status == Global::DownloadJobStatus::Active)) {
         data->time = ("--:--");
@@ -431,7 +435,7 @@ void tableDataControl::aria2MethodGetFiles(QJsonObject &json, int iCurrentRow)
         data = new DownloadDataItem();
         QJsonArray  ja = json.value("result").toArray();
         QJsonObject jo = ja.at(0).toObject();
-        data->totalLength = jo.value("length").toString().toLong(); // 文件大小
+        data->totalLength = jo.value("length").toString(); // 文件大小
         data->savePath = jo.value("path").toString();               //下载路径，带文件名
         data->fileName = data->savePath.mid(data->savePath.lastIndexOf('/') + 1);
         QJsonArray uris = jo.value("uris").toArray();
@@ -458,6 +462,7 @@ void tableDataControl::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
 
 void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
 {
+    Q_UNUSED(json);
     const QList<Global::DownloadDataItem *>& pItemList = m_DownloadTableView->getTableModel()->dataList();
 
     foreach(DownloadDataItem * pItem, pItemList){

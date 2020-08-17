@@ -593,6 +593,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
 
 QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
 {
+    Q_UNUSED(obj);
 //    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString diskCacheInfo = tr("More disk cache, faster download speed \nand more computer consume");

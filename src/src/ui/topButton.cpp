@@ -66,16 +66,11 @@ void TopButton::Init()
     m_PauseDownloadBtn->setEnabled(false);
     m_PauseDownloadBtn->setToolTip(tr("Pause"));
 
-   // m_pPauseDownloadBtn->setIconSize(QSize(12,12));
-    QSize size1 = m_PauseDownloadBtn->iconSize();
-    QSize size2 = m_NewDownloadBtn->iconSize();
-
     m_StartDownloadBtn = new DIconButton(this);
     m_StartDownloadBtn->setFixedSize(36, 36);
     m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_StartDownloadBtn->setEnabled(false);
     m_StartDownloadBtn->setToolTip(tr("Resume"));
-
 
     m_DeleteDownloadBtn = new DIconButton(this);
     m_DeleteDownloadBtn->setFixedSize(36, 36);

@@ -115,6 +115,7 @@ DownloadDataItem * TableModel::find(const QString &taskId)
 
 DeleteDataItem * TableModel::find(const QString &gid, int flag)
 {
+    Q_UNUSED(flag);
     if(m_Deletemap.contains(gid)) {
         return m_Deletemap.value(gid);
     }
@@ -174,7 +175,7 @@ void TableModel::removeItems()
     endRemoveRows();
 }
 
-void TableModel::removeItems(bool isrecycle)
+void TableModel::removeRecycleItems()
 {
     beginRemoveRows(QModelIndex(), 0, m_RecyleList.size());
     qDeleteAll(m_RecyleList.begin(), m_RecyleList.end());
@@ -217,7 +218,7 @@ int TableModel::rowCount(const QModelIndex &parent) const
     if(m_TableviewtabFlag == 0) {
         return m_RenderList.size();
     }
-    if(m_TableviewtabFlag == 1) {
+    else {
         return m_RecyleList.size();
     }
 }
@@ -248,7 +249,6 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         deldata = m_RecyleList.at(row);
     }
 
-    bool Ischecked;
     QString fileName;
     QString savePath;
     QString gid;
@@ -354,7 +354,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         case TableModel::TotalLength:
         {
             if(m_TableviewtabFlag == 0) {
-                return data->total;
+                return data->totalLength;
             } else if(m_TableviewtabFlag == 1) {
                 return deldata->totalLength;
             }
@@ -570,7 +570,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     QVector<QPair<QVariant, int> > sortable;
     QVector<int> unsortable;
     int role = 0;
-    switch(column){
+    switch(column) {
         case 0:
             role = TableModel::createTime;
             break;
@@ -598,7 +598,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     double num = -1;
     for(int row = 0; row < rowCount(); ++row) {
         QVariant itm = data(index(row, column), role);
-        if(role == TableModel::Size){
+        if(role == TableModel::Size || role == TableModel::TotalLength){
             num = formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
         } else {
@@ -679,7 +679,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
 double TableModel::formatFileSize(QString str)
 {
     double num = -1;
-    QString number = str.remove(str.length() - 2, 2);
+    QString number = str.left(str.length() - 2);
     num = number.toDouble();
     if(str.contains("KB")){
 

@@ -138,8 +138,8 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
     buffer.setBuffer(&array);
     const char *from = buffer.data().constData();
     int size = strUrl.size();
-    size_t num = qMin(size,sharedMemory.size());
-    memcpy(to,from, num);
+    int num = qMin(size,sharedMemory.size());
+    memcpy(to,from, static_cast<size_t>(num));
     sharedMemory.unlock();
 }
 
