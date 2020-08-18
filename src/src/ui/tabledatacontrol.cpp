@@ -284,9 +284,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         dealNotificaitonSettings(statusStr, fileName, errorCode);
     } else if(statusStr == "complete") {
         status = Global::DownloadJobStatus::Complete;
-
+        dealNotificaitonSettings(statusStr, fileName, errorCode);
         //下载文件为种子文件
         if(fileName.endsWith(".torrent")) {
+            data->status = Global::DownloadJobStatus::Complete;
             if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
                 emit AutoDownloadBt(filePath);
                 clearShardMemary();
@@ -302,9 +303,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
                 fileName = infoHash + ".torrent";
                 filePath = dir + "/" + fileName;
                 data->fileName = fileName;
-            if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
+            //if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
                 emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
-            }
+            //}
         }
 
         //
@@ -315,7 +316,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     } else if(statusStr == "removed") {
         status = Global::DownloadJobStatus::Removed;
     }
-
+    if(nullptr == m_DownloadTableView->getTableModel()->find(taskId)){
+        return;
+    }
     data->gid = gId;
     if(totalLength > 0) {
         data->totalLength = formatFileSize(totalLength);
@@ -379,7 +382,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     Task task;
     Task getTask;
-    DBInstance::getTaskByID(data->taskId, getTask);
+    DBInstance::getTaskByID(taskId, getTask);
     if(getTask.taskId != "") {
         if(getTask.url != "") {
             data->url = getTask.url;

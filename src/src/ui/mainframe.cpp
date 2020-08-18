@@ -1321,6 +1321,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     // 开始下载
     Aria2RPCInterface::instance()->addTorrent(btPath, opt, strId);
     clearTableItemCheckStatus();
+    deleteTaskByUrl("magnet:?xt=urn:btih:" + infoHash.toUpper());
     // 定时器打开
     if(m_UpdateTimer->isActive() == false) {
         m_UpdateTimer->start(2 * 1000);
@@ -1442,9 +1443,9 @@ void MainFrame::showDeleteMsgbox(bool permanently)
         m_ToolBar->enableStartBtn(false);
         m_ToolBar->enablePauseBtn(false);
         m_ToolBar->enableDeleteBtn(false);
-        if(m_CurrentTab == recycleTab){
-            m_ToolBar->enableStartBtn(true);
-        }
+//        if(m_CurrentTab == recycleTab){
+//            m_ToolBar->enableStartBtn(true);
+//        }
     }
 }
 
@@ -3086,12 +3087,13 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
     }
     const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
     for(DownloadDataItem *item : dataList) {
-        if(item->url.contains(infoHash.toUpper())){
-            if(showRedownloadMsgbox(item->url)){
+        if(item->url.toUpper().contains(infoHash.toUpper()) && item->status != DownloadJobStatus::Complete) {
+            //if(showRedownloadMsgbox(item->url)){
                deleteTaskByUrl(item->url);
-            } else {
-                return false;
-            }
+               break;
+            //} else {
+            //    return false;
+            //}
         }
     }
     QThread::usleep(200);
