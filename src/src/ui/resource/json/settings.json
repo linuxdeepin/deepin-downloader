@@ -75,6 +75,12 @@
                             "default":"5"
                         },
                         {
+                            "key":"AutoDownload",
+                            "name":"Active downloads",
+                            "type":"autodownloadbyspeed",
+                            "default":"0:100"
+                        },
+                        {
                             "key":"AutoOpen",
                             "name":"Open file after download",
                             "type":"switchbutton",
@@ -85,6 +91,18 @@
                             "name":"Delete tasks without files",
                             "type":"switchbutton",
                             "default":false
+                        },
+                        {
+                            "key":"AutoSortBySpeed",
+                            "name":"Move low speed tasks to the end",
+                            "type":"switchbutton",
+                            "default":false
+                        },
+                        {
+                            "key":"PriorityDownload",
+                            "name":"Move low speed tasks to the end",
+                            "type":"prioritydownloadbysize",
+                            "default":"0:30"
                         }
                     ]
                 }
@@ -171,7 +189,7 @@
                     "options": [{
                             "key": "downloadInfoNotify",
                             "name": "Allow notifications when downloading succeed or failed",
-                            "type": "switchbutton",
+                            "type": "notificationssettiing",
                             "default": true
                         }
                 ]

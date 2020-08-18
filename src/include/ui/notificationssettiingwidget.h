@@ -1,9 +1,9 @@
 /**
  * @copyright 2020-2020 Uniontech Technology Co., Ltd.
  *
- * @file monitoringsettingwidget.h
+ * @file notificationssettiingwidget.h
  *
- * @brief 接管设置
+ * @brief 通知提醒
  *
  * @date 2020-06-09 10:52
  *
@@ -25,36 +25,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MONITORINGSETTINGWIDGET_H
-#define MONITORINGSETTINGWIDGET_H
+#ifndef NOTIFICATIONSSETTIINGWIDGET_H
+#define NOTIFICATIONSSETTIINGWIDGET_H
 
 #include <QWidget>
-#include <DSwitchButton>
-
+#include <DLabel>
 DWIDGET_USE_NAMESPACE
 
+
 /**
- * @class MonitoringSettingWidget
- * @brief 接管设置类
-*/
-class MonitoringSettingWidget : public QWidget
+ * @class NotificationsSettiingWidget
+ * @brief 系统通知设置类
+ */
+class NotificationsSettiingWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MonitoringSettingWidget(QWidget *parent = nullptr);
+    explicit NotificationsSettiingWidget(QWidget *parent = nullptr);
 
 signals:
 
 public slots:
-
-private:
-    // 初始化界面
-    void initUI();
-    // 初始化链接
-    void initConnections();
-
-private:
-    DSwitchButton *m_pClipBoardButton; // 剪切板
 };
 
-#endif // MONITORINGSETTINGWIDGET_H
+#endif // NOTIFICATIONSSETTIINGWIDGET_H

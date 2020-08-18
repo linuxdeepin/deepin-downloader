@@ -692,6 +692,12 @@ void MainFrame::onSettingsMenuClicked()
                                                      Settings::createDownloadDiskCacheSettiingHandle);
     pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting",
                                                      Settings::createDownloadSpeedLimitSettiingHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("notificationssettiing",
+                                                     Settings::createNotificationsSettiingHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("autodownloadbyspeed",
+                                                     Settings::createAutoDownloadBySpeedHandle);
+    pSettingsDialog->widgetFactory()->registerWidget("prioritydownloadbysize",
+                                                     Settings::createPriorityDownloadBySizeHandle);
     pSettingsDialog->updateSettings("Settings", Settings::getInstance()->m_settings);
 
     Settings::getInstance()->setAutoStart(isAutoStart());
@@ -1902,7 +1908,7 @@ void MainFrame::onOpenFileActionTriggered()
 {
 
     if(m_CurrentTab == finishTab) {
-        QThread::usleep(100);
+        //QThread::usleep(100);
         QString path = QString("file:///") + m_CheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
     } else {

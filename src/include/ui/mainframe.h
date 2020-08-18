@@ -52,7 +52,7 @@ DTK_USE_NAMESPACE
 class QStackedWidget;
 class QSystemTrayIcon;
 class QAction;
-class SettingsWidget;
+class SettingsControlWidget;
 class TopButton;
 class TableView;
 class Task;
@@ -606,7 +606,7 @@ private:
     QTimer *m_UpdateTimer;
     QTimer *m_TrayClickTimer;
     CreateTaskWidget *m_TaskWidget;
-    SettingsWidget *m_SettingWidget;
+    SettingsControlWidget *m_SettingWidget;
     CurrentTab m_CurrentTab; // 当前显示列表，正在下载、已完成、回收站
     QString m_SearchContent;
     bool m_ShutdownOk = true;

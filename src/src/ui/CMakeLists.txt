@@ -25,6 +25,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodialog.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfotableview.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/monitoringsettingwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/notificationssettiingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settingswidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/basicsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/clipboardtimer.h
@@ -74,6 +75,7 @@ add_library(dlmcontrolui SHARED
        btinfodialog.cpp
        btinfotableview.cpp
        monitoringsettingwidget.cpp
+       notificationssettiingwidget.cpp
        settingswidget.cpp
        basicsettingwidget.cpp
        clipboardtimer.cpp
