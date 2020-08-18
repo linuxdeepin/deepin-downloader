@@ -74,9 +74,12 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
-    sharedMemory.create(199);
-    char *to = static_cast<char*>(sharedMemory.data());
-    memset(to,0, 199);
+    if(sharedMemory.create(199))
+    {
+        char *to = static_cast<char*>(sharedMemory.data());
+        memset(to,0, 199);
+    }
+
 
     // 保存程序的窗口主题设置
     DApplicationSettings as;
@@ -98,7 +101,7 @@ int main(int argc, char *argv[])
     CheckFreeDisk();
     //创建新日志
     CreateNewLog();
-    qInstallMessageHandler(customLogMessageHandler);
+    //qInstallMessageHandler(customLogMessageHandler);
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;

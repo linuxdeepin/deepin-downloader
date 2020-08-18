@@ -280,8 +280,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         status = Global::DownloadJobStatus::Error;
         dealNotificaitonSettings(statusStr, fileName, errorCode);
     } else if(statusStr == "complete") {
-        status = Global::DownloadJobStatus::Complete;
 
+        data->status = Global::DownloadJobStatus::Complete;
+        status = Global::DownloadJobStatus::Complete;
         //下载文件为种子文件
         if(fileName.endsWith(".torrent")) {
             if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
@@ -308,6 +309,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         dealNotificaitonSettings(statusStr, fileName, errorCode);
         if(Settings::getInstance()->getDownloadFinishedOpenState()) {
             QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
+        }
+        if(!checkTaskStatus()) {
+            emit whenDownloadFinish();
         }
     } else if(statusStr == "removed") {
         status = Global::DownloadJobStatus::Removed;
@@ -697,9 +701,8 @@ int tableDataControl::onDelAction(int currentLab)
             }
         }
     } else {
-        QList<DownloadDataItem *> pSelectList;
         m_DeleteList.clear();
-        pSelectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& pSelectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < pSelectList.size(); ++i) {
             DownloadDataItem *data;
             if(currentLab == 1) {
@@ -728,9 +731,8 @@ int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DownloadData
 {
     int selectedCount = 0;
 
-    QList<DownloadDataItem *> selectList;
     reloadList.clear();
-    selectList = m_DownloadTableView->getTableModel()->renderList();
+    const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
     for(int i = 0; i < selectList.size(); ++i) {
         if(selectList.at(i)->status == Complete || selectList.at(i)->status == Error) {
             if((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
@@ -788,8 +790,6 @@ void tableDataControl::onOpenFileAction()
 
 int tableDataControl::onOpenFolderAction(int currentLab)
 {
-    QList<DownloadDataItem *> selectList;
-
     int selectedCount = 0;
     if(currentLab == 2) {
         const QList<DeleteDataItem *>& delList = m_DownloadTableView->getTableModel()->recyleList();
@@ -816,7 +816,7 @@ int tableDataControl::onOpenFolderAction(int currentLab)
             }
         }
     } else {
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(currentLab == 1) {
                 if(selectList.at(i)->status == Complete) {
@@ -913,12 +913,10 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
             }
         }
     } else {
-        QList<DownloadDataItem *> selectList;
-
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
 
         for(int i = 0; i < selectList.size(); ++i) {
-            DownloadDataItem *data;
+            DownloadDataItem *data = nullptr;
             bool isSelect = false;
             if((currentLab == 1) && (selectList.at(i)->status == Complete)) {
                 if((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
@@ -970,9 +968,8 @@ int tableDataControl::onDeletePermanentAction(int currentLab)
             }
         }
     } else {
-        QList<DownloadDataItem *> selectList;
         m_DeleteList.clear();
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             DownloadDataItem *data;
             if(currentLab == 1) {
@@ -1049,11 +1046,11 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         save_path = data->savePath;
         gid = data->gid;
         taskId = data->taskId;
-        QDateTime finish_time;
+        QDateTime finishTime;
         if(data->status == Complete) {
-            finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+            finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
         } else {
-            finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+            finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
         }
 
         TaskStatus getStatus;
@@ -1065,7 +1062,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                      data->totalLength,
                                      data->percent,
                                      data->total,
-                                     finish_time);
+                                     finishTime);
 
 
         if(permanent || ischecked) {
@@ -1337,5 +1334,15 @@ void tableDataControl::clearShardMemary()
         memset(to, 0, num);
         sharedMemory.unlock();
     }
+}
 
+bool tableDataControl::checkTaskStatus()
+{
+    const QList<DownloadDataItem *>& dataList = m_DownloadTableView->getTableModel()->dataList();
+    for(const auto *item : dataList) {
+        if((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting)) {
+            return true;
+        }
+    }
+    return false;
 }
