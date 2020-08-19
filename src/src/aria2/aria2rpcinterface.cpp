@@ -376,17 +376,31 @@ void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
         QNetworkRequest requset; //定义请求对象
         requset.setUrl(QUrl(this->m_rpcServer)); //设置服务器的uri
         requset.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        manager->post(requset, QJsonDocument(jsonObj).toJson()); //post信息到服务器
+        QNetworkReply *networkReply = manager->post(requset, QJsonDocument(jsonObj).toJson()); //post信息到服务器
 
         //调用返回的信息
-        QObject::connect(manager,
-                         &QNetworkAccessManager::finished,
-                         this,
-                         [=](QNetworkReply *reply) {
-                             this->rpcRequestReply(reply, method, jsonObj.value("id").toString()); //调用出来函数
-                             manager->deleteLater(); //删除
-                             manager->destroyed();
-                         });
+        connect(manager,
+                &QNetworkAccessManager::finished,
+                this,
+                [=](QNetworkReply *reply) {
+
+                    this->rpcRequestReply(reply, method, jsonObj.value("id").toString()); //调用出来函数
+                    manager->deleteLater(); //删除
+                    manager->destroyed();
+                });
+
+//        connect(networkReply,
+//                QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
+//                [=](QNetworkReply::NetworkError error){
+//                    QByteArray buf = networkReply->readAll();
+//                    qDebug() << error << ":  " << buf;
+//                });
+//        connect(networkReply,
+//                &QNetworkReply::finished,
+//                [=](){
+//                    QByteArray buf = networkReply->readAll();
+//                    qDebug() << "finished" << ":  " << buf;
+//                });
     }
 }
 
@@ -493,6 +507,12 @@ void Aria2RPCInterface::getFiles(QString gId, QString id)
     QJsonArray ja;
     ja.append(gId);
     callRPC(ARIA2C_METHOD_GET_FILES, ja, id);
+}
+
+void Aria2RPCInterface::getGlobalSatat()
+{
+    QJsonArray ja;
+    callRPC(ARIA2C_METHOD_GET_GLOBAL_STAT, ja, "");
 }
 
 void Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QString id)

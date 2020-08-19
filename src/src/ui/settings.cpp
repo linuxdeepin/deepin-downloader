@@ -604,15 +604,19 @@ QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString speed = "";
+    bool check = false;
 
     if (option->value().toString().isEmpty()) {
         speed = "100";
+        check = false;
     } else {
         speed = option->value().toString().mid(2);
+        check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->setSpeend(speed);
+    pWidget->setSwitch(check);
 
     connect(pWidget, &SettingsControlWidget::TextChanged, pWidget, [=](QString text){
         option->setValue("1:" + text);
@@ -641,15 +645,19 @@ QWidget *Settings::createPriorityDownloadBySizeHandle(QObject *obj)
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString size = "";
+    bool check = false;
 
     if (option->value().toString().isEmpty()) {
         size = "30";
+        check = false;
     } else {
         size = option->value().toString().mid(2);
+        check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
     pWidget->initUI(tr("Priority to download less than"), tr("MB Task"), false);
     pWidget->setSize(size);
+    pWidget->setSwitch(check);
 
     connect(pWidget, &SettingsControlWidget::TextChanged, pWidget, [=](QString text){
         option->setValue("1:" + text);
@@ -1000,7 +1008,7 @@ int Settings::getDisckcacheNum()
 
 bool Settings::getAutoDownloadBySpeed(QString &speed)
 {
-    QString text = m_iniFile->value("DownloadTaskManagement.downloadtaskmanagement.AutoDownload").toString();
+    QString text = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoDownload")->value().toString();
     speed = text.mid(2);
     bool isCheck = text.left(1).toInt();
     return isCheck;
@@ -1008,7 +1016,7 @@ bool Settings::getAutoDownloadBySpeed(QString &speed)
 
 bool Settings::getPriorityDownloadBySize(QString &size)
 {
-    QString text = m_iniFile->value("DownloadTaskManagement.downloadtaskmanagement.PriorityDownload").toString();
+    QString text = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.PriorityDownload")->value().toString();
     size = text.mid(2);
     bool isCheck = text.left(1).toInt();
     return isCheck;
@@ -1016,7 +1024,7 @@ bool Settings::getPriorityDownloadBySize(QString &size)
 
 bool Settings::getAutoSortBySpeed()
 {
-    return m_iniFile->value("DownloadTaskManagement.downloadtaskmanagement.AutoSortBySpeed").toBool();
+    return m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoSortBySpeed")->value().toBool();
 }
 
 void Settings::setCloseMainWindowSelected(int select)

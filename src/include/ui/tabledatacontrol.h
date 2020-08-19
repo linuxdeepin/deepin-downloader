@@ -91,6 +91,11 @@ public:
      */
     void aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow);
 
+    /**
+     * @brief aria2获取全局状态
+     */
+    void aria2GetGlobalStatus(QJsonObject &json);
+
 
     /**
      * @brief aria2强制删除事件
@@ -273,6 +278,11 @@ signals:
      * @brief 进行下载完成后的操作
     */
     void whenDownloadFinish();
+
+    /**
+     * @brief 增加一个最大下载任务数
+    */
+    void setMaxDownloadTask(int num);
 private:
     TableView *m_DownloadTableView;
     TableView *m_RececleTableView;

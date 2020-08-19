@@ -472,6 +472,25 @@ void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
     }
 }
 
+void tableDataControl::aria2GetGlobalStatus(QJsonObject &json)
+{
+    static QList<long long> speedList;
+    QJsonObject  ja = json.value("result").toObject();
+    long long speed = ja.value("downloadSpeed").toString().toLong();
+    speedList.append(speed);
+    if(speedList.count() >= 5){
+        long long aveSpeed = speedList.at(0) + speedList.at(1) + speedList.at(2) + speedList.at(3) + speedList.at(4);
+        aveSpeed /= 5;
+        QString speedStr;
+        if(Settings::getInstance()->getAutoDownloadBySpeed(speedStr)) {
+            if((aveSpeed / 1024) < speedStr.toInt()){
+                emit setMaxDownloadTask(Settings::getInstance()->getMaxDownloadTaskNumber() + 1);
+            }
+        }
+        speedList.clear();
+    }
+}
+
 void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
 {
     QString id = json.value("id").toString();

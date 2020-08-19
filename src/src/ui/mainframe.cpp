@@ -367,8 +367,10 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onParseUrlList);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::setMaxDownloadTask, this, &MainFrame::onMaxDownloadTaskNumberChanged);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_DownLoadingTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
+
 
     connect(m_RecycleTableView, &TableView::HeaderStatechanged, this, &MainFrame::onHeaderStatechanged);
     connect(m_RecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
@@ -1294,7 +1296,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
                 QThread::usleep(2000);
                 QString ariaTempFile = pItem->savePath + ".aria2";
                 if(!pItem->savePath.isEmpty()) {
-                    bool b = deleteDirectory(pItem->savePath);
+                    deleteDirectory(pItem->savePath);
                     if(QFile::exists(ariaTempFile)) {
                         QFile::remove(ariaTempFile);
                     }
@@ -1675,6 +1677,8 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
         m_DownLoadingTableView->getTableControl()->aria2MethodForceRemove(json);
     } else if(method == ARIA2C_METHOD_UNPAUSE_ALL) {
         m_DownLoadingTableView->getTableControl()->aria2MethodUnpauseAll(json, m_CurrentTab);
+    } else if(method == ARIA2C_METHOD_GET_GLOBAL_STAT) {
+        m_DownLoadingTableView->getTableControl()->aria2GetGlobalStatus(json);
     }
 }
 
@@ -1736,6 +1740,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
 
 void MainFrame::onUpdateMainUI()
 {
+    Aria2RPCInterface::instance()->getGlobalSatat();
     const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;
     m_ShutdownOk = true;
@@ -2202,7 +2207,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;
     m_ShutdownOk = true;
-    for(const auto *item : dataList) {
+    for(const auto *item : dataList) {  //暂停掉之前已经开始的多余下载总数的任务
         if(item->status == Global::DownloadJobStatus::Active) {
             activeCount ++;
             if(activeCount > nTaskNumber){

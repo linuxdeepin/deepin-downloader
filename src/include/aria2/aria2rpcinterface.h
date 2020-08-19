@@ -301,6 +301,15 @@ public:
     void getFiles(QString gId, QString id = "");
 
     /**
+     * @brief getGlobalSatat 获取全局状态
+     * @param gId
+     * @param id
+     *
+     * signal_success信号中异步返回,参数详见aria2文档
+     */
+    void getGlobalSatat();
+
+    /**
      * @brief modifyConfigFile 写入配置文件
      * @param config_item 配置项
      * @param value 配置值
