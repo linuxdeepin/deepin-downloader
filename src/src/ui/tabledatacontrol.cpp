@@ -217,6 +217,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     QJsonArray files = result.value("files").toArray();
 
     QString filePath;
+
     QString fileUri;
     for(int i = 0; i < files.size(); ++i) {
         QJsonObject file = files[i].toObject();
@@ -239,6 +240,11 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     int percent = 0;
     int status = 0;
 
+    if(filePath.startsWith("[METADATA]")) {
+            QString dir = result.value("dir").toString();
+            QString infoHash = result.value("infoHash").toString();
+            filePath = dir + "/" + infoHash + ".torrent";
+    }
     if((completedLength != 0) && (totalLength != 0)) {
         double tempPercent = completedLength * 100.0 / totalLength;
         percent = static_cast<int>(tempPercent);
@@ -296,12 +302,14 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //下载文件为磁链种子文件
         QString infoHash = result.value("infoHash").toString();
+        bool isMetaData = false;
         if(filePath.startsWith("[METADATA]")) {
-
+                isMetaData = true;
                 QString dir = result.value("dir").toString();
                 data->status = Global::DownloadJobStatus::Complete;
                 fileName = infoHash + ".torrent";
                 filePath = dir + "/" + fileName;
+                data->savePath = dir + "/" + fileName;
                 data->fileName = fileName;
             //if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
                 emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
@@ -310,7 +318,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //
         dealNotificaitonSettings(statusStr, fileName, errorCode);
-        if(Settings::getInstance()->getDownloadFinishedOpenState()) {
+        if(Settings::getInstance()->getDownloadFinishedOpenState() && (!isMetaData)) {
             QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
         }
     } else if(statusStr == "removed") {
@@ -474,6 +482,11 @@ void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
         }
         m_DownloadTableView->refreshTableView(iCurrentRow);
     }
+}
+
+void tableDataControl::aria2MethodRemove(QJsonObject &json)
+{
+    //qDebug() << "aria2MethodRemove: " << json.value("id").toString();
 }
 
 void tableDataControl::aria2MethodForceRemove(QJsonObject &json)

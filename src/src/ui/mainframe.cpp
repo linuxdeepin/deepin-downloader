@@ -1664,6 +1664,8 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
         m_DownLoadingTableView->getTableControl()->aria2MethodUnpause(json, m_CurrentTab);
     } else if(method == ARIA2C_METHOD_FORCE_REMOVE) {
         m_DownLoadingTableView->getTableControl()->aria2MethodForceRemove(json);
+    } else if(method == ARIA2C_METHOD_REMOVE) {
+        m_DownLoadingTableView->getTableControl()->aria2MethodRemove(json);
     } else if(method == ARIA2C_METHOD_UNPAUSE_ALL) {
         m_DownLoadingTableView->getTableControl()->aria2MethodUnpauseAll(json, m_CurrentTab);
     }
@@ -2968,7 +2970,7 @@ void MainFrame::deleteTaskByUrl(QString url)
 {
     bool isExist = false;
     const QList<DownloadDataItem *>& dataList = m_DownLoadingTableView->getTableModel()->dataList();
-    foreach(DownloadDataItem * pItem, dataList){
+    foreach(DownloadDataItem * pItem, dataList) {
         if(pItem->url == url) {
             isExist = true;
 
