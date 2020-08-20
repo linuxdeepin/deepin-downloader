@@ -31,6 +31,9 @@
 #include <DLabel>
 #include <DSwitchButton>
 #include <DLineEdit>
+#include <DAlertControl>
+
+#include "settings.h"
 DWIDGET_USE_NAMESPACE
 SettingsControlWidget::SettingsControlWidget(QWidget *parent) : QWidget(parent)
 {
@@ -48,10 +51,27 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     if(isLineEdit){
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
+        DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);
         QIntValidator *validator = new QIntValidator(0, 9999);
         m_Edit->lineEdit()->setValidator(validator);
         layout->addWidget(m_Edit);
         connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);
+        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString &text){  //设置速度不能高于最大限速
+            if (Settings::getInstance()->getDownloadSettingSelected() &&
+                    text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()) {
+                alertControl->showAlertMessage(tr("Total speed neet less than Max download speed!"),
+                                                         m_Edit->parentWidget()->parentWidget(), -1);
+                alertControl->setMessageAlignment(Qt::AlignLeft);
+            } else {
+                alertControl->hideAlertMessage();
+            }
+        });
+
+        connect(m_Edit, &DLineEdit::focusChanged, this, [=](bool onFocus){  //设置速度不能高于最大限速
+            if(!onFocus) {
+                alertControl->hideAlertMessage();
+            }
+        });
     } else {
         m_ComboBox = new DComboBox();
         m_ComboBox->setEnabled(false);
