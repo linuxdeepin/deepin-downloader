@@ -30,6 +30,7 @@
 #include <QString>
 #include <QStandardItemModel>
 
+#include "settings.h"
 #include "global.h"
 using namespace Global;
 
@@ -294,7 +295,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         case TableModel::Speed:
         {
             if(m_TableviewtabFlag == 0) {
-                return (data->status != Global::DownloadJobStatus::Paused) ? data->speed : "0KB/s";
+                return data->speed; // (data->status != Global::DownloadJobStatus::Paused) ? data->speed : "0KB/s";
             }
             break;
         }
@@ -595,11 +596,14 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             }
             break;
     }
+    if(Settings::getInstance()->getAutoSortBySpeed()) {
+        role = TableModel::Speed;
+    }
     double num = -1;
     for(int row = 0; row < rowCount(); ++row) {
         QVariant itm = data(index(row, column), role);
-        if(role == TableModel::Size){
-            num = formatFileSize(itm.toString());
+        if(role == TableModel::Size || role == TableModel::Speed){
+            num = formatFileSize(itm.toString().left(itm.toString().length() - 2));
             sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if(!itm.isNull()) {
@@ -609,9 +613,14 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             }
         }
     }
+    if(Settings::getInstance()->getAutoSortBySpeed()) {
+        LessThan compare = &itemGreaterThan;
+        std::stable_sort(sortable.begin(), sortable.end(), compare);
+    } else {
+        LessThan compare = (order == Qt::AscendingOrder ? &itemLessThan : &itemGreaterThan);
+        std::stable_sort(sortable.begin(), sortable.end(), compare);
+    }
 
-    LessThan compare = (order == Qt::AscendingOrder ? &itemLessThan : &itemGreaterThan);
-    std::stable_sort(sortable.begin(), sortable.end(), compare);
 
     QList<DownloadDataItem*> sortData;
     emit layoutAboutToBeChanged();
@@ -679,7 +688,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
 double TableModel::formatFileSize(QString str)
 {
     double num = -1;
-    QString number = str.remove(str.length() - 2, 2);
+    QString number = str.left(str.length() - 2);
     num = number.toDouble();
     if(str.contains("KB")){
 

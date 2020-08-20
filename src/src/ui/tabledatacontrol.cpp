@@ -233,6 +233,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     long totalLength = result.value("totalLength").toString().toLong();         //字节
     long completedLength = result.value("completedLength").toString().toLong(); //字节
     long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //字节/每秒
+    QString speed = "0KB/s";
     QString fileName = getFileName(filePath);
     QString statusStr = result.value("status").toString();
     QString errorCode = result.value("errorCode").toString();
@@ -274,10 +275,13 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         }
     } else if(statusStr == "waiting") {
         status = Global::DownloadJobStatus::Waiting;
+        downloadSpeed = -1;
     } else if(statusStr == "paused") {
         status = Global::DownloadJobStatus::Paused;
+        downloadSpeed = -2;
     } else if(statusStr == "error") {
         status = Global::DownloadJobStatus::Error;
+        downloadSpeed = -3;
         dealNotificaitonSettings(statusStr, fileName, errorCode);
     } else if(statusStr == "complete") {
 
@@ -325,7 +329,6 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         data->completedLength = formatFileSize(completedLength);
     }
     data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0KB/s";
-
     if(bittorrent.isEmpty()) {
         if(!fileName.isEmpty() && (data->fileName != fileName)) {
             data->fileName = fileName;
@@ -642,7 +645,9 @@ QString tableDataControl::formatDownloadSpeed(long size)
 {
     QString result = "";
 
-    if(size < 1024) {
+    if(size < 0) {
+            result = QString::number(size) + " KB/s";
+    } else if(size < 1024) {
         result = QString::number(size) + " B/s";
     } else if(size / 1024 < 1024) {
         result = QString::number(size * 1.0 / 1024, 'r', 1) + " KB/s";
