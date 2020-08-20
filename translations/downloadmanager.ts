@@ -302,6 +302,10 @@ does not involve the privacy.</source>
     <name>MainFrame</name>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="105"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="105"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -309,269 +313,708 @@ does not involve the privacy.</source>
         <location filename="../src/src/ui/mainframe.cpp" line="108"/>
         <location filename="../src/src/ui/mainframe.cpp" line="109"/>
         <location filename="../src/src/ui/mainframe.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="269"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="108"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="109"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="269"/>
         <source>When download completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="110"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="110"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="112"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="112"/>
         <source>Hibernate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="114"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="114"/>
         <source>Exit download manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="166"/>
         <location filename="../src/src/ui/mainframe.cpp" line="779"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="167"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="779"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="167"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="779"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="166"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="778"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="167"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="779"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="166"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="778"/>
+>>>>>>> dev
         <source>No download tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="173"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="174"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="174"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="173"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="174"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="173"/>
         <source>No match result</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="184"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="186"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="186"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="184"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="186"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="184"/>
         <source>Click + to create new task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="202"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="202"/>
         <source>0 task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="227"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="227"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="228"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="228"/>
         <source>Completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="229"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="229"/>
         <source>Trash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="263"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="263"/>
         <source>Download Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="265"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="265"/>
         <source>Show main window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="266"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="266"/>
         <source>New task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="267"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="267"/>
         <source>Continue all tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="268"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="268"/>
         <source>Pause all tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="273"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="273"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="490"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="489"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="489"/>
+>>>>>>> dev
         <source>Are you sure to exit? Tasks in download will be interrupted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="491"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1359"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1411"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1462"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1778"/>
         <location filename="../src/src/ui/mainframe.cpp" line="2732"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1362"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1362"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1358"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2745"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1362"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1358"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2745"/>
+>>>>>>> dev
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="491"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1411"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1462"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1778"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1414"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1465"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="490"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1778"/>
+>>>>>>> dev
         <source>cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="576"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="575"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="575"/>
+>>>>>>> dev
         <source> item tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="592"/>
         <location filename="../src/src/ui/mainframe.cpp" line="607"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="606"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="591"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="606"/>
+>>>>>>> dev
         <source> files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="735"/>
+<<<<<<< HEAD
+=======
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="734"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="734"/>
+>>>>>>> dev
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="735"/>
+<<<<<<< HEAD
+=======
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="734"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="735"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="734"/>
+>>>>>>> dev
         <source>%1 downloading...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="773"/>
+<<<<<<< HEAD
+=======
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="773"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="772"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="773"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="772"/>
+>>>>>>> dev
         <source>No finished tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="789"/>
+<<<<<<< HEAD
+=======
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="789"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="788"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="789"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="788"/>
+>>>>>>> dev
         <source>No deleted tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1040"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1043"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1043"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1039"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1043"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1039"/>
+>>>>>>> dev
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1046"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1049"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1049"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1045"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1049"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1045"/>
+>>>>>>> dev
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1052"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1067"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1055"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1070"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1055"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1070"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1051"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1066"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1055"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1070"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1051"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1066"/>
+>>>>>>> dev
         <source>Download again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1061"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1064"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1064"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1060"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1064"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1060"/>
+>>>>>>> dev
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1075"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1078"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1078"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1074"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1078"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1074"/>
+>>>>>>> dev
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1083"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1158"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1086"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1161"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1086"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1161"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1082"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1157"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1086"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1161"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1082"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1157"/>
+>>>>>>> dev
         <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1101"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1461"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1104"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1464"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1104"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1464"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1100"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1460"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1104"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1464"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1100"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1460"/>
+>>>>>>> dev
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1108"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1111"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1111"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1107"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1111"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1107"/>
+>>>>>>> dev
         <source>Move to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1118"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1139"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1150"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1121"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1142"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1153"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1121"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1142"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1153"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1117"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1138"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1149"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1121"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1142"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1153"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1117"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1138"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1149"/>
+>>>>>>> dev
         <source>Copy download link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1128"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1131"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1131"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1127"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1131"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1127"/>
+>>>>>>> dev
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1133"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1136"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1136"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1132"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1136"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1132"/>
+>>>>>>> dev
         <source>Permanently delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1165"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1168"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1168"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1164"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1168"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1164"/>
+>>>>>>> dev
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1281"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1280"/>
+>>>>>>> dev
         <source>Task exist, Downloading again will delete the downloaded content!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1281"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1471"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1491"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1474"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1494"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1474"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1494"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1470"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1490"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1474"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1494"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1470"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1490"/>
+>>>>>>> dev
         <source>Redownload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1281"/>
         <location filename="../src/src/ui/mainframe.cpp" line="2525"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2538"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1284"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1280"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2538"/>
+>>>>>>> dev
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1409"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1412"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1412"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1408"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1412"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1408"/>
+>>>>>>> dev
         <source>Do you continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1768"/>
         <location filename="../src/src/ui/mainframe.cpp" line="1914"/>
         <location filename="../src/src/ui/mainframe.cpp" line="2041"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1771"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="1930"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2057"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1771"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1930"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2057"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1767"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1926"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2053"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1771"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1930"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2057"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1767"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1926"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2053"/>
+>>>>>>> dev
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1778"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1778"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1782"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1778"/>
+>>>>>>> dev
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="1890"/>
         <location filename="../src/src/ui/mainframe.cpp" line="2549"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="1906"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2567"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="1906"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2567"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="1902"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2562"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="1906"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2567"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="1902"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2562"/>
+>>>>>>> dev
         <source>seed file not exists or broken;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="2024"/>
         <location filename="../src/src/ui/mainframe.cpp" line="2027"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="2040"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2043"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2040"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2043"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2036"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2039"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2040"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2043"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2036"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2039"/>
+>>>>>>> dev
         <source>Copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../src/src/ui/mainframe.cpp" line="2026"/>
         <location filename="../src/src/ui/mainframe.cpp" line="2514"/>
+=======
+        <location filename="../src/src/ui/mainframe.cpp" line="2042"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2532"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2042"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2532"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2038"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2527"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2042"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2532"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2038"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2527"/>
+>>>>>>> dev
         <source>Downloader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2525"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2538"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2543"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2538"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainframe.cpp" line="2732"/>
+        <location filename="../src/src/ui/mainframe.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_BACKUP_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_BASE_9808.cpp" line="2745"/>
+        <location filename="../src/src/ui/mainframe_LOCAL_9808.cpp" line="2750"/>
+        <location filename="../src/src/ui/mainframe_REMOTE_9808.cpp" line="2745"/>
         <source>The address you entered cannot be resolved correctly</source>
         <translation type="unfinished"></translation>
     </message>

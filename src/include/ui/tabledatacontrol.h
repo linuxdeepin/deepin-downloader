@@ -96,6 +96,10 @@ public:
      */
     void aria2GetGlobalStatus(QJsonObject &json);
 
+    /**
+     * @brief aria2删除事件
+     */
+    void aria2MethodRemove(QJsonObject &json);
 
     /**
      * @brief aria2强制删除事件
