@@ -40,6 +40,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/deleteitemthread.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/tabledatacontrol.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settingslabel.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/dlmapplication.h
 )
 
 #添加资源文件
@@ -49,7 +50,7 @@ qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 #发布的时候生成qm文件
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     #生成 ts qm文件
-    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager.ts")
+    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager_zh_CN.ts")
     qt5_create_translation(QM_FILES
         ${PROJECT_SOURCE_DIR}/translations
         ${TS_FILES}
@@ -89,6 +90,7 @@ add_library(dlmcontrolui SHARED
        btheaderview.cpp
        deleteitemthread.cpp
        settingslabel.cpp
+       dlmapplication.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
        ${QM_FILES}

@@ -26,11 +26,13 @@
  */
 
 #include "notificationssettiingwidget.h"
+
 #include <QPushButton>
 #include <qlayout.h>
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
+
 NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent) : QWidget(parent)
 {
     QFont lableFont;

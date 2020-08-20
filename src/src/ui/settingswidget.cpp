@@ -36,6 +36,7 @@ SettingsControlWidget::SettingsControlWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
+
 // 初始化界面
 void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {

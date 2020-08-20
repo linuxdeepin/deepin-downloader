@@ -97,6 +97,12 @@ public slots:
      */
     void Raise();
 
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void onTrayQuitClick(bool force = false);
+
 private slots:
     /**
      * @brief 点击托盘图表的槽函数
@@ -237,7 +243,7 @@ private slots:
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
-    void onTrayQuitClick(bool force = false);
+    //void onTrayQuitClick(bool force = false);
 
     /**
      * @brief messageBox关闭返回事件
@@ -510,7 +516,7 @@ private:
     /**
      * @brief 清空共享内存
     */
-    bool clearSharedMemory();
+    void clearSharedMemory();
 
     /**
      * @brief 开始下载任务
@@ -557,6 +563,17 @@ private:
      * @brief 删除任务
      */
     void deleteTaskByUrl(QString url);
+
+    /**
+     * @brief 删除任务
+     */
+    void deleteTaskByTaskID(QString taskID);
+
+    /**
+     * @brief 检查磁力链接是否和已下载的bt文件重复
+     */
+    bool checkIsHasSameTask(QString infoHash);
+
 protected:
 
     /**

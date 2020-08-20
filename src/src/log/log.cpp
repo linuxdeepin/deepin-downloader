@@ -26,7 +26,7 @@
  */
 
 #include "log.h"
-
+#include <iostream>
 static int s_logLevel = QtDebugMsg;
 static quint64 _logDaysRemain = DEFALT_REMAIN_TIME;
 static int _rotateSize = MAXLOGSIZE;
@@ -185,10 +185,11 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, cons
     case QtFatalMsg:
         logInfo = QString("Fatal:");
     }
-    QString context_info = QString("File:(%1) Line:(%2)").arg(QString(ctx.file)).arg(ctx.line);
-    QString current_date_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss ddd");
-    QString current_date = QString("(%1)").arg(current_date_time);
-    QString message = QString("%1 %2 %3 %4").arg(logInfo).arg(context_info).arg(msg).arg(current_date);
+    QString contextInfo = QString("File:(%1) Line:(%2)").arg(QString(ctx.file)).arg(ctx.line);
+    QString currentDateTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss ddd");
+    QString currentDate = QString("(%1)").arg(currentDateTime);
+    QString message = QString("%1 %2 %3 %4").arg(logInfo).arg(contextInfo).arg(msg).arg(currentDate);
+    QString stdmessage = QString("%1 %2 %3").arg(contextInfo).arg(msg).arg(currentDate);
     s_logMutex.lock();
     QFile outFile(s_logPath);
     QFileInfo fileInfo(outFile);
@@ -200,6 +201,7 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, cons
 
     QTextStream ts(&outFile);
     ts << message.toUtf8() << endl;
+    std::cout << msg.toStdString() << std::endl;
     outFile.close();
     s_logMutex.unlock();
 }

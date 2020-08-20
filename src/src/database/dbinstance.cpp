@@ -370,7 +370,7 @@ bool DBInstance::updateUrlById(UrlInfo url)
     q.close();
     return true;
 }
-bool DBInstance::getUrlById(QString urdId, UrlInfo &url)
+bool DBInstance::getUrlById(QString taskId, UrlInfo &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -378,7 +378,7 @@ bool DBInstance::getUrlById(QString urdId, UrlInfo &url)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllAql = "select * from url_info where task_id='" + urdId + "';";
+    QString selectAllAql = "select * from url_info where task_id='" + taskId + "';";
     sql.prepare(selectAllAql);
     if (!sql.exec()) {
         qWarning() << "select url_info failed : " << sql.lastError();
