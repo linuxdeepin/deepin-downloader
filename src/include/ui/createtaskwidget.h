@@ -148,14 +148,6 @@ protected:
 
 
 signals:
-//    /**
-//     * @brief 新建http下载任务
-//     * @param url http下载地址
-//     * @param save_path 保存路径
-//     * @param path_name 文件名字
-//    */
-//    void downloadWidgetCreate(QStringList urlList,QString savePath,QString pathName);
-
     /**
      * @brief 新建http下载任务
      * @param url 信息

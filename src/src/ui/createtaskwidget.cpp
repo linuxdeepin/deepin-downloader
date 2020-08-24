@@ -32,6 +32,7 @@
 #include "taskdelegate.h"
 #include "btheaderview.h"
 #include "analysisurl.h"
+#include "../database/dbinstance.h"
 #include <QPalette>
 #include <QHBoxLayout>
 #include <QSizePolicy>
@@ -400,31 +401,11 @@ bool CreateTaskWidget::isHttp(QString url)
     if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))){
         return false;
     }
-//    QStringList _list= url.split(".");
-//    QString _suffix = _list[_list.size()-1];
-//    QStringList _type;
-//     _type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
-//    if(_type.contains(_suffix))
-//    {
-//        return true;
-//    }
-//    for (int i = 0; i < _type.size(); i++) {
-//        if(_type[i].toUpper() == _suffix)
-//        {
-//            return true;
-//        }
-//    }
     return true;
 }
 
 void CreateTaskWidget::onTextChanged()
 {
-//    if(m_texturl->toPlainText().isEmpty()){
-//        m_sureButton->setEnabled(false);
-//    }
-//    else{
-//        m_sureButton->setEnabled(true);
-//    }
     QStringList urlList = m_texturl->toPlainText().split("\n");
     for (int i = 0; i< urlList.size(); i++) {
         if(urlList[i] == ""){
@@ -628,8 +609,9 @@ void CreateTaskWidget::setData(int index, QString name,QString type, QString siz
 {
 
     m_model->setItem(index, 0, new QStandardItem( size == "" ? "0" : "1"));
-    if(!name.isNull())
+    if(!name.isNull() && !m_model->item(index, 1))
         m_model->setItem(index, 1, new QStandardItem(name));
+
     if(!type.isEmpty())
         m_model->setItem(index, 2, new QStandardItem(type));
     m_model->setItem(index, 3, new QStandardItem(size));
@@ -662,8 +644,17 @@ void CreateTaskWidget::updateSelectedInfo()
     m_sureButton->setEnabled(total> 0? true : false);
 }
 
-void CreateTaskWidget::changeUrlName(const QModelIndex &index)
+void CreateTaskWidget::setUrlName(int index, QString name)
 {
-    //if(index.row())
-//   m_model->edit
+    QList<Task> taskList;
+    DBInstance::getAllTask(taskList);
+    QString curName =  name + "." + m_model->data(m_model->index(index, 2)).toString();
+    for (int i = 0; i < taskList.size(); i++) {
+        if(taskList[i].downloadFilename == curName){
+            return;
+        }
+    }
+    m_model->setItem(index, 1, new QStandardItem(name));
+    m_tableView->setColumnHidden(1, true);
 }
+

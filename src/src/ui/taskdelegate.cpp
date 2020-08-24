@@ -37,14 +37,13 @@
 #include <QStyleOptionViewItem>
 #include <QModelIndex>
 #include <QCheckBox>
+#include <QStandardItem>
 #include <QDir>
 
 TaskDelegate::TaskDelegate(DDialog *dialog)
 {
     m_dialog = dialog;
     m_checkBtn = new QCheckBox;
-
-
 
 }
 
@@ -122,6 +121,7 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         QString text = painter->fontMetrics().elidedText(index.data().toString(), Qt::ElideRight, option.rect.width() - 25);
         painter->drawText(option.rect.x() + 5, option.rect.y() + 28, text);
     }
+
     painter->restore();
 }
 
@@ -150,7 +150,9 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
         }
         else if (event->type() == QEvent::MouseButtonDblClick
                  && !rect.contains(mouseEvent->pos())) {
-            int a =10;
+            auto a = index.model()->data(index.model()->index(index.row(), 0));
+            DLineEdit *pEdit = new DLineEdit();
+            pEdit->setGeometry(10,10,10,10);
 
         }
     }
@@ -160,62 +162,33 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
 
 QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-//    Q_UNUSED(option);
+    Q_UNUSED(option);
 
-//    static bool  firstInside = true;
-//    firstInside = true;
-//    DLineEdit *pEdit = new DLineEdit(parent);
-//    connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename){
-//        DLineEdit *pEdit=qobject_cast<DLineEdit *>(sender());
-//        QString FilePath = index.data(TableModel::SavePath).toString();
-//        FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-//        FilePath = FilePath + filename;
-//        QFileInfo file(FilePath);
-//        if(file.isFile() && !firstInside){
-//            pEdit->showAlertMessage(tr("Duplicate name!"), -1);
-//        } else {
-//            pEdit->hideAlertMessage();
-//        }
-//        firstInside = false;
-//    });
-//    pEdit->resize(parent->size());
-//    QString FilePath = index.data(TableModel::SavePath).toString();
-//    return pEdit;
-    return  NULL;
+
+    DLineEdit *pEdit = new DLineEdit(parent);
+
+    pEdit->setGeometry(option.rect.x()+150,10,50,10);
+    pEdit->setGeometry(0,0,0,0);
+
+    QString FilePath = index.data().toString();
+    return pEdit;
 }
 
 void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-//    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
-//    QString str = index.data(TableModel::FileName).toString();
+    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+    QString str = index.model()->data(index.model()->index(index.row(), 1)).toString();
 
-//    QMimeDatabase db;
-//    QString mime = db.suffixForFileName(str);
-//    str = str.left(str.size() - mime.size() -1);
-//    pEdit->setText(str);
+
+    pEdit->setText(str);
 }
 
 void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-//    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
-//    QString str = index.data(TableModel::FileName).toString();
-//    QMimeDatabase db;
-//    QString mime = db.suffixForFileName(str);
-//    QString fileName = pEdit->text() + "." + mime;
-
-//    QString FilePath = index.data(TableModel::SavePath).toString();
-//    FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-//    FilePath = FilePath + fileName;
-//    if(!QFileInfo::exists(FilePath)){
-//        QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
-//        model->setData(index, fileName, TableModel::FileName);
-//        model->setData(index, FilePath, TableModel::SavePath);
-//        Task task;
-//        DBInstance::getTaskByID(index.data(TableModel::taskId).toString(),task);
-//        task.downloadPath = FilePath;
-//        task.downloadFilename = fileName;
-//        DBInstance::updateTaskByID(task);
-//    }
+    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+    QString str = pEdit->text();
+    int row = index.row();
+    ((CreateTaskWidget*)m_dialog)->setUrlName(row,str);
 }
 
 

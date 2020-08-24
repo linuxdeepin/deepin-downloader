@@ -133,6 +133,8 @@ public:
      * @return 重复名称个数
      */
     static int getSameNameCount(QString filename);
+
+
     
 };
 
