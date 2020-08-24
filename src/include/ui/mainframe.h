@@ -344,15 +344,20 @@ private slots:
 
 
 
-    /**
-     * @brief 解析url
-     */
-    void onParseUrlList(QStringList urlList, QString path, QString name="");
+//    /**
+//     * @brief 解析url
+//     */
+//    void onParseUrlList(QStringList urlList, QString path, QString name="");
 
-    /**
-     * @brief 解析url请求返回处理
-     */
-    void onHttpRequest(QNetworkReply *reply);
+//    /**
+//     * @brief 解析url
+//     */
+//    void onParseUrlList(QStringList urlList, QString path, QString name="");
+
+//    /**
+//     * @brief 解析url请求返回处理
+//     */
+//    void onHttpRequest(QNetworkReply *reply);
 private:
 
     /**
@@ -533,11 +538,11 @@ private:
      */
     void initDbus();
 
-    /**
-     * @brief 解析url获取url 类型
-     * @return
-     */
-    QString getUrlType(QString url);
+//    /**
+//     * @brief 解析url获取url 类型
+//     * @return
+//     */
+//    QString getUrlType(QString url);
 
     /**
      * @brief 删除目录

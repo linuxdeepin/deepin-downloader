@@ -52,6 +52,8 @@ class QStandardItemModel;
 
 DWIDGET_USE_NAMESPACE
 
+
+
 class BtInfoDialog : public DDialog
 {
     Q_OBJECT
@@ -105,12 +107,21 @@ private:
     QString getFileEditText(QString text);
     void setOkBtnStatus(int count);    //根据选择文件设置确认按钮状态
 
+    void sortByFileName(bool ret);
+    void sortByType(bool ret);
+    void sortBySize(bool ret);
+
+
+
+
 protected:
     /**
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
     void closeEvent(QCloseEvent *event) override;
+
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     QString m_torrentFile;              //bt文件路径
@@ -139,6 +150,15 @@ private:
     DCheckBox *m_checkPicture;      //图片文件类型
     DCheckBox *m_checkOther;        //其他文件类型
     Aria2cBtInfo m_ariaInfo;        //当前bt文件信息
+
+    QList<Aria2cBtFileInfo> m_listBtInfo;  //bt文件列表
+
+    enum DataRole {
+       // Ischecked = 1,
+        fileName = 0,
+        type = 2,
+        size = 3
+    };
 
 
 public slots:
@@ -175,6 +195,9 @@ public slots:
      */
     void onPaletteTypeChanged(DGuiApplicationHelper::ColorType type);
 
+    void Sort(int index);
+
+    void setTableData(BtInfoDialog::DataRole,bool ret);
 };
 
 #endif // BTINFODIALOG_H

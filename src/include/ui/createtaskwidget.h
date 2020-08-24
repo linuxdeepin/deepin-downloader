@@ -42,8 +42,14 @@
 #include <QNetworkReply>
 #include <QCloseEvent>
 
+class LinkInfo;
 class BtInfoDialog;
 class MessageBox;
+class BtInfoDelegate;
+class BtInfoTableView;
+class AnalysisUrl;
+class TaskDelegate;
+class QStandardItemModel;
 
 DWIDGET_USE_NAMESPACE
 
@@ -57,6 +63,11 @@ public:
     void setUrl(QString url);
 
     void showNetErrorMsg();
+
+    /**
+     * @brief updateSelectedInfo 更新文件列表选中后的信息（Delegate内部调用）
+     */
+    void updateSelectedInfo();
 private:
     /**
      * @brief 初始化ui
@@ -84,6 +95,12 @@ private:
     */
     void getTruetUrl(QString redirecUrl);
 
+    void getUrlToName(QString url,QString &name, QString &type);
+
+    void setData(int index, QString name,QString type, QString size, QString url, long length, QString trueUrl);
+
+
+
 private slots:
     /**
      * @brief 打开选择文件窗口按钮
@@ -107,6 +124,8 @@ private slots:
      */
     void onFilechoosed(const QString &);
 
+    void updataTabel(LinkInfo*);
+
 protected:
     /**
      * @brief 拖拽处理函数
@@ -125,6 +144,7 @@ protected:
     */
     void closeEvent(QCloseEvent *event);
 
+
 signals:
     /**
      * @brief 新建http下载任务
@@ -133,6 +153,14 @@ signals:
      * @param path_name 文件名字
     */
     void downloadWidgetCreate(QStringList urlList,QString savePath,QString pathName);
+
+    /**
+     * @brief 新建http下载任务
+     * @param url 信息
+     * @param save_path 保存路径
+     * @param path_name 文件名字
+    */
+    void downloadWidgetCreate(QVector<LinkInfo *> urlList,QString savePath);
     /**
      * @brief 新建bt下载任务
      * @param btPath bt下载地址
@@ -147,6 +175,23 @@ private:
     DSuggestButton *m_sureButton;      //确认按钮
     DFileChooserEdit *m_editDir;    //选择下载路径窗口
     QString m_defaultDownloadDir;   //默认文件路径
+
+    QStandardItemModel *m_model;    //tableview中的模型，数据交流
+    TaskDelegate *m_delegate;     //tableview中选中表格item
+    BtInfoTableView *m_tableView;//列表
+    DWidget *m_widget;      //包裹view
+
+    DCheckBox *m_checkAll;          //文件类型全选
+    DCheckBox *m_checkVideo;        //视频文件类型
+    DCheckBox *m_checkAudio;        //音频文件类型
+    DCheckBox *m_checkPicture;      //图片文件类型
+    DCheckBox *m_checkDoc;          //文档文件类型
+    DCheckBox *m_checkZip;          //压缩包文件类型
+    DCheckBox *m_checkOther;        //其他文件类型
+    DLabel *m_labelSelectedFileNum; //选中文件数
+    DLabel *m_labelFileSize;         //总大小标签
+
+    AnalysisUrl *m_analysisUrl;
 };
 
 

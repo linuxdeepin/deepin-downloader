@@ -1,7 +1,7 @@
 /**
  * @copyright 2020-2020 Uniontech Technology Co., Ltd.
  *
- * @file btinfodelegate.h
+ * @file taskdelegate.h
  *
  * @brief bt窗口中表格item代理类
  *
@@ -40,12 +40,12 @@ class QDir;
 
 DWIDGET_USE_NAMESPACE
 
-class BtInfoDelegate : public QStyledItemDelegate
+class TaskDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    BtInfoDelegate(DDialog* dialog);
-    ~BtInfoDelegate();
+    TaskDelegate(DDialog* dialog);
+    ~TaskDelegate();
 
     /**
      * @brief 设置选择行颜色
@@ -70,7 +70,6 @@ protected:
      */
     bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);   // 响应按钮事件 - 划过、按下
 
-    //void sort()
 private:
     DDialog* m_dialog;      //父类窗口指针
     QCheckBox *m_checkBtn;

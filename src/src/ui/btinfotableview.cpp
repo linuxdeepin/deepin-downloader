@@ -47,3 +47,4 @@ void BtInfoTableView::leaveEvent(QEvent *event)
     emit hoverChanged(QModelIndex());
 }
 
+
