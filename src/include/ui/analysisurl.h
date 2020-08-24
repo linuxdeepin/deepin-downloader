@@ -40,6 +40,7 @@ struct LinkInfo
         urlName = l.urlName;
         urlTrueLink = l.urlTrueLink;
         length = l.length;
+        return *this;
     }
 };
 

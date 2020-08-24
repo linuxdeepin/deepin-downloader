@@ -148,9 +148,74 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
             ((CreateTaskWidget*)m_dialog)->updateSelectedInfo();
             return false;
         }
+        else if (event->type() == QEvent::MouseButtonDblClick
+                 && !rect.contains(mouseEvent->pos())) {
+            int a =10;
+
+        }
     }
 
     return false;
+}
+
+QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+//    Q_UNUSED(option);
+
+//    static bool  firstInside = true;
+//    firstInside = true;
+//    DLineEdit *pEdit = new DLineEdit(parent);
+//    connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename){
+//        DLineEdit *pEdit=qobject_cast<DLineEdit *>(sender());
+//        QString FilePath = index.data(TableModel::SavePath).toString();
+//        FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
+//        FilePath = FilePath + filename;
+//        QFileInfo file(FilePath);
+//        if(file.isFile() && !firstInside){
+//            pEdit->showAlertMessage(tr("Duplicate name!"), -1);
+//        } else {
+//            pEdit->hideAlertMessage();
+//        }
+//        firstInside = false;
+//    });
+//    pEdit->resize(parent->size());
+//    QString FilePath = index.data(TableModel::SavePath).toString();
+//    return pEdit;
+    return  NULL;
+}
+
+void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+//    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+//    QString str = index.data(TableModel::FileName).toString();
+
+//    QMimeDatabase db;
+//    QString mime = db.suffixForFileName(str);
+//    str = str.left(str.size() - mime.size() -1);
+//    pEdit->setText(str);
+}
+
+void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+//    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+//    QString str = index.data(TableModel::FileName).toString();
+//    QMimeDatabase db;
+//    QString mime = db.suffixForFileName(str);
+//    QString fileName = pEdit->text() + "." + mime;
+
+//    QString FilePath = index.data(TableModel::SavePath).toString();
+//    FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
+//    FilePath = FilePath + fileName;
+//    if(!QFileInfo::exists(FilePath)){
+//        QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
+//        model->setData(index, fileName, TableModel::FileName);
+//        model->setData(index, FilePath, TableModel::SavePath);
+//        Task task;
+//        DBInstance::getTaskByID(index.data(TableModel::taskId).toString(),task);
+//        task.downloadPath = FilePath;
+//        task.downloadFilename = fileName;
+//        DBInstance::updateTaskByID(task);
+//    }
 }
 
 
@@ -158,6 +223,7 @@ void TaskDelegate::onhoverChanged(const QModelIndex &index)
 {
     m_hoverRow = index.row();
 }
+
 
 
 

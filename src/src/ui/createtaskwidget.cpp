@@ -138,6 +138,7 @@ void CreateTaskWidget::initUi()
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     DFontSizeManager::instance()->bind(m_tableView,DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &TaskDelegate::onhoverChanged);
+    //connect(m_tableView, &BtInfoTableView::doubleIndex, this, CreateTaskWidget::changeUrlName);
     addContent(m_tableView);
 
     QWidget *labelWidget = new QWidget(this);
@@ -306,6 +307,7 @@ void CreateTaskWidget::onSureBtnClicked()
     for(int i = 0;i < m_model->rowCount();i++) {
         if(m_model->data(m_model->index(i, 0)).toString() == "1") {
             LinkInfo *linkInfo;
+            linkInfo = new LinkInfo;
             linkInfo->urlName = m_model->data(m_model->index(i, 1)).toString();
             linkInfo->type = m_model->data(m_model->index(i, 2)).toString();
             linkInfo->urlSize= m_model->data(m_model->index(i, 3)).toString();
@@ -486,7 +488,7 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
 void CreateTaskWidget::getTruetUrl(QString redirecUrl)
 {
     if(isMagnet(redirecUrl)){
-        emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir, "");
+       // emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir, "");
         return;
     }
     QNetworkAccessManager *manager = new QNetworkAccessManager;
@@ -514,7 +516,7 @@ void CreateTaskWidget::getTruetUrl(QString redirecUrl)
                                 QString str = p->readAllStandardOutput();
                                 if(!str.contains("Content-Disposition: attachment;filename="))  // 为200的真实链接
                                 {
-                                     emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,"");
+                                   //  emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,"");
                                     return ;
                                 }
                                 QStringList urlInfoList = str.split("\r\n");
@@ -525,7 +527,7 @@ void CreateTaskWidget::getTruetUrl(QString redirecUrl)
                                         int start= urlInfoList[i].lastIndexOf("'");
                                         QString urlName = urlInfoList[i].mid(start);
                                         QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
-                                        emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,urlNameForZH);
+                                      //  emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,urlNameForZH);
                                         return ;
                                     }
                                 }
@@ -534,7 +536,7 @@ void CreateTaskWidget::getTruetUrl(QString redirecUrl)
                             case 302: // redirect (Location: [URL])  重定向链接
                             {
                                 QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-                                emit downloadWidgetCreate(QStringList(strUrl),m_defaultDownloadDir, "");
+                              //  emit downloadWidgetCreate(QStringList(strUrl),m_defaultDownloadDir, "");
                                break;
                             }
                             case 405:   //405链接
@@ -553,7 +555,7 @@ void CreateTaskWidget::getTruetUrl(QString redirecUrl)
                                             int start= urlInfoList[i].lastIndexOf("'");
                                             QString urlName = urlInfoList[i].mid(start);
                                             QString urlNameForZH = QUrl::fromPercentEncoding(urlName.toUtf8());
-                                            emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,urlNameForZH);
+                                       //     emit downloadWidgetCreate(QStringList(redirecUrl),m_defaultDownloadDir,urlNameForZH);
                                             return ;
                                         }
                                     }
@@ -658,4 +660,10 @@ void CreateTaskWidget::updateSelectedInfo()
         }
     }
     m_sureButton->setEnabled(total> 0? true : false);
+}
+
+void CreateTaskWidget::changeUrlName(const QModelIndex &index)
+{
+    //if(index.row())
+//   m_model->edit
 }

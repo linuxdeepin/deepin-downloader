@@ -70,6 +70,10 @@ protected:
      */
     bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);   // 响应按钮事件 - 划过、按下
 
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+
 private:
     DDialog* m_dialog;      //父类窗口指针
     QCheckBox *m_checkBtn;

@@ -60,7 +60,11 @@ signals:
      */
     void hoverChanged(const QModelIndex &index);
 
+    void doubleIndex(const QModelIndex &index);
+
 public slots:
+
+    void onDoubleClicked(const QModelIndex &index);
 
 private:
 };

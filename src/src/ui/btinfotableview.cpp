@@ -31,7 +31,7 @@
 BtInfoTableView::BtInfoTableView(QWidget *parent)
     : DTableView(parent)
 {
-
+    connect(this,&QAbstractItemView::doubleClicked,this,&BtInfoTableView::onDoubleClicked);
 }
 
 void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
@@ -48,4 +48,8 @@ void BtInfoTableView::leaveEvent(QEvent *event)
     emit hoverChanged(QModelIndex());
 }
 
-
+void BtInfoTableView::onDoubleClicked(const QModelIndex &index)
+{
+    emit doubleIndex(index);
+    edit(index);
+}
