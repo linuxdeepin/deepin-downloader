@@ -69,7 +69,7 @@ void MessageBox::setWarings(QString warningMsg,QString surebtntext,QString cance
     });
 }
 
-void MessageBox::setRedownload(const QList<QString> &sameUrlList, QString fileName, QString type)
+void MessageBox::setRedownload(const QString sameUrl, QString fileName, QString type)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -84,9 +84,7 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList, QString fileNa
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0,0,0,20));
     urlText->setPalette(pal);
-    for(int i=0;i<sameUrlList.size();i++){
-        urlText->append(sameUrlList.at(i));
-    }
+    urlText->append(sameUrl);
     addContent(urlText);
     addButton(tr("Cancel"));
     addButton(tr("Ok"));
@@ -94,10 +92,30 @@ void MessageBox::setRedownload(const QList<QString> &sameUrlList, QString fileNa
             [=](int index)
             {
             if(index == 1){
-                emit reDownload(sameUrlList, fileName, type);
+                emit reDownload(sameUrl, fileName, type);
             }
             close();
     });
+}
+
+void MessageBox::setRedownload(const QString sameUrl)
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    setTitle(tr("Warning"));
+
+    addLabel(tr("Task exist. Do you want to delete the downloaded files and download again?"));
+    addSpacing(10);
+    DTextEdit *urlText = new DTextEdit(this);
+    urlText->setReadOnly(true);
+    urlText->setFixedSize(QSize(454,154));
+    urlText->setText(sameUrl);
+    QPalette pal;
+    pal.setColor(QPalette::Base, QColor(0,0,0,20));
+    addContent(urlText);
+    addButton(tr("Ok"));
+    addButton(tr("Cancel"));
+
 }
 
 void MessageBox::setUnusual(const QString &taskId)
@@ -165,6 +183,7 @@ void MessageBox::setClear()
 }
 void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
 {
+    Q_UNUSED(title);
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setCloseButtonVisible(false);

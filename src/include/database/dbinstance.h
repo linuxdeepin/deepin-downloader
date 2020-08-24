@@ -1,10 +1,3 @@
-#ifndef DBINSTANCE_H
-#define DBINSTANCE_H
-#include "database.h"
-#include "dbdefine.h"
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlError>
-
 /**
 * @file %{CurrentDocument:dbinstance.h}
 * @brief 数据库接口库
@@ -13,6 +6,13 @@
 * @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
 * @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
+
+#ifndef DBINSTANCE_H
+#define DBINSTANCE_H
+#include "database.h"
+#include "dbdefine.h"
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
 
 class DBInstance
 {
@@ -115,11 +115,11 @@ public:
     static bool updateUrlById(UrlInfo _url); //根据id更新Url
     /**
      * @brief 获取url信息
-     * @param id 需要查url信息id
+     * @param taskId 任务id
      * @param task 传出根据id所得url信息
      * @return true 执行成功 false执行失败
      */
-    static bool getUrlById(QString urlId, UrlInfo &url); //根据id得到Url
+    static bool getUrlById(QString taskId, UrlInfo &url); //根据id得到Url
     /**
      * @brief 获取所有url
      * @param urlList 传出所有任务

@@ -1,3 +1,12 @@
+/**
+* @file %{CurrentDocument:database.h}
+* @brief
+* @author bulongwei  <bulongwei@uniontech.com>
+* @version 1.0.0
+* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
+* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
+*/
+
 #ifndef DATABASE_H
 #define DATABASE_H
 
@@ -7,15 +16,6 @@
 #include <QDebug>
 #include <QtSql/qsqldatabase.h>
 #include <QtSql/qsqlerror.h>
-
-/**
-* @file %{CurrentDocument:database.h}
-* @brief
-* @author bulongwei  <bulongwei@uniontech.com>
-* @version 1.0.0
-* @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
-* @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
-*/
 
 const QString DATABASE_VERISON = "1"; //数据库版本
 const QString UOS_DOWNLOAD_DATABASE_FILENAME = "uos-downloadmanager-task" + DATABASE_VERISON + ".db"; //数据库名字

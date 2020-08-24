@@ -107,6 +107,24 @@ public:
     static QWidget *createDownloadSpeedLimitSettiingHandle(QObject *obj);
 
     /**
+     * @brief 创建系统通知窗口
+     * @param obj option对象
+     */
+    static QWidget *createNotificationsSettiingHandle(QObject *obj);
+
+    /**
+     * @brief 创建速度小于多少自动增加任务窗口
+     * @param obj option对象
+     */
+    static QWidget *createAutoDownloadBySpeedHandle(QObject *obj);
+
+    /**
+     * @brief 创建小于多少的任务优先下载窗口
+     * @param obj option对象
+     */
+    static QWidget *createPriorityDownloadBySizeHandle(QObject *obj);
+
+    /**
      * @brief 创建下载磁盘缓存文本提示窗口
      * @param obj option对象
      */
@@ -273,6 +291,26 @@ public:
      * @return 返回数值
      */
     int getDisckcacheNum();
+
+    /**
+     * @brief 速度小于多少自动增加任务窗口
+     * @param speed 设置的速度
+     * @return 返回开关是否打开
+     */
+     bool getAutoDownloadBySpeed(QString& speed);
+
+    /**
+     * @brief 小于多少的任务优先下载
+     * @param size 设置的大小
+     * @return 返回开关是否打开
+     */
+    bool getPriorityDownloadBySize(QString& size);
+
+    /**
+     * @brief 自动将低速任务移动至队尾
+     * @return 返回开关是否打开
+     */
+    bool getAutoSortBySpeed();
 
     /**
      * @brief 设置关闭主界面选择选项

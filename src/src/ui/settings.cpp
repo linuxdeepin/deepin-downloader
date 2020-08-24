@@ -25,12 +25,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "settings.h"
-#include "filesavepathchooser.h"
-#include "settinginfoinputwidget.h"
-#include "itemselectionwidget.h"
-#include "groupselectionwidget.h"
-#include "downloadsettingwidget.h"
-#include "settingslabel.h"
 
 #include <DThemeManager>
 #include <DSettings>
@@ -46,6 +40,14 @@
 #include <QDir>
 #include <QStandardPaths>
 
+#include "filesavepathchooser.h"
+#include "settinginfoinputwidget.h"
+#include "itemselectionwidget.h"
+#include "groupselectionwidget.h"
+#include "downloadsettingwidget.h"
+#include "notificationssettiingwidget.h"
+#include "settingslabel.h"
+#include "settingswidget.h"
 /**
  * @brief 判断字符串是否为纯数字
  * @param src 字符串
@@ -591,8 +593,98 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     return downloadSettingWidget;
 }
 
+QWidget *Settings::createNotificationsSettiingHandle(QObject *obj)
+{
+    NotificationsSettiingWidget *pWidget = new NotificationsSettiingWidget;
+    return pWidget;
+}
+
+QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    QString speed = "";
+    bool check = false;
+
+    if (option->value().toString().isEmpty()) {
+        speed = "100";
+        check = false;
+    } else {
+        speed = option->value().toString().mid(2);
+        check = option->value().toString().left(1).toInt();
+    }
+    SettingsControlWidget *pWidget = new SettingsControlWidget();
+    pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
+    pWidget->setSpeend(speed);
+    pWidget->setSwitch(check);
+
+    connect(pWidget, &SettingsControlWidget::TextChanged, pWidget, [=](QString text){
+        option->setValue("1:" + text);
+    });
+    connect(pWidget, &SettingsControlWidget::checkedChanged, pWidget, [=](bool stat){
+        if(stat){
+            option->setValue("1:" + option->value().toString().mid(2));
+        } else {
+            option->setValue("0:" + option->value().toString().mid(2));
+        }
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=] (QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSpeend(text.mid(2));
+            pWidget->setSwitch(text.left(1).toInt());
+        }
+    });
+
+    return  pWidget;
+}
+
+QWidget *Settings::createPriorityDownloadBySizeHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    QString size = "";
+    bool check = false;
+
+    if (option->value().toString().isEmpty()) {
+        size = "30";
+        check = false;
+    } else {
+        size = option->value().toString().mid(2);
+        check = option->value().toString().left(1).toInt();
+    }
+    SettingsControlWidget *pWidget = new SettingsControlWidget();
+    pWidget->initUI(tr("Priority to download less than"), tr("MB Task"), false);
+    pWidget->setSize(size);
+    pWidget->setSwitch(check);
+
+    connect(pWidget, &SettingsControlWidget::TextChanged, pWidget, [=](QString text){
+        option->setValue("1:" + text);
+    });
+
+    connect(pWidget, &SettingsControlWidget::checkedChanged, pWidget, [=](bool stat){
+        if(stat){
+            option->setValue("1:" + option->value().toString().mid(2));
+        } else {
+            option->setValue("0:" + option->value().toString().mid(2));
+        }
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=] (QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSize(text.mid(2));
+            pWidget->setSwitch(text.left(1).toInt());
+        }
+    });
+
+    return  pWidget;
+}
+
 QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
 {
+    Q_UNUSED(obj);
 //    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString diskCacheInfo = tr("More disk cache, faster download speed \nand more computer consume");
@@ -915,10 +1007,30 @@ int Settings::getDisckcacheNum()
     return number;
 }
 
+bool Settings::getAutoDownloadBySpeed(QString &speed)
+{
+    QString text = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoDownload")->value().toString();
+    speed = text.mid(2);
+    bool isCheck = text.left(1).toInt();
+    return isCheck;
+}
+
+bool Settings::getPriorityDownloadBySize(QString &size)
+{
+    QString text = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.PriorityDownload")->value().toString();
+    size = text.mid(2);
+    bool isCheck = text.left(1).toInt();
+    return isCheck;
+}
+
+bool Settings::getAutoSortBySpeed()
+{
+    return m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoSortBySpeed")->value().toBool();
+}
+
 void Settings::setCloseMainWindowSelected(int select)
 {
     auto option = m_settings->option("Basic.CloseMainWindow.closemainwindow");
-
     option->setValue(select);
 }
 

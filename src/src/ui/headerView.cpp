@@ -73,6 +73,7 @@ void DownloadHeaderView::onHeaderChecked(bool checked)
 
 void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
+    Q_UNUSED(type);
     QPalette p;
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {

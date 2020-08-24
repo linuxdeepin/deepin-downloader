@@ -52,7 +52,7 @@ DTK_USE_NAMESPACE
 class QStackedWidget;
 class QSystemTrayIcon;
 class QAction;
-class SettingsWidget;
+class SettingsControlWidget;
 class TopButton;
 class TableView;
 class Task;
@@ -96,6 +96,12 @@ public slots:
      * @param reason 激活原因
      */
     void Raise();
+
+    /**
+     * @brief mainwidow关闭事件
+     * @param event 事件类型
+     */
+    void onTrayQuitClick(bool force = false);
 
 private slots:
     /**
@@ -150,7 +156,7 @@ private slots:
      * @param savePath 保存路径
      * @param url类型
     */
-    void onDownloadNewUrl(QStringList &urlList, QString savePath, QString fileName, QString type = "");
+    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "");
 
     /**
      * @brief 收到新建bt任务
@@ -237,7 +243,7 @@ private slots:
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */
-    void onTrayQuitClick();
+    //void onTrayQuitClick(bool force = false);
 
     /**
      * @brief messageBox关闭返回事件
@@ -310,7 +316,7 @@ private slots:
     /**
     * @brief 重新下载确认槽函数
     */
-    void onRedownloadConfirmSlot(const QList<QString> &sameUrlList, QString fileName, QString type);
+    void onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type);
 
     /**
     * @brief 列表项双击事件，打开文件
@@ -358,6 +364,12 @@ private slots:
 //     * @brief 解析url请求返回处理
 //     */
 //    void onHttpRequest(QNetworkReply *reply);
+
+    /**
+     * @brief 下载完成 的一些操作
+     */
+    void onDownloadFinish();
+
 private:
 
     /**
@@ -450,7 +462,12 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    bool showRedownloadMsgbox(QList<QString> &sameUrlList, QString fileName, QString type);
+    bool showRedownloadMsgbox(QString sameUrl, QString fileName, QString type);
+
+    /**
+     * @brief 显示重新下载窗口
+     */
+    bool showRedownloadMsgbox(const QString sameUrl);
 
     /**
      * @brief 从配置文件中获取下载路径
@@ -507,7 +524,7 @@ private:
     /**
      * @brief 清空共享内存
     */
-    bool clearSharedMemory();
+    void clearSharedMemory();
 
     /**
      * @brief 开始下载任务
@@ -548,7 +565,22 @@ private:
      * @brief 删除目录
      * @return
      */
-    bool DeleteDirectory(const QString &path);
+    bool deleteDirectory(const QString &path);
+
+    /**
+     * @brief 删除任务
+     */
+    void deleteTaskByUrl(QString url);
+
+    /**
+     * @brief 删除任务
+     */
+    void deleteTaskByTaskID(QString taskID);
+
+    /**
+     * @brief 检查磁力链接是否和已下载的bt文件重复
+     */
+    bool checkIsHasSameTask(QString infoHash);
 
 protected:
 
@@ -611,7 +643,7 @@ private:
     QTimer *m_UpdateTimer;
     QTimer *m_TrayClickTimer;
     CreateTaskWidget *m_TaskWidget;
-    SettingsWidget *m_SettingWidget;
+    SettingsControlWidget *m_SettingWidget;
     CurrentTab m_CurrentTab; // 当前显示列表，正在下载、已完成、回收站
     QString m_SearchContent;
     bool m_ShutdownOk = true;

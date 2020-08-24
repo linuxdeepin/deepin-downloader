@@ -1,152 +1,127 @@
+/**
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file settingswidget.cpp
+ *
+ * @brief 设置界面小控件
+ *
+ * @date 2020-08-18 10:00
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "settingswidget.h"
 
 #include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <DTitlebar>
-#include <DSearchEdit>
 #include <DLabel>
-#include <DIconButton>
-#include <DListView>
-#include <DApplication>
-#include <QDebug>
-#include <QBitmap>
-#include <QPainter>
-#include <QListWidget>
+#include <DSwitchButton>
+#include <DLineEdit>
+#include <DAlertControl>
 
-SettingsWidget *SettingsWidget::s_pInstance = NULL;
-SettingsWidget *SettingsWidget::getInstance()
+#include "settings.h"
+DWIDGET_USE_NAMESPACE
+SettingsControlWidget::SettingsControlWidget(QWidget *parent) : QWidget(parent)
 {
-    if(s_pInstance == NULL)
-    {
-        s_pInstance = new SettingsWidget;
-    }
-
-    return s_pInstance;
 }
 
-SettingsWidget::SettingsWidget(QWidget *parent) : DMainWindow(parent)
-{
-    initUI();
-    initConnections();
-}
 
 // 初始化界面
-void SettingsWidget::initUI()
+void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
-    setMinimumSize(678, 532);
-    setWindowFlags(windowFlags()&~Qt::WindowMaximizeButtonHint); // 隐藏最大化按钮
-    titlebar()->setMenuVisible(false); // 隐藏操作按钮
-    titlebar()->setFixedHeight(50);
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    DLabel *pLabel = new DLabel(label);
+    DLabel *pTextLabel = new DLabel(text);
 
-    QWidget *pTitleWidget = new QWidget;
+    m_SwitchBtn = new DSwitchButton();
+    layout->addWidget(pLabel);
+    if(isLineEdit){
+        m_Edit = new DLineEdit();
+        m_Edit->setEnabled(false);
+        DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);
+        QIntValidator *validator = new QIntValidator(0, 9999);
+        m_Edit->lineEdit()->setValidator(validator);
+        layout->addWidget(m_Edit);
+        connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);
+        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString &text){  //设置速度不能高于最大限速
+            if (Settings::getInstance()->getDownloadSettingSelected() &&
+                    text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()) {
+                alertControl->showAlertMessage(tr("Total speed neet less than Max download speed!"),
+                                                         m_Edit->parentWidget()->parentWidget(), -1);
+                alertControl->setMessageAlignment(Qt::AlignLeft);
+            } else {
+                alertControl->hideAlertMessage();
+            }
+        });
 
-    DLabel *pTitleLabel = new DLabel;
-    QIcon logo_icon=QIcon(":/icons/images/icon/downloader3.svg");
-    pTitleLabel->setPixmap(logo_icon.pixmap(32,32));
-    pTitleLabel->setFixedSize(36,36);
+        connect(m_Edit, &DLineEdit::focusChanged, this, [=](bool onFocus){  //设置速度不能高于最大限速
+            if(!onFocus) {
+                alertControl->hideAlertMessage();
+            }
+        });
+    } else {
+        m_ComboBox = new DComboBox();
+        m_ComboBox->setEnabled(false);
+        m_ComboBox->setFixedWidth(80);
+        QStringList strList;
+        strList << "5" << "10" << "20" << "30" << "50" << "100";
+        m_ComboBox->addItems(strList);
+        layout->addWidget(m_ComboBox);
+        connect(m_ComboBox, &DComboBox::currentTextChanged, this, &SettingsControlWidget::TextChanged);
+    }
 
-    QHBoxLayout *pTitleLayout = new QHBoxLayout;
-    pTitleLayout->addWidget( pTitleLabel );
-    pTitleLayout->addStretch();
-    pTitleLayout->setContentsMargins( 0, 0, 0, 0 );
-    pTitleWidget->setLayout( pTitleLayout );
-
-    titlebar()->setCustomWidget( pTitleWidget );
-
-    QPalette palette;
-    palette.setColor(QPalette::Background,QColor(255,255,255));
-
-    m_pLeftWidget = new QWidget;
-    m_pLeftWidget->setAutoFillBackground(true);
-    m_pLeftWidget->setPalette(palette);
-    m_pLeftWidget->setFixedWidth(128);
-    QVBoxLayout *pLeftLayout = new QVBoxLayout(m_pLeftWidget);
-    pLeftLayout->setContentsMargins(5,0,5,0);
-
-    m_pBasicSettings= new QStandardItem(QIcon::fromTheme("dcc_bases_normal"),tr(" 基本设置"));
-    m_pMonitoringSettings= new QStandardItem(QIcon::fromTheme(":/btn/take_over_light.svg"),tr(" 接管设置"));
-    m_pDownloadsSettings= new QStandardItem(QIcon::fromTheme(":/btn/download_normal_light.svg"),tr(" 下载设置"));
-    m_pNotifications= new QStandardItem(QIcon::fromTheme(":/btn/notification_normal_light.svg"),tr(" 通知提醒"));
-    m_pAdvancedSettings= new QStandardItem(QIcon::fromTheme(":/btn/advance_normal_light.svg"),tr(" 高级设置"));
-    // 设置Item背景颜色
-    m_pBasicSettings->setBackground(QColor(255,255,255));
-    m_pMonitoringSettings->setBackground(QColor(255,255,255));
-    m_pDownloadsSettings->setBackground(QColor(255,255,255));
-    m_pNotifications->setBackground(QColor(255,255,255));
-    m_pAdvancedSettings->setBackground(QColor(255,255,255));
-    // 设置Item不可编辑
-    m_pBasicSettings->setEditable(false);
-    m_pMonitoringSettings->setEditable(false);
-    m_pDownloadsSettings->setEditable(false);
-    m_pNotifications->setEditable(false);
-    m_pAdvancedSettings->setEditable(false);
-
-    // 将Item添加进模型
-    m_pStandardItemModel= new QStandardItemModel(this);
-    m_pStandardItemModel->appendRow(m_pBasicSettings);
-    m_pStandardItemModel->appendRow(m_pMonitoringSettings);
-    m_pStandardItemModel->appendRow(m_pDownloadsSettings);
-    m_pStandardItemModel->appendRow(m_pNotifications);
-    m_pStandardItemModel->appendRow(m_pAdvancedSettings);
-
-    // 设置模型
-    m_pListView = new DListView;
-    m_pListView->setItemSpacing(0);
-    m_pListView->setItemSize(QSize(112,40));
-    m_pListView->setItemMargins(QMargins(10,2,5,2));
-    m_pListView->setIconSize(QSize(14,14));
-    QFont font;
-    font.setFamily("Source Han Sans");
-    font.setPointSize(14);
-    m_pListView->setFont(font);
-    m_pListView->setModel(m_pStandardItemModel);
-    pLeftLayout->addWidget(m_pListView);
-
-    m_pBasicSettingWidget = new BasicSettingWidget;
-    m_pMonitoringSettingWidget = new MonitoringSettingWidget;
-
-    m_pStackedWidget = new QStackedWidget;
-    m_pStackedWidget->addWidget(m_pBasicSettingWidget);
-    m_pStackedWidget->addWidget(m_pMonitoringSettingWidget);
-    m_pStackedWidget->setCurrentIndex(0);
-//    m_pStackedWidget->setStyleSheet("background:rgb(255,0,0);");
-
-    m_pRightWidget = new QWidget;
-    m_pRightWidget->setAutoFillBackground(true);
-    m_pRightWidget->setFixedWidth(530);
-    m_pRightWidget->setStyleSheet("background:rgb(255,255,255);border-radius:10px");
-    QVBoxLayout *pRightLayout = new QVBoxLayout(m_pRightWidget);
-    pRightLayout->addWidget(m_pStackedWidget);
-    pRightLayout->setContentsMargins(0, 0, 0, 0);
-
-    QVBoxLayout *pVLayout = new QVBoxLayout;
-    pVLayout->addWidget(m_pRightWidget);
-    pVLayout->setSpacing(0);
-    pVLayout->setContentsMargins(10, 10, 10, 10);
-
-    QHBoxLayout *pMainHLayout = new QHBoxLayout;
-    pMainHLayout->addWidget(m_pLeftWidget);
-    pMainHLayout->addLayout(pVLayout);
-    pMainHLayout->setContentsMargins(0,0,0,0);
-    pMainHLayout->setSpacing(0);
-
-    QFrame *pMainWidget = new QFrame;
-    pMainWidget->setFrameShape(QFrame::NoFrame);
-    pMainWidget->setLayout(pMainHLayout);
-    this->setCentralWidget(pMainWidget);
+    layout->addWidget(pTextLabel);
+    layout->addStretch();
+    layout->addWidget(m_SwitchBtn, 0, Qt::AlignRight);
+    connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat){
+        emit checkedChanged(stat);
+        if(isLineEdit){
+            m_Edit->setEnabled(stat);
+        } else {
+            m_ComboBox->setEnabled(stat);
+        }
+    });
 }
 
-// 初始化链接
-void SettingsWidget::initConnections()
+void SettingsControlWidget::setSpeend(QString speed)
 {
-    connect(m_pListView, SIGNAL(clicked(const QModelIndex)),this,SLOT(listViewItemClicked(const QModelIndex)));
+    m_Edit->setText(speed);
 }
 
-void SettingsWidget::listViewItemClicked(const QModelIndex &index)
+void SettingsControlWidget::setSize(QString size)
 {
-    qDebug() << index.row();
-    int nCurrentListviewRow = index.row();
-    m_pStackedWidget->setCurrentIndex(nCurrentListviewRow);
+    if("5" == size) {
+        m_ComboBox->setCurrentIndex(0);
+    } else if("10" == size) {
+        m_ComboBox->setCurrentIndex(1);
+    } else if("20" == size) {
+        m_ComboBox->setCurrentIndex(2);
+    } else if("30" == size) {
+        m_ComboBox->setCurrentIndex(3);
+    } else if("50" == size) {
+        m_ComboBox->setCurrentIndex(4);
+    } else if("100" == size) {
+        m_ComboBox->setCurrentIndex(5);
+    }
 }
+
+void SettingsControlWidget::setSwitch(bool arg)
+{
+    m_SwitchBtn->setChecked(arg);
+}
+
 

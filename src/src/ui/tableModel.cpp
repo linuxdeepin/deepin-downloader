@@ -30,17 +30,16 @@
 #include <QString>
 #include <QStandardItemModel>
 
+#include "settings.h"
 #include "global.h"
 using namespace Global;
 
 TableModel::TableModel(int Flag, QObject *parent)
     : QAbstractTableModel(parent)
+    , m_Mode(Downloading)
     , m_TableviewtabFlag(Flag)
     , m_DownloadingCount(0)
 {
-    if(Flag == 0) {
-        m_Mode = Downloading;
-    }
     connect(this, &TableModel::checkDatachange, this, &TableModel::onCheckdatachange);
     m_SortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
@@ -53,40 +52,40 @@ TableModel::~TableModel()
 void TableModel::onCheckdatachange(int flag)
 {
     int check_num = 0;
-    QList<DownloadDataItem *> active_list;
-    QList<DownloadDataItem *> finish_list;
+    QList<DownloadDataItem *> activeList;
+    QList<DownloadDataItem *> finishList;
 
     if(flag == 0) {
         for(DownloadDataItem *item : m_DataList) {
             if(m_Mode == Downloading) {
                 if(item->status != Global::DownloadJobStatus::Complete) {
-                    active_list.append(item);
+                    activeList.append(item);
                 }
             } else {
                 if(item->status == Global::DownloadJobStatus::Complete) {
-                    finish_list.append(item);
+                    finishList.append(item);
                 }
             }
         }
-        if((m_Mode == Downloading) && (active_list.size() > 0)) {
-            for(DownloadDataItem *item :active_list) {
+        if((m_Mode == Downloading) && (activeList.size() > 0)) {
+            for(DownloadDataItem *item :activeList) {
                 if(item->Ischecked) {
                     check_num++;
                 }
             }
-            if(check_num == active_list.size()) {
+            if(check_num == activeList.size()) {
                 emit tableviewAllcheckedOrAllunchecked(true);
             } else {
                 emit tableviewAllcheckedOrAllunchecked(false);
             }
         }
-        if((m_Mode == Finished) && (finish_list.size() > 0)) {
-            for(DownloadDataItem *item :finish_list) {
+        if((m_Mode == Finished) && (finishList.size() > 0)) {
+            for(DownloadDataItem *item :finishList) {
                 if(item->Ischecked) {
                     check_num++;
                 }
             }
-            if(check_num == finish_list.size()) {
+            if(check_num == finishList.size()) {
                 emit tableviewAllcheckedOrAllunchecked(true);
             } else {
                 emit tableviewAllcheckedOrAllunchecked(false);
@@ -117,6 +116,7 @@ DownloadDataItem * TableModel::find(const QString &taskId)
 
 DeleteDataItem * TableModel::find(const QString &gid, int flag)
 {
+    Q_UNUSED(flag);
     if(m_Deletemap.contains(gid)) {
         return m_Deletemap.value(gid);
     }
@@ -176,7 +176,7 @@ void TableModel::removeItems()
     endRemoveRows();
 }
 
-void TableModel::removeItems(bool isrecycle)
+void TableModel::removeRecycleItems()
 {
     beginRemoveRows(QModelIndex(), 0, m_RecyleList.size());
     qDeleteAll(m_RecyleList.begin(), m_RecyleList.end());
@@ -219,7 +219,7 @@ int TableModel::rowCount(const QModelIndex &parent) const
     if(m_TableviewtabFlag == 0) {
         return m_RenderList.size();
     }
-    if(m_TableviewtabFlag == 1) {
+    else {
         return m_RecyleList.size();
     }
 }
@@ -250,7 +250,6 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         deldata = m_RecyleList.at(row);
     }
 
-    bool Ischecked;
     QString fileName;
     QString savePath;
     QString gid;
@@ -296,7 +295,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         case TableModel::Speed:
         {
             if(m_TableviewtabFlag == 0) {
-                return (data->status != Global::DownloadJobStatus::Paused) ? data->speed : "0KB/s";
+                return data->speed; // (data->status != Global::DownloadJobStatus::Paused) ? data->speed : "0KB/s";
             }
             break;
         }
@@ -336,14 +335,14 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
                 return deldata->taskId;
             }
         }
-    case TableModel::createTime:
-    {
-        if(m_TableviewtabFlag == 0) {
-            return data->createTime;
-        } else {
-            return deldata->deleteTime;
+        case TableModel::createTime:
+        {
+            if(m_TableviewtabFlag == 0) {
+                return data->createTime;
+            } else {
+                return deldata->deleteTime;
+            }
         }
-    }
 
         case TableModel::Percent:
         {
@@ -356,7 +355,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         case TableModel::TotalLength:
         {
             if(m_TableviewtabFlag == 0) {
-                return data->total;
+                return data->totalLength;
             } else if(m_TableviewtabFlag == 1) {
                 return deldata->totalLength;
             }
@@ -572,7 +571,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     QVector<QPair<QVariant, int> > sortable;
     QVector<int> unsortable;
     int role = 0;
-    switch(column){
+    switch(column) {
         case 0:
             role = TableModel::createTime;
             break;
@@ -597,11 +596,14 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             }
             break;
     }
+    if(Settings::getInstance()->getAutoSortBySpeed()) {
+        role = TableModel::Speed;
+    }
     double num = -1;
     for(int row = 0; row < rowCount(); ++row) {
         QVariant itm = data(index(row, column), role);
-        if(role == TableModel::Size){
-            num = formatFileSize(itm.toString());
+        if(role == TableModel::Size || role == TableModel::Speed){
+            num = formatFileSize(itm.toString().left(itm.toString().length() - 2));
             sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if(!itm.isNull()) {
@@ -611,9 +613,14 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             }
         }
     }
+    if(Settings::getInstance()->getAutoSortBySpeed()) {
+        LessThan compare = &itemGreaterThan;
+        std::stable_sort(sortable.begin(), sortable.end(), compare);
+    } else {
+        LessThan compare = (order == Qt::AscendingOrder ? &itemLessThan : &itemGreaterThan);
+        std::stable_sort(sortable.begin(), sortable.end(), compare);
+    }
 
-    LessThan compare = (order == Qt::AscendingOrder ? &itemLessThan : &itemGreaterThan);
-    std::stable_sort(sortable.begin(), sortable.end(), compare);
 
     QList<DownloadDataItem*> sortData;
     emit layoutAboutToBeChanged();
@@ -681,7 +688,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
 double TableModel::formatFileSize(QString str)
 {
     double num = -1;
-    QString number = str.remove(str.length() - 2, 2);
+    QString number = str.left(str.length() - 2);
     num = number.toDouble();
     if(str.contains("KB")){
 

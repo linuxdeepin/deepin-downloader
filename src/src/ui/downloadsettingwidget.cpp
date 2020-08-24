@@ -75,7 +75,8 @@ void DownloadSettingWidget::initUI()
     m_maxUploadSpeedLimit->setRangeLabelFont(font);
     m_maxUploadSpeedLimit->setRangeLabelPalette(palette);
 
-    m_downloadAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_maxDownloadSpeedLimit->getLineEdit(), m_maxDownloadSpeedLimit->getLineEdit());
+    m_downloadAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_maxDownloadSpeedLimit->getLineEdit(),
+                                                                     m_maxDownloadSpeedLimit->getLineEdit());
     m_uploadAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_maxUploadSpeedLimit->getLineEdit(), m_maxUploadSpeedLimit->getLineEdit());
 
 //    QHBoxLayout *pFullSpeedLabelLayout = new QHBoxLayout;
@@ -217,7 +218,8 @@ void DownloadSettingWidget::onTextChanged(QString text)
     if (m_maxDownloadSpeedLimit == settingInfoInputWidget) {
         if (text.toInt() < 100 || text.toInt() > 102400) {
             // 请输入100-102400之间的整数
-            m_downloadAlertControl->showAlertMessage(tr("Limited between 100-102400"), m_maxDownloadSpeedLimit->getLineEdit()->parentWidget()->parentWidget(), -1);
+            m_downloadAlertControl->showAlertMessage(tr("Limited between 100-102400"),
+                                                     m_maxDownloadSpeedLimit->getLineEdit()->parentWidget()->parentWidget(), -1);
             m_maxDownloadSpeedLimit->setLineEditAlert(true);
             m_downloadAlertControl->setMessageAlignment(Qt::AlignLeft);
         } else {

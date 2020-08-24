@@ -1,52 +1,58 @@
+/**
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file settingswidget.h
+ *
+ * @brief 设置界面小控件
+ *
+ * @date 2020-08-18 10:00
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef SETTINGSWIDGET_H
 #define SETTINGSWIDGET_H
 
 #include <QWidget>
-#include <DMainWindow>
-#include <DDialog>
-#include <DListView>
-#include <QStandardItem>
-#include <QStandardItemModel>
-#include <QStackedWidget>
-
-#include "basicsettingwidget.h"
-#include "monitoringsettingwidget.h"
-
-DWIDGET_USE_NAMESPACE
-class SettingsWidget : public DMainWindow
+#include <DLineEdit>
+#include <DComboBox>
+#include <DSwitchButton>
+/**
+ * @class SettingsControlWidget
+ * @brief 设置界面小控件类
+*/
+class SettingsControlWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SettingsWidget(QWidget *parent = nullptr);
-    static SettingsWidget *getInstance();
-
-signals:
-
-public slots:
-
-private slots:
-    void listViewItemClicked(const QModelIndex &index);
-
-private:
+    explicit SettingsControlWidget(QWidget *parent = nullptr);
     // 初始化界面
-    void initUI();
-    // 初始化链接
-    void initConnections();
-
+    void initUI(QString label, QString text, bool isLineEdit = true);
+    void setSpeend(QString speed);
+    void setSize(QString size);
+    void setSwitch(bool arg);
 private:
-    static SettingsWidget *s_pInstance;
-    QWidget *m_pLeftWidget;
-    QWidget *m_pRightWidget;
-    DListView *m_pListView;
-    QStandardItemModel *m_pStandardItemModel;
-    QStandardItem *m_pBasicSettings; // 基本设置
-    QStandardItem *m_pMonitoringSettings; // 接管设置
-    QStandardItem *m_pDownloadsSettings; // 下载设置
-    QStandardItem *m_pNotifications; // 通知提醒
-    QStandardItem *m_pAdvancedSettings; // 高级设置
-    QStackedWidget *m_pStackedWidget; // 叠加窗口
-    BasicSettingWidget *m_pBasicSettingWidget; // 基本设置界面
-    MonitoringSettingWidget *m_pMonitoringSettingWidget; // 接管设置界面
+    Dtk::Widget::DLineEdit *m_Edit;
+    Dtk::Widget::DComboBox *m_ComboBox;
+    Dtk::Widget::DSwitchButton *m_SwitchBtn;
+signals:
+    void TextChanged(const QString & text);
+    void checkedChanged(bool arg);
 };
 
 #endif // SETTINGSWIDGET_H

@@ -16,6 +16,7 @@
 #include "log.h"
 #include "settings.h"
 #include "config.h"
+#include "dlmapplication.h"
 DWIDGET_USE_NAMESPACE
 
 QString readShardMemary(QSharedMemory &sharedMemory);
@@ -24,9 +25,9 @@ bool checkProcessExist();
 
 int main(int argc, char *argv[])
 {
-    DApplication::loadDXcbPlugin();
+    DlmApplication::loadDXcbPlugin();
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    DApplication a(argc, argv);
+    DlmApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);
     a.loadTranslator();//加载程序的翻译文件
     a.setOrganizationName("uos");//设置公司名
@@ -74,9 +75,12 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
-    sharedMemory.create(199);
-    char *to = static_cast<char*>(sharedMemory.data());
-    memset(to,0, 199);
+    if(sharedMemory.create(199))
+    {
+        char *to = static_cast<char*>(sharedMemory.data());
+        memset(to,0, 199);
+    }
+
 
     // 保存程序的窗口主题设置
     DApplicationSettings as;
@@ -98,7 +102,7 @@ int main(int argc, char *argv[])
     CheckFreeDisk();
     //创建新日志
     CreateNewLog();
-    qInstallMessageHandler(customLogMessageHandler);
+    //qInstallMessageHandler(customLogMessageHandler);
 
     qDebug()<<Log_path;//QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
@@ -115,6 +119,7 @@ int main(int argc, char *argv[])
         }
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloadmanager.svg"));
+    QObject::connect(&a, &DlmApplication::applicatinQuit, &w, &MainFrame::onTrayQuitClick);
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
 }
@@ -136,8 +141,8 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
     buffer.setBuffer(&array);
     const char *from = buffer.data().constData();
     int size = strUrl.size();
-    size_t num = qMin(size,sharedMemory.size());
-    memcpy(to,from, num);
+    int num = qMin(size,sharedMemory.size());
+    memcpy(to,from, static_cast<size_t>(num));
     sharedMemory.unlock();
 }
 
@@ -151,7 +156,7 @@ bool checkProcessExist()
     process.waitForFinished(1000);
     QString str = process.readAll();
     QStringList strList = str.split('\n');
-    if(strList.at(strList.size() - 1).isEmpty()){
+    if(strList.at(1).isEmpty()){
         return false;
     }
     return true;

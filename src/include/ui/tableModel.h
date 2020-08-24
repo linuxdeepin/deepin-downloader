@@ -112,7 +112,7 @@ public:
     /**
      * @brief 清空回收站列表
      */
-    void removeItems(bool isrecycle);
+    void removeRecycleItems();
 
     /**
      * @brief 切换到正在下载列表

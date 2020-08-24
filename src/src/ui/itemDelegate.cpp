@@ -48,6 +48,7 @@
 
 #include "tableView.h"
 #include "tableModel.h"
+#include "global.h"
 #include "../database/dbinstance.h"
 
 DWIDGET_USE_NAMESPACE
@@ -148,16 +149,17 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         painter->drawPixmap(x, y, pic);
 
         const QString path = index.data(TableModel::SavePath).toString();
-        if(!QFileInfo::exists(path)){ //文件不存在的任务，添加提示
+        int status = index.data(TableModel::Status).toInt();
+        if((!QFileInfo::exists(path)) && (status == Global::DownloadJobStatus::Complete)){ //文件不存在的任务，添加提示
             QPixmap   errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
             painter->drawPixmap(x+ 10, y + 10, errorPic);
         }
 
-        const QRect rect_text = rect.marginsRemoved(QMargins(25, 2, 0, 5));
+        const QRect rectText = rect.marginsRemoved(QMargins(25, 2, 0, 5));
         QString     name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(),
                                                              Qt::ElideRight,
                                                              textRect.width() - 10);
-        painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, name);
+        painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, name);
     } else if(column == 2) {
         if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
             painter->setPen(QColor("#C0C6D4"));
@@ -171,7 +173,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
         }
         const QString size = index.data(TableModel::Size).toString();
-        painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignHCenter, size);
+        painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
     } else if(column == 3) {
         if(m_TableFlag == 0) {
             QFont font;
@@ -252,9 +254,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->drawPixmap(t3, *m_BgImage, s3);
 
             float p = index.data(TableModel::Percent).toFloat() / 100.0f;
-            int   w = static_cast<int>((sizeRect.width() - 16) * p); // (int)((sizeRect.width()
-                                                                     // - 16) *
-                                                                     // p);
+            int   w = static_cast<int>((sizeRect.width() - 16) * p);
 
             if(w <= 3) {
                 QRect s(sizeRect.x(), sizeRect.y(), w, m_Front->height());

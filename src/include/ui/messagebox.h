@@ -24,6 +24,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef MESSAGEBOX_H
 #define MESSAGEBOX_H
 #include "global.h"
@@ -63,7 +64,12 @@ public:
     /**
      * @brief 设置重新下载窗口
     */
-    void setRedownload(const QList<QString> &sameUrlList, QString fileName, QString type);
+    void setRedownload(const QString sameUrl, QString fileName, QString type);
+
+    /**
+     * @brief 设置重新下载窗口
+    */
+    void setRedownload(const QString sameUrl);
 
     /**
      * @brief 设置下载异常窗口（正在下载中，文件被删除）
@@ -123,7 +129,7 @@ signals:
      * @brief 重新下载信号
      * @param newname 新名字
     */
-    void reDownload(const QList<QString> &sameUrlList, QString fileName, QString type);
+    void reDownload(const QString sameUrl, QString fileName, QString type);
 
     /**
      * @brief 清空信号

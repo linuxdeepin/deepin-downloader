@@ -1,8 +1,3 @@
-#ifndef DBDEFINE_H
-#define DBDEFINE_H
-#include <QString>
-#include <QDateTime>
-
 /**
 * @file %{CurrentDocument:dbdefine.h}
 * @brief
@@ -11,6 +6,11 @@
 * @date %{CurrentDate:2020-05-26} %{CurrentTime:17:59}
 * @copyright 2020-%{CurrentDate:2020} Uniontech Technology Co., Ltd.
 */
+
+#ifndef DBDEFINE_H
+#define DBDEFINE_H
+#include <QString>
+#include <QDateTime>
 
 struct TaskStatus
 {

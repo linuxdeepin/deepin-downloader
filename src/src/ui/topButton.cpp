@@ -30,6 +30,7 @@
 #include <DToolTip>
 #include <QTimer>
 #include <QCursor>
+#include <QMouseEvent>
 
 DWIDGET_USE_NAMESPACE
 
@@ -66,16 +67,11 @@ void TopButton::Init()
     m_PauseDownloadBtn->setEnabled(false);
     m_PauseDownloadBtn->setToolTip(tr("Pause"));
 
-   // m_pPauseDownloadBtn->setIconSize(QSize(12,12));
-    QSize size1 = m_PauseDownloadBtn->iconSize();
-    QSize size2 = m_NewDownloadBtn->iconSize();
-
     m_StartDownloadBtn = new DIconButton(this);
     m_StartDownloadBtn->setFixedSize(36, 36);
     m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_StartDownloadBtn->setEnabled(false);
     m_StartDownloadBtn->setToolTip(tr("Resume"));
-
 
     m_DeleteDownloadBtn = new DIconButton(this);
     m_DeleteDownloadBtn->setFixedSize(36, 36);
@@ -108,6 +104,14 @@ void TopButton::InitConnections()
     connect(       m_SearchEdit, &DSearchEdit::textChanged,  this, &TopButton::SearchEditTextChange);
 }
 
+void TopButton::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::RightButton){
+        return;
+    }
+    QWidget::mousePressEvent(event);
+}
+
 void TopButton::onTableChanged(int index)
 {
     if(index == 2) {
@@ -119,8 +123,8 @@ void TopButton::onTableChanged(int index)
         m_PauseDownloadBtn->setToolTip(tr("Restore"));
         m_DeleteDownloadBtn->setToolTip(tr("Delete"));
     } else if(index == 1)   {
-        m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
-        m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfolder"));
+        m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfolder"));
+        m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
         m_DeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
 
         m_StartDownloadBtn->setToolTip(tr("Open Folder"));

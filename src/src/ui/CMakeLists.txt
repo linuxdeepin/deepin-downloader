@@ -25,6 +25,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfodialog.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/btinfotableview.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/monitoringsettingwidget.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/notificationssettiingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settingswidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/basicsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/clipboardtimer.h
@@ -42,6 +43,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/urlthread.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/analysisurl.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/taskdelegate.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/dlmapplication.h
 )
 
 #添加资源文件
@@ -51,7 +53,7 @@ qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 #发布的时候生成qm文件
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     #生成 ts qm文件
-    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager.ts")
+    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager_zh_CN.ts")
     qt5_create_translation(QM_FILES
         ${PROJECT_SOURCE_DIR}/translations
         ${TS_FILES}
@@ -77,6 +79,7 @@ add_library(dlmcontrolui SHARED
        btinfodialog.cpp
        btinfotableview.cpp
        monitoringsettingwidget.cpp
+       notificationssettiingwidget.cpp
        settingswidget.cpp
        basicsettingwidget.cpp
        clipboardtimer.cpp
@@ -93,6 +96,7 @@ add_library(dlmcontrolui SHARED
        urlthread.cpp
        analysisurl.cpp
        taskdelegate.cpp
+       dlmapplication.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
        ${QM_FILES}

@@ -217,6 +217,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     QJsonArray files = result.value("files").toArray();
 
     QString filePath;
+
     QString fileUri;
     for(int i = 0; i < files.size(); ++i) {
         QJsonObject file = files[i].toObject();
@@ -233,15 +234,21 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     long totalLength = result.value("totalLength").toString().toLong();         //字节
     long completedLength = result.value("completedLength").toString().toLong(); //字节
     long downloadSpeed = result.value("downloadSpeed").toString().toLong();     //字节/每秒
+    QString speed = "0KB/s";
     QString fileName = getFileName(filePath);
     QString statusStr = result.value("status").toString();
     QString errorCode = result.value("errorCode").toString();
     int percent = 0;
     int status = 0;
 
+    if(filePath.startsWith("[METADATA]")) {
+            QString dir = result.value("dir").toString();
+            QString infoHash = result.value("infoHash").toString();
+            filePath = dir + "/" + infoHash + ".torrent";
+    }
     if((completedLength != 0) && (totalLength != 0)) {
         double tempPercent = completedLength * 100.0 / totalLength;
-        percent = tempPercent;
+        percent = static_cast<int>(tempPercent);
         if((percent < 0) || (percent > 100)) {
             percent = 0;
         }
@@ -274,16 +281,23 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         }
     } else if(statusStr == "waiting") {
         status = Global::DownloadJobStatus::Waiting;
+        downloadSpeed = -1;
     } else if(statusStr == "paused") {
         status = Global::DownloadJobStatus::Paused;
+        downloadSpeed = -2;
     } else if(statusStr == "error") {
+        if("12" == errorCode){
+
+        }
         status = Global::DownloadJobStatus::Error;
+        downloadSpeed = -3;
         dealNotificaitonSettings(statusStr, fileName, errorCode);
     } else if(statusStr == "complete") {
+        data->status = Global::DownloadJobStatus::Complete;
         status = Global::DownloadJobStatus::Complete;
-
         //下载文件为种子文件
         if(fileName.endsWith(".torrent")) {
+            data->status = Global::DownloadJobStatus::Complete;
             if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
                 emit AutoDownloadBt(filePath);
                 clearShardMemary();
@@ -292,27 +306,34 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //下载文件为磁链种子文件
         QString infoHash = result.value("infoHash").toString();
+        bool isMetaData = false;
         if(filePath.startsWith("[METADATA]")) {
-
+                isMetaData = true;
                 QString dir = result.value("dir").toString();
                 data->status = Global::DownloadJobStatus::Complete;
                 fileName = infoHash + ".torrent";
                 filePath = dir + "/" + fileName;
+                data->savePath = dir + "/" + fileName;
                 data->fileName = fileName;
-            if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
+            //if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
                 emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
-            }
+            //}
         }
 
         //
         dealNotificaitonSettings(statusStr, fileName, errorCode);
-        if(Settings::getInstance()->getDownloadFinishedOpenState()) {
+        if(Settings::getInstance()->getDownloadFinishedOpenState() && (!isMetaData)) {
             QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
+        }
+        if(!checkTaskStatus()) {
+            emit whenDownloadFinish();
         }
     } else if(statusStr == "removed") {
         status = Global::DownloadJobStatus::Removed;
     }
-
+    if(nullptr == m_DownloadTableView->getTableModel()->find(taskId)){
+        return;
+    }
     data->gid = gId;
     if(totalLength > 0) {
         data->totalLength = formatFileSize(totalLength);
@@ -321,7 +342,6 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         data->completedLength = formatFileSize(completedLength);
     }
     data->speed = (downloadSpeed != 0) ? formatDownloadSpeed(downloadSpeed) : "0KB/s";
-
     if(bittorrent.isEmpty()) {
         if(!fileName.isEmpty() && (data->fileName != fileName)) {
             data->fileName = fileName;
@@ -349,7 +369,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         fileUri = "";
     }
     data->percent = percent;
-    data->total = totalLength;
+    data->total = static_cast<int>(totalLength);
     if(filePath != "") {
         data->savePath = filePath;
     } else {
@@ -362,7 +382,8 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if((totalLength != completedLength) && (totalLength != 0) &&
        (data->status == Global::DownloadJobStatus::Active)) {
         QTime t(0, 0, 0);
-        t = t.addSecs((totalLength - completedLength * 1.0) / downloadSpeed);
+        double d = (totalLength - completedLength * 1.0) / downloadSpeed;
+        t = t.addSecs(static_cast<int>(d));
         data->time = t.toString("mm:ss");
     } else if((totalLength == 0) && (data->status == Global::DownloadJobStatus::Active)) {
         data->time = ("--:--");
@@ -375,7 +396,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     Task task;
     Task getTask;
-    DBInstance::getTaskByID(data->taskId, getTask);
+    DBInstance::getTaskByID(taskId, getTask);
     if(getTask.taskId != "") {
         if(getTask.url != "") {
             data->url = getTask.url;
@@ -431,7 +452,7 @@ void tableDataControl::aria2MethodGetFiles(QJsonObject &json, int iCurrentRow)
         data = new DownloadDataItem();
         QJsonArray  ja = json.value("result").toArray();
         QJsonObject jo = ja.at(0).toObject();
-        data->totalLength = jo.value("length").toString().toLong(); // 文件大小
+        data->totalLength = jo.value("length").toString(); // 文件大小
         data->savePath = jo.value("path").toString();               //下载路径，带文件名
         data->fileName = data->savePath.mid(data->savePath.lastIndexOf('/') + 1);
         QJsonArray uris = jo.value("uris").toArray();
@@ -458,6 +479,7 @@ void tableDataControl::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
 
 void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
 {
+    Q_UNUSED(json);
     const QList<Global::DownloadDataItem *>& pItemList = m_DownloadTableView->getTableModel()->dataList();
 
     foreach(DownloadDataItem * pItem, pItemList){
@@ -466,6 +488,31 @@ void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
         }
         m_DownloadTableView->refreshTableView(iCurrentRow);
     }
+}
+
+void tableDataControl::aria2GetGlobalStatus(QJsonObject &json)
+{
+    static QList<long long> speedList;
+    QJsonObject  ja = json.value("result").toObject();
+    long long speed = ja.value("downloadSpeed").toString().toLong();
+    speedList.append(speed);
+    if(speedList.count() >= 5){
+        long long aveSpeed = speedList.at(0) + speedList.at(1) + speedList.at(2) + speedList.at(3) + speedList.at(4);
+        aveSpeed /= 5;
+        QString speedStr;
+        if(Settings::getInstance()->getAutoDownloadBySpeed(speedStr)) {
+            if((aveSpeed / 1024) < speedStr.toInt()){
+                emit setMaxDownloadTask(Settings::getInstance()->getMaxDownloadTaskNumber() + 1);
+            }
+        }
+        speedList.clear();
+    }
+}
+
+void tableDataControl::aria2MethodRemove(QJsonObject &json)
+{
+    Q_UNUSED(json);
+    //qDebug() << "aria2MethodRemove: " << json.value("id").toString();
 }
 
 void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
@@ -619,7 +666,9 @@ QString tableDataControl::formatDownloadSpeed(long size)
 {
     QString result = "";
 
-    if(size < 1024) {
+    if(size < 0) {
+            result = QString::number(size) + " KB/s";
+    } else if(size < 1024) {
         result = QString::number(size) + " B/s";
     } else if(size / 1024 < 1024) {
         result = QString::number(size * 1.0 / 1024, 'r', 1) + " KB/s";
@@ -697,9 +746,8 @@ int tableDataControl::onDelAction(int currentLab)
             }
         }
     } else {
-        QList<DownloadDataItem *> pSelectList;
         m_DeleteList.clear();
-        pSelectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& pSelectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < pSelectList.size(); ++i) {
             DownloadDataItem *data;
             if(currentLab == 1) {
@@ -728,9 +776,8 @@ int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DownloadData
 {
     int selectedCount = 0;
 
-    QList<DownloadDataItem *> selectList;
     reloadList.clear();
-    selectList = m_DownloadTableView->getTableModel()->renderList();
+    const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
     for(int i = 0; i < selectList.size(); ++i) {
         if(selectList.at(i)->status == Complete || selectList.at(i)->status == Error) {
             if((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
@@ -788,8 +835,6 @@ void tableDataControl::onOpenFileAction()
 
 int tableDataControl::onOpenFolderAction(int currentLab)
 {
-    QList<DownloadDataItem *> selectList;
-
     int selectedCount = 0;
     if(currentLab == 2) {
         const QList<DeleteDataItem *>& delList = m_DownloadTableView->getTableModel()->recyleList();
@@ -816,7 +861,7 @@ int tableDataControl::onOpenFolderAction(int currentLab)
             }
         }
     } else {
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             if(currentLab == 1) {
                 if(selectList.at(i)->status == Complete) {
@@ -913,12 +958,10 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
             }
         }
     } else {
-        QList<DownloadDataItem *> selectList;
-
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
 
         for(int i = 0; i < selectList.size(); ++i) {
-            DownloadDataItem *data;
+            DownloadDataItem *data = nullptr;
             bool isSelect = false;
             if((currentLab == 1) && (selectList.at(i)->status == Complete)) {
                 if((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
@@ -970,9 +1013,8 @@ int tableDataControl::onDeletePermanentAction(int currentLab)
             }
         }
     } else {
-        QList<DownloadDataItem *> selectList;
         m_DeleteList.clear();
-        selectList = m_DownloadTableView->getTableModel()->renderList();
+        const QList<DownloadDataItem *>& selectList = m_DownloadTableView->getTableModel()->renderList();
         for(int i = 0; i < selectList.size(); ++i) {
             DownloadDataItem *data;
             if(currentLab == 1) {
@@ -1049,11 +1091,11 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         save_path = data->savePath;
         gid = data->gid;
         taskId = data->taskId;
-        QDateTime finish_time;
+        QDateTime finishTime;
         if(data->status == Complete) {
-            finish_time = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+            finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
         } else {
-            finish_time = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+            finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
         }
 
         TaskStatus getStatus;
@@ -1065,7 +1107,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                      data->totalLength,
                                      data->percent,
                                      data->total,
-                                     finish_time);
+                                     finishTime);
 
 
         if(permanent || ischecked) {
@@ -1337,5 +1379,15 @@ void tableDataControl::clearShardMemary()
         memset(to, 0, num);
         sharedMemory.unlock();
     }
+}
 
+bool tableDataControl::checkTaskStatus()
+{
+    const QList<DownloadDataItem *>& dataList = m_DownloadTableView->getTableModel()->dataList();
+    for(const auto *item : dataList) {
+        if((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting)) {
+            return true;
+        }
+    }
+    return false;
 }
