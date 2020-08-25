@@ -53,7 +53,7 @@ struct TaskStatus
 };
 
 
-struct Task
+struct TaskInfo
 {
     QString taskId; //任务id，主键唯一标识
     QString gid; //下载gid
@@ -62,7 +62,7 @@ struct Task
     QString downloadPath; //下载全路径包括文件名
     QString downloadFilename; //下载文件名
     QDateTime createTime; //任务创建时间
-    Task(){
+    TaskInfo(){
         taskId = "";
         gid = "";
         gidIndex = -1;
@@ -70,7 +70,7 @@ struct Task
         downloadPath = "";
         downloadFilename = "";
     };
-    Task(QString task_id,QString gId,int gid_index,QString Url,QString download_path,
+    TaskInfo(QString task_id,QString gId,int gid_index,QString Url,QString download_path,
                 QString download_filename,QDateTime create_time)
     {
         taskId = task_id;
@@ -84,7 +84,7 @@ struct Task
     };
 };
 
-struct UrlInfo
+struct BtTaskInfo
 {
     QString taskId ;//任务id唯一标识
     QString url; //下载url
@@ -92,7 +92,7 @@ struct UrlInfo
     QString seedFile; //种子文件
     QString selectedNum; //选择的种子文件序号
     QString infoHash; //种子文件hash值
-    UrlInfo(){
+    BtTaskInfo(){
         taskId = "" ;
         url = "";
         downloadType = "";
@@ -100,7 +100,7 @@ struct UrlInfo
         selectedNum = "";
         infoHash = "";
     };
-    UrlInfo(QString task_id ,QString Url ,QString type,
+    BtTaskInfo(QString task_id ,QString Url ,QString type,
                QString seed,QString selNum,QString hash)
     {
         taskId = task_id ;

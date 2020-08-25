@@ -86,7 +86,7 @@ namespace Global {
      * @brief 列表项当前状态
      */
     enum DownloadJobStatus {
-        Active = 0, Waiting, Paused, Error, Complete, Removed,Lastincomplete
+        Active = 0, Waiting, Paused, Complete, Removed,Lastincomplete, Error
     };
     /**
      * @enum MsgboxType

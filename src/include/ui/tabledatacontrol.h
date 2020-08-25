@@ -32,7 +32,7 @@
 
 class TableView;
 class QSharedMemory;
-struct Task;
+struct TaskInfo;
 namespace Global {
     struct DownloadDataItem;
     struct DeleteDataItem;
@@ -135,21 +135,6 @@ public:
      * @brief 还原下载ACtion槽函数
     */
     void onReturnOriginAction();
-
-    /**
-     * @brief 打开文件ACtion槽函数
-    */
-    void onOpenFileAction();
-
-    /**
-     * @brief 打开文件目录ACtion槽函数
-    */
-    int onOpenFolderAction(int currentLab);
-
-    /**
-     * @brief 重命名文件ACtion槽函数
-    */
-    void onRenameAction();
 
     /**
      * @brief 清除回收站ACtion槽函数

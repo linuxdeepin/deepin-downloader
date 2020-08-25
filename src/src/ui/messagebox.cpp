@@ -75,7 +75,7 @@ void MessageBox::setRedownload(const QString sameUrl, QString fileName, QString 
 
     setTitle(tr("Warning"));
 
-    addLabel(tr("Task exist. Download again?"));
+    addLabel(tr("Task exist, Downloading again will delete the downloaded content!"));
     addSpacing(10);
     DTextEdit *urlText = new DTextEdit(this);
     urlText->setReadOnly(true);
@@ -87,7 +87,7 @@ void MessageBox::setRedownload(const QString sameUrl, QString fileName, QString 
     urlText->append(sameUrl);
     addContent(urlText);
     addButton(tr("Cancel"));
-    addButton(tr("Ok"));
+    addButton(tr("Redownload"));
     connect(this,&MessageBox::buttonClicked,this,
             [=](int index)
             {
@@ -104,7 +104,7 @@ void MessageBox::setRedownload(const QString sameUrl)
 
     setTitle(tr("Warning"));
 
-    addLabel(tr("Task exist. Do you want to delete the downloaded files and download again?"));
+    addLabel(tr("Task exist, Downloading again will delete the downloaded content!"));
     addSpacing(10);
     DTextEdit *urlText = new DTextEdit(this);
     urlText->setReadOnly(true);
@@ -113,7 +113,7 @@ void MessageBox::setRedownload(const QString sameUrl)
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0,0,0,20));
     addContent(urlText);
-    addButton(tr("Ok"));
+    addButton(tr("Redownload"));
     addButton(tr("Cancel"));
 
 }

@@ -61,6 +61,12 @@ private:
      */
      void deleteDownloadData();
 
+     /**
+      * @brief 删除目录
+      * @return
+      */
+     bool deleteDirectory(const QString &path);
+
 signals:
      /**
       * @brief 通知主界面调用aria2删除任务
