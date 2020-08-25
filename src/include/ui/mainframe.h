@@ -55,7 +55,7 @@ class QAction;
 class SettingsWidget;
 class TopButton;
 class TableView;
-class Task;
+class TaskInfo;
 class ClipboardTimer;
 class BtInfoDialog;
 class tableDataControl;
@@ -404,7 +404,7 @@ private:
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    void getUrlToName(Task &task, QString url, QString savePaht, QString name, QString type = "");
+    void getUrlToName(TaskInfo &task, QString url, QString savePaht, QString name, QString type = "");
 
     /**
      * @brief 开始或者继续下载任务
@@ -470,7 +470,7 @@ private:
     /**
      * @brief 初始化DataItem
      */
-    void initDataItem(Global::DownloadDataItem *data, const Task &tbTask);
+    void initDataItem(Global::DownloadDataItem *data, const TaskInfo &tbTask);
 
     /**
      * @brief 初始化DelDataItem
@@ -559,6 +559,13 @@ private:
      * @brief 删除任务
      */
     void deleteTaskByTaskID(QString taskID);
+
+    /**
+     * @brief 删除任务
+     * @param pItem item
+     */
+    void deleteTask(Global::DeleteDataItem * pItem);
+    void deleteTask(Global::DownloadDataItem * pItem);
 
     /**
      * @brief 检查磁力链接是否和已下载的bt文件重复
