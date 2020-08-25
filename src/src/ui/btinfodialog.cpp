@@ -486,7 +486,6 @@ void BtInfoDialog::updateSelectedInfo()
     int allAudio = 0;
     int allPic = 0;
     int allOther = 0;
-    int all = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString v = m_model->data(m_model->index(i, 0)).toString();
         QString type = m_model->data(m_model->index(i, 2)).toString();
@@ -665,11 +664,11 @@ QString BtInfoDialog::getFileEditText(QString text)
 void BtInfoDialog::setOkBtnStatus(int count)
 {
     m_btnOK->setEnabled(count);
-//    if (count == 0) {
-//        m_btnOK->setEnabled(false);
-//    } else {
-//        m_btnOK->setEnabled(true);
-//    }
+    //    if (count == 0) {
+    //        m_btnOK->setEnabled(false);
+    //    } else {
+    //        m_btnOK->setEnabled(true);
+    //    }
 }
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)

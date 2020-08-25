@@ -348,6 +348,7 @@ void CreateTaskWidget::setUrl(QString url)
     m_texturl->setText(setTextUrl);
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     m_editDir->setText(savePath);
+    m_defaultDownloadDir = savePath;
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
