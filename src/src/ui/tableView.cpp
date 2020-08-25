@@ -131,8 +131,6 @@ void TableView::reset(bool switched)
     QTableView::verticalScrollBar()->setValue(size);
 }
 
-
-
 TableModel * TableView::getTableModel()
 {
     return m_TableModel;

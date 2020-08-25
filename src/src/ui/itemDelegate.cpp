@@ -199,12 +199,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
             QStyleOptionViewItem viewOption(option);
             initStyleOption(&viewOption, index);
-            if ((index.data(TableModel::Status) == 2) || (index.data(TableModel::Status) == 6)) {
+            if ((index.data(TableModel::Status) == Global::Paused) || (index.data(TableModel::Status) == Global::Lastincomplete)) {
                 const QString pauseText = painter->fontMetrics().elidedText(tr("Paused"),
                                                                             Qt::ElideRight,
                                                                             textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, pauseText);
-            } else if (index.data(TableModel::Status) == 3) {
+            } else if (index.data(TableModel::Status) == Global::Error) {
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
@@ -216,7 +216,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                                                                             rect_text.width() - 10);
                 painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, errorText);
                 return;
-            } else if (index.data(TableModel::Status) == 1) {
+            } else if (index.data(TableModel::Status) == Global::Waiting) {
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
@@ -339,10 +339,10 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     DLineEdit *pEdit = new DLineEdit(parent);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
-        QString FilePath = index.data(TableModel::SavePath).toString();
         QString str = index.data(TableModel::FileName).toString();
         QMimeDatabase db;
         QString mime = db.suffixForFileName(str);
+        QString FilePath = index.data(TableModel::SavePath).toString();
         FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
         FilePath = FilePath + filename + "." + mime;
         QFileInfo file(FilePath);
@@ -384,7 +384,7 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
         QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
         model->setData(index, fileName, TableModel::FileName);
         model->setData(index, FilePath, TableModel::SavePath);
-        Task task;
+        TaskInfo task;
         DBInstance::getTaskByID(index.data(TableModel::taskId).toString(), task);
         task.downloadPath = FilePath;
         task.downloadFilename = fileName;

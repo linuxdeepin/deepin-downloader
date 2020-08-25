@@ -22,7 +22,7 @@ public:
      * @param task 任务信息
      * @return true 执行成功 false执行失败
      */
-    static bool addTask(Task task);
+    static bool addTask(TaskInfo task);
     /**
      * @brief 删除任务
      * @param id 根据id删除数据库中任务
@@ -39,20 +39,20 @@ public:
      * @param _task 传入任务，根据类中id更新数据库中任务信息
      * @return true 执行成功 false执行失败
      */
-    static bool updateTaskByID(Task &_task);
+    static bool updateTaskByID(TaskInfo &_task);
     /**
      * @brief 更新任务
      * @param id 需要查询任务id
      * @param _task 传出根据id所得任务信息
      * @return true 执行成功 false执行失败
      */
-    static bool getTaskByID(QString id, Task &_task);
+    static bool getTaskByID(QString id, TaskInfo &_task);
     /**
      * @brief 获取所有任务
      * @param _taskList 传出QList<Task>任务
      * @return true 执行成功 false执行失败
      */
-    static bool getAllTask(QList<Task> &_taskList); //得到所有任务
+    static bool getAllTask(QList<TaskInfo> &_taskList); //得到所有任务
     /**
      * @brief 判断Url是否存在
      * @param url 需要查询url
@@ -67,7 +67,7 @@ public:
      * @param ret 传出参数，真为存在，假为不存在
      * @return true 执行成功 false执行失败
      */
-    static bool getTaskForUrl(QString url, Task &task);
+    static bool getTaskForUrl(QString url, TaskInfo &task);
     /**
      * @brief 判断Url是否存在
      * @param hash 需要查询hash
@@ -105,27 +105,27 @@ public:
      * @param _url url信息
      * @return true 执行成功 false执行失败
      */
-    static bool addUrl(UrlInfo _url); //添加一条url
+    static bool addUrl(BtTaskInfo _url); //添加一条url
     /**
      * @brief 更新任务
      * @param id 需要查询任务id
      * @param _task 传出根据id所得任务信息
      * @return true 执行成功 false执行失败
      */
-    static bool updateUrlById(UrlInfo _url); //根据id更新Url
+    static bool updateUrlById(BtTaskInfo _url); //根据id更新Url
     /**
      * @brief 获取url信息
      * @param taskId 任务id
      * @param task 传出根据id所得url信息
      * @return true 执行成功 false执行失败
      */
-    static bool getUrlById(QString taskId, UrlInfo &url); //根据id得到Url
+    static bool getUrlById(QString taskId, BtTaskInfo &url); //根据id得到Url
     /**
      * @brief 获取所有url
      * @param urlList 传出所有任务
      * @return true 执行成功 false执行失败
      */
-    static bool getAllUrl(QList<UrlInfo> &urlList); //得到所有Url
+    static bool getAllUrl(QList<BtTaskInfo> &urlList); //得到所有Url
 
     /**
      * @brief 获取重复名称个数
