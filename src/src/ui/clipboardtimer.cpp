@@ -69,6 +69,9 @@ void ClipboardTimer::getDataChanged()
     for (int i = 0; i < data->formats().size(); ++i) {
         QString format = data->formats()[i];
         QString formatData = data->data(data->formats()[i]);
+        if(format == "FROM_DEEPIN_CLIPBOARD_MANAGER"){
+            return;
+        }
     }
 
     QStringList urlList = m_clipboard->text().split("\n");
