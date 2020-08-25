@@ -45,12 +45,11 @@ void ClipboardTimer::getDataChanged()
 {
     const QMimeData *mimeData = m_clipboard->mimeData();
     QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
-    qDebug() << "isDeepinCilpboard" << isDeepinCilpboard;
     if (mimeData->data("TIMESTAMP") == m_timeStamp) {
         return;
     }
     if (isDeepinCilpboard == "1") {
-        qDebug() << "!!!!!!!!!!";
+        qDebug() << "ClipboardTimer <getDataChanged> : isDeepinCilpboard";
         return;
     }
     if (m_clipboard->ownsClipboard()) {
@@ -64,9 +63,12 @@ void ClipboardTimer::getDataChanged()
     for (int i = 0; i < data->formats().size(); ++i) {
         QString format = data->formats()[i];
         QString formatData = data->data(data->formats()[i]);
-        if(format == "FROM_DEEPIN_CLIPBOARD_MANAGER"){
+        if (format == "FROM_DEEPIN_CLIPBOARD_MANAGER") {
+            qDebug() << "ClipboardTimer <getDataChanged> : FROM_DEEPIN_CLIPBOARD_MANAGER";
             return;
         }
+        qDebug() << "ClipboardTimer <getDataChanged> format:: " << format;
+        qDebug() << "ClipboardTimer <getDataChanged> formatData:: " << formatData;
     }
 
     QStringList urlList = m_clipboard->text().split("\n");
@@ -100,7 +102,7 @@ bool ClipboardTimer::isMagnet(QString url)
 bool ClipboardTimer::isHttp(QString url)
 {
     url = url.toLower();
-    if((url.startsWith("ftp:")) && (url.startsWith("http://")) && (url.startsWith("https://"))){
+    if ((url.startsWith("ftp:")) && (url.startsWith("http://")) && (url.startsWith("https://"))) {
         return false;
     }
     QStringList list = url.split(".");
