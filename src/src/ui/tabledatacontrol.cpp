@@ -379,8 +379,13 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if ((totalLength != completedLength) && (totalLength != 0) && (data->status == Global::DownloadJobStatus::Active)) {
         QTime t(0, 0, 0);
         double d = (totalLength - completedLength * 1.0) / downloadSpeed;
-        t = t.addSecs(static_cast<int>(d));
-        data->time = t.toString("mm:ss");
+        if (d > 60 * 60 * 24) {
+            data->time = tr(" > 1 Day");
+        } else {
+            t = t.addSecs(static_cast<int>(d));
+            data->time = t.toString("hh:mm:ss");
+        }
+
     } else if ((totalLength == 0) && (data->status == Global::DownloadJobStatus::Active)) {
         data->time = ("--:--");
     } else {
