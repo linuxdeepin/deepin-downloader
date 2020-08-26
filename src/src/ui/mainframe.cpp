@@ -370,10 +370,10 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
-    //    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onParseUrlList);
-    //    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onParseUrlList);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::addMaxDownloadTask, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaHttpJob, this, &MainFrame::onDownloadNewUrl);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaBtJob, this, &MainFrame::onDownloadNewTorrent);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_DownLoadingTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
@@ -1318,7 +1318,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     task.gid = "";
     task.gidIndex = 0;
     task.url = "";
-    task.downloadPath = Settings::getInstance()->getCustomFilePath() + infoName;
+    task.downloadPath = Settings::getInstance()->getCustomFilePath() + "/" + infoName;
     task.downloadFilename = infoName;
     task.createTime = QDateTime::currentDateTime();
     DBInstance::addTask(task);
@@ -1331,7 +1331,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     urlInfo.seedFile = btPath;
     urlInfo.selectedNum = selectedNum;
     urlInfo.infoHash = infoHash;
-    DBInstance::addUrl(urlInfo);
+    DBInstance::addBtTask(urlInfo);
 
     //opt.insert("out", infoName);
     // 开始下载
@@ -1607,7 +1607,7 @@ void MainFrame::onPauseDownloadBtnClicked()
 
                 if (selectList.at(i)->status != Global::DownloadJobStatus::Paused) {
                     BtTaskInfo info;
-                    DBInstance::getUrlById(selectList.at(i)->taskId, info);
+                    DBInstance::getBtTaskById(selectList.at(i)->taskId, info);
                     if (info.downloadType == "torrent" || selectList.at(i)->savePath.contains("[METADATA]")) {
                         Aria2RPCInterface::instance()->forcePause(selectList.at(i)->gid, selectList.at(i)->taskId);
                     } else {
@@ -1849,7 +1849,7 @@ void MainFrame::onRedownloadActionTriggered()
 
         QString filePath = QString(savePath).left(savePath.lastIndexOf('/'));
         BtTaskInfo info;
-        DBInstance::getUrlById(taskId, info);
+        DBInstance::getBtTaskById(taskId, info);
 
         QString strId = QUuid::createUuid().toString();
         task.taskId = strId;
@@ -1868,7 +1868,7 @@ void MainFrame::onRedownloadActionTriggered()
         urlInfo.seedFile = info.seedFile;
         urlInfo.selectedNum = info.selectedNum;
         urlInfo.infoHash = info.infoHash;
-        DBInstance::addUrl(urlInfo);
+        DBInstance::addBtTask(urlInfo);
 
         deleteTaskByTaskID(taskId);
         QString selectNum = info.selectedNum;
@@ -1949,7 +1949,7 @@ void MainFrame::onReturnOriginActionTriggered()
                 //opt.insert("dir", savePath);
                 //opt.insert("out", fileName);
                 BtTaskInfo taskInfo;
-                DBInstance::getUrlById(returntoData->taskId, taskInfo);
+                DBInstance::getBtTaskById(returntoData->taskId, taskInfo);
                 if (taskInfo.taskId != "") {
                     if (taskInfo.downloadType == "torrent") {
                         //opt.insert("select-file", taskInfo.selectedNum);
@@ -2056,9 +2056,10 @@ void MainFrame::onClearRecyleActionTriggered()
 void MainFrame::onCopyUrlActionTriggered()
 {
     BtTaskInfo getUrlInfo;
+
     QString url;
     if (m_CurrentTab == downloadingTab || m_CurrentTab == finishTab) {
-        DBInstance::getUrlById(m_CheckItem->taskId, getUrlInfo);
+        DBInstance::getBtTaskById(m_CheckItem->taskId, getUrlInfo);
         if (getUrlInfo.taskId != "") {
             if (getUrlInfo.downloadType == "torrent") {
                 url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
@@ -2067,7 +2068,7 @@ void MainFrame::onCopyUrlActionTriggered()
             url = m_CheckItem->url;
         }
     } else if (m_CurrentTab == recycleTab) {
-        DBInstance::getUrlById(m_DelCheckItem->taskId, getUrlInfo);
+        DBInstance::getBtTaskById(m_DelCheckItem->taskId, getUrlInfo);
         if (getUrlInfo.taskId != "") {
             if (getUrlInfo.downloadType == "torrent") {
                 url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
@@ -2578,9 +2579,8 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
     QMap<QString, QVariant> opt;
     opt.insert("dir", savePath.left(savePath.lastIndexOf("/")));
     opt.insert("out", pItem->fileName);
-
     BtTaskInfo getUrlInfo;
-    DBInstance::getUrlById(pItem->taskId, getUrlInfo);
+    DBInstance::getBtTaskById(pItem->taskId, getUrlInfo);
     if (getUrlInfo.taskId != "") {
         if (getUrlInfo.downloadType == "torrent") {
             QString selectNum = getUrlInfo.selectedNum;
@@ -2877,7 +2877,7 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
 bool MainFrame::checkIsHasSameTask(QString infoHash)
 {
     QList<BtTaskInfo> urlList;
-    DBInstance::getAllUrl(urlList);
+    DBInstance::getAllBtTask(urlList);
     for (int i = 0; i < urlList.size(); i++) {
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(urlList[i].taskId);
         if (urlList[i].infoHash == infoHash) {

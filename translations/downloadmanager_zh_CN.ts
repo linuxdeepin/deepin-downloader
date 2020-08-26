@@ -231,6 +231,7 @@
         <location filename="../src/src/ui/createtaskwidget.cpp" line="578"/>
         <source>Unable to connect to the network the internet connection failed</source>
         <translation>网络错误，请检查网络后重试</translation>
+    </message>
 </context>
 <context>
     <name>DiagnosticModel</name>
@@ -391,20 +392,12 @@ does not involve the privacy.</source>
 <context>
     <name>ItemDelegate</name>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/itemDelegate.cpp" line="203"/>
-=======
         <location filename="../src/src/ui/itemDelegate.cpp" line="202"/>
->>>>>>> fix: 修改bug 36167
         <source>Paused</source>
         <translation>已暂停</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/itemDelegate.cpp" line="214"/>
-=======
         <location filename="../src/src/ui/itemDelegate.cpp" line="213"/>
->>>>>>> fix: 修改bug 36167
         <source>Failed</source>
         <translation>下载失败</translation>
     </message>
@@ -522,12 +515,7 @@ does not involve the privacy.</source>
         <translation>重新下载将删除原来的文件，确定重新下载？</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/src/ui/mainframe.cpp" line="1948"/>
-        <location filename="../src/src/ui/mainframe.cpp" line="2573"/>
-=======
         <location filename="../src/src/ui/mainframe.cpp" line="2617"/>
->>>>>>> fix: 修改bug 36167
         <source>seed file not exists or broken;</source>
         <translation>种子文件不存在</translation>
     </message>
