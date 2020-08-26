@@ -1,6 +1,6 @@
 #include "dbinstance.h"
 
-bool DBInstance::addTask(TaskInfo task)
+bool DBInstance::addTask(TaskInfo &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -210,7 +210,7 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     return true;
 }
 
-bool DBInstance::addTaskStatus(TaskStatus task)
+bool DBInstance::addTaskStatus(TaskStatus& task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -238,7 +238,7 @@ bool DBInstance::addTaskStatus(TaskStatus task)
     q.close();
     return true;
 }
-bool DBInstance::updateTaskStatusById(TaskStatus task)
+bool DBInstance::updateTaskStatusById(TaskStatus &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -328,7 +328,7 @@ bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
     return true;
 }
 
-bool DBInstance::addUrl(BtTaskInfo url)
+bool DBInstance::addBtTask(BtTaskInfo &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -351,7 +351,7 @@ bool DBInstance::addUrl(BtTaskInfo url)
     q.close();
     return true;
 }
-bool DBInstance::updateUrlById(BtTaskInfo url)
+bool DBInstance::updateBtTaskById(BtTaskInfo &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -370,7 +370,7 @@ bool DBInstance::updateUrlById(BtTaskInfo url)
     q.close();
     return true;
 }
-bool DBInstance::getUrlById(QString taskId, BtTaskInfo &url)
+bool DBInstance::getBtTaskById(QString taskId, BtTaskInfo &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -397,7 +397,7 @@ bool DBInstance::getUrlById(QString taskId, BtTaskInfo &url)
     q.close();
     return true;
 }
-bool DBInstance::getAllUrl(QList<BtTaskInfo> &urlList)
+bool DBInstance::getAllBtTask(QList<BtTaskInfo> &urlList)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {

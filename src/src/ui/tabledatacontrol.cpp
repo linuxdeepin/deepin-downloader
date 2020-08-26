@@ -70,7 +70,6 @@ void tableDataControl::setRecycleTable(TableView *pRecycleTable)
 
 void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAddToRecycle)
 {
-    Aria2RPCInterface::instance()->remove(pData->gid);
     DBInstance::delTask(pData->taskId);
 
     QFileInfo fileinfo(pData->savePath);
@@ -103,7 +102,6 @@ void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAdd
     }
 
     m_DownloadTableView->getTableModel()->removeItem(pData);
-
 
     return;
 }
@@ -201,7 +199,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         QString infoHash = result.value("infoHash").toString();
         BtTaskInfo tbUrlInfo;
         BtTaskInfo getUrlInfo;
-        DBInstance::getUrlById(taskId, getUrlInfo);
+        DBInstance::getBtTaskById(taskId, getUrlInfo);
         if(getUrlInfo.taskId != "") {
             if(getUrlInfo.infoHash.isEmpty()) {
                 BtTaskInfo *urlInfo = new BtTaskInfo(getUrlInfo.taskId,
@@ -210,7 +208,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
                                                       getUrlInfo.seedFile,
                                                       getUrlInfo.selectedNum,
                                                       infoHash);
-                DBInstance::updateUrlById(*urlInfo);
+                DBInstance::updateBtTaskById(*urlInfo);
             }
         }
     }
@@ -267,6 +265,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         double compLeng = length.toDouble();
         if((-1 == n) && (compLeng > 0)) {
             if(!fileName.contains("[METADATA]")){
+                Aria2RPCInterface::instance()->remove(data->gid);
                 if(Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()){  // 删除文件不存在的任务
                     removeDownloadListJob(data);
                     return;
@@ -674,6 +673,14 @@ bool tableDataControl::checkFileExist(QString &filePath)
 void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
 {
     DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(taskId);
+    BtTaskInfo info;
+    bool isBttask = false;
+    if(pItem->url.isEmpty()) {
+        DBInstance::getBtTaskById(taskId, info);
+        if(!info.taskId.isEmpty()) {
+            isBttask = true;
+        }
+    }
     if( nullptr == pItem){
         return;
     }
@@ -681,8 +688,20 @@ void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
     QStringList strlist;
     strlist.append(pItem->url);
     if(0 == index){
-        removeDownloadListJob(pItem, false);
-        emit DownloadUnusuaJob(strlist, Settings::getInstance()->getDownloadSavePath());
+        if(isBttask){
+            QMap<QString, QVariant> opt;
+            QString path = pItem->savePath.left(pItem->savePath.lastIndexOf("/"));
+            opt.insert("dir", path);
+            opt.insert("select-file", info.selectedNum);
+            QString fileName = pItem->fileName;
+            removeDownloadListJob(pItem, false);
+            emit DownloadUnusuaBtJob(info.seedFile, opt, fileName, info.infoHash);
+        }
+        else {
+            emit DownloadUnusuaHttpJob(strlist, Settings::getInstance()->getDownloadSavePath());
+            removeDownloadListJob(pItem, false);
+        }
+
     } else {
         removeDownloadListJob(pItem);
     }
@@ -783,7 +802,7 @@ void tableDataControl::RedownloadErrorItem(DownloadDataItem *errorItem)
     DBInstance::delTask(errorItem->taskId);
     QStringList urlList;
     urlList << errorItem->url;
-    emit DownloadUnusuaJob(urlList, Settings::getInstance()->getDownloadSavePath());
+    emit DownloadUnusuaHttpJob(urlList, Settings::getInstance()->getDownloadSavePath());
     m_DownloadTableView->getTableModel()->removeItem(errorItem);
 
 }
@@ -828,7 +847,7 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
             DeleteDataItem *data = recycleSelectList.at(i);
             if((data->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
                 BtTaskInfo getUrlInfo;
-                DBInstance::getUrlById(data->taskId, getUrlInfo);
+                DBInstance::getBtTaskById(data->taskId, getUrlInfo);
                 if(getUrlInfo.taskId != "") {
                     if(getUrlInfo.downloadType == "torrent") {
                         url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
@@ -867,7 +886,7 @@ int tableDataControl::onCopyUrlAction(int currentLab, QString &copyUrl)
             if(isSelect) {
                 BtTaskInfo getUrlInfo;
                 QString    url;
-                DBInstance::getUrlById(data->taskId, getUrlInfo);
+                DBInstance::getBtTaskById(data->taskId, getUrlInfo);
                 if(getUrlInfo.taskId != "") {
                     if(getUrlInfo.downloadType == "torrent") {
                         url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
@@ -1000,7 +1019,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
 
         if(permanent || ischecked) {
             BtTaskInfo info;
-            DBInstance::getUrlById(taskId, info);
+            DBInstance::getBtTaskById(taskId, info);
             if(info.downloadType == "torrent"){
                 clearShardMemary();
             }
@@ -1121,7 +1140,7 @@ void tableDataControl::downloadListRedownload(QString id)
     //DBInstance::delTask(taskId);
 
     BtTaskInfo getUrlInfo;
-    DBInstance::getUrlById(taskId, getUrlInfo);
+    DBInstance::getBtTaskById(taskId, getUrlInfo);
     if(getUrlInfo.taskId != "") {
         if(getUrlInfo.downloadType == "torrent") {
             QMap<QString, QVariant> opt;
@@ -1208,7 +1227,7 @@ void tableDataControl::recycleListRedownload(QString id)
     QUuid   uuid = QUuid::createUuid();
     QString strId = uuid.toString();
     BtTaskInfo getUrlInfo;
-    DBInstance::getUrlById(taskId, getUrlInfo);
+    DBInstance::getBtTaskById(taskId, getUrlInfo);
     if(getUrlInfo.taskId != "") {
         if(getUrlInfo.downloadType == "torrent") {
             if(!getUrlInfo.infoHash.isEmpty()) {

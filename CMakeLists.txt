@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloadmanager)
-set(PROJECT_VERSION "5.1.0.19")
+set(PROJECT_VERSION "5.1.0.20")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloadmanager")
@@ -17,7 +17,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置Debug  Release
-set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_BUILD_TYPE "Release")
 
 #设置安装路径
 set(CMAKE_INSTALL_PREFIX /usr)
