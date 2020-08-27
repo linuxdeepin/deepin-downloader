@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @copyright 2020-2020 Uniontech Technology Co., Ltd.
  *
  * @file newtaskwidget.h
@@ -68,6 +68,8 @@ public:
      * @brief updateSelectedInfo 更新文件列表选中后的信息（Delegate内部调用）
      */
     void updateSelectedInfo();
+
+    void setUrlName(int index, QString name);
 private:
     /**
      * @brief 初始化ui
@@ -99,7 +101,15 @@ private:
 
     void setData(int index, QString name,QString type, QString size, QString url, long length, QString trueUrl);
 
+    void hideTableWidget();
 
+    void showTableWidget();
+
+    bool isVideo(QString ext);//判断扩展名是否是常见视频格式
+    bool isAudio(QString ext);//判断扩展名是否是常见音频格式
+    bool isPicture(QString ext);//判断扩展名是否是常见图片格式
+    bool isZip(QString ext);
+    bool isDoc(QString ext);
 
 private slots:
     /**
@@ -124,9 +134,41 @@ private slots:
      */
     void onFilechoosed(const QString &);
 
+    /**
+     * @brief 更新解析列表
+     */
     void updataTabel(LinkInfo*);
 
-    void changeUrlName(const QModelIndex &index);
+    //void changeUrlName(const QModelIndex &index);
+
+    /**
+     * @brief 全选按钮
+     */
+    void onAllCheck();       //全选按钮
+    /**
+     * @brief 视频按钮
+     */
+    void onVideoCheck();     //视频按钮
+    /**
+     * @brief 视频按钮
+     */
+    void onAudioCheck();     //音频按钮
+    /**
+     * @brief 视频按钮
+     */
+    void onPictureCheck();   //图片按钮
+    /**
+     * @brief 视频按钮
+     */
+    void onZipCheck();     //其他按钮
+    /**
+     * @brief 视频按钮
+     */
+    void onDocCheck();     //其他按钮
+    /**
+     * @brief 视频按钮
+     */
+    void onOtherCheck();     //其他按钮
 
 protected:
     /**
@@ -184,6 +226,7 @@ private:
     DCheckBox *m_checkOther;        //其他文件类型
     DLabel *m_labelSelectedFileNum; //选中文件数
     DLabel *m_labelFileSize;         //总大小标签
+    QWidget *m_checkWidget;
 
     AnalysisUrl *m_analysisUrl;
 };
