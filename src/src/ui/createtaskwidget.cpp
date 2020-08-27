@@ -408,16 +408,7 @@ bool CreateTaskWidget::isHttp(QString url)
 
 void CreateTaskWidget::onTextChanged()
 {
-//    if(m_texturl->toPlainText().isEmpty()){
-//        hideTableWidget();
-//    }
     m_texturl->toPlainText().isEmpty()? hideTableWidget(): showTableWidget();
-//    if(m_texturl->toPlainText().isEmpty()){
-//        hideTableWidget();
-//    }
-//    else {
-
-//    }
 
     QStringList urlList = m_texturl->toPlainText().split("\n");
     for (int i = 0; i< urlList.size(); i++) {
@@ -436,12 +427,19 @@ void CreateTaskWidget::onTextChanged()
     urlList.removeDuplicates();
 
     for (int i = 0 ; i < urlList.size(); i++) {
-        if(isMagnet(urlList[i])){
-
-            continue;
-        }
         QString name;
         QString type;
+        if(isMagnet(urlList[i])){
+            name = urlList[i].split("&")[0];
+            if(name.contains("btih:")) {
+                name = name.split("btih:")[1] + ".torrent";
+            } else {
+                name = urlList[i].right(40);
+            }
+            setData(i, name, "torrent", "1KB", urlList[i], 1024,urlList[i]);
+            continue;
+        }
+
         getUrlToName(urlList[i],name,type);
         setData(i, name, type, "", urlList[i], 0,urlList[i]);
 
@@ -931,6 +929,7 @@ void CreateTaskWidget::updateSelectedInfo()
     allOther == selectOtherCount && allOther > 0? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
     allZip == selectZipCount && allZip > 0 ? m_checkZip->setCheckState(Qt::Checked) : m_checkZip->setCheckState(Qt::Unchecked);
     allDoc == selectDocCount && allDoc > 0 ? m_checkDoc->setCheckState(Qt::Checked) : m_checkDoc->setCheckState(Qt::Unchecked);
+
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt> 0? true : false);
