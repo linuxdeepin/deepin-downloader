@@ -823,10 +823,17 @@ void CreateTaskWidget::setData(int index, QString name,QString type, QString siz
     if(!name.isNull() && !m_model->item(index, 1))
         m_model->setItem(index, 1, new QStandardItem(name));
 
-    if(!type.isEmpty())
+    if(!type.isEmpty()){
         m_model->setItem(index, 2, new QStandardItem(type));
-    m_model->setItem(index, 3, new QStandardItem(size));
-    m_model->setItem(index, 4, new QStandardItem(QString::number(length)));
+    }
+    if(type== "html"&& size.isNull()){
+        m_model->setItem(index, 3, new QStandardItem("1KB"));
+        m_model->setItem(index, 4, new QStandardItem(QString::number(1024)));
+    }else {
+        m_model->setItem(index, 3, new QStandardItem(size));
+        m_model->setItem(index, 4, new QStandardItem(QString::number(length)));
+    }
+
     m_model->setItem(index, 5, new QStandardItem(url));
     m_model->setItem(index, 6, new QStandardItem(trueUrl));
     m_tableView->setColumnWidth(0, 290);
