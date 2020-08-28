@@ -33,11 +33,9 @@
 #include <QHeaderView>
 #include <QPushButton>
 #include <QTimer>
-#include <QThread>
-#include <QDebug>
-#include <QDateTime>
 
 #include "func.h"
+
 DiagnosticTool::DiagnosticTool(DDialog *parent)
     : DDialog(parent)
     , m_Tableview(new QTableView)
@@ -136,7 +134,6 @@ void DiagnosticModel::appendData(bool b)
 {
     const int row = m_DiagnosticStatusList.size();
     beginInsertRows(QModelIndex(), row, row);
-    qDebug() << QDateTime::currentDateTime() << "appendData";
     m_DiagnosticStatusList.append(b);
     endInsertRows();
 }
@@ -221,7 +218,6 @@ DiagnosticDelegate::~DiagnosticDelegate()
 
 void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    qDebug() << QDateTime::currentDateTime() << "paint";
     painter->setPen(QColor(index.data(Qt::TextColorRole).toString()));
     if (index.row() % 2 == 0) {
         painter->fillRect(option.rect, QColor(255, 255, 255));
