@@ -60,6 +60,7 @@ class ClipboardTimer;
 class BtInfoDialog;
 class tableDataControl;
 class CreateTaskWidget;
+struct LinkInfo;
 
 namespace Global {
 class DownloadDataItem;
@@ -348,23 +349,10 @@ private slots:
      */
     void onClearRecycle(bool ischecked);
 
-
-
-//    /**
-//     * @brief 解析url
-//     */
-//    void onParseUrlList(QStringList urlList, QString path, QString name="");
-
-//    /**
-//     * @brief 解析url
-//     */
-//    void onParseUrlList(QStringList urlList, QString path, QString name="");
-
-//    /**
-//     * @brief 解析url请求返回处理
-//     */
-//    void onHttpRequest(QNetworkReply *reply);
-
+    /**
+     * @brief 解析url
+     */
+    void onParseUrlList(QVector<LinkInfo *> &urlList, QString path);
     /**
      * @brief 下载完成 的一些操作
      */
@@ -468,6 +456,11 @@ private:
      * @brief 显示重新下载窗口
      */
     bool showRedownloadMsgbox(const QString sameUrl);
+
+    /**
+     * @brief 显示重新下载窗口
+     */
+    void showDiagnosticTool();
 
     /**
      * @brief 从配置文件中获取下载路径

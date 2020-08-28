@@ -183,58 +183,58 @@ does not involve the privacy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="93"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="94"/>
         <source>Max download speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="94"/>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="100"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="95"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="101"/>
         <source>KB/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="95"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="96"/>
         <source>(100-102400)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="96"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="97"/>
         <source>102400</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="99"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="100"/>
         <source>Max upload speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="101"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="102"/>
         <source>(16-5120)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="102"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="103"/>
         <source>32</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="105"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="106"/>
         <source>Limited period</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="106"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="107"/>
         <source>to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="220"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="221"/>
         <source>Limited between 100-102400</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="241"/>
+        <location filename="../src/src/ui/downloadsettingwidget.cpp" line="243"/>
         <source>Limited between 16-5120</source>
         <translation type="unfinished"></translation>
     </message>
@@ -992,6 +992,14 @@ and more computer consume</source>
     <message>
         <location filename="../src/src/ui/settings.cpp" line="658"/>
         <source>MB Task</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsControlWidget</name>
+    <message>
+        <location filename="../src/src/ui/settingswidget.cpp" line="63"/>
+        <source>Total speed neet less than Max download speed!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

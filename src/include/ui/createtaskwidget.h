@@ -162,7 +162,7 @@ signals:
      * @param save_path 保存路径
      * @param path_name 文件名字
     */
-    void downloadWidgetCreate(QVector<LinkInfo *> urlList,QString savePath);
+    void downloadWidgetCreate(QVector<LinkInfo *>& urlList,QString savePath);
     /**
      * @brief 新建bt下载任务
      * @param btPath bt下载地址

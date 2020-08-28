@@ -52,14 +52,13 @@
 
 using namespace Global;
 
-TableView::TableView(int Flag, TopButton *pToolBar)
+TableView::TableView(int Flag)
     : QTableView()
     , m_TableFlag(Flag)
     , m_TableModel(new TableModel(Flag))
     , m_TableDataControl(new tableDataControl(this))
     ,m_Itemdegegate(new ItemDelegate(this, m_TableFlag))
     , m_Setting(Settings::getInstance())
-    , m_ToolBar(pToolBar)
 {
     initUI();
     initConnections();
@@ -199,24 +198,6 @@ void TableView::refreshTableView(const int &index)
         //}
         setColumnHidden(3, false);
         setColumnHidden(4, true);
-
-        // 联动工具栏按钮 begin
-        int chkedCnt = 0;
-        const QList<DownloadDataItem *>& selectList = getTableModel()->renderList();
-        for(int i = 0; i < selectList.size(); i++) {
-            if(selectList.at(i)->Ischecked) {
-                chkedCnt++;
-            }
-        }
-        if(chkedCnt > 0) {
-            m_ToolBar->enableStartBtn(true);
-            m_ToolBar->enablePauseBtn(true);
-            m_ToolBar->enableDeleteBtn(true);
-        } else {
-            m_ToolBar->enableStartBtn(false);
-            m_ToolBar->enablePauseBtn(false);
-            m_ToolBar->enableDeleteBtn(false);
-        }
         break;
     }
 
