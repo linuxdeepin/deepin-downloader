@@ -852,22 +852,10 @@ void CreateTaskWidget::setData(int index, QString name,QString type, QString siz
     m_labelFileSize->setText(QString(tr("Total ")+ totalSize));
 
     updateSelectedInfo();
-
-
 }
 
 void CreateTaskWidget::updateSelectedInfo()
 {
-//    long total = 0;
-//    for(int i = 0;i < m_model->rowCount();i++) {
-//        QString v = m_model->data(m_model->index(i, 0)).toString();
-//        QString type = m_model->data(m_model->index(i, 2)).toString();
-//        if(v == "1") {
-//            total += m_model->data(m_model->index(i, 4)).toString().toLong();
-
-//        }
-//    }
-//    m_sureButton->setEnabled(total> 0? true : false);
     int cnt = 0;
     long total = 0;
     int selectVideoCount = 0;
@@ -969,9 +957,7 @@ void CreateTaskWidget::hideTableWidget()
     setMaximumSize(521,321);
     setMinimumSize(521,321);
 
-
     QDesktopWidget *deskdop = QApplication::desktop();
-
     move((deskdop->width() - this->width())/2, (deskdop->height() - this->height())/2);
 }
 
@@ -980,7 +966,6 @@ void CreateTaskWidget::showTableWidget()
     if(!m_tableView->isHidden()){
         return;
     }
-
     m_tableView->show();
     m_labelSelectedFileNum->show();
     m_labelFileSize->show();
@@ -990,7 +975,6 @@ void CreateTaskWidget::showTableWidget()
     setMinimumSize(521,575);
 
     QDesktopWidget *deskdop = QApplication::desktop();
-
     move((deskdop->width() - this->width())/2, (deskdop->height() - this->height())/2);
 }
 
