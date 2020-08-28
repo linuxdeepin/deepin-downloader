@@ -24,7 +24,7 @@ bool Func::isNetConnect()
     process->start("curl", list);
     process->waitForFinished();
     int ret = process->exitCode();
-    return ret ? true : false;
+    return ret ? false : true;
 }
 
 bool Func::isIpv6Connect()
@@ -46,9 +46,10 @@ bool Func::isDHT()
     QFileInfo dht6File(dht6);
     QFileInfo dhtFile(dht);
     if (dht6File.exists() && dhtFile.exists()) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
+
 }
 
 bool Func::isBt()
@@ -56,7 +57,7 @@ bool Func::isBt()
     QString aria2 = QString(QDir::homePath() + "/.config/uos/downloadmanager/aria2.conf");
     QFileInfo aria2File(aria2);
     if (aria2File.exists()) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }

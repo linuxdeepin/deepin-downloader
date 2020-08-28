@@ -31,7 +31,6 @@
 #include <QObject>
 #include <QHeaderView>
 
-
 static int m_curWidget = 0;
 class headerView : public QHeaderView
 {
@@ -39,13 +38,11 @@ class headerView : public QHeaderView
 public:
     explicit headerView(Qt::Orientation orientation, QWidget *parent = 0);
 
-
 protected:
     void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const;
 
 private:
     QRect checkBoxRect(const QRect &sourceRect) const;
-
 };
 
 #endif // BTHEADERVIEW_H

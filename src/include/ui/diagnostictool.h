@@ -37,7 +37,6 @@ DWIDGET_USE_NAMESPACE
 class QTableView;
 class DiagnosticModel;
 
-
 /**
  * @class DiagnosticTool
  * @brief 下载诊断工具
@@ -49,12 +48,14 @@ public:
     explicit DiagnosticTool(DDialog *parent = nullptr);
 
     void initUI();
+
+private slots:
+    void startDiagnostic();
+
 private:
     QTableView *m_Tableview;
     DiagnosticModel *m_Model;
 };
-
-
 
 /**
  * @class DiagnosticModel
@@ -62,10 +63,8 @@ private:
  */
 class DiagnosticModel : public QAbstractTableModel
 {
-
     Q_OBJECT
 public:
-
     /**
      * @brief 构造函数
      */
@@ -73,13 +72,17 @@ public:
 
     ~DiagnosticModel();
 
+    void appendData(bool b);
+
+    void clearData();
+
     /**
      * @brief 父类虚函数，设置数据
      * @param ndex: 索引
      * @param value: 数据
      * @param role: 角色
      */
-    bool setData(const QModelIndex &index, const QVariant    &value, int role) override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override;
 
     /**
      * @brief 获取行数
@@ -116,9 +119,6 @@ private:
     QList<bool> m_DiagnosticStatusList;
 };
 
-
-
-
 /**
  * @class ItemDelegate
  * @brief 列表代理类
@@ -127,14 +127,13 @@ class DiagnosticDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    DiagnosticDelegate(QObject *parent = nullptr,int Flag=0);
+    DiagnosticDelegate(QObject *parent = nullptr, int Flag = 0);
     ~DiagnosticDelegate();
+
     /**
      * @brief 绘图事件
      */
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
-
-
 
 #endif //DIAGNOSTICTOOL_H

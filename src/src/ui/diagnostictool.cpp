@@ -32,7 +32,12 @@
 #include <QTableView>
 #include <QHeaderView>
 #include <QPushButton>
+#include <QTimer>
+#include <QThread>
+#include <QDebug>
+#include <QDateTime>
 
+#include "func.h"
 DiagnosticTool::DiagnosticTool(DDialog *parent)
     : DDialog(parent)
     , m_Tableview(new QTableView)
@@ -40,11 +45,12 @@ DiagnosticTool::DiagnosticTool(DDialog *parent)
 {
     setFixedSize(453, 411);
     initUI();
+    QTimer::singleShot(500, this, SLOT(startDiagnostic()));
 }
 
 void DiagnosticTool::initUI()
 {
-    QIcon tryIcon=QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
+    QIcon tryIcon = QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
 
@@ -59,6 +65,12 @@ void DiagnosticTool::initUI()
     pLabel->setFont(f);
     QPushButton *pButton = new QPushButton(tr("Diagnose again"), this);
     pButton->setFixedSize(202, 36);
+    connect(pButton, &QPushButton::clicked, this, [=]() {
+        m_Model->clearData();
+        QTimer::singleShot(500, this, [=]() {
+            startDiagnostic();
+        });
+    });
     QHBoxLayout *pHLayout = new QHBoxLayout(this);
     pHLayout->addStretch();
     pHLayout->addWidget(pButton);
@@ -71,7 +83,7 @@ void DiagnosticTool::initUI()
     pWidget->setLayout(pLayout);
     addContent(pWidget, Qt::AlignHCenter);
 
-    DiagnosticDelegate *pDelegate  = new DiagnosticDelegate();
+    DiagnosticDelegate *pDelegate = new DiagnosticDelegate();
     m_Tableview->setModel(m_Model);
     m_Tableview->setItemDelegate(pDelegate);
     m_Tableview->horizontalHeader()->hide();
@@ -86,30 +98,62 @@ void DiagnosticTool::initUI()
     m_Tableview->setEnabled(false);
 }
 
+void DiagnosticTool::startDiagnostic()
+{
+    m_Model->appendData(Func::isIpv6Connect());
+    m_Tableview->update();
+    QTimer::singleShot(qrand() % (800) + 200, this, [=]() {
+        m_Model->appendData(Func::isDHT());
+    });
+
+    QTimer::singleShot(qrand() % (800) + 800, this, [=]() {
+        m_Model->appendData(Func::isNetConnect());
+    });
+
+    QTimer::singleShot(qrand() % (800) + 1400, this, [=]() {
+        m_Model->appendData(Func::isBt());
+    });
+
+    QTimer::singleShot(qrand() % (800) + 2000, this, [=]() {
+        m_Model->appendData(Func::isBt());
+    });
+
+    QTimer::singleShot(qrand() % (800) + 2500, this, [=]() {
+        m_Model->appendData(Func::isNetConnect());
+    });
+}
+
 DiagnosticModel::DiagnosticModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    m_DiagnosticStatusList.append(false);
-    m_DiagnosticStatusList.append(true);
-    m_DiagnosticStatusList.append(false);
-    m_DiagnosticStatusList.append(true);
-    m_DiagnosticStatusList.append(false);
-    m_DiagnosticStatusList.append(true);
 }
 
 DiagnosticModel::~DiagnosticModel()
 {
+}
 
+void DiagnosticModel::appendData(bool b)
+{
+    const int row = m_DiagnosticStatusList.size();
+    beginInsertRows(QModelIndex(), row, row);
+    qDebug() << QDateTime::currentDateTime() << "appendData";
+    m_DiagnosticStatusList.append(b);
+    endInsertRows();
+}
+
+void DiagnosticModel::clearData()
+{
+    m_DiagnosticStatusList.clear();
 }
 
 bool DiagnosticModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if(!index.isValid()) {
+    if (!index.isValid()) {
         return false;
     }
     switch (role) {
-        case Qt::EditRole:
-            m_DiagnosticStatusList.replace(index.row(), value.toBool());
+    case Qt::DisplayRole:
+        m_DiagnosticStatusList.replace(index.row(), value.toBool());
         break;
     default:
         break;
@@ -132,11 +176,14 @@ int DiagnosticModel::columnCount(const QModelIndex &parent) const
 
 QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
 {
+    if (m_DiagnosticStatusList.count() <= index.row()) {
+        return QVariant();
+    }
     switch (role) {
     case Qt::DisplayRole:
-       if(index.column() == 0) {
-                    return m_DiagnosticStatusList.at(index.row()) ? (":icons/icon/normal.svg") : (":icons/icon/defeat.svg");
-        } else if(index.column() == 1) {
+        if (index.column() == 0) {
+            return m_DiagnosticStatusList.at(index.row()) ? (":icons/icon/normal.svg") : (":icons/icon/defeat.svg");
+        } else if (index.column() == 1) {
             switch (index.row()) {
             case 0:
                 return tr("IPv6 support");
@@ -153,55 +200,49 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
             default:
                 break;
             }
-        } else if(index.column() == 2) {
+        } else if (index.column() == 2) {
             return m_DiagnosticStatusList.at(index.row()) ? tr("Pass") : tr("Failed");
         }
-    break;
+        break;
     case Qt::TextColorRole:
         return m_DiagnosticStatusList.at(index.row()) ? ("#00c77d") : ("#ff5736");
     }
 
-
     return QVariant();
 }
 
-
 DiagnosticDelegate::DiagnosticDelegate(QObject *parent, int Flag)
 {
-
 }
 
 DiagnosticDelegate::~DiagnosticDelegate()
 {
-
 }
 
 void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    qDebug() << QDateTime::currentDateTime() << "paint";
     painter->setPen(QColor(index.data(Qt::TextColorRole).toString()));
-    if(index.row() %2 == 0) {
-        painter->fillRect(option.rect, QColor(255,255,255));
+    if (index.row() % 2 == 0) {
+        painter->fillRect(option.rect, QColor(255, 255, 255));
     } else {
-        painter->fillRect(option.rect, QColor(245,245,245, 80));
+        painter->fillRect(option.rect, QColor(245, 245, 245, 80));
     }
 
     switch (index.column()) {
     case 0: {
-        QPixmap   pic = index.data(Qt::DisplayRole).toString();
-        QRect rect = QRect(option.rect.x() + 10, option.rect.y()+  10, 25, 25);
+        QPixmap pic = index.data(Qt::DisplayRole).toString();
+        QRect rect = QRect(option.rect.x() + 10, option.rect.y() + 10, 25, 25);
         painter->drawPixmap(rect, pic);
-    }
-        break;
+    } break;
     case 1: {
-        QRect rect = QRect(option.rect.x(), option.rect.y()+  10, option.rect.width(), option.rect.height());
+        QRect rect = QRect(option.rect.x(), option.rect.y() + 10, option.rect.width(), option.rect.height());
         painter->drawText(rect, index.data(Qt::DisplayRole).toString());
-    }
-        break;
+    } break;
     case 2: {
-        QRect rect = QRect(option.rect.x(), option.rect.y()+  10, option.rect.width(), option.rect.height());
+        QRect rect = QRect(option.rect.x(), option.rect.y() + 10, option.rect.width(), option.rect.height());
         painter->drawText(rect, index.data(Qt::DisplayRole).toString());
-    }
-        break;
+    } break;
     default:
         break;
     }
