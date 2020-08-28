@@ -36,7 +36,7 @@ bool Func::isIpv6Connect()
     process->start("curl", list);
     process->waitForFinished();
     int ret = process->exitCode();
-    return ret ? true : false;
+    return ret ? false : true;
 }
 
 bool Func::isDHT()
