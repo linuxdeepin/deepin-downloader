@@ -307,7 +307,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         //下载文件为磁链种子文件
         QString infoHash = result.value("infoHash").toString();
         bool isMetaData = false;
-        if(filePath.startsWith("[METADATA]")) {
+        if(fileName.startsWith("[METADATA]")) {
                 isMetaData = true;
                 QString dir = result.value("dir").toString();
                 data->status = Global::DownloadJobStatus::Complete;
@@ -322,7 +322,8 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
         //
         dealNotificaitonSettings(statusStr, fileName, errorCode);
-        if(Settings::getInstance()->getDownloadFinishedOpenState() && (!isMetaData)) {
+        if(Settings::getInstance()->getDownloadFinishedOpenState() &&
+                (!isMetaData) && (!fileName.endsWith(".torrent"))) {
             QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
         }
         if(!checkTaskStatus()) {

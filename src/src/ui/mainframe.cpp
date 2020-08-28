@@ -69,6 +69,8 @@
 #include "btinfodialog.h"
 #include "../database/dbinstance.h"
 #include "tabledatacontrol.h"
+#include "analysisurl.h"
+#include "diagnostictool.h"
 
 using namespace Global;
 
@@ -106,6 +108,8 @@ void MainFrame::init()
     m_SettingAction = new QAction(tr("Settings"), this);
     pSettingsMenu->addAction(m_SettingAction);
 
+
+
     QAction *pFinishAction = new QAction(tr("When download completed"), this);
     DMenu *pFinishMenu = new DMenu(tr("When download completed"), this);
     m_ShutdownAct = new QAction(tr("Shut down"), this);
@@ -121,6 +125,10 @@ void MainFrame::init()
     pFinishAction->setMenu(pFinishMenu);
     pSettingsMenu->addAction(pFinishAction);
 
+    QAction *pDiagnosticAction = new QAction(tr("Diagnostic tool"), this);
+    connect(pDiagnosticAction, &QAction::triggered, this, &MainFrame::showDiagnosticTool);
+    pSettingsMenu->addAction(pDiagnosticAction);
+
     titlebar()->setMenu(pSettingsMenu);
     m_ToolBar = new TopButton(this);
     titlebar()->setCustomWidget(m_ToolBar, false);
@@ -135,11 +143,11 @@ void MainFrame::init()
     pMainHLayout->setContentsMargins(0, 0, 0, 0);
     pMainHLayout->setSpacing(0);
 
-    m_DownLoadingTableView = new TableView(downloading, m_ToolBar);
+    m_DownLoadingTableView = new TableView(tableviewFlag::downloading);
     m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
     m_DownLoadingTableView->setColumnHidden(4, true);
 
-    m_RecycleTableView = new TableView(recycle, m_ToolBar);
+    m_RecycleTableView = new TableView(tableviewFlag::recycle);
     m_RecycleTableView->verticalHeader()->setDefaultSectionSize(48);
     m_RecycleTableView->setColumnHidden(3, true);
     m_DownLoadingTableView->getTableControl()->setRecycleTable(m_RecycleTableView);
@@ -409,7 +417,7 @@ void MainFrame::initConnection()
     connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
     connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onIsStartAssociatedBTFile);
 
-//    connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList, Qt::UniqueConnection);
+    connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList, Qt::UniqueConnection);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::onDownloadNewTorrent, Qt::UniqueConnection);
 }
 
@@ -936,8 +944,10 @@ void MainFrame::getUrlToName(Task &task, QString url, QString savePath, QString 
         }
         fileName = decode;
     }
-    if(fileName.contains(".torrent")){
-        fileName = fileName.remove(".torrent");
+    if(fileName.contains(".torrent")) {
+        if(!fileName.endsWith(".torrent")) {
+            fileName = fileName.remove(".torrent");
+        }
     }
     QMimeDatabase db;
     QString mime = db.suffixForFileName(fileName);
@@ -1313,7 +1323,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     task.gid = "";
     task.gidIndex = 0;
     task.url = "";
-    task.downloadPath = Settings::getInstance()->getCustomFilePath();
+    task.downloadPath = Settings::getInstance()->getCustomFilePath() + infoName;
     task.downloadFilename = infoName;
     task.createTime = QDateTime::currentDateTime();
     DBInstance::addTask(task);
@@ -1502,6 +1512,12 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
         return true;
     }
     return false;
+}
+
+void MainFrame::showDiagnosticTool()
+{
+    DiagnosticTool control;
+    control.exec();
 }
 
 void MainFrame::onAria2Remove(QString gId, QString id)
@@ -2640,6 +2656,23 @@ void MainFrame::Raise()
     activateWindow();
     setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
     m_LeftList->setCurrentIndex(m_LeftList->currentIndex().sibling(0,0));
+}
+
+void MainFrame::onParseUrlList(QVector<LinkInfo *> &urlList, QString path)
+{
+    QString size;
+    if(Settings::getInstance()->getPriorityDownloadBySize(size)) { //优先下载大小小于多少的任务
+        foreach(LinkInfo* info, urlList) {
+            if(info->length < (size.toInt() * 1024 * 1024)) {
+                urlList.removeOne(info);
+                urlList.prepend(info);
+            }
+        }
+    }
+
+    foreach(LinkInfo* info, urlList) {
+        onDownloadNewUrl(info->url, path, info->urlName, info->type);
+    }
 }
 
 void MainFrame::onDownloadFinish()

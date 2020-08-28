@@ -95,12 +95,11 @@ void DeleteItemThread::deleteRecycleData()
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
                     if(!savePath.isEmpty()) {
-                        QFile::remove(savePath);
+                        deleteDirectory(savePath);
                         if(QFile::exists(ariaTempFile)) {
                             QThread::msleep(200);
                             QFile::remove(ariaTempFile);
                         }
-
                     }
                 }
             }
@@ -128,7 +127,7 @@ void DeleteItemThread::deleteDownloadData()
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
                     if(!savePath.isEmpty()) {
-                        QFile::remove(savePath);
+                        deleteDirectory(savePath);
                         qDebug() << savePath;
                         if(QFile::exists(ariaTempFile)) {
                             QThread::msleep(200);
@@ -150,4 +149,38 @@ void DeleteItemThread::run()
     if(m_StrDeleteType == "download_delete") {
         deleteDownloadData();
     }
+}
+
+bool DeleteItemThread::deleteDirectory(const QString &path)
+{
+    QFileInfo info(path);
+    if(info.isFile()){
+        QFile::remove(path);
+        return true;
+    }
+    if (path.isEmpty())
+    {
+        return false;
+    }
+
+    QDir dir(path);
+    if(!dir.exists())
+    {
+        return true;
+    }
+
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    QFileInfoList fileList = dir.entryInfoList();
+    foreach (QFileInfo fi, fileList)
+    {
+        if (fi.isFile())
+        {
+            fi.dir().remove(fi.fileName());
+        }
+        else
+        {
+            deleteDirectory(fi.absoluteFilePath());
+        }
+    }
+    return dir.rmpath(dir.absolutePath());
 }

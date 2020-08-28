@@ -53,11 +53,16 @@
         <file>icon/bar-front.png</file>
         <file>icon/downloadmanager.svg</file>
         <file>icon/error.svg</file>
+        <file>icon/normal.svg</file>
+        <file>icon/defeat.svg</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>
     </qresource>
     <qresource prefix="/media">
         <file>wav/downloadfinish.wav</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>icon/normal.svg</file>
     </qresource>
 </RCC>

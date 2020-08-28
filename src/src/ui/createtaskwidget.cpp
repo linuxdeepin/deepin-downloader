@@ -528,7 +528,7 @@ void CreateTaskWidget::getTruetUrl(QString redirecUrl)
                             case 302: // redirect (Location: [URL])  重定向链接
                             {
                                 QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
-                              //  emit downloadWidgetCreate(QStringList(strUrl),m_defaultDownloadDir, "");
+                                //emit downloadWidgetCreate(QStringList(strUrl),m_defaultDownloadDir, "");
                                break;
                             }
                             case 405:   //405链接

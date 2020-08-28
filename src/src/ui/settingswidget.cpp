@@ -49,7 +49,7 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 
     m_SwitchBtn = new DSwitchButton();
     layout->addWidget(pLabel);
-    if(isLineEdit){
+    if(isLineEdit) {
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
         DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);

@@ -568,6 +568,9 @@ void TableModel::sort(int column, Qt::SortOrder order)
 
 void TableModel::sortDownload(int column, Qt::SortOrder order)
 {
+    if(Finished == m_Mode && column == 3){
+        return;
+    }
     QVector<QPair<QVariant, int> > sortable;
     QVector<int> unsortable;
     int role = 0;
@@ -602,7 +605,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     double num = -1;
     for(int row = 0; row < rowCount(); ++row) {
         QVariant itm = data(index(row, column), role);
-        if(role == TableModel::Size || role == TableModel::Speed){
+        if(role == TableModel::Size || role == TableModel::Speed || role == TableModel::TotalLength) {
             num = formatFileSize(itm.toString().left(itm.toString().length() - 2));
             sortable.append(QPair<QVariant, int>(num, row));
         } else {
@@ -687,7 +690,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
 
 double TableModel::formatFileSize(QString str)
 {
-    double num = -1;
+     double num = -1;
     QString number = str.left(str.length() - 2);
     num = number.toDouble();
     if(str.contains("KB")){

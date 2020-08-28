@@ -45,7 +45,7 @@ class TableView:public QTableView
 {
     Q_OBJECT
 public:
-    TableView(int Flag, TopButton* pToolBar);
+    TableView(int Flag);
     void reset(bool switched=false);
     /**
      * @brief 获取model

@@ -343,8 +343,11 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename){
         DLineEdit *pEdit=qobject_cast<DLineEdit *>(sender());
         QString FilePath = index.data(TableModel::SavePath).toString();
+        QString str = index.data(TableModel::FileName).toString();
+        QMimeDatabase db;
+        QString mime = db.suffixForFileName(str);
         FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-        FilePath = FilePath + filename;
+        FilePath = FilePath + filename + "." + mime;
         QFileInfo file(FilePath);
         if(file.isFile() && !firstInside){
             pEdit->showAlertMessage(tr("Duplicate name!"), -1);
