@@ -52,8 +52,6 @@ class QStandardItemModel;
 
 DWIDGET_USE_NAMESPACE
 
-
-
 class BtInfoDialog : public DDialog
 {
     Q_OBJECT
@@ -111,9 +109,6 @@ private:
     void sortByType(bool ret);
     void sortBySize(bool ret);
 
-
-
-
 protected:
     /**
      * @brief mainwidow关闭事件
@@ -121,13 +116,15 @@ protected:
      */
     void closeEvent(QCloseEvent *event) override;
 
-    void mouseReleaseEvent(QMouseEvent *event) override;
+//    void mousePressEvent(QMouseEvent *event) override;
+//    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     QString m_torrentFile;              //bt文件路径
     QString m_defaultDownloadDir;   //默热下载文件路径
     QStandardItemModel *m_model;    //tableview中的模型，数据交流
     BtInfoDelegate *m_delegate;     //tableview中选中表格item
+    QList<Aria2cBtFileInfo> m_listBtInfo;  //bt文件列表
 
 private:
     DTitlebar *m_titleBar;//标题栏
@@ -142,6 +139,7 @@ private:
     DLabel *m_labelCapacityFree;    //下载路径所在分区剩余磁盘容量
     DLabel *m_folderIcon;           //文件icon
     DLabel *m_labelInfoName;        //下载信息名称
+    DLabel *m_surplusSize;          //
     DFileChooserEdit *m_editDir;    //选择下载路径窗口
 
     DCheckBox *m_checkAll;          //文件类型全选
@@ -150,8 +148,6 @@ private:
     DCheckBox *m_checkPicture;      //图片文件类型
     DCheckBox *m_checkOther;        //其他文件类型
     Aria2cBtInfo m_ariaInfo;        //当前bt文件信息
-
-    QList<Aria2cBtFileInfo> m_listBtInfo;  //bt文件列表
 
     enum DataRole {
        // Ischecked = 1,
@@ -198,6 +194,7 @@ public slots:
     void Sort(int index);
 
     void setTableData(BtInfoDialog::DataRole,bool ret);
+
 };
 
 #endif // BTINFODIALOG_H

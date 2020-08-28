@@ -2658,7 +2658,6 @@ void MainFrame::Raise()
     m_LeftList->setCurrentIndex(m_LeftList->currentIndex().sibling(0,0));
 }
 
-
 void MainFrame::onParseUrlList(QVector<LinkInfo *> &urlList, QString path)
 {
     QString size;
@@ -2691,17 +2690,6 @@ void MainFrame::onDownloadFinish()
         onTrayQuitClick(true);
     }
 }
-
-//bool MainFrame::isMagnet(QString url)
-//{
-//    QString str = url;
-//    if(str.mid(0,20) == "magnet:?xt=urn:btih:"){
-//        return  true;
-//    }
-//    else{
-//        return  false;
-//    }
-//}
 
 void MainFrame::clearSharedMemory()
 {
@@ -2811,57 +2799,7 @@ void MainFrame::initDbus()
 }
 
 
-//QString MainFrame::getUrlType(QString url)
-//{
-//    QStringList urlInfoList = url.split("\r\n");
-//    for (int i = 0; i < urlInfoList.size(); i++) {
-//        if(urlInfoList[i].startsWith("content-type:", Qt::CaseInsensitive)){
-//            QString type;
-//            QByteArray ba = urlInfoList[i].split("/")[1].toLatin1();
-//            const char *s = ba.data();
-//               while(*s)
-//               {
-//                   if((*s>='A' && *s<='Z') || (*s>='a' && *s<='z'))
-//                   {
-//                        type.append(*s);
-//                   }
-//                   else
-//                   {
-//                       break;
-//                   }
-//                   s++;
-//               }
-//               return type;
-//        }
-//    }
-//    return "";
-//}
 
-//QString MainFrame::getUrlType(QString url)
-//{
-//    QStringList urlInfoList = url.split("\r\n");
-//    for (int i = 0; i < urlInfoList.size(); i++) {
-//        if(urlInfoList[i].startsWith("content-type:", Qt::CaseInsensitive)){
-//            QString type;
-//            QByteArray ba = urlInfoList[i].split("/")[1].toLatin1();
-//            const char *s = ba.data();
-//            while(*s)
-//            {
-//                if((*s>='A' && *s<='Z') || (*s>='a' && *s<='z'))
-//                {
-//                     type.append(*s);
-//                }
-//                else
-//                {
-//                    break;
-//                }
-//                s++;
-//            }
-//            return type;
-//        }
-//    }
-//    return "";
-//}
 
 
 bool MainFrame::deleteDirectory(const QString &path)

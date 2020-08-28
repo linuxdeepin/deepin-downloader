@@ -526,7 +526,7 @@ private:
 
     /**
      * @brief 网络是否联通
-     * @return true为通 false为不通
+     * @return true为不通 false为通
      */
     bool isNetConnect();
 

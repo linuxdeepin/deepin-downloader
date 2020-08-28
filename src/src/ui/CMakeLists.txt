@@ -45,6 +45,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/taskdelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/dlmapplication.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/diagnostictool.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/func.h
 )
 
 #添加资源文件
@@ -99,6 +100,7 @@ add_library(dlmcontrolui SHARED
        taskdelegate.cpp
        dlmapplication.cpp
        diagnostictool.cpp
+       func.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
        ${QM_FILES}

@@ -97,7 +97,7 @@ QString BtInfoDialog::getSelected()
 
 QString BtInfoDialog::getSaveto()
 {
-    return m_editDir->text().split("  ")[0];
+    return m_editDir->text();
 }
 
 QString BtInfoDialog::getName()
@@ -209,7 +209,16 @@ void BtInfoDialog::initUI()
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
     QString text = getFileEditText(m_defaultDownloadDir);
-    m_editDir->setText(text);
+    QString flieEditText =  tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
+
+
+    m_surplusSize = new DLabel(this);
+    m_surplusSize->setText(flieEditText);
+    m_surplusSize->setPalette(pal);
+    m_surplusSize->setFont(font2);
+    m_surplusSize->move(348,438);
+    QString str = getFileEditText(m_defaultDownloadDir);
+    m_editDir->setText(str);
     m_editDir->setClearButtonEnabled(false);
     m_editDir->setFileMode(QFileDialog::DirectoryOnly);
     m_editDir->lineEdit()->setEnabled(false);
@@ -237,10 +246,11 @@ void BtInfoDialog::initUI()
     font.setPixelSize(13);
     m_tableView->setFont(font);
 
-   // headerView *_headerView = new headerView(Qt::Horizontal, m_tableView);
-   // m_tableView->setHorizontalHeader(_headerView);
-   // _headerView->setDefaultAlignment(Qt::AlignLeft);
-   // _headerView->setHighlightSections(false);
+//    headerView *_headerView = new headerView(Qt::Horizontal, m_tableView);
+//    m_tableView->setHorizontalHeader(_headerView);
+//    _headerView->setDefaultAlignment(Qt::AlignLeft);
+//    _headerView->setHighlightSections(false);
+    //_headerView->setSortIndicatorShown(true);
 
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     m_tableView->horizontalHeader()->setHighlightSections(false);
@@ -267,10 +277,7 @@ void BtInfoDialog::initUI()
         list << new QStandardItem("1");
         list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
         list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
-        QStandardItem *item = new QStandardItem(file.length);
-        item->setData(qlonglong(file.lengthBytes), Qt::UserRole);
-        list << item;
-       // list << new QStandardItem(QString::number(file.length));
+        list << new QStandardItem(file.length);
         list << new QStandardItem(QString::number(file.index));
         list << new QStandardItem(QString::number(file.lengthBytes));
         m_model->appendRow(list);
@@ -286,8 +293,9 @@ void BtInfoDialog::initUI()
     m_tableView->setColumnWidth(2, 60);
   //  tableView->setColumnWidth(3, 60);
     m_tableView->horizontalHeader()->setStretchLastSection(true);
-    m_tableView->setSortingEnabled(true);
-
+    m_tableView->setSortingEnabled(false);
+    m_tableView->horizontalHeader()->setSortIndicatorShown(true);
+    m_tableView->horizontalHeader()->setSectionsClickable(true);
 
     DFontSizeManager::instance()->bind(m_tableView,DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &BtInfoDelegate::onhoverChanged);
@@ -312,7 +320,7 @@ void BtInfoDialog::onBtnOK()
         return;
     }
 
-    long free = Aria2RPCInterface::instance()->getCapacityFreeByte(m_editDir->text().split("  ")[0]);
+    long free = Aria2RPCInterface::instance()->getCapacityFreeByte(m_defaultDownloadDir);
     long total = 0;//选中文件总大小（字节）
     for(int i = 0;i < m_model->rowCount();i++) {
         if(m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -326,7 +334,7 @@ void BtInfoDialog::onBtnOK()
         msg->exec();
         return;
     }
-    QString save_path=m_editDir->text().split("  ")[0];
+    QString save_path=m_defaultDownloadDir;
     Settings::getInstance()->setCustomFilePath(save_path);
     close();
     accept();
@@ -550,12 +558,7 @@ void BtInfoDialog::updateSelectedInfo()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     cnt == m_model->rowCount() ? m_checkAll->setCheckState(Qt::Checked) : m_checkAll->setCheckState(Qt::Unchecked);
-//    if(cnt == size){
-//        m_checkAll->setCheckState(Qt::Checked);
-//    }
-//    else {
-//        m_checkAll->setCheckState(Qt::Unchecked);
-//    }
+
     setOkBtnStatus(cnt);
 
 }
@@ -608,60 +611,6 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
     m_widget->setPalette(p);
 }
 
-void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash)
-{
-    opt.insert("dir",m_editDir->text().split("  ")[0]);
-    opt.insert("select-file",getSelected());
-    infoName = m_labelInfoName->text();
-    infoHash = m_ariaInfo.infoHash;
-}
-
-QString BtInfoDialog::getFileEditText(QString text)
-{
-    QString flieEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(text);
-    int count = flieEditText.count();
-
-    for (int i =0 ; i < flieEditText.size();i++)
-    {
-        //判断字符中是否包含中文或者大写字母
-        if((flieEditText[i] >= 'A' && flieEditText[i] <= 'Z')
-                || (flieEditText[i] >= 0x4E00 && flieEditText[i] <= 0x9FA5)){
-            count++;
-        }
-    }
-    //若路径较短，则用空格进行填充
-    if(count < 61)
-    {
-       int fillCount = 61 - count;
-       flieEditText.insert(text.size(), QString(fillCount*2, ' '));
-    }
-    return flieEditText;
-}
-
-void BtInfoDialog::setOkBtnStatus(int count)
-{
-    if(count == 0){
-        m_btnOK->setEnabled(false);
-    }
-    else{
-        m_btnOK->setEnabled(true);
-    }
-}
-
-void BtInfoDialog::closeEvent(QCloseEvent *event)
-{
-    QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloadmanager");
-    if (sharedMemory.attach())//设置成单例程序
-    {
-        sharedMemory.lock();
-        char *to = static_cast<char*>(sharedMemory.data());
-        int num = sharedMemory.size();
-        memset(to, 0, num);
-        sharedMemory.unlock();
-    }
-}
-
 void BtInfoDialog::Sort(int index)
 {
     bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection()==index&& m_tableView->horizontalHeader()->sortIndicatorOrder()==Qt::DescendingOrder);
@@ -679,49 +628,7 @@ void BtInfoDialog::Sort(int index)
     }
 }
 
-
-
-void BtInfoDialog::sortByFileName(bool ret)
-{
-    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
-        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
-        {
-            if(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1) > m_listBtInfo[j+1].path.mid(m_listBtInfo[j+1].path.lastIndexOf("/") + 1)){
-                m_listBtInfo.swap(j, j+1);
-            }
-        }
-    }
-    setTableData(DataRole::fileName, ret);
-}
-
-void BtInfoDialog::sortByType(bool ret)
-{
-    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
-        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
-        {
-            if(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf(".") + 1) > m_listBtInfo[j+1].path.mid(m_listBtInfo[j+1].path.lastIndexOf(".") + 1)){
-                m_listBtInfo.swap(j, j+1);
-            }
-        }
-    }
-    setTableData(DataRole::type, ret);
-}
-
-void BtInfoDialog::sortBySize(bool ret)
-{
-
-    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
-        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
-        {
-            if(m_listBtInfo[j].lengthBytes > m_listBtInfo[j+1].lengthBytes){
-                m_listBtInfo.swap(j, j+1);
-            }
-        }
-    }
-    setTableData(DataRole::size, ret);
-}
-
-void BtInfoDialog::setTableData(BtInfoDialog::DataRole index,bool ret)
+void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
 {
     m_model->clear();
     m_model->setColumnCount(5);
@@ -768,10 +675,113 @@ void BtInfoDialog::setTableData(BtInfoDialog::DataRole index,bool ret)
   //  tableView->setColumnWidth(1, 260);
     m_tableView->setColumnWidth(2, 60);
   //  tableView->setColumnWidth(3, 60);
-
 }
 
-void BtInfoDialog::mouseReleaseEvent(QMouseEvent *event)
+void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash)
 {
-    return;
+    opt.insert("dir",m_editDir->text());
+    opt.insert("select-file",getSelected());
+    infoName = m_labelInfoName->text();
+    infoHash = m_ariaInfo.infoHash;
+}
+
+QString BtInfoDialog::getFileEditText(QString text)
+{
+    QString flieEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(text);
+    int count = text.count();
+
+    for (int i =0 ; i < flieEditText.size();i++)
+    {
+        //判断字符中是否包含中文或者大写字母
+        if((flieEditText[i] >= 'A' && flieEditText[i] <= 'Z')
+                || (flieEditText[i] >= 0x4E00 && flieEditText[i] <= 0x9FA5)){
+            count++;
+        }
+    }
+    //若路径较短，则用空格进行填充
+//    if(count < 61)
+//    {
+//       int fillCount = 61 - count;
+//       flieEditText.insert(text.size(), QString(fillCount*2, ' '));
+//    }
+//    QString str;
+    if(count > 45){
+        text = text.right(45);
+    }
+
+    return text;
+}
+
+void BtInfoDialog::setOkBtnStatus(int count)
+{
+    if(count == 0){
+        m_btnOK->setEnabled(false);
+    }
+    else{
+        m_btnOK->setEnabled(true);
+    }
+}
+
+void BtInfoDialog::closeEvent(QCloseEvent *event)
+{
+    QSharedMemory sharedMemory;
+    sharedMemory.setKey("downloadmanager");
+    if (sharedMemory.attach())//设置成单例程序
+    {
+        sharedMemory.lock();
+        char *to = static_cast<char*>(sharedMemory.data());
+        int num = sharedMemory.size();
+        memset(to, 0, num);
+        sharedMemory.unlock();
+    }
+}
+
+//void BtInfoDialog::mousePressEvent(QMouseEvent *event)
+//{
+//      m_tableView->horizontalHeader()->setSortIndicatorShown(false);
+//}
+
+//void BtInfoDialog::mouseReleaseEvent(QMouseEvent *event)
+//{
+//    m_tableView->horizontalHeader()->setSortIndicatorShown(true);
+//}
+
+void BtInfoDialog::sortByFileName(bool ret)
+{
+    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
+        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
+        {
+            if(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1) > m_listBtInfo[j+1].path.mid(m_listBtInfo[j+1].path.lastIndexOf("/") + 1)){
+                m_listBtInfo.swap(j, j+1);
+            }
+        }
+    }
+    setTableData(DataRole::fileName, ret);
+}
+
+void BtInfoDialog::sortByType(bool ret)
+{
+    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
+        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
+        {
+            if(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf(".") + 1) > m_listBtInfo[j+1].path.mid(m_listBtInfo[j+1].path.lastIndexOf(".") + 1)){
+                m_listBtInfo.swap(j, j+1);
+            }
+        }
+    }
+    setTableData(DataRole::type, ret);
+}
+
+void BtInfoDialog::sortBySize(bool ret)
+{
+
+    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
+        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
+        {
+            if(m_listBtInfo[j].lengthBytes > m_listBtInfo[j+1].lengthBytes){
+                m_listBtInfo.swap(j, j+1);
+            }
+        }
+    }
+    setTableData(DataRole::size, ret);
 }

@@ -80,12 +80,15 @@ private:
     int m_hoverRow;           //当前选择行
     QBrush m_hoverColor = QColor(0,0,0,13);
 
+    QModelIndex m_isEdit;
+
 public slots:
     /**
      * @brief 选择行变动槽函数
      * @param index 当前选择行
      */
     void onhoverChanged(const QModelIndex &index);
+
 };
 
 #endif // BTINFODELEGATE_H

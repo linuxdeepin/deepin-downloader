@@ -32,6 +32,8 @@
 #include "taskdelegate.h"
 #include "btheaderview.h"
 #include "analysisurl.h"
+#include "../database/dbinstance.h"
+#include "aria2rpcinterface.h"
 #include <QPalette>
 #include <QHBoxLayout>
 #include <QSizePolicy>
@@ -42,6 +44,7 @@
 #include <QProcess>
 #include <QStandardItemModel>
 #include <QMimeDatabase>
+#include <QDesktopWidget>
 
 CreateTaskWidget::CreateTaskWidget(DDialog *parent):
     DDialog(parent),
@@ -166,8 +169,8 @@ void CreateTaskWidget::initUi()
     addContent(labelWidget);
 
     //Checkbox
-    QWidget *checkWidget = new QWidget(this);
-    QHBoxLayout *hlyt = new QHBoxLayout(checkWidget);
+    m_checkWidget = new QWidget(this);
+    QHBoxLayout *hlyt = new QHBoxLayout(m_checkWidget);
     m_checkAll = new DCheckBox(this);
   //  m_checkAll->setGeometry(15, 401, 95, 29);
     m_checkAll->setText(tr("All"));
@@ -202,13 +205,13 @@ void CreateTaskWidget::initUi()
    // m_checkDoc->setGeometry(270, 401, 95, 29);
     m_checkDoc->setText(tr("doc"));
  //   m_checkDoc->setText(tr("文档"));
-    connect(m_checkDoc, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
+    connect(m_checkDoc, SIGNAL(clicked()), this, SLOT(onDocCheck()));
 
     m_checkZip = new DCheckBox(this);
    // m_checkDoc->setGeometry(270, 401, 95, 29);
     m_checkZip->setText(tr("zip"));
  //   m_checkZip->setText(tr("压缩包"));
-    connect(m_checkZip, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
+    connect(m_checkZip, SIGNAL(clicked()), this, SLOT(onZipCheck()));
 
     hlyt->addWidget(m_checkAll);
     hlyt->addWidget(m_checkVideo);
@@ -218,8 +221,8 @@ void CreateTaskWidget::initUi()
     hlyt->addWidget(m_checkZip);
     hlyt->addWidget(m_checkOther);
 
-    checkWidget->setLayout(hlyt);
-    addContent(checkWidget);
+    m_checkWidget->setLayout(hlyt);
+    addContent(m_checkWidget);
     addSpacing(4);
 
     m_editDir = new DFileChooserEdit(this);
@@ -400,31 +403,13 @@ bool CreateTaskWidget::isHttp(QString url)
     if( (-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))){
         return false;
     }
-//    QStringList _list= url.split(".");
-//    QString _suffix = _list[_list.size()-1];
-//    QStringList _type;
-//     _type<< "asf"<<"avi"<<"iso"<<"mp3"<<"mpeg"<<"ra"<<"rar"<<"rm"<<"rmvb"<<"tar"<<"wma"<<"wmp"<<"wmv"<<"mov"<<"zip"<<"3gp"<<"chm"<<"mdf"<<"torrent"<<"jar"<<"msi"<<"arj"<<"bin"<<"dll"<<"psd"<<"hqx"<<"sit"<<"lzh"<<"gz"<<"tgz"<<"xlsx"<<"xls"<<"doc"<<"docx"<<"ppt"<<"pptx"<<"flv"<<"swf"<<"mkv"<<"tp"<<"ts"<<"flac"<<"ape"<<"wav"<<"aac"<<"txt"<<"dat"<<"7z"<<"ttf"<<"bat"<<"xv"<<"xvx"<<"pdf"<<"mp4"<<"apk"<<"ipa"<<"epub"<<"mobi"<<"deb"<<"sisx"<<"cab"<<"pxl"<<"xlb"<<"dmg"<<"msu"<<"bz2"<<"exe";
-//    if(_type.contains(_suffix))
-//    {
-//        return true;
-//    }
-//    for (int i = 0; i < _type.size(); i++) {
-//        if(_type[i].toUpper() == _suffix)
-//        {
-//            return true;
-//        }
-//    }
     return true;
 }
 
 void CreateTaskWidget::onTextChanged()
 {
-//    if(m_texturl->toPlainText().isEmpty()){
-//        m_sureButton->setEnabled(false);
-//    }
-//    else{
-//        m_sureButton->setEnabled(true);
-//    }
+    m_texturl->toPlainText().isEmpty()? hideTableWidget(): showTableWidget();
+
     QStringList urlList = m_texturl->toPlainText().split("\n");
     for (int i = 0; i< urlList.size(); i++) {
         if(urlList[i] == ""){
@@ -442,12 +427,19 @@ void CreateTaskWidget::onTextChanged()
     urlList.removeDuplicates();
 
     for (int i = 0 ; i < urlList.size(); i++) {
-        if(isMagnet(urlList[i])){
-
-            continue;
-        }
         QString name;
         QString type;
+        if(isMagnet(urlList[i])){
+            name = urlList[i].split("&")[0];
+            if(name.contains("btih:")) {
+                name = name.split("btih:")[1] + ".torrent";
+            } else {
+                name = urlList[i].right(40);
+            }
+            setData(i, name, "torrent", "1KB", urlList[i], 1024,urlList[i]);
+            continue;
+        }
+
         getUrlToName(urlList[i],name,type);
         setData(i, name, type, "", urlList[i], 0,urlList[i]);
 
@@ -592,6 +584,206 @@ void CreateTaskWidget::updataTabel(LinkInfo *linkInfo)
     setData(linkInfo->index,linkInfo->urlName, linkInfo->type, linkInfo->urlSize, linkInfo->url, linkInfo->length, linkInfo->urlTrueLink);
 }
 
+void CreateTaskWidget::onAllCheck()
+{
+    int state = m_checkAll->checkState();
+    for(int i = 0;i < m_model->rowCount();i++) {
+        m_model->setData(m_model->index(i, 0), state == Qt::Checked? "1": 0);
+    }
+    m_checkVideo->setCheckState(state == Qt::Checked? Qt::Checked: Qt::Unchecked);
+    m_checkAudio->setCheckState(state == Qt::Checked? Qt::Checked: Qt::Unchecked);
+    m_checkPicture->setCheckState(state == Qt::Checked? Qt::Checked: Qt::Unchecked);
+    m_checkOther->setCheckState(state == Qt::Checked? Qt::Checked: Qt::Unchecked);
+    m_checkDoc->setCheckState(state == Qt::Checked? Qt::Checked: Qt::Unchecked);
+    m_checkZip->setCheckState(state == Qt::Checked? Qt::Checked: Qt::Unchecked);
+
+}
+
+void CreateTaskWidget::onVideoCheck()
+{
+    int state = m_checkVideo->checkState();
+    if(m_checkVideo->checkState() == Qt::Checked
+            && m_checkAudio->checkState() == Qt::Checked
+            && m_checkPicture->checkState() == Qt::Checked
+            && m_checkOther->checkState() == Qt::Checked
+            && m_checkDoc->checkState() == Qt::Checked
+            && m_checkZip->checkState() == Qt::Checked) {
+        m_checkAll->setCheckState(Qt::Checked);
+    }
+    else {
+        m_checkAll->setCheckState(Qt::Unchecked);
+    }
+
+    long total = 0;
+    int cnt = 0;
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        if(isVideo(ext)) {
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+        }
+        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+            cnt++;
+        }
+    }
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+}
+
+void CreateTaskWidget::onAudioCheck()
+{
+    int state = m_checkAudio->checkState();
+    if(m_checkVideo->checkState() == Qt::Checked
+            && m_checkAudio->checkState() == Qt::Checked
+            && m_checkPicture->checkState() == Qt::Checked
+            && m_checkOther->checkState() == Qt::Checked
+            && m_checkDoc->checkState() == Qt::Checked
+            && m_checkZip->checkState() == Qt::Checked) {
+        m_checkAll->setCheckState(Qt::Checked);
+    }
+    else {
+        m_checkAll->setCheckState(Qt::Unchecked);
+    }
+
+    long total = 0;
+    int cnt = 0;
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        if(isAudio(ext)) {
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+        }
+        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+            cnt++;
+        }
+    }
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+}
+
+void CreateTaskWidget::onPictureCheck()
+{
+    int state = m_checkPicture->checkState();
+    if(m_checkVideo->checkState() == Qt::Checked
+            && m_checkAudio->checkState() == Qt::Checked
+            && m_checkPicture->checkState() == Qt::Checked
+            && m_checkOther->checkState() == Qt::Checked
+            && m_checkDoc->checkState() == Qt::Checked
+            && m_checkZip->checkState() == Qt::Checked) {
+        m_checkAll->setCheckState(Qt::Checked);
+    }
+    else {
+        m_checkAll->setCheckState(Qt::Unchecked);
+    }
+
+    long total = 0;
+    int cnt = 0;
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        if(isPicture(ext)) {
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+        }
+        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 5)).toString().toLong();
+            cnt++;
+        }
+    }
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+}
+
+void CreateTaskWidget::onZipCheck()
+{
+    int state = m_checkZip->checkState();
+    if(m_checkVideo->checkState() == Qt::Checked
+            && m_checkAudio->checkState() == Qt::Checked
+            && m_checkPicture->checkState() == Qt::Checked
+            && m_checkOther->checkState() == Qt::Checked
+            && m_checkDoc->checkState() == Qt::Checked
+            && m_checkZip->checkState() == Qt::Checked) {
+        m_checkAll->setCheckState(Qt::Checked);
+    }
+    else {
+        m_checkAll->setCheckState(Qt::Unchecked);
+    }
+
+    long total = 0;
+    int cnt = 0;
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        if(isZip(ext)) {
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+        }
+        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+            cnt++;
+        }
+    }
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+}
+
+void CreateTaskWidget::onDocCheck()
+{
+    int state = m_checkDoc->checkState();
+    if(m_checkVideo->checkState() == Qt::Checked
+            && m_checkAudio->checkState() == Qt::Checked
+            && m_checkPicture->checkState() == Qt::Checked
+            && m_checkOther->checkState() == Qt::Checked
+            && m_checkDoc->checkState() == Qt::Checked
+            && m_checkZip->checkState() == Qt::Checked) {
+        m_checkAll->setCheckState(Qt::Checked);
+    }
+    else {
+        m_checkAll->setCheckState(Qt::Unchecked);
+    }
+
+    long total = 0;
+    int cnt = 0;
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        if(isDoc(ext)) {
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+        }
+        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+            cnt++;
+        }
+    }
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+}
+
+void CreateTaskWidget::onOtherCheck()
+{
+    int state = m_checkOther->checkState();
+    if(m_checkVideo->checkState() == Qt::Checked
+            && m_checkAudio->checkState() == Qt::Checked
+            && m_checkPicture->checkState() == Qt::Checked
+            && m_checkOther->checkState() == Qt::Checked
+            && m_checkDoc->checkState() == Qt::Checked
+            && m_checkZip->checkState() == Qt::Checked) {
+        m_checkAll->setCheckState(Qt::Checked);
+    }
+    else {
+        m_checkAll->setCheckState(Qt::Unchecked);
+    }
+    long total = 0;
+    int cnt = 0;
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        if(!isVideo(ext) && !isAudio(ext) && !isPicture(ext) && !isDoc(ext) && !isZip(ext)) {
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+        }
+        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+            cnt++;
+        }
+    }
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+}
+
 void CreateTaskWidget::getUrlToName(QString url, QString &name ,QString &type)
 {
     // 获取url文件名
@@ -628,12 +820,20 @@ void CreateTaskWidget::setData(int index, QString name,QString type, QString siz
 {
 
     m_model->setItem(index, 0, new QStandardItem( size == "" ? "0" : "1"));
-    if(!name.isNull())
+    if(!name.isNull() && !m_model->item(index, 1))
         m_model->setItem(index, 1, new QStandardItem(name));
-    if(!type.isEmpty())
+
+    if(!type.isEmpty()){
         m_model->setItem(index, 2, new QStandardItem(type));
-    m_model->setItem(index, 3, new QStandardItem(size));
-    m_model->setItem(index, 4, new QStandardItem(QString::number(length)));
+    }
+    if(type== "html"&& size.isNull()){
+        m_model->setItem(index, 3, new QStandardItem("1KB"));
+        m_model->setItem(index, 4, new QStandardItem(QString::number(1024)));
+    }else {
+        m_model->setItem(index, 3, new QStandardItem(size));
+        m_model->setItem(index, 4, new QStandardItem(QString::number(length)));
+    }
+
     m_model->setItem(index, 5, new QStandardItem(url));
     m_model->setItem(index, 6, new QStandardItem(trueUrl));
     m_tableView->setColumnWidth(0, 290);
@@ -643,27 +843,160 @@ void CreateTaskWidget::setData(int index, QString name,QString type, QString siz
     m_tableView->setColumnHidden(5, true);
     m_tableView->setColumnHidden(6, true);
     m_tableView->setColumnHidden(7, true);
+
+    long total = 0;
+    for (int i = 0; i < m_model->rowCount();i++) {
+        total += m_model->data(m_model->index(i, 4)).toString().toLong();
+    }
+    QString totalSize = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelFileSize->setText(QString(tr("Total ")+ totalSize));
+
     updateSelectedInfo();
-
-
 }
 
 void CreateTaskWidget::updateSelectedInfo()
 {
+    int cnt = 0;
     long total = 0;
+    int selectVideoCount = 0;
+    int selectAudioCount = 0;
+    int selectPictureCount = 0;
+    int selectOtherCount = 0;
+    int selectZipCount = 0;
+    int selectDocCount = 0;
+    int allVideo = 0;
+    int allAudio = 0;
+    int allPic = 0;
+    int allOther = 0;
+    int allZip = 0;
+    int allDoc = 0;
+    int all = 0;
     for(int i = 0;i < m_model->rowCount();i++) {
         QString v = m_model->data(m_model->index(i, 0)).toString();
         QString type = m_model->data(m_model->index(i, 2)).toString();
         if(v == "1") {
             total += m_model->data(m_model->index(i, 4)).toString().toLong();
-
+            if(isVideo(type)){
+                selectVideoCount++;
+            }
+            else if(isAudio(type)){
+                selectAudioCount++;
+            }
+            else if(isPicture(type)){
+                selectPictureCount++;
+            }
+            else if (isZip(type)) {
+                selectZipCount++;
+            }
+            else if (isDoc(type)) {
+                selectDocCount;
+            }
+            else {
+                selectOtherCount++;
+            }
+            cnt++;
         }
     }
-    m_sureButton->setEnabled(total> 0? true : false);
+    for(int i = 0;i < m_model->rowCount();i++) {
+        QString type = m_model->data(m_model->index(i, 2)).toString();
+            if(isVideo(type)){
+                allVideo++;
+            }
+            else if(isAudio(type)){
+                allAudio++;
+            }
+            else if(isPicture(type)){
+                allPic++;
+            }
+            else if (isDoc(type)) {
+                allDoc++;
+            }
+            else if (isZip(type)) {
+                allZip++;
+            }
+            else {
+                allOther++;
+            }
+    }
+    allVideo == selectVideoCount && allVideo > 0 ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
+    allAudio == selectAudioCount && allAudio > 0 ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
+    allPic == selectPictureCount && allPic > 0 ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
+    allOther == selectOtherCount && allOther > 0? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
+    allZip == selectZipCount && allZip > 0 ? m_checkZip->setCheckState(Qt::Checked) : m_checkZip->setCheckState(Qt::Unchecked);
+    allDoc == selectDocCount && allDoc > 0 ? m_checkDoc->setCheckState(Qt::Checked) : m_checkDoc->setCheckState(Qt::Unchecked);
+
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+    m_sureButton->setEnabled(cnt> 0? true : false);
 }
 
-void CreateTaskWidget::changeUrlName(const QModelIndex &index)
+void CreateTaskWidget::setUrlName(int index, QString name)
 {
-    //if(index.row())
-//   m_model->edit
+    QList<Task> taskList;
+    DBInstance::getAllTask(taskList);
+    QString curName =  name + "." + m_model->data(m_model->index(index, 2)).toString();
+    for (int i = 0; i < taskList.size(); i++) {
+        if(taskList[i].downloadFilename == curName){
+            return;
+        }
+    }
+    m_model->setItem(index, 1, new QStandardItem(name));
+    m_tableView->setColumnHidden(1, true);
+}
+
+void CreateTaskWidget::hideTableWidget()
+{
+    if(m_tableView->isHidden()){
+        return;
+    }
+    m_tableView->hide();
+    m_labelSelectedFileNum->hide();
+    m_labelFileSize->hide();
+    m_checkWidget->hide();
+    m_editDir->hide();
+    setMaximumSize(521,321);
+    setMinimumSize(521,321);
+
+    QDesktopWidget *deskdop = QApplication::desktop();
+    move((deskdop->width() - this->width())/2, (deskdop->height() - this->height())/2);
+}
+
+void CreateTaskWidget::showTableWidget()
+{
+    if(!m_tableView->isHidden()){
+        return;
+    }
+    m_tableView->show();
+    m_labelSelectedFileNum->show();
+    m_labelFileSize->show();
+    m_checkWidget->show();
+    m_editDir->show();
+    setMaximumSize(521,575);
+    setMinimumSize(521,575);
+
+    QDesktopWidget *deskdop = QApplication::desktop();
+    move((deskdop->width() - this->width())/2, (deskdop->height() - this->height())/2);
+}
+
+bool CreateTaskWidget::isVideo(QString ext) {
+    QString types = "avi,mp4,mkv,flv,f4v,wmv,rmvb,rm,mpeg,mpg,mov,ts,m4v,vob";
+    return types.indexOf(ext) != -1;
+}
+
+bool CreateTaskWidget::isAudio(QString ext) {
+    QString types = "mp3,ogg,wav,ape,flac,wma,midi,aac,cda";
+    return types.indexOf(ext) != -1;
+}
+
+bool CreateTaskWidget::isPicture(QString ext) {
+    QString types = "jpg,jpeg,gif,png,bmp,svg,psd,tif,ico";
+    return types.indexOf(ext) != -1;
+}
+bool CreateTaskWidget::isZip(QString ext) {
+    QString types = "rar,zip,cab,iso,jar,ace,7z,tar,gz,arj,lzh,uue,bz2,z,tar.gz";
+    return types.indexOf(ext) != -1;
+}
+bool CreateTaskWidget::isDoc(QString ext) {
+    QString types = "txt,doc,xls,ppt,docx,xlsx,pptx";
+    return types.indexOf(ext) != -1;
 }
