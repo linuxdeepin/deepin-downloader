@@ -95,15 +95,15 @@ public:
      * @param infoName 文件名字
      * @param infoHash 文件hash值
      */
-    void getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash);
+    void getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QString &infoHash);
 
 private:
-    void initUI();//初始化UI
-    bool isVideo(QString ext);//判断扩展名是否是常见视频格式
-    bool isAudio(QString ext);//判断扩展名是否是常见音频格式
-    bool isPicture(QString ext);//判断扩展名是否是常见图片格式
+    void initUI(); //初始化UI
+    bool isVideo(QString ext); //判断扩展名是否是常见视频格式
+    bool isAudio(QString ext); //判断扩展名是否是常见音频格式
+    bool isPicture(QString ext); //判断扩展名是否是常见图片格式
     QString getFileEditText(QString text);
-    void setOkBtnStatus(int count);    //根据选择文件设置确认按钮状态
+    void setOkBtnStatus(int count); //根据选择文件设置确认按钮状态
 
     void sortByFileName(bool ret);
     void sortByType(bool ret);
@@ -116,72 +116,65 @@ protected:
      */
     void closeEvent(QCloseEvent *event) override;
 
-//    void mousePressEvent(QMouseEvent *event) override;
-//    void mouseReleaseEvent(QMouseEvent *event) override;
-
 private:
-    QString m_torrentFile;              //bt文件路径
-    QString m_defaultDownloadDir;   //默热下载文件路径
-    QStandardItemModel *m_model;    //tableview中的模型，数据交流
-    BtInfoDelegate *m_delegate;     //tableview中选中表格item
-    QList<Aria2cBtFileInfo> m_listBtInfo;  //bt文件列表
+    QString m_torrentFile; //bt文件路径
+    QString m_defaultDownloadDir; //默热下载文件路径
+    QStandardItemModel *m_model; //tableview中的模型，数据交流
+    BtInfoDelegate *m_delegate; //tableview中选中表格item
+    QList<Aria2cBtFileInfo> m_listBtInfo; //bt文件列表
 
-private:
-    DTitlebar *m_titleBar;//标题栏
-    BtInfoTableView *m_tableView;//列表
-    DWidget *m_widget;      //包裹view
-
-    DPushButton *m_btnOK;//Download按钮
-
-    DLabel *m_labelTitle;       //标题
+    DTitlebar *m_titleBar; //标题栏
+    BtInfoTableView *m_tableView; //列表
+    DWidget *m_widget; //包裹view
+    DPushButton *m_btnOK; //Download按钮
+    DLabel *m_labelTitle; //标题
     DLabel *m_labelSelectedFileNum; //选中文件数
-    DLabel *m_labelFileSize;         //总大小标签
-    DLabel *m_labelCapacityFree;    //下载路径所在分区剩余磁盘容量
-    DLabel *m_folderIcon;           //文件icon
-    DLabel *m_labelInfoName;        //下载信息名称
-    DLabel *m_surplusSize;          //
-    DFileChooserEdit *m_editDir;    //选择下载路径窗口
+    DLabel *m_labelFileSize; //总大小标签
+    DLabel *m_labelCapacityFree; //下载路径所在分区剩余磁盘容量
+    DLabel *m_folderIcon; //文件icon
+    DLabel *m_labelInfoName; //下载信息名称
+    DLabel *m_surplusSize; //
+    DFileChooserEdit *m_editDir; //选择下载路径窗口
 
-    DCheckBox *m_checkAll;          //文件类型全选
-    DCheckBox *m_checkVideo;        //视频文件类型
-    DCheckBox *m_checkAudio;        //音频文件类型
-    DCheckBox *m_checkPicture;      //图片文件类型
-    DCheckBox *m_checkOther;        //其他文件类型
-    Aria2cBtInfo m_ariaInfo;        //当前bt文件信息
+    DCheckBox *m_checkAll; //文件类型全选
+    DCheckBox *m_checkVideo; //视频文件类型
+    DCheckBox *m_checkAudio; //音频文件类型
+    DCheckBox *m_checkPicture; //图片文件类型
+    DCheckBox *m_checkOther; //其他文件类型
+    Aria2cBtInfo m_ariaInfo; //当前bt文件信息
 
     enum DataRole {
-       // Ischecked = 1,
+        // Ischecked = 1,
         fileName = 0,
         type = 2,
         size = 3
     };
 
-
 public slots:
     /**
      * @brief 确定按钮
      */
-    void onBtnOK();          //确定按钮
+    void onBtnOK();
     /**
      * @brief 全选按钮
      */
-    void onAllCheck();       //全选按钮
+    void onAllCheck();
     /**
      * @brief 视频按钮
      */
-    void onVideoCheck();     //视频按钮
+    void onVideoCheck();
     /**
      * @brief 视频按钮
      */
-    void onAudioCheck();     //音频按钮
+    void onAudioCheck();
     /**
      * @brief 视频按钮
      */
-    void onPictureCheck();   //图片按钮
+    void onPictureCheck();
     /**
      * @brief 视频按钮
      */
-    void onOtherCheck();     //其他按钮
+    void onOtherCheck();
     /**
      * @brief 选择下载路径
      */
@@ -191,10 +184,18 @@ public slots:
      */
     void onPaletteTypeChanged(DGuiApplicationHelper::ColorType type);
 
+    /**
+     * @brief 随dtk主题变化
+     * @param index 对应索引
+     */
     void Sort(int index);
 
-    void setTableData(BtInfoDialog::DataRole,bool ret);
-
+    /**
+     * @brief 随dtk主题变化
+     * @param DataRole 所在行
+     * @param bool
+     */
+    void setTableData(BtInfoDialog::DataRole, bool ret);
 };
 
 #endif // BTINFODIALOG_H

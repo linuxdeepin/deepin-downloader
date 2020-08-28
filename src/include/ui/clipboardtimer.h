@@ -36,7 +36,6 @@
 class QClipboard;
 class QMimeData;
 
-
 class ClipboardTimer : public QObject
 {
     Q_OBJECT
@@ -45,18 +44,17 @@ public:
     ~ClipboardTimer();
 
 private:
-    bool isMagnet(QString str);        //是否是磁力链接
-    bool isHttp(QString str);          //是否是http+后缀
-    bool isBt(QString str);             //是否是 http + bt后缀
-
+    bool isMagnet(QString str); //是否是磁力链接
+    bool isHttp(QString str); //是否是http+后缀
+    bool isBt(QString str); //是否是 http + bt后缀
 
 private slots:
-    void getDataChanged();              //得到剪切板内容
+    void getDataChanged(); //得到剪切板内容
 
 signals:
     emit void sendClipboardTextChange(QString url); //发送url
 private:
-    QClipboard *m_clipboard;            //剪切板
+    QClipboard *m_clipboard; //剪切板
     QByteArray m_timeStamp;
     bool m_isHttp;
     bool m_isMagnet;

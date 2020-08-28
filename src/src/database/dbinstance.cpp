@@ -16,9 +16,8 @@ bool DBInstance::addTask(Task task)
     sql.addBindValue(task.downloadPath);
     sql.addBindValue(task.downloadFilename);
     sql.addBindValue(task.createTime);
-    if(!sql.exec())
-    {
-        qWarning()<<"Insert download_task table failed : " << sql.lastError();
+    if (!sql.exec()) {
+        qWarning() << "Insert download_task table failed : " << sql.lastError();
         q.close();
         return false;
     }
@@ -137,17 +136,14 @@ bool DBInstance::getTaskByID(QString taskId, Task &task)
         q.close();
         return false;
     }
-    while(sql.next())
-    {
-
+    while (sql.next()) {
         task.taskId = sql.value(0).toString();
         task.gid = sql.value(1).toString(); //下载gid
         task.gidIndex = sql.value(2).toInt(); //位置index
         task.url = sql.value(3).toString(); //下载url地址
-        task.downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.downloadPath = sql.value(4).toString(); //下载全路径包括文件名
         task.downloadFilename = sql.value(5).toString(); //下载文件名
         task.createTime = sql.value(6).toDateTime(); //任务创建时间
-
     }
     q.close();
     return true;
@@ -168,14 +164,13 @@ bool DBInstance::getAllTask(QList<Task> &taskList)
         return false;
     }
     Task task;
-    while (sql.next())
-    {
+    while (sql.next()) {
         task.taskId = sql.value(0).toString();
 
         task.gid = sql.value(1).toString(); //下载gid
         task.gidIndex = sql.value(2).toInt(); //位置index
         task.url = sql.value(3).toString(); //下载url地址
-        task.downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.downloadPath = sql.value(4).toString(); //下载全路径包括文件名
         task.downloadFilename = sql.value(5).toString(); //下载文件名
         task.createTime = sql.value(6).toDateTime(); //任务创建时间
         taskList.push_back(task);
@@ -228,8 +223,7 @@ bool DBInstance::addTaskStatus(TaskStatus task)
     sql.addBindValue(task.percent);
     sql.addBindValue(task.totalFromSource);
     sql.addBindValue(task.finishTime);
-    if(!sql.exec())
-    {
+    if (!sql.exec()) {
         QSqlError error = sql.lastError();
         qWarning() << "insert download_task_status failed : " << sql.lastError();
         q.close();
@@ -256,9 +250,8 @@ bool DBInstance::updateTaskStatusById(TaskStatus task)
     sql.addBindValue(task.totalFromSource);
     sql.addBindValue(task.finishTime);
     sql.addBindValue(task.taskId);
-    if(!sql.exec())
-    {
-        qWarning()<<"update download_task_status failed : " << sql.lastError();
+    if (!sql.exec()) {
+        qWarning() << "update download_task_status failed : " << sql.lastError();
         q.close();
         return false;
     }
@@ -280,8 +273,7 @@ bool DBInstance::getTaskStatusById(QString taskId, TaskStatus &task)
         q.close();
         return false;
     }
-    while(sql.next())
-    {
+    while (sql.next()) {
         task.taskId = sql.value(0).toString();
         task.downloadStatus = sql.value(1).toInt(); //下载状态
         task.modifyTime = sql.value(2).toDateTime();
@@ -311,8 +303,7 @@ bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
         return false;
     }
     TaskStatus task;
-    while (sql.next())
-    {
+    while (sql.next()) {
         task.taskId = sql.value(0).toString();
         task.downloadStatus = sql.value(1).toInt(); //下载状态
         task.modifyTime = sql.value(2).toDateTime();
@@ -385,11 +376,10 @@ bool DBInstance::getUrlById(QString taskId, UrlInfo &url)
         q.close();
         return false;
     }
-    while(sql.next())
-    {
+    while (sql.next()) {
         url.taskId = sql.value(0).toString(); //任务id
         url.url = sql.value(1).toString(); // url 下载地址
-        url.downloadType = sql.value(2).toString();//下载类型
+        url.downloadType = sql.value(2).toString(); //下载类型
         url.seedFile = sql.value(3).toString(); //种子文件
         url.selectedNum = sql.value(4).toString(); //选择的种子文件号码
         url.infoHash = sql.value(5).toString(); //种子文件hash值
@@ -413,11 +403,10 @@ bool DBInstance::getAllUrl(QList<UrlInfo> &urlList)
         return false;
     }
     UrlInfo url;
-    while(sql.next())
-    {
+    while (sql.next()) {
         url.taskId = sql.value(0).toString(); //任务id
         url.url = sql.value(1).toString(); // url 下载地址
-        url.downloadType = sql.value(2).toString();//下载类型
+        url.downloadType = sql.value(2).toString(); //下载类型
         url.seedFile = sql.value(3).toString(); //种子文件
         url.selectedNum = sql.value(4).toString(); //选择的种子文件号码
         url.infoHash = sql.value(5).toString(); //种子文件hash值
@@ -437,7 +426,7 @@ int DBInstance::getSameNameCount(QString filename)
     }
 
     QSqlQuery sql;
-    QString sqlStr =  QString("select count(download_filename) from download_task where download_filename like '" + filename + "%';");
+    QString sqlStr = QString("select count(download_filename) from download_task where download_filename like '" + filename + "%';");
     sql.prepare(sqlStr);
     if (!sql.exec()) {
         qWarning() << "select count(download_filename) failed : " << sql.lastError();
@@ -446,8 +435,7 @@ int DBInstance::getSameNameCount(QString filename)
         return 0;
     }
     qWarning() << sqlStr;
-    while(sql.next())
-    {
+    while (sql.next()) {
         count = sql.value(0).toInt();
     }
     return count;
@@ -494,13 +482,12 @@ bool DBInstance::getTaskForUrl(QString url, Task &task)
         q.close();
         return false;
     }
-    while (sql.next())
-    {
+    while (sql.next()) {
         task.taskId = sql.value(0).toString();
         task.gid = sql.value(1).toString(); //下载gid
         task.gidIndex = sql.value(2).toInt(); //位置index
         task.url = sql.value(3).toString(); //下载url地址
-        task.downloadPath  = sql.value(4).toString(); //下载全路径包括文件名
+        task.downloadPath = sql.value(4).toString(); //下载全路径包括文件名
         task.downloadFilename = sql.value(5).toString(); //下载文件名
         task.createTime = sql.value(6).toDateTime(); //任务创建时间
     }

@@ -33,11 +33,9 @@
 headerView::headerView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
-
 }
 
-
-void headerView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex)const
+void headerView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
 {
     painter->save();
     QHeaderView::paintSection(painter, rect, logicalIndex);
@@ -47,9 +45,9 @@ void headerView::paintSection(QPainter *painter, const QRect &rect, int logicalI
     option.rect = checkBoxRect(rect);
     style()->drawControl(QStyle::CE_Header, &option, painter);
 
-   // QPixmap pixmap;
-  //  pixmap.load(":/icons/icon/headerIcon.png");
-  //  style()->drawItemPixmap(painter, option.rect, logicalIndex, pixmap);
+    // QPixmap pixmap;
+    //  pixmap.load(":/icons/icon/headerIcon.png");
+    //  style()->drawItemPixmap(painter, option.rect, logicalIndex, pixmap);
 }
 
 QRect headerView::checkBoxRect(const QRect &sourceRect) const
@@ -58,12 +56,10 @@ QRect headerView::checkBoxRect(const QRect &sourceRect) const
     QRect checkBoxRect = style()->subElementRect(QStyle::SE_CheckBoxIndicator,
                                                  &checkBoxStyleOption);
     m_curWidget += sourceRect.width();
-    QPoint checkBoxPoint(m_curWidget-20, 14);
+    QPoint checkBoxPoint(m_curWidget - 20, 14);
 
-    if(m_curWidget > 400){
-        m_curWidget= 0;
+    if (m_curWidget > 400) {
+        m_curWidget = 0;
     }
     return QRect(checkBoxPoint, checkBoxRect.size());
 }
-
-

@@ -44,7 +44,7 @@ class TaskDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    TaskDelegate(DDialog* dialog);
+    TaskDelegate(DDialog *dialog);
     ~TaskDelegate();
 
     /**
@@ -60,7 +60,7 @@ protected:
      * @param option 视图小部件中绘制项的参数
      * @param index 数据模型中的数据
      */
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;      //绘制事件
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const; //绘制事件
     /**
      * @brief 响应按钮事件 - 划过、按下
      * @param event 事件
@@ -68,17 +68,17 @@ protected:
      * @param option 视图小部件中绘制项的参数
      * @param index 数据模型中的数据
      */
-    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);   // 响应按钮事件 - 划过、按下
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index); // 响应按钮事件 - 划过、按下
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     void setEditorData(QWidget *editor, const QModelIndex &index) const override;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 
 private:
-    DDialog* m_dialog;      //父类窗口指针
+    DDialog *m_dialog; //父类窗口指针
     QCheckBox *m_checkBtn;
-    int m_hoverRow;           //当前选择行
-    QBrush m_hoverColor = QColor(0,0,0,13);
+    int m_hoverRow; //当前选择行
+    QBrush m_hoverColor = QColor(0, 0, 0, 13);
 
     QModelIndex m_isEdit;
 
@@ -88,7 +88,6 @@ public slots:
      * @param index 当前选择行
      */
     void onhoverChanged(const QModelIndex &index);
-
 };
 
 #endif // BTINFODELEGATE_H

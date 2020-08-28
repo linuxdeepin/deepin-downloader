@@ -25,13 +25,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "aria2rpcinterface.h"
 
 #include "log.h"
 #include "config.h"
 #include <QProcess>
-
 
 Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 
@@ -45,7 +43,6 @@ Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
     , m_aria2cCmd(ARIA2C_NAME)
     , m_basePath(ARIA2C_PATH)
 {
-
 }
 
 bool Aria2RPCInterface::startUp()
@@ -70,17 +67,16 @@ bool Aria2RPCInterface::startUp()
     /*
     *设置aria2c  session 路径  时间  input 路径
     */
-    QString sessionCacheFile = QDir::homePath() + "/.cache/uos-aria2c.session";//session 文件路径
-    QString inputFile = QDir::homePath() + "/.cache/uos-aria2c.input";//.input文件路径
-    QString dhtFile = QDir::homePath() + "/.config/uos/downloadmanager/dht.dat";//
-    QString dht6File = QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat";//
+    QString sessionCacheFile = QDir::homePath() + "/.cache/uos-aria2c.session"; //session 文件路径
+    QString inputFile = QDir::homePath() + "/.cache/uos-aria2c.input"; //.input文件路径
+    QString dhtFile = QDir::homePath() + "/.config/uos/downloadmanager/dht.dat"; //
+    QString dht6File = QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat"; //
     QString saveSessionInterval = "30"; //秒
 
     qDebug() << "创建session缓存文件: " << sessionCacheFile;
     QProcess::execute("/usr/bin/touch", QStringList() << sessionCacheFile); //创建session缓存文件
     //QProcess::execute("/usr/bin/touch", QStringList() << dhtFile); //创建dht文件
     //QProcess::execute("/usr/bin/touch", QStringList() << dht6File); //创建dht6文件
-
 
     QStringList opt;
     opt << "--enable-rpc=true"; //启动RPC
@@ -108,8 +104,8 @@ bool Aria2RPCInterface::startUp()
     //opt << "--input-file=" + inputFile;
     opt << "--save-session=" + sessionCacheFile;
     opt << "--save-session-interval=" + saveSessionInterval;
-    opt << "--enable-dht=true";//启动dht文件
-    opt << "--enable-dht6=false";//禁用dht6文件
+    opt << "--enable-dht=true"; //启动dht文件
+    opt << "--enable-dht6=false"; //禁用dht6文件
     opt << "--dht-file-path=" + dhtFile;
     opt << "--dht-file-path6=" + dht6File;
 
@@ -161,22 +157,21 @@ bool Aria2RPCInterface::checkAria2cProc()
     QString output = QString::fromLocal8Bit(proc.readAllStandardOutput());
     QStringList lineList = output.split("\n");
     int cnt = 0;
-    foreach(QString t, lineList) {
-        if(t == "") {
+    foreach (QString t, lineList) {
+        if (t == "") {
             continue;
         }
-        if(t.indexOf("grep " + m_aria2cCmd) >= 0) {
+        if (t.indexOf("grep " + m_aria2cCmd) >= 0) {
             continue;
         }
-        if(t.indexOf(m_aria2cCmd) >= 0) {
+        if (t.indexOf(m_aria2cCmd) >= 0) {
             cnt++;
             //break;
         }
     }
-    if(cnt>0){
+    if (cnt > 0) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -383,33 +378,32 @@ void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
                 &QNetworkAccessManager::finished,
                 this,
                 [=](QNetworkReply *reply) {
-
                     this->rpcRequestReply(reply, method, jsonObj.value("id").toString()); //调用出来函数
                     manager->deleteLater(); //删除
                     manager->destroyed();
                 });
 
-//        connect(networkReply,
-//                QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-//                [=](QNetworkReply::NetworkError error){
-//                    QByteArray buf = networkReply->readAll();
-//                    qDebug() << error << ":  " << buf;
-//                });
-//        connect(networkReply,
-//                &QNetworkReply::finished,
-//                [=](){
-//                    QByteArray buf = networkReply->readAll();
-//                    qDebug() << "finished" << ":  " << buf;
-//                });
+        //        connect(networkReply,
+        //                QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
+        //                [=](QNetworkReply::NetworkError error){
+        //                    QByteArray buf = networkReply->readAll();
+        //                    qDebug() << error << ":  " << buf;
+        //                });
+        //        connect(networkReply,
+        //                &QNetworkReply::finished,
+        //                [=](){
+        //                    QByteArray buf = networkReply->readAll();
+        //                    qDebug() << "finished" << ":  " << buf;
+        //                });
     }
 }
 
 void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &method, const QString id)
 {
-    if(method == ARIA2C_METHOD_FORCE_PAUSE){
+    if (method == ARIA2C_METHOD_FORCE_PAUSE) {
         method.size();
     }
-    if(method == ARIA2C_METHOD_PAUSE){
+    if (method == ARIA2C_METHOD_PAUSE) {
         method.size();
     }
     int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(); //请求返回的属性值
@@ -519,10 +513,10 @@ void Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QStr
 {
     QJsonArray ja;
     QJsonDocument doc = QJsonDocument::fromVariant(QVariant(options));
-    QByteArray jba=doc.toJson();
+    QByteArray jba = doc.toJson();
     QString jsonString = QString(jba);
     QByteArray njba = jsonString.toUtf8();
-     QJsonObject nobj = QJsonObject(QJsonDocument::fromJson(njba).object());
+    QJsonObject nobj = QJsonObject(QJsonDocument::fromJson(njba).object());
     QJsonObject optJson = doc.object();
     ja.append(nobj);
     callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);

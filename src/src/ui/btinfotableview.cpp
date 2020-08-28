@@ -27,11 +27,10 @@
 
 #include "btinfotableview.h"
 
-
 BtInfoTableView::BtInfoTableView(QWidget *parent)
     : DTableView(parent)
 {
-    connect(this,&QAbstractItemView::doubleClicked,this,&BtInfoTableView::onDoubleClicked);
+    connect(this, &QAbstractItemView::doubleClicked, this, &BtInfoTableView::onDoubleClicked);
 }
 
 void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
