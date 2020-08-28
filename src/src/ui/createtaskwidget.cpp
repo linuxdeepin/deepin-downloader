@@ -467,7 +467,9 @@ void CreateTaskWidget::onAllCheck()
 {
     int state = m_checkAll->checkState();
     for (int i = 0; i < m_model->rowCount(); i++) {
-        m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+        if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+        }
     }
     m_checkVideo->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
     m_checkAudio->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
@@ -475,6 +477,23 @@ void CreateTaskWidget::onAllCheck()
     m_checkOther->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
     m_checkDoc->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
     m_checkZip->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
+
+    long total = 0;
+    int cnt = 0;
+    for (int i = 0; i < m_model->rowCount(); i++) {
+        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        if (isVideo(ext)) {
+            if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            }
+        }
+        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+            cnt++;
+        }
+    }
+    QString size = Aria2RPCInterface::instance()->bytesFormat(total);
+    m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
 }
 
 void CreateTaskWidget::onVideoCheck()
@@ -496,7 +515,9 @@ void CreateTaskWidget::onVideoCheck()
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isVideo(ext)) {
-            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+            if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 4)).toString().toLong();
@@ -526,7 +547,9 @@ void CreateTaskWidget::onAudioCheck()
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isAudio(ext)) {
-            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+            if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 4)).toString().toLong();
@@ -556,10 +579,12 @@ void CreateTaskWidget::onPictureCheck()
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isPicture(ext)) {
-            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+            if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 5)).toString().toLong();
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
             cnt++;
         }
     }
@@ -586,7 +611,9 @@ void CreateTaskWidget::onZipCheck()
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isZip(ext)) {
-            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+            if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 4)).toString().toLong();
@@ -616,7 +643,9 @@ void CreateTaskWidget::onDocCheck()
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isDoc(ext)) {
-            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+            if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 4)).toString().toLong();
@@ -645,7 +674,9 @@ void CreateTaskWidget::onOtherCheck()
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (!isVideo(ext) && !isAudio(ext) && !isPicture(ext) && !isDoc(ext) && !isZip(ext)) {
-            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
+            if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 4)).toString().toLong();
