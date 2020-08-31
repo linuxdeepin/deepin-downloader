@@ -46,7 +46,6 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
     m_torrentFile = torrentFile;
     m_defaultDownloadDir = bt_last_save_path;
     setFixedSize(500, 525);
-
     setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::onPaletteTypeChanged);
@@ -56,25 +55,18 @@ BtInfoDialog::~BtInfoDialog()
 {
     delete m_model;
     delete m_delegate;
-
-    //delete m_tableView;
-
     delete m_btnOK;
-
     delete m_labelTitle;
     delete m_labelSelectedFileNum;
     delete m_labelFileSize;
     delete m_labelCapacityFree;
-
     delete m_labelInfoName;
     delete m_editDir;
-
     delete m_checkAll;
     delete m_checkVideo;
     delete m_checkAudio;
     delete m_checkPicture;
     delete m_checkOther;
-
     delete m_widget;
 }
 
@@ -155,9 +147,7 @@ void BtInfoDialog::initUI()
     hb->addWidget(m_labelSelectedFileNum, Qt::AlignLeft);
     hb->addStretch();
     hb->addWidget(m_labelFileSize, Qt::AlignRight);
-    //   hb->setGeometry(1);
     hb->setGeometry(QRect(15, 381, 471, 20));
-    //    vb->addLayout(hb);
 
     //Checkbox
     m_checkAll = new DCheckBox(this);
@@ -194,7 +184,6 @@ void BtInfoDialog::initUI()
     m_labelCapacityFree = new DLabel();
     m_labelCapacityFree->setGeometry(350, 363, 86, 23);
     QString _freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
-    // this->m_labelCapacityFree->setText(tr("Free space:") + _freeSize);
     m_labelCapacityFree->setPalette(pal);
     m_labelCapacityFree->setFont(font2);
 
@@ -237,13 +226,6 @@ void BtInfoDialog::initUI()
     QFont font;
     font.setPixelSize(13);
     m_tableView->setFont(font);
-
-    //    headerView *_headerView = new headerView(Qt::Horizontal, m_tableView);
-    //    m_tableView->setHorizontalHeader(_headerView);
-    //    _headerView->setDefaultAlignment(Qt::AlignLeft);
-    //    _headerView->setHighlightSections(false);
-    //_headerView->setSortIndicatorShown(true);
-
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     m_tableView->horizontalHeader()->setHighlightSections(false);
 
@@ -281,9 +263,7 @@ void BtInfoDialog::initUI()
     m_tableView->setColumnHidden(5, true);
 
     m_tableView->setColumnWidth(0, 290);
-    //  tableView->setColumnWidth(1, 260);
     m_tableView->setColumnWidth(2, 60);
-    //  tableView->setColumnWidth(3, 60);
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     m_tableView->setSortingEnabled(false);
     m_tableView->horizontalHeader()->setSortIndicatorShown(true);
@@ -650,9 +630,7 @@ void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
     m_tableView->setColumnHidden(5, true);
 
     m_tableView->setColumnWidth(0, 290);
-    //  tableView->setColumnWidth(1, 260);
     m_tableView->setColumnWidth(2, 60);
-    //  tableView->setColumnWidth(3, 60);
 }
 
 void BtInfoDialog::getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QString &infoHash)
@@ -675,13 +653,6 @@ QString BtInfoDialog::getFileEditText(QString text)
             count++;
         }
     }
-    //若路径较短，则用空格进行填充
-    //    if(count < 61)
-    //    {
-    //       int fillCount = 61 - count;
-    //       flieEditText.insert(text.size(), QString(fillCount*2, ' '));
-    //    }
-    //    QString str;
     if (count > 45) {
         text = text.right(45);
     }
@@ -711,16 +682,6 @@ void BtInfoDialog::closeEvent(QCloseEvent *event)
         sharedMemory.unlock();
     }
 }
-
-//void BtInfoDialog::mousePressEvent(QMouseEvent *event)
-//{
-//      m_tableView->horizontalHeader()->setSortIndicatorShown(false);
-//}
-
-//void BtInfoDialog::mouseReleaseEvent(QMouseEvent *event)
-//{
-//    m_tableView->horizontalHeader()->setSortIndicatorShown(true);
-//}
 
 void BtInfoDialog::sortByFileName(bool ret)
 {

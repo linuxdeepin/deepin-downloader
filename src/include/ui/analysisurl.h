@@ -78,16 +78,32 @@ public:
     explicit AnalysisUrl(QObject *parent = nullptr);
     ~AnalysisUrl();
 
+    /**
+     * @brief setUrlList 设置需要解析的url列表
+     * @param list url信息
+     */
     void setUrlList(QMap<QString, LinkInfo> list);
 
 public slots:
+    /**
+     * @brief getLinkInfo 获取到解析后的url信息
+     * @param list url信息
+     */
     void getLinkInfo(LinkInfo);
 
 private:
+    /**
+     * @brief stopWork 停止当前线程工作
+     * @param index 当前线程索引
+     */
     void stopWork(int index);
 
 signals:
-    void sendFinishedUrl(LinkInfo *);
+    /**
+     * @brief sendFinishedUrl 将解析后的信息，发送至新建任务窗口
+     * @param *linkInfo 解析后信息
+     */
+    void sendFinishedUrl(LinkInfo *linkInfo);
 
 private:
     QMap<QString, LinkInfo> m_curAllUrl;

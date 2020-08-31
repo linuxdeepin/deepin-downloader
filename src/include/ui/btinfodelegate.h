@@ -68,9 +68,8 @@ protected:
      * @param option 视图小部件中绘制项的参数
      * @param index 数据模型中的数据
      */
-    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index); // 响应按钮事件 - 划过、按下
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);
 
-    //void sort()
 private:
     DDialog *m_dialog; //父类窗口指针
     QCheckBox *m_checkBtn;

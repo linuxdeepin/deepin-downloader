@@ -60,8 +60,6 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                 m_linkInfo->urlSize = getUrlSize(str);
                 if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
                 {
-                    // onDownloadNewUrl(proc->arguments().at(1) ,Settings::getInstance()->getCustomFilePath() , "");
-
                     emit sendFinishedUrl(*m_linkInfo);
                     mutex.unlock();
                     return;
@@ -74,7 +72,6 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                         QString urlName = urlInfoList[i].mid(start);
                         QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
                         m_linkInfo->urlName = encodingUrlName;
-                        // onDownloadNewUrl(proc->arguments().at(1), Settings::getInstance()->getCustomFilePath(), encodingUrlName);
                         emit sendFinishedUrl(*m_linkInfo);
                     }
                 }

@@ -97,6 +97,63 @@ public:
      */
     void getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QString &infoHash);
 
+    enum DataRole {
+        // Ischecked = 1,
+        fileName = 0,
+        type = 2,
+        size = 3
+    };
+
+public slots:
+    /**
+     * @brief 确定按钮
+     */
+    void onBtnOK();
+
+
+private slots:
+    /**
+     * @brief 全选按钮
+     */
+    void onAllCheck();
+    /**
+     * @brief 视频按钮
+     */
+    void onVideoCheck();
+    /**
+     * @brief 视频按钮
+     */
+    void onAudioCheck();
+    /**
+     * @brief 视频按钮
+     */
+    void onPictureCheck();
+    /**
+     * @brief 视频按钮
+     */
+    void onOtherCheck();
+    /**
+     * @brief 选择下载路径
+     */
+    void onFilechoosed(const QString &);
+    /**
+     * @brief 随dtk主题变化
+     */
+    void onPaletteTypeChanged(DGuiApplicationHelper::ColorType type);
+
+    /**
+     * @brief 随dtk主题变化
+     * @param index 对应索引
+     */
+    void Sort(int index);
+
+    /**
+     * @brief 随dtk主题变化
+     * @param DataRole 所在行
+     * @param bool
+     */
+    void setTableData(BtInfoDialog::DataRole, bool ret);
+
 private:
     void initUI(); //初始化UI
     bool isVideo(QString ext); //判断扩展名是否是常见视频格式
@@ -142,60 +199,6 @@ private:
     DCheckBox *m_checkPicture; //图片文件类型
     DCheckBox *m_checkOther; //其他文件类型
     Aria2cBtInfo m_ariaInfo; //当前bt文件信息
-
-    enum DataRole {
-        // Ischecked = 1,
-        fileName = 0,
-        type = 2,
-        size = 3
-    };
-
-public slots:
-    /**
-     * @brief 确定按钮
-     */
-    void onBtnOK();
-    /**
-     * @brief 全选按钮
-     */
-    void onAllCheck();
-    /**
-     * @brief 视频按钮
-     */
-    void onVideoCheck();
-    /**
-     * @brief 视频按钮
-     */
-    void onAudioCheck();
-    /**
-     * @brief 视频按钮
-     */
-    void onPictureCheck();
-    /**
-     * @brief 视频按钮
-     */
-    void onOtherCheck();
-    /**
-     * @brief 选择下载路径
-     */
-    void onFilechoosed(const QString &);
-    /**
-     * @brief 随dtk主题变化
-     */
-    void onPaletteTypeChanged(DGuiApplicationHelper::ColorType type);
-
-    /**
-     * @brief 随dtk主题变化
-     * @param index 对应索引
-     */
-    void Sort(int index);
-
-    /**
-     * @brief 随dtk主题变化
-     * @param DataRole 所在行
-     * @param bool
-     */
-    void setTableData(BtInfoDialog::DataRole, bool ret);
 };
 
 #endif // BTINFODIALOG_H

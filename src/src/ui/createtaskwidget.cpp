@@ -416,12 +416,11 @@ void CreateTaskWidget::onTextChanged()
         urlInfo.index = i;
         urlInfoMap.insert(urlList[i], urlInfo);
     }
+    m_analysisUrl->setUrlList(urlInfoMap);
 
     while (urlList.size() < m_model->rowCount()) {
         m_model->takeRow(m_model->rowCount() - 1);
     }
-
-    m_analysisUrl->setUrlList(urlInfoMap);
 }
 
 void CreateTaskWidget::onFilechoosed(const QString &filename)

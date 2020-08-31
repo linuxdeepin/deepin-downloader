@@ -41,24 +41,47 @@ public:
     explicit UrlThread(QObject *parent = nullptr);
     ~UrlThread();
 
+    /**
+     * @brief start 获取任务
+     * @param urlInfo urlInfo 任务信息
+     */
+    void getLinkInfo(LinkInfo);
     void start(LinkInfo &urlInfo);
 
-public slots:
+private slots:
+    /**
+     * @brief begin 开始解析url
+     */
     void begin();
 
+    /**
+     * @brief onHttpRequest 获取解析后的数据
+     */
     void onHttpRequest(QNetworkReply *reply);
 
 private:
+    /**
+     * @brief getUrlType 获取解析后的数据
+     * @param url 地址
+     * @return url 类型
+     */
     QString getUrlType(QString url);
+    /**
+     * @brief getUrlSize 获取解析后的数据
+     * @param url 地址
+     * @return url 大小
+     */
     QString getUrlSize(QString url);
 
 signals:
-    void sendFinishedUrl(LinkInfo);
-    void send();
+    /**
+     * @brief sendFinishedUrl 发送解析后的数据
+     * @param link 数据
+     */
+    void sendFinishedUrl(LinkInfo link);
 
 private:
-    LinkInfo *m_linkInfo; //当前url信息5
-    QThread *m_thread;
+    LinkInfo *m_linkInfo; //当前url信息
 };
 
 #endif // URLTHREAD_H
