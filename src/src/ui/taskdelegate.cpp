@@ -176,6 +176,9 @@ void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
 {
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = pEdit->text();
+    if(str.isNull()){
+        return;
+    }
     int row = index.row();
     ((CreateTaskWidget *)m_dialog)->setUrlName(row, str);
 }

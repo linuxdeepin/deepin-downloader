@@ -394,7 +394,7 @@ void CreateTaskWidget::onTextChanged()
     urlList.removeAll(QString(""));
     urlList.removeDuplicates();
 
-    for (int i = 0; i < urlList.size(); i++) {
+   for (int i = 0; i < urlList.size(); i++) {
         QString name;
         QString type;
         if (isMagnet(urlList[i])) {
@@ -713,7 +713,12 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
     }
     QMimeDatabase db;
     type = db.suffixForFileName(name);
-    name = name.mid(0, name.size() - type.size() - 1);
+    if(!type.isNull()){
+        name = name.mid(0, name.size() - type.size() - 1);
+    }
+    else {
+        type = "error";
+    }
     name = QUrl::fromPercentEncoding(name.toUtf8());
 
     return;
@@ -722,7 +727,9 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
 void CreateTaskWidget::setData(int index, QString name, QString type, QString size, QString url, long length, QString trueUrl)
 {
     m_model->setItem(index, 0, new QStandardItem(size == "" ? "0" : "1"));
-    if (!name.isNull() && !m_model->item(index, 1))
+    //if (!name.isNull() && !m_model->item(index, 1))
+    //bool ret = !m_model->item(index, 1);
+    if(!name.isNull())
         m_model->setItem(index, 1, new QStandardItem(name));
 
     if (!type.isEmpty()) {
