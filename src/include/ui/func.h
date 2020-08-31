@@ -35,7 +35,6 @@ class Func : public QObject
     Q_OBJECT
 
 public:
-
     /**
      * @brief 网络是否联通
      * @return true为不通 false为通
@@ -61,7 +60,6 @@ public:
     static bool isBt();
 
 private:
-
 };
 
 #endif // FUNC_H

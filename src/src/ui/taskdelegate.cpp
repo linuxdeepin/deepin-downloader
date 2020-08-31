@@ -44,7 +44,6 @@ TaskDelegate::TaskDelegate(DDialog *dialog)
 {
     m_dialog = dialog;
     m_checkBtn = new QCheckBox;
-
 }
 
 TaskDelegate::~TaskDelegate()
@@ -61,35 +60,32 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 {
     painter->save();
 
-    if(index.row() == m_hoverRow) {
-        painter->fillRect(option.rect, m_hoverColor);//QColor(0,0,0,13)QColor(255,255,255,26)
-    }
-    else {
-        if(index.row() % 2 == 1) {
+    if (index.row() == m_hoverRow) {
+        painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
+    } else {
+        if (index.row() % 2 == 1) {
             painter->fillRect(option.rect, option.palette.base());
-        }
-        else {
+        } else {
             painter->fillRect(option.rect, option.palette.alternateBase());
         }
     }
 
-    QString size= index.model()->data(index.model()->index(index.row(), 3)).toString();
-    if(size == "") {
-        painter->fillRect(option.rect, QColor(0,0,0,10));//QColor(0,0,0,13)QColor(255,255,255,26)
+    QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
+    if (size == "") {
+        painter->fillRect(option.rect, QColor(0, 0, 0, 10)); //QColor(0,0,0,13)QColor(255,255,255,26)
         painter->setOpacity(1);
     }
 
     painter->restore();
     painter->save();
 
-    if(index.column() == 0) {
+    if (index.column() == 0) {
         QStyleOptionButton checkBoxStyle;
         checkBoxStyle.state = index.data().toString() == "1" ? QStyle::State_On : QStyle::State_Off;
         checkBoxStyle.state |= QStyle::State_Enabled;
         checkBoxStyle.rect = option.rect;
-        checkBoxStyle.rect.setX(option.rect.x() + 5);//option.rect.width() / 2 - 6
+        checkBoxStyle.rect.setX(option.rect.x() + 5); //option.rect.width() / 2 - 6
         checkBoxStyle.rect.setWidth(15);
-
 
         QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, m_checkBtn);
 
@@ -99,7 +95,7 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         QFileInfo fi(tempFilePath + ext);
         QIcon icon = prov.icon(fi);
 
-        if(icon.isNull()) {
+        if (icon.isNull()) {
             icon = prov.icon(QFileIconProvider::File);
         }
         QPixmap pic = icon.pixmap(20, 20);
@@ -108,16 +104,14 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         painter->setPen(Qt::darkGray);
 
-        painter->setPen(size == ""? QColor(224,32,32,40) :Qt::darkGray);
+        painter->setPen(size == "" ? QColor(224, 32, 32, 40) : Qt::darkGray);
 
         QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideRight, option.rect.width() - 55);
         painter->drawText(option.rect.x() + 55, option.rect.y() + 28, text);
 
-
-    }
-    else {
+    } else {
         painter->setPen(Qt::darkGray);
-        painter->setPen(size == ""? QColor(224,32,32,40) :Qt::darkGray);
+        painter->setPen(size == "" ? QColor(224, 32, 32, 40) : Qt::darkGray);
         QString text = painter->fontMetrics().elidedText(index.data().toString(), Qt::ElideRight, option.rect.width() - 25);
         painter->drawText(option.rect.x() + 5, option.rect.y() + 28, text);
     }
@@ -127,33 +121,30 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
 bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
-    QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+    QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
 
-    QString size= index.model()->data(index.model()->index(index.row(), 3)).toString();
-    if(size == "") {
-
-            return false;
+    QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
+    if (size == "") {
+        return false;
     }
 
-    if(index.column() == 0) {
+    if (index.column() == 0) {
         QRect rect(option.rect);
         rect.setX(10);
         rect.setWidth(15);
-        if(event->type() == QEvent::MouseButtonPress
-                && mouseEvent->button() == Qt::LeftButton
-                && rect.contains(mouseEvent->pos())) {
+        if (event->type() == QEvent::MouseButtonPress
+            && mouseEvent->button() == Qt::LeftButton
+            && rect.contains(mouseEvent->pos())) {
             QString v = index.data().toString();
             model->setData(index, QVariant(v == "1" ? "0" : "1"), Qt::EditRole);
 
-            ((CreateTaskWidget*)m_dialog)->updateSelectedInfo();
+            ((CreateTaskWidget *)m_dialog)->updateSelectedInfo();
             return false;
-        }
-        else if (event->type() == QEvent::MouseButtonDblClick
-                 && !rect.contains(mouseEvent->pos())) {
+        } else if (event->type() == QEvent::MouseButtonDblClick
+                   && !rect.contains(mouseEvent->pos())) {
             auto a = index.model()->data(index.model()->index(index.row(), 0));
             DLineEdit *pEdit = new DLineEdit();
-            pEdit->setGeometry(10,10,10,10);
-
+            pEdit->setGeometry(10, 10, 10, 10);
         }
     }
 
@@ -164,11 +155,10 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 {
     Q_UNUSED(option);
 
-
     DLineEdit *pEdit = new DLineEdit(parent);
 
-    pEdit->setGeometry(option.rect.x()+150,10,50,10);
-    pEdit->setGeometry(0,0,0,0);
+    pEdit->setGeometry(option.rect.x() + 150, 10, 50, 10);
+    pEdit->setGeometry(0, 0, 0, 0);
 
     QString FilePath = index.data().toString();
     return pEdit;
@@ -176,27 +166,24 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 
 void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+    DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.model()->data(index.model()->index(index.row(), 1)).toString();
-
 
     pEdit->setText(str);
 }
 
 void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+    DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = pEdit->text();
+    if(str.isNull()){
+        return;
+    }
     int row = index.row();
-    ((CreateTaskWidget*)m_dialog)->setUrlName(row,str);
+    ((CreateTaskWidget *)m_dialog)->setUrlName(row, str);
 }
-
 
 void TaskDelegate::onhoverChanged(const QModelIndex &index)
 {
     m_hoverRow = index.row();
 }
-
-
-
-

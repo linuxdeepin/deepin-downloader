@@ -49,6 +49,7 @@ bool Func::isDHT()
         return true;
     }
     return false;
+
 }
 
 bool Func::isBt()
