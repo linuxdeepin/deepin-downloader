@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloadmanager)
-set(PROJECT_VERSION "5.1.1.1")
+set(PROJECT_VERSION "5.2.0.1")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloadmanager")
