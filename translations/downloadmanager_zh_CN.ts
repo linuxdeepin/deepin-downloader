@@ -273,7 +273,7 @@
     <message>
         <location filename="../src/src/ui/diagnostictool.cpp" line="201"/>
         <source>Failed</source>
-        <translation type="unfinished">失败</translation>
+        <translation>失败</translation>
     </message>
 </context>
 <context>
@@ -837,14 +837,19 @@ does not involve the privacy.</source>
 <context>
     <name>NotificationsSettiingWidget</name>
     <message>
-        <location filename="../src/src/ui/notificationssettiingwidget.cpp" line="42"/>
+        <location filename="../src/src/ui/notificationssettiingwidget.cpp" line="43"/>
         <source>Allow notifications when downloading succeed or failed</source>
         <translation>下载完成/失败时，系统通知提醒</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/notificationssettiingwidget.cpp" line="50"/>
+        <location filename="../src/src/ui/notificationssettiingwidget.cpp" line="51"/>
         <source>Please go to &quot;control center - Notification&quot; to set the system notification switch</source>
         <translation>系统通知开关请前往“控制中心 - 通知”进行设置</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/notificationssettiingwidget.cpp" line="58"/>
+        <source>Go to set</source>
+        <translation>去设置</translation>
     </message>
 </context>
 <context>
@@ -1064,59 +1069,64 @@ does not involve the privacy.</source>
         <translation>下载磁盘缓存</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="352"/>
+        <location filename="../src/src/ui/settings.cpp" line="269"/>
+        <source>Move low speed tasks to the end</source>
+        <translation>自动将低速任务移动至队尾</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings.cpp" line="353"/>
         <source>HTTP</source>
         <translation>HTTP下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="373"/>
+        <location filename="../src/src/ui/settings.cpp" line="374"/>
         <source>BitTorrent</source>
         <translation>BT下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="394"/>
+        <location filename="../src/src/ui/settings.cpp" line="395"/>
         <source>Magnet URI scheme</source>
         <translation>磁力链下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="465"/>
+        <location filename="../src/src/ui/settings.cpp" line="466"/>
         <source>128</source>
         <translation>128</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="465"/>
+        <location filename="../src/src/ui/settings.cpp" line="466"/>
         <source>256</source>
         <translation>256</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="465"/>
+        <location filename="../src/src/ui/settings.cpp" line="466"/>
         <source>512</source>
         <translation>512</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="476"/>
-        <location filename="../src/src/ui/settings.cpp" line="696"/>
+        <location filename="../src/src/ui/settings.cpp" line="477"/>
+        <location filename="../src/src/ui/settings.cpp" line="697"/>
         <source>More disk cache, faster download speed 
 and more computer consume</source>
         <translation>磁盘缓存越大，下载速度越快，占用电脑资源越多</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="623"/>
+        <location filename="../src/src/ui/settings.cpp" line="624"/>
         <source>When total speed is lower than</source>
         <translation>全局下载速度低于</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="623"/>
+        <location filename="../src/src/ui/settings.cpp" line="624"/>
         <source>KB/S add active downloads</source>
         <translation>KB/S 自动增加同时下载任务数</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="664"/>
+        <location filename="../src/src/ui/settings.cpp" line="665"/>
         <source>Priority to download less than</source>
         <translation>优先下载小于</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings.cpp" line="664"/>
+        <location filename="../src/src/ui/settings.cpp" line="665"/>
         <source>MB Task</source>
         <translation>MB 任务</translation>
     </message>

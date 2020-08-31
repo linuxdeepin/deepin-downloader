@@ -33,7 +33,8 @@
 #include <QDBusInterface>
 #include <QDBusPendingCall>
 
-NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent) : QWidget(parent)
+NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
+    : QWidget(parent)
 {
     QFont lableFont;
     lableFont.setPixelSize(14);
@@ -54,16 +55,16 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent) : QWid
     QFont btnFont;
     btnFont.setPixelSize(14);
     btnFont.setFamily("T6");
-    QPushButton *btn = new QPushButton("Go to set", this);
+    QPushButton *btn = new QPushButton(tr("Go to set"), this);
     btn->setFont(btnFont);
     QVBoxLayout *pVLayout = new QVBoxLayout();
     pVLayout->addWidget(pTextLabel);
     pVLayout->addSpacing(4);
     pVLayout->addWidget(pTipLabel);
-    QHBoxLayout *pLayout = new  QHBoxLayout(this);
+    QHBoxLayout *pLayout = new QHBoxLayout(this);
     pLayout->addLayout(pVLayout);
     pLayout->addWidget(btn);
-    connect(btn, &QPushButton::clicked, this, [](){
+    connect(btn, &QPushButton::clicked, this, []() {
         QDBusInterface iface("com.deepin.dde.ControlCenter",
                              "/com/deepin/dde/ControlCenter",
                              "com.deepin.dde.ControlCenter",

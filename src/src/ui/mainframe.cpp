@@ -373,7 +373,7 @@ void MainFrame::initConnection()
     //    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onParseUrlList);
     //    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaJob, this, &MainFrame::onParseUrlList);
     connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::setMaxDownloadTask, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::addMaxDownloadTask, this, &MainFrame::onMaxDownloadTaskNumberChanged);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_DownLoadingTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
@@ -2227,11 +2227,19 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
 
 void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
 {
+    static int maxDownloadTaskCount = 0;
+    if (nTaskNumber != 1) {
+        maxDownloadTaskCount = nTaskNumber;
+    } else {
+        if (maxDownloadTaskCount <= 20) {
+            maxDownloadTaskCount += 1;
+        }
+    }
     QMap<QString, QVariant> opt;
-    QString value = QString("max-concurrent-downloads=%1").arg(nTaskNumber);
+    QString value = QString("max-concurrent-downloads=%1").arg(maxDownloadTaskCount);
 
     modifyConfigFile("max-concurrent-downloads=", value);
-    opt.insert("max-concurrent-downloads", QString().number(nTaskNumber));
+    opt.insert("max-concurrent-downloads", QString().number(maxDownloadTaskCount));
     Aria2RPCInterface::instance()->changeGlobalOption(opt);
 
     const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
@@ -2240,7 +2248,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
         if (item->status == Global::DownloadJobStatus::Active) {
             activeCount++;
-            if (activeCount > nTaskNumber) {
+            if (activeCount > maxDownloadTaskCount) {
                 Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
                 QTimer::singleShot(500, this, [=]() {
                     Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
@@ -2381,7 +2389,9 @@ void MainFrame::initDataItem(Global::DownloadDataItem *data, const Task &tbTask)
         data->Ischecked = 0;
         data->totalLength = taskStatus.totalLength;
         data->completedLength = taskStatus.compeletedLength;
-        if (taskStatus.downloadStatus == Global::DownloadJobStatus::Active || taskStatus.downloadStatus == Global::DownloadJobStatus::Paused) {
+        if (taskStatus.downloadStatus == Global::DownloadJobStatus::Active
+            || taskStatus.downloadStatus == Global::DownloadJobStatus::Paused
+            || taskStatus.downloadStatus == Global::DownloadJobStatus::Waiting) {
             data->status = Global::DownloadJobStatus::Lastincomplete;
         } else {
             data->status = taskStatus.downloadStatus;
@@ -2622,10 +2632,16 @@ void MainFrame::onDownloadFinish()
 {
     m_UpdateTimer->stop();
     if (m_ShutdownAct->isChecked()) {
+        m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
+        m_RecycleTableView->getTableControl()->saveDataBeforeClose();
+        Aria2RPCInterface::instance()->shutdown();
         QProcess p;
         p.start("shutdown -h now");
         p.waitForFinished();
     } else if (m_SleepAct->isChecked()) {
+        m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
+        m_RecycleTableView->getTableControl()->saveDataBeforeClose();
+        Aria2RPCInterface::instance()->shutdown();
         QProcess p;
         p.start("systemctl suspend");
         p.waitForFinished();

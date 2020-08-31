@@ -302,12 +302,15 @@ public:
 
     /**
      * @brief getGlobalSatat 获取全局状态
-     * @param gId
-     * @param id
-     *
      * signal_success信号中异步返回,参数详见aria2文档
      */
     void getGlobalSatat();
+
+    /**
+     * @brief getGlobalOption 获取全局状态
+     * signal_success信号中异步返回,参数详见aria2文档
+     */
+    void getGlobalOption();
 
     /**
      * @brief modifyConfigFile 写入配置文件
@@ -472,17 +475,17 @@ private:
      *
      *@return 解密后链接
      */
-    QString processThunderUri(QString );
+    QString processThunderUri(QString);
 
 private:
     QString m_rpcPort = "16800"; //rpc端口
     QString m_rpcServer = "http://localhost:" + m_rpcPort + "/jsonrpc"; //rpc服务器地址
     QString m_defaultDownloadPath; //默认下载路径
-    QString m_configPath = "";//配置文件路径
+    QString m_configPath = ""; //配置文件路径
 
 signals:
-    void RPCSuccess(QString method, QJsonObject json);//rpc 正确返回处理信号
-    void RPCError(QString method, QString id, int errCode, QJsonObject obj);//rpc错误返回处理信号
+    void RPCSuccess(QString method, QJsonObject json); //rpc 正确返回处理信号
+    void RPCError(QString method, QString id, int errCode, QJsonObject obj); //rpc错误返回处理信号
 
 public slots:
 
@@ -495,7 +498,6 @@ private:
 public:
     const QString m_aria2cCmd; //aria2c程序路径
     const QString m_basePath; //下载器安装目录
-
 };
 
 #endif // ARIA2RPCINTERFACE_H

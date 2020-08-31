@@ -34,10 +34,9 @@ class TableView;
 class QSharedMemory;
 struct Task;
 namespace Global {
-    struct DownloadDataItem;
-    struct DeleteDataItem;
-}
-
+struct DownloadDataItem;
+struct DeleteDataItem;
+} // namespace Global
 
 /**
  * @class tableDataControl
@@ -47,7 +46,7 @@ class tableDataControl : public QObject
 {
     Q_OBJECT
 public:
-    explicit tableDataControl(TableView* pTableView, QObject *parent = nullptr);
+    explicit tableDataControl(TableView *pTableView, QObject *parent = nullptr);
 
     void initTabledata();
 
@@ -69,7 +68,7 @@ public:
     /**
      * @brief aria2状态改变事件
      */
-    void aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow,  QString &searchContent);
+    void aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent);
 
     /**
      * @brief aria2关闭事件
@@ -124,17 +123,17 @@ public:
     /**
      * @brief 正在下载和已完成列表重新下载ACtion槽函数
     */
-    int RedownloadDownloadAndFinishList(QList<Global::DownloadDataItem*> &reloadList);
+    int RedownloadDownloadAndFinishList(QList<Global::DownloadDataItem *> &reloadList);
 
     /**
      * @brief 下载错误重新下载ACtion槽函数
     */
-    void RedownloadErrorItem(Global::DownloadDataItem* errorItem);
+    void RedownloadErrorItem(Global::DownloadDataItem *errorItem);
 
     /**
      * @brief 回收站重新下载ACtion槽函数
     */
-    int RedownloadTrashList(QList<Global::DeleteDataItem*> &reloadList);
+    int RedownloadTrashList(QList<Global::DeleteDataItem *> &reloadList);
 
     /**
      * @brief 还原下载ACtion槽函数
@@ -176,14 +175,14 @@ public:
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void onDeleteDownloadListConfirm(bool ischecked,bool permanent, TableView* pRecycleTableView);
+    void onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView *pRecycleTableView);
 
     /**
      * @brief  获取删除回收站列表窗口确定信号
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void onDeleteRecycleListConfirm(bool ischecked,bool permanent);
+    void onDeleteRecycleListConfirm(bool ischecked, bool permanent);
 
     /**
      * @brief  正在下载列表和已完成列表重新下载
@@ -195,9 +194,7 @@ public:
      */
     void recycleListRedownload(QString id);
 
-
 private:
-
     /**
      * @brief 获取url中的文件名称
      * @param url 下载地址
@@ -217,7 +214,7 @@ private:
     /**
      * @brief 从配置文件中获取下载路径
      */
-    QString   getDownloadSavepathFromConfig();
+    QString getDownloadSavepathFromConfig();
 
     /**
      * @brief 格式化下载速度（1B1KB1MB1GB  /S）
@@ -286,12 +283,13 @@ signals:
     /**
      * @brief 增加一个最大下载任务数
     */
-    void setMaxDownloadTask(int num);
+    void addMaxDownloadTask(int num);
+
 private:
     TableView *m_DownloadTableView;
     TableView *m_RececleTableView;
-    QList<Global::DownloadDataItem*> m_DeleteList;
-    QList<Global::DeleteDataItem*> m_RecycleDeleteList;
+    QList<Global::DownloadDataItem *> m_DeleteList;
+    QList<Global::DeleteDataItem *> m_RecycleDeleteList;
 };
 
 #endif // TABLEDATACONTROL_H

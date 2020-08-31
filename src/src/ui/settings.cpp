@@ -266,6 +266,7 @@ Settings::Settings(QObject *parent)
     auto newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
     auto showMainName = tr("Show main window"); // 打开主界面快捷键
     auto diskCacheName = tr("Cache"); // 下载磁盘缓存
+    auto AutoSortBySpeedName = tr("Move low speed tasks to the end"); // 下载磁盘缓存
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
