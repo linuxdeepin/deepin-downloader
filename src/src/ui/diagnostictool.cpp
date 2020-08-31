@@ -61,9 +61,9 @@ void DiagnosticTool::initUI()
     QLabel *pLabel = new QLabel(tr("Result:"));
     pLabel->setFixedSize(202, 25);
     pLabel->setFont(f);
-    QPushButton *pButton = new QPushButton(tr("Diagnose again"), this);
-    pButton->setFixedSize(202, 36);
-    connect(pButton, &QPushButton::clicked, this, [=]() {
+    m_Button = new QPushButton(tr("Diagnose again"), this);
+    m_Button->setFixedSize(202, 36);
+    connect(m_Button, &QPushButton::clicked, this, [=]() {
         m_Model->clearData();
         QTimer::singleShot(500, this, [=]() {
             startDiagnostic();
@@ -71,7 +71,7 @@ void DiagnosticTool::initUI()
     });
     QHBoxLayout *pHLayout = new QHBoxLayout(this);
     pHLayout->addStretch();
-    pHLayout->addWidget(pButton);
+    pHLayout->addWidget(m_Button);
     pHLayout->addStretch();
 
     QVBoxLayout *pLayout = new QVBoxLayout(this);
@@ -98,6 +98,7 @@ void DiagnosticTool::initUI()
 
 void DiagnosticTool::startDiagnostic()
 {
+    m_Button->setEnabled(false);
     m_Model->appendData(Func::isIpv6Connect());
     m_Tableview->update();
     QTimer::singleShot(qrand() % (800) + 200, this, [=]() {
@@ -118,6 +119,7 @@ void DiagnosticTool::startDiagnostic()
 
     QTimer::singleShot(qrand() % (800) + 2500, this, [=]() {
         m_Model->appendData(Func::isNetConnect());
+        m_Button->setEnabled(true);
     });
 }
 

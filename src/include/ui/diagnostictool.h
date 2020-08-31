@@ -36,7 +36,7 @@ DWIDGET_USE_NAMESPACE
 
 class QTableView;
 class DiagnosticModel;
-
+class QPushButton;
 /**
  * @class DiagnosticTool
  * @brief 下载诊断工具
@@ -55,6 +55,7 @@ private slots:
 private:
     QTableView *m_Tableview;
     DiagnosticModel *m_Model;
+    QPushButton *m_Button;
 };
 
 /**

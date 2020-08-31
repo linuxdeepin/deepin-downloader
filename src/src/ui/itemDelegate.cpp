@@ -72,36 +72,36 @@ ItemDelegate::~ItemDelegate()
 
 void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if(index.row() == m_HoverRow) {
+    if (index.row() == m_HoverRow) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder()); //
-                                                                                                                         // QColor(0,0,0,13)QColor(255,255,255,26)
+            // QColor(0,0,0,13)QColor(255,255,255,26)
     }
-    if(index.row() % 2 != 0) {
+    if (index.row() % 2 != 0) {
         painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
-                                                                                                                         // QColor(0,0,0,13)QColor(255,255,255,26)
-    } else{
+            // QColor(0,0,0,13)QColor(255,255,255,26)
+    } else {
         painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10))); //
     }
     const QRect rect(option.rect);
-    const int   column(index.column());
-    const bool  isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
+    const int column(index.column());
+    const bool isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
 
     QFont font;
-   // font.setPointSize(11);
+    // font.setPointSize(11);
     painter->setFont(font);
 
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(QColor("#414D68"));
-//    if(isSelected) {
-//        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
-//        painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
-//        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
-//    }
-//    if(column == 0) {
-//        painter->fillRect(rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().window());
-//    }
+    //    if(isSelected) {
+    //        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
+    //        painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
+    //        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
+    //    }
+    //    if(column == 0) {
+    //        painter->fillRect(rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().window());
+    //    }
     const QRect textRect = rect.marginsRemoved(QMargins(10, 2, 0, 0));
-    if(column == 0) {
+    if (column == 0) {
         QStyleOptionButton checkBoxStyle;
         checkBoxStyle.state = index.data(TableModel::Ischecked).toBool() ? QStyle::State_On : QStyle::State_Off;
         checkBoxStyle.state |= QStyle::State_Enabled;
@@ -110,13 +110,13 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         checkBoxStyle.rect.setWidth(20);
         DCheckBox *check_btn = new DCheckBox;
         QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, check_btn);
-    } else if(column == 1) {
-        if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
+    } else if (column == 1) {
+        if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
             painter->setPen(QColor("#C0C6D4"));
-        } else if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
+        } else if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
             painter->setPen(QColor("#414D68"));
         }
-        if(isSelected) {
+        if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
             painter->drawRoundRect(rect.x(), rect.y(), 25, rect.height(), 25, 25);
@@ -129,18 +129,18 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         int x = rect.x();
         int y = rect.y() + 12;
-        QString   filetype = index.data(TableModel::FileName).toString();
-        QString   fileSavePath = index.data(TableModel::SavePath).toString();
+        QString filetype = index.data(TableModel::FileName).toString();
+        QString fileSavePath = index.data(TableModel::SavePath).toString();
         QFileInfo fileInfo(fileSavePath);
-        QPixmap   pic;
-        if(fileSavePath.contains(filetype) && fileInfo.isDir()) {
+        QPixmap pic;
+        if (fileSavePath.contains(filetype) && fileInfo.isDir()) {
             QIcon icon = QIcon::fromTheme("folder");
             pic = icon.pixmap(20, 20);
         } else {
             QFileIconProvider iconProvider;
             QFileInfo filenameInfo(fileSavePath + filetype);
-            QIcon     icon = iconProvider.icon(filenameInfo);
-            if(icon.isNull()) {
+            QIcon icon = iconProvider.icon(filenameInfo);
+            if (icon.isNull()) {
                 icon = iconProvider.icon(QFileIconProvider::IconType::File);
             }
             pic = icon.pixmap(20, 20);
@@ -150,23 +150,23 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         const QString path = index.data(TableModel::SavePath).toString();
         int status = index.data(TableModel::Status).toInt();
-        if((!QFileInfo::exists(path)) && (status == Global::DownloadJobStatus::Complete)){ //文件不存在的任务，添加提示
-            QPixmap   errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
-            painter->drawPixmap(x+ 10, y + 10, errorPic);
+        if ((!QFileInfo::exists(path)) && (status == Global::DownloadJobStatus::Complete || status == Global::DownloadJobStatus::Removed)) { //文件不存在的任务，添加提示
+            QPixmap errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
+            painter->drawPixmap(x + 10, y + 10, errorPic);
         }
 
         const QRect rectText = rect.marginsRemoved(QMargins(25, 2, 0, 5));
-        QString     name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(),
-                                                             Qt::ElideRight,
-                                                             textRect.width() - 10);
+        QString name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(),
+                                                         Qt::ElideRight,
+                                                         textRect.width() - 10);
         painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, name);
-    } else if(column == 2) {
-        if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
+    } else if (column == 2) {
+        if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
             painter->setPen(QColor("#C0C6D4"));
-        } else if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
+        } else if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
             painter->setPen(QColor("#414D68"));
         }
-        if(isSelected) {
+        if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
             painter->drawRect(rect);
@@ -174,14 +174,14 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
         const QString size = index.data(TableModel::Size).toString();
         painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
-    } else if(column == 3) {
-        if(m_TableFlag == 0) {
+    } else if (column == 3) {
+        if (m_TableFlag == 0) {
             QFont font;
             font.setPointSize(10);
             painter->setPen(Qt::red);
             painter->setPen(QColor("#8AA1B4"));
 
-            if(isSelected) {
+            if (isSelected) {
                 painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
                 painter->setBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight());
                 painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
@@ -199,41 +199,37 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
             QStyleOptionViewItem viewOption(option);
             initStyleOption(&viewOption, index);
-            if((index.data(TableModel::Status) == 2) || (index.data(TableModel::Status) == 6)) {
+            if ((index.data(TableModel::Status) == 2) || (index.data(TableModel::Status) == 6)) {
                 const QString pauseText = painter->fontMetrics().elidedText(tr("Paused"),
                                                                             Qt::ElideRight,
                                                                             textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, pauseText);
-            } else if(index.data(TableModel::Status) == 3) {
+            } else if (index.data(TableModel::Status) == 3) {
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
                 painter->setRenderHint(QPainter::Antialiasing);
                 painter->setPen(QColor("#9a2f2f"));
-                const QRect   rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
+                const QRect rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
                 const QString errorText = painter->fontMetrics().elidedText(tr("Failed"),
                                                                             Qt::ElideRight,
                                                                             rect_text.width() - 10);
                 painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, errorText);
                 return;
-            } else if(index.data(TableModel::Status) == 1) {
+            } else if (index.data(TableModel::Status) == 1) {
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
                 painter->setRenderHint(QPainter::Antialiasing);
                 painter->setPen(QColor("#8AA1B4"));
-                const QRect   rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
+                const QRect rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
                 const QString wattingText = painter->fontMetrics().elidedText(tr("Watting"),
-                                                                            Qt::ElideRight,
-                                                                            rect_text.width() - 10);
+                                                                              Qt::ElideRight,
+                                                                              rect_text.width() - 10);
                 painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, wattingText);
                 return;
             } else {
-                const QString sizeText = painter->fontMetrics().elidedText(" " + index.data(
-                                                                               TableModel::Percent).toString() + "%    " + index.data(
-                                                                               TableModel::Speed).toString() + "   " +
-                                                                           tr("Time left ") +
-                                                                           index.data(TableModel::Time).toString(),
+                const QString sizeText = painter->fontMetrics().elidedText(" " + index.data(TableModel::Percent).toString() + "%    " + index.data(TableModel::Speed).toString() + "   " + tr("Time left ") + index.data(TableModel::Time).toString(),
                                                                            Qt::ElideRight,
                                                                            textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
@@ -254,13 +250,13 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->drawPixmap(t3, *m_BgImage, s3);
 
             float p = index.data(TableModel::Percent).toFloat() / 100.0f;
-            int   w = static_cast<int>((sizeRect.width() - 16) * p);
+            int w = static_cast<int>((sizeRect.width() - 16) * p);
 
-            if(w <= 3) {
+            if (w <= 3) {
                 QRect s(sizeRect.x(), sizeRect.y(), w, m_Front->height());
                 QRect f(0, 0, 3, m_Front->height());
                 painter->drawPixmap(s, *m_Front, f);
-            } else if((w > 3) && (w <= sizeRect.width() - 10)) {
+            } else if ((w > 3) && (w <= sizeRect.width() - 10)) {
                 // front h
                 QRect s(sizeRect.x(), sizeRect.y(), 3, m_Front->height());
                 QRect f(0, 0, 3, m_Front->height());
@@ -277,13 +273,13 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawPixmap(s4, *m_Front, f4);
             }
         }
-    } else if(column == 4) {
-        if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
+    } else if (column == 4) {
+        if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
             painter->setPen(QColor("#C0C6D4"));
-        } else if(Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
+        } else if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
             painter->setPen(QColor("#414D68"));
         }
-        if(isSelected) {
+        if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
             painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
@@ -305,24 +301,25 @@ QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInd
     return QSize(-1, 50);
 }
 
-bool ItemDelegate::editorEvent(QEvent                     *event,
-                               QAbstractItemModel         *model,
+bool ItemDelegate::editorEvent(QEvent *event,
+                               QAbstractItemModel *model,
                                const QStyleOptionViewItem &option,
-                               const QModelIndex          &index)
+                               const QModelIndex &index)
 {
     bool ret = true;
     const int column(index.column());
 
-    if(column == 0) {
+    if (column == 0) {
         QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent *>(event);
         QRect rect(option.rect);
         rect.setWidth(25);
         rect.setX(rect.x() + 10);
-        if((event->type() == QEvent::MouseButtonPress) && rect.contains(mouseEvent->pos())) {
+        if ((event->type() == QEvent::MouseButtonPress) && rect.contains(mouseEvent->pos())) {
             QVariant value;
             value = model->data(index, TableModel::Ischecked);
             Qt::CheckState state = (static_cast<Qt::CheckState>(value.toInt()) == Qt::Checked
-                                    ? Qt::Unchecked : Qt::Checked);
+                                        ? Qt::Unchecked
+                                        : Qt::Checked);
             ret = model->setData(index, state, TableModel::Ischecked); // 取反后存入模型
         } else {
             ret = QStyledItemDelegate::editorEvent(event, model, option, index);
@@ -337,11 +334,11 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 {
     Q_UNUSED(option);
 
-    static bool  firstInside = true;
+    static bool firstInside = true;
     firstInside = true;
     DLineEdit *pEdit = new DLineEdit(parent);
-    connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename){
-        DLineEdit *pEdit=qobject_cast<DLineEdit *>(sender());
+    connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
+        DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
         QString FilePath = index.data(TableModel::SavePath).toString();
         QString str = index.data(TableModel::FileName).toString();
         QMimeDatabase db;
@@ -349,7 +346,7 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
         FilePath = FilePath + filename + "." + mime;
         QFileInfo file(FilePath);
-        if(file.isFile() && !firstInside){
+        if (file.isFile() && !firstInside) {
             pEdit->showAlertMessage(tr("Duplicate name!"), -1);
         } else {
             pEdit->hideAlertMessage();
@@ -363,18 +360,18 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 
 void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+    DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
 
     QMimeDatabase db;
     QString mime = db.suffixForFileName(str);
-    str = str.left(str.size() - mime.size() -1);
+    str = str.left(str.size() - mime.size() - 1);
     pEdit->setText(str);
 }
 
 void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    DLineEdit *pEdit =qobject_cast<DLineEdit *>(editor);
+    DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
     QMimeDatabase db;
     QString mime = db.suffixForFileName(str);
@@ -383,21 +380,19 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
     QString FilePath = index.data(TableModel::SavePath).toString();
     FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
     FilePath = FilePath + fileName;
-    if(!QFileInfo::exists(FilePath)){
+    if (!QFileInfo::exists(FilePath)) {
         QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
         model->setData(index, fileName, TableModel::FileName);
         model->setData(index, FilePath, TableModel::SavePath);
         Task task;
-        DBInstance::getTaskByID(index.data(TableModel::taskId).toString(),task);
+        DBInstance::getTaskByID(index.data(TableModel::taskId).toString(), task);
         task.downloadPath = FilePath;
         task.downloadFilename = fileName;
         DBInstance::updateTaskByID(task);
     }
 }
 
-
 void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
     m_HoverRow = index.row();
 }
-
