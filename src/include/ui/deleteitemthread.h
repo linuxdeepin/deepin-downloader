@@ -35,56 +35,54 @@
 
 using namespace Global;
 
-
 /**
  * @class DeleteItemThread
  * @brief 删除任务类，是一个独立线程
 */
-class DeleteItemThread:public QThread
+class DeleteItemThread : public QThread
 {
     Q_OBJECT
 public:
     DeleteItemThread();
     DeleteItemThread(QList<DeleteDataItem>, TableView *pRecycleTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
-    DeleteItemThread( QList<DownloadDataItem> deleteList, TableView *pDownloadingTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
+    DeleteItemThread(QList<DownloadDataItem> deleteList, TableView *pDownloadingTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
     void run();
     bool DelDir(const QString &path);
-
 
 private:
     /**
      * @brief 删除回收站数据
     */
-     void deleteRecycleData();
-     /**
+    void deleteRecycleData();
+    /**
       * @brief 删除下载列表数据
      */
-     void deleteDownloadData();
+    void deleteDownloadData();
 
-     /**
+    /**
       * @brief 删除目录
       * @return
       */
-     bool deleteDirectory(const QString &path);
+    bool deleteDirectory(const QString &path);
 
 signals:
-     /**
+    /**
       * @brief 通知主界面调用aria2删除任务
      */
-     void Aria2Remove(QString gId, QString id);
+    void Aria2Remove(QString gId, QString id);
 
-     /**
+    /**
       * @brief 删除完成
      */
-     void removeFinished();
+    void removeFinished();
 
 private:
-     QList<DeleteDataItem> m_RecycleDeleteList;
-     TableView *m_RecycleTableview;
-     bool m_IfDeleteLocal;
-     QString m_StrDeleteType;
-     QList<DownloadDataItem> m_DeleteList;
-     TableView *m_DownloadingTableview;
+    QList<DeleteDataItem> m_RecycleDeleteList;
+    TableView *m_RecycleTableview;
+    bool m_IfDeleteLocal;
+    QString m_StrDeleteType;
+    QList<DownloadDataItem> m_DeleteList;
+    TableView *m_DownloadingTableview;
 };
 
 #endif // DELETEITEMTHREAD_H
