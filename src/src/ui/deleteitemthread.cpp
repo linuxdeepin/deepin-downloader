@@ -93,7 +93,7 @@ void DeleteItemThread::deleteRecycleData()
                     QDir tar(m_RecycleDeleteList.at(i).savePath);
                     tar.removeRecursively();
                     if (QFile::exists(savePath + ".aria2")) {
-                        QThread::msleep(200);
+                        QThread::msleep(3000);
                         QFile::remove(savePath + ".aria2");
                     }
                 } else {
@@ -101,7 +101,7 @@ void DeleteItemThread::deleteRecycleData()
                     if (!savePath.isEmpty()) {
                         deleteDirectory(savePath);
                         if (QFile::exists(ariaTempFile)) {
-                            QThread::msleep(200);
+                            QThread::msleep(3000);
                             QFile::remove(ariaTempFile);
                         }
                     }
@@ -129,7 +129,7 @@ void DeleteItemThread::deleteDownloadData()
                     QDir tar(savePath);
                     tar.removeRecursively();
                     if (QFile::exists(savePath + ".aria2")) {
-                        QThread::msleep(200);
+                        QThread::msleep(3000);
                         QFile::remove(savePath + ".aria2");
                     }
                 } else {
@@ -137,7 +137,7 @@ void DeleteItemThread::deleteDownloadData()
                     if (!savePath.isEmpty()) {
                         deleteDirectory(savePath);
                         if (QFile::exists(ariaTempFile)) {
-                            QThread::msleep(200);
+                            QThread::msleep(3000);
                             QFile::remove(ariaTempFile);
                         }
                     }

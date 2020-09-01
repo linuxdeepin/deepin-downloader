@@ -231,7 +231,6 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     long totalLength = result.value("totalLength").toString().toLong(); //字节
     long completedLength = result.value("completedLength").toString().toLong(); //字节
     long downloadSpeed = result.value("downloadSpeed").toString().toLong(); //字节/每秒
-    QString speed = "0KB/s";
     QString fileName = getFileName(filePath);
     QString statusStr = result.value("status").toString();
     QString errorCode = result.value("errorCode").toString();
@@ -507,6 +506,15 @@ void tableDataControl::aria2GetGlobalStatus(QJsonObject &json)
             }
         }
         speedList.clear();
+    }
+
+    QString id = json.value("id").toString();
+    DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(id);
+    if (pItem != nullptr) {
+        QString ariaTempFile = pItem->savePath + ".aria2";
+        if (QFile::exists(ariaTempFile)) {
+            QFile::remove(ariaTempFile);
+        }
     }
 }
 
@@ -916,6 +924,9 @@ int tableDataControl::onDeletePermanentAction(int currentLab)
                 m_RecycleDeleteList.append(recycleSelectList.at(i));
                 selectedCount++;
             }
+        }
+        if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
+            m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
         }
     } else {
         m_DeleteList.clear();

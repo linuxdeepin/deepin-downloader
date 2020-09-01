@@ -49,7 +49,6 @@ void ClipboardTimer::getDataChanged()
         return;
     }
     if (isDeepinCilpboard == "1") {
-        qDebug() << "ClipboardTimer <getDataChanged> : isDeepinCilpboard";
         return;
     }
     if (m_clipboard->ownsClipboard()) {
@@ -101,8 +100,7 @@ bool ClipboardTimer::isMagnet(QString url)
 
 bool ClipboardTimer::isHttp(QString url)
 {
-    url = url.toLower();
-    if ((url.startsWith("ftp:")) && (url.startsWith("http://")) && (url.startsWith("https://"))) {
+    if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
         return false;
     }
     QStringList list = url.split(".");
