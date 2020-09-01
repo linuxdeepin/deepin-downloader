@@ -161,7 +161,7 @@ public slots:
     /**
      * @brief 确定按钮
      */
-    void onBtnOK();          //确定按钮
+    bool onBtnOK();          //确定按钮
     /**
      * @brief 全选按钮
      */

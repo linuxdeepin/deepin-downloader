@@ -726,7 +726,10 @@ void MainFrame::OpenBt(QString url)
     bool isOneClick = Settings::getInstance()->getOneClickDownloadState();
     if(isOneClick)
     {
-        btDiag.onBtnOK();
+        bool isSuccess = btDiag.onBtnOK();
+        if(!isSuccess){
+            return;
+        }
         btDiag.getBtInfo(opt, infoName, infoHash);
         bool ret = onDownloadNewTorrent(url, opt, infoName, infoHash);
 

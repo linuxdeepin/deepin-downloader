@@ -312,12 +312,12 @@ int BtInfoDialog::exec()
     return DDialog::exec();
 }
 
-void BtInfoDialog::onBtnOK()
+bool BtInfoDialog::onBtnOK()
 {
     if(getSelected().isNull())
     {
         qDebug()<<"Please Select Download Files!";
-        return;
+        return false;
     }
 
     long free = Aria2RPCInterface::instance()->getCapacityFreeByte(m_defaultDownloadDir);
@@ -332,12 +332,13 @@ void BtInfoDialog::onBtnOK()
         MessageBox *msg = new MessageBox();
         msg->setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg->exec();
-        return;
+        return false;
     }
     QString save_path=m_defaultDownloadDir;
     Settings::getInstance()->setCustomFilePath(save_path);
     close();
     accept();
+    return true;
 }
 
 void BtInfoDialog::onAllCheck()
@@ -616,6 +617,21 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
     m_widget->setPalette(p);
 }
 
+typedef bool (*BtSort)(const QString &left,
+                         const QString &right);
+
+bool lessThan(const QString &left,
+                  const QString &right)
+{
+    return left < right;
+}
+
+bool greaterThan(const QString &left,
+                     const QString &right)
+{
+    return right < left;
+}
+
 void BtInfoDialog::Sort(int index)
 {
     bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection()==index&& m_tableView->horizontalHeader()->sortIndicatorOrder()==Qt::DescendingOrder);
@@ -629,8 +645,8 @@ void BtInfoDialog::Sort(int index)
     case DataRole::size:
         sortBySize(ascending);
         break;
-
     }
+    BtSort compare = ascending? &lessThan: &greaterThan;
 }
 
 void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
