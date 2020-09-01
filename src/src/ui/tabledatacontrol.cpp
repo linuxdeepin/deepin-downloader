@@ -70,8 +70,6 @@ void tableDataControl::setRecycleTable(TableView *pRecycleTable)
 
 void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAddToRecycle)
 {
-    DBInstance::delTask(pData->taskId);
-
     QFileInfo fileinfo(pData->savePath);
     if (fileinfo.isDir() && pData->savePath.contains(pData->fileName) && !pData->fileName.isEmpty()) {
         QDir tar(pData->savePath);
@@ -99,6 +97,22 @@ void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAdd
         delData->deleteTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
         delData->finishTime = pData->time;
         m_RececleTableView->getTableModel()->append(delData);
+
+        TaskStatus getStatus;
+        TaskStatus downloadStatus(pData->taskId,
+                                  Global::DownloadJobStatus::Removed,
+                                  QDateTime::currentDateTime(),
+                                  pData->completedLength,
+                                  pData->speed,
+                                  pData->totalLength,
+                                  pData->percent,
+                                  pData->total,
+                                  QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss"));
+        if (DBInstance::getTaskStatusById(pData->taskId, getStatus)) {
+            DBInstance::updateTaskStatusById(downloadStatus);
+        } else {
+            DBInstance::addTaskStatus(downloadStatus);
+        }
     }
 
     m_DownloadTableView->getTableModel()->removeItem(pData);
@@ -995,7 +1009,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     qDebug() << "subThread: " << QThread::currentThreadId();
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, this, [](QString gId, QString id) {
         qDebug() << "subThread: " << QThread::currentThreadId();
-        Aria2RPCInterface::instance()->remove(gId, id);
+        Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
     connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &tableDataControl::removeFinished);
     pDeleteItemThread->start();
@@ -1089,7 +1103,7 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
                                                                ifDeleteLocal,
                                                                "recycle_delete");
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, [=](QString gId, QString id) {
-        Aria2RPCInterface::instance()->remove(gId, id);
+        Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
     connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &tableDataControl::removeFinished);
     pDeleteItemThread->start();

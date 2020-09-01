@@ -2898,9 +2898,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
             } else {
                 return false;
             }
-        } /*else if (item->status == DownloadJobStatus::Complete) {
-            deleteTaskByUrl(item->url);
-        }*/
+        }
     }
 
     for (DeleteDataItem *item : recyleList) {

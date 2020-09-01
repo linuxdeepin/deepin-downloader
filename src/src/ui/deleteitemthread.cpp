@@ -30,6 +30,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QDir>
+#include <QTimer>
 
 DeleteItemThread::DeleteItemThread()
 {
@@ -93,16 +94,20 @@ void DeleteItemThread::deleteRecycleData()
                     QDir tar(m_RecycleDeleteList.at(i).savePath);
                     tar.removeRecursively();
                     if (QFile::exists(savePath + ".aria2")) {
-                        QThread::msleep(3000);
                         QFile::remove(savePath + ".aria2");
+                        QTimer::singleShot(3000, [=]() {
+                            QFile::remove(savePath + ".aria2");
+                        });
                     }
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
                         deleteDirectory(savePath);
                         if (QFile::exists(ariaTempFile)) {
-                            QThread::msleep(3000);
-                            QFile::remove(ariaTempFile);
+                            QFile::remove(savePath + ".aria2");
+                            QTimer::singleShot(3000, [=]() {
+                                QFile::remove(savePath + ".aria2");
+                            });
                         }
                     }
                 }
@@ -129,16 +134,20 @@ void DeleteItemThread::deleteDownloadData()
                     QDir tar(savePath);
                     tar.removeRecursively();
                     if (QFile::exists(savePath + ".aria2")) {
-                        QThread::msleep(3000);
                         QFile::remove(savePath + ".aria2");
+                        QTimer::singleShot(3000, [=]() {
+                            QFile::remove(savePath + ".aria2");
+                        });
                     }
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
                         deleteDirectory(savePath);
                         if (QFile::exists(ariaTempFile)) {
-                            QThread::msleep(3000);
-                            QFile::remove(ariaTempFile);
+                            QFile::remove(savePath + ".aria2");
+                            QTimer::singleShot(3000, [=]() {
+                                QFile::remove(savePath + ".aria2");
+                            });
                         }
                     }
                 }
@@ -156,6 +165,9 @@ void DeleteItemThread::run()
     if (m_StrDeleteType == "download_delete") {
         deleteDownloadData();
     }
+    QEventLoop loop;
+    QTimer::singleShot(5000, &loop, SLOT(quit()));
+    loop.exec();
 }
 
 bool DeleteItemThread::deleteDirectory(const QString &path)
