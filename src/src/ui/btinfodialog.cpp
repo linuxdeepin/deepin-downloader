@@ -573,6 +573,21 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
     m_widget->setPalette(p);
 }
 
+typedef bool (*BtSort)(const QString &left,
+                       const QString &right);
+
+bool lessThan(const QString &left,
+              const QString &right)
+{
+    return left < right;
+}
+
+bool greaterThan(const QString &left,
+                 const QString &right)
+{
+    return right < left;
+}
+
 void BtInfoDialog::Sort(int index)
 {
     bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection() == index && m_tableView->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
@@ -587,6 +602,7 @@ void BtInfoDialog::Sort(int index)
         sortBySize(ascending);
         break;
     }
+    BtSort compare = ascending ? &lessThan : &greaterThan;
 }
 
 void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
