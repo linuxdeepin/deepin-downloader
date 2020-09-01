@@ -108,7 +108,7 @@ public slots:
     /**
      * @brief 确定按钮
      */
-    void onBtnOK();
+    bool onBtnOK();
 
 
 private slots:

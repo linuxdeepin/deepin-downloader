@@ -204,9 +204,9 @@ void BtInfoDialog::initUI()
     m_editDir->setFileMode(QFileDialog::DirectoryOnly);
     m_editDir->lineEdit()->setEnabled(false);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &BtInfoDialog::onFilechoosed);
-    QList<DSuggestButton *> _btnList = m_editDir->findChildren<DSuggestButton *>();
-    for (int i = 0; i < _btnList.size(); i++) {
-        _btnList[i]->setToolTip(tr("Change download folder"));
+    QList<DSuggestButton *> btnList = m_editDir->findChildren<DSuggestButton *>();
+    for (int i = 0; i < btnList.size(); i++) {
+        btnList[i]->setToolTip(tr("Change download folder"));
     }
 
     //确定按钮
@@ -284,11 +284,11 @@ int BtInfoDialog::exec()
     return DDialog::exec();
 }
 
-void BtInfoDialog::onBtnOK()
+bool BtInfoDialog::onBtnOK()
 {
     if (getSelected().isNull()) {
         qDebug() << "Please Select Download Files!";
-        return;
+        return false;
     }
 
     long free = Aria2RPCInterface::instance()->getCapacityFreeByte(m_defaultDownloadDir);
@@ -303,12 +303,13 @@ void BtInfoDialog::onBtnOK()
         MessageBox *msg = new MessageBox();
         msg->setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg->exec();
-        return;
+        return false;
     }
     QString save_path = m_defaultDownloadDir;
     Settings::getInstance()->setCustomFilePath(save_path);
     close();
     accept();
+    return true;
 }
 
 void BtInfoDialog::onAllCheck()
@@ -662,11 +663,12 @@ QString BtInfoDialog::getFileEditText(QString text)
 
 void BtInfoDialog::setOkBtnStatus(int count)
 {
-    if (count == 0) {
-        m_btnOK->setEnabled(false);
-    } else {
-        m_btnOK->setEnabled(true);
-    }
+    m_btnOK->setEnabled(count);
+//    if (count == 0) {
+//        m_btnOK->setEnabled(false);
+//    } else {
+//        m_btnOK->setEnabled(true);
+//    }
 }
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)

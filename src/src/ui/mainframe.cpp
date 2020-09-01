@@ -736,7 +736,10 @@ void MainFrame::OpenBt(QString url)
     bool isExist;
     bool isOneClick = Settings::getInstance()->getOneClickDownloadState();
     if (isOneClick) {
-        btDiag.onBtnOK();
+        bool isSuccess = btDiag.onBtnOK();
+        if(!isSuccess){
+            return;
+        }
         btDiag.getBtInfo(opt, infoName, infoHash);
         bool ret = onDownloadNewTorrent(url, opt, infoName, infoHash);
 
@@ -744,7 +747,6 @@ void MainFrame::OpenBt(QString url)
         if (ret) {
             btNotificaitonSettings(tr("Download"), QString(tr("%1 downloading...")).arg(infoName), true);
         }
-        //clearSharedMemory();
         return;
     }
 
@@ -2611,20 +2613,25 @@ void MainFrame::Raise()
     m_LeftList->setCurrentIndex(m_LeftList->currentIndex().sibling(0, 0));
 }
 
-void MainFrame::onParseUrlList(QVector<LinkInfo *> &urlList, QString path)
+void MainFrame::onParseUrlList(QVector<LinkInfo > &urlList, QString path)
 {
     QString size;
     if (Settings::getInstance()->getPriorityDownloadBySize(size)) { //优先下载大小小于多少的任务
-        foreach (LinkInfo *info, urlList) {
-            if (info->length < (size.toInt() * 1024 * 1024)) {
-                urlList.removeOne(info);
-                urlList.prepend(info);
+
+        for ( QVector<LinkInfo >::iterator it = urlList.begin();it != urlList.end(); ) {
+            if (it->length < (size.toInt() * 1024 * 1024)) {
+                LinkInfo link = *it;
+                it = urlList.erase(it);
+                urlList.prepend(link);
             }
+            else
+                it++;
         }
     }
 
-    foreach (LinkInfo *info, urlList) {
-        onDownloadNewUrl(info->url, path, info->urlName, info->type);
+
+    foreach (LinkInfo info, urlList) {
+        onDownloadNewUrl(info.url, path, info.urlName, info.type);
     }
 }
 

@@ -162,6 +162,8 @@ private:
     */
     bool isDoc(QString ext);
 
+    void registCallBack(void *func,QString str, int state);
+
 private slots:
     /**
      * @brief 打开选择文件窗口按钮
@@ -194,6 +196,7 @@ private slots:
      * @brief 全选按钮
      */
     void onAllCheck();
+
     /**
      * @brief 视频按钮
      */
@@ -244,7 +247,7 @@ signals:
      * @param save_path 保存路径
      * @param path_name 文件名字
     */
-    void downloadWidgetCreate(QVector<LinkInfo *> &urlList, QString savePath);
+    void downloadWidgetCreate(QVector<LinkInfo> &urlList, QString savePath);
     /**
      * @brief 新建bt下载任务
      * @param btPath bt下载地址

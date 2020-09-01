@@ -26,14 +26,6 @@
  */
 
 #include "createtaskwidget.h"
-#include "btinfodialog.h"
-#include "messagebox.h"
-#include "btinfotableview.h"
-#include "taskdelegate.h"
-#include "btheaderview.h"
-#include "analysisurl.h"
-#include "../database/dbinstance.h"
-#include "aria2rpcinterface.h"
 #include <QPalette>
 #include <QHBoxLayout>
 #include <QSizePolicy>
@@ -45,6 +37,14 @@
 #include <QStandardItemModel>
 #include <QMimeDatabase>
 #include <QDesktopWidget>
+#include "btinfodialog.h"
+#include "messagebox.h"
+#include "btinfotableview.h"
+#include "taskdelegate.h"
+#include "btheaderview.h"
+#include "analysisurl.h"
+#include "../database/dbinstance.h"
+#include "aria2rpcinterface.h"
 
 CreateTaskWidget::CreateTaskWidget(DDialog *parent)
     : DDialog(parent)
@@ -62,7 +62,7 @@ void CreateTaskWidget::initUi()
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
-    QIcon tryIcon = QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
+    QIcon tryIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
     setIcon(tryIcon);
     setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
     //setTitle(tr("New Task"));
@@ -102,10 +102,10 @@ void CreateTaskWidget::initUi()
     QFont font;
     font.setPixelSize(13);
     m_tableView->setFont(font);
-    headerView *_headerView = new headerView(Qt::Horizontal, m_tableView);
-    m_tableView->setHorizontalHeader(_headerView);
-    _headerView->setDefaultAlignment(Qt::AlignLeft);
-    _headerView->setHighlightSections(false);
+    headerView *header = new headerView(Qt::Horizontal, m_tableView);
+    m_tableView->setHorizontalHeader(header);
+    header->setDefaultAlignment(Qt::AlignLeft);
+    header->setHighlightSections(false);
     m_tableView->verticalHeader()->hide();
     m_tableView->verticalHeader()->setDefaultSectionSize(46);
     m_delegate = new TaskDelegate(this);
@@ -205,19 +205,19 @@ void CreateTaskWidget::initUi()
     m_editDir->lineEdit()->setClearButtonEnabled(false);
     m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
-    QString savePath = Settings::getInstance()->getDownloadSavePath();
-    m_editDir->setText(savePath);
+    m_defaultDownloadDir = Settings::getInstance()->getDownloadSavePath();
+    m_editDir->setText(m_defaultDownloadDir);
     addContent(m_editDir);
     addSpacing(10);
-    m_defaultDownloadDir = savePath;
+
 
     QWidget *boxBtn = new QWidget(this);
     QHBoxLayout *layout = new QHBoxLayout(boxBtn);
     layout->setMargin(0);
     layout->setContentsMargins(0, 0, 0, 0);
     DIconButton *iconBtn = new DIconButton(boxBtn);
-    QIcon tryIcon1 = QIcon(QIcon::fromTheme("dcc_bt"));
-    iconBtn->setIcon(tryIcon1);
+  //  QIcon tryIcon1(QIcon::fromTheme("dcc_bt"));
+    iconBtn->setIcon(QIcon::fromTheme("dcc_bt"));
     iconBtn->setIconSize(QSize(18, 15));
     iconBtn->setFixedSize(QSize(36, 36));
     connect(iconBtn, &DIconButton::clicked, this, &CreateTaskWidget::onFileDialogOpen);
@@ -259,16 +259,15 @@ void CreateTaskWidget::onFileDialogOpen()
     QString btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if (btFile != "") {
         //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
-        BtInfoDialog *dialog = new BtInfoDialog(btFile, m_defaultDownloadDir); //torrent文件路径
-        if (dialog->exec() == QDialog::Accepted) {
+        BtInfoDialog dialog(btFile, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
+        if (dialog.exec() == QDialog::Accepted) {
             QMap<QString, QVariant> opt;
             QString infoName;
             QString infoHash;
-            dialog->getBtInfo(opt, infoName, infoHash);
+            dialog.getBtInfo(opt, infoName, infoHash);
             emit downLoadTorrentCreate(btFile, opt, infoName, infoHash);
             close();
         }
-        delete dialog;
     }
 }
 
@@ -279,17 +278,16 @@ void CreateTaskWidget::onCancelBtnClicked()
 
 void CreateTaskWidget::onSureBtnClicked()
 {
-    QVector<LinkInfo *> urlList;
+    QVector<LinkInfo> urlList;
     for (int i = 0; i < m_model->rowCount(); i++) {
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            LinkInfo *linkInfo;
-            linkInfo = new LinkInfo;
-            linkInfo->urlName = m_model->data(m_model->index(i, 1)).toString();
-            linkInfo->type = m_model->data(m_model->index(i, 2)).toString();
-            linkInfo->urlSize = m_model->data(m_model->index(i, 3)).toString();
-            linkInfo->length = m_model->data(m_model->index(i, 4)).toLongLong();
-            linkInfo->url = m_model->data(m_model->index(i, 5)).toString();
-            linkInfo->urlTrueLink = m_model->data(m_model->index(i, 6)).toString();
+            LinkInfo linkInfo;
+            linkInfo.urlName = m_model->data(m_model->index(i, 1)).toString();
+            linkInfo.type = m_model->data(m_model->index(i, 2)).toString();
+            linkInfo.urlSize = m_model->data(m_model->index(i, 3)).toString();
+            linkInfo.length = m_model->data(m_model->index(i, 4)).toLongLong();
+            linkInfo.url = m_model->data(m_model->index(i, 5)).toString();
+            linkInfo.urlTrueLink = m_model->data(m_model->index(i, 6)).toString();
             urlList.append(linkInfo);
         }
     }
@@ -312,34 +310,32 @@ void CreateTaskWidget::dragEnterEvent(QDragEnterEvent *event)
 void CreateTaskWidget::dropEvent(QDropEvent *event)
 {
     const QMimeData *mineData = event->mimeData(); //获取MIME数据
-    if (mineData->hasUrls()) { //如数据中包含URL
-        QList<QUrl> urlList = mineData->urls(); //获取URL列表
-        if (urlList.isEmpty())
-            return;
-        QString fileName;
-        for (int i = 0; i < urlList.size(); ++i) {
-            fileName = urlList.at(i).toString();
-            if (fileName.isEmpty())
-                return;
-            if (!fileName.isEmpty()) { //若文件路径不为空
-                if (fileName.startsWith("file:") && fileName.endsWith(".torrent")) {
-                    fileName = fileName.right(fileName.length() - 7);
-                    BtInfoDialog *dialog = new BtInfoDialog(fileName, m_defaultDownloadDir); //torrent文件路径
-                    int ret = dialog->exec();
-                    if (ret == QDialog::Accepted) {
-                        QMap<QString, QVariant> opt;
-                        QString infoName;
-                        QString infoHash;
-                        dialog->getBtInfo(opt, infoName, infoHash);
-                        emit downLoadTorrentCreate(fileName, opt, infoName, infoHash);
-                        this->close();
-                    }
-                    delete dialog;
-                } else {
+    if(!mineData->hasUrls()){//如数据中包含URL
+        return;
+    }
+    QList<QUrl> urlList = mineData->urls(); //获取URL列表
+    if (urlList.isEmpty())
+        return;
+    QString fileName;
+    for (int i = 0; i < urlList.size(); ++i) {
+        fileName = urlList.at(i).toString();
+        if (!fileName.isEmpty()) { //若文件路径不为空
+            if (fileName.startsWith("file:") && fileName.endsWith(".torrent")) {
+                fileName = fileName.right(fileName.length() - 7);
+                BtInfoDialog dialog(fileName, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
+                int ret = dialog.exec();
+                if (ret == QDialog::Accepted) {
+                    QMap<QString, QVariant> opt;
+                    QString infoName;
+                    QString infoHash;
+                    dialog.getBtInfo(opt, infoName, infoHash);
+                    emit downLoadTorrentCreate(fileName, opt, infoName, infoHash);
+                    close();
                 }
             }
         }
     }
+
 }
 
 void CreateTaskWidget::setUrl(QString url)
@@ -358,17 +354,14 @@ void CreateTaskWidget::setUrl(QString url)
 
 bool CreateTaskWidget::isMagnet(QString url)
 {
-    QString str = url;
-    if (str.mid(0, 20) == "magnet:?xt=urn:btih:") {
-        return true;
-    } else {
-        return false;
-    }
+    url = url.toLower();
+    return url.mid(0, 20) == "magnet:?xt=urn:btih:";
 }
 
 bool CreateTaskWidget::isHttp(QString url)
 {
-    if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
+    url = url.toLower();
+    if((url.startsWith("ftp:")) && (url.startsWith("http://")) && (url.startsWith("https://"))){
         return false;
     }
     return true;
@@ -380,7 +373,7 @@ void CreateTaskWidget::onTextChanged()
 
     QStringList urlList = m_texturl->toPlainText().split("\n");
     for (int i = 0; i < urlList.size(); i++) {
-        if (urlList[i] == "") {
+        if (urlList[i].isEmpty()) {
             if (i <= m_model->rowCount()) {
                 m_model->takeRow(i);
             }
@@ -429,10 +422,10 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
     QString strPath;
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
-        MessageBox *msg = new MessageBox();
+        MessageBox msg; //= new MessageBox();
         QString title = tr("Permission denied. Please try other folder.");
-        msg->setWarings(title, tr("sure"));
-        msg->exec();
+        msg.setWarings(title, tr("sure"));
+        msg.exec();
         strPath = m_editDir->directoryUrl().toString();
         // QString _text = this->getFileEditText(m_defaultDownloadDir);
         m_editDir->lineEdit()->setText(m_defaultDownloadDir);
@@ -452,9 +445,9 @@ void CreateTaskWidget::closeEvent(QCloseEvent *event)
 
 void CreateTaskWidget::showNetErrorMsg()
 {
-    MessageBox *msg = new MessageBox();
-    msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), ""); //网络连接失败
-    msg->exec();
+    MessageBox msg;//= new MessageBox();
+    msg.setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), ""); //网络连接失败
+    msg.exec();
 }
 
 void CreateTaskWidget::updataTabel(LinkInfo *linkInfo)
@@ -467,15 +460,16 @@ void CreateTaskWidget::onAllCheck()
     int state = m_checkAll->checkState();
     for (int i = 0; i < m_model->rowCount(); i++) {
         if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+            m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
         }
     }
-    m_checkVideo->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
-    m_checkAudio->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
-    m_checkPicture->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
-    m_checkOther->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
-    m_checkDoc->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
-    m_checkZip->setCheckState(state == Qt::Checked ? Qt::Checked : Qt::Unchecked);
+    bool ret = state == Qt::Checked;
+    m_checkVideo->setCheckState(ret ? Qt::Checked : Qt::Unchecked);
+    m_checkAudio->setCheckState(ret ? Qt::Checked : Qt::Unchecked);
+    m_checkPicture->setCheckState(ret ? Qt::Checked : Qt::Unchecked);
+    m_checkOther->setCheckState(ret ? Qt::Checked : Qt::Unchecked);
+    m_checkDoc->setCheckState(ret ? Qt::Checked : Qt::Unchecked);
+    m_checkZip->setCheckState(ret ? Qt::Checked : Qt::Unchecked);
 
     long total = 0;
     int cnt = 0;
@@ -483,7 +477,7 @@ void CreateTaskWidget::onAllCheck()
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isVideo(ext)) {
             if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -515,7 +509,7 @@ void CreateTaskWidget::onVideoCheck()
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isVideo(ext)) {
             if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -547,7 +541,7 @@ void CreateTaskWidget::onAudioCheck()
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isAudio(ext)) {
             if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -579,7 +573,7 @@ void CreateTaskWidget::onPictureCheck()
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isPicture(ext)) {
             if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -611,7 +605,7 @@ void CreateTaskWidget::onZipCheck()
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isZip(ext)) {
             if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -643,7 +637,7 @@ void CreateTaskWidget::onDocCheck()
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (isDoc(ext)) {
             if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -674,7 +668,7 @@ void CreateTaskWidget::onOtherCheck()
         QString ext = m_model->data(m_model->index(i, 2)).toString();
         if (!isVideo(ext) && !isAudio(ext) && !isPicture(ext) && !isDoc(ext) && !isZip(ext)) {
             if(m_model->data(m_model->index(i, 4)).toString().toLong() > 0){
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : 0);
+                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {
@@ -690,8 +684,14 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
 {
     // 获取url文件名
     if (url.startsWith("magnet")) {
+        if(url.split("&").size()< 0){
+            return;
+        }
         name = url.split("&")[0];
         if (name.contains("btih:")) {
+            if(name.split("btih:").size() < 1){
+                return;
+            }
             name = name.split("btih:")[1] + ".torrent";
             type = ".torrent";
         } else {
@@ -719,8 +719,6 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
         type = "error";
     }
     name = QUrl::fromPercentEncoding(name.toUtf8());
-
-    return;
 }
 
 void CreateTaskWidget::setData(int index, QString name, QString type, QString size, QString url, long length, QString trueUrl)
@@ -778,7 +776,6 @@ void CreateTaskWidget::updateSelectedInfo()
     int allOther = 0;
     int allZip = 0;
     int allDoc = 0;
-    int all = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString v = m_model->data(m_model->index(i, 0)).toString();
         QString type = m_model->data(m_model->index(i, 2)).toString();
@@ -799,9 +796,6 @@ void CreateTaskWidget::updateSelectedInfo()
             }
             cnt++;
         }
-    }
-    for (int i = 0; i < m_model->rowCount(); i++) {
-        QString type = m_model->data(m_model->index(i, 2)).toString();
         if (isVideo(type)) {
             allVideo++;
         } else if (isAudio(type)) {
@@ -816,12 +810,15 @@ void CreateTaskWidget::updateSelectedInfo()
             allOther++;
         }
     }
-    allVideo == selectVideoCount &&allVideo > 0 ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
-    allAudio == selectAudioCount &&allAudio > 0 ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
-    allPic == selectPictureCount &&allPic > 0 ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
-    allOther == selectOtherCount &&allOther > 0 ? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
-    allZip == selectZipCount &&allZip > 0 ? m_checkZip->setCheckState(Qt::Checked) : m_checkZip->setCheckState(Qt::Unchecked);
-    allDoc == selectDocCount &&allDoc > 0 ? m_checkDoc->setCheckState(Qt::Checked) : m_checkDoc->setCheckState(Qt::Unchecked);
+    for (int i = 0; i < m_model->rowCount(); i++) {
+
+    }
+    (allVideo == selectVideoCount) && (allVideo > 0) ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
+    (allAudio == selectAudioCount) && (allAudio > 0) ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
+    (allPic == selectPictureCount) && (allPic > 0) ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
+    (allOther == selectOtherCount) && (allOther > 0) ? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
+    (allZip == selectZipCount) && (allZip > 0) ? m_checkZip->setCheckState(Qt::Checked) : m_checkZip->setCheckState(Qt::Unchecked);
+    (allDoc == selectDocCount) && (allDoc > 0) ? m_checkDoc->setCheckState(Qt::Checked) : m_checkDoc->setCheckState(Qt::Unchecked);
 
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));

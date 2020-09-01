@@ -352,7 +352,7 @@ private slots:
     /**
      * @brief 解析url
      */
-    void onParseUrlList(QVector<LinkInfo *> &urlList, QString path);
+    void onParseUrlList(QVector<LinkInfo > &urlList, QString path);
     /**
      * @brief 下载完成 的一些操作
      */

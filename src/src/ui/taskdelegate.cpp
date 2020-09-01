@@ -148,7 +148,7 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
         }
     }
 
-    return false;
+    return true;
 }
 
 QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const

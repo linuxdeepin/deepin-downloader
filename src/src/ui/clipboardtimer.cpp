@@ -90,17 +90,14 @@ void ClipboardTimer::getDataChanged()
 
 bool ClipboardTimer::isMagnet(QString url)
 {
-    QString str = url;
-    if (str.mid(0, 20) == "magnet:?xt=urn:btih:") {
-        return true;
-    } else {
-        return false;
-    }
+    url = url.toLower();
+    return url.mid(0, 20) == "magnet:?xt=urn:btih:";
 }
 
 bool ClipboardTimer::isHttp(QString url)
 {
-    if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
+    url = url.toLower();
+    if((url.startsWith("ftp:")) && (url.startsWith("http://")) && (url.startsWith("https://"))){
         return false;
     }
     QStringList list = url.split(".");
