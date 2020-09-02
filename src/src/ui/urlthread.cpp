@@ -58,6 +58,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                 urlList.append(process->arguments().at(1));
                 process->deleteLater();
                 m_linkInfo->urlSize = getUrlSize(str);
+                m_linkInfo->type = getUrlType(str);
                 if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
                 {
                     emit sendFinishedUrl(*m_linkInfo);

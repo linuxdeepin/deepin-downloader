@@ -54,7 +54,7 @@ struct LinkInfo {
         urlName.clear();
         urlSize.clear();
         urlTrueLink.clear();
-        type.clear();
+        type= "";
     }
     LinkInfo &operator=(const LinkInfo &l)
     {

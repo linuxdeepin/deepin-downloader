@@ -2,6 +2,7 @@
 #include <QThread>
 #include <QDebug>
 #include <QMetaType>
+#include <QMutex>
 
 AnalysisUrl::AnalysisUrl(QObject *parent)
     : QObject(parent)
@@ -42,29 +43,31 @@ void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
     }
     it = m_curAllUrl.begin();
 
-    for (; it != m_curAllUrl.end(); it++) {
-        if (it->state != LinkInfo::UrlState::Finished) {
-            LinkInfo info;
-            info.url = it.key();
-            info.index = it.value().index;
-            UrlThread *url = new UrlThread;
-            QThread *m_thread = new QThread;
-            m_workThread.insert(info.index, m_thread);
-            url->moveToThread(m_thread);
-            url->start(info);
-            connect(m_thread, SIGNAL(started()), url, SLOT(begin()));
-            connect(url, SIGNAL(sendFinishedUrl(LinkInfo)), this, SLOT(getLinkInfo(LinkInfo)));
-            m_thread->start();
+    static QMutex mutex;
+    bool isLock = mutex.tryLock();
+    if (isLock) {
+        for (; it != m_curAllUrl.end(); it++) {
+            if (it->state != LinkInfo::UrlState::Finished) {
+                LinkInfo info;
+                info.url = it.key();
+                info.index = it.value().index;
+                UrlThread *url = new UrlThread;
+                QThread *m_thread = new QThread;
+                m_workThread.insert(info.index, m_thread);
+                url->moveToThread(m_thread);
+                url->start(info);
+                connect(m_thread, SIGNAL(started()), url, SLOT(begin()));
+                connect(url, SIGNAL(sendFinishedUrl(LinkInfo)), this, SLOT(getLinkInfo(LinkInfo)));
+                m_thread->start();
+            }
         }
     }
+    mutex.unlock();
 }
 
 void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
 {
-    QString str = linkInfo.url;
-    QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(str);
-    it.value() = linkInfo;
-    emit sendFinishedUrl(&(*it));
+    emit sendFinishedUrl(&linkInfo);
 }
 
 void AnalysisUrl::stopWork(int index)
