@@ -1998,7 +1998,7 @@ void MainFrame::onOpenFolderActionTriggered()
 void MainFrame::onRenameActionTriggered()
 {
     m_DownLoadingTableView->setCurrentIndex(m_CheckIndex);
-    m_DownLoadingTableView->edit(m_CheckIndex);
+    m_DownLoadingTableView->edit(m_CheckIndex.sibling(m_CheckIndex.row(), 1));
 }
 
 void MainFrame::onMoveToActionTriggered()
