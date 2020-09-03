@@ -39,6 +39,7 @@
 #include <QStandardItemModel>
 #include <QStandardPaths>
 #include <QSharedMemory>
+#include <dpinyin.h>
 
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
     : DDialog()
@@ -748,7 +749,7 @@ void BtInfoDialog::sortByFileName(bool ret)
 {
     for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
         for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
-            if (m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1) > m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf("/") + 1)) {
+            if (Chinese2Pinyin(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1)) > Chinese2Pinyin(m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf("/") + 1))) {
                 m_listBtInfo.swap(j, j + 1);
             }
         }
