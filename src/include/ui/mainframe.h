@@ -48,7 +48,6 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
-
 class QStackedWidget;
 class QSystemTrayIcon;
 class QAction;
@@ -64,8 +63,7 @@ class CreateTaskWidget;
 namespace Global {
 class DownloadDataItem;
 class DeleteDataItem;
-}
-
+} // namespace Global
 
 /**
  * @class MainFrame
@@ -166,7 +164,7 @@ private slots:
      * @param infoName 文件名字
      * @param infoName 文件hash值
     */
-    bool onDownloadNewTorrent(QString btPath,QMap<QString,QVariant> &opt,QString infoName, QString infoHash);
+    bool onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash);
 
     /**
      * @brief 表头全部选择按键
@@ -214,13 +212,12 @@ private slots:
     */
     void onCheckChanged(bool checked, int flag);
 
-
     /**
      * @brief  获取删除窗口确定信号
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void onDeleteConfirm(bool ischecked,bool permanent);
+    void onDeleteConfirm(bool ischecked, bool permanent);
 
     /**
      * @brief 重新下载
@@ -238,8 +235,6 @@ private slots:
      * @brief 移除指定下载
      */
     void onAria2Remove(QString gId, QString id);
-
-
 
     /**
      * @brief messageBox关闭返回事件
@@ -332,7 +327,7 @@ private slots:
     /**
      * @brief 设置里最大任务数改变
      */
-    void onMaxDownloadTaskNumberChanged(int nTaskNumber) ;
+    void onMaxDownloadTaskNumberChanged(int nTaskNumber);
 
     /**
      * @brief 设置里磁盘缓存改变
@@ -347,14 +342,14 @@ private slots:
     /**
      * @brief 解析url
      */
-    void onParseUrlList(QStringList urlList, QString path, QString name="");
+    void onParseUrlList(QStringList urlList, QString path, QString name = "");
 
     /**
      * @brief 解析url请求返回处理
      */
     void onHttpRequest(QNetworkReply *reply);
-private:
 
+private:
     /**
      * @brief 初始化aria2
     */
@@ -445,17 +440,12 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    bool showRedownloadMsgbox(QString sameUrl, QString fileName, QString type);
-
-    /**
-     * @brief 显示重新下载窗口
-     */
     bool showRedownloadMsgbox(const QString sameUrl);
 
     /**
      * @brief 从配置文件中获取下载路径
      */
-    QString   getDownloadSavepathFromConfig();
+    QString getDownloadSavepathFromConfig();
 
     /**
      * @brief 判断是否在限速期间
@@ -465,7 +455,7 @@ private:
     /**
      * @brief 比较时间
      */
-    int  checkTime(QTime *startTime, QTime *endTime);
+    int checkTime(QTime *startTime, QTime *endTime);
 
     /**
      * @brief 初始化DataItem
@@ -475,7 +465,7 @@ private:
     /**
      * @brief 初始化DelDataItem
      */
-    void initDelDataItem(Global::DownloadDataItem* data, Global::DeleteDataItem *delData);
+    void initDelDataItem(Global::DownloadDataItem *data, Global::DeleteDataItem *delData);
 
     /**
      * @brief 将bt文件设置右键启动
@@ -486,7 +476,7 @@ private:
      * @brief 将bt文件关闭右键启动
      */
     void endBtAssociat();
-     /**
+    /**
      * @brief 修改aria2配置文件
      * @param configItem 配置文件中的id
      * @param value 配置文件中的value
@@ -495,7 +485,7 @@ private:
     /**
      * @brief 处理设置界面通知设置函数
      */
-    void btNotificaitonSettings(QString head, QString fileName, bool isBt=false);
+    void btNotificaitonSettings(QString head, QString fileName, bool isBt = false);
 
     /**
      * @brief 是否为磁力链接
@@ -564,8 +554,8 @@ private:
      * @brief 删除任务
      * @param pItem item
      */
-    void deleteTask(Global::DeleteDataItem * pItem);
-    void deleteTask(Global::DownloadDataItem * pItem);
+    void deleteTask(Global::DeleteDataItem *pItem);
+    void deleteTask(Global::DownloadDataItem *pItem);
 
     /**
      * @brief 检查磁力链接是否和已下载的bt文件重复
@@ -573,7 +563,6 @@ private:
     bool checkIsHasSameTask(QString infoHash);
 
 protected:
-
     /**
      * @brief 键盘按下事件
      * @param event 事件类型
@@ -605,11 +594,14 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    enum tableviewFlag{
-        downloading,recycle
+    enum tableviewFlag {
+        downloading,
+        recycle
     };
-    enum CurrentTab{
-        downloadingTab = 0,finishTab,recycleTab
+    enum CurrentTab {
+        downloadingTab = 0,
+        finishTab,
+        recycleTab
     };
     TopButton *m_ToolBar;
     TableView *m_DownLoadingTableView, *m_RecycleTableView;
@@ -621,7 +613,7 @@ private:
     DLabel *m_NotaskTipLabel;
     QStackedWidget *m_RightStackwidget;
     QWidget *m_TaskNumWidget;
-    QLabel  *m_TaskNum;
+    QLabel *m_TaskNum;
     DListView *m_LeftList;
 
     DStandardItem *m_DownloadingItem;
@@ -638,17 +630,17 @@ private:
     QString m_SearchContent;
     bool m_ShutdownOk = true;
 
-    QList<Global::DownloadDataItem*> m_ReloadList;  /*已完成界面点击重新下载的数据列表*/
-    QList<Global::DeleteDataItem*> m_RecycleReloadList;  /*回收站界面点击重新下载的数据列表*/
-    Global::DownloadDataItem* m_CheckItem;
-    Global::DeleteDataItem* m_DelCheckItem;
+    QList<Global::DownloadDataItem *> m_ReloadList; /*已完成界面点击重新下载的数据列表*/
+    QList<Global::DeleteDataItem *> m_RecycleReloadList; /*回收站界面点击重新下载的数据列表*/
+    Global::DownloadDataItem *m_CheckItem;
+    Global::DeleteDataItem *m_DelCheckItem;
     QModelIndex m_CheckIndex;
-    QList<Global::DownloadDataItem*> m_DeleteList;
-    QList<Global::DeleteDataItem*> m_RecycleDeleteList;
+    QList<Global::DownloadDataItem *> m_DeleteList;
+    QList<Global::DeleteDataItem *> m_RecycleDeleteList;
 
-    QString m_CurOpenBtDialogPath;  //当前打开bt文件地址
-    QStringList m_ErrorUrlList;     //当前错误链接
-    QStringList m_CurUrlList;       //当前正在下载的url链接
+    QString m_CurOpenBtDialogPath; //当前打开bt文件地址
+    QStringList m_ErrorUrlList; //当前错误链接
+    QStringList m_CurUrlList; //当前正在下载的url链接
 
     bool m_CtrlkeyPress = false;
     bool m_CopyUrlFromLocal = false;
@@ -657,9 +649,9 @@ private:
     QAction *m_SleepAct;
     QAction *m_QuitProcessAct;
 signals:
-     void isHeaderChecked(bool checked);
-     void tableChanged(int index);
-     void redownload(QString taskId, int rd);
+    void isHeaderChecked(bool checked);
+    void tableChanged(int index);
+    void redownload(QString taskId, int rd);
 };
 
 #endif // MAINFRAME_H

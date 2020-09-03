@@ -66,34 +66,6 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
             });
 }
 
-void MessageBox::setRedownload(const QString sameUrl, QString fileName, QString type)
-{
-    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
-
-    setTitle(tr("Warning"));
-
-    addLabel(tr("The task already exists."));
-    addSpacing(10);
-    DTextEdit *urlText = new DTextEdit(this);
-    urlText->setReadOnly(true);
-    urlText->setFixedSize(QSize(454, 154));
-
-    QPalette pal;
-    pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
-    urlText->setPalette(pal);
-    urlText->append(sameUrl);
-    addContent(urlText);
-    addButton(tr("Cancel"));
-    addButton(tr("Download Again"));
-    connect(this, &MessageBox::buttonClicked, this,
-            [=](int index) {
-                if (index == 1) {
-                    emit reDownload(sameUrl, fileName, type);
-                }
-                close();
-            });
-}
-
 void MessageBox::setRedownload(const QString sameUrl)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
@@ -109,8 +81,8 @@ void MessageBox::setRedownload(const QString sameUrl)
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
     addContent(urlText);
-    addButton(tr("Redownload"));
     addButton(tr("Cancel"));
+    addButton(tr("Redownload"));
 }
 
 void MessageBox::setUnusual(const QString &taskId)
