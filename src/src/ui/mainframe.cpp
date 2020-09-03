@@ -108,13 +108,13 @@ void MainFrame::init()
     m_SettingAction = new QAction(tr("Settings"), this);
     pSettingsMenu->addAction(m_SettingAction);
 
-    QAction *pFinishAction = new QAction(tr("When download completed"), this);
-    DMenu *pFinishMenu = new DMenu(tr("When download completed"), this);
+    QAction *pFinishAction = new QAction(tr("When completed"), this);
+    DMenu *pFinishMenu = new DMenu(tr("When completed"), this);
     m_ShutdownAct = new QAction(tr("Shut down"), this);
     m_ShutdownAct->setCheckable(true);
     m_SleepAct = new QAction(tr("Hibernate"), this);
     m_SleepAct->setCheckable(true);
-    m_QuitProcessAct = new QAction(tr("Exit download manager"), this);
+    m_QuitProcessAct = new QAction(tr("Exit Downloader"), this);
     m_QuitProcessAct->setCheckable(true);
 
     pFinishMenu->addAction(m_ShutdownAct);
@@ -266,13 +266,13 @@ void MainFrame::initTray()
 
     m_SystemTray = new QSystemTrayIcon(this);
     m_SystemTray->setIcon(tryIcon);
-    m_SystemTray->setToolTip(tr("Download Manager"));
+    m_SystemTray->setToolTip(tr("Downloader"));
 
     QAction *pShowMainAct = new QAction(tr("Show main window"), this);
     QAction *pNewDownloadAct = new QAction(tr("New task"), this);
     QAction *pStartAllAct = new QAction(tr("Continue all tasks"), this);
     QAction *pPauseAllAct = new QAction(tr("Pause all tasks"), this);
-    QMenu *pFinishMenu = new QMenu(tr("When download completed"), this);
+    QMenu *pFinishMenu = new QMenu(tr("When completed"), this);
     pFinishMenu->addAction(m_ShutdownAct);
     pFinishMenu->addAction(m_SleepAct);
     pFinishMenu->addAction(m_QuitProcessAct);
@@ -493,7 +493,7 @@ void MainFrame::onTrayQuitClick(bool force)
 {
     if (!m_ShutdownOk && !force) {
         MessageBox msgBox;
-        QString title = tr("Are you sure to exit? Tasks in download will be interrupted.");
+        QString title = tr("Are you sure you want to exit? \nDownloading tasks will be interrupted.");
         msgBox.setWarings(title, tr("sure"), tr("cancel"));
         int rs = msgBox.exec();
         if (rs != DDialog::Accepted) {

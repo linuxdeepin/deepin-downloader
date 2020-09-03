@@ -119,10 +119,10 @@ void MessageBox::setUnusual(const QString &taskId)
 
     setTitle(tr("Warning"));
 
-    addLabel(tr("Download error. "));
+    addLabel(tr("Download error"));
     addSpacing(10);
-    addButton(tr("Download again"));
-    addButton(tr("Delete task"));
+    addButton(tr("Download Again"));
+    addButton(tr("Delete Task"));
     connect(this, &MessageBox::buttonClicked, this,
             [=](int index) {
                 emit unusualConfirm(index, taskId);
@@ -203,11 +203,11 @@ void MessageBox::setExit()
 {
     setIcon(QIcon(":/icons/icon/downloader5.svg"));
 
-    setTitle(tr("You want to"));
+    setTitle(tr("Please choose your action"));
     addSpacing(10);
-    addRadioGroup(tr("Exit"), tr("Minimize to System Tray"));
+    addRadioGroup(tr("Exit"), tr("Minimize to system tray"));
     addSpacing(10);
-    addCheckbox(tr("Don't ask again"));
+    addCheckbox(tr("Do not ask again"));
     addButton(tr("Cancel"));
     addButton(tr("Confirm"));
 
