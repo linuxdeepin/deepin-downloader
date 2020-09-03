@@ -40,7 +40,6 @@ DWIDGET_USE_NAMESPACE
 
 class QPushButton;
 
-
 /**
  * @class MessageBox
  * @brief 弹窗消息
@@ -60,12 +59,7 @@ public:
      * @param sameUrlCount 相同url数量
      * @param sameUrlList 相同url列表
     */
-    void setWarings(QString warningMsg,QString surebtntext,QString cancalbtntext="",int sameUrlCount=0,QList<QString> sameUrlList={});
-
-    /**
-     * @brief 设置重新下载窗口
-    */
-    void setRedownload(const QString sameUrl, QString fileName, QString type);
+    void setWarings(QString warningMsg, QString surebtntext, QString cancalbtntext = "", int sameUrlCount = 0, QList<QString> sameUrlList = {});
 
     /**
      * @brief 设置重新下载窗口
@@ -95,13 +89,12 @@ public:
      * @param cancelbtn 设置取消按钮内容
      * @param oldname 曾用名
     */
-    void setReName(QString title,QString surebtntext,QString cancelbtn,QString oldname);
+    void setReName(QString title, QString surebtntext, QString cancelbtn, QString oldname);
 
     /**
      * @brief 设置退出窗口
     */
     void setExit();
-
 
 private:
     /**
@@ -143,7 +136,7 @@ signals:
      * @param ret
      * @param ret1
     */
-    void Deletedownload(bool ret,bool ret1);
+    void Deletedownload(bool ret, bool ret1);
 
     /**
      * @brief 关闭确认信号

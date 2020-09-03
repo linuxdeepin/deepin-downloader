@@ -238,12 +238,6 @@ private slots:
     void onAria2Remove(QString gId, QString id);
 
     /**
-     * @brief mainwidow关闭事件
-     * @param event 事件类型
-     */
-    //void onTrayQuitClick(bool force = false);
-
-    /**
      * @brief messageBox关闭返回事件
      * @param index 按钮index
      */
@@ -350,6 +344,7 @@ private slots:
      * @brief 解析url
      */
     void onParseUrlList(QVector<LinkInfo> &urlList, QString path);
+
     /**
      * @brief 下载完成 的一些操作
      */

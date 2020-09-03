@@ -876,7 +876,6 @@ void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName
     // 判断url是否在数据中已存在
     DBInstance::isExistUrl(url, isExitsUrl);
     if (isExitsUrl) {
-        //showRedownloadMsgbox(url, fileName, type);
         if (showRedownloadMsgbox(url)) {
             deleteTaskByUrl(url);
         } else {
@@ -1484,7 +1483,7 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
     connect(&msg, &MessageBox::reDownload, this, &MainFrame::onRedownloadConfirmSlot);
     msg.setRedownload(sameUrl);
     int rs = msg.exec();
-    if (rs == DDialog::Rejected) {
+    if (rs == DDialog::Accepted) {
         return true;
     }
     return false;
@@ -1812,7 +1811,6 @@ void MainFrame::onRedownloadActionTriggered()
     if (m_CurrentTab == CurrentTab::recycleTab) {
         if (QFileInfo::exists(m_DelCheckItem->savePath)) {
             MessageBox msg;
-            //msg.setWarings(tr("Do you want to delete the downloaded files and download again?"), tr("sure"), tr("cancel"));
             msg.setRedownload(m_DelCheckItem->fileName);
             int rs = msg.exec();
             if (rs == DDialog::Rejected) {
@@ -2876,7 +2874,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
             //msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("View"), tr("Redownload"), 0, QList<QString>());
             msg.setRedownload(urlList[i].seedFile);
             int ret = msg.exec();
-            if (ret) {
+            if (!ret) {
                 return false;
             } else {
                 if (pItem != nullptr) {
