@@ -30,8 +30,10 @@
 #include <QString>
 #include <QStandardItemModel>
 
+#include <dpinyin.h>
 #include "global.h"
 using namespace Global;
+using namespace DTK_CORE_NAMESPACE;
 
 TableModel::TableModel(int Flag, QObject *parent)
     : QAbstractTableModel(parent)
@@ -598,7 +600,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     double num = -1;
     int hideCount = 0;
     for (int row = 0; row < rowCount(); ++row) {
-        QVariant itm = data(index(row, column), role);
+        QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, column), role).toString());
         if (role == TableModel::Size || role == TableModel::TotalLength) {
             num = formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
@@ -650,7 +652,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
     double num = -1;
     int hideCount = 0;
     for (int row = 0; row < rowCount(); ++row) {
-        QVariant itm = data(index(row, column), role);
+        QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, column), role).toString());
         if (role == TableModel::TotalLength) {
             num = formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
