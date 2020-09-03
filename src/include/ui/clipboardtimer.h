@@ -69,6 +69,11 @@ public:
     explicit ClipboardTimer(QObject *parent = nullptr);
     ~ClipboardTimer();
 
+    /**
+     * @brief 检测剪切板是否有url
+     */
+    void checkClipboardHasUrl();
+
 private:
     /**
      * @brief isMagnet 是否是磁力链接

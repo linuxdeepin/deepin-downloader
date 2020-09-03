@@ -91,6 +91,7 @@ MainFrame::MainFrame(QWidget *parent)
     initConnection();
     initTabledata();
     setPaletteType();
+    m_Clipboard->checkClipboardHasUrl();
 }
 
 MainFrame::~MainFrame()
@@ -1004,6 +1005,10 @@ void MainFrame::onContextMenu(const QPoint &pos)
     }
 
     int chkedCnt = 0;
+    int activeCount = 0;
+    int pauseCount = 0;
+    int errorCount = 0;
+    int existFileCount;
     DownloadDataItem *pDownloadItem = nullptr;
     DeleteDataItem *pDeleteItem = nullptr;
     if (m_CurrentTab == recycleTab) {
@@ -1012,6 +1017,9 @@ void MainFrame::onContextMenu(const QPoint &pos)
             if (recyleList.at(i)->Ischecked) {
                 chkedCnt++;
                 pDeleteItem = recyleList.at(i);
+                if (QFileInfo(recyleList.at(i)->savePath).exists()) {
+                    existFileCount++;
+                }
             }
         }
     } else {
@@ -1020,6 +1028,15 @@ void MainFrame::onContextMenu(const QPoint &pos)
             if (selectList.at(i)->Ischecked) {
                 chkedCnt++;
                 pDownloadItem = selectList.at(i);
+                if (pDownloadItem->status == Global::DownloadJobStatus::Active) {
+                    ++activeCount;
+                }
+                if ((pDownloadItem->status == Global::DownloadJobStatus::Paused) || (pDownloadItem->status == Global::DownloadJobStatus::Lastincomplete)) {
+                    ++pauseCount;
+                }
+                if (pDownloadItem->status == Global::DownloadJobStatus::Error) {
+                    ++errorCount;
+                }
             }
         }
     }
@@ -1027,27 +1044,8 @@ void MainFrame::onContextMenu(const QPoint &pos)
         return;
     }
 
-    int activeCount = 0;
-    int pauseCount = 0;
-    int renamCount = 0;
-    int errorCount = 0;
     QMenu *delmenlist = new QMenu(this);
     if (m_CurrentTab == downloadingTab) {
-        const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
-        for (int i = 0; i < selectList.size(); ++i) {
-            if (selectList.at(i)->Ischecked == 1) {
-                DownloadDataItem *data = selectList.at(i);
-                if (data->status == Global::DownloadJobStatus::Active) {
-                    ++activeCount;
-                }
-                if ((data->status == Global::DownloadJobStatus::Paused) || (data->status == Global::DownloadJobStatus::Lastincomplete)) {
-                    ++pauseCount;
-                }
-                if (data->status == Global::DownloadJobStatus::Error) {
-                    ++errorCount;
-                }
-            }
-        }
         if (pauseCount > 0 || errorCount > 0) {
             QAction *pActionStart = new QAction();
             pActionStart->setText(tr("Resume"));
@@ -1069,7 +1067,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         delmenlist->addSeparator();
     }
 
-    if (m_CurrentTab == recycleTab && QFileInfo(pDeleteItem->savePath).exists()) {
+    if (m_CurrentTab == recycleTab && existFileCount > 0) {
         QAction *returnedToOrigin = new QAction();
         returnedToOrigin->setText(tr("Restore"));
         delmenlist->addAction(returnedToOrigin);
@@ -1102,16 +1100,13 @@ void MainFrame::onContextMenu(const QPoint &pos)
         for (int i = 0; i < selectList.size(); ++i) {
             if (selectList.at(i)->Ischecked == 1) {
                 DownloadDataItem *data = selectList.at(i);
-                if (data->status == Global::DownloadJobStatus::Complete) {
-                    ++renamCount;
-                }
                 if (!QFileInfo(data->savePath).exists()) {
                     noFileCount++;
                 }
             }
         }
 
-        if (renamCount == 1 && QFileInfo(pDownloadItem->savePath).exists()) {
+        if (1 == chkedCnt && QFileInfo(pDownloadItem->savePath).exists()) {
             QAction *pactionRename = new QAction();
             pactionRename->setText(tr("Rename"));
             delmenlist->addAction(pactionRename);
@@ -1813,7 +1808,7 @@ void MainFrame::onRedownloadActionTriggered()
             MessageBox msg;
             msg.setRedownload(m_DelCheckItem->fileName);
             int rs = msg.exec();
-            if (rs == DDialog::Rejected) {
+            if (rs != DDialog::Accepted) {
                 return;
             }
         }

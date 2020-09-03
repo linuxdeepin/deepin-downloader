@@ -41,6 +41,11 @@ ClipboardTimer::~ClipboardTimer()
 {
 }
 
+void ClipboardTimer::checkClipboardHasUrl()
+{
+    getDataChanged();
+}
+
 void ClipboardTimer::getDataChanged()
 {
     const QMimeData *mimeData = m_clipboard->mimeData();

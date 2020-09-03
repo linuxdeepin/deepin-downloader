@@ -32,7 +32,7 @@ bool Func::isIpv6Connect()
     QProcess *process = new QProcess();
     QStringList list;
     list << "-i"
-         << "http://ipv6.uenu.cn/";
+         << "ipv6.baidu.com";
     process->start("curl", list);
     process->waitForFinished();
     int ret = process->exitCode();
@@ -49,7 +49,6 @@ bool Func::isDHT()
         return true;
     }
     return false;
-
 }
 
 bool Func::isBt()

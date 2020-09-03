@@ -274,7 +274,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if (statusStr == "active") {
         status = Global::DownloadJobStatus::Active;
         int n = access(filePath.toStdString().c_str(), 0);
-        if ((-1 == n) && (completedLength > 0)) {
+        if (-1 == n && completedLength > 0) {
             if (!fileName.contains("[METADATA]")) {
                 Aria2RPCInterface::instance()->remove(data->gid);
                 if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
@@ -534,6 +534,7 @@ void tableDataControl::aria2GetGlobalStatus(QJsonObject &json)
 
 void tableDataControl::aria2MethodRemove(QJsonObject &json)
 {
+    Q_UNUSED(json);
 }
 
 void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
