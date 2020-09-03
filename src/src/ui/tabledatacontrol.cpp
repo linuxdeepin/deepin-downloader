@@ -215,13 +215,13 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         DBInstance::getBtTaskById(taskId, getUrlInfo);
         if (getUrlInfo.taskId != "") {
             if (getUrlInfo.infoHash.isEmpty()) {
-                BtTaskInfo *urlInfo = new BtTaskInfo(getUrlInfo.taskId,
-                                                     getUrlInfo.url,
-                                                     getUrlInfo.downloadType,
-                                                     getUrlInfo.seedFile,
-                                                     getUrlInfo.selectedNum,
-                                                     infoHash);
-                DBInstance::updateBtTaskById(*urlInfo);
+                BtTaskInfo urlInfo(getUrlInfo.taskId,
+                                   getUrlInfo.url,
+                                   getUrlInfo.downloadType,
+                                   getUrlInfo.seedFile,
+                                   getUrlInfo.selectedNum,
+                                   infoHash);
+                DBInstance::updateBtTaskById(urlInfo);
             }
         }
     }
@@ -236,7 +236,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         QJsonArray uri = file.value("uris").toArray();
         for (int j = 0; j < uri.size(); ++j) {
             QJsonObject uriObject = uri[j].toObject();
-            fileUri = uriObject.value("uzhaoyueri").toString();
+            fileUri = uriObject.value("uri").toString();
         }
     }
 
@@ -282,10 +282,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
                     return;
                 }
                 data->status = Global::DownloadJobStatus::Error;
-                MessageBox *msg = new MessageBox();
-                msg->setUnusual(taskId);
-                connect(msg, &MessageBox::unusualConfirm, this, &tableDataControl::onUnusualConfirm);
-                msg->exec();
+                MessageBox msg;
+                msg.setUnusual(taskId);
+                connect(&msg, &MessageBox::unusualConfirm, this, &tableDataControl::onUnusualConfirm);
+                msg.exec();
                 //qDebug() << "文件不存在，";
                 return;
             }
@@ -1109,8 +1109,7 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
     pDeleteItemThread->start();
 
     for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
-        DeleteDataItem *data = new DeleteDataItem;
-        data = m_RecycleDeleteList.at(i);
+        DeleteDataItem *data = m_RecycleDeleteList.at(i);
         DBInstance::delTask(data->taskId);
         m_DownloadTableView->getTableModel()->removeItem(data);
     }

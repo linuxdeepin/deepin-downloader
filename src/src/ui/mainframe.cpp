@@ -178,7 +178,7 @@ void MainFrame::init()
 
     m_NoResultlabel = new Dtk::Widget::DLabel();
     m_NoResultlabel->setFont(lableFont);
-    m_NoResultlabel->setText(tr("No match result"));
+    m_NoResultlabel->setText(tr("No search result"));
     m_NoResultlabel->setWindowOpacity(0.2);
     m_NoResultlabel->setAlignment(Qt::AlignHCenter);
     m_NoResultlabel->setForegroundRole(DPalette::TextTitle);
@@ -687,29 +687,22 @@ void MainFrame::setPaletteType()
 
 void MainFrame::onSettingsMenuClicked()
 {
-    DSettingsDialog *pSettingsDialog = new DSettingsDialog(this);
+    DSettingsDialog SettingsDialog;
 
-    pSettingsDialog->widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("httpdownload", Settings::createHttpDownloadEditHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("btdownload", Settings::createBTDownloadEditHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("magneticdownload", Settings::createMagneticDownloadEditHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("diskcacheInfo", Settings::createDiskCacheSettiingLabelHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("downloaddiskcachesetting",
-                                                     Settings::createDownloadDiskCacheSettiingHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("downloadspeedlimitsetting",
-                                                     Settings::createDownloadSpeedLimitSettiingHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("notificationssettiing",
-                                                     Settings::createNotificationsSettiingHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("autodownloadbyspeed",
-                                                     Settings::createAutoDownloadBySpeedHandle);
-    pSettingsDialog->widgetFactory()->registerWidget("prioritydownloadbysize",
-                                                     Settings::createPriorityDownloadBySizeHandle);
-    pSettingsDialog->updateSettings("Settings", Settings::getInstance()->m_settings);
+    SettingsDialog.widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
+    SettingsDialog.widgetFactory()->registerWidget("httpdownload", Settings::createHttpDownloadEditHandle);
+    SettingsDialog.widgetFactory()->registerWidget("btdownload", Settings::createBTDownloadEditHandle);
+    SettingsDialog.widgetFactory()->registerWidget("magneticdownload", Settings::createMagneticDownloadEditHandle);
+    SettingsDialog.widgetFactory()->registerWidget("diskcacheInfo", Settings::createDiskCacheSettiingLabelHandle);
+    SettingsDialog.widgetFactory()->registerWidget("downloaddiskcachesetting",
+                                                   Settings::createDownloadDiskCacheSettiingHandle);
+    SettingsDialog.widgetFactory()->registerWidget("downloadspeedlimitsetting",
+                                                   Settings::createDownloadSpeedLimitSettiingHandle);
+    SettingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);
 
     Settings::getInstance()->setAutoStart(isAutoStart());
 
-    pSettingsDialog->exec();
-    delete pSettingsDialog;
+    SettingsDialog.exec();
     Settings::getInstance()->m_settings->sync();
 }
 
@@ -1058,7 +1051,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
         if (pauseCount > 0 || errorCount > 0) {
             QAction *pActionStart = new QAction();
-            pActionStart->setText(tr("Continue"));
+            pActionStart->setText(tr("Resume"));
             delmenlist->addAction(pActionStart);
             connect(pActionStart, &QAction::triggered, this, &MainFrame::onStartDownloadBtnClicked);
         }
@@ -1070,7 +1063,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
         if ((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction();
-            pActionredownload->setText(tr("Download again"));
+            pActionredownload->setText(tr("Download Again"));
             delmenlist->addAction(pActionredownload);
             connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
         }
@@ -1085,7 +1078,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     }
     if ((m_CurrentTab == recycleTab) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
-        pActionredownload->setText(tr("Download again"));
+        pActionredownload->setText(tr("Download Again"));
         delmenlist->addAction(pActionredownload);
         connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
     }
@@ -1152,7 +1145,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::onDelActionTriggered);
 
     QAction *pactionDeletePermanently = new QAction();
-    pactionDeletePermanently->setText(tr("Permanently delete"));
+    pactionDeletePermanently->setText(tr("Permanently Delete"));
     delmenlist->addAction(pactionDeletePermanently);
     connect(pactionDeletePermanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
 
@@ -1184,7 +1177,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
 
     if (m_CurrentTab == recycleTab) {
         QAction *pActionClearRecycle = new QAction();
-        pActionClearRecycle->setText(tr("Empty"));
+        pActionClearRecycle->setText(tr("Delete All"));
         delmenlist->addAction(pActionClearRecycle);
         connect(pActionClearRecycle, &QAction::triggered, this, &MainFrame::onClearRecyleActionTriggered);
     }
@@ -1335,7 +1328,18 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     // 开始下载
     Aria2RPCInterface::instance()->addTorrent(btPath, opt, strId);
     clearTableItemCheckStatus();
-    deleteTaskByUrl("magnet:?xt=urn:btih:" + infoHash.toUpper());
+
+    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    foreach (DownloadDataItem *pItem, dataList) {
+        if (pItem->url == "magnet:?xt=urn:btih:" + infoHash.toUpper()) {
+            Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
+            Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
+            DBInstance::delTask(pItem->taskId);
+            m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+            break;
+        }
+    }
+
     // 定时器打开
     if (m_UpdateTimer->isActive() == false) {
         m_UpdateTimer->start(2 * 1000);
@@ -1869,6 +1873,7 @@ void MainFrame::onRedownloadActionTriggered()
         deleteTaskByTaskID(taskId);
         QString selectNum = info.selectedNum;
         opt.insert("select-file", selectNum);
+        opt.insert("dir", task.downloadPath);
         Aria2RPCInterface::instance()->addTorrent(info.seedFile, opt, strId);
     } else { // 非bt任务
         TaskInfo task;
@@ -1986,10 +1991,10 @@ void MainFrame::onOpenFileActionTriggered()
     if (m_CurrentTab == finishTab) {
         QString path = QString("file:///") + m_CheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
-    } else {
+    } /*else if (m_CurrentTab == recycleTab) {
         QString path = QString("file:///") + m_DelCheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
-    }
+    }*/
 }
 
 void MainFrame::onOpenFolderActionTriggered()
@@ -2013,27 +2018,26 @@ void MainFrame::onRenameActionTriggered()
 
 void MainFrame::onMoveToActionTriggered()
 {
-    QFileDialog *fileDialog = new QFileDialog(this);
-    fileDialog->setFileMode(QFileDialog::Directory);
-    QStringList fileName;
-    if (fileDialog->exec() == QDialog::Accepted) {
-        fileName = fileDialog->selectedFiles();
-        QString filePath = fileName.first();
-        if (filePath != "") {
-            const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
-            for (int i = 0; i < selectList.size(); ++i) {
-                if (selectList.at(i)->status == DownloadJobStatus::Complete) {
-                    if (selectList.at(i)->Ischecked == 1) {
-                        DownloadDataItem *data = selectList.at(i);
-                        QFile::rename(data->savePath, filePath + "/" + data->fileName);
-                        data->savePath = filePath + "/" + data->fileName;
-                        TaskInfo task;
-                        DBInstance::getTaskByID(data->taskId, task);
-                        task.downloadPath = data->savePath;
-                        task.downloadFilename = data->fileName;
-                        DBInstance::updateTaskByID(task);
-                    }
-                }
+    QFileDialog fileDialog;
+    fileDialog.setFileMode(QFileDialog::Directory);
+    if (fileDialog.exec() != QDialog::Accepted) {
+        return;
+    }
+
+    QStringList fileName = fileDialog.selectedFiles();
+    QString filePath = fileName.first();
+    if (filePath != "") {
+        const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
+        for (int i = 0; i < selectList.size(); ++i) {
+            if ((selectList.at(i)->status == DownloadJobStatus::Complete) && (selectList.at(i)->Ischecked == true)) {
+                DownloadDataItem *data = selectList.at(i);
+                QFile::rename(data->savePath, filePath + "/" + data->fileName);
+                data->savePath = filePath + "/" + data->fileName;
+                TaskInfo task;
+                DBInstance::getTaskByID(data->taskId, task);
+                task.downloadPath = data->savePath;
+                task.downloadFilename = data->fileName;
+                DBInstance::updateTaskByID(task);
             }
         }
     }
@@ -2156,11 +2160,8 @@ void MainFrame::onTableViewItemDoubleClicked(QModelIndex index)
     if (m_CurrentTab == finishTab) {
         QString taskId = m_DownLoadingTableView->getTableModel()->data(index, TableModel::taskId).toString();
         m_CheckItem = m_DownLoadingTableView->getTableModel()->find(taskId);
-    } else {
-        // QString taskId = m_RecycleTableView->getTableModel()->data(index, TableModel::taskId).toString();
-        //m_CheckItem = m_RecycleTableView->getTableModel()->find(taskId);
+        onOpenFileActionTriggered();
     }
-    onOpenFileActionTriggered();
 }
 
 void MainFrame::onDownloadLimitChanged()

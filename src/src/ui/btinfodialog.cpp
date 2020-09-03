@@ -192,7 +192,7 @@ void BtInfoDialog::initUI()
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
     QString text = getFileEditText(m_defaultDownloadDir);
-    QString flieEditText = tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
+    QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
     m_surplusSize = new DLabel(this);
     m_surplusSize->setText(flieEditText);
@@ -522,7 +522,6 @@ void BtInfoDialog::updateSelectedInfo()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     cnt == m_model->rowCount() ? m_checkAll->setCheckState(Qt::Checked) : m_checkAll->setCheckState(Qt::Unchecked);
-
     setOkBtnStatus(cnt);
 }
 
@@ -660,7 +659,7 @@ void BtInfoDialog::getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QS
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    QString flieEditText = text + "    " + tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(text);
+    QString flieEditText = text + "    " + tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(text);
     int count = text.count();
 
     for (int i = 0; i < flieEditText.size(); i++) {
@@ -679,12 +678,11 @@ QString BtInfoDialog::getFileEditText(QString text)
 
 void BtInfoDialog::setOkBtnStatus(int count)
 {
-    m_btnOK->setEnabled(count);
-    //    if (count == 0) {
-    //        m_btnOK->setEnabled(false);
-    //    } else {
-    //        m_btnOK->setEnabled(true);
-    //    }
+    if (count == 0) {
+        m_btnOK->setEnabled(false);
+    } else {
+        m_btnOK->setEnabled(true);
+    }
 }
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)

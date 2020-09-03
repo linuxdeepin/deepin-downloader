@@ -342,11 +342,22 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         QString str = index.data(TableModel::FileName).toString();
         QMimeDatabase db;
         QString mime = db.suffixForFileName(str);
-        QString FilePath = index.data(TableModel::SavePath).toString();
-        FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-        FilePath = FilePath + filename + "." + mime;
-        QFileInfo file(FilePath);
-        if (file.isFile() && !firstInside) {
+        QString filePath = index.data(TableModel::SavePath).toString();
+        filePath = filePath.left(filePath.lastIndexOf("/") + 1);
+        filePath = filePath + filename + "." + mime;
+        QFileInfo file(filePath);
+
+        int hasSameFile = false;
+        for (int i = 0; i < index.model()->rowCount(); i++) {
+            QModelIndex idx = index.sibling(i, index.column());
+            QString path = idx.data(TableModel::SavePath).toString();
+            if (filePath == path && (filePath != index.data(TableModel::SavePath).toString())) {
+                hasSameFile = true;
+                break;
+            }
+        }
+
+        if ((file.isFile() && (filePath != index.data(TableModel::SavePath).toString())) || (hasSameFile)) {
             pEdit->showAlertMessage(tr("Duplicate name!"), -1);
         } else {
             pEdit->hideAlertMessage();
@@ -377,16 +388,24 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
     QString mime = db.suffixForFileName(str);
     QString fileName = pEdit->text() + "." + mime;
 
-    QString FilePath = index.data(TableModel::SavePath).toString();
-    FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-    FilePath = FilePath + fileName;
-    if (!QFileInfo::exists(FilePath)) {
-        QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
+    QString filePath = index.data(TableModel::SavePath).toString();
+    filePath = filePath.left(filePath.lastIndexOf("/") + 1);
+    filePath = filePath + fileName;
+    if (!QFileInfo::exists(filePath)) {
+        for (int i = 0; i < index.model()->rowCount(); i++) {
+            QModelIndex idx = index.sibling(i, index.column());
+            QString path = idx.data(TableModel::SavePath).toString();
+            if (filePath == path && (filePath != index.data(TableModel::SavePath).toString())) {
+                return;
+            }
+        }
+
+        QFile::rename(index.data(TableModel::SavePath).toString(), filePath);
         model->setData(index, fileName, TableModel::FileName);
-        model->setData(index, FilePath, TableModel::SavePath);
+        model->setData(index, filePath, TableModel::SavePath);
         TaskInfo task;
         DBInstance::getTaskByID(index.data(TableModel::taskId).toString(), task);
-        task.downloadPath = FilePath;
+        task.downloadPath = filePath;
         task.downloadFilename = fileName;
         DBInstance::updateTaskByID(task);
     }

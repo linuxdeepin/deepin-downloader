@@ -292,6 +292,7 @@ void CreateTaskWidget::onSureBtnClicked()
     }
     Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
     emit downloadWidgetCreate(urlList, m_defaultDownloadDir);
+
     m_texturl->clear();
     hide();
 }
@@ -788,7 +789,7 @@ void CreateTaskWidget::updateSelectedInfo()
             } else if (isZip(type)) {
                 selectZipCount++;
             } else if (isDoc(type)) {
-                selectDocCount;
+                selectDocCount++;
             } else {
                 selectOtherCount++;
             }
