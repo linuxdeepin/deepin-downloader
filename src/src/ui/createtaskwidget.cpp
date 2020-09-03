@@ -411,6 +411,6 @@ void CreateTaskWidget::closeEvent(QCloseEvent *event)
 void CreateTaskWidget::showNetErrorMsg()
 {
     MessageBox *msg = new MessageBox();
-    msg->setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), ""); //网络连接失败
+    msg->setWarings(tr("Network error, check your network and try later"), tr("sure"), ""); //网络连接失败
     msg->exec();
 }

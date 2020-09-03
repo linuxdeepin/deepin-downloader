@@ -48,14 +48,14 @@ void DownloadSettingWidget::initUI()
     m_DownloadSpeedLimitValue = 102400;
     m_UploadSpeedLimitValue = 32;
 
-    m_fullSpeedDownloadButton = new DRadioButton(tr("Speed unlimited")); // 全速下载
+    m_fullSpeedDownloadButton = new DRadioButton(tr("Full speed")); // 全速下载
     m_fullSpeedDownloadButton->setToolTip(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
-//    m_fullSpeedDownloadButton->toolTip()
+    //    m_fullSpeedDownloadButton->toolTip()
     //    DLabel *pFullSpeedLabel = new DLabel;
-//    // 下载文件会通过P2P的方式上传分享，帮助其他网友加速下载，不会涉及任何用户隐私。
-//    pFullSpeedLabel->setText(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
-//    pFullSpeedLabel->setWordWrap(true);
-    m_speedLimitDownloadButton = new DRadioButton(tr("Speed limited")); // 限速下载
+    //    // 下载文件会通过P2P的方式上传分享，帮助其他网友加速下载，不会涉及任何用户隐私。
+    //    pFullSpeedLabel->setText(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
+    //    pFullSpeedLabel->setWordWrap(true);
+    m_speedLimitDownloadButton = new DRadioButton(tr("Limited speed")); // 限速下载
     m_speedLimitDownloadButton->setChecked(true);
     m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
     m_maxUploadSpeedLimit = new SettingInfoInputWidget;
@@ -78,31 +78,31 @@ void DownloadSettingWidget::initUI()
     m_downloadAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_maxDownloadSpeedLimit->getLineEdit(), m_maxDownloadSpeedLimit->getLineEdit());
     m_uploadAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_maxUploadSpeedLimit->getLineEdit(), m_maxUploadSpeedLimit->getLineEdit());
 
-//    QHBoxLayout *pFullSpeedLabelLayout = new QHBoxLayout;
-//    pFullSpeedLabelLayout->addWidget(pFullSpeedLabel);
-//    pFullSpeedLabelLayout->addStretch();
-//    pFullSpeedLabelLayout->setContentsMargins(28, 0, 0, 0);
+    //    QHBoxLayout *pFullSpeedLabelLayout = new QHBoxLayout;
+    //    pFullSpeedLabelLayout->addWidget(pFullSpeedLabel);
+    //    pFullSpeedLabelLayout->addStretch();
+    //    pFullSpeedLabelLayout->setContentsMargins(28, 0, 0, 0);
 
-//    QVBoxLayout *pVFullSpeedLayout = new QVBoxLayout;
-//    pVFullSpeedLayout->addWidget(m_fullSpeedDownloadButton);
-//    pVFullSpeedLayout->addSpacing(3);
-//    pVFullSpeedLayout->addLayout(pFullSpeedLabelLayout);
-//    pVFullSpeedLayout->setSpacing(0);
-//    pVFullSpeedLayout->setContentsMargins(0, 0, 0, 0);
+    //    QVBoxLayout *pVFullSpeedLayout = new QVBoxLayout;
+    //    pVFullSpeedLayout->addWidget(m_fullSpeedDownloadButton);
+    //    pVFullSpeedLayout->addSpacing(3);
+    //    pVFullSpeedLayout->addLayout(pFullSpeedLabelLayout);
+    //    pVFullSpeedLayout->setSpacing(0);
+    //    pVFullSpeedLayout->setContentsMargins(0, 0, 0, 0);
 
-    m_maxDownloadSpeedLimit->setTitleLabelText(tr("Max download speed")); // 最大下载限速
+    m_maxDownloadSpeedLimit->setTitleLabelText(tr("Max. download speed")); // 最大下载限速
     m_maxDownloadSpeedLimit->setUnitLabelText(tr("KB/s"));
     m_maxDownloadSpeedLimit->setRangeLabelText(tr("(100-102400)"));
     m_maxDownloadSpeedLimit->setLineEditText(tr("102400"));
     m_maxDownloadSpeedLimit->setValid(100, 102400);
 
-    m_maxUploadSpeedLimit->setTitleLabelText(tr("Max upload speed")); // 最大上传限速
+    m_maxUploadSpeedLimit->setTitleLabelText(tr("Max. upload speed")); // 最大上传限速
     m_maxUploadSpeedLimit->setUnitLabelText(tr("KB/s"));
     m_maxUploadSpeedLimit->setRangeLabelText(tr("(16-5120)"));
     m_maxUploadSpeedLimit->setLineEditText(tr("32"));
     m_maxUploadSpeedLimit->setValid(16, 5120);
 
-    DLabel *leftLabel = new DLabel(tr("Limited period")); // 限速时段
+    DLabel *leftLabel = new DLabel(tr("Limit period")); // 限速时段
     DLabel *centerLabel = new DLabel(tr("to")); // 至
     m_startTimeEdit = new QTimeEdit(QTime(8, 0, 0));
     m_endTimeEdit = new QTimeEdit(QTime(17, 0, 0));
@@ -111,13 +111,13 @@ void DownloadSettingWidget::initUI()
 
     QHBoxLayout *timeLayout = new QHBoxLayout;
     timeLayout->addWidget(leftLabel);
-//    pTimeLayout->addSpacing(6);
+    //    pTimeLayout->addSpacing(6);
     timeLayout->addWidget(m_startTimeEdit);
-//    pTimeLayout->addSpacing(1);
+    //    pTimeLayout->addSpacing(1);
     timeLayout->addWidget(centerLabel);
-//    pTimeLayout->addSpacing(1);
+    //    pTimeLayout->addSpacing(1);
     timeLayout->addWidget(m_endTimeEdit);
-//    pTimeLayout->setSpacing(0);
+    //    pTimeLayout->setSpacing(0);
     timeLayout->addStretch();
     timeLayout->setContentsMargins(0, 0, 0, 0);
 
@@ -129,7 +129,7 @@ void DownloadSettingWidget::initUI()
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_fullSpeedDownloadButton);
-//    mainLayout->addLayout(pVFullSpeedLayout);
+    //    mainLayout->addLayout(pVFullSpeedLayout);
     mainLayout->addWidget(m_speedLimitDownloadButton);
     mainLayout->addLayout(speedLimitDownloadLayout);
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -163,10 +163,10 @@ void DownloadSettingWidget::onRadioButtonClicked()
         m_endTimeEdit->setDisabled(true);
 
         QString text = QString("fullspeed;%1;%2;%3;%4")
-                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
-                .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
-                .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
-                .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
+                           .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
+                           .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
+                           .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
+                           .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
 
         emit speedLimitInfoChanged(text);
     } else if (m_speedLimitDownloadButton == radioButton) {
@@ -178,10 +178,10 @@ void DownloadSettingWidget::onRadioButtonClicked()
         m_endTimeEdit->setDisabled(false);
 
         QString text = QString("speedlimit;%1;%2;%3;%4")
-                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
-                .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
-                .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
-                .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
+                           .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
+                           .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
+                           .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
+                           .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
 
         emit speedLimitInfoChanged(text);
     }
@@ -193,18 +193,18 @@ void DownloadSettingWidget::onTimeChanged(const QTime &time)
 
     if (m_startTimeEdit == timeEdit) {
         QString text = QString("speedlimit;%1;%2;%3;%4")
-                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
-                .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
-                .arg(time.toString("hh:mm:ss"))
-                .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
+                           .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
+                           .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
+                           .arg(time.toString("hh:mm:ss"))
+                           .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
 
         emit speedLimitInfoChanged(text);
     } else if (m_endTimeEdit == timeEdit) {
         QString text = QString("speedlimit;%1;%2;%3;%4")
-                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
-                .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
-                .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
-                .arg(time.toString("hh:mm:ss"));
+                           .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
+                           .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
+                           .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
+                           .arg(time.toString("hh:mm:ss"));
 
         emit speedLimitInfoChanged(text);
     }
@@ -227,10 +227,10 @@ void DownloadSettingWidget::onTextChanged(QString text)
             m_DownloadSpeedLimitValue = text.toInt();
 
             QString info = QString("speedlimit;%1;%2;%3;%4")
-                    .arg(text.toInt())
-                    .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
-                    .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
-                    .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
+                               .arg(text.toInt())
+                               .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
+                               .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
+                               .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
 
             emit speedLimitInfoChanged(info);
         }
@@ -248,10 +248,10 @@ void DownloadSettingWidget::onTextChanged(QString text)
             m_UploadSpeedLimitValue = text.toInt();
 
             QString info = QString("speedlimit;%1;%2;%3;%4")
-                    .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
-                    .arg(text.toInt())
-                    .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
-                    .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
+                               .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
+                               .arg(text.toInt())
+                               .arg(m_startTimeEdit->time().toString("hh:mm:ss"))
+                               .arg(m_endTimeEdit->time().toString("hh:mm:ss"));
 
             emit speedLimitInfoChanged(info);
         }
@@ -322,6 +322,3 @@ void DownloadSettingWidget::setEndTime(const QString &text)
 
     m_endTimeEdit->setTime(time);
 }
-
-
-
