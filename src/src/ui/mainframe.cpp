@@ -1976,10 +1976,10 @@ void MainFrame::onOpenFileActionTriggered()
         QThread::usleep(100);
         QString path = QString("file:///") + m_CheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
-    } /*else if (m_CurrentTab == recycleTab) {
+    } else if (m_CurrentTab == recycleTab) {
         QString path = QString("file:///") + m_DelCheckItem->savePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
-    }*/
+    }
 }
 
 void MainFrame::onOpenFolderActionTriggered()

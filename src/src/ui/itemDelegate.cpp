@@ -390,7 +390,7 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
     QString filePath = index.data(TableModel::SavePath).toString();
     filePath = filePath.left(filePath.lastIndexOf("/") + 1);
     filePath = filePath + fileName;
-    if (!QFileInfo::exists(filePath)) {
+    if (!QFileInfo::exists(filePath) && !pEdit->text().isEmpty()) {
         for (int i = 0; i < index.model()->rowCount(); i++) {
             QModelIndex idx = index.sibling(i, index.column());
             QString path = idx.data(TableModel::SavePath).toString();

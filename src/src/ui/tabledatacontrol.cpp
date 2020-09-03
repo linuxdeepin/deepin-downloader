@@ -727,14 +727,17 @@ void tableDataControl::searchEditTextChanged(QString text)
     if (text.isEmpty()) {
         for (int i = 0; i < pModel->rowCount(); i++) {
             m_DownloadTableView->setRowHidden(i, false);
+            pModel->setData(pModel->index(i, 0), false, TableModel::IsHide);
             pModel->setData(pModel->index(i, 0), false, TableModel::Ischecked);
         }
     } else {
         for (int i = 0; i < pModel->rowCount(); i++) {
             m_DownloadTableView->setRowHidden(i, false);
+            pModel->setData(pModel->index(i, 0), false, TableModel::IsHide);
             QString fileName = pModel->data(pModel->index(i, 1), TableModel::FileName).toString();
             if (!fileName.contains(text, Qt::CaseInsensitive)) {
                 m_DownloadTableView->setRowHidden(i, true);
+                pModel->setData(pModel->index(i, 0), true, TableModel::IsHide);
             }
             pModel->setData(pModel->index(i, 0), false, TableModel::Ischecked);
         }

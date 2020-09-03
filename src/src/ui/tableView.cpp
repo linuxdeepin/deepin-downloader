@@ -57,7 +57,7 @@ TableView::TableView(int Flag, TopButton *pToolBar)
     , m_TableFlag(Flag)
     , m_TableModel(new TableModel(Flag))
     , m_TableDataControl(new tableDataControl(this))
-    ,m_Itemdegegate(new ItemDelegate(this, m_TableFlag))
+    , m_Itemdegegate(new ItemDelegate(this, m_TableFlag))
     , m_Setting(Settings::getInstance())
     , m_ToolBar(pToolBar)
 {
@@ -86,7 +86,7 @@ void TableView::initUI()
 
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-    m_HeaderView = new  DownloadHeaderView(Qt::Horizontal, this);
+    m_HeaderView = new DownloadHeaderView(Qt::Horizontal, this);
     setHorizontalHeader(m_HeaderView);
     m_HeaderView->setDefaultSectionSize(20);
     //m_HeaderView->setSortIndicatorShown(false);
@@ -112,6 +112,7 @@ void TableView::initConnections()
     connect(m_TableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
     connect(this, &TableView::isCheckHeader, m_HeaderView, &DownloadHeaderView::onHeaderChecked);
     connect(this, &TableView::Hoverchanged, m_Itemdegegate, &ItemDelegate::onHoverchanged);
+    connect(m_TableModel, &TableModel::layoutChanged, this, &TableView::onModellayoutChanged);
 }
 
 void TableView::initTableView()
@@ -126,13 +127,13 @@ void TableView::reset(bool switched)
     QTableView::reset();
 
     selectRow(idx.row());
-    if(switched) {
+    if (switched) {
         size = 0;
     }
     QTableView::verticalScrollBar()->setValue(size);
 }
 
-TableModel * TableView::getTableModel()
+TableModel *TableView::getTableModel()
 {
     return m_TableModel;
 }
@@ -149,7 +150,7 @@ DownloadHeaderView *TableView::getTableHeader()
 
 void TableView::mousePressEvent(QMouseEvent *event)
 {
-    if(event->button() == Qt::LeftButton) {
+    if (event->button() == Qt::LeftButton) {
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
     }
@@ -164,7 +165,7 @@ void TableView::mouseMoveEvent(QMouseEvent *event)
 void TableView::mouseReleaseEvent(QMouseEvent *event)
 {
     QModelIndex index = indexAt(event->pos());
-    if((index.row() < 0) && (index.column() < 0)) {
+    if ((index.row() < 0) && (index.column() < 0)) {
         emit HeaderStatechanged(false);
         emit isCheckHeader(false);
         //return;
@@ -182,7 +183,7 @@ void TableView::leaveEvent(QEvent *event)
 
 void TableView::keyPressEvent(QKeyEvent *event)
 {
-    if((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_C)) {
+    if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_C)) {
         return;
     }
     QWidget::keyPressEvent(event);
@@ -190,23 +191,23 @@ void TableView::keyPressEvent(QKeyEvent *event)
 
 void TableView::refreshTableView(const int &index)
 {
-    switch(index) {
+    switch (index) {
     case 0: {
         //if(1 == getTableModel()->getTablemodelMode()){
-            getTableModel()->switchDownloadingMode();
+        getTableModel()->switchDownloadingMode();
         //}
         setColumnHidden(3, false);
         setColumnHidden(4, true);
 
         // 联动工具栏按钮 begin
         int chkedCnt = 0;
-        const QList<DownloadDataItem *>& selectList = getTableModel()->renderList();
-        for(int i = 0; i < selectList.size(); i++) {
-            if(selectList.at(i)->Ischecked) {
+        const QList<DownloadDataItem *> &selectList = getTableModel()->renderList();
+        for (int i = 0; i < selectList.size(); i++) {
+            if (selectList.at(i)->Ischecked) {
                 chkedCnt++;
             }
         }
-        if(chkedCnt > 0) {
+        if (chkedCnt > 0) {
             m_ToolBar->enableStartBtn(true);
             m_ToolBar->enablePauseBtn(true);
             m_ToolBar->enableDeleteBtn(true);
@@ -220,15 +221,35 @@ void TableView::refreshTableView(const int &index)
 
     case 1:
         //if(0 == getTableModel()->getTablemodelMode()){
-            getTableModel()->switchFinishedMode();
+        getTableModel()->switchFinishedMode();
         //}
         setColumnHidden(3, true);
         setColumnHidden(4, false);
         break;
     }
 
-
     update();
 }
 
-
+void TableView::onModellayoutChanged()
+{
+    if (m_TableFlag == 0) {
+        const QList<DownloadDataItem *> &selectList = getTableModel()->renderList();
+        for (int i = 0; i < selectList.size(); i++) {
+            if (selectList.at(i)->IsHide) {
+                setRowHidden(i, true);
+            } else {
+                setRowHidden(i, false);
+            }
+        }
+    } else {
+        const QList<DeleteDataItem *> &selectList = getTableModel()->recyleList();
+        for (int i = 0; i < selectList.size(); i++) {
+            if (selectList.at(i)->IsHide) {
+                setRowHidden(i, true);
+            } else {
+                setRowHidden(i, false);
+            }
+        }
+    }
+}

@@ -353,6 +353,13 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             return deldata->savePath;
         }
     }
+    case TableModel::IsHide: {
+        if (m_TableviewtabFlag == 0) {
+            return data->IsHide;
+        } else {
+            return deldata->IsHide;
+        }
+    }
     }
     return QVariant();
 }
@@ -474,6 +481,16 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
         }
         break;
     }
+    case TableModel::IsHide: {
+        if (m_TableviewtabFlag == 0) {
+            data->IsHide = value.toBool();
+            m_RenderList.replace(index.row(), data);
+        } else {
+            deldata->IsHide = value.toBool();
+            m_RecyleList.replace(index.row(), deldata);
+        }
+        break;
+    }
 
     default:
         return false;
@@ -542,8 +559,6 @@ void TableModel::sort(int column, Qt::SortOrder order)
     } else if (1 == m_TableviewtabFlag) {
         sortRecycle(column, order);
     }
-
-    emit layoutChanged();
 }
 
 void TableModel::sortDownload(int column, Qt::SortOrder order)
@@ -581,6 +596,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
         break;
     }
     double num = -1;
+    int hideCount = 0;
     for (int row = 0; row < rowCount(); ++row) {
         QVariant itm = data(index(row, column), role);
         if (role == TableModel::Size || role == TableModel::TotalLength) {
@@ -600,7 +616,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
 
     QList<DownloadDataItem *> sortData;
     emit layoutAboutToBeChanged();
-    int nSwapCount = rowCount();
+    int nSwapCount = rowCount() - hideCount;
     for (int i = 0; i < nSwapCount; i++) {
         int r = (i < sortable.count()
                      ? sortable.at(i).second
@@ -632,6 +648,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
         break;
     }
     double num = -1;
+    int hideCount = 0;
     for (int row = 0; row < rowCount(); ++row) {
         QVariant itm = data(index(row, column), role);
         if (role == TableModel::TotalLength) {
@@ -650,7 +667,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
 
     QList<DeleteDataItem *> sortData;
     emit layoutAboutToBeChanged();
-    int nSwapCount = rowCount();
+    int nSwapCount = rowCount() - hideCount;
     for (int i = 0; i < nSwapCount; i++) {
         int r = (i < sortable.count()
                      ? sortable.at(i).second
