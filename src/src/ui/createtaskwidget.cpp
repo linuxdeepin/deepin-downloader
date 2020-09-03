@@ -166,6 +166,7 @@ void CreateTaskWidget::onSureBtnClicked()
     urlList = urlList.toSet().toList();
     QStringList errorList;
     for (int i = 0; i < urlList.size(); i++) {
+        urlList[i]= urlList[i].simplified();
         if(!(isHttp(urlList[i]) || isMagnet(urlList[i])))
         {
             errorList.append(urlList[i]);
