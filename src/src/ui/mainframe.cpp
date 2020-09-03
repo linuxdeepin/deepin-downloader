@@ -720,7 +720,10 @@ void MainFrame::OpenBt(QString url)
     bool isExist;
     bool isOneClick = Settings::getInstance()->getOneClickDownloadState();
     if (isOneClick) {
-        btDiag.onBtnOK();
+        bool isSuccess = btDiag.onBtnOK();
+        if (!isSuccess) {
+            return;
+        }
         btDiag.getBtInfo(opt, infoName, infoHash);
         bool ret = onDownloadNewTorrent(url, opt, infoName, infoHash);
 
@@ -2426,8 +2429,8 @@ void MainFrame::startBtAssociat()
         return;
     }
     QTextStream data(&readFile);
-    bool isDefault;
-    bool isAdded;
+    bool isDefault = false;
+    bool isAdded = false;
     QStringList DefaultList;
     QStringList AddedList;
     //找到 [Default Applications] 和[Added Associations] 下面中的 application/x-bittorrent=字段
