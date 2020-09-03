@@ -31,9 +31,9 @@
 #include <QAbstractTableModel>
 
 namespace Global {
-    struct DownloadDataItem;
-    struct DeleteDataItem;
-}
+struct DownloadDataItem;
+struct DeleteDataItem;
+} // namespace Global
 
 /**
  * @class TableModel
@@ -43,24 +43,36 @@ class TableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-
     /**
      * @brief 列表模式
      */
     enum DownloadMode {
-        Downloading = 0, Finished
+        Downloading = 0,
+        Finished
     };
     /**
      * @brief 数据角色
      */
     enum DataRole {
-        Ischecked = 0, Speed, Size, FileName, Time, Status, GID, Percent, TotalLength, SavePath, taskId, createTime
+        Ischecked = 0,
+        Speed,
+        Size,
+        FileName,
+        Time,
+        Status,
+        GID,
+        Percent,
+        TotalLength,
+        SavePath,
+        taskId,
+        createTime,
+        IsHide
     };
 
     /**
      * @brief 构造函数
      */
-    TableModel(int      Flag,
+    TableModel(int Flag,
                QObject *parent = nullptr);
 
     /**
@@ -70,8 +82,8 @@ public:
      * @param role: 角色
      */
     bool setData(const QModelIndex &ndex,
-                 const QVariant    &value,
-                 int                role) override;
+                 const QVariant &value,
+                 int role) override;
 
     /**
      * @brief 在正在下载列表添加一列
@@ -129,32 +141,32 @@ public:
      * @param taskId: 任务id
      * @return 查找到的item数据
      */
-    Global::DownloadDataItem* find(const QString &taskId);
+    Global::DownloadDataItem *find(const QString &taskId);
 
     /**
      * @brief 根据id查找回收站item
      * @param gid: id
      * @return 查找到的item数据
      */
-    Global::DeleteDataItem* find(const QString &gid, int flag);
+    Global::DeleteDataItem *find(const QString &gid, int flag);
 
     /**
      * @brief 获取正在下载列表
      * @return item列表
      */
-    const QList<Global::DownloadDataItem *>&    dataList();
+    const QList<Global::DownloadDataItem *> &dataList();
 
     /**
      * @brief 获取已完成下载列表
      * @return item列表
      */
-    const QList<Global::DownloadDataItem *>&    renderList();
+    const QList<Global::DownloadDataItem *> &renderList();
 
     /**
      * @brief 获取回收站下载列表
      * @return item列表
      */
-    const QList<Global::DeleteDataItem *>& recyleList();
+    const QList<Global::DeleteDataItem *> &recyleList();
 
     /**
      * @brief 获取列表展示模式
@@ -166,7 +178,7 @@ public:
      * @brief 获取列表展示模式
      * @return 模式map
      */
-    QMap<QString, Global::DownloadDataItem *>&  getTableModelMap();
+    QMap<QString, Global::DownloadDataItem *> &getTableModelMap();
 
     /**
      * @brief 获取正在下载的个数
@@ -225,13 +237,19 @@ signals:
      * @brief 选中或者不选中
      * @param flag: 模式
      */
-    void CheckChange(bool checked, int  flag);
+    void CheckChange(bool checked, int flag);
+
+    /**
+     * @brief 排序后数据改变
+     */
+    void layoutChanged();
 private slots:
     /**
      * @brief 获取选中改变
      * @param flag: 模式
      */
     void onCheckdatachange(int flag);
+
 private:
     QList<Global::DownloadDataItem *> m_DataList;
     QList<Global::DownloadDataItem *> m_RenderList; //切换到正在下载列表就保存正在下载的数据，切换到已完成列表就保存已完成数据
