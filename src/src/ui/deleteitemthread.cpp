@@ -30,15 +30,16 @@
 #include <QDebug>
 #include <QFile>
 #include <QDir>
+#include <QTimer>
 
 DeleteItemThread::DeleteItemThread()
 {
 }
 
 DeleteItemThread::DeleteItemThread(QList<DeleteDataItem> recycleDeleteList,
-                                   TableView         *recycleTableview,
-                                   bool               ifDeleteLocal,
-                                   QString            deleteType)
+                                   TableView *recycleTableview,
+                                   bool ifDeleteLocal,
+                                   QString deleteType)
 {
     m_RecycleDeleteList = recycleDeleteList;
     m_RecycleTableview = recycleTableview;
@@ -46,10 +47,10 @@ DeleteItemThread::DeleteItemThread(QList<DeleteDataItem> recycleDeleteList,
     m_StrDeleteType = deleteType;
 }
 
-DeleteItemThread::DeleteItemThread(QList<DownloadDataItem>    deleteList,
-                                   TableView         *downloadingTableview,
-                                   bool               ifDeleteLocal,
-                                   QString            deleteType)
+DeleteItemThread::DeleteItemThread(QList<DownloadDataItem> deleteList,
+                                   TableView *downloadingTableview,
+                                   bool ifDeleteLocal,
+                                   QString deleteType)
 {
     m_DeleteList = deleteList;
     m_DownloadingTableview = downloadingTableview;
@@ -60,19 +61,19 @@ DeleteItemThread::DeleteItemThread(QList<DownloadDataItem>    deleteList,
 //删除文件夹
 bool DeleteItemThread::DelDir(const QString &path)
 {
-    if(path.isEmpty()) {
+    if (path.isEmpty()) {
         return false;
     }
     QDir dir(path);
-    if(!dir.exists()) {
+    if (!dir.exists()) {
         return true;
     }
     dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); // 设置过滤
-    QFileInfoList fileList = dir.entryInfoList();           // 获取所有的文件信息
-    foreach(QFileInfo file, fileList) {                     // 遍历文件信息
-        if(file.isFile()) {                                 // 是文件，删除
+    QFileInfoList fileList = dir.entryInfoList(); // 获取所有的文件信息
+    foreach (QFileInfo file, fileList) { // 遍历文件信息
+        if (file.isFile()) { // 是文件，删除
             file.dir().remove(file.fileName());
-        } else {  // 递归删除
+        } else { // 递归删除
             DelDir(file.absoluteFilePath());
         }
     }
@@ -81,28 +82,32 @@ bool DeleteItemThread::DelDir(const QString &path)
 
 void DeleteItemThread::deleteRecycleData()
 {
-    if(m_IfDeleteLocal) {
-        for(int i = 0; i < m_RecycleDeleteList.size(); i++) {
+    if (m_IfDeleteLocal) {
+        for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
             QString savePath = m_RecycleDeleteList.at(i).savePath;
             QString gid = m_RecycleDeleteList.at(i).gid;
             QString taskId = m_RecycleDeleteList.at(i).taskId;
             QString filename = m_RecycleDeleteList.at(i).fileName;
-            if(!savePath.isEmpty()) {
+            if (!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
-                if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
+                if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
                     QDir tar(m_RecycleDeleteList.at(i).savePath);
                     tar.removeRecursively();
-                    if(QFile::exists(savePath + ".aria2")) {
-                        QThread::msleep(200);
+                    if (QFile::exists(savePath + ".aria2")) {
                         QFile::remove(savePath + ".aria2");
+                        QTimer::singleShot(3000, [=]() {
+                            QFile::remove(savePath + ".aria2");
+                        });
                     }
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
-                    if(!savePath.isEmpty()) {
+                    if (!savePath.isEmpty()) {
                         deleteDirectory(savePath);
-                        if(QFile::exists(ariaTempFile)) {
-                            QThread::msleep(200);
-                            QFile::remove(ariaTempFile);
+                        if (QFile::exists(ariaTempFile)) {
+                            QFile::remove(savePath + ".aria2");
+                            QTimer::singleShot(3000, [=]() {
+                                QFile::remove(savePath + ".aria2");
+                            });
                         }
                     }
                 }
@@ -114,31 +119,35 @@ void DeleteItemThread::deleteRecycleData()
 
 void DeleteItemThread::deleteDownloadData()
 {
-    for(int i = 0; i < m_DeleteList.size(); ++i) {
+    for (int i = 0; i < m_DeleteList.size(); ++i) {
         QString gid = m_DeleteList.at(i).gid;
         QString taskId = m_DeleteList.at(i).taskId;
         QString savePath = m_DeleteList.at(i).savePath;
         QString filename = m_DeleteList.at(i).fileName;
-        emit    Aria2Remove(m_DeleteList.at(i).gid, "");
-        if(m_IfDeleteLocal) {
+        emit Aria2Remove(m_DeleteList.at(i).gid, "");
+        if (m_IfDeleteLocal) {
             Aria2RPCInterface::instance()->pause(gid, taskId);
 
-            if(!savePath.isEmpty()) {
+            if (!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
-                if(fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
+                if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
                     QDir tar(savePath);
                     tar.removeRecursively();
-                    if(QFile::exists(savePath + ".aria2")) {
-                        QThread::msleep(200);
+                    if (QFile::exists(savePath + ".aria2")) {
                         QFile::remove(savePath + ".aria2");
+                        QTimer::singleShot(3000, [=]() {
+                            QFile::remove(savePath + ".aria2");
+                        });
                     }
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
-                    if(!savePath.isEmpty()) {
+                    if (!savePath.isEmpty()) {
                         deleteDirectory(savePath);
-                        if(QFile::exists(ariaTempFile)) {
-                            QThread::msleep(200);
-                            QFile::remove(ariaTempFile);
+                        if (QFile::exists(ariaTempFile)) {
+                            QFile::remove(savePath + ".aria2");
+                            QTimer::singleShot(3000, [=]() {
+                                QFile::remove(savePath + ".aria2");
+                            });
                         }
                     }
                 }
@@ -150,42 +159,39 @@ void DeleteItemThread::deleteDownloadData()
 
 void DeleteItemThread::run()
 {
-    if(m_StrDeleteType == "recycle_delete") {
+    if (m_StrDeleteType == "recycle_delete") {
         deleteRecycleData();
     }
-    if(m_StrDeleteType == "download_delete") {
+    if (m_StrDeleteType == "download_delete") {
         deleteDownloadData();
     }
+    QEventLoop loop;
+    QTimer::singleShot(5000, &loop, SLOT(quit()));
+    loop.exec();
 }
 
 bool DeleteItemThread::deleteDirectory(const QString &path)
 {
     QFileInfo info(path);
-    if(info.isFile()){
+    if (info.isFile()) {
         QFile::remove(path);
         return true;
     }
-    if (path.isEmpty())
-    {
+    if (path.isEmpty()) {
         return false;
     }
 
     QDir dir(path);
-    if(!dir.exists())
-    {
+    if (!dir.exists()) {
         return true;
     }
 
     dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
     QFileInfoList fileList = dir.entryInfoList();
-    foreach (QFileInfo fi, fileList)
-    {
-        if (fi.isFile())
-        {
+    foreach (QFileInfo fi, fileList) {
+        if (fi.isFile()) {
             fi.dir().remove(fi.fileName());
-        }
-        else
-        {
+        } else {
             deleteDirectory(fi.absoluteFilePath());
         }
     }
