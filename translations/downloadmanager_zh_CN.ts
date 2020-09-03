@@ -1102,30 +1102,30 @@ and more resource consumption.</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="386"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="391"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="389"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="394"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="393"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="402"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="398"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="407"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="395"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="404"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="400"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="409"/>
         <source>Time finished</source>
         <translation>完成时间</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/tableModel.cpp" line="397"/>
-        <location filename="../src/src/ui/tableModel.cpp" line="406"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="402"/>
+        <location filename="../src/src/ui/tableModel.cpp" line="411"/>
         <source>Time deleted</source>
         <translation>删除时间</translation>
     </message>
