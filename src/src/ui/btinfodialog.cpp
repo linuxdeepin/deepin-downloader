@@ -40,10 +40,8 @@
 #include <QStandardPaths>
 #include <QSharedMemory>
 
-
-
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
-    :DDialog ()
+    : DDialog()
 {
     m_torrentFile = torrentFile;
     m_defaultDownloadDir = bt_last_save_path;
@@ -52,11 +50,10 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
     setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::onPaletteTypeChanged);
-
-
 }
 
-BtInfoDialog::~BtInfoDialog() {
+BtInfoDialog::~BtInfoDialog()
+{
     delete m_model;
     delete m_delegate;
 
@@ -84,9 +81,9 @@ BtInfoDialog::~BtInfoDialog() {
 QString BtInfoDialog::getSelected()
 {
     QString selected = "";
-    for(int i = 0;i < m_model->rowCount();i++) {
-        QString checked =  m_model->data(m_model->index(i, 0)).toString();
-        if(checked == "1") {
+    for (int i = 0; i < m_model->rowCount(); i++) {
+        QString checked = m_model->data(m_model->index(i, 0)).toString();
+        if (checked == "1") {
             QString index = m_model->data(m_model->index(i, 4)).toString();
             selected += index;
             selected += ",";
@@ -105,8 +102,6 @@ QString BtInfoDialog::getName()
     return m_labelInfoName->text();
 }
 
-
-
 void BtInfoDialog::initUI()
 {
     m_ariaInfo = Aria2RPCInterface::instance()->getBtInfo(m_torrentFile);
@@ -119,7 +114,7 @@ void BtInfoDialog::initUI()
     m_labelTitle->move(0, 48);
     m_labelTitle->setText(tr("New Task"));
     m_folderIcon = new DLabel(this);
-    m_folderIcon->setPixmap(QPixmap(":/icons/icon/folder.svg"));///usr/share/icons/bloom/places/32/folder.svg
+    m_folderIcon->setPixmap(QPixmap(":/icons/icon/folder.svg")); ///usr/share/icons/bloom/places/32/folder.svg
     m_folderIcon->move(45, 92);
 
     //下载信息名称
@@ -136,7 +131,7 @@ void BtInfoDialog::initUI()
     m_labelFileSize = new DLabel(this);
     m_labelFileSize->setAlignment(Qt::AlignRight);
     QString size = Aria2RPCInterface::instance()->bytesFormat(m_ariaInfo.totalLengthByets);
-    m_labelFileSize->setText(QString(tr("Total ")+ size));
+    m_labelFileSize->setText(QString(tr("Total ") + size));
     m_labelFileSize->setFont(font2);
     m_labelFileSize->setPalette(pal);
 
@@ -160,9 +155,9 @@ void BtInfoDialog::initUI()
     hb->addWidget(m_labelSelectedFileNum, Qt::AlignLeft);
     hb->addStretch();
     hb->addWidget(m_labelFileSize, Qt::AlignRight);
- //   hb->setGeometry(1);
-    hb->setGeometry(QRect(15,381,471,20));
-//    vb->addLayout(hb);
+    //   hb->setGeometry(1);
+    hb->setGeometry(QRect(15, 381, 471, 20));
+    //    vb->addLayout(hb);
 
     //Checkbox
     m_checkAll = new DCheckBox(this);
@@ -170,7 +165,6 @@ void BtInfoDialog::initUI()
     m_checkAll->setText(tr("All"));
     m_checkAll->setChecked(true);
     connect(m_checkAll, SIGNAL(clicked()), this, SLOT(onAllCheck()));
-
 
     m_checkVideo = new DCheckBox(this);
     m_checkVideo->setGeometry(100, 401, 95, 29);
@@ -184,7 +178,6 @@ void BtInfoDialog::initUI()
     m_checkPicture->setChecked(true);
     connect(m_checkPicture, SIGNAL(clicked()), this, SLOT(onPictureCheck()));
 
-
     m_checkAudio = new DCheckBox(this);
     m_checkAudio->setGeometry(270, 401, 95, 29);
     m_checkAudio->setText(tr("Music"));
@@ -192,7 +185,7 @@ void BtInfoDialog::initUI()
     connect(m_checkAudio, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
 
     m_checkOther = new DCheckBox(this);
-    m_checkOther->setGeometry(355, 401, 95, 29);    //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
+    m_checkOther->setGeometry(355, 401, 95, 29); //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
     m_checkOther->setText(tr("Others"));
     m_checkOther->setChecked(true);
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
@@ -201,7 +194,7 @@ void BtInfoDialog::initUI()
     m_labelCapacityFree = new DLabel();
     m_labelCapacityFree->setGeometry(350, 363, 86, 23);
     QString _freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
-   // this->m_labelCapacityFree->setText(tr("Free space:") + _freeSize);
+    // this->m_labelCapacityFree->setText(tr("Free space:") + _freeSize);
     m_labelCapacityFree->setPalette(pal);
     m_labelCapacityFree->setFont(font2);
 
@@ -209,21 +202,20 @@ void BtInfoDialog::initUI()
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
     QString text = getFileEditText(m_defaultDownloadDir);
-    QString flieEditText =  tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
-
+    QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
     m_surplusSize = new DLabel(this);
     m_surplusSize->setText(flieEditText);
     m_surplusSize->setPalette(pal);
     m_surplusSize->setFont(font2);
-    m_surplusSize->move(348,438);
+    m_surplusSize->move(348, 438);
     QString str = getFileEditText(m_defaultDownloadDir);
     m_editDir->setText(str);
     m_editDir->setClearButtonEnabled(false);
     m_editDir->setFileMode(QFileDialog::DirectoryOnly);
     m_editDir->lineEdit()->setEnabled(false);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &BtInfoDialog::onFilechoosed);
-    QList<DSuggestButton*> _btnList = m_editDir->findChildren<DSuggestButton *>();
+    QList<DSuggestButton *> _btnList = m_editDir->findChildren<DSuggestButton *>();
     for (int i = 0; i < _btnList.size(); i++) {
         _btnList[i]->setToolTip(tr("Change download folder"));
     }
@@ -246,10 +238,10 @@ void BtInfoDialog::initUI()
     font.setPixelSize(13);
     m_tableView->setFont(font);
 
-//    headerView *_headerView = new headerView(Qt::Horizontal, m_tableView);
-//    m_tableView->setHorizontalHeader(_headerView);
-//    _headerView->setDefaultAlignment(Qt::AlignLeft);
-//    _headerView->setHighlightSections(false);
+    //    headerView *_headerView = new headerView(Qt::Horizontal, m_tableView);
+    //    m_tableView->setHorizontalHeader(_headerView);
+    //    _headerView->setDefaultAlignment(Qt::AlignLeft);
+    //    _headerView->setHighlightSections(false);
     //_headerView->setSortIndicatorShown(true);
 
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
@@ -271,9 +263,9 @@ void BtInfoDialog::initUI()
     m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));
     m_model->setHeaderData(4, Qt::Horizontal, "index");
 
-    for(int i = 0; i < m_ariaInfo.files.length();i++) {
+    for (int i = 0; i < m_ariaInfo.files.length(); i++) {
         Aria2cBtFileInfo file = m_ariaInfo.files.at(i);
-        QList<QStandardItem*> list;
+        QList<QStandardItem *> list;
         list << new QStandardItem("1");
         list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
         list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
@@ -289,17 +281,17 @@ void BtInfoDialog::initUI()
     m_tableView->setColumnHidden(5, true);
 
     m_tableView->setColumnWidth(0, 290);
-  //  tableView->setColumnWidth(1, 260);
+    //  tableView->setColumnWidth(1, 260);
     m_tableView->setColumnWidth(2, 60);
-  //  tableView->setColumnWidth(3, 60);
+    //  tableView->setColumnWidth(3, 60);
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     m_tableView->setSortingEnabled(false);
     m_tableView->horizontalHeader()->setSortIndicatorShown(true);
     m_tableView->horizontalHeader()->setSectionsClickable(true);
 
-    DFontSizeManager::instance()->bind(m_tableView,DFontSizeManager::SizeType::T6, 0);
+    DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &BtInfoDelegate::onhoverChanged);
-    connect(m_tableView->horizontalHeader(),SIGNAL(sectionPressed(int)),this,SLOT(Sort(int)));
+    connect(m_tableView->horizontalHeader(), SIGNAL(sectionPressed(int)), this, SLOT(Sort(int)));
     onPaletteTypeChanged(DGuiApplicationHelper::ColorType::LightType);
 }
 
@@ -314,27 +306,26 @@ int BtInfoDialog::exec()
 
 void BtInfoDialog::onBtnOK()
 {
-    if(getSelected().isNull())
-    {
-        qDebug()<<"Please Select Download Files!";
+    if (getSelected().isNull()) {
+        qDebug() << "Please Select Download Files!";
         return;
     }
 
     long free = Aria2RPCInterface::instance()->getCapacityFreeByte(m_defaultDownloadDir);
-    long total = 0;//选中文件总大小（字节）
-    for(int i = 0;i < m_model->rowCount();i++) {
-        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+    long total = 0; //选中文件总大小（字节）
+    for (int i = 0; i < m_model->rowCount(); i++) {
+        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
         }
     }
-    if(free < (total / 1024)) {//剩余空间比较 KB
-        qDebug()<<"Disk capacity is not enough!";
+    if (free < (total / 1024)) { //剩余空间比较 KB
+        qDebug() << "Disk capacity is not enough!";
         MessageBox *msg = new MessageBox();
         msg->setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg->exec();
         return;
     }
-    QString save_path=m_defaultDownloadDir;
+    QString save_path = m_defaultDownloadDir;
     Settings::getInstance()->setCustomFilePath(save_path);
     close();
     accept();
@@ -343,8 +334,8 @@ void BtInfoDialog::onBtnOK()
 void BtInfoDialog::onAllCheck()
 {
     int state = m_checkAll->checkState();
-    if(state == Qt::Checked) {
-        for(int i = 0;i < m_model->rowCount();i++) {
+    if (state == Qt::Checked) {
+        for (int i = 0; i < m_model->rowCount(); i++) {
             m_model->setData(m_model->index(i, 0), "1");
         }
 
@@ -355,9 +346,8 @@ void BtInfoDialog::onAllCheck()
         m_checkPicture->setCheckState(Qt::Checked);
         m_checkOther->setCheckState(Qt::Checked);
         setOkBtnStatus(m_model->rowCount());
-    }
-    else if(state == Qt::Unchecked) {
-        for(int i = 0;i < m_model->rowCount();i++) {
+    } else if (state == Qt::Unchecked) {
+        for (int i = 0; i < m_model->rowCount(); i++) {
             m_model->setData(m_model->index(i, 0), "0");
             m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(0)).arg("0B"));
         }
@@ -369,17 +359,20 @@ void BtInfoDialog::onAllCheck()
     }
 }
 
-bool BtInfoDialog::isVideo(QString ext) {
+bool BtInfoDialog::isVideo(QString ext)
+{
     QString types = "avi,mp4,mkv,flv,f4v,wmv,rmvb,rm,mpeg,mpg,mov,ts,m4v,vob";
     return types.indexOf(ext) != -1;
 }
 
-bool BtInfoDialog::isAudio(QString ext) {
+bool BtInfoDialog::isAudio(QString ext)
+{
     QString types = "mp3,ogg,wav,ape,flac,wma,midi,aac,cda";
     return types.indexOf(ext) != -1;
 }
 
-bool BtInfoDialog::isPicture(QString ext) {
+bool BtInfoDialog::isPicture(QString ext)
+{
     QString types = "jpg,jpeg,gif,png,bmp,svg,psd,tif,ico";
     return types.indexOf(ext) != -1;
 }
@@ -387,24 +380,23 @@ bool BtInfoDialog::isPicture(QString ext) {
 void BtInfoDialog::onVideoCheck()
 {
     int state = m_checkVideo->checkState();
-    if(m_checkVideo->checkState() == Qt::Checked
-            && m_checkAudio->checkState() == Qt::Checked
-            && m_checkPicture->checkState() == Qt::Checked
-            && m_checkOther->checkState() == Qt::Checked) {
+    if (m_checkVideo->checkState() == Qt::Checked
+        && m_checkAudio->checkState() == Qt::Checked
+        && m_checkPicture->checkState() == Qt::Checked
+        && m_checkOther->checkState() == Qt::Checked) {
         m_checkAll->setCheckState(Qt::Checked);
-    }
-    else {
+    } else {
         m_checkAll->setCheckState(Qt::Unchecked);
     }
 
     long total = 0;
     int cnt = 0;
-    for(int i = 0;i < m_model->rowCount();i++) {
+    for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
-        if(isVideo(ext)) {
+        if (isVideo(ext)) {
             m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
         }
-        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
             cnt++;
         }
@@ -417,24 +409,23 @@ void BtInfoDialog::onVideoCheck()
 void BtInfoDialog::onAudioCheck()
 {
     int state = m_checkAudio->checkState();
-    if(m_checkVideo->checkState() == Qt::Checked
-            && m_checkAudio->checkState() == Qt::Checked
-            && m_checkPicture->checkState() == Qt::Checked
-            && m_checkOther->checkState() == Qt::Checked) {
+    if (m_checkVideo->checkState() == Qt::Checked
+        && m_checkAudio->checkState() == Qt::Checked
+        && m_checkPicture->checkState() == Qt::Checked
+        && m_checkOther->checkState() == Qt::Checked) {
         m_checkAll->setCheckState(Qt::Checked);
-    }
-    else {
+    } else {
         m_checkAll->setCheckState(Qt::Unchecked);
     }
 
     long total = 0;
     int cnt = 0;
-    for(int i = 0;i < m_model->rowCount();i++) {
+    for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
-        if(isAudio(ext)) {
+        if (isAudio(ext)) {
             m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
         }
-        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
             cnt++;
         }
@@ -447,24 +438,23 @@ void BtInfoDialog::onAudioCheck()
 void BtInfoDialog::onPictureCheck()
 {
     int state = m_checkPicture->checkState();
-    if(m_checkVideo->checkState() == Qt::Checked
-            && m_checkAudio->checkState() == Qt::Checked
-            && m_checkPicture->checkState() == Qt::Checked
-            && m_checkOther->checkState() == Qt::Checked) {
+    if (m_checkVideo->checkState() == Qt::Checked
+        && m_checkAudio->checkState() == Qt::Checked
+        && m_checkPicture->checkState() == Qt::Checked
+        && m_checkOther->checkState() == Qt::Checked) {
         m_checkAll->setCheckState(Qt::Checked);
-    }
-    else {
+    } else {
         m_checkAll->setCheckState(Qt::Unchecked);
     }
 
     long total = 0;
     int cnt = 0;
-    for(int i = 0;i < m_model->rowCount();i++) {
+    for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
-        if(isPicture(ext)) {
+        if (isPicture(ext)) {
             m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
         }
-        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
             cnt++;
         }
@@ -477,23 +467,22 @@ void BtInfoDialog::onPictureCheck()
 void BtInfoDialog::onOtherCheck()
 {
     int state = m_checkOther->checkState();
-    if(m_checkVideo->checkState() == Qt::Checked
-            && m_checkAudio->checkState() == Qt::Checked
-            && m_checkPicture->checkState() == Qt::Checked
-            && m_checkOther->checkState() == Qt::Checked) {
+    if (m_checkVideo->checkState() == Qt::Checked
+        && m_checkAudio->checkState() == Qt::Checked
+        && m_checkPicture->checkState() == Qt::Checked
+        && m_checkOther->checkState() == Qt::Checked) {
         m_checkAll->setCheckState(Qt::Checked);
-    }
-    else {
+    } else {
         m_checkAll->setCheckState(Qt::Unchecked);
     }
     long total = 0;
     int cnt = 0;
-    for(int i = 0;i < m_model->rowCount();i++) {
+    for (int i = 0; i < m_model->rowCount(); i++) {
         QString ext = m_model->data(m_model->index(i, 2)).toString();
-        if(!isVideo(ext) && !isAudio(ext) && !isPicture(ext)) {
+        if (!isVideo(ext) && !isAudio(ext) && !isPicture(ext)) {
             m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
         }
-        if(m_model->data(m_model->index(i, 0)).toString() == "1") {
+        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
             cnt++;
         }
@@ -516,56 +505,49 @@ void BtInfoDialog::updateSelectedInfo()
     int allPic = 0;
     int allOther = 0;
     int all = 0;
-    for(int i = 0;i < m_model->rowCount();i++) {
+    for (int i = 0; i < m_model->rowCount(); i++) {
         QString v = m_model->data(m_model->index(i, 0)).toString();
         QString type = m_model->data(m_model->index(i, 2)).toString();
-        if(v == "1") {
+        if (v == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
-            if(isVideo(type)){
+            if (isVideo(type)) {
                 selectVideoCount++;
-            }
-            else if(isAudio(type)){
+            } else if (isAudio(type)) {
                 selectAudioCount++;
-            }
-            else if(isPicture(type)){
+            } else if (isPicture(type)) {
                 selectPictureCount++;
-            }
-            else {
+            } else {
                 selectOtherCount++;
             }
             cnt++;
         }
     }
-    for(int i = 0;i < m_model->rowCount();i++) {
+    for (int i = 0; i < m_model->rowCount(); i++) {
         QString type = m_model->data(m_model->index(i, 2)).toString();
-            if(isVideo(type)){
-                allVideo++;
-            }
-            else if(isAudio(type)){
-                allAudio++;
-            }
-            else if(isPicture(type)){
-                allPic++;
-            }
-            else {
-                allOther++;
-            }
+        if (isVideo(type)) {
+            allVideo++;
+        } else if (isAudio(type)) {
+            allAudio++;
+        } else if (isPicture(type)) {
+            allPic++;
+        } else {
+            allOther++;
+        }
     }
-    allVideo == selectVideoCount && allVideo > 0 ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
-    allAudio == selectAudioCount && allAudio > 0 ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
-    allPic == selectPictureCount && allPic > 0 ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
-    allOther == selectOtherCount && allOther > 0? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
+    allVideo == selectVideoCount &&allVideo > 0 ? m_checkVideo->setCheckState(Qt::Checked) : m_checkVideo->setCheckState(Qt::Unchecked);
+    allAudio == selectAudioCount &&allAudio > 0 ? m_checkAudio->setCheckState(Qt::Checked) : m_checkAudio->setCheckState(Qt::Unchecked);
+    allPic == selectPictureCount &&allPic > 0 ? m_checkPicture->setCheckState(Qt::Checked) : m_checkPicture->setCheckState(Qt::Unchecked);
+    allOther == selectOtherCount &&allOther > 0 ? m_checkOther->setCheckState(Qt::Checked) : m_checkOther->setCheckState(Qt::Unchecked);
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     cnt == m_model->rowCount() ? m_checkAll->setCheckState(Qt::Checked) : m_checkAll->setCheckState(Qt::Unchecked);
-//    if(cnt == size){
-//        m_checkAll->setCheckState(Qt::Checked);
-//    }
-//    else {
-//        m_checkAll->setCheckState(Qt::Unchecked);
-//    }
+    //    if(cnt == size){
+    //        m_checkAll->setCheckState(Qt::Checked);
+    //    }
+    //    else {
+    //        m_checkAll->setCheckState(Qt::Unchecked);
+    //    }
     setOkBtnStatus(cnt);
-
 }
 
 void BtInfoDialog::onFilechoosed(const QString &filename)
@@ -573,16 +555,16 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     QFileInfo fileinfo;
     QString strPath;
     fileinfo.setFile(filename);
-    if(!fileinfo.isWritable()){
-       MessageBox *msg=new MessageBox();
-       QString title = tr("Permission denied. Please try other folder.");
-       msg->setWarings(title, tr("sure"));
-       msg->exec();
-       strPath = m_editDir->directoryUrl().toString();
-       QString text = getFileEditText(m_defaultDownloadDir);
-       m_editDir->lineEdit()->setText(text);
-       m_editDir->setDirectoryUrl(m_defaultDownloadDir);
-       return;
+    if (!fileinfo.isWritable()) {
+        MessageBox *msg = new MessageBox();
+        QString title = tr("Permission denied. Please try other folder.");
+        msg->setWarings(title, tr("sure"));
+        msg->exec();
+        strPath = m_editDir->directoryUrl().toString();
+        QString text = getFileEditText(m_defaultDownloadDir);
+        m_editDir->lineEdit()->setText(text);
+        m_editDir->setDirectoryUrl(m_defaultDownloadDir);
+        return;
     }
 
     QString text = getFileEditText(filename);
@@ -597,18 +579,17 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
     QPalette p;
     m_delegate->setHoverColor(DGuiApplicationHelper::instance()->applicationPalette().frameBorder());
 
-    if(themeType == 1) {
+    if (themeType == 1) {
         p.setColor(QPalette::Background, Qt::white);
-        m_delegate->setHoverColor(QColor(0,0,0,13));
+        m_delegate->setHoverColor(QColor(0, 0, 0, 13));
 
         QPalette pal;
         pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
         m_labelFileSize->setPalette(pal);
         m_labelSelectedFileNum->setPalette(pal);
-    }
-    else {
+    } else {
         p = DGuiApplicationHelper::instance()->applicationPalette();
-        m_delegate->setHoverColor(QColor(255,255,255,26));
+        m_delegate->setHoverColor(QColor(255, 255, 255, 26));
 
         m_labelFileSize->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
         m_labelSelectedFileNum->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
@@ -618,7 +599,7 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
 
 void BtInfoDialog::Sort(int index)
 {
-    bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection()==index&& m_tableView->horizontalHeader()->sortIndicatorOrder()==Qt::DescendingOrder);
+    bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection() == index && m_tableView->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
     switch (index) {
     case DataRole::fileName:
         sortByFileName(ascending);
@@ -629,7 +610,6 @@ void BtInfoDialog::Sort(int index)
     case DataRole::size:
         sortBySize(ascending);
         break;
-
     }
 }
 
@@ -643,11 +623,11 @@ void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
     m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));
     m_model->setHeaderData(4, Qt::Horizontal, "index");
 
-    m_tableView->sortByColumn(index, ret? Qt::DescendingOrder : Qt::AscendingOrder);
+    m_tableView->sortByColumn(index, ret ? Qt::DescendingOrder : Qt::AscendingOrder);
     int count = m_listBtInfo.size();
-    if(ret){
+    if (ret) {
         for (int i = 0; i < m_listBtInfo.size(); i++) {
-            QList<QStandardItem*> list;
+            QList<QStandardItem *> list;
             list << new QStandardItem("1");
             list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf("/") + 1));
             list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf(".") + 1));
@@ -657,10 +637,9 @@ void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
             auto a = m_listBtInfo[i].lengthBytes;
             m_model->appendRow(list);
         }
-    }
-    else {
-        for (int i = 1;i < count+1; i++) {
-            QList<QStandardItem*> list;
+    } else {
+        for (int i = 1; i < count + 1; i++) {
+            QList<QStandardItem *> list;
             list << new QStandardItem("1");
             list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf("/") + 1));
             list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf(".") + 1));
@@ -671,46 +650,44 @@ void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
         }
     }
 
-
     m_tableView->setColumnHidden(1, true);
     m_tableView->setColumnHidden(4, true);
     m_tableView->setColumnHidden(5, true);
 
     m_tableView->setColumnWidth(0, 290);
-  //  tableView->setColumnWidth(1, 260);
+    //  tableView->setColumnWidth(1, 260);
     m_tableView->setColumnWidth(2, 60);
-  //  tableView->setColumnWidth(3, 60);
+    //  tableView->setColumnWidth(3, 60);
 }
 
-void BtInfoDialog::getBtInfo(QMap<QString,QVariant> &opt, QString &infoName, QString &infoHash)
+void BtInfoDialog::getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QString &infoHash)
 {
-    opt.insert("dir",m_editDir->text());
-    opt.insert("select-file",getSelected());
+    opt.insert("dir", m_editDir->text());
+    opt.insert("select-file", getSelected());
     infoName = m_labelInfoName->text();
     infoHash = m_ariaInfo.infoHash;
 }
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    QString flieEditText =  text+  "    " + tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(text);
+    QString flieEditText = text + "    " + tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(text);
     int count = text.count();
 
-    for (int i =0 ; i < flieEditText.size();i++)
-    {
+    for (int i = 0; i < flieEditText.size(); i++) {
         //判断字符中是否包含中文或者大写字母
-        if((flieEditText[i] >= 'A' && flieEditText[i] <= 'Z')
-                || (flieEditText[i] >= 0x4E00 && flieEditText[i] <= 0x9FA5)){
+        if ((flieEditText[i] >= 'A' && flieEditText[i] <= 'Z')
+            || (flieEditText[i] >= 0x4E00 && flieEditText[i] <= 0x9FA5)) {
             count++;
         }
     }
     //若路径较短，则用空格进行填充
-//    if(count < 61)
-//    {
-//       int fillCount = 61 - count;
-//       flieEditText.insert(text.size(), QString(fillCount*2, ' '));
-//    }
-//    QString str;
-    if(count > 45){
+    //    if(count < 61)
+    //    {
+    //       int fillCount = 61 - count;
+    //       flieEditText.insert(text.size(), QString(fillCount*2, ' '));
+    //    }
+    //    QString str;
+    if (count > 45) {
         text = text.right(45);
     }
 
@@ -719,10 +696,9 @@ QString BtInfoDialog::getFileEditText(QString text)
 
 void BtInfoDialog::setOkBtnStatus(int count)
 {
-    if(count == 0){
+    if (count == 0) {
         m_btnOK->setEnabled(false);
-    }
-    else{
+    } else {
         m_btnOK->setEnabled(true);
     }
 }
@@ -731,10 +707,10 @@ void BtInfoDialog::closeEvent(QCloseEvent *event)
 {
     QSharedMemory sharedMemory;
     sharedMemory.setKey("downloadmanager");
-    if (sharedMemory.attach())//设置成单例程序
+    if (sharedMemory.attach()) //设置成单例程序
     {
         sharedMemory.lock();
-        char *to = static_cast<char*>(sharedMemory.data());
+        char *to = static_cast<char *>(sharedMemory.data());
         int num = sharedMemory.size();
         memset(to, 0, num);
         sharedMemory.unlock();
@@ -753,11 +729,10 @@ void BtInfoDialog::closeEvent(QCloseEvent *event)
 
 void BtInfoDialog::sortByFileName(bool ret)
 {
-    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
-        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
-        {
-            if(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1) > m_listBtInfo[j+1].path.mid(m_listBtInfo[j+1].path.lastIndexOf("/") + 1)){
-                m_listBtInfo.swap(j, j+1);
+    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
+        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
+            if (m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1) > m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf("/") + 1)) {
+                m_listBtInfo.swap(j, j + 1);
             }
         }
     }
@@ -766,11 +741,10 @@ void BtInfoDialog::sortByFileName(bool ret)
 
 void BtInfoDialog::sortByType(bool ret)
 {
-    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
-        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
-        {
-            if(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf(".") + 1) > m_listBtInfo[j+1].path.mid(m_listBtInfo[j+1].path.lastIndexOf(".") + 1)){
-                m_listBtInfo.swap(j, j+1);
+    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
+        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
+            if (m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf(".") + 1) > m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf(".") + 1)) {
+                m_listBtInfo.swap(j, j + 1);
             }
         }
     }
@@ -779,12 +753,10 @@ void BtInfoDialog::sortByType(bool ret)
 
 void BtInfoDialog::sortBySize(bool ret)
 {
-
-    for(int i = 0; i < m_listBtInfo.size() - 1; i++){
-        for(int j = 0; j < m_listBtInfo.size() - i - 1; j++)
-        {
-            if(m_listBtInfo[j].lengthBytes > m_listBtInfo[j+1].lengthBytes){
-                m_listBtInfo.swap(j, j+1);
+    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
+        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
+            if (m_listBtInfo[j].lengthBytes > m_listBtInfo[j + 1].lengthBytes) {
+                m_listBtInfo.swap(j, j + 1);
             }
         }
     }
