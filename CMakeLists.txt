@@ -3,11 +3,11 @@ cmake_minimum_required(VERSION 3.1.0)
 
 
 #工程名
-project(Downloader)
+project(downloader)
 set(PROJECT_VERSION "5.2.0.1")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
-set(DLM_NAME "Downloader")
+set(DLM_NAME "downloader")
 set(ARIA2_NAME "aria2c")
 
 # 设置C++标准为 C++ 11
@@ -17,7 +17,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置Debug  Release
-set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_BUILD_TYPE "Debug")
 
 #设置安装路径
 set(CMAKE_INSTALL_PREFIX /usr)
@@ -72,24 +72,24 @@ add_subdirectory(translations)
 #安装
 # qm files
 file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/Downloader/translations)
+install(FILES ${QM_FILES} DESTINATION share/downloader/translations)
 
 #desktop
-install(FILES desktop/Downloader.desktop DESTINATION share/applications)
+install(FILES desktop/downloader.desktop DESTINATION share/applications)
 
 #datebases
-install(FILES data/Downloader.db DESTINATION share/Downloader/database)
+install(FILES data/downloader.db DESTINATION share/downloader/database)
 
 # conf file
 file(GLOB CF_FILES "docs/*.conf")
-install(FILES ${CF_FILES} DESTINATION share/Downloader/config)
+install(FILES ${CF_FILES} DESTINATION share/downloader/config)
 
 
 #icon
-install(FILES data/Downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
-install(FILES data/Downloader.svg DESTINATION share/Downloader/icons/logo/)
+install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
+install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
-install(TARGETS Downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
+install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
 LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic

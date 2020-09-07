@@ -1,0 +1,8 @@
+./translations/downloader.qm
+./translations/downloader_zh_CN.qm
+./desktop/downloader.desktop
+./data/downloader.db
+./data/downloader.svg
+./data/downloader.svg
+./docs/aria2.conf
+./docs/config.conf

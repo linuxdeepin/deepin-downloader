@@ -4,5 +4,5 @@ add_subdirectory(log)
 add_subdirectory(aria2)
 add_subdirectory(database)
 add_subdirectory(ui)
-add_subdirectory(Downloader)
+add_subdirectory(downloader)
 

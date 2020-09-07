@@ -69,8 +69,8 @@ bool Aria2RPCInterface::startUp()
     */
     QString sessionCacheFile = QDir::homePath() + "/.cache/uos-aria2c.session"; //session 文件路径
     QString inputFile = QDir::homePath() + "/.cache/uos-aria2c.input"; //.input文件路径
-    QString dhtFile = QDir::homePath() + "/.config/uos/downloadmanager/dht.dat"; //
-    QString dht6File = QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat"; //
+    QString dhtFile = QDir::homePath() + "/.config/uos/downloader/dht.dat"; //
+    QString dht6File = QDir::homePath() + "/.config/uos/downloader/dht6.dat"; //
     QString saveSessionInterval = "30"; //秒
 
     qDebug() << "创建session缓存文件: " << sessionCacheFile;

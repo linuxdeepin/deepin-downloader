@@ -1,0 +1,11 @@
+Package: downloader
+Version: 5.2.0.1
+Architecture: amd64
+Maintainer: unknown <unknown@uniontech.com>
+Installed-Size: 29125
+Depends: sqlite3, libnotify-bin, aria2, libaria2, curl
+Section: unknown
+Priority: optional
+Homepage: https://www.deepin.org/
+Description: downloader
+ downloader for deepin desktop environment.

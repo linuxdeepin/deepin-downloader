@@ -5,7 +5,7 @@ DataBase::DataBase()
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 
     // QString _dataBasePath = qApp->applicationDirPath();
-    QString dbPath = QString("%1/%2/%3/Downloader.db")
+    QString dbPath = QString("%1/%2/%3/downloader.db")
                          .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                          .arg(qApp->organizationName())
                          .arg(qApp->applicationName());
@@ -17,7 +17,7 @@ DataBase::DataBase()
         qDebug() << "error: no db file  "; //<< QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_FILENAME << QString(_dataBasePath) + UOS_DOWNLOAD_DATABASE_FILENAME << endl;
         QFile::copy(QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_OLD_FILENAME,
                     dbPath);
-        QString strold = UOS_DONWLOAD_DATABASE_PATH + "Downloader.db";
+        QString strold = UOS_DONWLOAD_DATABASE_PATH + "downloader.db";
         QByteArray ba = strold.toLatin1();
         char *oldDatabaseFile = ba.data();
         remove(oldDatabaseFile);
