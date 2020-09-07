@@ -44,8 +44,8 @@ bool Func::isDHT()
     if (!isBt()) {
         return false;
     }
-    QString dht6 = QString(QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat");
-    QString dht = QString(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
+    QString dht6 = QString(QDir::homePath() + "/.config/uos/Downloader/dht6.dat");
+    QString dht = QString(QDir::homePath() + "/.config/uos/Downloader/dht.dat");
     QFileInfo dht6File(dht6);
     QFileInfo dhtFile(dht);
     if (dht6File.exists() && dhtFile.exists()) {
@@ -56,7 +56,7 @@ bool Func::isDHT()
 
 bool Func::isBt()
 {
-    QString aria2 = QString(QDir::homePath() + "/.config/uos/downloadmanager/aria2.conf");
+    QString aria2 = QString(QDir::homePath() + "/.config/uos/Downloader/aria2.conf");
     QFileInfo aria2File(aria2);
     if (aria2File.exists()) {
         return true;

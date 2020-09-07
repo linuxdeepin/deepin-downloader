@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1.0)
 
 
 #工程名
-project(downloadmanager)
+project(Downloader)
 set(PROJECT_VERSION "5.2.0.1")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")

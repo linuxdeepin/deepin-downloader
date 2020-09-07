@@ -618,7 +618,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     QString in0(tr("Downloader")); //下载器
     uint in1 = 101;
     QString in2;
-    in2 = "downloadmanager";
+    in2 = "Downloader";
     QString in3;
     QString in4;
     QStringList in5;
@@ -627,7 +627,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
         in3 = tr("Download failed"); //下载失败
         in4 = QString(tr("%1 download failed. Network error.")).arg(fileName); //【%1下载失败，网络故障。】
         in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
-        in6["x-deepin-action-_view"] = "downloadmanager";
+        in6["x-deepin-action-_view"] = "Downloader";
         qDebug() << in4 + ("    errorCode: ") + errorCode;
         if ("12" == errorCode) {
         }
@@ -1297,7 +1297,7 @@ void tableDataControl::recycleListRedownload(QString id)
 void tableDataControl::clearShardMemary()
 {
     QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloadmanager");
+    sharedMemory.setKey("Downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
         sharedMemory.lock();

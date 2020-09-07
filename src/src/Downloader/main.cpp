@@ -45,16 +45,16 @@ int main(int argc, char *argv[])
     parser.process(a);
     QStringList comList = parser.positionalArguments();
     QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloadmanager");
+    sharedMemory.setKey("Downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
         if (!checkProcessExist()) { //下载器任务不存在，清空共享内存并启动
             sharedMemory.detach();
         } else { //下载器任务存在
             if (comList.isEmpty()) {
-                QDBusInterface iface("com.downloadmanager.service",
-                                     "/downloadmanager/path",
-                                     "local.downloadmanager.MainFrame",
+                QDBusInterface iface("com.Downloader.service",
+                                     "/Downloader/path",
+                                     "local.Downloader.MainFrame",
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("Raise");
             } else {
@@ -65,9 +65,9 @@ int main(int argc, char *argv[])
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
-                QDBusInterface iface("com.downloadmanager.service",
-                                     "/downloadmanager/path",
-                                     "local.downloadmanager.MainFrame",
+                QDBusInterface iface("com.Downloader.service",
+                                     "/Downloader/path",
+                                     "local.Downloader.MainFrame",
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("OpenBt", comList[0]);
             }
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
             w.OpenBt(comList[i]);
         }
     }
-    w.setWindowIcon(QIcon(":/icons/icon/downloadmanager.svg"));
+    w.setWindowIcon(QIcon(":/icons/icon/Downloader.svg"));
     QObject::connect(&a, &DlmApplication::applicatinQuit, &w, &MainFrame::onTrayQuitClick);
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
