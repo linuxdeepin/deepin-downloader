@@ -6,6 +6,7 @@
 #include <QProcess>
 #include <QMutex>
 #include <QThread>
+#include <QMimeDatabase>
 //#incldue <Settings>
 
 UrlThread::UrlThread(QObject *parent)
@@ -18,6 +19,7 @@ void UrlThread::start(LinkInfo &urlInfo)
 {
     m_linkInfo = new LinkInfo;
     *m_linkInfo = urlInfo;
+    m_linkInfo->urlTrueLink = urlInfo.url;
 }
 
 UrlThread::~UrlThread()
@@ -96,18 +98,23 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                 QString str = proc->readAllStandardOutput();
                 proc->deleteLater();
                 QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
+                m_linkInfo->urlTrueLink = strUrl;
                 QStringList strList = strUrl.split("/");
                 QStringList strUrlName = strList[strList.size() - 1].split(".");
                 //需要转两次
                 QString encodingUrlName = strUrlName[0]; //QUrl::fromPercentEncoding(strUrlName[0].toUtf8());
                 m_linkInfo->urlName = encodingUrlName;
                 QStringList urlStrList = QStringList(strUrl);
-                m_linkInfo->type = getUrlType(str);
-                emit sendFinishedUrl(*m_linkInfo);
+                m_linkInfo->type = getUrlType(strUrl);
+               // m_linkInfo->urlSize = getUrlSize(str);
+                m_linkInfo->url = m_linkInfo->urlTrueLink;
+               // emit sendFinishedUrl(*m_linkInfo);
                 //onDownloadNewUrl(strUrl, Settings::getInstance()->getCustomFilePath(), encodingUrlName, type);
                 proc->kill();
                 proc->close();
                 mutex.unlock();
+                begin();
+
             }
         });
         break;
@@ -160,10 +167,14 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
 
 QString UrlThread::getUrlType(QString url)
 {
+    QMimeDatabase db;
+    QString type = db.suffixForFileName(m_linkInfo->urlTrueLink);
+    if (!type.isNull()) {
+        return type;
+    }
     QStringList urlInfoList = url.split("\r\n");
     for (int i = 0; i < urlInfoList.size(); i++) {
         if (urlInfoList[i].startsWith("content-type:", Qt::CaseInsensitive)) {
-            QString type;
             QByteArray ba = urlInfoList[i].split("/")[1].toLatin1();
             const char *s = ba.data();
             while (*s) {
