@@ -59,6 +59,12 @@ public:
      */
     static bool isBt();
 
+    /**
+     * @brief http是否联通
+     * @return true为不通 false为通
+     */
+    static bool isHTTPConnect();
+
 private:
 };
 

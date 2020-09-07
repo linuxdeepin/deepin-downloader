@@ -189,7 +189,7 @@
                     "options": [{
                             "key": "downloadInfoNotify",
                             "name": "Notify me when downloading finished or failed",
-                            "type": "switchbutton",
+                            "type": "notificationsSettiing",
                             "default": true
                         }
                 ]

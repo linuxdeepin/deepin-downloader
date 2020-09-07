@@ -699,6 +699,12 @@ void MainFrame::onSettingsMenuClicked()
                                                    Settings::createDownloadDiskCacheSettiingHandle);
     SettingsDialog.widgetFactory()->registerWidget("downloadspeedlimitsetting",
                                                    Settings::createDownloadSpeedLimitSettiingHandle);
+    SettingsDialog.widgetFactory()->registerWidget("notificationsSettiing",
+                                                   Settings::createNotificationsSettiingHandle);
+    SettingsDialog.widgetFactory()->registerWidget("autodownloadbyspeed",
+                                                   Settings::createAutoDownloadBySpeedHandle);
+    SettingsDialog.widgetFactory()->registerWidget("prioritydownloadbysize",
+                                                   Settings::createPriorityDownloadBySizeHandle);
     SettingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);
 
     Settings::getInstance()->setAutoStart(isAutoStart());
@@ -1073,21 +1079,20 @@ void MainFrame::onContextMenu(const QPoint &pos)
         delmenlist->addAction(returnedToOrigin);
         connect(returnedToOrigin, &QAction::triggered, this, &MainFrame::onReturnOriginActionTriggered);
     }
-    if ((m_CurrentTab == recycleTab) && (1 == chkedCnt)) {
+    if ((m_CurrentTab == recycleTab || m_CurrentTab == finishTab) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
         pActionredownload->setText(tr("Download Again"));
         delmenlist->addAction(pActionredownload);
         connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
-    }
-    if ((m_CurrentTab == finishTab) || (m_CurrentTab == recycleTab)) {
-        if ((1 == chkedCnt && m_CurrentTab == finishTab && QFileInfo(pDownloadItem->savePath).exists()) || (1 == chkedCnt && m_CurrentTab == recycleTab && QFileInfo(pDeleteItem->savePath).exists())) {
+        if ((m_CurrentTab == finishTab && QFileInfo(pDownloadItem->savePath).exists()) || (m_CurrentTab == recycleTab && QFileInfo(pDeleteItem->savePath).exists())) {
             QAction *pActionopenFile = new QAction();
             pActionopenFile->setText(tr("Open"));
             delmenlist->addAction(pActionopenFile);
             connect(pActionopenFile, &QAction::triggered, this, &MainFrame::onOpenFileActionTriggered);
         }
     }
-    if ((1 == chkedCnt && (m_CurrentTab == finishTab) && QFileInfo(pDownloadItem->savePath).exists()) || (1 == chkedCnt && m_CurrentTab == recycleTab && QFileInfo(pDeleteItem->savePath).exists())) {
+    if ((1 == chkedCnt && (m_CurrentTab == finishTab) && QFileInfo(pDownloadItem->savePath).exists())
+        || (1 == chkedCnt && m_CurrentTab == recycleTab && QFileInfo(pDeleteItem->savePath).exists())) {
         QAction *pActionopenFoler = new QAction();
         pActionopenFoler->setText(tr("Open folder"));
         delmenlist->addAction(pActionopenFoler);
@@ -2611,6 +2616,7 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
                 LinkInfo link = *it;
                 it = urlList.erase(it);
                 urlList.prepend(link);
+                it++;
             } else
                 it++;
         }

@@ -41,6 +41,9 @@ bool Func::isIpv6Connect()
 
 bool Func::isDHT()
 {
+    if (!isBt()) {
+        return false;
+    }
     QString dht6 = QString(QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat");
     QString dht = QString(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
     QFileInfo dht6File(dht6);
@@ -59,4 +62,12 @@ bool Func::isBt()
         return true;
     }
     return false;
+}
+
+bool Func::isHTTPConnect()
+{
+    if (!isBt()) {
+        return false;
+    }
+    return isNetConnect();
 }

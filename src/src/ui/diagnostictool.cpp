@@ -106,7 +106,7 @@ void DiagnosticTool::startDiagnostic()
     });
 
     QTimer::singleShot(qrand() % (800) + 800, this, [=]() {
-        m_Model->appendData(Func::isNetConnect());
+        m_Model->appendData(Func::isHTTPConnect());
     });
 
     QTimer::singleShot(qrand() % (800) + 1400, this, [=]() {
