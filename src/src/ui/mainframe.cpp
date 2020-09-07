@@ -495,9 +495,13 @@ void MainFrame::createNewTask(QString url)
 void MainFrame::onTrayQuitClick(bool force)
 {
     if (!m_ShutdownOk && !force) {
-        MessageBox msgBox;
+        static MessageBox msgBox;
+        if (msgBox.isVisible()) {
+            return;
+        }
         QString title = tr("Are you sure you want to exit? \nDownloading tasks will be interrupted.");
         msgBox.setWarings(title, tr("sure"), tr("cancel"));
+
         int rs = msgBox.exec();
         if (rs != DDialog::Accepted) {
             return;

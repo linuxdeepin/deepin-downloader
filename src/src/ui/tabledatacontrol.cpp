@@ -411,8 +411,6 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if (data->time.isEmpty()) {
             data->time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
         }
-
-        //              updatetimer->stop();
     }
     TaskInfo task;
     TaskInfo getTask;
