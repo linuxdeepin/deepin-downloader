@@ -68,11 +68,11 @@ void ClipboardTimer::getDataChanged()
         QString format = data->formats()[i];
         QString formatData = data->data(data->formats()[i]);
         if (format == "FROM_DEEPIN_CLIPBOARD_MANAGER") {
-            qDebug() << "ClipboardTimer <getDataChanged> : FROM_DEEPIN_CLIPBOARD_MANAGER";
+            //qDebug() << "ClipboardTimer <getDataChanged> : FROM_DEEPIN_CLIPBOARD_MANAGER";
             return;
         }
-        qDebug() << "ClipboardTimer <getDataChanged> format:: " << format;
-        qDebug() << "ClipboardTimer <getDataChanged> formatData:: " << formatData;
+        //qDebug() << "ClipboardTimer <getDataChanged> format:: " << format;
+        //qDebug() << "ClipboardTimer <getDataChanged> formatData:: " << formatData;
     }
 
     QStringList urlList = m_clipboard->text().split("\n");
@@ -80,7 +80,7 @@ void ClipboardTimer::getDataChanged()
         urlList[i] = urlList[i].simplified();
     }
     QString url;
-    //qDebug()<< "class::ClipboardTimer getDataChanged() url <<  "<< urlList;
+    ////qDebug()<< "class::ClipboardTimer getDataChanged() url <<  "<< urlList;
     Settings *setting = Settings::getInstance();
     bool bIsHttp = setting->getHttpDownloadState();
     bool bIsMagnet = setting->getMagneticDownloadState();

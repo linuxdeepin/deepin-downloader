@@ -39,8 +39,7 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
-struct DownloadSettings
-{
+struct DownloadSettings {
     QString m_type; // 下载类型，限速下载为1,全速下载为0
     QString m_maxDownload; // 最大下载限速
     QString m_maxUpload; // 最大上传限速
@@ -297,14 +296,14 @@ public:
      * @param speed 设置的速度
      * @return 返回开关是否打开
      */
-     bool getAutoDownloadBySpeed(QString& speed);
+    bool getAutoDownloadBySpeed(QString &speed);
 
     /**
      * @brief 小于多少的任务优先下载
      * @param size 设置的大小
      * @return 返回开关是否打开
      */
-    bool getPriorityDownloadBySize(QString& size);
+    bool getPriorityDownloadBySize(QString &size);
 
     /**
      * @brief 自动将低速任务移动至队尾
@@ -350,6 +349,7 @@ signals:
     void downloadSettingsChanged();
     void disckCacheChanged(int number);
     void startAssociatedBTFileChanged(bool state);
+    void autoDownloadBySpeedChanged(bool state);
 
 public slots:
 
@@ -358,7 +358,6 @@ private:
     Dtk::Core::QSettingBackend *m_backend;
     QString m_configPath; // 配置文件路径
     QSettings *m_iniFile;
-
 };
 
 #endif // SETTINGS_H
