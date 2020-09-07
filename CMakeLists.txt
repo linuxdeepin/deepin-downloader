@@ -7,7 +7,7 @@ project(downloadmanager)
 set(PROJECT_VERSION "5.2.0.1")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
-set(DLM_NAME "downloadmanager")
+set(DLM_NAME "Downloader")
 set(ARIA2_NAME "aria2c")
 
 # 设置C++标准为 C++ 11
@@ -72,24 +72,24 @@ add_subdirectory(translations)
 #安装
 # qm files
 file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/downloadmanager/translations)
+install(FILES ${QM_FILES} DESTINATION share/Downloader/translations)
 
 #desktop
-install(FILES desktop/downloadmanager.desktop DESTINATION share/applications)
+install(FILES desktop/Downloader.desktop DESTINATION share/applications)
 
 #datebases
-install(FILES data/uos-downloadmanager-task.db DESTINATION share/downloadmanager/database)
+install(FILES data/Downloader.db DESTINATION share/Downloader/database)
 
 # conf file
 file(GLOB CF_FILES "docs/*.conf")
-install(FILES ${CF_FILES} DESTINATION share/downloadmanager/config)
+install(FILES ${CF_FILES} DESTINATION share/Downloader/config)
 
 
 #icon
-install(FILES data/downloadmanager.svg DESTINATION share/icons/hicolor/scalable/apps/)
-install(FILES data/downloadmanager.svg DESTINATION share/downloadmanager/icons/logo/)
+install(FILES data/Downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
+install(FILES data/Downloader.svg DESTINATION share/Downloader/icons/logo/)
 
-install(TARGETS downloadmanager dlmlog dlmdatabase dlmaria2 dlmcontrolui
+install(TARGETS Downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
 LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic

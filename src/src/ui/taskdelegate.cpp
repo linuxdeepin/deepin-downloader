@@ -156,6 +156,7 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     Q_UNUSED(option);
 
     DLineEdit *pEdit = new DLineEdit(parent);
+    pEdit->lineEdit()->setMaxLength(84);
 
     pEdit->setGeometry(option.rect.x() + 150, 10, 50, 10);
     pEdit->setGeometry(0, 0, 0, 0);

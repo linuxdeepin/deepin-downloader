@@ -487,6 +487,8 @@ void CreateTaskWidget::onAllCheck()
     }
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+
+    m_sureButton->setEnabled(cnt > 0 ? true : false);
 }
 
 void CreateTaskWidget::onVideoCheck()
@@ -519,6 +521,7 @@ void CreateTaskWidget::onVideoCheck()
     }
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+    m_sureButton->setEnabled(cnt > 0 ? true : false);
 }
 
 void CreateTaskWidget::onAudioCheck()
@@ -551,6 +554,7 @@ void CreateTaskWidget::onAudioCheck()
     }
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+    m_sureButton->setEnabled(cnt > 0 ? true : false);
 }
 
 void CreateTaskWidget::onPictureCheck()
@@ -583,6 +587,7 @@ void CreateTaskWidget::onPictureCheck()
     }
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+    m_sureButton->setEnabled(cnt > 0 ? true : false);
 }
 
 void CreateTaskWidget::onZipCheck()
@@ -615,6 +620,7 @@ void CreateTaskWidget::onZipCheck()
     }
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+    m_sureButton->setEnabled(cnt > 0 ? true : false);
 }
 
 void CreateTaskWidget::onDocCheck()
@@ -647,6 +653,7 @@ void CreateTaskWidget::onDocCheck()
     }
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+    m_sureButton->setEnabled(cnt > 0 ? true : false);
 }
 
 void CreateTaskWidget::onOtherCheck()
@@ -678,6 +685,7 @@ void CreateTaskWidget::onOtherCheck()
     }
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
+    m_sureButton->setEnabled(cnt > 0 ? true : false);
 }
 
 void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)

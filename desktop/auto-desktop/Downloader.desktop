@@ -1,0 +1,16 @@
+[Desktop Entry]
+Categories=Downloader;
+Comment=Downloader
+Exec=Downloader %F
+GenericName=Downloader
+GenericName[zh_CN]=下载器
+GenericName[zh_TW]=下载器
+Hidden=false
+Icon=Downloader
+MimeType=application/torrent;application/x-bittorrent;
+Name=Downloader
+Name[zh_CN]=下载器
+Name[zh_TW]=下载器
+StartupNotify=false
+Type=Application
+X-Deepin-Vendor=user-custom

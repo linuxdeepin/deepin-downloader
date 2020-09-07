@@ -2551,7 +2551,7 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
         QString in0(tr("Downloader")); //下载器
         uint in1 = 101;
         QString in2;
-        in2 = "downloadmanager";
+        in2 = "Downloader";
         QString in3(head);
         QString in4(text);
 
@@ -2559,7 +2559,7 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
         QVariantMap in6;
         if (isBt) {
             in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
-            in6["x-deepin-action-_view"] = "downloadmanager";
+            in6["x-deepin-action-_view"] = "Downloader";
         }
 
         int in7 = 5000;
