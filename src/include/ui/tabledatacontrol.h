@@ -32,7 +32,7 @@
 
 class TableView;
 class QSharedMemory;
-struct Task;
+struct TaskInfo;
 namespace Global {
 struct DownloadDataItem;
 struct DeleteDataItem;
@@ -141,21 +141,6 @@ public:
     void onReturnOriginAction();
 
     /**
-     * @brief 打开文件ACtion槽函数
-    */
-    void onOpenFileAction();
-
-    /**
-     * @brief 打开文件目录ACtion槽函数
-    */
-    int onOpenFolderAction(int currentLab);
-
-    /**
-     * @brief 重命名文件ACtion槽函数
-    */
-    void onRenameAction();
-
-    /**
      * @brief 清除回收站ACtion槽函数
     */
     void onClearRecyleAction();
@@ -261,9 +246,14 @@ signals:
     void RedownloadJob(QString taskId, int rd);
 
     /**
-     * @brief 开始下载信号
+     * @brief http任务源文件被删除异常下载的信号
      */
-    void DownloadUnusuaJob(QStringList &urlList, QString savePath, QString filename = "");
+    void DownloadUnusuaHttpJob(QString urlList, QString savePath, QString filename = "", QString type = "");
+
+    /**
+     * @brief bt任务源文件被删除异常下载的信号
+     */
+    void DownloadUnusuaBtJob(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash);
 
     /**
      * @brief 删除完成

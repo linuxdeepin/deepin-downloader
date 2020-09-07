@@ -32,7 +32,7 @@ bool Func::isIpv6Connect()
     QProcess *process = new QProcess();
     QStringList list;
     list << "-i"
-         << "http://ipv6.uenu.cn/";
+         << "ipv6.baidu.com";
     process->start("curl", list);
     process->waitForFinished();
     int ret = process->exitCode();
@@ -41,6 +41,9 @@ bool Func::isIpv6Connect()
 
 bool Func::isDHT()
 {
+    if (!isBt()) {
+        return false;
+    }
     QString dht6 = QString(QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat");
     QString dht = QString(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
     QFileInfo dht6File(dht6);
@@ -49,7 +52,6 @@ bool Func::isDHT()
         return true;
     }
     return false;
-
 }
 
 bool Func::isBt()
@@ -60,4 +62,12 @@ bool Func::isBt()
         return true;
     }
     return false;
+}
+
+bool Func::isHTTPConnect()
+{
+    if (!isBt()) {
+        return false;
+    }
+    return isNetConnect();
 }

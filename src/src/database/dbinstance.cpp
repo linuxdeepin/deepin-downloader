@@ -1,6 +1,6 @@
 #include "dbinstance.h"
 
-bool DBInstance::addTask(Task task)
+bool DBInstance::addTask(TaskInfo &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -95,7 +95,7 @@ bool DBInstance::delAllTask()
     return true;
 }
 
-bool DBInstance::updateTaskByID(Task &task)
+bool DBInstance::updateTaskByID(TaskInfo &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -121,7 +121,7 @@ bool DBInstance::updateTaskByID(Task &task)
     return true;
 }
 
-bool DBInstance::getTaskByID(QString taskId, Task &task)
+bool DBInstance::getTaskByID(QString taskId, TaskInfo &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -149,7 +149,7 @@ bool DBInstance::getTaskByID(QString taskId, Task &task)
     return true;
 }
 
-bool DBInstance::getAllTask(QList<Task> &taskList)
+bool DBInstance::getAllTask(QList<TaskInfo> &taskList)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -163,7 +163,7 @@ bool DBInstance::getAllTask(QList<Task> &taskList)
         q.close();
         return false;
     }
-    Task task;
+    TaskInfo task;
     while (sql.next()) {
         task.taskId = sql.value(0).toString();
 
@@ -205,7 +205,7 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     return true;
 }
 
-bool DBInstance::addTaskStatus(TaskStatus task)
+bool DBInstance::addTaskStatus(TaskStatus& task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -232,7 +232,7 @@ bool DBInstance::addTaskStatus(TaskStatus task)
     q.close();
     return true;
 }
-bool DBInstance::updateTaskStatusById(TaskStatus task)
+bool DBInstance::updateTaskStatusById(TaskStatus &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -319,7 +319,7 @@ bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
     return true;
 }
 
-bool DBInstance::addUrl(UrlInfo url)
+bool DBInstance::addBtTask(BtTaskInfo &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -342,7 +342,7 @@ bool DBInstance::addUrl(UrlInfo url)
     q.close();
     return true;
 }
-bool DBInstance::updateUrlById(UrlInfo url)
+bool DBInstance::updateBtTaskById(BtTaskInfo &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -361,7 +361,7 @@ bool DBInstance::updateUrlById(UrlInfo url)
     q.close();
     return true;
 }
-bool DBInstance::getUrlById(QString taskId, UrlInfo &url)
+bool DBInstance::getBtTaskById(QString taskId, BtTaskInfo &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -387,7 +387,7 @@ bool DBInstance::getUrlById(QString taskId, UrlInfo &url)
     q.close();
     return true;
 }
-bool DBInstance::getAllUrl(QList<UrlInfo> &urlList)
+bool DBInstance::getAllBtTask(QList<BtTaskInfo> &urlList)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -402,7 +402,7 @@ bool DBInstance::getAllUrl(QList<UrlInfo> &urlList)
         q.close();
         return false;
     }
-    UrlInfo url;
+    BtTaskInfo url;
     while (sql.next()) {
         url.taskId = sql.value(0).toString(); //任务id
         url.url = sql.value(1).toString(); // url 下载地址
@@ -467,7 +467,7 @@ bool DBInstance::isExistBtInHash(QString hash, bool &ret)
     return true;
 }
 
-bool DBInstance::getTaskForUrl(QString url, Task &task)
+bool DBInstance::getTaskForUrl(QString url, TaskInfo &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {

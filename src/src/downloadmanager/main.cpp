@@ -34,11 +34,11 @@ int main(int argc, char *argv[])
     a.setApplicationName("downloadmanager"); //设置应用程序名
     a.setApplicationVersion(DLM_VERSION_STRING); //设置应用程序版本
     a.setProductIcon(QIcon(":/icons/icon/downloadmanager.svg")); //从系统主题中获取图标并设置成产品图标
-    auto download_manager_name = QObject::tr("Download Manager");
+    auto download_manager_name = QObject::tr("Downloader");
     a.setProductName(download_manager_name); //设置产品的名称
     auto download_manager_info = QObject::tr("This is a download manage application.");
     a.setApplicationDescription(download_manager_info); //设置产品的描述信息
-    a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application")); //设置应用程序的显示信息
+    a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Applications")); //设置应用程序的显示信息
 
     //处理命令行类
     QCommandLineParser parser;
@@ -149,7 +149,7 @@ bool checkProcessExist()
     process.waitForFinished(1000);
     QString str = process.readAll();
     QStringList strList = str.split('\n');
-    if (strList.at(1).isEmpty()) {
+    if (strList.size() >= 2 && strList.at(1).isEmpty()) {
         return false;
     }
     return true;

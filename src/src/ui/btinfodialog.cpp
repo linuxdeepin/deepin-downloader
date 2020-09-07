@@ -192,7 +192,7 @@ void BtInfoDialog::initUI()
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
     QString text = getFileEditText(m_defaultDownloadDir);
-    QString flieEditText = tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
+    QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
     m_surplusSize = new DLabel(this);
     m_surplusSize->setText(flieEditText);
@@ -486,7 +486,6 @@ void BtInfoDialog::updateSelectedInfo()
     int allAudio = 0;
     int allPic = 0;
     int allOther = 0;
-    int all = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString v = m_model->data(m_model->index(i, 0)).toString();
         QString type = m_model->data(m_model->index(i, 2)).toString();
@@ -523,7 +522,6 @@ void BtInfoDialog::updateSelectedInfo()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     cnt == m_model->rowCount() ? m_checkAll->setCheckState(Qt::Checked) : m_checkAll->setCheckState(Qt::Unchecked);
-
     setOkBtnStatus(cnt);
 }
 
@@ -576,6 +574,21 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
     m_widget->setPalette(p);
 }
 
+typedef bool (*BtSort)(const QString &left,
+                       const QString &right);
+
+bool lessThan(const QString &left,
+              const QString &right)
+{
+    return left < right;
+}
+
+bool greaterThan(const QString &left,
+                 const QString &right)
+{
+    return right < left;
+}
+
 void BtInfoDialog::Sort(int index)
 {
     bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection() == index && m_tableView->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
@@ -590,6 +603,7 @@ void BtInfoDialog::Sort(int index)
         sortBySize(ascending);
         break;
     }
+    BtSort compare = ascending ? &lessThan : &greaterThan;
 }
 
 void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
@@ -647,7 +661,7 @@ void BtInfoDialog::getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QS
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    QString flieEditText = text + "    " + tr("Free space:") + Aria2RPCInterface::instance()->getCapacityFree(text);
+    QString flieEditText = text + "    " + tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(text);
     int count = text.count();
     int hasLongStr = 0;
 
@@ -674,12 +688,11 @@ QString BtInfoDialog::getFileEditText(QString text)
 
 void BtInfoDialog::setOkBtnStatus(int count)
 {
-    m_btnOK->setEnabled(count);
-//    if (count == 0) {
-//        m_btnOK->setEnabled(false);
-//    } else {
-//        m_btnOK->setEnabled(true);
-//    }
+    if (count == 0) {
+        m_btnOK->setEnabled(false);
+    } else {
+        m_btnOK->setEnabled(true);
+    }
 }
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)

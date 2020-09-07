@@ -110,7 +110,6 @@ public slots:
      */
     bool onBtnOK();
 
-
 private slots:
     /**
      * @brief 全选按钮
@@ -198,7 +197,7 @@ private:
     DCheckBox *m_checkAudio; //音频文件类型
     DCheckBox *m_checkPicture; //图片文件类型
     DCheckBox *m_checkOther; //其他文件类型
-    Aria2cBtInfo m_ariaInfo; //当前bt文件信息
+    Aria2cBtInfo m_ariaInfo; //当前bt文件信息;
 };
 
 #endif // BTINFODIALOG_H

@@ -199,12 +199,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
             QStyleOptionViewItem viewOption(option);
             initStyleOption(&viewOption, index);
-            if ((index.data(TableModel::Status) == 2) || (index.data(TableModel::Status) == 6)) {
+            if ((index.data(TableModel::Status) == Global::Paused) || (index.data(TableModel::Status) == Global::Lastincomplete)) {
                 const QString pauseText = painter->fontMetrics().elidedText(tr("Paused"),
                                                                             Qt::ElideRight,
                                                                             textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, pauseText);
-            } else if (index.data(TableModel::Status) == 3) {
+            } else if (index.data(TableModel::Status) == Global::Error) {
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
@@ -216,7 +216,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                                                                             rect_text.width() - 10);
                 painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, errorText);
                 return;
-            } else if (index.data(TableModel::Status) == 1) {
+            } else if (index.data(TableModel::Status) == Global::Waiting) {
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
@@ -337,16 +337,28 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     static bool firstInside = true;
     firstInside = true;
     DLineEdit *pEdit = new DLineEdit(parent);
+    pEdit->lineEdit()->setMaxLength(84);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
-        QString FilePath = index.data(TableModel::SavePath).toString();
         QString str = index.data(TableModel::FileName).toString();
         QMimeDatabase db;
         QString mime = db.suffixForFileName(str);
-        FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-        FilePath = FilePath + filename + "." + mime;
-        QFileInfo file(FilePath);
-        if (file.isFile() && !firstInside) {
+        QString filePath = index.data(TableModel::SavePath).toString();
+        filePath = filePath.left(filePath.lastIndexOf("/") + 1);
+        filePath = filePath + filename + "." + mime;
+        QFileInfo file(filePath);
+
+        int hasSameFile = false;
+        for (int i = 0; i < index.model()->rowCount(); i++) {
+            QModelIndex idx = index.sibling(i, index.column());
+            QString path = idx.data(TableModel::SavePath).toString();
+            if (filePath == path && (filePath != index.data(TableModel::SavePath).toString())) {
+                hasSameFile = true;
+                break;
+            }
+        }
+
+        if ((file.isFile() && (filePath != index.data(TableModel::SavePath).toString())) || (hasSameFile)) {
             pEdit->showAlertMessage(tr("Duplicate name!"), -1);
         } else {
             pEdit->hideAlertMessage();
@@ -377,16 +389,24 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
     QString mime = db.suffixForFileName(str);
     QString fileName = pEdit->text() + "." + mime;
 
-    QString FilePath = index.data(TableModel::SavePath).toString();
-    FilePath = FilePath.left(FilePath.lastIndexOf("/") + 1);
-    FilePath = FilePath + fileName;
-    if (!QFileInfo::exists(FilePath)) {
-        QFile::rename(index.data(TableModel::SavePath).toString(), FilePath);
+    QString filePath = index.data(TableModel::SavePath).toString();
+    filePath = filePath.left(filePath.lastIndexOf("/") + 1);
+    filePath = filePath + fileName;
+    if (!QFileInfo::exists(filePath) && !pEdit->text().isEmpty()) {
+        for (int i = 0; i < index.model()->rowCount(); i++) {
+            QModelIndex idx = index.sibling(i, index.column());
+            QString path = idx.data(TableModel::SavePath).toString();
+            if (filePath == path && (filePath != index.data(TableModel::SavePath).toString())) {
+                return;
+            }
+        }
+
+        QFile::rename(index.data(TableModel::SavePath).toString(), filePath);
         model->setData(index, fileName, TableModel::FileName);
-        model->setData(index, FilePath, TableModel::SavePath);
-        Task task;
+        model->setData(index, filePath, TableModel::SavePath);
+        TaskInfo task;
         DBInstance::getTaskByID(index.data(TableModel::taskId).toString(), task);
-        task.downloadPath = FilePath;
+        task.downloadPath = filePath;
         task.downloadFilename = fileName;
         DBInstance::updateTaskByID(task);
     }

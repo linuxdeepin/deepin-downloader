@@ -47,7 +47,7 @@ FileSavePathChooser::FileSavePathChooser(const int &currentSelect, const QString
 void FileSavePathChooser::initUI()
 {
     m_fileChooserEdit = new DFileChooserEdit;
-    m_autoLastPathRadioButton = new DRadioButton(tr("Automatically changes to the last used directory")); // 自动修改为上次使用的目录
+    m_autoLastPathRadioButton = new DRadioButton(tr("Last used directory")); // 自动修改为上次使用的目录
     m_customsPathRadioButton = new DRadioButton(tr("Default directory")); // 设置默认目录
 
     m_fileChooserEdit->lineEdit()->setReadOnly(true);
@@ -76,7 +76,7 @@ void FileSavePathChooser::initUI()
     mainLayout->addWidget(m_autoLastPathRadioButton);
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
-//    setStyleSheet("background:rgba(249, 249, 249, 1)");
+    //    setStyleSheet("background:rgba(249, 249, 249, 1)");
 
     setLayout(mainLayout);
 }

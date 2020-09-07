@@ -7,14 +7,14 @@
                     "name":"Start up",
                     "options":[{
                             "key":"PowerOn",
-                            "name":"Auto start after boot",
+                            "name":"Auto startup",
                             "type":"switchbutton",
                             "default":false,
                             "visible": false
                         },
                         {
                             "key":"AutoStartUnfinishedTask",
-                            "name":"Auto download after start-up",
+                            "name":"Resume downloading on startup",
                             "type":"switchbutton",
                             "default":true
                         }
@@ -23,7 +23,7 @@
                 },
                 {
                     "key":"DownloadDirectory",
-                    "name":"File Storage",
+                    "name":"Download Directory",
                     "options":[
                         {
                             "key": "downloadDirectoryFileChooser",
@@ -35,11 +35,11 @@
                 },
                 {
                     "key":"OnekeyDownload",
-                    "name":"1-click download",
+                    "name":"1-Click Download",
                     "options":[
                         {
                             "key":"onekeydownload",
-                            "name":"1-click download",
+                            "name":"1-Click Download",
                             "type":"switchbutton",
                             "default":false
                         }
@@ -70,7 +70,7 @@
                     "name":"",
                     "options":[{
                             "key":"MaxDownloadTask",
-                            "name":"Active downloads",
+                            "name":"Max. concurrent downloads",
                             "type":"combobox",
                             "default":"5"
                         },
@@ -82,7 +82,7 @@
                         },
                         {
                             "key":"AutoOpen",
-                            "name":"Open file after download",
+                            "name":"Open files when completed",
                             "type":"switchbutton",
                             "default":false
                         },
@@ -129,7 +129,7 @@
             "name":"Monitoring",
             "groups":[{
                     "key":"MonitoringObject",
-                    "name":"Application",
+                    "name":"Applications",
                     "options":[{
                             "key":"ClipBoard",
                             "name":"Clipboard",
@@ -140,7 +140,7 @@
                 },
                 {
                     "key":"MonitoringDownloadType",
-                    "name":"Link type",
+                    "name":"Links Monitored",
                     "options":[{
                             "key":"HttpDownload",
                             "name":"",
@@ -163,16 +163,16 @@
                 },
                 {
                     "key":"BTRelation",
-                    "name":"BT files",
+                    "name":"BT Files",
                     "options":[{
                             "key":"OpenDownloadPanel",
-                            "name":"Create new task after downloading BT files",
+                            "name":"Create new task when a torrent file downloaded",
                             "type":"switchbutton",
                             "default":false
                         },
                         {
                             "key":"AssociateBTFileAtStartup",
-                            "name":"Create new task when BT files opening",
+                            "name":"Create new task when opening a torrent file",
                             "type":"switchbutton",
                             "default":true
                         }
@@ -188,8 +188,8 @@
                     "name": "",
                     "options": [{
                             "key": "downloadInfoNotify",
-                            "name": "Allow notifications when downloading succeed or failed",
-                            "type": "notificationssettiing",
+                            "name": "Notify me when downloading finished or failed",
+                            "type": "notificationsSettiing",
                             "default": true
                         }
                 ]

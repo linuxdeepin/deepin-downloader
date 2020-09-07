@@ -34,7 +34,8 @@
 
 DWIDGET_USE_NAMESPACE
 
-TopButton::TopButton(QWidget *parent) : QWidget(parent)
+TopButton::TopButton(QWidget *parent)
+    : QWidget(parent)
 {
     Init();
     InitConnections();
@@ -82,13 +83,13 @@ void TopButton::Init()
     mainHlayout->addSpacing(5);
     mainHlayout->addWidget(m_IconLable);
     mainHlayout->addSpacing(7);
-    mainHlayout->addWidget( m_PauseDownloadBtn);
-    mainHlayout->addWidget( m_StartDownloadBtn);
+    mainHlayout->addWidget(m_PauseDownloadBtn);
+    mainHlayout->addWidget(m_StartDownloadBtn);
 
     mainHlayout->addWidget(m_DeleteDownloadBtn);
-    mainHlayout->addWidget(   m_NewDownloadBtn);
+    mainHlayout->addWidget(m_NewDownloadBtn);
 
-    mainHlayout->addWidget(       m_SearchEdit);
+    mainHlayout->addWidget(m_SearchEdit);
 
     // mainHlayout->addStretch();
     qDebug() << "asdwasdw";
@@ -96,12 +97,12 @@ void TopButton::Init()
 
 void TopButton::InitConnections()
 {
-    connect(   m_NewDownloadBtn, &DIconButton::clicked,      this, &TopButton::newDownloadBtnClicked);
-    connect( m_PauseDownloadBtn, &DIconButton::clicked,      this, &TopButton::pauseDownloadBtnClicked);
-    connect( m_StartDownloadBtn, &DIconButton::clicked,      this, &TopButton::startDownloadBtnClicked);
-    connect(m_DeleteDownloadBtn, &DIconButton::clicked,      this, &TopButton::deleteDownloadBtnClicked);
-    connect(       m_SearchEdit, &DSearchEdit::focusChanged, this, &TopButton::SearchEditFocus);
-    connect(       m_SearchEdit, &DSearchEdit::textChanged,  this, &TopButton::SearchEditTextChange);
+    connect(m_NewDownloadBtn, &DIconButton::clicked, this, &TopButton::newDownloadBtnClicked);
+    connect(m_PauseDownloadBtn, &DIconButton::clicked, this, &TopButton::pauseDownloadBtnClicked);
+    connect(m_StartDownloadBtn, &DIconButton::clicked, this, &TopButton::startDownloadBtnClicked);
+    connect(m_DeleteDownloadBtn, &DIconButton::clicked, this, &TopButton::deleteDownloadBtnClicked);
+    connect(m_SearchEdit, &DSearchEdit::focusChanged, this, &TopButton::SearchEditFocus);
+    connect(m_SearchEdit, &DSearchEdit::textChanged, this, &TopButton::SearchEditTextChange);
 }
 
 void TopButton::mousePressEvent(QMouseEvent *event)
@@ -114,7 +115,7 @@ void TopButton::mousePressEvent(QMouseEvent *event)
 
 void TopButton::onTableChanged(int index)
 {
-    if(index == 2) {
+    if (index == 2) {
         m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
         m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_restore"));
         m_DeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
@@ -122,7 +123,7 @@ void TopButton::onTableChanged(int index)
         m_StartDownloadBtn->setToolTip(tr("Empty"));
         m_PauseDownloadBtn->setToolTip(tr("Restore"));
         m_DeleteDownloadBtn->setToolTip(tr("Delete"));
-    } else if(index == 1)   {
+    } else if (index == 1) {
         m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfolder"));
         m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
         m_DeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
@@ -130,7 +131,7 @@ void TopButton::onTableChanged(int index)
         m_StartDownloadBtn->setToolTip(tr("Open Folder"));
         m_PauseDownloadBtn->setToolTip(tr("Open"));
         m_DeleteDownloadBtn->setToolTip(tr("Delete"));
-    } else   {
+    } else {
         m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
         m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
         m_DeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
@@ -144,7 +145,6 @@ void TopButton::onTableChanged(int index)
         m_DeleteDownloadBtn->setEnabled(false);
     }
 }
-
 
 //DownloadManagerBtn::DownloadManagerBtn(QWidget *parent)
 //{

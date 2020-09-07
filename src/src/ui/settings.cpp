@@ -239,34 +239,34 @@ Settings::Settings(QObject *parent)
     // json文件国际化
     auto basicName = tr("Basic"); // 基本设置
     auto startName = tr("Start up"); // 启动
-    auto powerOnName = tr("Auto start after boot"); // 开机启动
-    auto autoStartUnfinishedTaskName = tr("Auto download after start-up"); // 启动后自动开始未完成的任务
-    auto downloadDirectoryName = tr("File Storage"); // 下载目录
-    auto oneClickDownloadName = tr("1-click download"); // 一键下载
+    auto powerOnName = tr("Auto startup"); // 开机启动
+    auto autoStartUnfinishedTaskName = tr("Resume downloading on startup"); // 启动后自动开始未完成的任务
+    auto downloadDirectoryName = tr("Download Directory"); // 下载目录
+    auto oneClickDownloadName = tr("1-Click Download"); // 一键下载
     auto closeMainWindowName = tr("Close window"); // 关闭主界面
     auto minimizeToSystemTrayName = tr("Minimize to System Tray"); // 最小化到托盘
     auto exitName = tr("Exit"); // 退出下载器
     auto tasksName = tr("Tasks"); // 任务管理
-    auto activeDownloadsName = tr("Active downloads"); // 同时下载最大任务数
-    auto openFileAfterDownloadName = tr("Open file after download"); // 下载完成后自动打开
+    auto activeDownloadsName = tr("Max. concurrent downloads"); // 同时下载最大任务数
+    auto openFileAfterDownloadName = tr("Open files when completed"); // 下载完成后自动打开
     auto deleteTasksWithoutFilesName = tr("Delete tasks without files"); // 自动删除“文件不存在”的任务
     auto downloadsName = tr("Downloads"); // 下载设置
     auto monitoringName = tr("Monitoring"); // 接管设置
-    auto monitoringApplicationName = tr("Application"); // 接管对象
+    auto monitoringApplicationName = tr("Applications"); // 接管对象
     auto clipBoardName = tr("Clipboard"); // 剪切板
-    auto monitoringDownloadLinkName = tr("Link type"); // 接管下载类型
-    auto monitoringBTFilesName = tr("BT files"); // BT关联
-    auto downloadingName = tr("Create new task after downloading BT files"); // 下载种子文件后自动打开下载面板
-    auto openingName = tr("Create new task when BT files opening"); // 启动时关联BT种子文件
+    auto monitoringDownloadLinkName = tr("Links Monitored"); // 接管下载类型
+    auto monitoringBTFilesName = tr("BT Files"); // BT关联
+    auto downloadingName = tr("Create new task when a torrent file downloaded"); // 下载种子文件后自动打开下载面板
+    auto openingName = tr("Create new task when opening a torrent file"); // 启动时关联BT种子文件
     auto notificationsName = tr("Notifications"); // 通知提醒
-    auto succeedOrFailedName = tr("Allow notifications when downloading succeed or failed"); // 下载完成/失败时，系统通知提醒
+    auto succeedOrFailedName = tr("Notify me when downloading finished or failed"); // 下载完成/失败时，系统通知提醒
     auto downloadingSucceedName = tr("Allow sounds when downloading succeed"); // 下载完成后，播放提示音
     auto advancedName = tr("Advanced"); // 高级设置
     auto shortcutsName = tr("Shortcuts"); // 快捷设置
     auto newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
     auto showMainName = tr("Show main window"); // 打开主界面快捷键
     auto diskCacheName = tr("Cache"); // 下载磁盘缓存
-    auto AutoSortBySpeedName = tr("Move low speed tasks to the end"); // 下载磁盘缓存
+    auto AutoSortBySpeedName = tr("Move low speed tasks to the end"); // 低速的移动到末尾
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
@@ -474,7 +474,7 @@ QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
     }
 
     GroupSelectionWidget *groupSelectionWidget = new GroupSelectionWidget(itemNameList);
-    groupSelectionWidget->setLabelText(tr("More disk cache, faster download speed \nand more computer consume")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
+    groupSelectionWidget->setLabelText(tr("Larger disk cache will result in faster download speed \nand more resource consumption.")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
     groupSelectionWidget->setCurrentSelected(currentSelected);
 
     connect(groupSelectionWidget, &GroupSelectionWidget::selectedChanged, groupSelectionWidget, [=](QVariant var) {
@@ -694,7 +694,7 @@ QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
     Q_UNUSED(obj);
     //    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
-    QString diskCacheInfo = tr("More disk cache, faster download speed \nand more computer consume");
+    QString diskCacheInfo = tr("Larger disk cache will result in faster download speed \nand more resource consumption.");
     SettingsLabel *settingsLabel = new SettingsLabel;
     settingsLabel->setLabelText(diskCacheInfo);
 

@@ -28,7 +28,6 @@
 #ifndef TABLEVIEW_H
 #define TABLEVIEW_H
 
-
 #include <QTableView>
 
 class Settings;
@@ -41,29 +40,29 @@ class DownloadHeaderView;
  * @class TableView
  * @brief 下载条目列表
 */
-class TableView:public QTableView
+class TableView : public QTableView
 {
     Q_OBJECT
 public:
     TableView(int Flag);
-    void reset(bool switched=false);
+    void reset(bool switched = false);
     /**
      * @brief 获取model
      * @return model
     */
-    TableModel* getTableModel();
+    TableModel *getTableModel();
 
     /**
      * @brief 获取control
      * @return Control
     */
-    tableDataControl* getTableControl();
+    tableDataControl *getTableControl();
 
     /**
      * @brief 获取header
      * @return header
     */
-    DownloadHeaderView* getTableHeader();
+    DownloadHeaderView *getTableHeader();
 
     /**
      * @brief 刷新列表
@@ -74,6 +73,7 @@ public:
      * @brief 右键菜单
      */
     void onContextMenu(QPoint pos);
+
 private:
     /**
      * @brief 界面初始化
@@ -90,6 +90,12 @@ private:
     */
     void initTableView();
 
+private slots:
+    /**
+     * @brief model数据改变
+     */
+    void onModellayoutChanged();
+
 signals:
 
     //void getDatachanged();
@@ -101,7 +107,7 @@ signals:
     /**
      * @brief 清除表头选中状态信号
      */
-  //  void ClearHeaderCheck();
+    //  void ClearHeaderCheck();
 
     /**
      * @brief 表头全选按键选中
@@ -112,8 +118,8 @@ signals:
      * @brief 鼠标悬停行改变
      */
     void Hoverchanged(const QModelIndex &index);
-protected:
 
+protected:
     /**
      * @brief 鼠标按下事件
     */
@@ -134,16 +140,16 @@ protected:
     */
     void leaveEvent(QEvent *event) override;
 
-
     /**
      * @brief 键盘按下事件
     */
     void keyPressEvent(QKeyEvent *event) override;
+
 private:
     int m_TableFlag;
     TableModel *m_TableModel;
-    tableDataControl * m_TableDataControl;
-    DownloadHeaderView* m_HeaderView;
+    tableDataControl *m_TableDataControl;
+    DownloadHeaderView *m_HeaderView;
     ItemDelegate *m_Itemdegegate;
     Settings *m_Setting;
     TopButton *m_ToolBar;
