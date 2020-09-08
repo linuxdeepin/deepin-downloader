@@ -343,21 +343,21 @@ void MainFrame::initTray()
 
 void MainFrame::updateDHTFile()
 {
-    QFileInfo f(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
+    QFileInfo f(QDir::homePath() + "/.config/uos/downloader/dht.dat");
     QDateTime t = f.fileTime(QFileDevice::FileModificationTime);
     if (t.date() == QDate::currentDate()) {
         return;
     }
-    QFile::remove(QDir::homePath() + "/.config/uos/downloadmanager/dht.dat");
-    QFile::remove(QDir::homePath() + "/.config/uos/downloadmanager/dht6.dat");
+    QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht.dat");
+    QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht6.dat");
     QMap<QString, QVariant> opt;
-    opt.insert("dir", QString(QDir::homePath() + "/.config/uos/downloadmanager"));
+    opt.insert("dir", QString(QDir::homePath() + "/.config/uos/downloader"));
     opt.insert("out", "dht.dat");
     Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht.dat",
                                           opt, "dht.dat");
 
     QMap<QString, QVariant> opt2;
-    opt2.insert("dir", QString(QDir::homePath() + "/.config/uos/downloadmanager"));
+    opt2.insert("dir", QString(QDir::homePath() + "/.config/uos/downloader"));
     opt2.insert("out", "dht6.dat");
     Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht6.dat",
                                           opt2, "dht6.dat");
@@ -2204,8 +2204,8 @@ void MainFrame::onDownloadLimitChanged()
 void MainFrame::onPowerOnChanged(bool isPowerOn)
 {
     // setAutoStart(isPowerOn);
-    QString autostartDesktop = "downloadmanager.desktop";
-    QString defaultDesktop = "downloadmanager.desktop";
+    QString autostartDesktop = "downloader.desktop";
+    QString defaultDesktop = "downloader.desktop";
     QString userDefaultDesktopPath = QString("%1/autostart/")
                                          .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
 
@@ -2469,10 +2469,10 @@ void MainFrame::startBtAssociat()
     if (!DefaultList.isEmpty()) {
         for (int i = 0; i < DefaultList.size(); i++) {
             if (DefaultList[i].contains("application/x-bittorrent")) {
-                DefaultList[i] = "application/x-bittorrent=downloadmanager.desktop;";
+                DefaultList[i] = "application/x-bittorrent=downloader.desktop;";
             }
             if (i == DefaultList.size() - 1 && !(DefaultList[i].contains("application/x-bittorrent"))) {
-                DefaultList.append("application/x-bittorrent=downloadmanager.desktop;");
+                DefaultList.append("application/x-bittorrent=downloader.desktop;");
             }
         }
     } else {
@@ -2481,10 +2481,10 @@ void MainFrame::startBtAssociat()
     if (!AddedList.isEmpty()) {
         for (int i = 0; i < AddedList.size(); i++) {
             if (AddedList[i].contains("application/x-bittorrent")) {
-                AddedList[i] = "application/x-bittorrent=downloadmanager.desktop;";
+                AddedList[i] = "application/x-bittorrent=downloader.desktop;";
             }
             if (i == AddedList.size() - 1 && !(AddedList[i].contains("application/x-bittorrent"))) {
-                AddedList.append("application/x-bittorrent=downloadmanager.desktop;");
+                AddedList.append("application/x-bittorrent=downloader.desktop;");
             }
         }
     } else {
@@ -2553,10 +2553,10 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
                                     "com.deepin.dde.Notification",
                                     QDBusConnection::sessionBus());
         QList<QVariant> arg;
-        QString in0(tr("Downloader")); //下载器
+        QString in0(tr("downloader")); //下载器
         uint in1 = 101;
         QString in2;
-        in2 = "downloadmanager";
+        in2 = "downloader";
         QString in3(head);
         QString in4(text);
 
@@ -2564,7 +2564,7 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
         QVariantMap in6;
         if (isBt) {
             in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
-            in6["x-deepin-action-_view"] = "downloadmanager";
+            in6["x-deepin-action-_view"] = "Downloader";
         }
 
         int in7 = 5000;
@@ -2665,7 +2665,7 @@ void MainFrame::onDownloadFinish()
 
 void MainFrame::clearSharedMemory()
 {
-    QSharedMemory sharedMemory("downloadmanager");
+    QSharedMemory sharedMemory("Downloader");
     if (sharedMemory.attach()) {
         if (sharedMemory.isAttached()) {
             sharedMemory.lock();
@@ -2691,7 +2691,7 @@ bool MainFrame::isNetConnect()
 
 bool MainFrame::isAutoStart()
 {
-    QString path = QString("%1/autostart/downloadmanager.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+    QString path = QString("%1/autostart/downloader.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
     QFile readFile(path);
     if (!readFile.open(QIODevice::ReadOnly)) {
         qDebug() << "error";
@@ -2716,7 +2716,7 @@ bool MainFrame::isAutoStart()
 
 void MainFrame::setAutoStart(bool ret)
 {
-    QString path = QString("%1/autostart/downloadmanager.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+    QString path = QString("%1/autostart/downloader.desktop").arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
     QFile readFile(path);
     if (!readFile.open(QIODevice::ReadOnly)) {
         qDebug() << "error";
@@ -2758,9 +2758,9 @@ void MainFrame::setAutoStart(bool ret)
 
 void MainFrame::initDbus()
 {
-    QDBusConnection::sessionBus().unregisterService("com.downloadmanager.service");
-    QDBusConnection::sessionBus().registerService("com.downloadmanager.service");
-    QDBusConnection::sessionBus().registerObject("/downloadmanager/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
+    QDBusConnection::sessionBus().unregisterService("com.downloader.service");
+    QDBusConnection::sessionBus().registerService("com.downloader.service");
+    QDBusConnection::sessionBus().registerObject("/downloader/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
 }
 
 bool MainFrame::deleteDirectory(const QString &path)

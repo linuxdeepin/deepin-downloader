@@ -541,6 +541,8 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
         m_editDir->setDirectoryUrl(m_defaultDownloadDir);
         return;
     }
+    //获取到更改后的大小
+    //QString _freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
     QString text = getFileEditText(filename);
     m_editDir->lineEdit()->setText(text);
@@ -661,6 +663,7 @@ QString BtInfoDialog::getFileEditText(QString text)
 {
     QString flieEditText = text + "    " + tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(text);
     int count = text.count();
+    int hasLongStr = 0;
 
     for (int i = 0; i < flieEditText.size(); i++) {
         //判断字符中是否包含中文或者大写字母
@@ -672,7 +675,14 @@ QString BtInfoDialog::getFileEditText(QString text)
     if (count > 45) {
         text = text.right(45);
     }
-
+    for (int i = 0; i < text.size(); i++) {
+        //判断字符中是否包含中文或者大写字母
+        if ((text[i] >= 'A' && text[i] <= 'Z')
+            || (text[i] >= 0x4E00 && text[i] <= 0x9FA5)) {
+            hasLongStr++;
+        }
+    }
+    text = text.right(45 - hasLongStr/2);
     return text;
 }
 
@@ -688,7 +698,7 @@ void BtInfoDialog::setOkBtnStatus(int count)
 void BtInfoDialog::closeEvent(QCloseEvent *event)
 {
     QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloadmanager");
+    sharedMemory.setKey("downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
         sharedMemory.lock();
