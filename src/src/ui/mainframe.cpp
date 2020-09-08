@@ -1706,13 +1706,18 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
     int errNo = result.value("code").toInt();
     QString message = result.value("message").toString();
     qDebug() << "slot rpc error method is:" << method << error << message;
+
     if (1 == errNo) {
-        if (message.contains("cannot be paused now")) {
+        if (message.contains("cannot be paused now")) { //暂停失败，采用强制暂停
             //showWarningMsgbox("current task cannot be paused now!");
             DownloadDataItem *item = m_DownLoadingTableView->getTableModel()->find(id);
             if (nullptr != item) {
                 Aria2RPCInterface::instance()->forcePause(item->gid, "");
             }
+        } else if (message.contains("No URI to download.")) { //url错误，弹床提示
+            MessageBox msg;
+            msg.setWarings(tr("Unable to perse url,please check url"), tr("Ok"));
+            msg.exec();
         }
     }
     // save_data_before_close();
@@ -2078,7 +2083,7 @@ void MainFrame::onCopyUrlActionTriggered()
     m_CopyUrlFromLocal = true;
     QClipboard *clipboard = DApplication::clipboard();
     clipboard->setText(url);
-    m_TaskNum->setText(tr("Copied to clipboard"));
+    //m_TaskNum->setText(tr("Copied to clipboard"));
 
     QString showHead(tr("Downloader"));
     QString showInfo(tr("Copied to clipboard"));
@@ -2665,7 +2670,7 @@ void MainFrame::onDownloadFinish()
 
 void MainFrame::clearSharedMemory()
 {
-    QSharedMemory sharedMemory("Downloader");
+    QSharedMemory sharedMemory("downloader");
     if (sharedMemory.attach()) {
         if (sharedMemory.isAttached()) {
             sharedMemory.lock();

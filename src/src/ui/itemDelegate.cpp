@@ -121,7 +121,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
             painter->drawRoundRect(rect.x(), rect.y(), 25, rect.height(), 25, 25);
             painter->drawRect(rect.x() + 15, rect.y(), rect.width() - 15, rect.height());
-            painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
+            painter->setPen(QColor("#FFFFFF"));
             QItemEditorFactory::setDefaultFactory(new QItemEditorFactory);
         }
 
@@ -170,7 +170,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
             painter->drawRect(rect);
-            painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
+            painter->setPen(QColor("#FFFFFF"));
         }
         const QString size = index.data(TableModel::Size).toString();
         painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
@@ -186,7 +186,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->setBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight());
                 painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
                 painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
-                painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
+                painter->setPen(QColor("#FFFFFF"));
             }
             painter->setFont(font);
             QRect sizeRect = textRect;
@@ -284,7 +284,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
             painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
             painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
-            painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
+            painter->setPen(QColor("#FFFFFF"));
         }
         const QString time = index.data(TableModel::Time).toString();
         painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, time);

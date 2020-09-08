@@ -1308,7 +1308,7 @@ void tableDataControl::recycleListRedownload(QString id)
 void tableDataControl::clearShardMemary()
 {
     QSharedMemory sharedMemory;
-    sharedMemory.setKey("Downloader");
+    sharedMemory.setKey("downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
         sharedMemory.lock();
