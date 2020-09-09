@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("uos"); //设置公司名
     a.setApplicationName("Downloader"); //设置应用程序名
     a.setApplicationVersion(DLM_VERSION_STRING); //设置应用程序版本
-    a.setProductIcon(QIcon(":/icons/icon/Downloader.svg")); //从系统主题中获取图标并设置成产品图标
+    a.setProductIcon(QIcon(":/icons/icon/downloader.svg")); //从系统主题中获取图标并设置成产品图标
     auto download_manager_name = QObject::tr("Downloader");
     a.setProductName(download_manager_name); //设置产品的名称
     auto download_manager_info = QObject::tr("This is a download manage application.");

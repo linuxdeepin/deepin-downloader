@@ -158,9 +158,29 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
 
         break;
     }
-    default: {
-        emit sendFinishedUrl(*m_linkInfo);
-        break;
+    default:
+    {
+        QProcess *process = new QProcess;
+        QStringList list;
+        list << "-I" << reply->url().toString();
+        process->start("curl", list);
+        connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
+            static QMutex mutex;
+            bool isLock = mutex.tryLock();
+            if (isLock) {
+                //process->readAllStandardOutput();
+                QProcess *proc = dynamic_cast<QProcess *>(sender());
+                QString str =proc->readAllStandardOutput();
+                proc->kill();
+                proc->close();
+                 //
+                proc->deleteLater();
+                m_linkInfo->urlSize = getUrlSize(str);
+            }
+            emit sendFinishedUrl(*m_linkInfo);
+            mutex.unlock();
+
+        });
     }
     }
 }

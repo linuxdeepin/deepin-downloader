@@ -30,6 +30,10 @@
 
 #include <QObject>
 #include <QHeaderView>
+#include <DApplication>
+#include <dguiapplicationhelper.h>
+
+DWIDGET_USE_NAMESPACE
 
 static int m_curWidget = 0;
 class headerView : public QHeaderView
@@ -43,6 +47,11 @@ protected:
 
 private:
     QRect checkBoxRect(const QRect &sourceRect) const;
+
+    /**
+     * @brief 调色板改变，重新设置颜色
+     */
+    void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 };
 
 #endif // BTHEADERVIEW_H

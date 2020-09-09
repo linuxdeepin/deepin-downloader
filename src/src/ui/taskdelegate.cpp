@@ -61,12 +61,16 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     painter->save();
 
     if (index.row() == m_hoverRow) {
-        painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
+        if(index.row() % 2 == 1){
+            painter->fillRect(option.rect, QColor(0, 0, 0, 0));
+        }else {
+            painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
+        }
     } else {
         if (index.row() % 2 == 1) {
-            painter->fillRect(option.rect, option.palette.base());
+            painter->fillRect(option.rect, QColor(0, 0, 0, 20));
         } else {
-            painter->fillRect(option.rect, option.palette.alternateBase());
+            painter->fillRect(option.rect, QColor(0, 0, 0, 40));
         }
     }
 
@@ -101,6 +105,8 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         QPixmap pic = icon.pixmap(20, 20);
 
         painter->drawPixmap(option.rect.x() + 32, option.rect.y() + 13, pic);
+
+        //painter.
 
         painter->setPen(Qt::darkGray);
 

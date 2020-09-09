@@ -615,10 +615,10 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
                                 "com.deepin.dde.Notification",
                                 QDBusConnection::sessionBus());
     QList<QVariant> arg;
-    QString in0(tr("Downloader")); //下载器
+    QString in0(tr("downloader")); //下载器
     uint in1 = 101;
     QString in2;
-    in2 = "Downloader";
+    in2 = "downloader";
     QString in3;
     QString in4;
     QStringList in5;
@@ -1297,7 +1297,7 @@ void tableDataControl::recycleListRedownload(QString id)
 void tableDataControl::clearShardMemary()
 {
     QSharedMemory sharedMemory;
-    sharedMemory.setKey("Downloader");
+    sharedMemory.setKey("downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
         sharedMemory.lock();

@@ -176,6 +176,7 @@ bool ClipboardTimer::isHttp(QString url)
          << "dmg"
          << "msu"
          << "bz2"
+         << "png"
          << "exe";
     if (type.contains(suffix)) {
         return true;

@@ -724,6 +724,10 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::OpenBt(QString url)
 {
+    if (isNetConnect()) {
+        m_TaskWidget->showNetErrorMsg();
+        return;
+    }
     bool bIsBt = Settings::getInstance()->getStartAssociatedBTFileState();
     if (!bIsBt) {
         return;
@@ -2552,7 +2556,7 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
         QVariantMap in6;
         if (isBt) {
             in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
-            in6["x-deepin-action-_view"] = "Downloader";
+            in6["x-deepin-action-_view"] = "downloader";
         }
 
         int in7 = 5000;
@@ -2651,7 +2655,7 @@ void MainFrame::onDownloadFinish()
 
 void MainFrame::clearSharedMemory()
 {
-    QSharedMemory sharedMemory("Downloader");
+    QSharedMemory sharedMemory("downloader");
     if (sharedMemory.attach()) {
         if (sharedMemory.isAttached()) {
             sharedMemory.lock();

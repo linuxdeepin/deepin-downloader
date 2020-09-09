@@ -43,6 +43,7 @@
 #include "taskdelegate.h"
 #include "btheaderview.h"
 #include "analysisurl.h"
+#include "func.h"
 #include "../database/dbinstance.h"
 #include "aria2rpcinterface.h"
 
@@ -103,6 +104,7 @@ void CreateTaskWidget::initUi()
     font.setPixelSize(13);
     m_tableView->setFont(font);
     headerView *header = new headerView(Qt::Horizontal, m_tableView);
+   // header->setStyleSheet("QHeaderView::section stop: 70 #ffffff， stop");
     m_tableView->setHorizontalHeader(header);
     header->setDefaultAlignment(Qt::AlignLeft);
     header->setHighlightSections(false);
@@ -277,6 +279,11 @@ void CreateTaskWidget::onCancelBtnClicked()
 
 void CreateTaskWidget::onSureBtnClicked()
 {
+    if(!Func::isNetConnect()){
+        showNetErrorMsg();
+        return;
+    }
+
     QVector<LinkInfo> urlList;
     for (int i = 0; i < m_model->rowCount(); i++) {
         if (m_model->data(m_model->index(i, 0)).toString() == "1") {

@@ -78,7 +78,7 @@ private:
     DDialog *m_dialog; //父类窗口指针
     QCheckBox *m_checkBtn;
     int m_hoverRow; //当前选择行
-    QBrush m_hoverColor = QColor(0, 0, 0, 13);
+    QBrush m_hoverColor = QColor(0, 0, 0, 20);
 
     QModelIndex m_isEdit;
 

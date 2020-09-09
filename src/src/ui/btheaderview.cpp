@@ -33,6 +33,12 @@
 headerView::headerView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
+    if(DGuiApplicationHelper::instance()->themeType() == 2) {
+        onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
+    } else {
+        onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
+    }
+    //set
 }
 
 void headerView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
@@ -62,4 +68,30 @@ QRect headerView::checkBoxRect(const QRect &sourceRect) const
         m_curWidget = 0;
     }
     return QRect(checkBoxPoint, checkBoxRect.size());
+}
+
+void headerView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
+{
+    Q_UNUSED(type);
+    QPalette p;
+
+
+    //palette.setColor(DPalette::Background, c);
+
+    if(DGuiApplicationHelper::instance()->themeType() == 2) {
+        p.setColor(QPalette::Base, QColor(0,0,0,20));
+        p.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base());
+        
+       // QColor c = DGuiApplicationHelper::instance()->applicationPalette().base();
+       // c.setAlpha(70);
+       // p.setColor(DPalette::Background, c);
+
+    } else {
+       // p.setColor(QPalette::Base, QColor(0,0,0,20));
+        QColor c = DGuiApplicationHelper::instance()->applicationPalette().base().color();
+        c.setAlpha(70);
+        p.setColor(DPalette::Background, c);
+        //p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());
+    }
+    setPalette(p);
 }

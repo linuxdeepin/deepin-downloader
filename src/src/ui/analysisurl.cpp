@@ -67,14 +67,37 @@ void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
 
 void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
 {
-    emit sendFinishedUrl(&linkInfo);
+    static QMutex mutex;
+    bool isLock = mutex.tryLock();
+    if (isLock) {
+        QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(linkInfo.url);
+        if(it==m_curAllUrl.end())
+        {
+            mutex.unlock();
+            return;
+        }
+        it.value().type = linkInfo.type;
+        it.value().state = linkInfo.state;
+        it.value().length = linkInfo.length;
+        it.value().urlTrueLink = linkInfo.urlTrueLink;
+        it.value().urlName = linkInfo.urlName;
+        it.value().urlSize = linkInfo.urlSize;
+
+        emit sendFinishedUrl(&linkInfo);
+    }
+    mutex.unlock();
 }
 
 void AnalysisUrl::stopWork(int index)
 {
-    QThread *thread = m_workThread.value(index);
-    thread->requestInterruption();
-    thread->quit();
-    thread->wait();
-    delete thread;
+    static QMutex mutex;
+    bool isLock = mutex.tryLock();
+    if (isLock) {
+        QThread *thread = m_workThread.value(index);
+        thread->requestInterruption();
+        thread->quit();
+        thread->wait();
+        delete thread;
+    }
+    mutex.unlock();
 }
