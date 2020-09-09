@@ -525,15 +525,6 @@ void tableDataControl::aria2GetGlobalStatus(QJsonObject &json)
         }
         speedList.clear();
     }
-
-    QString id = json.value("id").toString();
-    DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(id);
-    if (pItem != nullptr) {
-        QString ariaTempFile = pItem->savePath + ".aria2";
-        if (QFile::exists(ariaTempFile)) {
-            QFile::remove(ariaTempFile);
-        }
-    }
 }
 
 void tableDataControl::aria2MethodRemove(QJsonObject &json)

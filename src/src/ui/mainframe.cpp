@@ -1824,10 +1824,23 @@ void MainFrame::onDeleteActionTriggered()
 
 void MainFrame::onRedownloadActionTriggered()
 {
+    if (isNetConnect()) {
+        m_TaskWidget->showNetErrorMsg();
+        return;
+    }
     if (m_CurrentTab == CurrentTab::recycleTab) {
         if (QFileInfo::exists(m_DelCheckItem->savePath)) {
             MessageBox msg;
             msg.setRedownload(m_DelCheckItem->fileName);
+            int rs = msg.exec();
+            if (rs != DDialog::Accepted) {
+                return;
+            }
+        }
+    } else if (m_CurrentTab == CurrentTab::finishTab) {
+        if (QFileInfo::exists(m_CheckItem->savePath)) {
+            MessageBox msg;
+            msg.setRedownload(m_CheckItem->fileName);
             int rs = msg.exec();
             if (rs != DDialog::Accepted) {
                 return;
@@ -2397,6 +2410,9 @@ void MainFrame::initDataItem(Global::DownloadDataItem *data, const TaskInfo &tbT
         data->Ischecked = 0;
         data->totalLength = taskStatus.totalLength;
         data->completedLength = taskStatus.compeletedLength;
+        if (data->url.toLower().contains("magnet:?xt=urn:btih")) {
+            data->completedLength = "0KB";
+        }
         if (taskStatus.downloadStatus == Global::DownloadJobStatus::Active
             || taskStatus.downloadStatus == Global::DownloadJobStatus::Paused
             || taskStatus.downloadStatus == Global::DownloadJobStatus::Waiting) {
