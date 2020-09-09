@@ -530,17 +530,17 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     QFileInfo fileinfo;
     QString strPath;
     fileinfo.setFile(filename);
-//    if (!fileinfo.isWritable()) {
-//        MessageBox *msg = new MessageBox();
-//        QString title = tr("Permission denied. Please try other folder.");
-//        msg->setWarings(title, tr("sure"));
-//        msg->exec();
-//        strPath = m_editDir->directoryUrl().toString();
-//        QString text = getFileEditText(m_defaultDownloadDir);
-//        m_editDir->lineEdit()->setText(text);
-//        m_editDir->setDirectoryUrl(m_defaultDownloadDir);
-//        return;
-//    }
+    if (!fileinfo.isWritable()) {
+        MessageBox *msg = new MessageBox();
+        QString title = tr("Permission denied. Please try other folder.");
+        msg->setWarings(title, tr("sure"));
+        msg->exec();
+        strPath = m_editDir->directoryUrl().toString();
+        QString text = getFileEditText(m_defaultDownloadDir);
+        m_editDir->lineEdit()->setText(text);
+        m_editDir->setDirectoryUrl(m_defaultDownloadDir);
+        return;
+    }
     //获取到更改后的大小
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
     QPalette pal;
