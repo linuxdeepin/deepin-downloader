@@ -1070,6 +1070,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
             delData->url = data->url;
             delData->fileName = data->fileName;
             delData->savePath = data->savePath;
+            delData->status = DownloadJobStatus::Removed;
             delData->Ischecked = false;
             delData->totalLength = data->totalLength;
             delData->completedLength = data->completedLength;

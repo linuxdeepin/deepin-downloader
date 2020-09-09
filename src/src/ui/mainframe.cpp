@@ -1023,7 +1023,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     int activeCount = 0;
     int pauseCount = 0;
     int errorCount = 0;
-    int existFileCount;
+    int existFileCount = 0;
     DownloadDataItem *pDownloadItem = nullptr;
     DeleteDataItem *pDeleteItem = nullptr;
     if (m_CurrentTab == recycleTab) {
@@ -1150,7 +1150,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     QAction *pactiondelDownloading = new QAction();
     pactiondelDownloading->setText(tr("Delete"));
     delmenlist->addAction(pactiondelDownloading);
-    connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::onDelActionTriggered);
+    connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::onDeleteActionTriggered);
 
     QAction *pactionDeletePermanently = new QAction();
     pactionDeletePermanently->setText(tr("Permanently Delete"));
@@ -1656,7 +1656,7 @@ void MainFrame::onPauseDownloadBtnClicked()
 
 void MainFrame::onDeleteDownloadBtnClicked()
 {
-    onDelActionTriggered();
+    onDeleteActionTriggered();
 }
 
 void MainFrame::onRpcSuccess(QString method, QJsonObject json)
@@ -1718,6 +1718,7 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
                 Aria2RPCInterface::instance()->forcePause(item->gid, "");
             }
         } else if (message.contains("No URI to download.")) { //url错误，弹窗提示
+            DBInstance::delTask(id);
             MessageBox msg;
             msg.setWarings(tr("Unable to parse the URL, please check"), tr("Ok"));
             msg.exec();
@@ -1798,12 +1799,14 @@ void MainFrame::onUpdateMainUI()
     if (activeCount == 0) {
         if (m_UpdateTimer->isActive()) {
             m_UpdateTimer->stop();
+            m_NotaskLabel->show();
+            m_NotaskTipLabel->show();
         }
     }
     setTaskNum();
 }
 
-void MainFrame::onDelActionTriggered()
+void MainFrame::onDeleteActionTriggered()
 {
     int selectedCount = 0;
 
@@ -2647,7 +2650,7 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
 
 void MainFrame::onDownloadFinish()
 {
-    m_UpdateTimer->stop();
+    //m_UpdateTimer->stop();
     m_ShutdownOk = true;
     if (m_ShutdownAct->isChecked()) {
         m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();

@@ -246,7 +246,7 @@ private slots:
     /**
      * @brief 删除ACtion槽函数
     */
-    void onDelActionTriggered();
+    void onDeleteActionTriggered();
 
     /**
      * @brief 重新下载ACtion槽函数
