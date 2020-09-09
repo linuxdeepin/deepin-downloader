@@ -730,7 +730,13 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
     if (!type.isNull()) {
         name = name.mid(0, name.size() - type.size() - 1);
     } else {
-        type = "error";
+        QStringList splitStr = name.split("?");
+        if(splitStr.size() > 0);{
+            type = db.suffixForFileName(splitStr[0]);
+        }
+        if(type.isNull()){
+            type = "error";
+        }
     }
     name = QUrl::fromPercentEncoding(name.toUtf8());
 }
