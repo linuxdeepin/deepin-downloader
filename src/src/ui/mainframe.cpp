@@ -412,6 +412,8 @@ void MainFrame::initConnection()
     connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
     connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
     connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onIsStartAssociatedBTFile);
+    connect(Settings::getInstance(), &Settings::autoDownloadBySpeedChanged,
+            this, &MainFrame::onAutoDownloadBySpeed);
 
     connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList, Qt::UniqueConnection);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::onDownloadNewTorrent, Qt::UniqueConnection);
@@ -466,7 +468,7 @@ void MainFrame::closeEvent(QCloseEvent *event)
     }
     // setWindowFlags(Qt::Tool);
     event->ignore();
-    DMainWindow::closeEvent(event);
+    // DMainWindow::closeEvent(event);
 }
 
 void MainFrame::paintEvent(QPaintEvent *event)
@@ -493,9 +495,13 @@ void MainFrame::createNewTask(QString url)
 void MainFrame::onTrayQuitClick(bool force)
 {
     if (!m_ShutdownOk && !force) {
-        MessageBox msgBox;
+        static MessageBox msgBox;
+        if (msgBox.isVisible()) {
+            return;
+        }
         QString title = tr("Are you sure you want to exit? \nDownloading tasks will be interrupted.");
         msgBox.setWarings(title, tr("sure"), tr("cancel"));
+
         int rs = msgBox.exec();
         if (rs != DDialog::Accepted) {
             return;
@@ -512,9 +518,8 @@ void MainFrame::onMessageBoxConfirmClick()
     if (Settings::getInstance()->getCloseMainWindowSelected()) {
         onTrayQuitClick(false);
     } else {
-        showMinimized();
-        //setWindowState(Qt::WindowActive);
-        //activateWindow();
+        //showMinimized();
+        hide();
     }
 }
 
@@ -945,20 +950,20 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
             fileName = fileName.remove(".torrent");
         }
     }
-    QMimeDatabase db;
-    QString mime = db.suffixForFileName(fileName);
-    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
-    if (count > 0) {
-        QString name1 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
-        name1 += QString("_%1").arg(count);
-        fileName = name1 + "." + mime;
-        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
-        if (count1 > 0) {
-            QString name2 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
-            name2 += QString("_%1").arg(count1);
-            fileName = name2 + "." + mime;
-        }
-    }
+    //    QMimeDatabase db;
+    //    QString mime = db.suffixForFileName(fileName);
+    //    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
+    //    if (count > 0) {
+    //        QString name1 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
+    //        name1 += QString("_%1").arg(count);
+    //        fileName = name1 + "." + mime;
+    //        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
+    //        if (count1 > 0) {
+    //            QString name2 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
+    //            name2 += QString("_%1").arg(count1);
+    //            fileName = name2 + "." + mime;
+    //        }
+    //    }
     if (!type.isEmpty()) {
         fileName = fileName + "." + type;
     }
@@ -1705,13 +1710,18 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
     int errNo = result.value("code").toInt();
     QString message = result.value("message").toString();
     qDebug() << "slot rpc error method is:" << method << error << message;
+
     if (1 == errNo) {
-        if (message.contains("cannot be paused now")) {
+        if (message.contains("cannot be paused now")) { //暂停失败，采用强制暂停
             //showWarningMsgbox("current task cannot be paused now!");
             DownloadDataItem *item = m_DownLoadingTableView->getTableModel()->find(id);
             if (nullptr != item) {
                 Aria2RPCInterface::instance()->forcePause(item->gid, "");
             }
+        } else if (message.contains("No URI to download.")) { //url错误，弹床提示
+            MessageBox msg;
+            msg.setWarings(tr("Unable to perse url,please check url"), tr("Ok"));
+            msg.exec();
         }
     }
     // save_data_before_close();
@@ -2077,7 +2087,7 @@ void MainFrame::onCopyUrlActionTriggered()
     m_CopyUrlFromLocal = true;
     QClipboard *clipboard = DApplication::clipboard();
     clipboard->setText(url);
-    m_TaskNum->setText(tr("Copied to clipboard"));
+    //m_TaskNum->setText(tr("Copied to clipboard"));
 
     QString showHead(tr("Downloader"));
     QString showInfo(tr("Copied to clipboard"));
@@ -2427,6 +2437,13 @@ void MainFrame::onIsStartAssociatedBTFile(bool status)
     }
 }
 
+void MainFrame::onAutoDownloadBySpeed(bool status)
+{
+    if (!status) {
+        onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
+    }
+}
+
 void MainFrame::startBtAssociat()
 {
     QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
@@ -2628,12 +2645,14 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
 
     foreach (LinkInfo info, urlList) {
         onDownloadNewUrl(info.url, path, info.urlName, info.type);
+        QThread::usleep(500);
     }
 }
 
 void MainFrame::onDownloadFinish()
 {
     m_UpdateTimer->stop();
+    m_ShutdownOk = true;
     if (m_ShutdownAct->isChecked()) {
         m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
         m_RecycleTableView->getTableControl()->saveDataBeforeClose();

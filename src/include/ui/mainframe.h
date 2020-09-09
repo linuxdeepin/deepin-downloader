@@ -300,6 +300,12 @@ private slots:
     void onIsStartAssociatedBTFile(bool status);
 
     /**
+    * @brief 速度小于多少自动增加任务窗口
+    * @param status true 为开启 false为关闭
+    */
+    void onAutoDownloadBySpeed(bool status);
+
+    /**
     * @brief 重命名确认槽函数
     * @param name 新名称
     */

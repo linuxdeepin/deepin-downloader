@@ -144,6 +144,14 @@ Settings::Settings(QObject *parent)
         }
     });
 
+    //速度小于多少自动增加任务窗口
+    auto atoDownloadBySpeed = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoDownload");
+    connect(atoDownloadBySpeed, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            emit autoDownloadBySpeedChanged(value.toString().left(1).toInt());
+        }
+    });
+
     // 下载磁盘缓存
     auto diskCacheNum = m_settings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
     connect(diskCacheNum, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {

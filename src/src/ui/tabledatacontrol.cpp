@@ -42,6 +42,7 @@
 #include <QDBusInterface>
 #include <QSharedMemory>
 #include <QBuffer>
+#include <QMimeDatabase>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -113,6 +114,8 @@ void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAdd
         } else {
             DBInstance::addTaskStatus(downloadStatus);
         }
+    } else {
+        DBInstance::delTask(pData->taskId);
     }
 
     m_DownloadTableView->getTableModel()->removeItem(pData);
@@ -274,7 +277,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if (statusStr == "active") {
         status = Global::DownloadJobStatus::Active;
         int n = access(filePath.toStdString().c_str(), 0);
-        if (-1 == n && completedLength > 0) {
+        QDateTime createTime = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
+        createTime = createTime.addSecs(5);
+        QDateTime currentTime = QDateTime::currentDateTime();
+        if (-1 == n && createTime < currentTime) {
             if (!fileName.contains("[METADATA]")) {
                 Aria2RPCInterface::instance()->remove(data->gid);
                 if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
@@ -405,8 +411,6 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if (data->time.isEmpty()) {
             data->time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
         }
-
-        //              updatetimer->stop();
     }
     TaskInfo task;
     TaskInfo getTask;
@@ -728,8 +732,13 @@ void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
             removeDownloadListJob(pItem, false);
             emit DownloadUnusuaBtJob(info.seedFile, opt, fileName, info.infoHash);
         } else {
-            emit DownloadUnusuaHttpJob(pItem->url, Settings::getInstance()->getDownloadSavePath());
+            QString url = pItem->url;
+            QString savepath = pItem->savePath.left(pItem->savePath.lastIndexOf("/"));
+            QMimeDatabase db;
+            QString mime = db.suffixForFileName(pItem->fileName);
+            QString fileName = pItem->fileName.mid(0, pItem->fileName.lastIndexOf(mime) - 1);
             removeDownloadListJob(pItem, false);
+            emit DownloadUnusuaHttpJob(url, savepath, fileName, mime);
         }
     } else {
         removeDownloadListJob(pItem);
@@ -832,7 +841,9 @@ void tableDataControl::RedownloadErrorItem(DownloadDataItem *errorItem)
 {
     Aria2RPCInterface::instance()->remove(errorItem->gid);
     DBInstance::delTask(errorItem->taskId);
-    emit DownloadUnusuaHttpJob(errorItem->url, Settings::getInstance()->getDownloadSavePath());
+    emit DownloadUnusuaHttpJob(errorItem->url, errorItem->savePath,
+                               errorItem->fileName, errorItem->fileName.split(".").last());
+
     m_DownloadTableView->getTableModel()->removeItem(errorItem);
 }
 
