@@ -33,7 +33,7 @@ downloader (5.2.0.2) stable; urgency=low
  *45681 【5.2.0.1】退出下载器提示框选择取消或x按钮后下载器退出到托盘
 
 
- -- unknown <unknown@uniontech.com>  Tues., 9 Sep. 2020 10:52:16 +0800
+ -- unknown <unknown@uniontech.com>  Wed., 9 Sep. 2020 10:52:16 +0800
 
 
 downloader (5.2.0.1) stable; urgency=low
