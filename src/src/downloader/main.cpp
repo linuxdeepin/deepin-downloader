@@ -31,13 +31,11 @@ int main(int argc, char *argv[])
     a.setQuitOnLastWindowClosed(false);
     a.loadTranslator(); //加载程序的翻译文件
     a.setOrganizationName("uos"); //设置公司名
-    a.setApplicationName("Downloader"); //设置应用程序名
+    a.setApplicationName("downloader"); //设置应用程序名
     a.setApplicationVersion(DLM_VERSION_STRING); //设置应用程序版本
     a.setProductIcon(QIcon(":/icons/icon/downloader.svg")); //从系统主题中获取图标并设置成产品图标
-    auto download_manager_name = QObject::tr("Downloader");
-    a.setProductName(download_manager_name); //设置产品的名称
-    auto download_manager_info = QObject::tr("This is a download manage application.");
-    a.setApplicationDescription(download_manager_info); //设置产品的描述信息
+    a.setProductName(QObject::tr("Downloader")); //设置产品的名称
+    a.setApplicationDescription(QObject::tr("This is a download manage application.")); //设置产品的描述信息
     a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application")); //设置应用程序的显示信息
 
     //处理命令行类

@@ -52,7 +52,7 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
     m_headerCbx->setVisible(true);
     //setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
-    if(DGuiApplicationHelper::instance()->themeType() == 2) {
+    if (DGuiApplicationHelper::instance()->themeType() == 2) {
         onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     } else {
         onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
@@ -64,6 +64,7 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
 void DownloadHeaderView::updateGeometries()
 {
     m_headerCbx->move(sectionPosition(0) + 5, 5);
+    QHeaderView::updateGeometries();
 }
 
 void DownloadHeaderView::onHeaderChecked(bool checked)
@@ -76,7 +77,7 @@ void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType t
     Q_UNUSED(type);
     QPalette p;
 
-    if(DGuiApplicationHelper::instance()->themeType() == 2) {
+    if (DGuiApplicationHelper::instance()->themeType() == 2) {
         p.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base());
     } else {
         p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());

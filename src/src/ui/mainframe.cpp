@@ -1713,14 +1713,13 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
 
     if (1 == errNo) {
         if (message.contains("cannot be paused now")) { //暂停失败，采用强制暂停
-            //showWarningMsgbox("current task cannot be paused now!");
             DownloadDataItem *item = m_DownLoadingTableView->getTableModel()->find(id);
             if (nullptr != item) {
                 Aria2RPCInterface::instance()->forcePause(item->gid, "");
             }
-        } else if (message.contains("No URI to download.")) { //url错误，弹床提示
+        } else if (message.contains("No URI to download.")) { //url错误，弹窗提示
             MessageBox msg;
-            msg.setWarings(tr("Unable to perse url,please check url"), tr("Ok"));
+            msg.setWarings(tr("Unable to parse the URL, please check"), tr("Ok"));
             msg.exec();
         }
     }
@@ -2103,11 +2102,8 @@ void MainFrame::onDeletePermanentActionTriggered()
     } else {
         selectedCount = m_DownLoadingTableView->getTableControl()->onDeletePermanentAction(m_CurrentTab);
     }
-    if (selectedCount == 0) {
-        showWarningMsgbox(tr("no item is selected,please check items!"));
-    } else {
-        showDeleteMsgbox(true);
-    }
+
+    showDeleteMsgbox(true);
 }
 
 void MainFrame::onRenameConfirmSlot(QString &name)

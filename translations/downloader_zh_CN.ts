@@ -503,7 +503,7 @@ does not involve the privacy.</source>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="1719"/>
         <source>Unable to perse url,please check url</source>
-        <translation>不能解析url，请检查url</translation>
+        <translation>链接解析失败，请检查链接是否正确</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainframe.cpp" line="1719"/>
@@ -703,7 +703,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="94"/>
         <source>Download error</source>
-        <translation>下载错误</translation>
+        <translation>下载异常</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="96"/>
@@ -821,7 +821,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/notificationssettiingwidget.cpp" line="58"/>
         <source>Go to set</source>
-        <translation>去设置</translation>
+        <translation>前往系统通知设置</translation>
     </message>
 </context>
 <context>
@@ -1210,7 +1210,7 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/tabledatacontrol.cpp" line="402"/>
         <source> &gt; 1 Day</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;1天</translation>
     </message>
     <message>
         <location filename="../src/src/ui/tabledatacontrol.cpp" line="633"/>

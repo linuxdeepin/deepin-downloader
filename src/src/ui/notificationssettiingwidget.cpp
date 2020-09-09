@@ -57,6 +57,7 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     btnFont.setFamily("T6");
     QPushButton *btn = new QPushButton(tr("Go to set"), this);
     btn->setFont(btnFont);
+    btn->setMaximumWidth(150);
     QVBoxLayout *pVLayout = new QVBoxLayout();
     pVLayout->addWidget(pTextLabel);
     pVLayout->addSpacing(4);
