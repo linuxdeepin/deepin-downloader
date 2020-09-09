@@ -177,6 +177,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                 proc->deleteLater();
                 m_linkInfo->urlSize = getUrlSize(str);
             }
+            emit sendFinishedUrl(*m_linkInfo);
             mutex.unlock();
 
         });
