@@ -206,7 +206,10 @@ QString UrlThread::getUrlType(QString url)
                 }
                 s++;
             }
-            return type;
+            if(type == "html"){
+                return type;
+            }
+
         }
     }
     return "";
