@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eff8bf2a_ec059734",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-14T09:37:05Z",
+      "side": 1,
+      "message": "Log后面必须存在一个\u0027:\u0027",
+      "revId": "9663b9d680b38cfa7e27b1b578ba11747eb74f51",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
