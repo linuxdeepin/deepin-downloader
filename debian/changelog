@@ -1,4 +1,10 @@
-downloadmanager (5.1.0.21) stable; urgency=low
+downloadmanager (5.1.0.22) stable; urgency=low
+
+* 修改完成第9次送测的bug,
+ * 46454 【KLU】【5.1.0.21】【下载器】磁力链下载部分文件时会自动将任务移入回收站无法进行下载
+
+
+ -- unknown <unknown@uniontech.com>  Mon., 26 September 2020 17:34:16 +0800
 
 * 修改完成第8次送测的bug,
  *45237  5.1.0.20】 【下载器】重复创建BT任务下载失败时，右键重新下载文件下载目录再主目录
