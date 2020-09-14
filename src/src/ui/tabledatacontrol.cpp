@@ -273,10 +273,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     if (statusStr == "active") {
         status = Global::DownloadJobStatus::Active;
-        int n = access(filePath.toStdString().c_str(), 0);
-        QString length = data->completedLength.left(data->completedLength.size() - 2);
-        double compLeng = length.toDouble();
-        if ((-1 == n) && (compLeng > 0)) {
+        if ((!QFileInfo::exists(data->savePath)) && (completedLength > 0)) {
             if (!fileName.contains("[METADATA]")) {
                 Aria2RPCInterface::instance()->remove(data->gid);
                 if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
