@@ -629,8 +629,8 @@ private:
     DListView *m_LeftList;
 
     DStandardItem *m_DownloadingItem;
-    QStandardItem *m_DownloadFinishItem;
-    QStandardItem *m_RecycleItem;
+    DStandardItem *m_DownloadFinishItem;
+    DStandardItem *m_RecycleItem;
     QSystemTrayIcon *m_SystemTray;
     ClipboardTimer *m_Clipboard;
     QAction *m_SettingAction;

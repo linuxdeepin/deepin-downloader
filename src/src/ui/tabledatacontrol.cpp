@@ -276,11 +276,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     if (statusStr == "active") {
         status = Global::DownloadJobStatus::Active;
-        int n = access(filePath.toStdString().c_str(), 0);
         QDateTime createTime = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
         createTime = createTime.addSecs(5);
         QDateTime currentTime = QDateTime::currentDateTime();
-        if (-1 == n && createTime < currentTime) {
+        if ((!QFileInfo::exists(data->savePath)) && (createTime < currentTime) && (completedLength > 0)) {
             if (!fileName.contains("[METADATA]")) {
                 Aria2RPCInterface::instance()->remove(data->gid);
                 if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
@@ -700,6 +699,9 @@ bool tableDataControl::checkFileExist(QString &filePath)
 void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
 {
     DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(taskId);
+    if (nullptr == pItem) {
+        return;
+    }
 
     BtTaskInfo info;
     bool isBttask = false;
@@ -708,9 +710,6 @@ void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
         if (!info.taskId.isEmpty()) {
             isBttask = true;
         }
-    }
-    if (nullptr == pItem) {
-        return;
     }
 
     if (0 == index) {

@@ -125,10 +125,10 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             QItemEditorFactory::setDefaultFactory(new QItemEditorFactory);
         }
 
-        QRect rect = textRect;
+        QRect localRect = textRect;
 
-        int x = rect.x();
-        int y = rect.y() + 12;
+        int x = localRect.x();
+        int y = localRect.y() + 12;
         QString filetype = index.data(TableModel::FileName).toString();
         QString fileSavePath = index.data(TableModel::SavePath).toString();
         QFileInfo fileInfo(fileSavePath);
@@ -155,7 +155,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->drawPixmap(x + 10, y + 10, errorPic);
         }
 
-        const QRect rectText = rect.marginsRemoved(QMargins(25, 2, 0, 5));
+        const QRect rectText = localRect.marginsRemoved(QMargins(25, 2, 0, 5));
         QString name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(),
                                                          Qt::ElideRight,
                                                          textRect.width() - 10);

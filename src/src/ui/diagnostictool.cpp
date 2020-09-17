@@ -212,6 +212,8 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
 
 DiagnosticDelegate::DiagnosticDelegate(QObject *parent, int Flag)
 {
+    Q_UNUSED(parent);
+    Q_UNUSED(Flag);
 }
 
 DiagnosticDelegate::~DiagnosticDelegate()
@@ -222,7 +224,7 @@ void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 {
     painter->setPen(QColor(index.data(Qt::TextColorRole).toString()));
     if (index.row() % 2 == 0) {
-        painter->fillRect(option.rect, QColor(255, 255, 255));
+        painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().toolTipBase().color());
     } else {
         painter->fillRect(option.rect, QColor(245, 245, 245, 80));
     }
