@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3650a1e4_ee2184ea",
+        "filename": "src/include/ui/mainframe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T09:16:42Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "467fe4ed66610ee4ebfcbb237ee208cf46c0d8dd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed00377a_a0f919f2",
+        "filename": "src/src/aria2/aria2rpcinterface.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T09:16:42Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "467fe4ed66610ee4ebfcbb237ee208cf46c0d8dd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa927ed1_23d2c333",
+        "filename": "src/src/downloader/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T09:16:42Z",
+      "side": 1,
+      "message": "注释行数: 26; 改动行数(修改和新增): 27; 注释率: 96.3%",
+      "revId": "467fe4ed66610ee4ebfcbb237ee208cf46c0d8dd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420cfa03_663f3fe2",
+        "filename": "src/src/ui/diagnostictool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T09:16:42Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 3; 注释率: 0.0%",
+      "revId": "467fe4ed66610ee4ebfcbb237ee208cf46c0d8dd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f365a9_602ded65",
+        "filename": "src/src/ui/itemDelegate.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T09:16:42Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 58; 注释率: 0.0%",
+      "revId": "467fe4ed66610ee4ebfcbb237ee208cf46c0d8dd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
