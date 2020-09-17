@@ -703,7 +703,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="94"/>
         <source>Download error</source>
-        <translation>下载异常</translation>
+        <translation>任务下载异常</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="96"/>
