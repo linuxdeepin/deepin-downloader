@@ -1,6 +1,6 @@
-downloader (5.2.0.5) stable; urgency=low
+downloadmanager (5.2.0.5) stable; urgency=low
 
- * 修改二期二次送测产生的部分bug,
+ *修改二期二次送测产生的部分bug,
  *47527 【5.2.0.4】【磁力链下载】不能下载磁力链链接
  *47525 【5.2.0.4】【bt下载】BT文件创建下载失败
  *47517 【5.2.0.4】【正在下载列表】下载完成后，有任务没有删除aria2文件
@@ -18,7 +18,7 @@ downloader (5.2.0.5) stable; urgency=low
 
  -- unknown <unknown@uniontech.com>  Wed., 17 September 2020 15:52:16 +0800
 
-downloader (5.2.0.2) stable; urgency=low
+downloadmanager (5.2.0.2) stable; urgency=low
 
  * 修改二期一次送测产生的部分bug,
  *45808 【5.2.0.1】 【BT下载】种子下载时只选择了一个图片下载下来却多了一个视频和压缩包
@@ -56,7 +56,7 @@ downloader (5.2.0.2) stable; urgency=low
  -- unknown <unknown@uniontech.com>  Wed., 9 September 2020 10:52:16 +0800
 
 
-downloader (5.2.0.1) stable; urgency=low
+downloadmanager (5.2.0.1) stable; urgency=low
 
  * 完成二期所有任务,
 
