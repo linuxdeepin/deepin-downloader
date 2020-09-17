@@ -27,10 +27,10 @@
 
 #include "log.h"
 #include <iostream>
-static int s_logLevel = QtDebugMsg;
-static quint64 _logDaysRemain = DEFALT_REMAIN_TIME;
-static int _rotateSize = MAXLOGSIZE;
-static quint64 _remainDisk = DEFALT_REMAIN_SIZE;
+static int s_LogLevel = QtDebugMsg;
+static quint64 s_LogDaysRemain = DEFALT_REMAIN_TIME;
+static int s_RotateSize = MAXLOGSIZE;
+static quint64 s_RemainDisk = DEFALT_REMAIN_SIZE;
 
 void setLogPath(const QString &path)
 {
@@ -38,11 +38,11 @@ void setLogPath(const QString &path)
 }
 void setLogDir(const QString &dir)
 {
-    _logDir = dir;
+    s_LogDir = dir;
 }
 void setLogLevel(int level)
 {
-    s_logLevel = level;
+    s_LogLevel = level;
 }
 
 bool static ensureDirExist(const QString &dirPath)
@@ -58,7 +58,7 @@ QFileInfoList GetLogList()
 {
     QStringList nameFilter;
     nameFilter << "*.log";
-    QDir logDir(_logDir);
+    QDir logDir(s_LogDir);
     auto logList = logDir.entryInfoList(nameFilter, QDir::Files, QDir::Name);
     return logList;
 }
@@ -70,7 +70,7 @@ void CheckLogTime()
         auto logInfo = logList[i];
         auto createdTime = logInfo.created();
         auto elapseDays = createdTime.daysTo(curTime);
-        if (elapseDays > _logDaysRemain) {
+        if (elapseDays > s_LogDaysRemain) {
             auto logPath = logInfo.absoluteFilePath();
             QDir dir;
             dir.remove(logPath);
@@ -90,19 +90,19 @@ quint64 GetDiskFreeSpace()
         qDebug() << "size:" << storage.bytesTotal() / 1000 / 1000 << "MB";
         qDebug() << "availableSize:" << storage.bytesAvailable() / 1000 / 1000 << "MB";
     }
-    return (quint64)storage.bytesAvailable();
+    return static_cast<quint64>(storage.bytesAvailable());
 }
 void CheckFreeDisk()
 {
     auto freeSpace = GetDiskFreeSpace();
 
-    if (freeSpace < _remainDisk) {
+    if (freeSpace < s_RemainDisk) {
         auto logList = GetLogList();
         for (int i = 0; i < logList.size() - 1; ++i) {
             QDir dir;
             dir.remove(logList[i].absolutePath());
             freeSpace = GetDiskFreeSpace();
-            if (freeSpace > _remainDisk) {
+            if (freeSpace > s_RemainDisk) {
                 break;
             }
         }
@@ -110,12 +110,12 @@ void CheckFreeDisk()
 }
 bool CheckRotateSize()
 {
-    bool ret = _logFile.size() >= _rotateSize;
+    bool ret = s_LogFile.size() >= s_RotateSize;
     return ret;
 }
 bool CheckRotateTimePoint()
 {
-    QFileInfo curLogInfo(_logFile);
+    QFileInfo curLogInfo(s_LogFile);
     auto curLogCreateDate = curLogInfo.created();
     auto curDate = QDateTime::currentDateTime();
     auto dayElapse = curLogCreateDate.daysTo(curDate);
@@ -127,7 +127,7 @@ bool CheckRotateTimePoint()
 }
 void CloseLog()
 {
-    _logFile.close();
+    s_LogFile.close();
 }
 
 void WriteVersion()
@@ -157,17 +157,17 @@ void CreateNewLog()
     auto appName = QCoreApplication::applicationName();
     auto version = QCoreApplication::applicationVersion();
     auto curTime = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmsszzz");
-    auto logName = _logDir + appName + "_" + curTime + ".log";
-    _logFile.setFileName(logName);
+    auto logName = s_LogDir + appName + "_" + curTime + ".log";
+    s_LogFile.setFileName(logName);
     setLogPath(logName);
-    _logFile.open(QIODevice::ReadWrite | QIODevice::Append);
+    s_LogFile.open(QIODevice::ReadWrite | QIODevice::Append);
     //日志头写入App\系统参数
     WriteVersion();
 }
 
 void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, const QString &msg)
 {
-    if (type < s_logLevel) {
+    if (type < s_LogLevel) {
         return;
     }
 

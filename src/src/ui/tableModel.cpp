@@ -53,7 +53,7 @@ TableModel::~TableModel()
 
 void TableModel::onCheckdatachange(int flag)
 {
-    int check_num = 0;
+    int checkNum = 0;
     QList<DownloadDataItem *> activeList;
     QList<DownloadDataItem *> finishList;
 
@@ -72,10 +72,10 @@ void TableModel::onCheckdatachange(int flag)
         if ((m_Mode == Downloading) && (activeList.size() > 0)) {
             for (DownloadDataItem *item : activeList) {
                 if (item->Ischecked) {
-                    check_num++;
+                    checkNum++;
                 }
             }
-            if (check_num == activeList.size()) {
+            if (checkNum == activeList.size()) {
                 emit tableviewAllcheckedOrAllunchecked(true);
             } else {
                 emit tableviewAllcheckedOrAllunchecked(false);
@@ -84,10 +84,10 @@ void TableModel::onCheckdatachange(int flag)
         if ((m_Mode == Finished) && (finishList.size() > 0)) {
             for (DownloadDataItem *item : finishList) {
                 if (item->Ischecked) {
-                    check_num++;
+                    checkNum++;
                 }
             }
-            if (check_num == finishList.size()) {
+            if (checkNum == finishList.size()) {
                 emit tableviewAllcheckedOrAllunchecked(true);
             } else {
                 emit tableviewAllcheckedOrAllunchecked(false);
@@ -97,10 +97,10 @@ void TableModel::onCheckdatachange(int flag)
         for (int i = 0; i < m_RecyleList.size(); i++) {
             DeleteDataItem *del_data = m_RecyleList.at(i);
             if (del_data->Ischecked) {
-                check_num++;
+                checkNum++;
             }
         }
-        if (check_num == m_RecyleList.size()) {
+        if (checkNum == m_RecyleList.size()) {
             emit tableviewAllcheckedOrAllunchecked(true);
         } else {
             emit tableviewAllcheckedOrAllunchecked(false);
