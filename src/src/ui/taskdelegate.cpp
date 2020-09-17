@@ -40,6 +40,7 @@
 #include <QStandardItem>
 #include <QDir>
 #include <QThread>
+#include <DAlertControl>
 
 TaskDelegate::TaskDelegate(DDialog *dialog)
 {
@@ -175,6 +176,21 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
         setModelData(pEdit, nullptr, index);
 
+        QString curName;
+        DAlertControl *alertControl = new DAlertControl(pEdit, pEdit);
+        for (int i =0; i < index.model()->rowCount(); i++) {
+            curName = index.model()->data(index.model()->index(i, 1)).toString();
+            if(curName == filename && i != index.row()){
+                    alertControl->showAlertMessage(tr("Total speed neet less than Max download speed!"),
+                                                             pEdit->parentWidget()->parentWidget(), -1);
+                    alertControl->setMessageAlignment(Qt::AlignLeft);
+            }
+            else {
+                pEdit->hideAlertMessage();
+
+            }
+        }
+
     });
 
     pEdit->setGeometry(150, 10, 50, 10);
@@ -209,6 +225,7 @@ void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
             return;
         }
     }
+
 
     ((CreateTaskWidget *)m_dialog)->setUrlName(row, str);
 
