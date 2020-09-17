@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c1a309c9_81d74a9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T06:37:45Z",
+      "side": 1,
+      "message": "Log后面必须存在一个\u0027:\u0027",
+      "revId": "b17268e49a2b167768268ee3caf8c1cd5dadb161",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9771ce6_0c33737f",
         "filename": "src/include/log/log.h",
         "patchSetId": 1
