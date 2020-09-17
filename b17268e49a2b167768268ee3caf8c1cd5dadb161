@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9771ce6_0c33737f",
+        "filename": "src/include/log/log.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T06:37:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "b17268e49a2b167768268ee3caf8c1cd5dadb161",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6dcdd60_ed04f158",
+        "filename": "src/include/ui/mainframe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T06:37:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "b17268e49a2b167768268ee3caf8c1cd5dadb161",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e089831b_bf87b2fb",
+        "filename": "src/src/aria2/aria2rpcinterface.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T06:37:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "b17268e49a2b167768268ee3caf8c1cd5dadb161",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd495d0_6dfb4fca",
+        "filename": "src/src/downloader/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T06:37:45Z",
+      "side": 1,
+      "message": "注释行数: 26; 改动行数(修改和新增): 28; 注释率: 92.9%",
+      "revId": "b17268e49a2b167768268ee3caf8c1cd5dadb161",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1154cc3_362a4ff3",
+        "filename": "src/src/log/log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T06:37:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 18; 注释率: 0.0%",
+      "revId": "b17268e49a2b167768268ee3caf8c1cd5dadb161",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcdadc56_954a5a75",
+        "filename": "src/src/ui/diagnostictool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T06:37:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 62; 注释率: 0.0%",
+      "revId": "b17268e49a2b167768268ee3caf8c1cd5dadb161",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
