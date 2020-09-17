@@ -30,7 +30,7 @@
 #include "urlthread.h"
 #include <QObject>
 #include <QMap>
-
+class UrlThread;
 struct LinkInfo {
     enum UrlState {
         Start = 1,
@@ -84,12 +84,15 @@ public:
      */
     void setUrlList(QMap<QString, LinkInfo> list);
 
+
 public slots:
     /**
      * @brief getLinkInfo 获取到解析后的url信息
      * @param list url信息
      */
     void getLinkInfo(LinkInfo);
+
+    void getTrueLinkInfo(LinkInfo);
 
 private:
     /**
@@ -108,6 +111,9 @@ signals:
 private:
     QMap<QString, LinkInfo> m_curAllUrl;
     QMap<int, QThread *> m_workThread;
+    QMap<int, UrlThread*> m_urlThread;
+
+
 };
 
 #endif // ANALYSISURL_H

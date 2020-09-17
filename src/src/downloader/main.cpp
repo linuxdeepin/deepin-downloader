@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
             if (comList.isEmpty()) {
                 QDBusInterface iface("com.downloader.service",
                                      "/downloader/path",
-                                     "local.Downloader.MainFrame",
+                                     "local.downloader.MainFrame",
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("Raise");
             } else {
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
                 }
                 QDBusInterface iface("com.downloader.service",
                                      "/downloader/path",
-                                     "local.Downloader.MainFrame",
+                                     "local.downloader.MainFrame",
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("OpenBt", comList[0]);
             }

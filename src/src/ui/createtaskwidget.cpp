@@ -84,6 +84,7 @@ void CreateTaskWidget::initUi()
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
     m_texturl->setFixedSize(QSize(500, 154));
+    m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
@@ -94,11 +95,12 @@ void CreateTaskWidget::initUi()
     m_tableView = new BtInfoTableView(this);
     m_tableView->setMouseTracking(true);
     m_tableView->setShowGrid(false);
-    m_tableView->setSelectionMode(QAbstractItemView::NoSelection);
-    m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    m_tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    m_tableView->setAlternatingRowColors(true);
     m_tableView->setFrameShape(QAbstractItemView::NoFrame);
+    m_tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_tableView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_tableView->setEditTriggers(QAbstractItemView::EditKeyPressed);
+    m_tableView->setAlternatingRowColors(true);
 
     QFont font;
     font.setPixelSize(13);
@@ -133,6 +135,7 @@ void CreateTaskWidget::initUi()
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &TaskDelegate::onhoverChanged);
+    //connect(m_delegate, &TaskDelegate::editChange, m_tableView, &BtInfoTableView::onEditChange);
     addContent(m_tableView);
 
     QWidget *labelWidget = new QWidget(this);
@@ -274,6 +277,10 @@ void CreateTaskWidget::onFileDialogOpen()
 
 void CreateTaskWidget::onCancelBtnClicked()
 {
+    if(m_analysisUrl != nullptr){
+        delete  m_analysisUrl;
+        m_analysisUrl = nullptr;
+    }
     close();
 }
 
@@ -301,6 +308,10 @@ void CreateTaskWidget::onSureBtnClicked()
     emit downloadWidgetCreate(urlList, m_defaultDownloadDir);
 
     m_texturl->clear();
+    if(m_analysisUrl != nullptr){
+        delete  m_analysisUrl;
+        m_analysisUrl = nullptr;
+    }
     hide();
 }
 
@@ -346,6 +357,9 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
 
 void CreateTaskWidget::setUrl(QString url)
 {
+    if(m_analysisUrl == nullptr){
+        m_analysisUrl = new AnalysisUrl;
+    }
     QString setTextUrl;
     QString textUrl = m_texturl->toPlainText();
     if (textUrl.isEmpty()) {
@@ -357,6 +371,7 @@ void CreateTaskWidget::setUrl(QString url)
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     m_editDir->setText(savePath);
     m_defaultDownloadDir = savePath;
+
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
@@ -409,7 +424,7 @@ void CreateTaskWidget::onTextChanged()
         }
 
         getUrlToName(urlList[i], name, type);
-        setData(i, name, type, "", urlList[i], 0, urlList[i]);
+        setData(i, name, "", "", urlList[i], 0, urlList[i]);
 
         LinkInfo urlInfo;
         urlInfo.url = urlList[i];
@@ -749,9 +764,8 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
     if (!name.isNull())
         m_model->setItem(index, 1, new QStandardItem(name));
 
-    if (!type.isEmpty()) {
-        m_model->setItem(index, 2, new QStandardItem(type));
-    }
+    m_model->setItem(index, 2, new QStandardItem(type));
+
     if (type == "html" && size.isNull()) {
         m_model->setItem(index, 3, new QStandardItem("1KB"));
         m_model->setItem(index, 4, new QStandardItem(QString::number(1024)));
@@ -854,6 +868,13 @@ void CreateTaskWidget::setUrlName(int index, QString name)
             return;
         }
     }
+    for (int j = 0; j < m_model->rowCount(); j++) {
+        if(j == index)
+            continue;
+        if(name == m_model->data(m_model->index(index, 2)).toString())
+            return;
+    }
+
     m_model->setItem(index, 1, new QStandardItem(name));
     m_tableView->setColumnHidden(1, true);
 }

@@ -7,23 +7,37 @@
 #include <QMutex>
 #include <QThread>
 #include <QMimeDatabase>
-//#incldue <Settings>
+#include <QApplication>
+#include <QStandardPaths>
+#include <QSettings>
 
 UrlThread::UrlThread(QObject *parent)
     : QObject(parent)
 {
     qRegisterMetaType<LinkInfo>("LinkInfo");
+    QString iniConfigPath = QString("%1/%2/%3/content-type.conf")
+                                    .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                                    .arg(qApp->organizationName())
+                                    .arg(qApp->applicationName());
+
+        if(m_iniFile == nullptr){
+            m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
+            m_iniFile->beginGroup("content-type");
+        }
 }
 
 void UrlThread::start(LinkInfo &urlInfo)
 {
     m_linkInfo = new LinkInfo;
     *m_linkInfo = urlInfo;
-    m_linkInfo->urlTrueLink = urlInfo.url;
 }
 
 UrlThread::~UrlThread()
 {
+    if(m_linkInfo != nullptr){
+        delete m_linkInfo;
+        m_linkInfo = nullptr;
+    }
 }
 
 void UrlThread::begin()
@@ -46,42 +60,48 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
     case 200: // redirect (Location: [URL])   真实链接
     {
         QProcess *process = new QProcess;
-        QStringList list;
-        list << "-i" << reply->url().toString();
-        process->start("curl", list);
-        connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
-            static QMutex mutex;
-            bool isLock = mutex.tryLock();
-            if (isLock) {
-                QString str = process->readAllStandardOutput();
-                process->kill();
-                process->close();
-                QStringList urlList;
-                urlList.append(process->arguments().at(1));
-                process->deleteLater();
-                m_linkInfo->urlSize = getUrlSize(str);
-                m_linkInfo->type = getUrlType(str);
-                if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
-                {
-                    emit sendFinishedUrl(*m_linkInfo);
-                    mutex.unlock();
-                    return;
-                }
-                QStringList urlInfoList = str.split("\r\n");
-                for (int i = 0; i < urlInfoList.size(); i++) {
-                    if (urlInfoList[i].startsWith("Content-Disposition:")) //为405链接
-                    {
-                        int start = urlInfoList[i].lastIndexOf("'");
-                        QString urlName = urlInfoList[i].mid(start);
-                        QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
-                        m_linkInfo->urlName = encodingUrlName;
-                        emit sendFinishedUrl(*m_linkInfo);
+                QStringList list;
+                list << "-I" << reply->url().toString();
+                process->start("curl", list);
+                connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
+                    static QMutex mutex;
+                    bool isLock = mutex.tryLock();
+                    if (isLock) {
+                        QString str = process->readAllStandardOutput();
+                        process->kill();
+                        process->close();
+                        QStringList urlList;
+                        urlList.append(process->arguments().at(1));
+                        process->deleteLater();
+                        m_linkInfo->urlSize = getUrlSize(str);
+                        if(m_linkInfo->urlSize.isEmpty()){
+                            m_linkInfo->urlSize = "1kb";
+                        }
+                        m_linkInfo->type = getUrlType(str);
+                        if(m_linkInfo->type.isEmpty()){
+                            m_linkInfo->type = "html";
+                        }
+                        if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
+                        {
+                            emit sendFinishedUrl(*m_linkInfo);
+                            mutex.unlock();
+                            return;
+                        }
+                        QStringList urlInfoList = str.split("\r\n");
+                        for (int i = 0; i < urlInfoList.size(); i++) {
+                            if (urlInfoList[i].startsWith("Content-Disposition:")) //为405链接
+                            {
+                                int start = urlInfoList[i].lastIndexOf("'");
+                                QString urlName = urlInfoList[i].mid(start);
+                                QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
+                                m_linkInfo->urlName = encodingUrlName;
+                                emit sendFinishedUrl(*m_linkInfo);
+                            }
+                        }
+                        mutex.unlock();
                     }
-                }
-                mutex.unlock();
-            }
-        });
-        break;
+                });
+                break;
     }
     case 301:
     case 302: // redirect (Location: [URL])  重定向链接
@@ -107,6 +127,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                 QStringList urlStrList = QStringList(strUrl);
                 m_linkInfo->type = getUrlType(strUrl);
                // m_linkInfo->urlSize = getUrlSize(str);
+                emit sendTrueUrl(*m_linkInfo);
                 m_linkInfo->url = m_linkInfo->urlTrueLink;
                // emit sendFinishedUrl(*m_linkInfo);
                 //onDownloadNewUrl(strUrl, Settings::getInstance()->getCustomFilePath(), encodingUrlName, type);
@@ -114,7 +135,6 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                 proc->close();
                 mutex.unlock();
                 begin();
-
             }
         });
         break;
@@ -163,25 +183,29 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         QProcess *process = new QProcess;
         QStringList list;
         list << "-I" << reply->url().toString();
+        QString str = reply->url().toString();
         process->start("curl", list);
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
             static QMutex mutex;
             bool isLock = mutex.tryLock();
+            QString str =process->readAllStandardOutput();
+            process->kill();
+            process->close();
+            process->deleteLater();
             if (isLock) {
-                //process->readAllStandardOutput();
-                QProcess *proc = dynamic_cast<QProcess *>(sender());
-                QString str =proc->readAllStandardOutput();
-                proc->kill();
-                proc->close();
-                 //
-                proc->deleteLater();
                 m_linkInfo->urlSize = getUrlSize(str);
             }
             emit sendFinishedUrl(*m_linkInfo);
             mutex.unlock();
 
         });
-        emit sendFinishedUrl(*m_linkInfo);
+        connect(process, &QProcess::readyReadStandardError, this, [=]() {
+                            QProcess *proc = dynamic_cast<QProcess *>(sender());
+                            QString str = proc->readAllStandardOutput();
+                            proc->kill();
+                            proc->deleteLater();
+                            emit sendFinishedUrl(*m_linkInfo);
+                });
     }
     }
 }
@@ -189,26 +213,15 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
 QString UrlThread::getUrlType(QString url)
 {
     QMimeDatabase db;
-    QString type = db.suffixForFileName(m_linkInfo->urlTrueLink);
+    QString type = db.suffixForFileName(m_linkInfo->url);
     if (!type.isNull()) {
         return type;
     }
     QStringList urlInfoList = url.split("\r\n");
     for (int i = 0; i < urlInfoList.size(); i++) {
         if (urlInfoList[i].startsWith("content-type:", Qt::CaseInsensitive)) {
-            QByteArray ba = urlInfoList[i].split("/")[1].toLatin1();
-            const char *s = ba.data();
-            while (*s) {
-                if ((*s >= 'A' && *s <= 'Z') || (*s >= 'a' && *s <= 'z')) {
-                    type.append(*s);
-                } else {
-                    break;
-                }
-                s++;
-            }
-            if(type == "html"){
-                return type;
-            }
+            QString contentType = urlInfoList[i].split(" ")[1];
+            return  getType(contentType);
 
         }
     }
@@ -220,10 +233,17 @@ QString UrlThread::getUrlSize(QString url)
     QStringList urlInfoList = url.split("\r\n");
     for (int i = 0; i < urlInfoList.size(); i++) {
         if (urlInfoList[i].startsWith("Content-Length:", Qt::CaseInsensitive)) {
-            int size = urlInfoList[i].split(" ")[1].toLatin1().toInt();
+            QString str = urlInfoList[i].split(" ")[1];
+            long size = urlInfoList[i].split(" ")[1].toLatin1().toLong();
             m_linkInfo->length = size;
             return Aria2RPCInterface::instance()->bytesFormat(size);
         }
     }
     return "";
+}
+QString UrlThread::getType(QString contentType)
+{
+
+    QString str3 = m_iniFile->value("1").toString();
+    return  m_iniFile->value(contentType).toString();
 }

@@ -31,8 +31,10 @@
 #include <QObject>
 class LinkInfo;
 class QThread;
+class QSettings;
 class QNetworkReply;
 
+static QSettings *m_iniFile = nullptr;
 class UrlThread : public QObject
 {
     Q_OBJECT
@@ -47,6 +49,8 @@ public:
      */
     void getLinkInfo(LinkInfo);
     void start(LinkInfo &urlInfo);
+
+    void stop();
 
 private slots:
     /**
@@ -73,12 +77,16 @@ private:
      */
     QString getUrlSize(QString url);
 
+    QString getType(QString contentType);
+
 signals:
     /**
      * @brief sendFinishedUrl 发送解析后的数据
      * @param link 数据
      */
     void sendFinishedUrl(LinkInfo link);
+
+    void sendTrueUrl(LinkInfo link);
 
 private:
     LinkInfo *m_linkInfo; //当前url信息

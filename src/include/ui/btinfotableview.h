@@ -41,6 +41,8 @@ class BtInfoTableView : public DTableView
 public:
     explicit BtInfoTableView(QWidget *parent = nullptr);
 
+    //void reset();
+
 protected:
     /**
      * @brief 重写鼠标移动事件，鼠标移动事件，鼠标若移动该行，给窗口发送信号
@@ -52,6 +54,7 @@ protected:
      * @return event 鼠标事件
      */
     void leaveEvent(QEvent *event);
+
 
 signals:
     /**

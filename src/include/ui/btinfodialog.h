@@ -189,7 +189,6 @@ private:
     DLabel *m_labelCapacityFree; //下载路径所在分区剩余磁盘容量
     DLabel *m_folderIcon; //文件icon
     DLabel *m_labelInfoName; //下载信息名称
-    DLabel *m_surplusSize; //
     DFileChooserEdit *m_editDir; //选择下载路径窗口
 
     DCheckBox *m_checkAll; //文件类型全选
