@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2378fdf2_77439aea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-17T11:51:30Z",
+      "side": 1,
+      "message": "Bug:后面必须存在一个空格",
+      "revId": "011b0b983254d0fa46166597c969089296584dd5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f94b00d_eb2f6ff1",
         "filename": "src/src/ui/urlthread.cpp",
         "patchSetId": 1
