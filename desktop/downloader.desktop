@@ -1,5 +1,5 @@
 [Desktop Entry]
-Categories=downloader;
+Categories=downloader;Network;
 Comment=downloader
 Exec=downloader %F
 GenericName=Downloader

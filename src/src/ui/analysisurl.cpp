@@ -12,6 +12,29 @@ AnalysisUrl::AnalysisUrl(QObject *parent)
 
 AnalysisUrl::~AnalysisUrl()
 {
+    QMap<int, QThread *>::iterator workIt = m_workThread.begin();
+    for (;workIt != m_workThread.end();) {
+        QThread *value = workIt.value();
+        if(value == nullptr){
+            value->requestInterruption();
+            value->exit();
+            value->quit();
+            value->wait();
+
+            delete value;
+            value = nullptr;
+        }
+        m_workThread.erase(workIt++);
+    }
+    QMap<int, UrlThread *>::iterator urlIt = m_urlThread.begin();
+    for (; urlIt != m_urlThread.end();) {
+        UrlThread *value = urlIt.value();
+        if(urlIt.value() == nullptr){
+            delete value;
+            value = nullptr;
+        }
+        m_urlThread.erase(urlIt++);
+    }
 }
 
 void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
@@ -51,14 +74,16 @@ void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
                 LinkInfo info;
                 info.url = it.key();
                 info.index = it.value().index;
-                UrlThread *url = new UrlThread;
-                QThread *m_thread = new QThread;
-                m_workThread.insert(info.index, m_thread);
-                url->moveToThread(m_thread);
+                UrlThread *url= new UrlThread;
+                QThread *thread = new QThread;
+                m_workThread.insert(info.index, thread);
+                m_urlThread.insert(info.index,url);
+                url->moveToThread(thread);
                 url->start(info);
-                connect(m_thread, SIGNAL(started()), url, SLOT(begin()));
-                connect(url, SIGNAL(sendFinishedUrl(LinkInfo)), this, SLOT(getLinkInfo(LinkInfo)));
-                m_thread->start();
+                connect(thread, SIGNAL(started()), url, SLOT(begin()));
+                connect(url, SIGNAL(sendFinishedUrl(LinkInfo)), this, SLOT(getLinkInfo(LinkInfo)),Qt::QueuedConnection);
+                connect(url, SIGNAL(sendTrueUrl(LinkInfo)), this, SLOT(getTrueLinkInfo(LinkInfo)),Qt::QueuedConnection);
+                thread->start();
             }
         }
     }
@@ -71,6 +96,21 @@ void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
     bool isLock = mutex.tryLock();
     if (isLock) {
         QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(linkInfo.url);
+        QMap<QString, LinkInfo>::iterator iter = m_curAllUrl.begin();
+         for (; iter != m_curAllUrl.end(); iter++) {
+             if(iter.value().urlTrueLink == linkInfo.urlTrueLink && !linkInfo.urlTrueLink.isEmpty()){
+                iter.value().type = linkInfo.type;
+                iter.value().state = linkInfo.state;
+                iter.value().length = linkInfo.length;
+                iter.value().urlName = linkInfo.urlName;
+                iter.value().urlSize = linkInfo.urlSize;
+
+                emit sendFinishedUrl(&linkInfo);
+                mutex.unlock();
+                return;
+             }
+
+         }
         if(it==m_curAllUrl.end())
         {
             mutex.unlock();
@@ -79,7 +119,6 @@ void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
         it.value().type = linkInfo.type;
         it.value().state = linkInfo.state;
         it.value().length = linkInfo.length;
-        it.value().urlTrueLink = linkInfo.urlTrueLink;
         it.value().urlName = linkInfo.urlName;
         it.value().urlSize = linkInfo.urlSize;
 
@@ -92,12 +131,41 @@ void AnalysisUrl::stopWork(int index)
 {
     static QMutex mutex;
     bool isLock = mutex.tryLock();
+
     if (isLock) {
+
+        QMap<int,QThread*>::iterator it=m_workThread.find(index);
+        QMap<int,UrlThread*>::iterator urlIt=m_urlThread.find(index);
+        if(urlIt.value() == nullptr){
+            return;
+        }
+        if(it==m_workThread.end())
+            return ;
+
         QThread *thread = m_workThread.value(index);
+        if(thread == nullptr){
+            return;
+        }
+
         thread->requestInterruption();
         thread->quit();
         thread->wait();
         delete thread;
+        delete urlIt.value();
+        urlIt.value() = nullptr;
+
+        mutex.unlock();
     }
-    mutex.unlock();
+
 }
+
+void AnalysisUrl::getTrueLinkInfo(LinkInfo linkInfo)
+{
+    QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(linkInfo.url);
+    if(it==m_curAllUrl.end()){
+        return;
+    }
+    it->urlTrueLink = linkInfo.urlTrueLink;
+}
+
+

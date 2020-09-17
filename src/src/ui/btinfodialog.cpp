@@ -191,14 +191,14 @@ void BtInfoDialog::initUI()
     //
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
-    QString text = getFileEditText(m_defaultDownloadDir);
+ //   QString text = getFileEditText(m_defaultDownloadDir);
     QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
-    m_surplusSize = new DLabel(this);
-    m_surplusSize->setText(flieEditText);
-    m_surplusSize->setPalette(pal);
-    m_surplusSize->setFont(font2);
-    m_surplusSize->move(348, 438);
+    m_labelCapacityFree = new DLabel(this);
+    m_labelCapacityFree->setText(flieEditText);
+    m_labelCapacityFree->setPalette(pal);
+    m_labelCapacityFree->setFont(font2);
+    m_labelCapacityFree->move(348, 438);
     QString str = getFileEditText(m_defaultDownloadDir);
     m_editDir->setText(str);
     m_editDir->setClearButtonEnabled(false);
@@ -542,7 +542,7 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
         return;
     }
     //获取到更改后的大小
-    QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
+    QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(filename);
     QPalette pal;
     pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     QFont font;

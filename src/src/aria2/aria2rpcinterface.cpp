@@ -647,13 +647,49 @@ QString Aria2RPCInterface::processThunderUri(QString thunder)
     return uri;
 }
 
+//QString Aria2RPCInterface::getCapacityFree(QString path)
+//{
+//    QProcess *proc = new QProcess;
+//    QStringList opt;
+//    opt << "-c";
+//    opt << "df -h " + path;
+//   // opt << "df";
+//    proc->start("/bin/bash", opt);
+//  //  proc->start("df", QStringList());
+//    proc->waitForFinished();
+//    QByteArray rt = proc->readAllStandardOutput();
+//    proc->close();
+//    delete proc;
+
+//    QString free = "0B";
+//    QStringList lt = QString(rt).split("\n");
+//    if (lt.length() >= 2) {
+//        QString line = lt.at(1);
+//        QString temp;
+//        QStringList tpl;
+//        for (int i = 0; i < line.length(); i++) {
+//            if (line[i] != ' ') {
+//                temp.append(line[i]);
+//            } else {
+//                if (temp != "") {
+//                    tpl.append(temp);
+//                    temp = "";
+//                }
+//            }
+//        }
+//        free = tpl[3];
+//    }
+//    return free + "B";
+//}
+
 QString Aria2RPCInterface::getCapacityFree(QString path)
 {
     QProcess *proc = new QProcess;
     QStringList opt;
-    opt << "-c";
-    opt << "df -h " + path;
-    proc->start("/bin/bash", opt);
+    opt<< "-h" << path;
+   // opt << "df";
+    proc->start("df", opt);
+  //  proc->start("df", QStringList());
     proc->waitForFinished();
     QByteArray rt = proc->readAllStandardOutput();
     proc->close();
@@ -679,6 +715,8 @@ QString Aria2RPCInterface::getCapacityFree(QString path)
     }
     return free + "B";
 }
+
+
 
 long Aria2RPCInterface::getCapacityFreeByte(QString path)
 {

@@ -30,6 +30,7 @@
 
 #include <DDialog>
 #include <QStyledItemDelegate>
+#include <dlineedit.h>
 
 class QEvent;
 class QAbstractItemModel;
@@ -53,6 +54,9 @@ public:
      */
     void setHoverColor(QBrush c);
 
+signals:
+    void onEditChange(QWidget *);
+
 protected:
     /**
      * @brief 重写绘画事件
@@ -68,6 +72,7 @@ protected:
      * @param option 视图小部件中绘制项的参数
      * @param index 数据模型中的数据
      */
+public:
     bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
@@ -81,6 +86,8 @@ private:
     QBrush m_hoverColor = QColor(0, 0, 0, 20);
 
     QModelIndex m_isEdit;
+    mutable QString m_curName;
+
 
 public slots:
     /**
@@ -88,6 +95,7 @@ public slots:
      * @param index 当前选择行
      */
     void onhoverChanged(const QModelIndex &index);
+
 };
 
 #endif // BTINFODELEGATE_H
