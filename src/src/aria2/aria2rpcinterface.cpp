@@ -108,6 +108,7 @@ bool Aria2RPCInterface::startUp()
     opt << "--enable-dht6=false"; //禁用dht6文件
     opt << "--dht-file-path=" + dhtFile;
     opt << "--dht-file-path6=" + dht6File;
+    opt << "--follow-metalink=false";
 
     qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
