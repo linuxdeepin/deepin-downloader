@@ -46,8 +46,8 @@
 
 static QMutex s_logMutex;
 static QString s_logPath;
-static QString _logDir;
-static QFile _logFile;
+static QString s_LogDir;
+static QFile s_LogFile;
 
 /**
  *@brief 设置日志目录

@@ -35,9 +35,7 @@
 #include <QAction>
 #include <QStackedWidget>
 #include <QSystemTrayIcon>
-#include <QHeaderView>
 #include <QCloseEvent>
-#include <QApplication>
 #include <QDesktopWidget>
 #include <QClipboard>
 #include <QTimer>
@@ -46,26 +44,20 @@
 #include <QDesktopServices>
 #include <QDebug>
 #include <QDBusInterface>
-#include <QNetworkAccessManager>
 #include <QSharedMemory>
-#include <QMutexLocker>
-#include <QMutex>
 #include <QMimeDatabase>
+#include <QUuid>
 #include <unistd.h>
 
 #include "aria2rpcinterface.h"
 #include "aria2const.h"
 #include "tableView.h"
 #include "topButton.h"
-#include "aria2rpcinterface.h"
 #include "createtaskwidget.h"
-#include "settingswidget.h"
 #include "tableModel.h"
-#include "log.h"
 #include "global.h"
 #include "clipboardtimer.h"
 #include "messagebox.h"
-#include "deleteitemthread.h"
 #include "btinfodialog.h"
 #include "../database/dbinstance.h"
 #include "tabledatacontrol.h"
@@ -235,6 +227,9 @@ void MainFrame::init()
     m_DownloadingItem = new DStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
     m_DownloadFinishItem = new DStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
     m_RecycleItem = new DStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
+    m_DownloadingItem->setFontSize(DFontSizeManager::T6);
+    m_DownloadFinishItem->setFontSize(DFontSizeManager::T6);
+    m_RecycleItem->setFontSize(DFontSizeManager::T6);
     //    m_DownloadingItem->setEditable(false);
     //    m_DownloadFinishItem->setEditable(false);
     //    m_RecycleItem->setEditable(false);
@@ -415,7 +410,7 @@ void MainFrame::initConnection()
     connect(Settings::getInstance(), &Settings::autoDownloadBySpeedChanged,
             this, &MainFrame::onAutoDownloadBySpeed);
 
-    connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList, Qt::UniqueConnection);
+    connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::onDownloadNewTorrent, Qt::UniqueConnection);
 }
 
@@ -482,6 +477,8 @@ void MainFrame::createNewTask(QString url)
     if (Settings::getInstance()->getNewTaskShowMainWindowState()) {
         activateWindow();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+        QDesktopWidget *desktop = QApplication::desktop();
+        move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
         show();
     }
     m_TaskWidget->setUrl(url);
@@ -495,13 +492,16 @@ void MainFrame::createNewTask(QString url)
 void MainFrame::onTrayQuitClick(bool force)
 {
     if (!m_ShutdownOk && !force) {
+        static bool msgBoxFlg = true;
         static MessageBox msgBox;
         if (msgBox.isVisible()) {
             return;
         }
-        QString title = tr("Are you sure you want to exit? \nDownloading tasks will be interrupted.");
-        msgBox.setWarings(title, tr("sure"), tr("cancel"));
-
+        if (msgBoxFlg) {
+            QString title = tr("Are you sure you want to exit? \nDownloading tasks will be interrupted.");
+            msgBox.setWarings(title, tr("sure"), tr("cancel"));
+            msgBoxFlg = false;
+        }
         int rs = msgBox.exec();
         if (rs != DDialog::Accepted) {
             return;
@@ -568,13 +568,11 @@ void MainFrame::setTaskNum()
 {
     const QList<DownloadDataItem *> &renderList = m_DownLoadingTableView->getTableModel()->renderList();
     const QList<DeleteDataItem *> &recycleList = m_RecycleTableView->getTableModel()->recyleList();
-    int activeCount = 0;
-    int finishCount = 0;
-    int recycleCount = 0;
     QString activeNum;
 
     if (m_CurrentTab == downloadingTab) {
         int i = 0;
+        int activeCount = 0;
         for (const auto *item : renderList) {
             if ((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Paused) || (item->status == Global::DownloadJobStatus::Lastincomplete) || (item->status == Global::DownloadJobStatus::Error) || (item->status == Global::Waiting)) {
                 if (!m_DownLoadingTableView->isRowHidden(i)) {
@@ -591,6 +589,7 @@ void MainFrame::setTaskNum()
         }
     } else if (m_CurrentTab == finishTab) {
         int j = 0;
+        int finishCount = 0;
         for (const auto *item : renderList) {
             if (item->status == Global::DownloadJobStatus::Complete) {
                 if (!m_DownLoadingTableView->isRowHidden(j)) {
@@ -607,6 +606,7 @@ void MainFrame::setTaskNum()
         }
     } else if (m_CurrentTab == recycleTab) {
         int k = 0;
+        int recycleCount = 0;
         for (const auto *item : recycleList) {
             Q_UNUSED(item);
             if (!m_RecycleTableView->isRowHidden(k)) {
@@ -742,29 +742,26 @@ void MainFrame::OpenBt(QString url)
     QMap<QString, QVariant> opt;
     QString infoName;
     QString infoHash;
-    bool isExist;
     bool isOneClick = Settings::getInstance()->getOneClickDownloadState();
     if (isOneClick) {
-        bool isSuccess = btDiag.onBtnOK();
-        if (!isSuccess) {
+        if (!btDiag.onBtnOK()) {
             return;
         }
         btDiag.getBtInfo(opt, infoName, infoHash);
         bool ret = onDownloadNewTorrent(url, opt, infoName, infoHash);
-
-        DBInstance::isExistBtInHash(infoHash, isExist);
         if (ret) {
             btNotificaitonSettings(tr("Download"), QString(tr("%1 downloading...")).arg(infoName), true);
         }
         return;
     }
-
-    int ret = btDiag.exec();
     if (Settings::getInstance()->getNewTaskShowMainWindowState()) {
         activateWindow();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+        QDesktopWidget *desktop = QApplication::desktop();
+        move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
         show();
     }
+    int ret = btDiag.exec();
 
     if (ret == QDialog::Accepted) {
         btDiag.getBtInfo(opt, infoName, infoHash);
@@ -872,7 +869,6 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
             } else {
                 data->Ischecked = true;
             }
-
             m_RecycleTableView->reset();
         }
     }
@@ -1583,13 +1579,11 @@ void MainFrame::onStartDownloadBtnClicked()
         m_TaskWidget->showNetErrorMsg();
         return;
     }
-    int selectedCount = 0;
 
     if (m_CurrentTab == downloadingTab) {
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); ++i) {
             if (selectList.at(i)->Ischecked && !m_DownLoadingTableView->isRowHidden(i)) {
-                ++selectedCount;
                 continueDownload(selectList.at(i));
             }
         }
@@ -1607,13 +1601,11 @@ void MainFrame::onPauseDownloadBtnClicked()
         m_TaskWidget->showNetErrorMsg();
         return;
     }
-    int selectedCount = 0;
 
     if (m_CurrentTab == downloadingTab) {
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); ++i) {
             if (selectList.at(i)->Ischecked && !m_DownLoadingTableView->isRowHidden(i)) {
-                ++selectedCount;
                 if (selectList.at(i)->status != Global::DownloadJobStatus::Paused) {
                     BtTaskInfo info;
                     DBInstance::getBtTaskById(selectList.at(i)->taskId, info);
@@ -1719,8 +1711,15 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
             }
         } else if (message.contains("No URI to download.")) { //url错误，弹窗提示
             DBInstance::delTask(id);
-            MessageBox msg;
-            msg.setWarings(tr("Unable to parse the URL, please check"), tr("Ok"));
+            static bool isMsg = true;
+            static MessageBox msg;
+            if (msg.isVisible()) {
+                return;
+            }
+            if (isMsg) {
+                msg.setWarings(tr("Unable to parse the URL, please check"), tr("Ok"));
+                isMsg = false;
+            }
             msg.exec();
         }
     }
@@ -2111,12 +2110,10 @@ void MainFrame::onCopyUrlActionTriggered()
 
 void MainFrame::onDeletePermanentActionTriggered()
 {
-    int selectedCount = 0;
-
     if (m_CurrentTab == recycleTab) {
-        selectedCount = m_RecycleTableView->getTableControl()->onDeletePermanentAction(m_CurrentTab);
+        m_RecycleTableView->getTableControl()->onDeletePermanentAction(m_CurrentTab);
     } else {
-        selectedCount = m_DownLoadingTableView->getTableControl()->onDeletePermanentAction(m_CurrentTab);
+        m_DownLoadingTableView->getTableControl()->onDeletePermanentAction(m_CurrentTab);
     }
 
     showDeleteMsgbox(true);
@@ -2635,6 +2632,8 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
 void MainFrame::Raise()
 {
     // 恢复窗口显示
+    QDesktopWidget *desktop = QApplication::desktop();
+    move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
     show();
     setWindowState(Qt::WindowActive);
     activateWindow();
@@ -2659,8 +2658,13 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
     }
 
     foreach (LinkInfo info, urlList) {
-        onDownloadNewUrl(info.url, path, info.urlName, info.type);
-        QThread::usleep(500);
+        QString url = info.urlTrueLink.isEmpty() ? info.url : info.urlTrueLink;
+        onDownloadNewUrl(url, path, info.urlName, info.type);
+        QTime time;
+        time.start();
+        while (time.elapsed() < 500) {
+            QCoreApplication::processEvents();
+        }
     }
 }
 

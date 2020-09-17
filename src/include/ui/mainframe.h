@@ -31,17 +31,12 @@
 #include <DMainWindow>
 #include <DLabel>
 #include <DListView>
-#include <DStatusBar>
-#include <QSystemTrayIcon>
-
 #include <DTitlebar>
 #include <DIconButton>
 #include <DApplication>
-#include <QJsonObject>
-#include <QUuid>
-#include <QNetworkReply>
-#include <QProcess>
 
+#include <QJsonObject>
+#include <QSystemTrayIcon>
 #include "settings.h"
 
 DWIDGET_USE_NAMESPACE
@@ -49,7 +44,6 @@ DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
 class QStackedWidget;
-class QSystemTrayIcon;
 class QAction;
 class SettingsControlWidget;
 class TopButton;
@@ -629,8 +623,8 @@ private:
     DListView *m_LeftList;
 
     DStandardItem *m_DownloadingItem;
-    QStandardItem *m_DownloadFinishItem;
-    QStandardItem *m_RecycleItem;
+    DStandardItem *m_DownloadFinishItem;
+    DStandardItem *m_RecycleItem;
     QSystemTrayIcon *m_SystemTray;
     ClipboardTimer *m_Clipboard;
     QAction *m_SettingAction;
