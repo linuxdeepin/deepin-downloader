@@ -10,6 +10,8 @@
 #include <QApplication>
 #include <QStandardPaths>
 #include <QSettings>
+#include <QFileInfo>
+#include "config.h"
 
 UrlThread::UrlThread(QObject *parent)
     : QObject(parent)
@@ -20,6 +22,11 @@ UrlThread::UrlThread(QObject *parent)
                                     .arg(qApp->organizationName())
                                     .arg(qApp->applicationName());
 
+    //判断文件是否存在,如果不存在复制配置文件内容到目录下
+    QFileInfo fileInfo(iniConfigPath);
+    if (!fileInfo.exists()) {
+        QFile::copy(CONTENT_TYPE_CONFIG_PATH, iniConfigPath);
+    }
         if(m_iniFile == nullptr){
             m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
             m_iniFile->beginGroup("content-type");
