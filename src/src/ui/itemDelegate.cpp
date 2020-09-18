@@ -301,10 +301,8 @@ QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInd
     return QSize(-1, 50);
 }
 
-bool ItemDelegate::editorEvent(QEvent *event,
-                               QAbstractItemModel *model,
-                               const QStyleOptionViewItem &option,
-                               const QModelIndex &index)
+bool ItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
+                               const QStyleOptionViewItem &option, const QModelIndex &index)
 {
     bool ret = true;
     const int column(index.column());
@@ -330,13 +328,17 @@ bool ItemDelegate::editorEvent(QEvent *event,
     return ret;
 }
 
-QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+                                    const QModelIndex &index) const
 {
     Q_UNUSED(option);
 
     static bool firstInside = true;
     firstInside = true;
     DLineEdit *pEdit = new DLineEdit(parent);
+    QRegExp rx = QRegExp("[^，。；;.、#%@&!‘//]*");
+    QRegExpValidator *validator = new QRegExpValidator(rx);
+    pEdit->lineEdit()->setValidator(validator);
     pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
@@ -381,7 +383,8 @@ void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
     pEdit->setText(str);
 }
 
-void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
+                                const QModelIndex &index) const
 {
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
