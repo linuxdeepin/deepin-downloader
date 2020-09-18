@@ -686,10 +686,10 @@ QString Aria2RPCInterface::getCapacityFree(QString path)
 {
     QProcess *proc = new QProcess;
     QStringList opt;
-    opt<< "-h" << path;
-   // opt << "df";
+    opt << "-h" << path;
+    // opt << "df";
     proc->start("df", opt);
-  //  proc->start("df", QStringList());
+    //  proc->start("df", QStringList());
     proc->waitForFinished();
     QByteArray rt = proc->readAllStandardOutput();
     proc->close();
@@ -715,8 +715,6 @@ QString Aria2RPCInterface::getCapacityFree(QString path)
     }
     return free + "B";
 }
-
-
 
 long Aria2RPCInterface::getCapacityFreeByte(QString path)
 {
