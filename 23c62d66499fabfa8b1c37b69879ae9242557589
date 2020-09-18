@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "430588bb_8802062c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-18T10:50:01Z",
+      "side": 1,
+      "message": "Log:后面必须存在一个空格",
+      "revId": "23c62d66499fabfa8b1c37b69879ae9242557589",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a408bbd2_cc883348",
         "filename": "src/src/ui/createtaskwidget.cpp",
         "patchSetId": 1
