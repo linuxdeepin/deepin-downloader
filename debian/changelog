@@ -2,7 +2,7 @@ downloadmanager (5.2.0.6) stable; urgency=low
 
  *修改包名。
 
- -- unknown <unknown@uniontech.com>  Wed., 17 September 2020 15:52:16 +0800
+ -- unknown <unknown@uniontech.com>  Wed., 18 September 2020 14:52:16 +0800
 
 
 downloadmanager (5.2.0.5) stable; urgency=low
@@ -22,7 +22,7 @@ downloadmanager (5.2.0.5) stable; urgency=low
  *45875 【5.2.0.1】【已完成列表】重命名超长字符后未做校验，迅雷有做
  *45603 【5.2.0.1】【正在下载列表】【解析列表】创建任务时解析错误磁力链下载链接
 
- -- unknown <unknown@uniontech.com>  Wed., 17 September 2020 15:52:16 +0800
+ -- unknown <unknown@uniontech.com>  Thu., 17 September 2020 15:52:16 +0800
 
 downloadmanager (5.2.0.2) stable; urgency=low
 
