@@ -359,6 +359,7 @@ void CreateTaskWidget::setUrl(QString url)
 {
     if(m_analysisUrl == nullptr){
         m_analysisUrl = new AnalysisUrl;
+        connect(m_analysisUrl, SIGNAL(sendFinishedUrl(LinkInfo *)), this, SLOT(updataTabel(LinkInfo *)));
     }
     QString setTextUrl;
     QString textUrl = m_texturl->toPlainText();
