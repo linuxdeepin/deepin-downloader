@@ -29,6 +29,7 @@
 #include <QDebug>
 #include <QString>
 #include <QStandardItemModel>
+#include <QMimeData>
 
 #include "settings.h"
 #include <dpinyin.h>
@@ -420,9 +421,14 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable; //ItemIsEnabled,表明这一项可以使用，ItemIsSelectable 表明这一项可以选中。
 
     if (index.column() == 1) //增加第二列的控制选项。
-        flags |= Qt::ItemIsUserCheckable | Qt::ItemIsEditable;
+        flags |= Qt::ItemIsUserCheckable | Qt::ItemIsEditable | Qt::ItemIsDragEnabled;
     return flags;
 }
+
+//bool TableModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+//{
+//    QMimeData *data = new QMimeData;
+//}
 
 bool TableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {

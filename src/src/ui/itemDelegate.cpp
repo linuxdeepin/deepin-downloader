@@ -294,12 +294,24 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     }
 }
 
-//QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-//{
-//    Q_UNUSED(option);
-//    Q_UNUSED(index);
-//    return QSize(-1, 50);
-//}
+QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    Q_UNUSED(option);
+    Q_UNUSED(index);
+    switch (index.column()) {
+    case 0:
+        return QSize(40, 50);
+    case 1:
+        return QSize(248, 50);
+    case 2:
+        return QSize(114, 50);
+    case 3:
+        return QSize(304, 50);
+    case 4:
+        return QSize(304, 50);
+    }
+    return QSize(-1, 50);
+}
 
 bool ItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                                const QStyleOptionViewItem &option, const QModelIndex &index)

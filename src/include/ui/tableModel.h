@@ -216,6 +216,10 @@ public:
     QVariant headerData(int ection, Qt::Orientation orientation, int role) const override;
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
+
+    //    virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row,
+    //                              int column, const QModelIndex &parent) override;
+
     ~TableModel();
 
 private:

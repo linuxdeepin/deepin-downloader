@@ -84,7 +84,7 @@ MainFrame::MainFrame(QWidget *parent)
     initTabledata();
     setPaletteType();
     QString clipboradStr = QApplication::clipboard()->text();
-    if(Settings::getInstance()->getIsClipboradStart(clipboradStr)){
+    if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
         m_Clipboard->checkClipboardHasUrl();
     }
     Settings::getInstance()->setIsClipboradStart(clipboradStr);
@@ -792,14 +792,14 @@ void MainFrame::onListClicked(const QModelIndex &index)
         if (index.row() == 1) {
             //m_pDownLoadingTableView->setFocus();
             //m_pDownLoadingTableView->getTableModel()->setData()
-            m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
+            //m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
             m_NotaskWidget->show();
             m_NotaskLabel->setText(tr("No finished tasks"));
             m_NotaskTipLabel->hide();
             m_NoResultlabel->hide();
         } else {
             //m_pDownLoadingTableView->setFocus();
-            m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
+            //m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
             m_NotaskLabel->setText(tr("No download tasks"));
             m_NotaskWidget->show();
             m_NotaskTipLabel->show();
@@ -953,20 +953,20 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
             fileName = fileName.remove(".torrent");
         }
     }
-    //    QMimeDatabase db;
-    //    QString mime = db.suffixForFileName(fileName);
-    //    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
-    //    if (count > 0) {
-    //        QString name1 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
-    //        name1 += QString("_%1").arg(count);
-    //        fileName = name1 + "." + mime;
-    //        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
-    //        if (count1 > 0) {
-    //            QString name2 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
-    //            name2 += QString("_%1").arg(count1);
-    //            fileName = name2 + "." + mime;
-    //        }
-    //    }
+    QMimeDatabase db;
+    QString mime = db.suffixForFileName(fileName);
+    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
+    if (count > 0) {
+        QString name1 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
+        name1 += QString("_%1").arg(count);
+        fileName = name1 + "." + mime;
+        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
+        if (count1 > 0) {
+            QString name2 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
+            name2 += QString("_%1").arg(count1);
+            fileName = name2 + "." + mime;
+        }
+    }
     if ((!type.isEmpty()) && (type != "torrent")) {
         fileName = fileName + "." + type;
     }
@@ -1584,10 +1584,10 @@ void MainFrame::keyReleaseEvent(QKeyEvent *event)
 void MainFrame::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
-    m_DownLoadingTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    m_DownLoadingTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    m_RecycleTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    m_RecycleTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+    //    m_DownLoadingTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //    m_DownLoadingTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+    //    m_RecycleTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //    m_RecycleTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
 }
 
 void MainFrame::onNewBtnClicked()

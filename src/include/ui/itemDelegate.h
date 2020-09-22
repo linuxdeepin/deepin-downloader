@@ -49,7 +49,7 @@ public:
 
      * @brief 大小
      */
-    //QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     /**
      * @brief 开始编辑前调用
