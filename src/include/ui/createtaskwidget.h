@@ -162,8 +162,12 @@ private:
     */
     bool isDoc(QString ext);
 
-    void registCallBack(void *func,QString str, int state);
+    void registCallBack(void *func, QString str, int state);
 
+    /**
+     * @brief 获取断网提示
+    */
+    QString getNetErrTip();
 private slots:
     /**
      * @brief 打开选择文件窗口按钮

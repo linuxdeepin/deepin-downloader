@@ -106,7 +106,7 @@ void CreateTaskWidget::initUi()
     font.setPixelSize(13);
     m_tableView->setFont(font);
     headerView *header = new headerView(Qt::Horizontal, m_tableView);
-   // header->setStyleSheet("QHeaderView::section stop: 70 #ffffff， stop");
+    // header->setStyleSheet("QHeaderView::section stop: 70 #ffffff， stop");
     m_tableView->setHorizontalHeader(header);
     header->setDefaultAlignment(Qt::AlignLeft);
     header->setHighlightSections(false);
@@ -277,8 +277,8 @@ void CreateTaskWidget::onFileDialogOpen()
 
 void CreateTaskWidget::onCancelBtnClicked()
 {
-    if(m_analysisUrl != nullptr){
-        delete  m_analysisUrl;
+    if (m_analysisUrl != nullptr) {
+        delete m_analysisUrl;
         m_analysisUrl = nullptr;
     }
     close();
@@ -286,7 +286,7 @@ void CreateTaskWidget::onCancelBtnClicked()
 
 void CreateTaskWidget::onSureBtnClicked()
 {
-    if(!Func::isNetConnect()){
+    if (!Func::isNetConnect()) {
         showNetErrorMsg();
         return;
     }
@@ -308,8 +308,8 @@ void CreateTaskWidget::onSureBtnClicked()
     emit downloadWidgetCreate(urlList, m_defaultDownloadDir);
 
     m_texturl->clear();
-    if(m_analysisUrl != nullptr){
-        delete  m_analysisUrl;
+    if (m_analysisUrl != nullptr) {
+        delete m_analysisUrl;
         m_analysisUrl = nullptr;
     }
     hide();
@@ -357,7 +357,7 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
 
 void CreateTaskWidget::setUrl(QString url)
 {
-    if(m_analysisUrl == nullptr){
+    if (m_analysisUrl == nullptr) {
         m_analysisUrl = new AnalysisUrl;
         connect(m_analysisUrl, SIGNAL(sendFinishedUrl(LinkInfo *)), this, SLOT(updataTabel(LinkInfo *)));
     }
@@ -372,7 +372,6 @@ void CreateTaskWidget::setUrl(QString url)
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     m_editDir->setText(savePath);
     m_defaultDownloadDir = savePath;
-
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
@@ -469,7 +468,8 @@ void CreateTaskWidget::closeEvent(QCloseEvent *event)
 void CreateTaskWidget::showNetErrorMsg()
 {
     MessageBox msg; //= new MessageBox();
-    msg.setWarings(tr("Unable to connect to the network the internet connection failed"), tr("sure"), ""); //网络连接失败
+    //QString title = tr("Network error, check your network and try later");
+    msg.setWarings(getNetErrTip(), tr("sure"), ""); //网络连接失败
     msg.exec();
 }
 
@@ -747,10 +747,12 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
         name = name.mid(0, name.size() - type.size() - 1);
     } else {
         QStringList splitStr = name.split("?");
-        if(splitStr.size() > 0);{
+        if (splitStr.size() > 0)
+            ;
+        {
             type = db.suffixForFileName(splitStr[0]);
         }
-        if(type.isNull()){
+        if (type.isNull()) {
             type = "error";
         }
     }
@@ -870,9 +872,9 @@ void CreateTaskWidget::setUrlName(int index, QString name)
         }
     }
     for (int j = 0; j < m_model->rowCount(); j++) {
-        if(j == index)
+        if (j == index)
             continue;
-        if(name == m_model->data(m_model->index(index, 2)).toString())
+        if (name == m_model->data(m_model->index(index, 2)).toString())
             return;
     }
 
@@ -940,4 +942,9 @@ bool CreateTaskWidget::isDoc(QString ext)
 {
     QString types = "txt,doc,xls,ppt,docx,xlsx,pptx";
     return types.indexOf(ext) != -1;
+}
+
+QString CreateTaskWidget::getNetErrTip()
+{
+    return QString(tr("Network error, check your network and try later"));
 }
