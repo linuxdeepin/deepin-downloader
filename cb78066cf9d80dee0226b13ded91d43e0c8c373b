@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7d60f3c_9937a8ed",
+        "filename": "src/src/ui/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-22T08:22:54Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 17; 注释率: 不计算",
+      "revId": "cb78066cf9d80dee0226b13ded91d43e0c8c373b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
