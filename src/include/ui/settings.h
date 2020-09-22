@@ -341,6 +341,18 @@ public:
      */
     void setIsShowTip(bool b);
 
+    /**
+     * @brief 获取是否使用剪切板启动新建任务
+     * @return 显示提示返回true，否则返回false
+     */
+    bool getIsClipboradStart(QString str);
+
+    /**
+     * @brief 设置剪切板内容至配置文件中
+     * @param str 剪切板内容
+     */
+    void setIsClipboradStart(QString str);
+
     DSettings *m_settings;
 
 signals:

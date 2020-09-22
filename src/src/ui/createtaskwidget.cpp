@@ -84,7 +84,7 @@ void CreateTaskWidget::initUi()
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
     m_texturl->setFixedSize(QSize(500, 154));
-    m_texturl->document()->setMaximumBlockCount(60);
+   // m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
@@ -205,12 +205,29 @@ void CreateTaskWidget::initUi()
     addContent(m_checkWidget);
     addSpacing(4);
 
+    //下载路径所在分区剩余磁盘容量
+    m_defaultDownloadDir = Settings::getInstance()->getDownloadSavePath();
+    QHBoxLayout *siezhlyt = new QHBoxLayout(this);
+    siezhlyt->addStretch();
+    QPalette palFree;
+    palFree.setColor(QPalette::WindowText, QColor("#8AA1B4"));
+    QFont fontFree;
+    fontFree.setPixelSize(12);
+    m_labelCapacityFree = new DLabel();
+    QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
+    m_labelCapacityFree->setPalette(palFree);
+    m_labelCapacityFree->setFont(fontFree);
+    m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
+    siezhlyt->addWidget(m_labelCapacityFree, 0, Qt::AlignRight);
+
     m_editDir = new DFileChooserEdit(this);
     m_editDir->lineEdit()->setReadOnly(true);
     m_editDir->lineEdit()->setClearButtonEnabled(false);
+    m_editDir->lineEdit()->setEnabled(false);
+    m_editDir->lineEdit()->setTextMargins(0,0,m_editDir->lineEdit()->width(),0);
+    m_editDir->lineEdit()->setLayout(siezhlyt);
     m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
-    m_defaultDownloadDir = Settings::getInstance()->getDownloadSavePath();
     m_editDir->setText(m_defaultDownloadDir);
     addContent(m_editDir);
     addSpacing(10);
@@ -457,6 +474,15 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
     m_editDir->lineEdit()->setText(filename);
     m_editDir->setDirectoryUrl(filename);
     m_defaultDownloadDir = filename;
+    //获取到更改后的大小
+    QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(filename);
+    QPalette pal;
+    pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
+    QFont font;
+    font.setPixelSize(12);
+    m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
+    m_labelCapacityFree->setPalette(pal);
+    m_labelCapacityFree->setFont(font);
 }
 
 void CreateTaskWidget::closeEvent(QCloseEvent *event)
@@ -863,20 +889,20 @@ void CreateTaskWidget::updateSelectedInfo()
 
 void CreateTaskWidget::setUrlName(int index, QString name)
 {
-    QList<TaskInfo> taskList;
-    DBInstance::getAllTask(taskList);
-    QString curName = name + "." + m_model->data(m_model->index(index, 2)).toString();
-    for (int i = 0; i < taskList.size(); i++) {
-        if (taskList[i].downloadFilename == curName) {
-            return;
-        }
-    }
-    for (int j = 0; j < m_model->rowCount(); j++) {
-        if (j == index)
-            continue;
-        if (name == m_model->data(m_model->index(index, 2)).toString())
-            return;
-    }
+//    QList<TaskInfo> taskList;
+//    DBInstance::getAllTask(taskList);
+//    QString curName = name + "." + m_model->data(m_model->index(index, 2)).toString();
+//    for (int i = 0; i < taskList.size(); i++) {
+//        if (taskList[i].downloadFilename == curName) {
+//            return;
+//        }
+//    }
+//    for (int j = 0; j < m_model->rowCount(); j++) {
+//        if (j == index)
+//            continue;
+//        if (name == m_model->data(m_model->index(index, 2)).toString())
+//            return;
+//    }
 
     m_model->setItem(index, 1, new QStandardItem(name));
     m_tableView->setColumnHidden(1, true);
