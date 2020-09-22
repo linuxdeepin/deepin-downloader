@@ -87,16 +87,8 @@ void TableView::initUI()
 
     m_HeaderView = new DownloadHeaderView(Qt::Horizontal, this);
     setHorizontalHeader(m_HeaderView);
-    m_HeaderView->setDefaultSectionSize(20);
-    //m_HeaderView->setSortIndicatorShown(false);
+    m_HeaderView->setStretchLastSection(true);
     m_HeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-    //    m_HeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
-    //    m_HeaderView->setSectionResizeMode(1, QHeaderView::Stretch);
-    //    m_HeaderView->setSectionResizeMode(2, QHeaderView::Fixed);
-    //    m_HeaderView->setSectionResizeMode(3, QHeaderView::Fixed);
-    //    m_HeaderView->setSectionResizeMode(4, QHeaderView::Fixed);
-    //m_HeaderView->setTextElideMode(Qt::ElideMiddle);
-    m_HeaderView->setFixedHeight(36);
     setColumnWidth(0, 20);
     setColumnWidth(1, 360);
     setColumnWidth(2, 110);
