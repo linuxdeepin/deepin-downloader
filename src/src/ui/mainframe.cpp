@@ -784,8 +784,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_RightStackwidget->setCurrentIndex(0);
         m_DownLoadingTableView->refreshTableView(index.row());
         m_DownLoadingTableView->horizontalHeader()->reset();
-        bool switched = true;
-        m_DownLoadingTableView->reset(switched);
+        m_DownLoadingTableView->reset(true);
         if (index.row() == 1) {
             //m_pDownLoadingTableView->setFocus();
             //m_pDownLoadingTableView->getTableModel()->setData()
@@ -964,7 +963,7 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
     //            fileName = name2 + "." + mime;
     //        }
     //    }
-    if (!type.isEmpty()) {
+    if ((!type.isEmpty()) && (type != "torrent")) {
         fileName = fileName + "." + type;
     }
     task.taskId = QUuid::createUuid().toString();
