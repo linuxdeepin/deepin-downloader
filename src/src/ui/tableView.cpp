@@ -125,7 +125,7 @@ void TableView::reset(bool switched)
 
     QTableView::reset();
 
-    selectRow(idx.row());
+    //selectRow(idx.row());
     if (switched) {
         size = 0;
     }
@@ -152,6 +152,14 @@ void TableView::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton) {
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
+        QModelIndex index = indexAt(event->pos());
+
+        if ((index.row() < 0) && (index.column() < 0)) {
+            currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
+            //return;
+        } else {
+            m_PreviousIndex = index;
+        }
     }
 }
 
@@ -164,19 +172,20 @@ void TableView::mouseMoveEvent(QMouseEvent *event)
 void TableView::mouseReleaseEvent(QMouseEvent *event)
 {
     QModelIndex index = indexAt(event->pos());
+
     if ((index.row() < 0) && (index.column() < 0)) {
         emit HeaderStatechanged(false);
         emit isCheckHeader(false);
         //return;
     }
-    reset();
+    //reset();
     QTableView::mouseReleaseEvent(event);
 }
 
 void TableView::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    reset();
+    //reset();
     emit Hoverchanged(QModelIndex());
 }
 
@@ -186,6 +195,11 @@ void TableView::keyPressEvent(QKeyEvent *event)
         return;
     }
     QWidget::keyPressEvent(event);
+}
+
+void TableView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
+{
+    QTableView::currentChanged(current, previous);
 }
 
 void TableView::refreshTableView(const int &index)

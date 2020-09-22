@@ -25,10 +25,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef ITEMDELEGATE_H
 #define ITEMDELEGATE_H
-
 
 #include <QStyledItemDelegate>
 
@@ -40,8 +38,8 @@ class QProgressBar;
 class ItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
-public:    
-    ItemDelegate(QObject *parent = nullptr,int Flag=0);
+public:
+    ItemDelegate(QObject *parent = nullptr, int Flag = 0);
     ~ItemDelegate();
     /**
      * @brief 绘图事件
@@ -51,29 +49,30 @@ public:
 
      * @brief 大小
      */
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    //QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
     /**
      * @brief 开始编辑前调用
      */
-    bool editorEvent(QEvent*event, QAbstractItemModel *model,  const QStyleOptionViewItem &option,const QModelIndex &index) override;
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     void setEditorData(QWidget *editor, const QModelIndex &index) const override;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 
 public slots:
-     /**
+    /**
       * @brief 鼠标悬停行改变
       */
-     void onHoverchanged(const QModelIndex &index);
+    void onHoverchanged(const QModelIndex &index);
 
 private:
-     int m_TableFlag;
-     //QProgressBar *progressbar;
-     int m_HoverRow;
-     QPixmap *m_BgImage;
-     QPixmap *m_Front;
-     bool m_IsFirstInside;
-     QString m_FilePath;
+    int m_TableFlag;
+    //QProgressBar *progressbar;
+    int m_HoverRow;
+    QPixmap *m_BgImage;
+    QPixmap *m_Front;
+    bool m_IsFirstInside;
+    QString m_FilePath;
 };
 
 #endif

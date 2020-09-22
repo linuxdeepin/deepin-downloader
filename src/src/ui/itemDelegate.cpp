@@ -294,12 +294,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     }
 }
 
-QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    Q_UNUSED(option);
-    Q_UNUSED(index);
-    return QSize(-1, 50);
-}
+//QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+//{
+//    Q_UNUSED(option);
+//    Q_UNUSED(index);
+//    return QSize(-1, 50);
+//}
 
 bool ItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                                const QStyleOptionViewItem &option, const QModelIndex &index)
@@ -366,6 +366,10 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
             pEdit->hideAlertMessage();
         }
         firstInside = false;
+    });
+
+    connect(pEdit, &DLineEdit::destroyed, this, [=]() {
+        //setModelData(pEdit, index.model(), index);
     });
     pEdit->resize(parent->size());
     QString FilePath = index.data(TableModel::SavePath).toString();
