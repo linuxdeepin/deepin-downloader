@@ -477,9 +477,12 @@ void MainFrame::createNewTask(QString url)
     if (Settings::getInstance()->getNewTaskShowMainWindowState()) {
         activateWindow();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-        QDesktopWidget *desktop = QApplication::desktop();
-        move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
-        show();
+
+        if (isHidden()) {
+            QDesktopWidget *desktop = QApplication::desktop();
+            move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
+            show();
+        }
     }
     m_TaskWidget->setUrl(url);
     if (isNetConnect()) {
@@ -877,7 +880,8 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
 void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type)
 {
     if (url.startsWith("magnet")) {
-        QString infoHash = url.right(url.length() - url.lastIndexOf(':') - 1);
+        QString left = url.split('&').at(0);
+        QString infoHash = left.right(left.length() - left.lastIndexOf(':') - 1);
         if (!checkIsHasSameTask(infoHash.toLower())) {
             return;
         }
@@ -1215,6 +1219,10 @@ void MainFrame::onCheckChanged(bool checked, int flag)
             if (selectList.at(i)->Ischecked) {
                 m_CheckItem = selectList.at(i);
                 chkedCnt++;
+
+                if (QFileInfo::exists(selectList.at(i)->savePath)) {
+                    fileExistCnt++;
+                }
             }
         }
     }
@@ -1224,10 +1232,20 @@ void MainFrame::onCheckChanged(bool checked, int flag)
             m_ToolBar->enableStartBtn(true);
             m_ToolBar->enablePauseBtn(true);
             m_ToolBar->enableDeleteBtn(true);
+            if (m_CheckItem->status == DownloadJobStatus::Paused || m_CheckItem->status == DownloadJobStatus::Lastincomplete) {
+                m_ToolBar->enablePauseBtn(false);
+            } else {
+                m_ToolBar->enablePauseBtn(true);
+            }
+            if (m_CheckItem->status == DownloadJobStatus::Active) {
+                m_ToolBar->enableStartBtn(false);
+            } else {
+                m_ToolBar->enableStartBtn(true);
+            }
 
         } else if (m_CurrentTab == finishTab) {
             m_ToolBar->enableDeleteBtn(true);
-            if (1 == chkedCnt) {
+            if (1 == chkedCnt && fileExistCnt > 0) {
                 m_ToolBar->enableStartBtn(true);
                 m_ToolBar->enablePauseBtn(true);
             } else {
@@ -1335,7 +1353,8 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
 
     const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
     foreach (DownloadDataItem *pItem, dataList) {
-        if (pItem->url == "magnet:?xt=urn:btih:" + infoHash.toUpper()) {
+        QString str = "magnet:?xt=urn:btih:" + infoHash.toUpper();
+        if (pItem->url.startsWith(str)) {
             Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
             Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
             DBInstance::delTask(pItem->taskId);
