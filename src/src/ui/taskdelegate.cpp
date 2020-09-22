@@ -174,19 +174,29 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
+        if(pEdit == nullptr){
+            return;
+        }
         setModelData(pEdit, nullptr, index);
 
         QString curName;
         DAlertControl *alertControl = new DAlertControl(pEdit, pEdit);
+        filename += index.model()->data(index.model()->index(index.row(), 2)).toString();
         for (int i =0; i < index.model()->rowCount(); i++) {
-            curName = index.model()->data(index.model()->index(i, 1)).toString();
+            curName = index.model()->data(index.model()->index(i, 1)).toString() + index.model()->data(index.model()->index(i, 2)).toString();
+
+            qDebug()<< "curName     " << curName;
+            qDebug()<< "filename     " << filename;
+            qDebug()<<" filename type:      " <<index.model()->data(index.model()->index(index.row(), 2)).toString();
             if(curName == filename && i != index.row()){
-                    alertControl->showAlertMessage(tr("Total speed neet less than Max download speed!"),
+                    alertControl->showAlertMessage(tr("Duplicate name"),
                                                              pEdit->parentWidget()->parentWidget(), -1);
                     alertControl->setMessageAlignment(Qt::AlignLeft);
+                    qDebug()<<"setMessageAlignment";
             }
             else {
                 pEdit->hideAlertMessage();
+                qDebug()<<"hideAlertMessage";
 
             }
         }
@@ -211,6 +221,9 @@ void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
 void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
+    if(pEdit == nullptr){
+        return;
+    }
     QString str = pEdit->text();
     int row = index.row();
     if(str.isEmpty()){
