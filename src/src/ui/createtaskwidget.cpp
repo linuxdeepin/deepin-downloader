@@ -890,22 +890,6 @@ void CreateTaskWidget::updateSelectedInfo()
 
 void CreateTaskWidget::setUrlName(int index, QString name)
 {
-<<<<<<< HEAD
-    QList<TaskInfo> taskList;
-    DBInstance::getAllTask(taskList);
-    QString curName = name + "." + m_model->data(m_model->index(index, 2)).toString();
-    for (int i = 0; i < taskList.size(); i++) {
-        if (taskList[i].downloadFilename == curName) {
-            return;
-        }
-    }
-    for (int j = 0; j < m_model->rowCount(); j++) {
-        if (j == index)
-            continue;
-        if (name == m_model->data(m_model->index(index, 2)).toString())
-            return;
-    }
-=======
 //    QList<TaskInfo> taskList;
 //    DBInstance::getAllTask(taskList);
 //    QString curName = name + "." + m_model->data(m_model->index(index, 2)).toString();
@@ -922,7 +906,6 @@ void CreateTaskWidget::setUrlName(int index, QString name)
 //        if(name == m_model->data(m_model->index(index, 2)).toString())
 //            return;
 //    }
->>>>>>> 12bada4... fix: 下载时读取的剩余磁盘空间大小对不上
 
     m_model->setItem(index, 1, new QStandardItem(name));
     m_tableView->setColumnHidden(1, true);
