@@ -175,18 +175,20 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
         if(pEdit == nullptr){
-                    return;
+             return;
         }
         setModelData(pEdit, nullptr, index);
 
         QString curName;
         DAlertControl *alertControl = new DAlertControl(pEdit, pEdit);
+        QString typeName = filename + "." +  index.model()->data(index.model()->index(index.row(), 2)).toString();
         for (int i =0; i < index.model()->rowCount(); i++) {
-            curName = index.model()->data(index.model()->index(i, 1)).toString();
-            if(curName == filename && i != index.row()){
-                    alertControl->showAlertMessage(tr("Total speed neet less than Max download speed!"),
+            curName = index.model()->data(index.model()->index(i, 1)).toString() + "." + index.model()->data(index.model()->index(i, 2)).toString();
+            if(curName == typeName && i != index.row() ){
+                    pEdit->showAlertMessage(tr("Duplicate name!"),
                                                              pEdit->parentWidget()->parentWidget(), -1);
                     alertControl->setMessageAlignment(Qt::AlignLeft);
+                    break;
             }
             else {
                 pEdit->hideAlertMessage();
@@ -224,9 +226,10 @@ void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
         return;
     }
     QString curName;
+    QString typeName = str + "." +  index.model()->data(index.model()->index(index.row(), 2)).toString();
     for (int i =0; i < index.model()->rowCount(); i++) {
-        curName = index.model()->data(index.model()->index(i, 1)).toString();
-        if(curName == str){
+        curName = index.model()->data(index.model()->index(i, 1)).toString() + "." + index.model()->data(index.model()->index(i, 2)).toString();
+        if(curName == typeName){
             ((CreateTaskWidget *)m_dialog)->setUrlName(row, m_curName);
             return;
         }
