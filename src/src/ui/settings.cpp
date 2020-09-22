@@ -1073,3 +1073,17 @@ void Settings::setIsShowTip(bool b)
     }
     m_iniFile->sync();
 }
+
+
+bool Settings::getIsClipboradStart(QString str)
+{
+    QString clipboradValue = m_iniFile->value("Clipborad/data").toString();
+    return (str == clipboradValue) ? false : true;
+}
+
+void Settings::setIsClipboradStart(QString str)
+{
+    m_iniFile->setValue("Clipborad/data", str);
+    m_iniFile->sync();
+
+}

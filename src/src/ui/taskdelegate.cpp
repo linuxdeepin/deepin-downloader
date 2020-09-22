@@ -174,6 +174,9 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
+        if(pEdit == nullptr){
+                    return;
+        }
         setModelData(pEdit, nullptr, index);
 
         QString curName;
@@ -211,6 +214,9 @@ void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
 void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
+    if(pEdit == nullptr){
+            return;
+    }
     QString str = pEdit->text();
     int row = index.row();
     if(str.isEmpty()){

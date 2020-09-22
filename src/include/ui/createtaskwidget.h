@@ -283,6 +283,7 @@ private:
     DLabel *m_labelFileSize; //总大小标签
     QWidget *m_checkWidget;
     AnalysisUrl *m_analysisUrl;
+    DLabel *m_labelCapacityFree; //下载路径所在分区剩余磁盘容量
 };
 
 #endif // NEWTASKWIDGET_H
