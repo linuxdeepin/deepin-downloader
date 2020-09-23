@@ -43,6 +43,7 @@
 #include <QSharedMemory>
 #include <QBuffer>
 #include <QMimeDatabase>
+#include <QTimer>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -331,7 +332,14 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             data->savePath = dir + "/" + fileName;
             data->fileName = fileName;
             //if(Settings::getInstance()->getAutoOpennewTaskWidgetState()){
-            emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
+
+            if (QFile::exists(filePath)) {
+                emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
+            } else {
+                QTimer::singleShot(3000, this, [=]() {
+                    emit AutoDownloadBt(dir + "/" + infoHash + ".torrent");
+                });
+            }
             //}
         }
 

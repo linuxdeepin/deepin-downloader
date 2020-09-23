@@ -493,6 +493,8 @@ void MainFrame::createNewTask(QString url)
         m_TaskWidget->showNetErrorMsg();
         return;
     }
+    m_TaskWidget->move(pos().x() + this->width() / 2 - m_TaskWidget->width() / 2,
+                       pos().y() + this->height() / 2 - m_TaskWidget->height() / 2);
     m_TaskWidget->exec();
 }
 
@@ -745,6 +747,9 @@ void MainFrame::OpenBt(QString url)
         return;
     }
     QString savePath = Settings::getInstance()->getDownloadSavePath();
+    qDebug() << "url: " << url << "exists:  " << QFile::exists(url);
+
+    qDebug() << "savePath: " << savePath;
     BtInfoDialog btDiag(url, savePath); // torrent文件路径
     QMap<QString, QVariant> opt;
     QString infoName;
@@ -764,9 +769,7 @@ void MainFrame::OpenBt(QString url)
     if (Settings::getInstance()->getNewTaskShowMainWindowState()) {
         activateWindow();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-        QDesktopWidget *desktop = QApplication::desktop();
-        move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
-        show();
+        btDiag.move(pos().x() + this->width() / 2 - btDiag.width() / 2, pos().y() + this->height() / 2 - btDiag.height() / 2);
     }
     int ret = btDiag.exec();
 
@@ -983,6 +986,8 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
 
 void MainFrame::continueDownload(DownloadDataItem *pItem)
 {
+    m_ToolBar->enablePauseBtn(true);
+    m_ToolBar->enableStartBtn(false);
     if (pItem->status != Global::DownloadJobStatus::Active) {
         if (pItem->status == Global::DownloadJobStatus::Lastincomplete || pItem->status == Global::DownloadJobStatus::Error) {
             startDownloadTask(pItem);
@@ -1625,6 +1630,8 @@ void MainFrame::onPauseDownloadBtnClicked()
     }
 
     if (m_CurrentTab == downloadingTab) {
+        m_ToolBar->enablePauseBtn(false);
+        m_ToolBar->enableStartBtn(true);
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); ++i) {
             if (selectList.at(i)->Ischecked && !m_DownLoadingTableView->isRowHidden(i)) {
