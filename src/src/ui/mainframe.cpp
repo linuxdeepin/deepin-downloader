@@ -457,6 +457,7 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainFrame::closeEvent(QCloseEvent *event)
 {
+    m_SystemTray->show();
     if (Settings::getInstance()->getIsShowTip()) {
         MessageBox msg;
         connect(&msg, &MessageBox::closeConfirm, this, &MainFrame::onMessageBoxConfirmClick);
@@ -960,14 +961,10 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
     QString mime = db.suffixForFileName(fileName);
     int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
     if (count > 0) {
-        QString name1 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
-        name1 += QString("_%1").arg(count);
-        fileName = name1 + "." + mime;
-        int count1 = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
+        fileName += QString("_%1").arg(count);
+        int count1 = DBInstance::getSameNameCount(fileName);
         if (count1 > 0) {
-            QString name2 = fileName.mid(0, fileName.lastIndexOf(mime) - 1);
-            name2 += QString("_%1").arg(count1);
-            fileName = name2 + "." + mime;
+            fileName += QString("_%1").arg(count1);
         }
     }
     if ((!type.isEmpty()) && (type != "torrent")) {
