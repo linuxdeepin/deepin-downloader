@@ -92,8 +92,8 @@ void TableView::initUI()
     setColumnWidth(0, 20);
     setColumnWidth(1, 360);
     setColumnWidth(2, 110);
-    setColumnWidth(3, 200);
-    setColumnWidth(4, 200);
+    //setColumnWidth(3, 200);
+    //setColumnWidth(4, 200);
 }
 
 void TableView::initConnections()
