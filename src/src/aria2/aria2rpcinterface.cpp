@@ -87,10 +87,10 @@ bool Aria2RPCInterface::startUp()
     opt << "--rpc-save-upload-metadata=true"; //
 
     //opt << "--not-conf=true";//不使用配置文件
-    if (this->m_configPath != "") {
+    if (!this->m_configPath.isEmpty()) {
         opt << "--conf-path=" + this->m_configPath; //加载指定的配置文件
     }
-    if (this->m_defaultDownloadPath != "") {
+    if (!this->m_defaultDownloadPath.isEmpty()) {
         opt << "--dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
     opt << "--continue=true"; //http续传配置
@@ -159,7 +159,7 @@ bool Aria2RPCInterface::checkAria2cProc()
     QStringList lineList = output.split("\n");
     int cnt = 0;
     foreach (QString t, lineList) {
-        if (t == "") {
+        if (t.isEmpty()) {
             continue;
         }
         if (t.indexOf("grep " + m_aria2cCmd) >= 0) {
@@ -347,7 +347,7 @@ void Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
 {
     QJsonObject json;
     json.insert("jsonrpc", "2.0");
-    if (id == "") {
+    if (id.isEmpty()) {
         json.insert("id", method);
     } else {
         json.insert("id", id);
@@ -705,7 +705,7 @@ QString Aria2RPCInterface::getCapacityFree(QString path)
             if (line[i] != ' ') {
                 temp.append(line[i]);
             } else {
-                if (temp != "") {
+                if (!temp.isEmpty()) {
                     tpl.append(temp);
                     temp = "";
                 }
@@ -738,7 +738,7 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
             if (line[i] != ' ') {
                 temp.append(line[i]);
             } else {
-                if (temp != "") {
+                if (!temp.isEmpty()) {
                     tpl.append(temp);
                     temp = "";
                 }

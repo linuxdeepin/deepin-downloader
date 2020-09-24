@@ -118,7 +118,7 @@ public:
     /**
      * @brief 删除ACtion槽函数
     */
-    int onDelAction(int currentLab);
+    int onDelAction(int currentTab);
 
     /**
      * @brief 正在下载和已完成列表重新下载ACtion槽函数
@@ -148,12 +148,12 @@ public:
     /**
      * @brief 复制URL ACtion槽函数
     */
-    int onCopyUrlAction(int currentLab, QString &copyUrl);
+    int onCopyUrlAction(int currentTab, QString &copyUrl);
 
     /**
      * @brief 永久删除ACtion槽函数
     */
-    int onDeletePermanentAction(int currentLab);
+    int onDeletePermanentAction(int currentTab);
 
     /**
      * @brief  获取删除正在下载和已完成列表窗口确定信号
