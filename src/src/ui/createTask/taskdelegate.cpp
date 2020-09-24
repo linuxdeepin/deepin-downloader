@@ -47,7 +47,7 @@ TaskDelegate::TaskDelegate(DDialog *dialog)
     m_dialog = dialog;
     m_checkBtn = new QCheckBox;
     m_curName.clear();
-    connect(this, SIGNAL(commitData(QWidget*)), this, SLOT(onCommitData(QWidget*)));
+    connect(this, SIGNAL(commitData(QWidget *)), this, SLOT(onCommitData(QWidget *)));
 }
 
 TaskDelegate::~TaskDelegate()
@@ -65,9 +65,9 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     painter->save();
 
     if (index.row() == m_hoverRow) {
-        if(index.row() % 2 == 1){
+        if (index.row() % 2 == 1) {
             painter->fillRect(option.rect, QColor(0, 0, 0, 0));
-        }else {
+        } else {
             painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
         }
     } else {
@@ -79,7 +79,7 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     }
 
     QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
-    if (size == "") {
+    if (size.isEmpty()) {
         painter->fillRect(option.rect, QColor(0, 0, 0, 10)); //QColor(0,0,0,13)QColor(255,255,255,26)
         painter->setOpacity(1);
     }
@@ -114,14 +114,14 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         painter->setPen(Qt::darkGray);
 
-        painter->setPen(size == "" ? QColor(128, 128, 128, 40) : Qt::darkGray);
+        painter->setPen(size.isEmpty() ? QColor(128, 128, 128, 40) : Qt::darkGray);
 
         QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideRight, option.rect.width() - 55);
         painter->drawText(option.rect.x() + 55, option.rect.y() + 28, text);
 
     } else {
         painter->setPen(Qt::darkGray);
-        painter->setPen(size == "" ? QColor(128, 128, 128, 40) : Qt::darkGray);
+        painter->setPen(size.isEmpty() ? QColor(128, 128, 128, 40) : Qt::darkGray);
         QString text = painter->fontMetrics().elidedText(index.data().toString(), Qt::ElideRight, option.rect.width() - 25);
         painter->drawText(option.rect.x() + 5, option.rect.y() + 28, text);
     }
@@ -132,7 +132,7 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
 {
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
-    if (size == "") {
+    if (size.isEmpty()) {
         return false;
     }
 
@@ -150,9 +150,9 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
             return false;
         } else if (event->type() == QEvent::MouseButtonDblClick
                    && !rect.contains(mouseEvent->pos())) {
-                auto a = index.model()->data(index.model()->index(index.row(), 0));
-                DLineEdit *pEdit = new DLineEdit();
-                pEdit->setGeometry(50, 10, 10, 10);
+            auto a = index.model()->data(index.model()->index(index.row(), 0));
+            DLineEdit *pEdit = new DLineEdit();
+            pEdit->setGeometry(50, 10, 10, 10);
         }
     }
 
@@ -167,35 +167,32 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         return nullptr;
     }
     QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
-    if (size == "") {
+    if (size.isEmpty()) {
         return nullptr;
     }
     DLineEdit *pEdit = new DLineEdit(parent);
     pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
-        if(pEdit == nullptr){
-             return;
+        if (pEdit == nullptr) {
+            return;
         }
         setModelData(pEdit, nullptr, index);
 
         QString curName;
         DAlertControl *alertControl = new DAlertControl(pEdit, pEdit);
-        QString typeName = filename + "." +  index.model()->data(index.model()->index(index.row(), 2)).toString();
-        for (int i =0; i < index.model()->rowCount(); i++) {
+        QString typeName = filename + "." + index.model()->data(index.model()->index(index.row(), 2)).toString();
+        for (int i = 0; i < index.model()->rowCount(); i++) {
             curName = index.model()->data(index.model()->index(i, 1)).toString() + "." + index.model()->data(index.model()->index(i, 2)).toString();
-            if(curName == typeName && i != index.row() ){
-                    pEdit->showAlertMessage(tr("Duplicate name!"),
-                                                             pEdit->parentWidget()->parentWidget(), -1);
-                    alertControl->setMessageAlignment(Qt::AlignLeft);
-                    break;
-            }
-            else {
+            if (curName == typeName && i != index.row()) {
+                pEdit->showAlertMessage(tr("Duplicate name!"),
+                                        pEdit->parentWidget()->parentWidget(), -1);
+                alertControl->setMessageAlignment(Qt::AlignLeft);
+                break;
+            } else {
                 pEdit->hideAlertMessage();
-
             }
         }
-
     });
 
     pEdit->setGeometry(150, 10, 50, 10);
@@ -216,28 +213,26 @@ void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
 void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
-    if(pEdit == nullptr){
-            return;
+    if (pEdit == nullptr) {
+        return;
     }
     QString str = pEdit->text();
     int row = index.row();
-    if(str.isEmpty()){
+    if (str.isEmpty()) {
         ((CreateTaskWidget *)m_dialog)->setUrlName(row, m_curName);
         return;
     }
     QString curName;
-    QString typeName = str + "." +  index.model()->data(index.model()->index(index.row(), 2)).toString();
-    for (int i =0; i < index.model()->rowCount(); i++) {
+    QString typeName = str + "." + index.model()->data(index.model()->index(index.row(), 2)).toString();
+    for (int i = 0; i < index.model()->rowCount(); i++) {
         curName = index.model()->data(index.model()->index(i, 1)).toString() + "." + index.model()->data(index.model()->index(i, 2)).toString();
-        if(curName == typeName){
+        if (curName == typeName) {
             ((CreateTaskWidget *)m_dialog)->setUrlName(row, m_curName);
             return;
         }
     }
 
-
     ((CreateTaskWidget *)m_dialog)->setUrlName(row, str);
-
 }
 
 void TaskDelegate::onhoverChanged(const QModelIndex &index)

@@ -56,7 +56,7 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
         }
         addContent(urlText);
     }
-    if (cancelbtntext != "") {
+    if (!cancelbtntext.isEmpty()) {
         addButton(cancelbtntext);
     }
     addButton(surebtntext);

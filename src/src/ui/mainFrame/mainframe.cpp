@@ -930,7 +930,7 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
     // 获取url文件名
     QString fileName;
 
-    if (name != "") {
+    if (!name.isEmpty()) {
         fileName = name;
     } else if (url.startsWith("magnet")) {
         fileName = url.split("&")[0];
@@ -1546,7 +1546,7 @@ void MainFrame::onDeleteConfirm(bool ischecked, bool permanent)
     }
     setTaskNum();
 
-    if (m_SearchContent != "") {
+    if (!m_SearchContent.isEmpty()) {
         onSearchEditTextChanged(m_SearchContent);
     }
     if (m_UpdateTimer->isActive() == false) {
@@ -2000,7 +2000,7 @@ void MainFrame::onReturnOriginActionTriggered()
                 //opt.insert("out", fileName);
                 BtTaskInfo taskInfo;
                 DBInstance::getBtTaskById(returntoData->taskId, taskInfo);
-                if (taskInfo.taskId != "") {
+                if (!taskInfo.taskId.isEmpty()) {
                     if (taskInfo.downloadType == "torrent") {
                         //opt.insert("select-file", taskInfo.selectedNum);
                         if (m_UpdateTimer->isActive() == false) {
@@ -2078,7 +2078,7 @@ void MainFrame::onMoveToActionTriggered()
 
     QStringList fileName = fileDialog.selectedFiles();
     QString filePath = fileName.first();
-    if (filePath != "") {
+    if (!filePath.isEmpty()) {
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); ++i) {
             if ((selectList.at(i)->status == DownloadJobStatus::Complete) && (selectList.at(i)->Ischecked == true)) {
@@ -2106,7 +2106,7 @@ void MainFrame::onCopyUrlActionTriggered()
     QString url;
     if (m_CurrentTab == downloadingTab || m_CurrentTab == finishTab) {
         DBInstance::getBtTaskById(m_CheckItem->taskId, getUrlInfo);
-        if (getUrlInfo.taskId != "") {
+        if (!getUrlInfo.taskId.isEmpty()) {
             if (getUrlInfo.downloadType == "torrent") {
                 url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
             }
@@ -2115,7 +2115,7 @@ void MainFrame::onCopyUrlActionTriggered()
         }
     } else if (m_CurrentTab == recycleTab) {
         DBInstance::getBtTaskById(m_DelCheckItem->taskId, getUrlInfo);
-        if (getUrlInfo.taskId != "") {
+        if (!getUrlInfo.taskId.isEmpty()) {
             if (getUrlInfo.downloadType == "torrent") {
                 url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
             }
@@ -2428,7 +2428,7 @@ void MainFrame::initDataItem(Global::DownloadDataItem *data, const TaskInfo &tbT
     data->createTime = tbTask.createTime.toString("yyyy-MM-dd hh:mm:ss");
     TaskStatus taskStatus;
     DBInstance::getTaskStatusById(data->taskId, taskStatus);
-    if (taskStatus.taskId != "") {
+    if (!taskStatus.taskId.isEmpty()) {
         data->percent = taskStatus.percent;
         data->Ischecked = 0;
         data->totalLength = taskStatus.totalLength;
@@ -2629,7 +2629,7 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
     opt.insert("out", pItem->fileName);
     BtTaskInfo getUrlInfo;
     DBInstance::getBtTaskById(pItem->taskId, getUrlInfo);
-    if (getUrlInfo.taskId != "") {
+    if (!getUrlInfo.taskId.isEmpty()) {
         if (getUrlInfo.downloadType == "torrent") {
             QString selectNum = getUrlInfo.selectedNum;
             opt.insert("select-file", selectNum);

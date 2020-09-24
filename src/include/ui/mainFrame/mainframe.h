@@ -386,7 +386,6 @@ private:
 
     /**
      * @brief 设置任务数
-     * @param currentLab 当前显示列表，正在下载、已完成、回收站
     */
     void setTaskNum();
 
