@@ -1,5 +1,7 @@
 #设置包含目录
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui
+                    ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame
+                    ${PROJECT_SOURCE_DIR}/src/include/ui/settings
                     ${PROJECT_SOURCE_DIR}/src/include/log
                     ${CMAKE_BINARY_DIR}
     )
