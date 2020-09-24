@@ -73,7 +73,7 @@ endif ()
 QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
 
 #添加资源文件
-set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/resource.qrc)
+set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/resource/resource.qrc)
 qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
