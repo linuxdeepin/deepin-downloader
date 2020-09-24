@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a979dc6_d227a1b0",
+        "filename": "src/include/ui/createTask/analysisurl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 50; 改动行数(修改和新增): 106; 注释率: 47.2%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd576621_f8a7016a",
+        "filename": "src/include/ui/createTask/btheaderview.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 30; 改动行数(修改和新增): 49; 注释率: 61.2%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc140e7_9a2abbe2",
+        "filename": "src/include/ui/createTask/btinfodelegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 51; 改动行数(修改和新增): 77; 注释率: 66.2%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a704d5_51594737",
+        "filename": "src/include/ui/createTask/btinfodialog.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 117; 改动行数(修改和新增): 178; 注释率: 65.7%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc98821c_c553b73b",
+        "filename": "src/include/ui/createTask/btinfotableview.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 40; 改动行数(修改和新增): 62; 注释率: 64.5%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ed9a38_5c05346d",
+        "filename": "src/include/ui/createTask/createtaskwidget.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 185; 改动行数(修改和新增): 259; 注释率: 71.4%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e988b86_bcfc5a42",
+        "filename": "src/include/ui/createTask/taskdelegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 51; 改动行数(修改和新增): 86; 注释率: 59.3%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d49bb0_8073f5b7",
+        "filename": "src/include/ui/createTask/urlthread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-24T06:30:32Z",
+      "side": 1,
+      "message": "注释行数: 3018; 改动行数(修改和新增): 13203; 注释率: 22.9%",
+      "revId": "f35c67f35a53500d2d8b606fbc435faaf749176f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
