@@ -205,6 +205,8 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
+    QRegExp regx("[^\\\\/\':\\*\\?\"<>|]+"); //屏蔽特殊字符
+    QValidator *validator = new QRegExpValidator(regx, pEdit);
     QString str = index.model()->data(index.model()->index(index.row(), 1)).toString();
     m_curName = str;
     pEdit->setText(str);
