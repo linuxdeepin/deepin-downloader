@@ -493,8 +493,10 @@ void MainFrame::createNewTask(QString url)
         m_TaskWidget->showNetErrorMsg();
         return;
     }
-    m_TaskWidget->move(pos().x() + this->width() / 2 - m_TaskWidget->width() / 2,
-                       pos().y() + this->height() / 2 - m_TaskWidget->height() / 2);
+    if(m_TaskWidget->isHidden()){
+        m_TaskWidget->move(pos().x() + this->width() / 2 - m_TaskWidget->width() / 2,
+                           pos().y() + this->height() / 2 - m_TaskWidget->height() / 2);
+    }
     m_TaskWidget->exec();
 }
 
@@ -2610,7 +2612,7 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
         QStringList in5;
         QVariantMap in6;
         if (isBt) {
-            in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
+            in5  << "_view" << tr("View");
             in6["x-deepin-action-_view"] = "downloader";
         }
 
