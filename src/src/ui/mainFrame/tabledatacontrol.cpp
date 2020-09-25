@@ -962,6 +962,7 @@ int tableDataControl::onDeletePermanentAction(int currentTab)
             }
         }
     }
+
     if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
         m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
     }
@@ -1178,15 +1179,15 @@ void tableDataControl::downloadListRedownload(QString id)
         QUuid uuid = QUuid::createUuid();
         QString strId = uuid.toString();
         QMap<QString, QVariant> opt;
-        int count = DBInstance::getSameNameCount(data->fileName);
-        QString outFileName;
-        if (count > 0) {
-            QString name1 = data->fileName.mid(0, fileName.lastIndexOf('.'));
-            name1 += QString("_%1").arg(count);
-            outFileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
-        }
+        //        int count = DBInstance::getSameNameCount(data->fileName);
+        //        QString outFileName;
+        //        if (count > 0) {
+        //            QString name1 = data->fileName.mid(0, fileName.lastIndexOf('.'));
+        //            name1 += QString("_%1").arg(count);
+        //            outFileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
+        //        }
         opt.insert("dir", savePath);
-        opt.insert("out", outFileName);
+        opt.insert("out", data->fileName);
         Aria2RPCInterface::instance()->addUri(url, opt, strId);
 
         QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
@@ -1266,15 +1267,15 @@ void tableDataControl::recycleListRedownload(QString id)
         }
     } else {
         QMap<QString, QVariant> opt;
-        int count = DBInstance::getSameNameCount(data->fileName);
-        QString outFileName;
-        if (count > 0) {
-            QString name1 = data->fileName.mid(0, fileName.lastIndexOf('.'));
-            name1 += QString("_%1").arg(count);
-            outFileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
-        }
+        //        int count = DBInstance::getSameNameCount(data->fileName);
+        //        QString outFileName;
+        //        if (count > 0) {
+        //            QString name1 = data->fileName.mid(0, fileName.lastIndexOf('.'));
+        //            name1 += QString("_%1").arg(count);
+        //            outFileName = name1 + fileName.mid(fileName.lastIndexOf('.'), fileName.length());
+        //        }
         opt.insert("dir", savePath);
-        opt.insert("out", outFileName);
+        opt.insert("out", data->fileName);
         Aria2RPCInterface::instance()->addUri(url, opt, strId);
         QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
         if (!filename.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {

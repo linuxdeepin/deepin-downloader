@@ -22,7 +22,7 @@ public:
      * @param task 任务信息
      * @return true 执行成功 false执行失败
      */
-    static bool addTask(TaskInfo& task);
+    static bool addTask(TaskInfo &task);
     /**
      * @brief 删除任务
      * @param id 根据id删除数据库中任务
@@ -80,13 +80,13 @@ public:
      * @param task 任务状态
      * @return true 执行成功 false执行失败
      */
-    static bool addTaskStatus(TaskStatus& task); //添加TaskStatus任务状态
+    static bool addTaskStatus(TaskStatus &task); //添加TaskStatus任务状态
     /**
      * @brief 更新任务状态
      * @param @param _task 传入任务状态，根据类中id更新数据库中任务状态信息
      * @return true 执行成功 false执行失败
      */
-    static bool updateTaskStatusById(TaskStatus& task); //根据id更新TaskStatus任务
+    static bool updateTaskStatusById(TaskStatus &task); //根据id更新TaskStatus任务
     /**
      * @brief 获取任务状态
      * @param id 需要查询任务状态id
@@ -105,14 +105,14 @@ public:
      * @param _url url信息
      * @return true 执行成功 false执行失败
      */
-    static bool addBtTask(BtTaskInfo& _url); //添加一条bt信息
+    static bool addBtTask(BtTaskInfo &_url); //添加一条bt信息
     /**
      * @brief 更新任务
      * @param id 需要查询任务id
      * @param _task 传出根据id所得任务信息
      * @return true 执行成功 false执行失败
      */
-    static bool updateBtTaskById(BtTaskInfo& _url); //根据id更新bt信息
+    static bool updateBtTaskById(BtTaskInfo &_url); //根据id更新bt信息
     /**
      * @brief 获取bt信息
      * @param taskId 任务id
@@ -132,10 +132,7 @@ public:
      * @param filename 文件名称
      * @return 重复名称个数
      */
-    static int getSameNameCount(QString filename);
-
-
-    
+    static int getSameNameCount(QString filename, QString type);
 };
 
 #endif // DBINSTANCE_H

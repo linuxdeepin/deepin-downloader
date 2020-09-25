@@ -205,7 +205,7 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     return true;
 }
 
-bool DBInstance::addTaskStatus(TaskStatus& task)
+bool DBInstance::addTaskStatus(TaskStatus &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -416,7 +416,7 @@ bool DBInstance::getAllBtTask(QList<BtTaskInfo> &urlList)
     return true;
 }
 
-int DBInstance::getSameNameCount(QString filename)
+int DBInstance::getSameNameCount(QString filename, QString type)
 {
     int count = 0;
     QSqlDatabase sqlDatabase = DataBase::Instance().getDB();
@@ -426,7 +426,9 @@ int DBInstance::getSameNameCount(QString filename)
     }
 
     QSqlQuery sql;
-    QString sqlStr = QString("select count(download_filename) from download_task where download_filename like '" + filename + "%';");
+    QString sqlStr = QString("select count(download_filename) from download_task where"
+                             " download_filename = '"
+                             + filename + "." + type + "';");
     sql.prepare(sqlStr);
     if (!sql.exec()) {
         qWarning() << "select count(download_filename) failed : " << sql.lastError();
@@ -438,6 +440,23 @@ int DBInstance::getSameNameCount(QString filename)
     while (sql.next()) {
         count = sql.value(0).toInt();
     }
+    if (count == 1) {
+        QSqlQuery sql1;
+        QString sqlStr1 = QString("select count(download_filename) from download_task where"
+                                  " download_filename like '"
+                                  + filename + "-%';");
+        sql1.prepare(sqlStr1);
+        if (!sql1.exec()) {
+            qWarning() << "select count(download_filename) failed : " << sql.lastError();
+            qWarning() << sqlStr1;
+            sqlDatabase.close();
+            return 0;
+        }
+        while (sql1.next()) {
+            count += sql1.value(0).toInt();
+        }
+    }
+
     return count;
 }
 

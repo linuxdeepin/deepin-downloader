@@ -157,8 +157,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         const QRect rectText = localRect.marginsRemoved(QMargins(25, 2, 0, 5));
         QString name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(),
-                                                         Qt::ElideRight,
-                                                         textRect.width() - 10);
+                                                         Qt::ElideMiddle,
+                                                         textRect.width() - 20);
         painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, name);
     } else if (column == 2) {
         if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
@@ -348,8 +348,8 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     static bool firstInside = true;
     firstInside = true;
     DLineEdit *pEdit = new DLineEdit(parent);
-    QRegExp rx = QRegExp("[^，。；;.、#%@&!‘//]*");
-    QRegExpValidator *validator = new QRegExpValidator(rx);
+    QRegExp regx("[^\\\\/\':\\*\\?\"<>|]+"); //屏蔽特殊字符
+    QValidator *validator = new QRegExpValidator(regx, pEdit);
     pEdit->lineEdit()->setValidator(validator);
     pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
