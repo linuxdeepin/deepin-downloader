@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdd740cb_b2de1f06",
+        "filename": "src/include/database/dbinstance.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-25T06:34:38Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 6; 注释率: 66.7%",
+      "revId": "2084f425ddaa5d171a28fccf4c45d090c59c7940",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9f1e926_41b6fcf3",
+        "filename": "src/src/database/dbinstance.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-25T06:34:38Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 21; 注释率: 0.0%",
+      "revId": "2084f425ddaa5d171a28fccf4c45d090c59c7940",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fef51814_184a94ef",
+        "filename": "src/src/ui/mainFrame/itemDelegate.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-25T06:34:38Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 4; 注释率: 25.0%",
+      "revId": "2084f425ddaa5d171a28fccf4c45d090c59c7940",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ac17bb1_6ef12abd",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-25T06:34:38Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 6; 注释率: 0.0%",
+      "revId": "2084f425ddaa5d171a28fccf4c45d090c59c7940",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9d4f22_362a77ed",
+        "filename": "src/src/ui/mainFrame/tabledatacontrol.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-25T06:34:38Z",
+      "side": 1,
+      "message": "注释行数: 14; 改动行数(修改和新增): 16; 注释率: 87.5%",
+      "revId": "2084f425ddaa5d171a28fccf4c45d090c59c7940",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
