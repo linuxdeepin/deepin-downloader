@@ -436,7 +436,7 @@ void CreateTaskWidget::onTextChanged()
             } else {
                 name = urlList[i].right(40);
             }
-            setData(i, name, "torrent", "1KB", urlList[i], 1024, urlList[i]);
+            setData(i, name.mid(0, name.size() - 8), "torrent", "1KB", urlList[i], 1024, urlList[i]);
             continue;
         }
 

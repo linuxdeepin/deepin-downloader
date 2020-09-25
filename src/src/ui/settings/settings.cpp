@@ -1078,6 +1078,9 @@ void Settings::setIsShowTip(bool b)
 bool Settings::getIsClipboradStart(QString str)
 {
     QString clipboradValue = m_iniFile->value("Clipborad/data").toString();
+    if(clipboradValue != str){
+        setIsClipboradStart(str);
+    }
     return (str == clipboradValue) ? false : true;
 }
 

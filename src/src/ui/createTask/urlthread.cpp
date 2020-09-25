@@ -250,7 +250,7 @@ QString UrlThread::getUrlSize(QString url)
 }
 QString UrlThread::getType(QString contentType)
 {
-
+    contentType.remove(";");
     QString str3 = m_iniFile->value("1").toString();
     return  m_iniFile->value(contentType).toString();
 }

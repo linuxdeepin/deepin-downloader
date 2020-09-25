@@ -87,7 +87,6 @@ MainFrame::MainFrame(QWidget *parent)
     if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
         m_Clipboard->checkClipboardHasUrl();
     }
-    Settings::getInstance()->setIsClipboradStart(clipboradStr);
 }
 
 MainFrame::~MainFrame()
