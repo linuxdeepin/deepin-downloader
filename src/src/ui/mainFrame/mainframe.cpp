@@ -957,17 +957,15 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
             fileName = fileName.remove(".torrent");
         }
     }
-    QMimeDatabase db;
-    QString mime = db.suffixForFileName(fileName);
-    int count = DBInstance::getSameNameCount(fileName.mid(0, fileName.lastIndexOf(mime) - 1));
+    int count = DBInstance::getSameNameCount(fileName, type);
     if (count > 0) {
-        fileName += QString("_%1").arg(count);
-        int count1 = DBInstance::getSameNameCount(fileName);
+        fileName += QString("-%1").arg(count);
+        int count1 = DBInstance::getSameNameCount(fileName, type);
         if (count1 > 0) {
-            fileName += QString("_%1").arg(count1);
+            fileName += QString("-%1").arg(count1);
         }
     }
-    if ((!type.isEmpty()) && (type != "torrent")) {
+    if ((!type.isEmpty())) {
         fileName = fileName + "." + type;
     }
     task.taskId = QUuid::createUuid().toString();
@@ -1932,8 +1930,9 @@ void MainFrame::onRedownloadActionTriggered()
         QMap<QString, QVariant> opt;
         opt.insert("dir", savePath);
         QString filePath = QString(savePath).left(savePath.lastIndexOf('/'));
-        getUrlToName(task, url, filePath, fileName, "");
         deleteTaskByUrl(url);
+        getUrlToName(task, url, filePath, fileName, "");
+
         DBInstance::addTask(task);
         qDebug() << task.gid << "   " << task.url;
         Aria2RPCInterface::instance()->addNewUri(task.url, filePath, task.downloadFilename, task.taskId);
