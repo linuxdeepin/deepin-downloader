@@ -389,6 +389,9 @@ void CreateTaskWidget::setUrl(QString url)
     QString savePath = Settings::getInstance()->getDownloadSavePath();
     m_editDir->setText(savePath);
     m_defaultDownloadDir = savePath;
+
+    QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
+    m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
@@ -921,8 +924,8 @@ void CreateTaskWidget::hideTableWidget()
     setMaximumSize(521, 321);
     setMinimumSize(521, 321);
 
-    QDesktopWidget *deskdop = QApplication::desktop();
-    move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
+    //QDesktopWidget *deskdop = QApplication::desktop();
+    //move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
 }
 
 void CreateTaskWidget::showTableWidget()
@@ -938,8 +941,8 @@ void CreateTaskWidget::showTableWidget()
     setMaximumSize(521, 575);
     setMinimumSize(521, 575);
 
-    QDesktopWidget *deskdop = QApplication::desktop();
-    move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
+    //QDesktopWidget *deskdop = QApplication::desktop();
+    //move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
 }
 
 bool CreateTaskWidget::isVideo(QString ext)
