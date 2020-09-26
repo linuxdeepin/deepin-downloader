@@ -41,6 +41,9 @@ bool Func::isIpv6Connect()
 
 bool Func::isDHT()
 {
+    if (!isNetConnect()) {
+        return false;
+    }
     if (!isBt()) {
         return false;
     }
@@ -56,6 +59,9 @@ bool Func::isDHT()
 
 bool Func::isBt()
 {
+    if (!isNetConnect()) {
+        return false;
+    }
     QString aria2 = QString(QDir::homePath() + "/.config/uos/downloader/aria2.conf");
     QFileInfo aria2File(aria2);
     if (aria2File.exists()) {
