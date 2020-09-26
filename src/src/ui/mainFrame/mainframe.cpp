@@ -2273,8 +2273,10 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     if (nTaskNumber != 1) {
         maxDownloadTaskCount = nTaskNumber;
     } else {
-        if (maxDownloadTaskCount <= 20) {
+        if (maxDownloadTaskCount < 20) {
             maxDownloadTaskCount += 1;
+        } else {
+            return;
         }
     }
     QMap<QString, QVariant> opt;
@@ -2700,9 +2702,12 @@ void MainFrame::onDownloadFinish()
         m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
         m_RecycleTableView->getTableControl()->saveDataBeforeClose();
         Aria2RPCInterface::instance()->shutdown();
-        QProcess p;
-        p.start("shutdown -h now");
-        p.waitForFinished();
+        QTimer::singleShot(5000, this, [=]() {
+            QProcess p;
+            p.start("shutdown -h now");
+            p.waitForFinished();
+        });
+
     } else if (m_SleepAct->isChecked()) {
         m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
         m_RecycleTableView->getTableControl()->saveDataBeforeClose();

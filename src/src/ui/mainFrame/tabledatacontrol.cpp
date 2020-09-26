@@ -336,7 +336,10 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         //
         dealNotificaitonSettings(statusStr, fileName, errorCode);
         if (Settings::getInstance()->getDownloadFinishedOpenState() && (!isMetaData) && (!fileName.endsWith(".torrent"))) {
-            QDesktopServices::openUrl(QUrl(filePath, QUrl::TolerantMode));
+            QString urlDecode = QUrl::fromPercentEncoding(filePath.toUtf8());
+            urlDecode = "file:///" + urlDecode;
+            QUrl url = QUrl(urlDecode, QUrl::TolerantMode);
+            QDesktopServices::openUrl(url);
         }
         if (!checkTaskStatus()) {
             emit whenDownloadFinish();
@@ -453,7 +456,7 @@ void tableDataControl::aria2MethodShutdown(QJsonObject &json)
         // m_bShutdownOk = true;
         qDebug() << "close downloadmanager";
         //m_pTableView->close();
-        DApplication::exit();
+        //DApplication::exit();
     }
 }
 
