@@ -2612,7 +2612,7 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
         QStringList in5;
         QVariantMap in6;
         if (isBt) {
-            in5  << "_view" << tr("View");
+            in5 << "_view" << tr("View");
             in6["x-deepin-action-_view"] = "downloader";
         }
 
