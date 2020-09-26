@@ -391,7 +391,8 @@ void CreateTaskWidget::setUrl(QString url)
     m_defaultDownloadDir = savePath;
 
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
-    m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
+    QString avai = m_labelFileSize->text().split(':')[0];
+    m_labelCapacityFree->setText(avai + ":" + freeSize);
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
