@@ -59,18 +59,18 @@
 
 using namespace Global;
 
-tableDataControl::tableDataControl(TableView *pTableView, QObject *parent)
+TableDataControl::TableDataControl(TableView *pTableView, QObject *parent)
     : QObject(parent)
     , m_DownloadTableView(pTableView)
 {
 }
 
-void tableDataControl::setRecycleTable(TableView *pRecycleTable)
+void TableDataControl::setRecycleTable(TableView *pRecycleTable)
 {
     m_RececleTableView = pRecycleTable;
 }
 
-void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAddToRecycle)
+void TableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAddToRecycle)
 {
     QFileInfo fileinfo(pData->savePath);
     if (fileinfo.isDir() && pData->savePath.contains(pData->fileName) && !pData->fileName.isEmpty()) {
@@ -94,6 +94,7 @@ void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAdd
         delData->fileName = pData->fileName;
         delData->savePath = pData->savePath;
         delData->Ischecked = false;
+        delData->status = Global::DownloadJobStatus::Removed;
         delData->totalLength = pData->totalLength;
         delData->completedLength = pData->completedLength;
         delData->deleteTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
@@ -124,7 +125,7 @@ void tableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAdd
     return;
 }
 
-void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
+void TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
 {
     QString id = json.value("id").toString();
     if (id == "dht.dat" || id == "dht6.dat") {
@@ -197,7 +198,7 @@ void tableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
     }
 }
 
-void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent)
+void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent)
 {
     QJsonObject result = json.value("result").toObject();
     QJsonObject bittorrent = result.value("bittorrent").toObject();
@@ -205,35 +206,9 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     QString bitTorrentName;
     QString taskId = json.value("id").toString();
     QString bitTorrentDir = "";
-
-    if (!bittorrent.isEmpty()) {
-        mode = bittorrent.value("mode").toString();
-        if (mode == "multi") {
-            bitTorrentDir = result.value("dir").toString();
-        }
-        QJsonObject btInfo = bittorrent.value("info").toObject();
-        bitTorrentName = btInfo.value("name").toString();
-        QString infoHash = result.value("infoHash").toString();
-        BtTaskInfo taskInfo;
-        DBInstance::getBtTaskById(taskId, taskInfo);
-        if (!taskInfo.taskId.isEmpty() && taskInfo.infoHash.isEmpty()) {
-            DBInstance::updateBtTaskById(taskInfo);
-        }
-    }
     QJsonArray files = result.value("files").toArray();
-
-    QString filePath;
-
-    QString fileUri;
-    for (int i = 0; i < files.size(); ++i) {
-        QJsonObject file = files[i].toObject();
-        filePath = file.value("path").toString();
-        QJsonArray uri = file.value("uris").toArray();
-        for (int j = 0; j < uri.size(); ++j) {
-            QJsonObject uriObject = uri[j].toObject();
-            fileUri = uriObject.value("uri").toString();
-        }
-    }
+    QString filePath = files[0].toObject().value("path").toString();
+    QString fileUri = files[0].toObject().value("uris").toArray()[0].toObject().value("uri").toString();
 
     QString gId = result.value("gid").toString();
 
@@ -281,7 +256,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             data->status = Global::DownloadJobStatus::Error;
             MessageBox msg;
             msg.setUnusual(taskId);
-            connect(&msg, &MessageBox::unusualConfirm, this, &tableDataControl::onUnusualConfirm);
+            connect(&msg, &MessageBox::unusualConfirm, this, &TableDataControl::onUnusualConfirm);
             msg.exec();
             //qDebug() << "文件不存在，";
             return;
@@ -448,7 +423,7 @@ void tableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
 }
 
-void tableDataControl::aria2MethodShutdown(QJsonObject &json)
+void TableDataControl::aria2MethodShutdown(QJsonObject &json)
 {
     QString result = json.value("result").toString();
 
@@ -460,7 +435,7 @@ void tableDataControl::aria2MethodShutdown(QJsonObject &json)
     }
 }
 
-void tableDataControl::aria2MethodGetFiles(QJsonObject &json, int iCurrentRow)
+void TableDataControl::aria2MethodGetFiles(QJsonObject &json, int iCurrentRow)
 {
     QString id = json.value("id").toString();
     DownloadDataItem *data = m_DownloadTableView->getTableModel()->find(id);
@@ -481,7 +456,7 @@ void tableDataControl::aria2MethodGetFiles(QJsonObject &json, int iCurrentRow)
     m_DownloadTableView->refreshTableView(iCurrentRow);
 }
 
-void tableDataControl::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
+void TableDataControl::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
 {
     QString gId = json.value("result").toString();
     QString taskId = json.value("id").toString();
@@ -494,7 +469,7 @@ void tableDataControl::aria2MethodUnpause(QJsonObject &json, int iCurrentRow)
     }
 }
 
-void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
+void TableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
 {
     Q_UNUSED(json);
     const QList<Global::DownloadDataItem *> &pItemList = m_DownloadTableView->getTableModel()->dataList();
@@ -507,7 +482,7 @@ void tableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
     }
 }
 
-void tableDataControl::aria2GetGlobalStatus(QJsonObject &json)
+void TableDataControl::aria2GetGlobalStatus(QJsonObject &json)
 {
     static QList<long long> speedList;
     QJsonObject ja = json.value("result").toObject();
@@ -526,12 +501,12 @@ void tableDataControl::aria2GetGlobalStatus(QJsonObject &json)
     }
 }
 
-void tableDataControl::aria2MethodRemove(QJsonObject &json)
+void TableDataControl::aria2MethodRemove(QJsonObject &json)
 {
     Q_UNUSED(json);
 }
 
-void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
+void TableDataControl::aria2MethodForceRemove(QJsonObject &json)
 {
     QString id = json.value("id").toString();
 
@@ -546,7 +521,7 @@ void tableDataControl::aria2MethodForceRemove(QJsonObject &json)
     }
 }
 
-void tableDataControl::saveDataBeforeClose()
+void TableDataControl::saveDataBeforeClose()
 {
     const QList<DownloadDataItem *> &dataList = m_DownloadTableView->getTableModel()->dataList();
     const QList<DeleteDataItem *> &recyclelist = m_DownloadTableView->getTableModel()->recyleList();
@@ -591,12 +566,12 @@ void tableDataControl::saveDataBeforeClose()
     }
 }
 
-QString tableDataControl::getFileName(const QString &url)
+QString TableDataControl::getFileName(const QString &url)
 {
     return QString(url).right(url.length() - url.lastIndexOf('/') - 1);
 }
 
-void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileName, QString errorCode)
+void TableDataControl::dealNotificaitonSettings(QString statusStr, QString fileName, QString errorCode)
 {
     bool downloadInfoNotify = Settings::getInstance()->getDownloadInfoSystemNotifyState();
     if (!downloadInfoNotify) {
@@ -645,7 +620,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     //        p->waitForFinished();
 }
 
-QString tableDataControl::formatFileSize(long size)
+QString TableDataControl::formatFileSize(long size)
 {
     QString result = "";
 
@@ -662,13 +637,13 @@ QString tableDataControl::formatFileSize(long size)
     return result;
 }
 
-QString tableDataControl::getDownloadSavepathFromConfig()
+QString TableDataControl::getDownloadSavepathFromConfig()
 {
     return Settings::getInstance()->getDownloadSavePath();
     ;
 }
 
-QString tableDataControl::formatDownloadSpeed(long size)
+QString TableDataControl::formatDownloadSpeed(long size)
 {
     QString result = "";
 
@@ -687,14 +662,14 @@ QString tableDataControl::formatDownloadSpeed(long size)
     return result;
 }
 
-bool tableDataControl::checkFileExist(QString &filePath)
+bool TableDataControl::checkFileExist(QString &filePath)
 {
     QFileInfo fInfo(filePath);
 
     return fInfo.exists();
 }
 
-void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
+void TableDataControl::onUnusualConfirm(int index, const QString &taskId)
 {
     DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(taskId);
     if (nullptr == pItem) {
@@ -731,11 +706,11 @@ void tableDataControl::onUnusualConfirm(int index, const QString &taskId)
     }
 }
 
-void tableDataControl::onAria2Remove(QString gId, QString id)
+void TableDataControl::onAria2Remove(QString gId, QString id)
 {
 }
 
-void tableDataControl::searchEditTextChanged(QString text)
+void TableDataControl::searchEditTextChanged(QString text)
 {
     TableModel *pModel = m_DownloadTableView->getTableModel();
 
@@ -760,7 +735,7 @@ void tableDataControl::searchEditTextChanged(QString text)
     m_DownloadTableView->reset();
 }
 
-int tableDataControl::onDelAction(int currentTab)
+int TableDataControl::onDelAction(int currentTab)
 {
     int selectedCount = 0;
     if (currentTab == 2) {
@@ -799,7 +774,7 @@ int tableDataControl::onDelAction(int currentTab)
     return selectedCount;
 }
 
-int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DownloadDataItem *> &reloadList)
+int TableDataControl::RedownloadDownloadAndFinishList(QList<Global::DownloadDataItem *> &reloadList)
 {
     int selectedCount = 0;
 
@@ -821,7 +796,7 @@ int tableDataControl::RedownloadDownloadAndFinishList(QList<Global::DownloadData
     return selectedCount;
 }
 
-void tableDataControl::RedownloadErrorItem(DownloadDataItem *errorItem)
+void TableDataControl::RedownloadErrorItem(DownloadDataItem *errorItem)
 {
     Aria2RPCInterface::instance()->remove(errorItem->gid);
     DBInstance::delTask(errorItem->taskId);
@@ -831,7 +806,7 @@ void tableDataControl::RedownloadErrorItem(DownloadDataItem *errorItem)
     m_DownloadTableView->getTableModel()->removeItem(errorItem);
 }
 
-int tableDataControl::RedownloadTrashList(QList<DeleteDataItem *> &reloadList)
+int TableDataControl::RedownloadTrashList(QList<DeleteDataItem *> &reloadList)
 {
     int selectedCount = 0;
     reloadList.clear();
@@ -848,15 +823,15 @@ int tableDataControl::RedownloadTrashList(QList<DeleteDataItem *> &reloadList)
     return selectedCount;
 }
 
-void tableDataControl::onReturnOriginAction()
+void TableDataControl::onReturnOriginAction()
 {
 }
 
-void tableDataControl::onClearRecyleAction()
+void TableDataControl::onClearRecyleAction()
 {
 }
 
-int tableDataControl::onCopyUrlAction(int currentTab, QString &copyUrl)
+int TableDataControl::onCopyUrlAction(int currentTab, QString &copyUrl)
 {
     int selectedCount = 0;
     QString url;
@@ -925,7 +900,7 @@ int tableDataControl::onCopyUrlAction(int currentTab, QString &copyUrl)
     return selectedCount;
 }
 
-int tableDataControl::onDeletePermanentAction(int currentTab)
+int TableDataControl::onDeletePermanentAction(int currentTab)
 {
     int selectedCount = 0;
 
@@ -972,7 +947,7 @@ int tableDataControl::onDeletePermanentAction(int currentTab)
     return selectedCount;
 }
 
-void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView *pRecycleTableView)
+void TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView *pRecycleTableView)
 {
     QString gid;
     QString ariaTempFile;
@@ -1011,7 +986,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
         qDebug() << "subThread: " << QThread::currentThreadId();
         Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
-    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &tableDataControl::removeFinished);
+    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &TableDataControl::removeFinished);
     pDeleteItemThread->start();
     //pDeleteItemThread->deleteLater();
 
@@ -1080,7 +1055,7 @@ void tableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     }
 }
 
-void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent)
+void TableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent)
 {
     bool ifDeleteLocal = permanent || ischecked;
     QList<DeleteDataItem> threadRecycleDeleteList;
@@ -1106,7 +1081,7 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, [=](QString gId, QString id) {
         Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
-    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &tableDataControl::removeFinished);
+    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &TableDataControl::removeFinished);
     pDeleteItemThread->start();
 
     for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
@@ -1119,7 +1094,7 @@ void tableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
     }
 }
 
-void tableDataControl::downloadListRedownload(QString id)
+void TableDataControl::downloadListRedownload(QString id)
 {
     DownloadDataItem *data = m_DownloadTableView->getTableModel()->find(id);
     if (data == nullptr) {
@@ -1205,7 +1180,7 @@ void tableDataControl::downloadListRedownload(QString id)
     }
 }
 
-void tableDataControl::recycleListRedownload(QString id)
+void TableDataControl::recycleListRedownload(QString id)
 {
     DeleteDataItem *data = m_DownloadTableView->getTableModel()->find(id, 2);
     if (data == nullptr) {
@@ -1291,7 +1266,7 @@ void tableDataControl::recycleListRedownload(QString id)
     }
 }
 
-void tableDataControl::clearShardMemary()
+void TableDataControl::clearShardMemary()
 {
     QSharedMemory sharedMemory;
     sharedMemory.setKey("downloader");
@@ -1305,7 +1280,7 @@ void tableDataControl::clearShardMemary()
     }
 }
 
-bool tableDataControl::checkTaskStatus()
+bool TableDataControl::checkTaskStatus()
 {
     const QList<DownloadDataItem *> &dataList = m_DownloadTableView->getTableModel()->dataList();
     for (const auto *item : dataList) {

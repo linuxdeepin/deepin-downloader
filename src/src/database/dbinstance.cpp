@@ -444,7 +444,7 @@ int DBInstance::getSameNameCount(QString filename, QString type)
         QSqlQuery sql1;
         QString sqlStr1 = QString("select count(download_filename) from download_task where"
                                   " download_filename like '"
-                                  + filename + "-%';");
+                                  + filename + "-%." + type + "';");
         sql1.prepare(sqlStr1);
         if (!sql1.exec()) {
             qWarning() << "select count(download_filename) failed : " << sql.lastError();
