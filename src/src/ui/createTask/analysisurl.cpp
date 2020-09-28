@@ -149,7 +149,7 @@ void AnalysisUrl::stopWork(int index)
 
         thread->requestInterruption();
         thread->quit();
-        thread->wait(10);
+        thread->wait(100);
         delete thread;
         delete urlIt.value();
         urlIt.value() = nullptr;
