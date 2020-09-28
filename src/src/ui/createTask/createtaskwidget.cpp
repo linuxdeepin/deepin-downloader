@@ -322,6 +322,7 @@ void CreateTaskWidget::onSureBtnClicked()
         }
     }
     Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
+    hide();
     emit downloadWidgetCreate(urlList, m_defaultDownloadDir);
 
     m_texturl->clear();
@@ -329,7 +330,6 @@ void CreateTaskWidget::onSureBtnClicked()
         delete m_analysisUrl;
         m_analysisUrl = nullptr;
     }
-    hide();
 }
 
 void CreateTaskWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -391,7 +391,7 @@ void CreateTaskWidget::setUrl(QString url)
     m_defaultDownloadDir = savePath;
 
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
-    QString avai = m_labelFileSize->text().split(':')[0];
+    QString avai = m_labelCapacityFree->text().split(':')[0];
     m_labelCapacityFree->setText(avai + ":" + freeSize);
 }
 
