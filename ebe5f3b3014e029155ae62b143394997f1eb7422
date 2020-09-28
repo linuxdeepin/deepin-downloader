@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2770091_cb3832f7",
+        "filename": "src/src/ui/createTask/analysisurl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-28T05:51:41Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "ebe5f3b3014e029155ae62b143394997f1eb7422",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d2ce179_908433e8",
+        "filename": "src/src/ui/createTask/urlthread.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-09-28T05:51:41Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 6; 注释率: 33.3%",
+      "revId": "ebe5f3b3014e029155ae62b143394997f1eb7422",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
