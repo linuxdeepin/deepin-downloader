@@ -72,8 +72,7 @@ public:
     /**
      * @brief 构造函数
      */
-    TableModel(int Flag,
-               QObject *parent = nullptr);
+    TableModel(int Flag, QObject *parent = nullptr);
 
     /**
      * @brief 父类虚函数，设置数据

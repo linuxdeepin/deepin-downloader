@@ -233,9 +233,9 @@ void MainFrame::init()
     m_DownloadingItem->setFontSize(DFontSizeManager::T6);
     m_DownloadFinishItem->setFontSize(DFontSizeManager::T6);
     m_RecycleItem->setFontSize(DFontSizeManager::T6);
-    //    m_DownloadingItem->setEditable(false);
-    //    m_DownloadFinishItem->setEditable(false);
-    //    m_RecycleItem->setEditable(false);
+    m_DownloadingItem->setEditable(false);
+    m_DownloadFinishItem->setEditable(false);
+    m_RecycleItem->setEditable(false);
     pleftlistModel->appendRow(m_DownloadingItem);
     pleftlistModel->appendRow(m_DownloadFinishItem);
     pleftlistModel->appendRow(m_RecycleItem);
@@ -324,7 +324,7 @@ void MainFrame::initTray()
 
         Aria2RPCInterface::instance()->unpauseAll();
         if (m_UpdateTimer->isActive() == false) {
-            m_UpdateTimer->start(2 * 1000);
+            m_UpdateTimer->start(m_timeInterval);
         }
     });
     connect(pPauseAllAct, &QAction::triggered, [=]() {
@@ -366,22 +366,22 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView, &TableView::HeaderStatechanged, this, &MainFrame::onHeaderStatechanged);
     connect(m_DownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
     connect(m_DownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::addMaxDownloadTask, this, &MainFrame::onMaxDownloadTaskNumberChanged);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaHttpJob, this, &MainFrame::onDownloadNewUrl);
-    connect(m_DownLoadingTableView->getTableControl(), &tableDataControl::DownloadUnusuaBtJob, this, &MainFrame::onDownloadNewTorrent);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::addMaxDownloadTask, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::DownloadUnusuaHttpJob, this, &MainFrame::onDownloadNewUrl);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::DownloadUnusuaBtJob, this, &MainFrame::onDownloadNewTorrent);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_DownLoadingTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
     connect(m_RecycleTableView, &TableView::HeaderStatechanged, this, &MainFrame::onHeaderStatechanged);
     connect(m_RecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
     connect(m_RecycleTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
-    connect(m_RecycleTableView->getTableControl(), &tableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
-    connect(m_RecycleTableView->getTableControl(), &tableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
-    connect(m_RecycleTableView->getTableControl(), &tableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
+    connect(m_RecycleTableView->getTableControl(), &TableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
+    connect(m_RecycleTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
+    connect(m_RecycleTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_RecycleTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
@@ -493,7 +493,7 @@ void MainFrame::createNewTask(QString url)
         m_TaskWidget->showNetErrorMsg();
         return;
     }
-    if(m_TaskWidget->isHidden()){
+    if (m_TaskWidget->isHidden()) {
         m_TaskWidget->move(pos().x() + this->width() / 2 - m_TaskWidget->width() / 2,
                            pos().y() + this->height() / 2 - m_TaskWidget->height() / 2);
     }
@@ -922,7 +922,7 @@ void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName
 
     // 定时器打开
     //if(m_pUpdateTimer->isActive() == false) {
-    m_UpdateTimer->start(2 * 1000);
+    m_UpdateTimer->start(m_timeInterval);
     // }
 }
 
@@ -990,7 +990,7 @@ void MainFrame::continueDownload(DownloadDataItem *pItem)
         } else {
             Aria2RPCInterface::instance()->unpause(pItem->gid, pItem->taskId);
             if (m_UpdateTimer->isActive() == false) {
-                m_UpdateTimer->start(2 * 1000);
+                m_UpdateTimer->start(m_timeInterval);
             }
         }
     }
@@ -1369,7 +1369,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
 
     // 定时器打开
     if (m_UpdateTimer->isActive() == false) {
-        m_UpdateTimer->start(2 * 1000);
+        m_UpdateTimer->start(m_timeInterval);
     }
     return true;
 }
@@ -1384,7 +1384,7 @@ void MainFrame::onRedownload(QString taskId, int rd)
     clearTableItemCheckStatus();
     onUpdateMainUI();
     if (m_UpdateTimer->isActive() == false) {
-        m_UpdateTimer->start(2 * 1000);
+        m_UpdateTimer->start(m_timeInterval);
     }
 }
 
@@ -1549,7 +1549,7 @@ void MainFrame::onDeleteConfirm(bool ischecked, bool permanent)
         onSearchEditTextChanged(m_SearchContent);
     }
     if (m_UpdateTimer->isActive() == false) {
-        m_UpdateTimer->start(2 * 1000);
+        m_UpdateTimer->start(m_timeInterval);
     }
 }
 
@@ -1803,8 +1803,10 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
 
 void MainFrame::onUpdateMainUI()
 {
+    qDebug() << "startttttttttttttt:" << QDateTime::currentDateTime();
     Aria2RPCInterface::instance()->getGlobalSatat();
-    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->renderList();
+
     int activeCount = 0;
     m_ShutdownOk = true;
     for (const auto *item : dataList) {
@@ -1827,7 +1829,23 @@ void MainFrame::onUpdateMainUI()
             m_NotaskTipLabel->show();
         }
     }
+    if (activeCount >= 30 && activeCount < 50) {
+        m_timeInterval = 3000;
+        m_UpdateTimer->stop();
+        m_UpdateTimer->start(m_timeInterval);
+    }
+    if (activeCount >= 50 && activeCount < 100) {
+        m_timeInterval = 4000;
+        m_UpdateTimer->stop();
+        m_UpdateTimer->start(m_timeInterval);
+    }
+    if (activeCount >= 100) {
+        m_timeInterval = 5000;
+        m_UpdateTimer->stop();
+        m_UpdateTimer->start(m_timeInterval);
+    }
     setTaskNum();
+    qDebug() << "eddddddddddddd:" << QDateTime::currentDateTime();
 }
 
 void MainFrame::onDeleteActionTriggered()
@@ -1940,7 +1958,7 @@ void MainFrame::onRedownloadActionTriggered()
     }
     emit isHeaderChecked(false);
     m_NotaskWidget->hide();
-    m_UpdateTimer->start(2 * 1000);
+    m_UpdateTimer->start(m_timeInterval);
 }
 
 void MainFrame::onReturnOriginActionTriggered()
@@ -2004,7 +2022,7 @@ void MainFrame::onReturnOriginActionTriggered()
                     if (taskInfo.downloadType == "torrent") {
                         //opt.insert("select-file", taskInfo.selectedNum);
                         if (m_UpdateTimer->isActive() == false) {
-                            m_UpdateTimer->start(2 * 1000);
+                            m_UpdateTimer->start(m_timeInterval);
                         }
                     }
                 } else {
@@ -2012,7 +2030,7 @@ void MainFrame::onReturnOriginActionTriggered()
                     //Aria2RPCInterface::instance()->addUri(returntoData->url, opt, returntoData->taskId);
                     //Aria2RPCInterface::instance()->pause(returntoData->gid, returntoData->taskId);
                     if (m_UpdateTimer->isActive() == false) {
-                        m_UpdateTimer->start(2 * 1000);
+                        m_UpdateTimer->start(m_timeInterval);
                     }
                 }
             }
@@ -2198,7 +2216,7 @@ void MainFrame::onRedownloadConfirmSlot(const QString sameUrl, QString fileName,
 
     // 定时器打开
     if (m_UpdateTimer->isActive() == false) {
-        m_UpdateTimer->start(2 * 1000);
+        m_UpdateTimer->start(m_timeInterval);
     }
 }
 
@@ -2288,37 +2306,37 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     opt.insert("max-concurrent-downloads", QString().number(maxDownloadTaskCount));
     Aria2RPCInterface::instance()->changeGlobalOption(opt);
 
-    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
-    int activeCount = 0;
+    //const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    //int activeCount = 0;
     m_ShutdownOk = true;
-    for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
-        if (item->status == Global::DownloadJobStatus::Active) {
-            activeCount++;
-            if (activeCount > maxDownloadTaskCount) {
-                Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
-                QTimer::singleShot(500, this, [=]() {
-                    Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
-                });
-                QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-                TaskStatus getStatus;
-                TaskStatus downloadStatus(item->taskId,
-                                          Global::DownloadJobStatus::Paused,
-                                          QDateTime::currentDateTime(),
-                                          item->completedLength,
-                                          item->speed,
-                                          item->totalLength,
-                                          item->percent,
-                                          item->total,
-                                          finishTime);
+    //    for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
+    //        if (item->status == Global::DownloadJobStatus::Active) {
+    //            activeCount++;
+    //            if (activeCount > maxDownloadTaskCount) {
+    //                Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
+    //                QTimer::singleShot(500, this, [=]() {
+    //                    Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
+    //                });
+    //                QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+    //                TaskStatus getStatus;
+    //                TaskStatus downloadStatus(item->taskId,
+    //                                          Global::DownloadJobStatus::Paused,
+    //                                          QDateTime::currentDateTime(),
+    //                                          item->completedLength,
+    //                                          item->speed,
+    //                                          item->totalLength,
+    //                                          item->percent,
+    //                                          item->total,
+    //                                          finishTime);
 
-                if (DBInstance::getTaskStatusById(item->taskId, getStatus)) {
-                    DBInstance::updateTaskStatusById(downloadStatus);
-                } else {
-                    DBInstance::addTaskStatus(downloadStatus);
-                }
-            }
-        }
-    }
+    //                if (DBInstance::getTaskStatusById(item->taskId, getStatus)) {
+    //                    DBInstance::updateTaskStatusById(downloadStatus);
+    //                } else {
+    //                    DBInstance::addTaskStatus(downloadStatus);
+    //                }
+    //            }
+    //        }
+    //    }
 }
 
 void MainFrame::onDisckCacheChanged(int nNum)
@@ -2612,7 +2630,7 @@ void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
         QStringList in5;
         QVariantMap in6;
         if (isBt) {
-            in5  << "_view" << tr("View");
+            in5 << "_view" << tr("View");
             in6["x-deepin-action-_view"] = "downloader";
         }
 
@@ -2643,7 +2661,7 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
                                                           opt,
                                                           getUrlInfo.taskId);
                 if (m_UpdateTimer->isActive() == false) {
-                    m_UpdateTimer->start(2 * 1000);
+                    m_UpdateTimer->start(m_timeInterval);
                 }
             }
         }
@@ -2652,7 +2670,7 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
         Aria2RPCInterface::instance()->addUri(pItem->url, opt, pItem->taskId);
         //clearTableItemCheckStatus();
         if (m_UpdateTimer->isActive() == false) {
-            m_UpdateTimer->start(2 * 1000);
+            m_UpdateTimer->start(m_timeInterval);
         }
     }
 }
@@ -2701,6 +2719,7 @@ void MainFrame::onDownloadFinish()
     //m_UpdateTimer->stop();
     m_ShutdownOk = true;
     if (m_ShutdownAct->isChecked()) {
+        m_ShutdownAct->setChecked(false);
         m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
         m_RecycleTableView->getTableControl()->saveDataBeforeClose();
         Aria2RPCInterface::instance()->shutdown();
@@ -2711,13 +2730,16 @@ void MainFrame::onDownloadFinish()
         });
 
     } else if (m_SleepAct->isChecked()) {
+        m_SleepAct->setChecked(false);
         m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
         m_RecycleTableView->getTableControl()->saveDataBeforeClose();
-        Aria2RPCInterface::instance()->shutdown();
+        //Aria2RPCInterface::instance()->shutdown();
         QProcess p;
         p.start("systemctl suspend");
         p.waitForFinished();
+
     } else if (m_QuitProcessAct->isChecked()) {
+        m_QuitProcessAct->setChecked(false);
         onTrayQuitClick(true);
     }
 }

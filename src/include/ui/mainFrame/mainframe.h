@@ -57,7 +57,7 @@ class TableView;
 class TaskInfo;
 class ClipboardTimer;
 class BtInfoDialog;
-class tableDataControl;
+class TableDataControl;
 class CreateTaskWidget;
 struct LinkInfo;
 
@@ -659,6 +659,8 @@ private:
     QAction *m_ShutdownAct;
     QAction *m_SleepAct;
     QAction *m_QuitProcessAct;
+
+    int m_timeInterval = 2000;
 signals:
     void isHeaderChecked(bool checked);
     void tableChanged(int index);

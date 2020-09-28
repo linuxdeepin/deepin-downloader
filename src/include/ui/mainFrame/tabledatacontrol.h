@@ -42,11 +42,11 @@ struct DeleteDataItem;
  * @class tableDataControl
  * @brief 列表数据管理，包括一些新建、删除等
  */
-class tableDataControl : public QObject
+class TableDataControl : public QObject
 {
     Q_OBJECT
 public:
-    explicit tableDataControl(TableView *pTableView, QObject *parent = nullptr);
+    explicit TableDataControl(TableView *pTableView, QObject *parent = nullptr);
 
     void initTabledata();
 

@@ -34,7 +34,7 @@ class Settings;
 class TableModel;
 class ItemDelegate;
 class TopButton;
-class tableDataControl;
+class TableDataControl;
 class DownloadHeaderView;
 /**
  * @class TableView
@@ -56,7 +56,7 @@ public:
      * @brief 获取control
      * @return Control
     */
-    tableDataControl *getTableControl();
+    TableDataControl *getTableControl();
 
     /**
      * @brief 获取header
@@ -150,7 +150,7 @@ protected:
 private:
     int m_TableFlag;
     TableModel *m_TableModel;
-    tableDataControl *m_TableDataControl;
+    TableDataControl *m_TableDataControl;
     DownloadHeaderView *m_HeaderView;
     ItemDelegate *m_Itemdegegate;
     Settings *m_Setting;

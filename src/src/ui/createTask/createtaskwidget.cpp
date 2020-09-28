@@ -84,7 +84,7 @@ void CreateTaskWidget::initUi()
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
     m_texturl->setFixedSize(QSize(500, 154));
-   // m_texturl->document()->setMaximumBlockCount(60);
+    // m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
@@ -224,7 +224,7 @@ void CreateTaskWidget::initUi()
     m_editDir->lineEdit()->setReadOnly(true);
     m_editDir->lineEdit()->setClearButtonEnabled(false);
     m_editDir->lineEdit()->setEnabled(false);
-    m_editDir->lineEdit()->setTextMargins(0,0,m_editDir->lineEdit()->width(),0);
+    m_editDir->lineEdit()->setTextMargins(0, 0, m_editDir->lineEdit()->width(), 0);
     m_editDir->lineEdit()->setLayout(siezhlyt);
     m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
@@ -893,20 +893,20 @@ void CreateTaskWidget::updateSelectedInfo()
 
 void CreateTaskWidget::setUrlName(int index, QString name)
 {
-//    QList<TaskInfo> taskList;
-//    DBInstance::getAllTask(taskList);
-//    QString curName = name + "." + m_model->data(m_model->index(index, 2)).toString();
-//    for (int i = 0; i < taskList.size(); i++) {
-//        if (taskList[i].downloadFilename == curName) {
-//            return;
-//        }
-//    }
-//    for (int j = 0; j < m_model->rowCount(); j++) {
-//        if (j == index)
-//            continue;
-//        if (name == m_model->data(m_model->index(index, 2)).toString())
-//            return;
-//    }
+    //    QList<TaskInfo> taskList;
+    //    DBInstance::getAllTask(taskList);
+    //    QString curName = name + "." + m_model->data(m_model->index(index, 2)).toString();
+    //    for (int i = 0; i < taskList.size(); i++) {
+    //        if (taskList[i].downloadFilename == curName) {
+    //            return;
+    //        }
+    //    }
+    //    for (int j = 0; j < m_model->rowCount(); j++) {
+    //        if (j == index)
+    //            continue;
+    //        if (name == m_model->data(m_model->index(index, 2)).toString())
+    //            return;
+    //    }
 
     m_model->setItem(index, 1, new QStandardItem(name));
     m_tableView->setColumnHidden(1, true);

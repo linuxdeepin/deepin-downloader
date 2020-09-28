@@ -56,7 +56,7 @@ TableView::TableView(int Flag)
     : QTableView()
     , m_TableFlag(Flag)
     , m_TableModel(new TableModel(Flag))
-    , m_TableDataControl(new tableDataControl(this))
+    , m_TableDataControl(new TableDataControl(this))
     , m_Itemdegegate(new ItemDelegate(this, m_TableFlag))
     , m_Setting(Settings::getInstance())
 {
@@ -129,7 +129,7 @@ TableModel *TableView::getTableModel()
     return m_TableModel;
 }
 
-tableDataControl *TableView::getTableControl()
+TableDataControl *TableView::getTableControl()
 {
     return m_TableDataControl;
 }
