@@ -49,7 +49,7 @@ UrlThread::~UrlThread()
 
 void UrlThread::begin()
 {
-    QNetworkAccessManager *manager = new QNetworkAccessManager;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest requset; // 定义请求对象
     requset.setUrl(QUrl(m_linkInfo->url)); // 设置服务器的uri
     requset.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -70,10 +70,13 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                 QStringList list;
                 list << "-I" << reply->url().toString();
                 process->start("curl", list);
+                qDebug()<< m_linkInfo->url <<"  :   "<< statusCode;
                 connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
                     static QMutex mutex;
                     bool isLock = mutex.tryLock();
-                    if (isLock) {
+                    qDebug()<< m_linkInfo->url <<"  :   QMutex";
+   //                 if (isLock) {
+                         qDebug()<< m_linkInfo->url <<"  :   isLock";
                         QString str = process->readAllStandardOutput();
                         process->kill();
                         process->close();
@@ -90,6 +93,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                         }
                         if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
                         {
+
                             emit sendFinishedUrl(*m_linkInfo);
                             mutex.unlock();
                             return;
@@ -106,7 +110,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                             }
                         }
                         mutex.unlock();
-                    }
+  //                  }
                 });
                 break;
     }
