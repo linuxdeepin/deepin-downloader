@@ -1803,7 +1803,6 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
 
 void MainFrame::onUpdateMainUI()
 {
-    qDebug() << "startttttttttttttt:" << QDateTime::currentDateTime();
     Aria2RPCInterface::instance()->getGlobalSatat();
     const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->renderList();
 
@@ -1845,7 +1844,6 @@ void MainFrame::onUpdateMainUI()
         m_UpdateTimer->start(m_timeInterval);
     }
     setTaskNum();
-    qDebug() << "eddddddddddddd:" << QDateTime::currentDateTime();
 }
 
 void MainFrame::onDeleteActionTriggered()
