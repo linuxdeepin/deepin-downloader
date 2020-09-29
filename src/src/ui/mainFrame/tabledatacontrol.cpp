@@ -76,14 +76,18 @@ void TableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAdd
     if (fileinfo.isDir() && pData->savePath.contains(pData->fileName) && !pData->fileName.isEmpty()) {
         QDir tar(pData->savePath);
         tar.removeRecursively();
+        QTimer::singleShot(3000, [=]() {
+            QFile::remove(pData->savePath + ".aria2");
+        });
     } else {
         QString ariaTempFile = pData->savePath + ".aria2";
         if (!pData->savePath.isEmpty()) {
             QFile::remove(pData->savePath);
-            if (QFile::exists(ariaTempFile)) {
-                QThread::msleep(100);
+            //if (QFile::exists(ariaTempFile)) {
+            QTimer::singleShot(3000, [=]() {
                 QFile::remove(ariaTempFile);
-            }
+            });
+            //}
         }
     }
     if (isAddToRecycle) {
