@@ -55,6 +55,7 @@
         <file>icon/error.svg</file>
         <file>icon/normal.svg</file>
         <file>icon/defeat.svg</file>
+        <file>icon/shadow.png</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>

@@ -64,25 +64,35 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 {
     painter->save();
 
-    if (index.row() == m_hoverRow) {
+    QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
+    if (index.row() == m_hoverRow && !size.isEmpty()) {
         if (index.row() % 2 == 1) {
-            painter->fillRect(option.rect, QColor(0, 0, 0, 0));
+            //painter->fillRect(option.rect, QColor(0, 0, 0, 0));
+            painter->fillRect(option.rect, QColor(231, 231, 231));
         } else {
-            painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
+            //painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
+            painter->fillRect(option.rect, QColor(214, 214, 214));
         }
     } else {
         if (index.row() % 2 == 1) {
-            painter->fillRect(option.rect, QColor(0, 0, 0, 20));
+           // painter->fillRect(option.rect, QColor(0, 0, 0, 20));
+            painter->fillRect(option.rect, QColor(238, 238, 238));
         } else {
-            painter->fillRect(option.rect, QColor(0, 0, 0, 40));
+           // painter->fillRect(option.rect, QColor(0, 0, 0, 35));
+            painter->fillRect(option.rect, QColor(225, 225, 225));
         }
     }
 
-    QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
-    if (size.isEmpty()) {
-        painter->fillRect(option.rect, QColor(0, 0, 0, 10)); //QColor(0,0,0,13)QColor(255,255,255,26)
-        painter->setOpacity(1);
-    }
+
+//    if (size.isEmpty()) {
+//        if (index.row() % 2 == 1) {
+//           // painter->fillRect(option.rect, QColor(0, 0, 0, 20));
+//            painter->fillRect(option.rect, QColor(238, 238, 238));
+//        } else {
+//           // painter->fillRect(option.rect, QColor(0, 0, 0, 35));
+//            painter->fillRect(option.rect, QColor(225, 225, 225));
+//        }
+//    }
 
     painter->restore();
     painter->save();
@@ -110,18 +120,21 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         painter->drawPixmap(option.rect.x() + 32, option.rect.y() + 13, pic);
 
-        //painter.
+        QPixmap shadowPic = QIcon(":icons/icon/shadow.png").pixmap(20, 20);
+        if(size.isEmpty()){
+            painter->drawPixmap(option.rect.x() + 33, option.rect.y() + 13, shadowPic);
+        }
 
         painter->setPen(Qt::darkGray);
 
-        painter->setPen(size.isEmpty() ? QColor(128, 128, 128, 40) : Qt::darkGray);
+        painter->setPen(size.isEmpty() ? QColor(65, 77, 104, 70) : QColor(65,77,104));
 
         QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideRight, option.rect.width() - 55);
         painter->drawText(option.rect.x() + 55, option.rect.y() + 28, text);
 
     } else {
         painter->setPen(Qt::darkGray);
-        painter->setPen(size.isEmpty() ? QColor(128, 128, 128, 40) : Qt::darkGray);
+        painter->setPen(size.isEmpty() ? QColor(65, 77, 104, 70) : QColor(65,77,104));
         QString text = painter->fontMetrics().elidedText(index.data().toString(), Qt::ElideRight, option.rect.width() - 25);
         painter->drawText(option.rect.x() + 5, option.rect.y() + 28, text);
     }

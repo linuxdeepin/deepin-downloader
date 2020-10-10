@@ -32,6 +32,8 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QDebug>
+#include <QMutex>
+#include <QThread>
 #include <QStandardPaths>
 #include <QProcess>
 #include <QStandardItemModel>
@@ -307,6 +309,11 @@ void CreateTaskWidget::onSureBtnClicked()
         showNetErrorMsg();
         return;
     }
+    static QMutex mutex;
+    bool ret = mutex.tryLock();
+    if(!ret){
+        return;
+    }
 
     QVector<LinkInfo> urlList;
     for (int i = 0; i < m_model->rowCount(); i++) {
@@ -330,6 +337,7 @@ void CreateTaskWidget::onSureBtnClicked()
         delete m_analysisUrl;
         m_analysisUrl = nullptr;
     }
+    mutex.unlock();
 }
 
 void CreateTaskWidget::dragEnterEvent(QDragEnterEvent *event)
