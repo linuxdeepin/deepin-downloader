@@ -28,7 +28,13 @@
 #ifndef ITEMDELEGATE_H
 #define ITEMDELEGATE_H
 
+#include <DApplication>
+#include <DGuiApplicationHelper>
 #include <QStyledItemDelegate>
+
+DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
+DTK_USE_NAMESPACE
 
 class QProgressBar;
 /**
@@ -64,6 +70,13 @@ public slots:
       * @brief 鼠标悬停行改变
       */
     void onHoverchanged(const QModelIndex &index);
+
+private slots:
+    /**
+     * @brief 主题改变
+     * @param type 颜色类型
+    */
+    void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
 private:
     int m_TableFlag;

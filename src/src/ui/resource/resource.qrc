@@ -56,6 +56,8 @@
         <file>icon/normal.svg</file>
         <file>icon/defeat.svg</file>
         <file>icon/shadow.png</file>
+        <file>icon/progressbar_bg.png</file>
+        <file>icon/progressbar_fg.png</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>

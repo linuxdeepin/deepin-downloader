@@ -63,6 +63,7 @@
 #include "tabledatacontrol.h"
 #include "analysisurl.h"
 #include "diagnostictool.h"
+#include "settings.h"
 
 using namespace Global;
 
@@ -639,7 +640,7 @@ void MainFrame::setPaletteType()
 {
     m_LeftList->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
 
-    if (DGuiApplicationHelper::instance()->themeType() == 2) {
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
         DPalette deepthemePalette;
         deepthemePalette.setBrush(DPalette::Background,
                                   DGuiApplicationHelper::instance()->applicationPalette().base());
@@ -673,7 +674,7 @@ void MainFrame::setPaletteType()
         notaskTipLabelP.setBrush(DPalette::WindowText,
                                  DGuiApplicationHelper::instance()->applicationPalette().textTips());
         m_TaskNum->setPalette(notaskTipLabelP);
-    } else if (DGuiApplicationHelper::instance()->themeType() == 1) {
+    } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
         DPalette p;
         p.setBrush(DPalette::Background,
                    DGuiApplicationHelper::instance()->applicationPalette().base());
@@ -2068,11 +2069,13 @@ void MainFrame::onOpenFileActionTriggered()
 void MainFrame::onOpenFolderActionTriggered()
 {
     if (m_CurrentTab == recycleTab) {
-        QString filePath = m_DelCheckItem->savePath.left(m_DelCheckItem->savePath.length() - m_DelCheckItem->fileName.length());
+        QString filePath = m_DelCheckItem->savePath.left(m_DelCheckItem->savePath.length()
+                                                         - m_DelCheckItem->savePath.split('/').last().length());
         QString path = QString("file:///") + filePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
     } else {
-        QString filePath = m_CheckItem->savePath.left(m_CheckItem->savePath.length() - m_CheckItem->fileName.length());
+        QString filePath = m_CheckItem->savePath.left(m_CheckItem->savePath.length()
+                                                      - m_CheckItem->savePath.split('/').last().length());
         QString path = QString("file:///") + filePath;
         QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
     }
@@ -2304,37 +2307,40 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     opt.insert("max-concurrent-downloads", QString().number(maxDownloadTaskCount));
     Aria2RPCInterface::instance()->changeGlobalOption(opt);
 
-    //const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
-    //int activeCount = 0;
+    if (nTaskNumber == 1) {
+        return;
+    }
+    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    int activeCount = 0;
     m_ShutdownOk = true;
-    //    for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
-    //        if (item->status == Global::DownloadJobStatus::Active) {
-    //            activeCount++;
-    //            if (activeCount > maxDownloadTaskCount) {
-    //                Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
-    //                QTimer::singleShot(500, this, [=]() {
-    //                    Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
-    //                });
-    //                QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-    //                TaskStatus getStatus;
-    //                TaskStatus downloadStatus(item->taskId,
-    //                                          Global::DownloadJobStatus::Paused,
-    //                                          QDateTime::currentDateTime(),
-    //                                          item->completedLength,
-    //                                          item->speed,
-    //                                          item->totalLength,
-    //                                          item->percent,
-    //                                          item->total,
-    //                                          finishTime);
+    for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
+        if (item->status == Global::DownloadJobStatus::Active) {
+            activeCount++;
+            if (activeCount > maxDownloadTaskCount) {
+                Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
+                QTimer::singleShot(500, this, [=]() {
+                    Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
+                });
+                QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+                TaskStatus getStatus;
+                TaskStatus downloadStatus(item->taskId,
+                                          Global::DownloadJobStatus::Paused,
+                                          QDateTime::currentDateTime(),
+                                          item->completedLength,
+                                          item->speed,
+                                          item->totalLength,
+                                          item->percent,
+                                          item->total,
+                                          finishTime);
 
-    //                if (DBInstance::getTaskStatusById(item->taskId, getStatus)) {
-    //                    DBInstance::updateTaskStatusById(downloadStatus);
-    //                } else {
-    //                    DBInstance::addTaskStatus(downloadStatus);
-    //                }
-    //            }
-    //        }
-    //    }
+                if (DBInstance::getTaskStatusById(item->taskId, getStatus)) {
+                    DBInstance::updateTaskStatusById(downloadStatus);
+                } else {
+                    DBInstance::addTaskStatus(downloadStatus);
+                }
+            }
+        }
+    }
 }
 
 void MainFrame::onDisckCacheChanged(int nNum)
@@ -2919,6 +2925,9 @@ void MainFrame::deleteTaskByTaskID(QString taskID)
 
 void MainFrame::deleteTask(DeleteDataItem *pItem)
 {
+    if (pItem == nullptr) {
+        return;
+    }
     Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
     Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
     QString ariaTempFile = pItem->savePath + ".aria2";

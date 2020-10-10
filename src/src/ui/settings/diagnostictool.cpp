@@ -53,7 +53,7 @@ void DiagnosticTool::initUI()
     setIcon(tryIcon);
 
     QWidget *pWidget = new QWidget(this);
-    pWidget->setFixedSize(453, 360);
+    pWidget->setFixedSize(453, 310);
 
     QFont f;
     f.setPixelSize(17);
@@ -87,7 +87,7 @@ void DiagnosticTool::initUI()
     m_Tableview->horizontalHeader()->hide();
     m_Tableview->verticalHeader()->hide();
     m_Tableview->verticalHeader()->setDefaultSectionSize(40);
-    m_Tableview->setFixedSize(418, 255);
+    m_Tableview->setFixedSize(418, 205);
     m_Tableview->setShowGrid(false);
     m_Tableview->setColumnWidth(0, 42);
     m_Tableview->setColumnWidth(1, 310);
@@ -164,7 +164,7 @@ bool DiagnosticModel::setData(const QModelIndex &index, const QVariant &value, i
 int DiagnosticModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 6;
+    return 5;
 }
 
 int DiagnosticModel::columnCount(const QModelIndex &parent) const
@@ -184,17 +184,17 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
             return m_DiagnosticStatusList.at(index.row()) ? (":icons/icon/normal.svg") : (":icons/icon/defeat.svg");
         } else if (index.column() == 1) {
             switch (index.row()) {
+                //            case 0:
+                //                return tr("IPv6 support");
             case 0:
-                return tr("IPv6 support");
-            case 1:
                 return tr("DHT status");
-            case 2:
+            case 1:
                 return tr("HTTP task info");
-            case 3:
+            case 2:
                 return tr("BT task info");
-            case 4:
+            case 3:
                 return tr("Magnet task info");
-            case 5:
+            case 4:
                 return tr("Network detection");
             default:
                 break;

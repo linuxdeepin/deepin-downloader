@@ -612,6 +612,9 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
         if (role == TableModel::Size || role == TableModel::TotalLength) {
             num = formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
+        } else if (role == TableModel::Speed) {
+            num = formatSpeed(itm.toString());
+            sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if (!itm.isNull()) {
                 sortable.append(QPair<QVariant, int>(itm, row));
@@ -694,6 +697,13 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
 
 double TableModel::formatFileSize(QString str)
 {
+    if (str.contains("KB/s")) {
+        str.remove("KB/s");
+    } else if (str.contains("MB/s")) {
+        str.remove("MB/s");
+    } else if (str.contains("B/s")) {
+        str.remove("B/s");
+    }
     double num = -1;
     QString number = str.left(str.length() - 2);
     num = number.toDouble();
@@ -702,6 +712,28 @@ double TableModel::formatFileSize(QString str)
     } else if (str.contains("MB")) {
         num = num * 1024 * 1024;
     } else if (str.contains("GB")) {
+        num = num * 1024 * 1024 * 1024;
+    }
+
+    return num;
+}
+
+double TableModel::formatSpeed(QString str)
+{
+    QString number = str;
+    if (str.contains("KB/s")) {
+        str.remove("KB/s");
+    } else if (str.contains("MB/s")) {
+        str.remove("MB/s");
+    } else if (str.contains("B/s")) {
+        str.remove("B/s");
+    }
+    double num = str.toDouble();
+    if (number.contains("KB")) {
+        num = num * 1024;
+    } else if (number.contains("MB")) {
+        num = num * 1024 * 1024;
+    } else if (number.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
     }
 

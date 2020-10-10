@@ -42,8 +42,6 @@
 #include <QNetworkReply>
 #include <QProcess>
 
-#include "settings.h"
-
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE

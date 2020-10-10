@@ -90,10 +90,11 @@ void TableView::initUI()
     m_HeaderView->setStretchLastSection(true);
     m_HeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     setColumnWidth(0, 20);
-    setColumnWidth(1, 360);
+    setColumnWidth(1, 320);
+    m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     setColumnWidth(2, 110);
-    //setColumnWidth(3, 200);
-    //setColumnWidth(4, 200);
+    setColumnWidth(3, 200);
+    setColumnWidth(4, 200);
 }
 
 void TableView::initConnections()
@@ -112,7 +113,6 @@ void TableView::initTableView()
 
 void TableView::reset(bool switched)
 {
-    QModelIndex idx = selectionModel()->currentIndex();
     int size = QTableView::verticalScrollBar()->value();
 
     QTableView::reset();
@@ -194,6 +194,15 @@ void TableView::currentChanged(const QModelIndex &current, const QModelIndex &pr
     QTableView::currentChanged(current, previous);
 }
 
+void TableView::resizeEvent(QResizeEvent *event)
+{
+    if (event->oldSize().width() <= 0) {
+        return;
+    }
+    int leng = event->size().width() - event->oldSize().width();
+    setColumnWidth(1, columnWidth(1) + leng);
+}
+
 void TableView::refreshTableView(const int &index)
 {
     switch (index) {
@@ -214,7 +223,6 @@ void TableView::refreshTableView(const int &index)
         setColumnHidden(4, false);
         break;
     }
-
     update();
 }
 
