@@ -28,8 +28,8 @@
 #include "itemDelegate.h"
 
 #include <DCheckBox>
-#include <DGuiApplicationHelper>
 #include <DLineEdit>
+#include <DApplication>
 
 #include <QStandardItemModel>
 #include <QStyleOptionProgressBar>
@@ -51,10 +51,6 @@
 #include "global.h"
 #include "../database/dbinstance.h"
 
-DWIDGET_USE_NAMESPACE
-DCORE_USE_NAMESPACE
-DTK_USE_NAMESPACE
-
 ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     : QStyledItemDelegate(parent)
     , m_HoverRow(-1)
@@ -64,6 +60,11 @@ ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     // progressbar = new QProgressBar;
     m_BgImage = new QPixmap(":/icons/icon/bar-bg.png");
     m_Front = new QPixmap(":/icons/icon/bar-front.png");
+
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged,
+            this, &ItemDelegate::onPalettetypechanged);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged,
+            this, &ItemDelegate::onPalettetypechanged);
 }
 
 ItemDelegate::~ItemDelegate()
@@ -187,6 +188,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
                 painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
                 painter->setPen(QColor("#FFFFFF"));
+
+                m_BgImage->load(":/icons/icon/progressbar_bg.png");
+                m_Front->load(":/icons/icon/progressbar_fg.png");
+            } else {
+                m_Front->load(":/icons/icon/bar-bg.png");
+                m_Front->load(":/icons/icon/bar-front.png");
             }
             painter->setFont(font);
             QRect sizeRect = textRect;
@@ -229,7 +236,15 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, wattingText);
                 return;
             } else {
-                const QString sizeText = painter->fontMetrics().elidedText(" " + index.data(TableModel::Percent).toString() + "%    " + index.data(TableModel::Speed).toString() + "   " + tr("Time left ") + index.data(TableModel::Time).toString(),
+                QString speed = index.data(TableModel::Speed).toString();
+                if (speed.left(2).toInt() < 0) {
+                    speed = "0KB/s";
+                }
+                QString str = " " + index.data(TableModel::Percent).toString()
+                              + "%    " + speed
+                              + "   " + tr("Time left ")
+                              + index.data(TableModel::Time).toString();
+                const QString sizeText = painter->fontMetrics().elidedText(str,
                                                                            Qt::ElideRight,
                                                                            textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
@@ -434,4 +449,15 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
     m_HoverRow = index.row();
+}
+
+void ItemDelegate::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
+{
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        m_Front->load(":/icons/icon/bar-bg.png");
+        m_BgImage->load(":/icons/icon/bar-front.png");
+    } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
+        m_BgImage->load(":/icons/icon/bar-bg.png");
+        m_Front->load(":/icons/icon/bar-front.png");
+    }
 }

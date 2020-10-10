@@ -225,6 +225,7 @@ private:
     void sortDownload(int column, Qt::SortOrder order);
     void sortRecycle(int column, Qt::SortOrder order);
     double formatFileSize(QString str);
+    double formatSpeed(QString str);
 signals:
     /**
      * @brief 改变选中

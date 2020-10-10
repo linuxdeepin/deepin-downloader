@@ -173,32 +173,32 @@ void TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         QDateTime time = QDateTime::currentDateTime();
         data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
 
-        TaskInfo getTaskInfo;
-        DBInstance::getTaskByID(id, getTaskInfo);
+        TaskInfo taskInfo;
+        DBInstance::getTaskByID(id, taskInfo);
         TaskInfo task;
-        if (!getTaskInfo.taskId.isEmpty()) {
-            task = TaskInfo(getTaskInfo.taskId,
+        if (!taskInfo.taskId.isEmpty()) {
+            task = TaskInfo(taskInfo.taskId,
                             gId,
                             0,
-                            getTaskInfo.url,
-                            getTaskInfo.downloadPath,
-                            getTaskInfo.downloadFilename,
+                            taskInfo.url,
+                            taskInfo.downloadPath,
+                            taskInfo.downloadFilename,
                             time);
             DBInstance::updateTaskByID(task);
-            data->fileName = getTaskInfo.downloadFilename;
+            data->fileName = taskInfo.downloadFilename;
         } else {
             task = TaskInfo(id, gId, 0, "", "", "Unknow", time);
             DBInstance::addTask(task);
         }
-        data->savePath = getTaskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
-        data->url = getTaskInfo.url;
+        data->savePath = taskInfo.downloadPath + "/" + taskInfo.downloadFilename;
+        data->url = taskInfo.url;
         m_DownloadTableView->getTableModel()->append(data);
         m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
         if ((!searchContent.isEmpty()) && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_DownloadTableView->getTableModel();
             m_DownloadTableView->setRowHidden(dtModel->rowCount(), true);
         }
-        qDebug() << "aria2MethodAdd: " << getTaskInfo.url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+        qDebug() << "aria2MethodAdd: " << taskInfo.url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     }
 }
 
@@ -207,11 +207,18 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     QJsonObject result = json.value("result").toObject();
     QJsonObject bittorrent = result.value("bittorrent").toObject();
     QString mode;
+    QString filePath;
     QString bitTorrentName;
     QString taskId = json.value("id").toString();
     QString bitTorrentDir = "";
     QJsonArray files = result.value("files").toArray();
-    QString filePath = files[0].toObject().value("path").toString();
+    if (files.size() == 1) {
+        filePath = files[0].toObject().value("path").toString();
+    } else {
+        QString path = files[0].toObject().value("path").toString();
+        filePath = path.left(path.count() - path.split('/').last().count() - 1);
+    }
+
     QString fileUri = files[0].toObject().value("uris").toArray()[0].toObject().value("uri").toString();
 
     QString gId = result.value("gid").toString();
@@ -393,17 +400,16 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     } else if (data->time.isEmpty()) {
         data->time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     }
-    TaskInfo task;
-    TaskInfo getTask;
-    DBInstance::getTaskByID(taskId, getTask);
-    if ((!getTask.taskId.isEmpty()) && (!getTask.url.isEmpty())) {
-        data->url = getTask.url;
+    TaskInfo taskInfo;
+    DBInstance::getTaskByID(taskId, taskInfo);
+    if ((!taskInfo.taskId.isEmpty()) && (!taskInfo.url.isEmpty())) {
+        data->url = taskInfo.url;
     }
 
     //m_pDownloadTableView->update();
     //m_pDownloadTableView->reset();
-    TaskStatus getTaskStatus;
-    DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
+    TaskStatus taskStatus;
+    DBInstance::getTaskStatusById(data->taskId, taskStatus);
 
     QDateTime getTime = QDateTime::currentDateTime();
     TaskStatus saveTaskStatus(data->taskId,
@@ -415,9 +421,9 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
                               data->percent,
                               data->total,
                               getTime);
-    if (getTaskStatus.taskId.isEmpty()) {
+    if (taskStatus.taskId.isEmpty()) {
         DBInstance::addTaskStatus(saveTaskStatus);
-    } else if ((getTaskStatus.downloadStatus != data->status) || (getTaskStatus.percent != data->speed)) {
+    } else if ((taskStatus.downloadStatus != data->status) || (taskStatus.percent != data->speed)) {
         DBInstance::updateTaskStatusById(saveTaskStatus);
     }
 

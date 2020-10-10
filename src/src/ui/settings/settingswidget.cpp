@@ -35,10 +35,10 @@
 
 #include "settings.h"
 DWIDGET_USE_NAMESPACE
-SettingsControlWidget::SettingsControlWidget(QWidget *parent) : QWidget(parent)
+SettingsControlWidget::SettingsControlWidget(QWidget *parent)
+    : QWidget(parent)
 {
 }
-
 
 // 初始化界面
 void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
@@ -49,7 +49,7 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 
     m_SwitchBtn = new DSwitchButton();
     layout->addWidget(pLabel);
-    if(isLineEdit) {
+    if (isLineEdit) {
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
         DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);
@@ -57,19 +57,18 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         m_Edit->lineEdit()->setValidator(validator);
         layout->addWidget(m_Edit);
         connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);
-        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString &text){  //设置速度不能高于最大限速
-            if (Settings::getInstance()->getDownloadSettingSelected() &&
-                    text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()) {
+        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString &text) { //设置速度不能高于最大限速
+            if (Settings::getInstance()->getDownloadSettingSelected() && text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()) {
                 alertControl->showAlertMessage(tr("Total speed neet less than Max download speed!"),
-                                                         m_Edit->parentWidget()->parentWidget(), -1);
+                                               m_Edit->parentWidget()->parentWidget(), -1);
                 alertControl->setMessageAlignment(Qt::AlignLeft);
             } else {
                 alertControl->hideAlertMessage();
             }
         });
 
-        connect(m_Edit, &DLineEdit::focusChanged, this, [=](bool onFocus){  //设置速度不能高于最大限速
-            if(!onFocus) {
+        connect(m_Edit, &DLineEdit::focusChanged, this, [=](bool onFocus) { //设置速度不能高于最大限速
+            if (!onFocus) {
                 alertControl->hideAlertMessage();
             }
         });
@@ -78,7 +77,12 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         m_ComboBox->setEnabled(false);
         m_ComboBox->setFixedWidth(80);
         QStringList strList;
-        strList << "5" << "10" << "20" << "30" << "50" << "100";
+        strList << "5"
+                << "10"
+                << "20"
+                << "30"
+                << "50"
+                << "100";
         m_ComboBox->addItems(strList);
         layout->addWidget(m_ComboBox);
         connect(m_ComboBox, &DComboBox::currentTextChanged, this, &SettingsControlWidget::TextChanged);
@@ -87,9 +91,9 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     layout->addWidget(pTextLabel);
     layout->addStretch();
     layout->addWidget(m_SwitchBtn, 0, Qt::AlignRight);
-    connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat){
+    connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat) {
         emit checkedChanged(stat);
-        if(isLineEdit){
+        if (isLineEdit) {
             m_Edit->setEnabled(stat);
         } else {
             m_ComboBox->setEnabled(stat);
@@ -104,17 +108,17 @@ void SettingsControlWidget::setSpeend(QString speed)
 
 void SettingsControlWidget::setSize(QString size)
 {
-    if("5" == size) {
+    if ("5" == size) {
         m_ComboBox->setCurrentIndex(0);
-    } else if("10" == size) {
+    } else if ("10" == size) {
         m_ComboBox->setCurrentIndex(1);
-    } else if("20" == size) {
+    } else if ("20" == size) {
         m_ComboBox->setCurrentIndex(2);
-    } else if("30" == size) {
+    } else if ("30" == size) {
         m_ComboBox->setCurrentIndex(3);
-    } else if("50" == size) {
+    } else if ("50" == size) {
         m_ComboBox->setCurrentIndex(4);
-    } else if("100" == size) {
+    } else if ("100" == size) {
         m_ComboBox->setCurrentIndex(5);
     }
 }
@@ -123,5 +127,3 @@ void SettingsControlWidget::setSwitch(bool arg)
 {
     m_SwitchBtn->setChecked(arg);
 }
-
-
