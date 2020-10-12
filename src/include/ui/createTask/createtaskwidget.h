@@ -102,6 +102,13 @@ private:
     bool isHttp(QString url);
 
     /**
+     * @brief 是否为isFtp链接
+     * @param url 路径
+     * @return  true 为Ftp链接  false 为不是Ftp链接
+    */
+    bool isFtp(QString url);
+
+    /**
      * @brief 获取url名字和类型
      * @param url 路径
      * @param name url名字
