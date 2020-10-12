@@ -418,6 +418,15 @@ bool CreateTaskWidget::isHttp(QString url)
     return true;
 }
 
+bool CreateTaskWidget::isFtp(QString url)
+{
+    url = url.toLower();
+    if(url.startsWith("ftp:")){
+        return true;
+    }
+    return false;
+}
+
 void CreateTaskWidget::onTextChanged()
 {
     m_texturl->toPlainText().isEmpty() ? hideTableWidget() : showTableWidget();
@@ -449,6 +458,21 @@ void CreateTaskWidget::onTextChanged()
                 name = urlList[i].right(40);
             }
             setData(i, name.mid(0, name.size() - 8), "torrent", "1KB", urlList[i], 1024, urlList[i]);
+            continue;
+        }
+        if(isFtp(urlList[i])){
+            QStringList nameList =urlList[i].split("/");
+            nameList.removeAll(QString(""));
+            name = nameList[nameList.size()-1];
+            QMimeDatabase db;
+            QString type = db.suffixForFileName(urlList[i]);
+            if(type.isEmpty()){
+                type = "html";
+            }else {
+                int index = name.lastIndexOf('.');
+                name.truncate(index);
+            }
+            setData(i, name, type, "1KB", urlList[i], 1024, urlList[i]);
             continue;
         }
 
