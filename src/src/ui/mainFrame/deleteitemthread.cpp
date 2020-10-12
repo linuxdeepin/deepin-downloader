@@ -131,8 +131,7 @@ void DeleteItemThread::deleteDownloadData()
             if (!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
-                    QDir tar(savePath);
-                    tar.removeRecursively();
+                    deleteDirectory(savePath);
                     if (QFile::exists(savePath + ".aria2")) {
                         QFile::remove(savePath + ".aria2");
                         QTimer::singleShot(3000, [=]() {
