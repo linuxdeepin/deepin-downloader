@@ -47,6 +47,7 @@
 #include <QSharedMemory>
 #include <QMimeDatabase>
 #include <QUuid>
+
 #include <unistd.h>
 
 #include "aria2rpcinterface.h"
@@ -64,6 +65,7 @@
 #include "analysisurl.h"
 #include "diagnostictool.h"
 #include "settings.h"
+#include "headerView.h"
 
 using namespace Global;
 
@@ -803,6 +805,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_NotaskLabel->setText(tr("No finished tasks"));
             m_NotaskTipLabel->hide();
             m_NoResultlabel->hide();
+            m_DownLoadingTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         } else {
             //m_pDownLoadingTableView->setFocus();
             //m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
@@ -810,6 +813,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_NotaskWidget->show();
             m_NotaskTipLabel->show();
             m_NoResultlabel->hide();
+            m_DownLoadingTableView->getTableHeader()->setSortIndicator(3, Qt::AscendingOrder);
         }
     } else {
         m_RightStackwidget->setCurrentIndex(1);
@@ -818,6 +822,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_NotaskLabel->setText(tr("No deleted tasks"));
         m_NotaskTipLabel->hide();
         m_NoResultlabel->hide();
+        m_RecycleTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
     }
     clearTableItemCheckStatus();
     emit isHeaderChecked(false);
@@ -838,10 +843,37 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
     int cnt = (m_CurrentTab == recycleTab ? m_RecycleTableView->getTableModel()->rowCount()
                                           : m_DownLoadingTableView->getTableModel()->rowCount());
 
+    int activeCount = 0;
+    int pauseCount = 0;
+    int errorCount = 0;
+    if (m_CurrentTab == downloadingTab && isChecked) {
+        const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
+        for (int i = 0; i < selectList.size(); i++) {
+            DownloadDataItem *pDownloadItem = selectList.at(i);
+            if (pDownloadItem->status == Global::DownloadJobStatus::Active) {
+                ++activeCount;
+            }
+            if ((pDownloadItem->status == Global::DownloadJobStatus::Paused) || (pDownloadItem->status == Global::DownloadJobStatus::Lastincomplete)) {
+                ++pauseCount;
+            }
+            if (pDownloadItem->status == Global::DownloadJobStatus::Error) {
+                ++errorCount;
+            }
+        }
+    }
     if (cnt > 0) {
         if (m_CurrentTab == downloadingTab) {
-            m_ToolBar->enableStartBtn(isChecked);
-            m_ToolBar->enablePauseBtn(isChecked);
+            if (isChecked) {
+                if (activeCount) {
+                    m_ToolBar->enablePauseBtn(isChecked);
+                }
+                if (pauseCount || errorCount) {
+                    m_ToolBar->enableStartBtn(isChecked);
+                }
+            } else {
+                m_ToolBar->enablePauseBtn(isChecked);
+                m_ToolBar->enableStartBtn(isChecked);
+            }
             m_ToolBar->enableDeleteBtn(isChecked);
         } else {
             m_ToolBar->enableStartBtn(false);

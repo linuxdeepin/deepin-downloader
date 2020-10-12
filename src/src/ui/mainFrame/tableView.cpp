@@ -221,6 +221,7 @@ void TableView::refreshTableView(const int &index)
         //}
         setColumnHidden(3, true);
         setColumnHidden(4, false);
+        //getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         break;
     }
     update();

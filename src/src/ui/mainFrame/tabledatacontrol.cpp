@@ -216,7 +216,9 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         filePath = files[0].toObject().value("path").toString();
     } else {
         QString path = files[0].toObject().value("path").toString();
-        filePath = path.left(path.count() - path.split('/').last().count() - 1);
+        QString path2 = result.value("dir").toString();
+        filePath = path2 + "/" + path.split('/').at(path2.split('/').count());
+        //filePath = path.left(path.count() - path.split('/').last().count() - 1);
     }
 
     QString fileUri = files[0].toObject().value("uris").toArray()[0].toObject().value("uri").toString();
@@ -237,6 +239,7 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         QString infoHash = result.value("infoHash").toString();
         filePath = dir + "/" + infoHash + ".torrent";
     }
+
     if ((completedLength != 0) && (totalLength != 0)) {
         double tempPercent = completedLength * 100.0 / totalLength;
         percent = static_cast<int>(tempPercent);
