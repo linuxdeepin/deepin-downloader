@@ -1837,7 +1837,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
 void MainFrame::onUpdateMainUI()
 {
     Aria2RPCInterface::instance()->getGlobalSatat();
-    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->renderList();
+    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
 
     int activeCount = 0;
     m_ShutdownOk = true;
