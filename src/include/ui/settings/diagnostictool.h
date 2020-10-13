@@ -77,6 +77,7 @@ public:
 
     void clearData();
 
+private:
     /**
      * @brief 父类虚函数，设置数据
      * @param ndex: 索引

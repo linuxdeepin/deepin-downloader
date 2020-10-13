@@ -61,7 +61,7 @@ void DiagnosticTool::initUI()
     QLabel *pLabel = new QLabel(tr("Result:"));
     pLabel->setFixedSize(202, 25);
     pLabel->setFont(f);
-    m_Button = new QPushButton(tr("Diagnose again"), this);
+    m_Button = new QPushButton(tr("Diagnose Again"), this);
     m_Button->setFixedSize(202, 36);
     connect(m_Button, &QPushButton::clicked, this, [=]() {
         m_Model->clearData();
@@ -189,11 +189,11 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
             case 0:
                 return tr("DHT status");
             case 1:
-                return tr("HTTP task info");
+                return tr("HTTP task");
             case 2:
-                return tr("BT task info");
+                return tr("BT task");
             case 3:
-                return tr("Magnet task info");
+                return tr("Magnet task");
             case 4:
                 return tr("Network detection");
             default:
