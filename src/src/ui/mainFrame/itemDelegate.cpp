@@ -192,7 +192,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 m_BgImage->load(":/icons/icon/progressbar_bg.png");
                 m_Front->load(":/icons/icon/progressbar_fg.png");
             } else {
-                m_Front->load(":/icons/icon/bar-bg.png");
+                m_BgImage->load(":/icons/icon/bar-bg.png");
                 m_Front->load(":/icons/icon/bar-front.png");
             }
             painter->setFont(font);

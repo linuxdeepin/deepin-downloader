@@ -354,13 +354,13 @@ void MainFrame::updateDHTFile()
     QMap<QString, QVariant> opt;
     opt.insert("dir", QString(QDir::homePath() + "/.config/uos/downloader"));
     opt.insert("out", "dht.dat");
-    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht.dat",
+    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/raw/master/dht.dat",
                                           opt, "dht.dat");
 
     QMap<QString, QVariant> opt2;
     opt2.insert("dir", QString(QDir::homePath() + "/.config/uos/downloader"));
     opt2.insert("out", "dht6.dat");
-    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/blob/master/dht6.dat",
+    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat",
                                           opt2, "dht6.dat");
 }
 
