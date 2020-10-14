@@ -175,7 +175,7 @@ void TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
                             getTaskInfo.downloadPath,
                             getTaskInfo.downloadFilename,
                             time);
-            DBInstance::updateTaskByID(task);
+            DBInstance::updateTaskInfoByID(task);
             data->fileName = getTaskInfo.downloadFilename;
         } else {
             task = TaskInfo(id, gId, 0, "", "", "Unknow", time);
@@ -388,23 +388,23 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     //m_pDownloadTableView->update();
     //m_pDownloadTableView->reset();
-    TaskStatus getTaskStatus;
-    DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
-    QDateTime getTime = QDateTime::currentDateTime();
-    TaskStatus saveTaskStatus(data->taskId,
-                              data->status,
-                              getTime,
-                              data->completedLength,
-                              data->speed,
-                              data->totalLength,
-                              data->percent,
-                              data->total,
-                              getTime);
-    if (getTaskStatus.taskId.isEmpty()) {
-        DBInstance::addTaskStatus(saveTaskStatus);
-    } else if ((getTaskStatus.downloadStatus != data->status) || (getTaskStatus.percent != data->speed)) {
-        DBInstance::updateTaskStatusById(saveTaskStatus);
-    }
+    //    TaskStatus getTaskStatus;
+    //    DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
+    //    QDateTime getTime = QDateTime::currentDateTime();
+    //    TaskStatus saveTaskStatus(data->taskId,
+    //                              data->status,
+    //                              getTime,
+    //                              data->completedLength,
+    //                              data->speed,
+    //                              data->totalLength,
+    //                              data->percent,
+    //                              data->total,
+    //                              getTime);
+    //    if (getTaskStatus.taskId.isEmpty()) {
+    //        DBInstance::addTaskStatus(saveTaskStatus);
+    //    } else if ((getTaskStatus.downloadStatus != data->status) || (getTaskStatus.percent != data->speed)) {
+    //        DBInstance::updateTaskStatusById(saveTaskStatus);
+    //    }
     m_DownloadTableView->refreshTableView(iCurrentRow);
     if ((data->status == Complete) && (!searchContent.isEmpty())) {
         searchEditTextChanged(searchContent);
@@ -504,14 +504,14 @@ void TableDataControl::saveDataBeforeClose()
         QDateTime deltime = QDateTime::fromString(pDelData->deleteTime, "yyyy-MM-dd hh:mm:ss");
         TaskInfo task(pDelData->taskId, pDelData->gid, 0, pDelData->url, pDelData->savePath,
                       pDelData->fileName, deltime);
-        DBInstance::updateTaskByID(task);
+        DBInstance::updateTaskInfoByID(task);
     }
     for (int i = 0; i < dataList.size(); i++) {
         DownloadDataItem *data = dataList.at(i);
         QDateTime time = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
         TaskInfo task(data->taskId, data->gid, 0, data->url, data->savePath,
                       data->fileName, time);
-        DBInstance::updateTaskByID(task);
+        DBInstance::updateTaskInfoByID(task);
         QDateTime finishTime;
         if (data->status == Global::DownloadJobStatus::Complete) {
             finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
@@ -533,6 +533,44 @@ void TableDataControl::saveDataBeforeClose()
             DBInstance::addTaskStatus(downloadStatus);
         }
     }
+}
+
+void TableDataControl::updateDb()
+{
+    const QList<DownloadDataItem *> &dataList = m_DownloadTableView->getTableModel()->dataList();
+    QList<TaskInfo> infoList;
+    QList<TaskStatus> statusList;
+    for (int i = 0; i < dataList.size(); i++) {
+        DownloadDataItem *data = dataList.at(i);
+        QDateTime time = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
+        TaskInfo task(data->taskId, data->gid, 0, data->url, data->savePath,
+                      data->fileName, time);
+        //DBInstance::updateTaskInfoByID(task);
+        infoList.append(task);
+        QDateTime finishTime;
+        if (data->status == Global::DownloadJobStatus::Complete) {
+            finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+        } else {
+            finishTime = QDateTime::currentDateTime();
+        }
+        TaskStatus getStatus;
+        int status;
+        if ((data->status == Global::DownloadJobStatus::Complete) || (data->status == Global::DownloadJobStatus::Removed)) {
+            status = data->status;
+        } else {
+            status = Global::DownloadJobStatus::Lastincomplete;
+        }
+        TaskStatus downloadStatus(data->taskId, status, finishTime, data->completedLength, data->speed,
+                                  data->totalLength, data->percent, data->total, finishTime);
+        if (DBInstance::getTaskStatusById(data->taskId, getStatus) != false) {
+            //DBInstance::updateTaskStatusById(downloadStatus);
+            statusList.append(downloadStatus);
+        } else {
+            DBInstance::addTaskStatus(downloadStatus);
+        }
+    }
+    DBInstance::updateAllTaskInfo(infoList);
+    DBInstance::updateAllTaskStatus(statusList);
 }
 QString TableDataControl::getFileName(const QString &url)
 {

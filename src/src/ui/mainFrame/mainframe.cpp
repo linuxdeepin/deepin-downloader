@@ -849,6 +849,7 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
     int activeCount = 0;
     int pauseCount = 0;
     int errorCount = 0;
+    int hasFileCount = 0;
     if (m_CurrentTab == downloadingTab && isChecked) {
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); i++) {
@@ -861,6 +862,14 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
             }
             if (pDownloadItem->status == Global::DownloadJobStatus::Error) {
                 ++errorCount;
+            }
+        }
+    } else if (m_CurrentTab == recycleTab && isChecked) {
+        const QList<DeleteDataItem *> &selectList = m_RecycleTableView->getTableModel()->recyleList();
+        for (int i = 0; i < selectList.size(); i++) {
+            DeleteDataItem *pItem = selectList.at(i);
+            if (QFile::exists(pItem->savePath)) {
+                ++hasFileCount;
             }
         }
     }
@@ -884,8 +893,12 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
             m_ToolBar->enableDeleteBtn(isChecked);
         }
         if (m_CurrentTab == recycleTab) {
-            m_ToolBar->enableStartBtn(true);
-            m_ToolBar->enablePauseBtn(isChecked);
+            if (hasFileCount && isChecked) {
+                m_ToolBar->enablePauseBtn(true);
+            } else {
+                m_ToolBar->enablePauseBtn(false);
+            }
+            m_ToolBar->enableStartBtn(isChecked);
         }
     } else {
         m_ToolBar->enableStartBtn(false);
@@ -2143,7 +2156,7 @@ void MainFrame::onMoveToActionTriggered()
                 DBInstance::getTaskByID(data->taskId, task);
                 task.downloadPath = data->savePath;
                 task.downloadFilename = data->fileName;
-                DBInstance::updateTaskByID(task);
+                DBInstance::updateTaskInfoByID(task);
             }
         }
     }
@@ -2223,7 +2236,7 @@ void MainFrame::onRenameConfirmSlot(QString &name)
     DBInstance::getTaskByID(m_CheckItem->taskId, task);
     task.downloadPath = m_CheckItem->savePath;
     task.downloadFilename = name;
-    DBInstance::updateTaskByID(task);
+    DBInstance::updateTaskInfoByID(task);
 }
 
 void MainFrame::onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type)
