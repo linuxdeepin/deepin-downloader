@@ -346,7 +346,10 @@ void MainFrame::updateDHTFile()
 {
     QFileInfo f(QDir::homePath() + "/.config/uos/downloader/dht.dat");
     QDateTime t = f.fileTime(QFileDevice::FileModificationTime);
-    if (t.date() == QDate::currentDate()) {
+
+    QFileInfo f2(QDir::homePath() + "/.config/uos/downloader/dht6.dat");
+    QDateTime t2 = f2.fileTime(QFileDevice::FileModificationTime);
+    if (t.date() == QDate::currentDate() && t2.date() == QDate::currentDate()) {
         return;
     }
     QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht.dat");

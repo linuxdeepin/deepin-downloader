@@ -33,6 +33,7 @@
 #include <QHeaderView>
 #include <QPushButton>
 #include <QTimer>
+#include <QScrollBar>
 
 #include "func.h"
 
@@ -94,6 +95,7 @@ void DiagnosticTool::initUI()
     m_Tableview->setColumnWidth(2, 55);
     m_Tableview->setAlternatingRowColors(true);
     m_Tableview->setEnabled(false);
+    m_Tableview->verticalScrollBar()->setHidden(true);
 }
 
 void DiagnosticTool::startDiagnostic()
