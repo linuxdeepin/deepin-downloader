@@ -112,6 +112,11 @@ public:
     void saveDataBeforeClose();
 
     /**
+     * @brief 刷新数据库
+     */
+    void updateDb();
+
+    /**
      * @brief 查找的文本改变
     */
     void searchEditTextChanged(QString text);

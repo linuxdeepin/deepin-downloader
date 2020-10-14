@@ -53,7 +53,7 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
         DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);
-        QIntValidator *validator = new QIntValidator(0, 9999);
+        QIntValidator *validator = new QIntValidator(1, 9999);
         m_Edit->lineEdit()->setValidator(validator);
         layout->addWidget(m_Edit);
         connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);

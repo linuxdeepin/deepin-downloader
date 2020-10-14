@@ -95,7 +95,7 @@ bool DBInstance::delAllTask()
     return true;
 }
 
-bool DBInstance::updateTaskByID(TaskInfo &task)
+bool DBInstance::updateTaskInfoByID(TaskInfo &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.open()) {
@@ -116,6 +116,34 @@ bool DBInstance::updateTaskByID(TaskInfo &task)
         qWarning() << "Update download_task table failed : " << sql.lastError();
         q.close();
         return false;
+    }
+    q.close();
+    return true;
+}
+
+bool DBInstance::updateAllTaskInfo(QList<TaskInfo> &taskList)
+{
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
+        return false;
+    }
+    foreach (TaskInfo task, taskList) {
+        QSqlQuery sql;
+        sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? where task_id= ?");
+        sql.addBindValue(task.gid);
+        sql.addBindValue(task.gidIndex);
+        sql.addBindValue(task.url);
+        sql.addBindValue(task.downloadPath);
+        sql.addBindValue(task.downloadFilename);
+        sql.addBindValue(task.createTime);
+        sql.addBindValue(task.taskId);
+
+        if (!sql.exec()) {
+            qWarning() << "Update download_task table failed : " << sql.lastError();
+            q.close();
+            return false;
+        }
     }
     q.close();
     return true;
@@ -254,6 +282,35 @@ bool DBInstance::updateTaskStatusById(TaskStatus &task)
         qWarning() << "update download_task_status failed : " << sql.lastError();
         q.close();
         return false;
+    }
+    q.close();
+    return true;
+}
+
+bool DBInstance::updateAllTaskStatus(QList<TaskStatus> &taskList)
+{
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.open()) {
+        qDebug() << q.lastError();
+        return false;
+    }
+    foreach (TaskStatus task, taskList) {
+        QSqlQuery sql;
+        sql.prepare("update  download_task_status set  download_status=? , modify_time=? ,compeletedLength=? , download_speed=? , totalLength=? ,percent=? , totalFromSource=? ,finish_time=? where task_id= ?");
+        sql.addBindValue(task.downloadStatus);
+        sql.addBindValue(task.modifyTime);
+        sql.addBindValue(task.compeletedLength);
+        sql.addBindValue(task.downloadSpeed);
+        sql.addBindValue(task.totalLength);
+        sql.addBindValue(task.percent);
+        sql.addBindValue(task.totalFromSource);
+        sql.addBindValue(task.finishTime);
+        sql.addBindValue(task.taskId);
+        if (!sql.exec()) {
+            qWarning() << "update download_task_status failed : " << sql.lastError();
+            q.close();
+            return false;
+        }
     }
     q.close();
     return true;

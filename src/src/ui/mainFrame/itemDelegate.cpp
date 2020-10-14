@@ -442,7 +442,7 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
         DBInstance::getTaskByID(index.data(TableModel::taskId).toString(), task);
         task.downloadPath = filePath;
         task.downloadFilename = fileName;
-        DBInstance::updateTaskByID(task);
+        DBInstance::updateTaskInfoByID(task);
     }
 }
 

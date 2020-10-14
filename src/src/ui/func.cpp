@@ -72,8 +72,8 @@ bool Func::isBt()
 
 bool Func::isHTTPConnect()
 {
-    if (!isBt()) {
-        return false;
-    }
+    //    if (!isBt()) {
+    //        return false;
+    //    }
     return isNetConnect();
 }
