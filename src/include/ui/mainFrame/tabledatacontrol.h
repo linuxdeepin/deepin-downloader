@@ -58,7 +58,8 @@ public:
     /**
      * @brief 将正在下载列表里文件不存在的任务移到回收站
      */
-    void removeDownloadListJob(Global::DownloadDataItem *pData, bool isAddToRecycle = true);
+    void removeDownloadListJob(Global::DownloadDataItem *pData,
+                               bool isDeleteAria2 = true, bool isAddToRecycle = true);
 
     /**
      * @brief aria2下载事件

@@ -64,24 +64,29 @@ void TableDataControl::setRecycleTable(TableView *pRecycleTable)
 {
     m_RececleTableView = pRecycleTable;
 }
-void TableDataControl::removeDownloadListJob(DownloadDataItem *pData, bool isAddToRecycle)
+void TableDataControl::removeDownloadListJob(Global::DownloadDataItem *pData,
+                                             bool isDeleteAria2, bool isAddToRecycle)
 {
     QFileInfo fileinfo(pData->savePath);
     if (fileinfo.isDir() && pData->savePath.contains(pData->fileName) && !pData->fileName.isEmpty()) {
         QDir tar(pData->savePath);
         tar.removeRecursively();
-        QTimer::singleShot(3000, [=]() {
-            QFile::remove(pData->savePath + ".aria2");
-        });
-    } else {
-        QString ariaTempFile = pData->savePath + ".aria2";
-        if (!pData->savePath.isEmpty()) {
-            QFile::remove(pData->savePath);
-            //if (QFile::exists(ariaTempFile)) {
+        if (isDeleteAria2) {
+            QString ariaTempFile = pData->savePath + ".aria2";
             QTimer::singleShot(3000, [=]() {
                 QFile::remove(ariaTempFile);
             });
-            //}
+        }
+
+    } else {
+        if (!pData->savePath.isEmpty()) {
+            QFile::remove(pData->savePath);
+            if (isDeleteAria2) {
+                QString ariaTempFile = pData->savePath + ".aria2";
+                QTimer::singleShot(3000, [=]() {
+                    QFile::remove(ariaTempFile);
+                });
+            }
         }
     }
     if (isAddToRecycle) {
@@ -241,7 +246,7 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         createTime = createTime.addSecs(5);
         QDateTime currentTime = QDateTime::currentDateTime();
         if ((!QFileInfo::exists(data->savePath)) && (createTime < currentTime)
-            && (completedLength > 0) && (!fileName.contains("[METADATA]"))) {
+            && (!fileName.contains("[METADATA]"))) {
             Aria2RPCInterface::instance()->remove(data->gid);
             if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
                 removeDownloadListJob(data);
@@ -638,7 +643,7 @@ void TableDataControl::onUnusualConfirm(int index, const QString &taskId)
             opt.insert("dir", path);
             opt.insert("select-file", info.selectedNum);
             QString fileName = pItem->fileName;
-            removeDownloadListJob(pItem, false);
+            removeDownloadListJob(pItem, false, false);
             emit DownloadUnusuaBtJob(info.seedFile, opt, fileName, info.infoHash);
         } else {
             QString url = pItem->url;
@@ -646,7 +651,7 @@ void TableDataControl::onUnusualConfirm(int index, const QString &taskId)
             QMimeDatabase db;
             QString mime = db.suffixForFileName(pItem->fileName);
             QString fileName = pItem->fileName.mid(0, pItem->fileName.lastIndexOf(mime) - 1);
-            removeDownloadListJob(pItem, false);
+            removeDownloadListJob(pItem, false, false);
             emit DownloadUnusuaHttpJob(url, savepath, fileName, mime);
         }
     } else {
