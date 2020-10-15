@@ -14,8 +14,6 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
 
-class TableView;
-
 class DBInstance
 {
 public:
