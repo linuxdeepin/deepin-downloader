@@ -570,3 +570,7 @@ bool DBInstance::getTaskForUrl(QString url, TaskInfo &task)
     q.close();
     return true;
 }
+
+void SyncDbThread::run()
+{
+}
