@@ -1029,8 +1029,3 @@ QString CreateTaskWidget::getNetErrTip()
     return QString(tr("Network error, check your network and try later"));
 }
 
-void CreateTaskWidget::keyPressEvent(QKeyEvent *event)
-{
-
-    QWidget::keyPressEvent(event);
-}

@@ -92,6 +92,10 @@ public slots:
      */
     void getLinkInfo(LinkInfo);
 
+    /**
+     * @brief getLinkInfo 获取到解析后的真实url信息
+     * @param list url信息
+     */
     void getTrueLinkInfo(LinkInfo);
 
 private:

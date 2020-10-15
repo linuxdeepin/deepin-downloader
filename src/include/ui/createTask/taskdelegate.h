@@ -55,7 +55,11 @@ public:
     void setHoverColor(QBrush c);
 
 signals:
-    void onEditChange(QWidget *);
+    /**
+     * @brief 发送编辑的窗口
+     * @param w 编辑窗口
+     */
+    void onEditChange(QWidget *w);
 
 protected:
     /**

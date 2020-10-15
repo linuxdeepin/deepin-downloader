@@ -81,8 +81,6 @@ public:
     */
     void setUrlName(int index, QString name);
 
-    void setTableReset();
-
 private:
     /**
      * @brief 初始化ui
@@ -171,7 +169,7 @@ private:
     */
     bool isDoc(QString ext);
 
-    void registCallBack(void *func, QString str, int state);
+    //void registCallBack(void *func, QString str, int state);
 
     /**
      * @brief 获取断网提示
@@ -252,8 +250,6 @@ protected:
      * @param event 关闭事件
     */
     void closeEvent(QCloseEvent *event);
-
-    void keyPressEvent(QKeyEvent *event);
 
 signals:
     /**

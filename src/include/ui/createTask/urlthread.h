@@ -86,6 +86,10 @@ signals:
      */
     void sendFinishedUrl(LinkInfo link);
 
+    /**
+     * @brief sendFinishedUrl 发送解析后真实的url
+     * @param link 数据
+     */
     void sendTrueUrl(LinkInfo link);
 
 private:
