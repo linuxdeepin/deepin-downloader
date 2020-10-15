@@ -101,7 +101,7 @@ void DiagnosticTool::initUI()
 void DiagnosticTool::startDiagnostic()
 {
     m_Button->setEnabled(false);
-    m_Model->appendData(Func::isIpv6Connect());
+    //m_Model->appendData(Func::isIpv6Connect());
     m_Tableview->update();
     QTimer::singleShot(qrand() % (800) + 200, this, [=]() {
         m_Model->appendData(Func::isDHT());

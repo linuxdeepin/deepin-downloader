@@ -398,7 +398,7 @@ void MainFrame::initConnection()
 
     connect(m_SettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_Clipboard, &ClipboardTimer::sendClipboardTextChange, this, &MainFrame::onClipboardDataChanged);
-    connect(m_LeftList, &DListView::clicked, this, &MainFrame::onListClicked);
+    connect(m_LeftList, &DListView::pressed, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
 
@@ -823,6 +823,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_DownLoadingTableView->getTableHeader()->setSortIndicator(3, Qt::AscendingOrder);
         }
     } else {
+        m_RecycleTableView->reset(true);
         m_RightStackwidget->setCurrentIndex(1);
         //m_pRecycleTableView->setFocus();
         m_NotaskWidget->show();
@@ -1377,7 +1378,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     }
 
     // 数据库是否已存在相同的地址
-    if (!checkIsHasSameTask(infoHash)) {
+    if (!checkIsHasSameTask(infoHash.toLower())) {
         return false;
     }
 
@@ -1861,9 +1862,6 @@ void MainFrame::onUpdateMainUI()
     static int flag = 0;
     flag++;
     if (flag >= 5) {
-        //        SyncDbThread *pThread = new SyncDbThread(m_DownLoadingTableView);
-        //        pThread->start();
-        //        connect(pThread, &SyncDbThread::finished, pThread, &SyncDbThread::deleteLater);
         m_DownLoadingTableView->getTableControl()->updateDb();
         flag = 0;
     }
@@ -1889,11 +1887,11 @@ void MainFrame::onUpdateMainUI()
         if (m_UpdateTimer->isActive()) {
             m_UpdateTimer->stop();
             m_NotaskLabel->show();
-            m_NotaskTipLabel->show();
+            if (m_CurrentTab == downloadingTab) {
+                m_NotaskTipLabel->show();
+            }
+
             m_DownLoadingTableView->getTableControl()->updateDb();
-            //            SyncDbThread *pThread = new SyncDbThread(m_DownLoadingTableView);
-            //            pThread->start();
-            //            connect(pThread, &SyncDbThread::finished, pThread, &SyncDbThread::deleteLater);
         }
     }
     if (activeCount >= 30 && activeCount < 50) {
@@ -3020,7 +3018,9 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
         deleteDirectory(pItem->savePath);
         if (QFile::exists(ariaTempFile)) {
             QFile::remove(ariaTempFile);
-            QTimer::singleShot(3000, [=]() { QFile::remove(ariaTempFile); });
+            QTimer::singleShot(3000, [=]() {
+                QFile::remove(ariaTempFile);
+            });
         }
     }
     DBInstance::delTask(pItem->taskId);
@@ -3041,7 +3041,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
         if (pItem == nullptr) {
             pDeleteItem = m_RecycleTableView->getTableModel()->find(urlList[i].taskId, 0);
         }
-        if (urlList[i].infoHash == infoHash) {
+        if (urlList[i].infoHash.toLower() == infoHash) {
             MessageBox msg;
             //msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("View"), tr("Redownload"), 0, QList<QString>());
             msg.setRedownload(urlList[i].seedFile);
