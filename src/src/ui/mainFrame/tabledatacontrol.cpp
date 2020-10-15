@@ -279,7 +279,9 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if (fileName.endsWith(".torrent")) {
             data->status = Global::DownloadJobStatus::Complete;
             if (Settings::getInstance()->getAutoOpennewTaskWidgetState()) {
-                emit AutoDownloadBt(filePath);
+                QTimer::singleShot(100, this, [=]() {
+                    emit AutoDownloadBt(filePath);
+                });
                 clearShardMemary();
             }
         }
@@ -317,12 +319,6 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if (!checkTaskStatus()) {
             emit whenDownloadFinish();
         }
-        QString ariaTempFile = data->savePath + ".aria2";
-        QTimer::singleShot(3000, this, [=]() { //删除.aria2零时文件
-            if (QFile::exists(ariaTempFile)) {
-                QFile::remove(ariaTempFile);
-            }
-        });
     } else if (statusStr == "removed") {
         status = Global::DownloadJobStatus::Removed;
     }
@@ -965,7 +961,6 @@ void TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     });
     connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &TableDataControl::removeFinished);
     pDeleteItemThread->start();
-    connect(pDeleteItemThread, &SyncDbThread::finished, pDeleteItemThread, &SyncDbThread::deleteLater);
     //pDeleteItemThread->deleteLater();
     for (int i = 0; i < m_DeleteList.size(); i++) {
         DownloadDataItem *data = m_DeleteList.at(i);
@@ -1053,7 +1048,6 @@ void TableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
     });
     connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &TableDataControl::removeFinished);
     pDeleteItemThread->start();
-    connect(pDeleteItemThread, &SyncDbThread::finished, pDeleteItemThread, &SyncDbThread::deleteLater);
     for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
         DeleteDataItem *data = m_RecycleDeleteList.at(i);
         DBInstance::delTask(data->taskId);
@@ -1243,18 +1237,4 @@ bool TableDataControl::checkTaskStatus()
         }
     }
     return false;
-}
-
-SyncDbThread::SyncDbThread()
-{
-}
-
-SyncDbThread::SyncDbThread(TableView *pTableview)
-    : m_TableView(pTableview)
-{
-}
-
-void SyncDbThread::run()
-{
-    m_TableView->getTableControl()->updateDb();
 }
