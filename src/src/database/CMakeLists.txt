@@ -1,5 +1,5 @@
-include_directories(${PROJECT_SOURCE_DIR}/src/include/database)
-
+include_directories(${PROJECT_SOURCE_DIR}/src/include/database
+                    ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame)
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
 #预定义宏，主要用于dll导出

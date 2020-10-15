@@ -13,8 +13,8 @@
 #include "dbdefine.h"
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
-#include <QThread>
-#include <QObject>
+
+class TableView;
 
 class DBInstance
 {
@@ -151,13 +151,6 @@ public:
      * @return 重复名称个数
      */
     static int getSameNameCount(QString filename, QString type);
-};
-
-class SyncDbThread : public QThread
-{
-    Q_OBJECT
-    explicit SyncDbThread();
-    void run();
 };
 
 #endif // DBINSTANCE_H

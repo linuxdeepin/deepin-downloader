@@ -136,6 +136,9 @@ void DeleteItemThread::deleteDownloadData()
                         QFile::remove(savePath + ".aria2");
                         QTimer::singleShot(3000, [=]() {
                             QFile::remove(savePath + ".aria2");
+                            if (QFileInfo::exists(savePath)) {
+                                deleteDirectory(savePath);
+                            }
                         });
                     }
                 } else {

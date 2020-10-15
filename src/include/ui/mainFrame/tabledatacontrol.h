@@ -29,6 +29,7 @@
 #define TABLEDATACONTROL_H
 
 #include <QObject>
+#include <QThread>
 
 class TableView;
 class QSharedMemory;
@@ -288,4 +289,15 @@ private:
     QList<Global::DeleteDataItem *> m_RecycleDeleteList;
 };
 
+class SyncDbThread : public QThread
+{
+    Q_OBJECT
+public:
+    SyncDbThread();
+    SyncDbThread(TableView *pTableview);
+    void run();
+
+private:
+    TableView *m_TableView;
+};
 #endif // TABLEDATACONTROL_H
