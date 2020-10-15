@@ -569,6 +569,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     });
 
     connect(option, &DSettingsOption::valueChanged, downloadSettingWidget, [=](QVariant var) {
+        option->blockSignals(true);
         if (!var.toString().isEmpty()) {
             QString currentValue = option->value().toString();
             int currentSelect = 2;
@@ -602,6 +603,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
             downloadSettingWidget->setMaxUploadSpeedLimit(maxUploadSpeedLimit);
             downloadSettingWidget->setStartTime(startTime);
             downloadSettingWidget->setEndTime(endTime);
+            option->blockSignals(false);
         }
     });
 

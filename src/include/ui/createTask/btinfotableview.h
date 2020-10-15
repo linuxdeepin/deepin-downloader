@@ -55,6 +55,10 @@ protected:
      */
     void leaveEvent(QEvent *event);
 
+    void keyPressEvent(QKeyEvent *event);
+
+    void mouseReleaseEvent(QMouseEvent *event);
+
 
 signals:
     /**
@@ -70,6 +74,7 @@ public slots:
     void onDoubleClicked(const QModelIndex &index);
 
 private:
+    int m_curRow;
 };
 
 #endif // BTINFOTABLEVIEW_H

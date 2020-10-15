@@ -210,6 +210,15 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
             }
         }
     });
+    connect(pEdit, &DLineEdit::returnPressed, this, [=]() {
+        DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
+        if (pEdit == nullptr) {
+            return;
+        }
+        setModelData(pEdit, nullptr, index);
+    });
+
+
 
     pEdit->setGeometry(150, 10, 50, 10);
     pEdit->setGeometry(0, 0, 0, 0);

@@ -53,6 +53,18 @@ CreateTaskWidget::CreateTaskWidget(DDialog *parent)
     : DDialog(parent)
     , m_analysisUrl(new AnalysisUrl)
 {
+    //DDialog 内将回车键绑定在action上，所以在解析框内无法出发回车函数，下列代码将DDialog中绑定回车的aciton删除
+    QObjectList objectList = children();
+    for (int i = 0; i < objectList.size(); i++) {
+        QAction * action =  qobject_cast<QAction*> (objectList[i]);
+        if(action == nullptr){
+            continue;
+        }
+        if(!action->autoRepeat()){
+            delete action;
+            action = nullptr;
+        }
+    }
     initUi();
 }
 
@@ -231,6 +243,10 @@ void CreateTaskWidget::initUi()
     m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
     m_editDir->setText(m_defaultDownloadDir);
+    QList<DSuggestButton *> btnList = m_editDir->findChildren<DSuggestButton *>();
+    for (int i = 0; i < btnList.size(); i++) {
+        btnList[i]->setToolTip(tr("Change download folder"));
+    }
     addContent(m_editDir);
     addSpacing(10);
 
@@ -959,6 +975,7 @@ void CreateTaskWidget::hideTableWidget()
 
     //QDesktopWidget *deskdop = QApplication::desktop();
     //move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
+    m_sureButton->setEnabled(false);
 }
 
 void CreateTaskWidget::showTableWidget()
@@ -976,6 +993,7 @@ void CreateTaskWidget::showTableWidget()
 
     //QDesktopWidget *deskdop = QApplication::desktop();
     //move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
+    m_sureButton->setEnabled(true);
 }
 
 bool CreateTaskWidget::isVideo(QString ext)
@@ -1009,4 +1027,10 @@ bool CreateTaskWidget::isDoc(QString ext)
 QString CreateTaskWidget::getNetErrTip()
 {
     return QString(tr("Network error, check your network and try later"));
+}
+
+void CreateTaskWidget::keyPressEvent(QKeyEvent *event)
+{
+
+    QWidget::keyPressEvent(event);
 }
