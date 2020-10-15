@@ -888,7 +888,7 @@ int TableDataControl::onDeletePermanentAction(int currentTab)
             }
         }
         if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
-            m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
+            // m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
         }
     } else {
         m_DeleteList.clear();
@@ -915,7 +915,7 @@ int TableDataControl::onDeletePermanentAction(int currentTab)
         }
     }
     if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
-        m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
+        //m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
     }
     return selectedCount;
 }

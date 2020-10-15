@@ -1541,6 +1541,7 @@ void MainFrame::showDeleteMsgbox(bool permanently)
         m_ToolBar->enableStartBtn(false);
         m_ToolBar->enablePauseBtn(false);
         m_ToolBar->enableDeleteBtn(false);
+        m_DownLoadingTableView->getTableHeader()->onHeaderChecked(false);
         //        if(m_CurrentTab == recycleTab){
         //            m_ToolBar->enableStartBtn(true);
         //        }
@@ -2749,7 +2750,7 @@ void MainFrame::Raise()
     setWindowState(Qt::WindowActive);
     activateWindow();
     setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-    m_LeftList->setCurrentIndex(m_LeftList->currentIndex().sibling(0, 0));
+    //m_LeftList->setCurrentIndex(m_LeftList->currentIndex().sibling(0, 0));
 }
 
 void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
