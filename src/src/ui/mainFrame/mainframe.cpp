@@ -1410,8 +1410,9 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
 
     const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
     foreach (DownloadDataItem *pItem, dataList) {
-        QString str = "magnet:?xt=urn:btih:" + infoHash.toUpper();
-        if (pItem->url.startsWith(str)) {
+        QString str = "magnet:?xt=urn:btih:" + infoHash.toLower();
+        QString url = pItem->url.toLower();
+        if (url.startsWith(str)) {
             Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
             Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
             DBInstance::delTask(pItem->taskId);
@@ -1860,6 +1861,9 @@ void MainFrame::onUpdateMainUI()
     static int flag = 0;
     flag++;
     if (flag >= 5) {
+        //        SyncDbThread *pThread = new SyncDbThread(m_DownLoadingTableView);
+        //        pThread->start();
+        //        connect(pThread, &SyncDbThread::finished, pThread, &SyncDbThread::deleteLater);
         m_DownLoadingTableView->getTableControl()->updateDb();
         flag = 0;
     }
@@ -1887,6 +1891,9 @@ void MainFrame::onUpdateMainUI()
             m_NotaskLabel->show();
             m_NotaskTipLabel->show();
             m_DownLoadingTableView->getTableControl()->updateDb();
+            //            SyncDbThread *pThread = new SyncDbThread(m_DownLoadingTableView);
+            //            pThread->start();
+            //            connect(pThread, &SyncDbThread::finished, pThread, &SyncDbThread::deleteLater);
         }
     }
     if (activeCount >= 30 && activeCount < 50) {
