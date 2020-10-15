@@ -386,25 +386,25 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if ((!getTask.taskId.isEmpty()) && (!getTask.url.isEmpty())) {
         data->url = getTask.url;
     }
-    //m_pDownloadTableView->update();
-    //m_pDownloadTableView->reset();
-    //    TaskStatus getTaskStatus;
-    //    DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
-    //    QDateTime getTime = QDateTime::currentDateTime();
-    //    TaskStatus saveTaskStatus(data->taskId,
-    //                              data->status,
-    //                              getTime,
-    //                              data->completedLength,
-    //                              data->speed,
-    //                              data->totalLength,
-    //                              data->percent,
-    //                              data->total,
-    //                              getTime);
-    //    if (getTaskStatus.taskId.isEmpty()) {
-    //        DBInstance::addTaskStatus(saveTaskStatus);
-    //    } else if ((getTaskStatus.downloadStatus != data->status) || (getTaskStatus.percent != data->speed)) {
-    //        DBInstance::updateTaskStatusById(saveTaskStatus);
-    //    }
+    //    m_DownloadTableView->update();
+    //    m_DownloadTableView->reset();
+    TaskStatus getTaskStatus;
+    DBInstance::getTaskStatusById(data->taskId, getTaskStatus);
+    QDateTime getTime = QDateTime::currentDateTime();
+    TaskStatus saveTaskStatus(data->taskId,
+                              data->status,
+                              getTime,
+                              data->completedLength,
+                              data->speed,
+                              data->totalLength,
+                              data->percent,
+                              data->total,
+                              getTime);
+    if (getTaskStatus.taskId.isEmpty()) {
+        DBInstance::addTaskStatus(saveTaskStatus);
+    } /* else if ((getTaskStatus.downloadStatus != data->status) || (getTaskStatus.percent != data->speed)) {
+            DBInstance::updateTaskStatusById(saveTaskStatus);
+        }*/
     m_DownloadTableView->refreshTableView(iCurrentRow);
     if ((data->status == Complete) && (!searchContent.isEmpty())) {
         searchEditTextChanged(searchContent);

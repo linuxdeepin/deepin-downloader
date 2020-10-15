@@ -332,7 +332,7 @@ private slots:
     /**
      * @brief 设置里最大任务数改变
      */
-    void onMaxDownloadTaskNumberChanged(int nTaskNumber);
+    void onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask = true);
 
     /**
      * @brief 设置里磁盘缓存改变

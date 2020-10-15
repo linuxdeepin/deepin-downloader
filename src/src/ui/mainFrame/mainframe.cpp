@@ -376,7 +376,9 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
-    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::addMaxDownloadTask, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::addMaxDownloadTask, this, [=](int num) {
+        onMaxDownloadTaskNumberChanged(num);
+    });
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::DownloadUnusuaHttpJob, this, &MainFrame::onDownloadNewUrl);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::DownloadUnusuaBtJob, this, &MainFrame::onDownloadNewTorrent);
     connect(m_DownLoadingTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
@@ -413,7 +415,9 @@ void MainFrame::initConnection()
 
     connect(Settings::getInstance(), &Settings::downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
     connect(Settings::getInstance(), &Settings::poweronChanged, this, &MainFrame::onPowerOnChanged);
-    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
+    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, [=](int num) {
+        onMaxDownloadTaskNumberChanged(num);
+    });
     connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
     connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onIsStartAssociatedBTFile);
     connect(Settings::getInstance(), &Settings::autoDownloadBySpeedChanged,
@@ -1852,6 +1856,12 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
 
 void MainFrame::onUpdateMainUI()
 {
+    static int flag = 0;
+    flag++;
+    if (flag >= 5) {
+        m_DownLoadingTableView->getTableControl()->updateDb();
+        flag = 0;
+    }
     Aria2RPCInterface::instance()->getGlobalSatat();
     const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
 
@@ -1875,6 +1885,7 @@ void MainFrame::onUpdateMainUI()
             m_UpdateTimer->stop();
             m_NotaskLabel->show();
             m_NotaskTipLabel->show();
+            m_DownLoadingTableView->getTableControl()->updateDb();
         }
     }
     if (activeCount >= 30 && activeCount < 50) {
@@ -2336,7 +2347,7 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
     }
 }
 
-void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
+void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask)
 {
     static int maxDownloadTaskCount = 0;
     if (nTaskNumber != 1) {
@@ -2361,30 +2372,32 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber)
     const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
     int activeCount = 0;
     m_ShutdownOk = true;
-    for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
-        if (item->status == Global::DownloadJobStatus::Active) {
-            activeCount++;
-            if (activeCount > maxDownloadTaskCount) {
-                Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
-                QTimer::singleShot(500, this, [=]() {
-                    Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
-                });
-                QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-                TaskStatus getStatus;
-                TaskStatus downloadStatus(item->taskId,
-                                          Global::DownloadJobStatus::Paused,
-                                          QDateTime::currentDateTime(),
-                                          item->completedLength,
-                                          item->speed,
-                                          item->totalLength,
-                                          item->percent,
-                                          item->total,
-                                          finishTime);
+    if (isStopTask) {
+        for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
+            if (item->status == Global::DownloadJobStatus::Active) {
+                activeCount++;
+                if (activeCount > maxDownloadTaskCount) {
+                    Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
+                    QTimer::singleShot(500, this, [=]() {
+                        Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
+                    });
+                    QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+                    TaskStatus getStatus;
+                    TaskStatus downloadStatus(item->taskId,
+                                              Global::DownloadJobStatus::Paused,
+                                              QDateTime::currentDateTime(),
+                                              item->completedLength,
+                                              item->speed,
+                                              item->totalLength,
+                                              item->percent,
+                                              item->total,
+                                              finishTime);
 
-                if (DBInstance::getTaskStatusById(item->taskId, getStatus)) {
-                    DBInstance::updateTaskStatusById(downloadStatus);
-                } else {
-                    DBInstance::addTaskStatus(downloadStatus);
+                    if (DBInstance::getTaskStatusById(item->taskId, getStatus)) {
+                        DBInstance::updateTaskStatusById(downloadStatus);
+                    } else {
+                        DBInstance::addTaskStatus(downloadStatus);
+                    }
                 }
             }
         }
@@ -2550,7 +2563,7 @@ void MainFrame::onIsStartAssociatedBTFile(bool status)
 void MainFrame::onAutoDownloadBySpeed(bool status)
 {
     if (!status) {
-        onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
+        onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber(), false);
     }
 }
 
