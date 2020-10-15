@@ -37,7 +37,7 @@ BtInfoTableView::BtInfoTableView(QWidget *parent)
 void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    reset();
+  //  reset();
     QModelIndex idx = indexAt(event->pos());
     emit hoverChanged(idx);
 }
@@ -45,13 +45,33 @@ void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
 void BtInfoTableView::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    reset();
+    //reset();
     emit hoverChanged(QModelIndex());
 }
 
 void BtInfoTableView::onDoubleClicked(const QModelIndex &index)
 {
     emit doubleIndex(index);
+    m_curRow = index.row();
     edit(index);
 }
 
+void BtInfoTableView::keyPressEvent(QKeyEvent *event)
+{
+    Q_UNUSED(event);
+    qDebug()<< event->key();
+    if (event->key() == Qt::Key_Shift) {
+        reset();
+        return;
+    }
+}
+
+void BtInfoTableView::mouseReleaseEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    QModelIndex idx = indexAt(event->pos());
+    if(idx.row() == m_curRow){
+        return;
+    }
+    reset();
+}
