@@ -93,8 +93,8 @@ void TableView::initUI()
     setColumnWidth(1, 320);
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     setColumnWidth(2, 110);
-    setColumnWidth(3, 200);
-    setColumnWidth(4, 200);
+    setColumnWidth(3, QHeaderView::Interactive);
+    setColumnWidth(4, QHeaderView::Interactive);
 }
 
 void TableView::initConnections()
