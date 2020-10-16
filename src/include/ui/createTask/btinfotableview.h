@@ -55,8 +55,10 @@ protected:
      */
     void leaveEvent(QEvent *event);
 
-    void keyPressEvent(QKeyEvent *event);
-
+    /**
+     * @brief 重写鼠标点击事件
+     * @return event 鼠标事件
+     */
     void mouseReleaseEvent(QMouseEvent *event);
 
 

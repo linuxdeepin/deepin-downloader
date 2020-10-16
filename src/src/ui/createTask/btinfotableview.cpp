@@ -56,16 +56,6 @@ void BtInfoTableView::onDoubleClicked(const QModelIndex &index)
     edit(index);
 }
 
-void BtInfoTableView::keyPressEvent(QKeyEvent *event)
-{
-    Q_UNUSED(event);
-    qDebug()<< event->key();
-    if (event->key() == Qt::Key_Shift) {
-        reset();
-        return;
-    }
-}
-
 void BtInfoTableView::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
