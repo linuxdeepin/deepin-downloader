@@ -319,6 +319,10 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         if (!checkTaskStatus()) {
             emit whenDownloadFinish();
         }
+
+        QTimer::singleShot(3000, [=]() {
+            QFile::remove(filePath + ".aria2");
+        });
     } else if (statusStr == "removed") {
         status = Global::DownloadJobStatus::Removed;
     }
