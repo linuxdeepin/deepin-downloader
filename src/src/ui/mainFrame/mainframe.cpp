@@ -787,12 +787,20 @@ void MainFrame::OpenBt(QString url)
         return;
     }
     if (Settings::getInstance()->getNewTaskShowMainWindowState()) {
-        activateWindow();
+        Raise();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
         btDiag.move(pos().x() + this->width() / 2 - btDiag.width() / 2, pos().y() + this->height() / 2 - btDiag.height() / 2);
+    } else {
+        if (windowState() == Qt::WindowMinimized) {
+            hide();
+        }
     }
     int ret = btDiag.exec();
 
+    //    if (!Settings::getInstance()->getNewTaskShowMainWindowState()) {
+    //        setWindowState(windowState() & Qt::WindowMinimized);
+    //        showMinimized();
+    //    }
     if (ret == QDialog::Accepted) {
         btDiag.getBtInfo(opt, infoName, infoHash);
         onDownloadNewTorrent(url, opt, infoName, infoHash);
