@@ -320,7 +320,7 @@ void TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             emit whenDownloadFinish();
         }
 
-        QTimer::singleShot(3000, [=]() {
+        QTimer::singleShot(3000, [=]() { //bt下载完，有时候不会删除aria2文件
             QFile::remove(filePath + ".aria2");
         });
     } else if (statusStr == "removed") {
@@ -595,7 +595,7 @@ void TableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
                                 "com.deepin.dde.Notification",
                                 QDBusConnection::sessionBus());
     QList<QVariant> arg;
-    QString in0(tr("downloader")); //下载器
+    QString in0("downloader"); //下载器
     uint in1 = 101;
     QString in2;
     in2 = "downloader";
