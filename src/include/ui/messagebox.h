@@ -63,8 +63,9 @@ public:
 
     /**
      * @brief 设置重新下载窗口
+     * @param ret 默认false为新建任务时，重复下载。 为true时，为回收站和已完成列表重新下载
     */
-    void setRedownload(const QString sameUrl);
+    void setRedownload(const QString sameUrl, bool ret = false);
 
     /**
      * @brief 设置下载异常窗口（正在下载中，文件被删除）
@@ -95,6 +96,11 @@ public:
      * @brief 设置退出窗口
     */
     void setExit();
+
+    /**
+     * @brief 设置文件选择权限警告窗口
+    */
+    void setFolderDenied();
 
 private:
     /**

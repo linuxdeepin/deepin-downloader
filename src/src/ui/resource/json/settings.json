@@ -39,7 +39,7 @@
                     "options":[
                         {
                             "key":"onekeydownload",
-                            "name":"1-Click Download",
+                            "name":"Create tasks directly",
                             "type":"switchbutton",
                             "default":false
                         }

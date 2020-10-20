@@ -66,13 +66,17 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
             });
 }
 
-void MessageBox::setRedownload(const QString sameUrl)
+void MessageBox::setRedownload(const QString sameUrl, bool ret)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setTitle(tr("Warning"));
 
-    addLabel(tr("Task exist, Downloading again will delete the downloaded content!"));
+    if(ret){
+        addLabel(tr("Do you want to delete the downloaded files and download again?"));
+    }else {
+        addLabel(tr("The task already exists."));
+    }
     addSpacing(10);
     DTextEdit *urlText = new DTextEdit(this);
     urlText->setReadOnly(true);
@@ -293,3 +297,19 @@ void MessageBox::onExitBtnClicked(int index)
     }
     close();
 }
+
+void MessageBox::setFolderDenied()
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    setTitle(tr("Permission denied"));
+
+    addLabel(tr("Please try another folder."));
+    addSpacing(10);
+    addButton(tr("sure"));
+    connect(this, &MessageBox::buttonClicked, this,
+            [=]() {
+                close();
+            });
+}
+

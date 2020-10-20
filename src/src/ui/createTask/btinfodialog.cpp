@@ -532,8 +532,7 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
         MessageBox *msg = new MessageBox();
-        QString title = tr("Permission denied. Please try other folder.");
-        msg->setWarings(title, tr("sure"));
+        msg->setFolderDenied();
         msg->exec();
         strPath = m_editDir->directoryUrl().toString();
         QString text = getFileEditText(m_defaultDownloadDir);
