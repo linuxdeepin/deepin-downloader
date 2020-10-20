@@ -1953,7 +1953,7 @@ void MainFrame::onRedownloadActionTriggered()
     if (m_CurrentTab == CurrentTab::recycleTab) {
         if (QFileInfo::exists(m_DelCheckItem->savePath)) {
             MessageBox msg;
-            msg.setRedownload(m_DelCheckItem->fileName);
+            msg.setRedownload(m_DelCheckItem->fileName, true);
             int rs = msg.exec();
             if (rs != DDialog::Accepted) {
                 return;
@@ -1962,7 +1962,7 @@ void MainFrame::onRedownloadActionTriggered()
     } else if (m_CurrentTab == CurrentTab::finishTab) {
         if (QFileInfo::exists(m_CheckItem->savePath)) {
             MessageBox msg;
-            msg.setRedownload(m_CheckItem->fileName);
+            msg.setRedownload(m_CheckItem->fileName, true);
             int rs = msg.exec();
             if (rs != DDialog::Accepted) {
                 return;

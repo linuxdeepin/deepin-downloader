@@ -48,7 +48,7 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     DPalette palette;
     QColor fontColor("#6d7c88");
     palette.setColor(DPalette::Text, fontColor);
-    DLabel *pTipLabel = new DLabel(tr("Please go to \"control center - Notification\" to set the system notification switch"), this);
+    DLabel *pTipLabel = new DLabel(tr("Change settings in \"Control Center - Notification - Downloader\""), this);
     pTipLabel->setFont(tipFont);
     pTipLabel->setPalette(palette);
     pTipLabel->setWindowOpacity(0.7);

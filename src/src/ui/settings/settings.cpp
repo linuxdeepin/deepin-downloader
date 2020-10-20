@@ -251,6 +251,7 @@ Settings::Settings(QObject *parent)
     auto autoStartUnfinishedTaskName = tr("Resume downloading on startup"); // 启动后自动开始未完成的任务
     auto downloadDirectoryName = tr("Download Directory"); // 下载目录
     auto oneClickDownloadName = tr("1-Click Download"); // 一键下载
+    auto createTasksDirectly = tr("Create tasks directly");  //一键创建新任务
     auto closeMainWindowName = tr("Close window"); // 关闭主界面
     auto minimizeToSystemTrayName = tr("Minimize to System Tray"); // 最小化到托盘
     auto exitName = tr("Exit"); // 退出下载器

@@ -118,9 +118,7 @@ void FileSavePathChooser::onLineEditTextChanged(const QString &text)
     fileInfo.setFile(text);
     if (!fileInfo.isWritable()) {
         MessageBox messageBox;
-        QString title = tr("Permission denied. Please try other folder.");
-
-        messageBox.setWarings(title, tr("sure"));
+        messageBox.setFolderDenied();
         m_fileChooserEdit->setText(m_downloadPath);
 
         messageBox.exec();
