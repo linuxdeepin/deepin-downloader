@@ -368,12 +368,12 @@ void MainFrame::updateDHTFile()
     //    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat",
     //                                          opt2, "dht6.dat");
 
-    QString dhtpah = QDir::homePath() + "/.config/uos/downloader";
+    QString dhtpah = QDir::homePath() + "/.config/uos/downloader/";
     QProcess p;
-    p.startDetached("aria2c https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -d" + dhtpah + " -o dht6.dat");
+    p.startDetached("curl https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -o" + dhtpah + "dht6.dat -O");
 
     QProcess p2;
-    p2.startDetached("aria2c https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -d" + dhtpah + "-o dht.dat");
+    p2.startDetached("curl https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -o" + dhtpah + "dht.dat -O");
 }
 
 void MainFrame::initConnection()
