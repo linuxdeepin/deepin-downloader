@@ -402,6 +402,7 @@ void MainFrame::initConnection()
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
     connect(this, &MainFrame::isHeaderChecked, m_DownLoadingTableView, &TableView::isCheckHeader);
+    connect(this, &MainFrame::saveNameBeforChangeList, m_DownLoadingTableView, &TableView::onListchanged);
     connect(this, &MainFrame::isHeaderChecked, m_RecycleTableView, &TableView::isCheckHeader);
 
     connect(m_SettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
@@ -810,6 +811,7 @@ void MainFrame::OpenBt(QString url)
 
 void MainFrame::onListClicked(const QModelIndex &index)
 {
+    emit saveNameBeforChangeList();
     m_ToolBar->enablePauseBtn(false);
     m_ToolBar->enableStartBtn(false);
     m_ToolBar->enableDeleteBtn(false);

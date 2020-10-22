@@ -111,6 +111,11 @@ void TableView::initTableView()
 {
 }
 
+void TableView::onListchanged()
+{
+    currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
+}
+
 void TableView::reset(bool switched)
 {
     int size = QTableView::verticalScrollBar()->value();
@@ -178,7 +183,7 @@ void TableView::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
     //reset();
-    currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
+    // currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
     emit Hoverchanged(QModelIndex());
 }
 
