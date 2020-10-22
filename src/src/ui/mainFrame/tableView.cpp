@@ -178,6 +178,7 @@ void TableView::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
     //reset();
+    currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
     emit Hoverchanged(QModelIndex());
 }
 
@@ -201,6 +202,15 @@ void TableView::resizeEvent(QResizeEvent *event)
     }
     int leng = event->size().width() - event->oldSize().width();
     setColumnWidth(1, columnWidth(1) + leng);
+}
+
+void TableView::focusOutEvent(QFocusEvent *event)
+{
+    Qt::FocusReason r = event->reason();
+    qDebug() << r;
+    //    if (r != Qt::PopupFocusReason && r != Qt::OtherFocusReason) {
+    //        currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
+    //    }
 }
 
 void TableView::refreshTableView(const int &index)

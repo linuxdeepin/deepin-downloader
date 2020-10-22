@@ -26,6 +26,7 @@
  */
 
 #include "diagnostictool.h"
+
 #include <DLabel>
 #include <DGuiApplicationHelper>
 #include <QLayout>
@@ -36,6 +37,7 @@
 #include <QScrollBar>
 
 #include "func.h"
+#include "aria2rpcinterface.h"
 
 DiagnosticTool::DiagnosticTool(DDialog *parent)
     : DDialog(parent)
@@ -98,13 +100,21 @@ void DiagnosticTool::initUI()
     m_Tableview->verticalScrollBar()->setHidden(true);
 }
 
+void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
+{
+    m_IsHasTracks = isHasTracks;
+    m_IsHasDHT = isHasDHT;
+    //m_Model->setData(isHasTracks);
+}
+
 void DiagnosticTool::startDiagnostic()
 {
+    Aria2RPCInterface::instance()->getGlobalOption();
     m_Button->setEnabled(false);
     //m_Model->appendData(Func::isIpv6Connect());
     m_Tableview->update();
     QTimer::singleShot(qrand() % (800) + 200, this, [=]() {
-        m_Model->appendData(Func::isDHT());
+        m_Model->appendData(m_IsHasDHT & Func::isNetConnect());
     });
 
     QTimer::singleShot(qrand() % (800) + 800, this, [=]() {
@@ -112,11 +122,11 @@ void DiagnosticTool::startDiagnostic()
     });
 
     QTimer::singleShot(qrand() % (800) + 1400, this, [=]() {
-        m_Model->appendData(Func::isBt());
+        m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
     });
 
     QTimer::singleShot(qrand() % (800) + 2000, this, [=]() {
-        m_Model->appendData(Func::isBt());
+        m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
     });
 
     QTimer::singleShot(qrand() % (800) + 2500, this, [=]() {
@@ -140,6 +150,13 @@ void DiagnosticModel::appendData(bool b)
     beginInsertRows(QModelIndex(), row, row);
     m_DiagnosticStatusList.append(b);
     endInsertRows();
+}
+
+void DiagnosticModel::setData(bool b)
+{
+    //m_DiagnosticStatusList.replace(0, b);
+    //m_DiagnosticStatusList.replace(2, b);
+    //m_DiagnosticStatusList.replace(3, b);
 }
 
 void DiagnosticModel::clearData()
