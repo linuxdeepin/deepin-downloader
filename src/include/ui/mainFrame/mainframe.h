@@ -664,6 +664,7 @@ signals:
     void tableChanged(int index);
     void redownload(QString taskId, int rd);
     void ariaOption(bool isHasTracker, bool isHasDHT);
+    void saveNameBeforChangeList();
 };
 
 #endif // MAINFRAME_H

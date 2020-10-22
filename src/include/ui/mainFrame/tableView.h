@@ -74,6 +74,11 @@ public:
      */
     void onContextMenu(QPoint pos);
 
+public slots:
+    /**
+     * @brief 切换列表
+    */
+    void onListchanged();
 private:
     /**
      * @brief 界面初始化

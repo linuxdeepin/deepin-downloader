@@ -31,6 +31,7 @@
 #include <DFontSizeManager>
 #include <DTitlebar>
 
+#include <QDir>
 #include <QLayout>
 #include <QAction>
 #include <QStackedWidget>
@@ -98,6 +99,7 @@ MainFrame::~MainFrame()
 
 void MainFrame::init()
 {
+    setObjectName("ariaMain");
     setMinimumSize(838, 636);
     setTitlebarShadowEnabled(true);
     setAcceptDrops(true);
@@ -366,13 +368,12 @@ void MainFrame::updateDHTFile()
     //    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat",
     //                                          opt2, "dht6.dat");
 
+    QString dhtpah = QDir::homePath() + "/.config/uos/downloader";
     QProcess p;
-    p.startDetached("aria2c https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -d"
-                    " /home/sanhei/.config/uos/downloader/ -o dht6.dat");
+    p.startDetached("aria2c https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -d" + dhtpah + " -o dht6.dat");
 
     QProcess p2;
-    p2.startDetached("aria2c https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -d"
-                     " /home/sanhei/.config/uos/downloader/ -o dht.dat");
+    p2.startDetached("aria2c https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -d" + dhtpah + "-o dht.dat");
 }
 
 void MainFrame::initConnection()
@@ -402,6 +403,7 @@ void MainFrame::initConnection()
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
 
     connect(this, &MainFrame::isHeaderChecked, m_DownLoadingTableView, &TableView::isCheckHeader);
+    connect(this, &MainFrame::saveNameBeforChangeList, m_DownLoadingTableView, &TableView::onListchanged);
     connect(this, &MainFrame::isHeaderChecked, m_RecycleTableView, &TableView::isCheckHeader);
 
     connect(m_SettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
@@ -810,6 +812,9 @@ void MainFrame::OpenBt(QString url)
 
 void MainFrame::onListClicked(const QModelIndex &index)
 {
+    QObject *obj = QObject::sender();
+    //QString str = obj->objectName();
+    //emit saveNameBeforChangeList();
     m_ToolBar->enablePauseBtn(false);
     m_ToolBar->enableStartBtn(false);
     m_ToolBar->enableDeleteBtn(false);
@@ -838,6 +843,12 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_DownLoadingTableView->getTableHeader()->setSortIndicator(3, Qt::AscendingOrder);
         }
     } else {
+        if (obj != nullptr) {
+            QTimer::singleShot(100, [=]() {
+                onListClicked(index);
+            });
+        }
+
         m_RightStackwidget->setCurrentIndex(1);
         //m_pRecycleTableView->setFocus();
         if (m_RecycleTableView->getTableModel()->recyleList().size() <= 0) {
