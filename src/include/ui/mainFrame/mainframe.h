@@ -663,6 +663,7 @@ signals:
     void isHeaderChecked(bool checked);
     void tableChanged(int index);
     void redownload(QString taskId, int rd);
+    void ariaOption(bool isHasTracker, bool isHasDHT);
 };
 
 #endif // MAINFRAME_H

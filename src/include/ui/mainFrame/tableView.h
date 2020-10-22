@@ -149,6 +149,8 @@ protected:
 
     void resizeEvent(QResizeEvent *event) override;
 
+    void focusOutEvent(QFocusEvent *event) override;
+
 private:
     int m_TableFlag;
     TableModel *m_TableModel;

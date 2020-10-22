@@ -814,7 +814,6 @@ void MainFrame::onListClicked(const QModelIndex &index)
     m_ToolBar->enableStartBtn(false);
     m_ToolBar->enableDeleteBtn(false);
     m_CurrentTab = static_cast<CurrentTab>(index.row());
-    QString DownloadTaskLableText;
     if ((index.row() == 0) || (index.row() == 1)) {
         m_RightStackwidget->setCurrentIndex(0);
         m_DownLoadingTableView->refreshTableView(index.row());
@@ -839,14 +838,22 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_DownLoadingTableView->getTableHeader()->setSortIndicator(3, Qt::AscendingOrder);
         }
     } else {
-        m_RecycleTableView->reset(true);
         m_RightStackwidget->setCurrentIndex(1);
         //m_pRecycleTableView->setFocus();
-        m_NotaskWidget->show();
+        if (m_RecycleTableView->getTableModel()->recyleList().size() <= 0) {
+            m_NotaskWidget->show();
+        }
         m_NotaskLabel->setText(tr("No deleted tasks"));
         m_NotaskTipLabel->hide();
         m_NoResultlabel->hide();
         m_RecycleTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
+
+        m_RecycleTableView->resize(m_RecycleTableView->width() - 1, m_RecycleTableView->height() - 1);
+        m_RecycleTableView->resize(m_RecycleTableView->width() + 1, m_RecycleTableView->height() + 1);
+        m_RecycleTableView->update();
+        m_RecycleTableView->horizontalHeader()->reset();
+        m_RecycleTableView->reset(true);
+        m_RecycleTableView->repaint();
     }
     clearTableItemCheckStatus();
     emit isHeaderChecked(false);
@@ -950,8 +957,8 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
             } else {
                 data->Ischecked = true;
             }
-            m_RecycleTableView->reset();
         }
+        m_RecycleTableView->reset();
     }
 }
 
@@ -1592,6 +1599,7 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
 void MainFrame::showDiagnosticTool()
 {
     DiagnosticTool control;
+    connect(this, &MainFrame::ariaOption, &control, &DiagnosticTool::onAriaOption);
     control.exec();
 }
 
@@ -1790,6 +1798,17 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
         m_DownLoadingTableView->getTableControl()->aria2MethodUnpauseAll(json, m_CurrentTab);
     } else if (method == ARIA2C_METHOD_GET_GLOBAL_STAT) {
         m_DownLoadingTableView->getTableControl()->aria2GetGlobalStatus(json);
+    } else if (method == ARIA2C_METHOD_GET_GLOBAL_OPTION) {
+        QJsonObject obj = json.value("result").toObject();
+        QString tracker = obj.value("bt-tracker").toString();
+        bool isHasDHT = false;
+        if (obj.value("enable-dht").toString().contains("true")) {
+            QString dhtfile = obj.value("dht-file-path").toString();
+            if (QFileInfo::exists(dhtfile)) {
+                isHasDHT = true;
+            }
+        }
+        emit ariaOption(!tracker.isEmpty(), isHasDHT);
     }
 }
 
@@ -3013,12 +3032,18 @@ void MainFrame::deleteTask(DeleteDataItem *pItem)
     }
     Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
     Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
-    QString ariaTempFile = pItem->savePath + ".aria2";
+    QString filePath = pItem->savePath;
     if (!pItem->savePath.isEmpty()) {
         deleteDirectory(pItem->savePath);
-        if (QFile::exists(ariaTempFile)) {
-            //QThread::msleep(1000);
-            QFile::remove(ariaTempFile);
+        if (QFile::exists(filePath + ".aria2")) {
+            QFile::remove(filePath + ".aria2");
+            QTimer::singleShot(3000, [=]() {
+                QString path = Settings::getInstance()->getDownloadSavePath();
+                if (!filePath.contains(path)) {
+                    QFile::remove(filePath);
+                    QFile::remove(filePath + ".aria2");
+                }
+            });
         }
     }
     DBInstance::delTask(pItem->taskId);
@@ -3029,13 +3054,17 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
 {
     Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
     Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
-    QString ariaTempFile = pItem->savePath + ".aria2";
+    QString filePath = pItem->savePath;
     if (!pItem->savePath.isEmpty()) {
         deleteDirectory(pItem->savePath);
-        if (QFile::exists(ariaTempFile)) {
-            QFile::remove(ariaTempFile);
+        if (QFile::exists(filePath + ".aria2")) {
+            QFile::remove(filePath + ".aria2");
             QTimer::singleShot(3000, [=]() {
-                QFile::remove(ariaTempFile);
+                QString path = Settings::getInstance()->getDownloadSavePath();
+                if (!filePath.contains(path)) {
+                    QFile::remove(filePath);
+                    QFile::remove(filePath + ".aria2");
+                }
             });
         }
     }

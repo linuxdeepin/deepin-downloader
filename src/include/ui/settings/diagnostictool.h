@@ -48,7 +48,8 @@ public:
     explicit DiagnosticTool(DDialog *parent = nullptr);
 
     void initUI();
-
+public slots:
+    void onAriaOption(bool isHasTracks, bool isHasDHT);
 private slots:
     void startDiagnostic();
 
@@ -56,6 +57,8 @@ private:
     QTableView *m_Tableview;
     DiagnosticModel *m_Model;
     QPushButton *m_Button;
+    bool m_IsHasTracks;
+    bool m_IsHasDHT;
 };
 
 /**
@@ -74,6 +77,8 @@ public:
     ~DiagnosticModel();
 
     void appendData(bool b);
+
+    void setData(bool b);
 
     void clearData();
 

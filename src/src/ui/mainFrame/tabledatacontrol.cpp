@@ -1023,6 +1023,7 @@ void TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
     if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
         m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
     }
+    pRecycleTableView->update();
 }
 void TableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent)
 {
