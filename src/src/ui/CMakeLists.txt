@@ -66,6 +66,12 @@ if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
         ${PROJECT_SOURCE_DIR}/translations
         ${TS_FILES}
         OPTIONS -source-language en_US -no-obsolete)
+
+    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader.ts")
+    qt5_create_translation(QM_FILES
+        ${PROJECT_SOURCE_DIR}/translations
+        ${TS_FILES}
+        OPTIONS -source-language en_US -no-obsolete)
 endif ()
 
 
