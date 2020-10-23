@@ -37,7 +37,6 @@
 #include <QThread>
 #include <QDesktopServices>
 #include <QUuid>
-#include <QSound>
 #include <QDBusInterface>
 #include <QSharedMemory>
 #include <QBuffer>
