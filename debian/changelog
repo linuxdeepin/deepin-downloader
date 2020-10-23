@@ -1,4 +1,4 @@
-downloadmanager (5.2.0.16) stable; urgency=low
+downloadmanager (5.2.0.17) stable; urgency=low
 
  *修改二期五次送测产生的部分bug
  *51861【5.2.0.14】【重命名】已完成列表重命名后，点击除列表以外的空白处不能保存名称
