@@ -47,7 +47,6 @@ public:
     DeleteItemThread(QList<DeleteDataItem>, TableView *pRecycleTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
     DeleteItemThread(QList<DownloadDataItem> deleteList, TableView *pDownloadingTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
     void run();
-    bool DelDir(const QString &path);
 
 private:
     /**
@@ -65,6 +64,7 @@ private:
       */
     bool deleteDirectory(const QString &path);
 
+    bool DelDir(const QString &path);
 signals:
     /**
       * @brief 通知主界面调用aria2删除任务

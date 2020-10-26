@@ -47,9 +47,12 @@ class DiagnosticTool : public DDialog
 public:
     explicit DiagnosticTool(DDialog *parent = nullptr);
 
+private:
     void initUI();
+
 public slots:
     void onAriaOption(bool isHasTracks, bool isHasDHT);
+
 private slots:
     void startDiagnostic();
 

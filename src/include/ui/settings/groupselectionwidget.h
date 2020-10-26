@@ -41,13 +41,13 @@ class GroupSelectionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GroupSelectionWidget(QStringList itemNameList,QWidget *parent = nullptr);
+    explicit GroupSelectionWidget(QStringList itemNameList, QWidget *parent = nullptr);
 
     /**
      * @brief 设置描述信息
      * @param text 描述信息
      */
-    void setLabelText(const QString &text);
+    bool setLabelText(const QString &text);
 
     /**
      * @brief 设置描述信息Label是否隐藏，隐藏则表示没有描述
@@ -75,7 +75,6 @@ private slots:
     void onItemChecked(bool isChecked);
 
 private:
-
     /**
      * @brief 初始化界面
      */
@@ -89,7 +88,6 @@ private:
 private:
     DLabel *m_label; // 描述信息
     QStringList m_itemNameList; // 选项名称列表
-
 };
 
 #endif // GROUPSELECTIONWIDGET_H

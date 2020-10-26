@@ -280,7 +280,7 @@ void DownloadSettingWidget::onFocusChanged(bool onFocus)
     }
 }
 
-void DownloadSettingWidget::setCurrentSelectRadioButton(const int &currentSelect)
+bool DownloadSettingWidget::setCurrentSelectRadioButton(const int &currentSelect)
 {
     if (1 == currentSelect) {
         m_fullSpeedDownloadButton->setChecked(true);
@@ -297,30 +297,33 @@ void DownloadSettingWidget::setCurrentSelectRadioButton(const int &currentSelect
         m_startTimeEdit->setDisabled(false);
         m_endTimeEdit->setDisabled(false);
     }
+    return true;
 }
 
-void DownloadSettingWidget::setMaxDownloadSpeedLimit(const QString &text)
+bool DownloadSettingWidget::setMaxDownloadSpeedLimit(const QString &text)
 {
     m_DownloadSpeedLimitValue = text.toInt();
     m_maxDownloadSpeedLimit->setLineEditText(text);
+    return true;
 }
 
-void DownloadSettingWidget::setMaxUploadSpeedLimit(const QString &text)
+bool DownloadSettingWidget::setMaxUploadSpeedLimit(const QString &text)
 {
     m_UploadSpeedLimitValue = text.toInt();
     m_maxUploadSpeedLimit->setLineEditText(text);
+    return true;
 }
 
-void DownloadSettingWidget::setStartTime(const QString &text)
+bool DownloadSettingWidget::setStartTime(const QString &text)
 {
     QTime time = QTime::fromString(text, "hh:mm:ss");
-
     m_startTimeEdit->setTime(time);
+    return true;
 }
 
-void DownloadSettingWidget::setEndTime(const QString &text)
+bool DownloadSettingWidget::setEndTime(const QString &text)
 {
     QTime time = QTime::fromString(text, "hh:mm:ss");
-
     m_endTimeEdit->setTime(time);
+    return true;
 }

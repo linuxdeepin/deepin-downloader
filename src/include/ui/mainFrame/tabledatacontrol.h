@@ -54,73 +54,68 @@ public:
     /**
      * @brief 设置RecycleTable
      */
-    void setRecycleTable(TableView *pRecycleTable);
+    bool setRecycleTable(TableView *pRecycleTable);
 
     /**
      * @brief 将正在下载列表里文件不存在的任务移到回收站
      */
-    void removeDownloadListJob(Global::DownloadDataItem *pData,
+    bool removeDownloadListJob(Global::DownloadDataItem *pData,
                                bool isDeleteAria2 = true, bool isAddToRecycle = true);
 
     /**
      * @brief aria2下载事件
      */
-    void aria2MethodAdd(QJsonObject &json, QString &searchContent);
+    bool aria2MethodAdd(QJsonObject &json, QString &searchContent);
 
     /**
      * @brief aria2状态改变事件
      */
-    void aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent);
+    bool aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent);
 
     /**
      * @brief aria2关闭事件
      */
-    void aria2MethodShutdown(QJsonObject &json);
+    bool aria2MethodShutdown(QJsonObject &json);
 
     /**
      * @brief aria2获取文件事件
      */
-    void aria2MethodGetFiles(QJsonObject &json, int iCurrentRow);
+    bool aria2MethodGetFiles(QJsonObject &json, int iCurrentRow);
 
     /**
      * @brief aria2继续下载事件
      */
-    void aria2MethodUnpause(QJsonObject &json, int iCurrentRow);
+    bool aria2MethodUnpause(QJsonObject &json, int iCurrentRow);
 
     /**
      * @brief aria2继续所有下载事件
      */
-    void aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow);
+    bool aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow);
 
     /**
      * @brief aria2获取全局状态
      */
-    void aria2GetGlobalStatus(QJsonObject &json);
-
-    /**
-     * @brief aria2删除事件
-     */
-    void aria2MethodRemove(QJsonObject &json);
+    bool aria2GetGlobalStatus(QJsonObject &json);
 
     /**
      * @brief aria2强制删除事件
      */
-    void aria2MethodForceRemove(QJsonObject &json);
+    bool aria2MethodForceRemove(QJsonObject &json);
 
     /**
      * @brief 退出之前保存
      */
-    void saveDataBeforeClose();
+    bool saveDataBeforeClose();
 
     /**
      * @brief 刷新数据库
      */
-    void updateDb();
+    bool updateDb();
 
     /**
      * @brief 查找的文本改变
     */
-    void searchEditTextChanged(QString text);
+    bool searchEditTextChanged(QString text);
 
     /**
      * @brief 删除ACtion槽函数
@@ -128,34 +123,9 @@ public:
     int onDelAction(int currentTab);
 
     /**
-     * @brief 正在下载和已完成列表重新下载ACtion槽函数
-    */
-    int RedownloadDownloadAndFinishList(QList<Global::DownloadDataItem *> &reloadList);
-
-    /**
-     * @brief 下载错误重新下载ACtion槽函数
-    */
-    void RedownloadErrorItem(Global::DownloadDataItem *errorItem);
-
-    /**
      * @brief 回收站重新下载ACtion槽函数
     */
     int RedownloadTrashList(QList<Global::DeleteDataItem *> &reloadList);
-
-    /**
-     * @brief 还原下载ACtion槽函数
-    */
-    void onReturnOriginAction();
-
-    /**
-     * @brief 清除回收站ACtion槽函数
-    */
-    void onClearRecyleAction();
-
-    /**
-     * @brief 复制URL ACtion槽函数
-    */
-    int onCopyUrlAction(int currentTab, QString &copyUrl);
 
     /**
      * @brief 永久删除ACtion槽函数
@@ -167,24 +137,24 @@ public:
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView *pRecycleTableView);
+    bool onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView *pRecycleTableView);
 
     /**
      * @brief  获取删除回收站列表窗口确定信号
      * @param ischecked 是否删除本地文件，true 删除本地文件；false 不删除
      * @param permanent 是否彻底删除，true彻底删除；false不彻底删除
      */
-    void onDeleteRecycleListConfirm(bool ischecked, bool permanent);
+    bool onDeleteRecycleListConfirm(bool ischecked, bool permanent);
 
     /**
      * @brief  正在下载列表和已完成列表重新下载
      */
-    void downloadListRedownload(QString id);
+    bool downloadListRedownload(QString id);
 
     /**
      * @brief  已删除列表重新下载
      */
-    void recycleListRedownload(QString id);
+    bool recycleListRedownload(QString id);
 
 private:
     /**

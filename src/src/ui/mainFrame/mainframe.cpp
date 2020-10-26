@@ -814,7 +814,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
 {
     QObject *obj = QObject::sender();
     //QString str = obj->objectName();
-    //emit saveNameBeforChangeList();
+    emit saveNameBeforChangeList();
     m_ToolBar->enablePauseBtn(false);
     m_ToolBar->enableStartBtn(false);
     m_ToolBar->enableDeleteBtn(false);
@@ -844,7 +844,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
         }
     } else {
         if (obj != nullptr) {
-            QTimer::singleShot(100, [=]() {
+            QTimer::singleShot(100, [=]() { // 其他列表为空的时候切换到回收站列表，会显示不全，刷新两次就可以
                 onListClicked(index);
             });
         }

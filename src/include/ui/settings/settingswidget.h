@@ -42,16 +42,17 @@ class SettingsControlWidget : public QWidget
 public:
     explicit SettingsControlWidget(QWidget *parent = nullptr);
     // 初始化界面
-    void initUI(QString label, QString text, bool isLineEdit = true);
+    bool initUI(QString label, QString text, bool isLineEdit = true);
     void setSpeend(QString speed);
     void setSize(QString size);
     void setSwitch(bool arg);
+
 private:
     Dtk::Widget::DLineEdit *m_Edit;
     Dtk::Widget::DComboBox *m_ComboBox;
     Dtk::Widget::DSwitchButton *m_SwitchBtn;
 signals:
-    void TextChanged(const QString & text);
+    void TextChanged(const QString &text);
     void checkedChanged(bool arg);
 };
 

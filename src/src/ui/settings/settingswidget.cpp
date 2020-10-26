@@ -41,7 +41,7 @@ SettingsControlWidget::SettingsControlWidget(QWidget *parent)
 }
 
 // 初始化界面
-void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
+bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
     DLabel *pLabel = new DLabel(label);
@@ -114,6 +114,7 @@ void SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
             m_ComboBox->setEnabled(stat);
         }
     });
+    return true;
 }
 
 void SettingsControlWidget::setSpeend(QString speed)

@@ -33,7 +33,6 @@
 #include <DSearchEdit>
 #include <DLabel>
 
-
 #include <QWidget>
 
 //class DownloadManagerBtn : public Dtk::Widget::DIconButton
@@ -73,36 +72,40 @@ public:
      * @brief 启用新建任务按键
      * @param enable： 启用开关
     */
-    void enableCreateTaskBtn(bool enable)
+    bool enableCreateTaskBtn(bool enable)
     {
         m_NewDownloadBtn->setEnabled(enable);
+        return true;
     }
 
     /**
      * @brief 启用开始按键
      * @param enable： 启用开关
     */
-    void enableStartBtn(bool enable)
+    bool enableStartBtn(bool enable)
     {
         m_StartDownloadBtn->setEnabled(enable);
+        return true;
     }
 
     /**
      * @brief 启用暂停按键
      * @param enable： 启用开关
     */
-    void enablePauseBtn(bool enable)
+    bool enablePauseBtn(bool enable)
     {
         m_PauseDownloadBtn->setEnabled(enable);
+        return true;
     }
 
     /**
      * @brief 启用删除按键
      * @param enable： 启用开关
     */
-    void enableDeleteBtn(bool enable)
+    bool enableDeleteBtn(bool enable)
     {
         m_DeleteDownloadBtn->setEnabled(enable);
+        return true;
     }
 
 public slots:
@@ -111,6 +114,7 @@ public slots:
      * @param index： 列表索引
     */
     void onTableChanged(int index);
+
 private:
     /**
      * @brief 初始化界面
@@ -120,6 +124,7 @@ private:
      * @brief 初始化信号槽
     */
     void InitConnections();
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 signals:
@@ -147,6 +152,7 @@ signals:
      * @brief 搜索框内容改变信号
     */
     void SearchEditTextChange(QString text);
+
 private:
     Dtk::Widget::DLabel *m_IconLable;
     Dtk::Widget::DIconButton *m_NewDownloadBtn;
@@ -156,7 +162,5 @@ private:
     Dtk::Widget::DIconButton *m_DeleteDownloadBtn;
     Dtk::Widget::DSearchEdit *m_SearchEdit;
 };
-
-
 
 #endif // TOOLBAR_H

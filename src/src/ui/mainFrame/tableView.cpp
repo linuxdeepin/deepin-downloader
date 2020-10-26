@@ -209,17 +209,11 @@ void TableView::resizeEvent(QResizeEvent *event)
     setColumnWidth(1, columnWidth(1) + leng);
 }
 
-void TableView::focusOutEvent(QFocusEvent *event)
+bool TableView::refreshTableView(const int &index)
 {
-    Qt::FocusReason r = event->reason();
-    qDebug() << r;
-    //    if (r != Qt::PopupFocusReason && r != Qt::OtherFocusReason) {
-    //        currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
-    //    }
-}
-
-void TableView::refreshTableView(const int &index)
-{
+    if (index > 1) {
+        return false;
+    }
     switch (index) {
     case 0: {
         //if(1 == getTableModel()->getTablemodelMode()){
@@ -240,6 +234,7 @@ void TableView::refreshTableView(const int &index)
         break;
     }
     update();
+    return true;
 }
 
 void TableView::onModellayoutChanged()

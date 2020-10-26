@@ -67,18 +67,14 @@ public:
     /**
      * @brief 刷新列表
     */
-    void refreshTableView(const int &index);
-
-    /**
-     * @brief 右键菜单
-     */
-    void onContextMenu(QPoint pos);
+    bool refreshTableView(const int &index);
 
 public slots:
     /**
      * @brief 切换列表
     */
     void onListchanged();
+
 private:
     /**
      * @brief 界面初始化
@@ -153,8 +149,6 @@ protected:
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
 
     void resizeEvent(QResizeEvent *event) override;
-
-    void focusOutEvent(QFocusEvent *event) override;
 
 private:
     int m_TableFlag;

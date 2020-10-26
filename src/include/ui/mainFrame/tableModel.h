@@ -88,7 +88,7 @@ public:
      * @brief 在正在下载列表添加一列
      * @param data: 数据
      */
-    void append(Global::DownloadDataItem *data);
+    bool append(Global::DownloadDataItem *data);
 
     /**
      * @brief 排序
@@ -101,39 +101,39 @@ public:
      * @brief 在回收站列表添加一列
      * @param data: 数据
      */
-    void append(Global::DeleteDataItem *data);
+    bool append(Global::DeleteDataItem *data);
 
     /**
      * @brief 在正在下载列表删除一列
      * @param data: 数据
      */
-    void removeItem(Global::DownloadDataItem *data);
+    bool removeItem(Global::DownloadDataItem *data);
 
     /**
      * @brief 在回收站列表删除一列
      * @param data: 数据
      */
-    void removeItem(Global::DeleteDataItem *data);
+    bool removeItem(Global::DeleteDataItem *data);
 
     /**
      * @brief 清空下载列表
      */
-    void removeItems();
+    bool removeItems();
 
     /**
      * @brief 清空回收站列表
      */
-    void removeRecycleItems();
+    bool removeRecycleItems();
 
     /**
      * @brief 切换到正在下载列表
      */
-    void switchDownloadingMode();
+    bool switchDownloadingMode();
 
     /**
      * @brief 切换到已完成列表
      */
-    void switchFinishedMode();
+    bool switchFinishedMode();
 
     /**
      * @brief 根据id查找正在下载item
@@ -215,9 +215,6 @@ public:
     QVariant headerData(int ection, Qt::Orientation orientation, int role) const override;
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
-
-    //    virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row,
-    //                              int column, const QModelIndex &parent) override;
 
     ~TableModel();
 
