@@ -50,6 +50,8 @@ public:
     /**
      * @brief 绘图事件
      */
+
+private:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     /**
 

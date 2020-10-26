@@ -129,13 +129,14 @@ void FileSavePathChooser::onLineEditTextChanged(const QString &text)
     }
 }
 
-void FileSavePathChooser::setLineEditText(const QString &text)
+bool FileSavePathChooser::setLineEditText(const QString &text)
 {
     m_downloadPath = text;
     m_fileChooserEdit->setText(text);
+    return true;
 }
 
-void FileSavePathChooser::setCurrentSelectRadioButton(const int &currentSelect)
+bool FileSavePathChooser::setCurrentSelectRadioButton(const int &currentSelect)
 {
     if (currentSelect == 1) {
         m_autoLastPathRadioButton->setChecked(true);
@@ -146,4 +147,5 @@ void FileSavePathChooser::setCurrentSelectRadioButton(const int &currentSelect)
         m_customsPathRadioButton->setChecked(true);
         m_fileChooserEdit->setDisabled(false);
     }
+    return true;
 }

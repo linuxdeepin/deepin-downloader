@@ -51,31 +51,31 @@ public:
      * @brief 设置当前选择的选项，当传入为1时，选中全速下载
      * @param currentSelect 当前选项值
      */
-    void setCurrentSelectRadioButton(const int &currentSelect);
+    bool setCurrentSelectRadioButton(const int &currentSelect);
 
     /**
      * @brief 设置最大下载限速值
      * @param text 限速值
      */
-    void setMaxDownloadSpeedLimit(const QString &text);
+    bool setMaxDownloadSpeedLimit(const QString &text);
 
     /**
      * @brief 设置最大上传限速值
      * @param text 限速值
      */
-    void setMaxUploadSpeedLimit(const QString &text);
+    bool setMaxUploadSpeedLimit(const QString &text);
 
     /**
      * @brief 设置限速开始时间
      * @param text 开始时间
      */
-    void setStartTime(const QString &text);
+    bool setStartTime(const QString &text);
 
     /**
      * @brief 设置限速结束时间
      * @param text 结束时间
      */
-    void setEndTime(const QString &text);
+    bool setEndTime(const QString &text);
 
 signals:
     void speedLimitInfoChanged(QString text);
@@ -108,7 +108,6 @@ private slots:
     void onFocusChanged(bool onFocus);
 
 private:
-
     /**
      * @brief 初始化界面
      */
@@ -130,7 +129,6 @@ private:
     DAlertControl *m_uploadAlertControl; // 最大上传限速输入错误提示
     int m_DownloadSpeedLimitValue;
     int m_UploadSpeedLimitValue;
-
 };
 
 #endif // DOWNLOADSETTINGWIDGET_H

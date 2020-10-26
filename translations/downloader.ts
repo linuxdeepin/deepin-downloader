@@ -1108,37 +1108,37 @@ and more resource consumption.</source>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="381"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="380"/>
         <source> &gt; 1 Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="607"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="606"/>
         <source>Download failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="608"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="607"/>
         <source>%1 download failed. Network error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="609"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="608"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="609"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="608"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="615"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="614"/>
         <source>Download complated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="616"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="615"/>
         <source>%1 download finished.</source>
         <translation type="unfinished"></translation>
     </message>

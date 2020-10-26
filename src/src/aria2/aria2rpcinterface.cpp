@@ -205,7 +205,7 @@ QString Aria2RPCInterface::getConfigFilePath() const
     return m_configPath;
 }
 
-void Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString id)
+bool Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString id)
 {
     uri = processThunderUri(uri); //处理迅雷链接
     QJsonArray ja, inner;
@@ -216,21 +216,21 @@ void Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString
     QJsonObject optJson = doc.object();
     ja.append(optJson);
 
-    callRPC(ARIA2C_METHOD_ADD_URI, ja, id);
+    return callRPC(ARIA2C_METHOD_ADD_URI, ja, id);
 }
 
-void Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filename, QString id)
+bool Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filename, QString id)
 {
     QMap<QString, QVariant> opt;
     opt.insert("dir", savepath);
     opt.insert("out", filename);
 
-    addUri(uri, opt, id);
+    return addUri(uri, opt, id);
 
-    qDebug() << "Add new uri" << uri;
+    //qDebug() << "Add new uri" << uri;
 }
 
-void Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> opt, QString id)
+bool Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> opt, QString id)
 {
     QString torrentB64Str = fileToBase64(torrentFile); //把bt文件转成base64编码
     QJsonArray ja;
@@ -241,10 +241,10 @@ void Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> 
     QJsonObject optJson = doc.object();
     ja.append(optJson);
 
-    callRPC(ARIA2C_METHOD_ADD_TORRENT, ja, id);
+    return callRPC(ARIA2C_METHOD_ADD_TORRENT, ja, id);
 }
 
-void Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> opt, QString id)
+bool Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> opt, QString id)
 {
     QString metalinkB64Str = fileToBase64(metalink);
     QJsonArray ja;
@@ -255,7 +255,7 @@ void Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> op
     QJsonObject optJson = doc.object();
     ja.append(optJson);
 
-    callRPC(ARIA2C_METHOD_ADD_METALINK, ja, id);
+    return callRPC(ARIA2C_METHOD_ADD_METALINK, ja, id);
 }
 
 QString Aria2RPCInterface::fileToBase64(QString filePath)
@@ -267,9 +267,9 @@ QString Aria2RPCInterface::fileToBase64(QString filePath)
     return b64Str;
 }
 
-void Aria2RPCInterface::purgeDownloadResult(QString id)
+bool Aria2RPCInterface::purgeDownloadResult(QString id)
 {
-    callRPC(ARIA2C_METHOD_PURGE_DOWNLOAD_RESULT, id);
+    return callRPC(ARIA2C_METHOD_PURGE_DOWNLOAD_RESULT, id);
 }
 
 Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
@@ -343,7 +343,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
     return btInfo;
 }
 
-void Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
+bool Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
 {
     QJsonObject json;
     json.insert("jsonrpc", "2.0");
@@ -356,15 +356,15 @@ void Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
     if (!params.isEmpty()) {
         json.insert("params", params);
     }
-    this->sendMessage(json, method);
+    return sendMessage(json, method);
 }
 
-void Aria2RPCInterface::callRPC(QString method, QString id)
+bool Aria2RPCInterface::callRPC(QString method, QString id)
 {
-    callRPC(method, QJsonArray(), id);
+    return callRPC(method, QJsonArray(), id);
 }
 
-void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
+bool Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager; //定义网络对象
 
@@ -396,7 +396,9 @@ void Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
         //                    QByteArray buf = networkReply->readAll();
         //                    qDebug() << "finished" << ":  " << buf;
         //                });
+        return networkReply->error() ? false : true;
     }
+    return false;
 }
 
 void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &method, const QString id)
@@ -421,14 +423,14 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     reply->destroyed();
 }
 
-void Aria2RPCInterface::tellStatus(QString gId, QString id)
+bool Aria2RPCInterface::tellStatus(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
-    callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
+    return callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
 }
 
-void Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
+bool Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
@@ -437,86 +439,86 @@ void Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
         ka.append(k);
     }
     ja.append(ka);
-    callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
+    return callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
 }
 
-void Aria2RPCInterface::pause(QString gId, QString id)
+bool Aria2RPCInterface::pause(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
-    callRPC(ARIA2C_METHOD_PAUSE, ja, id);
+    return callRPC(ARIA2C_METHOD_PAUSE, ja, id);
 }
 
-void Aria2RPCInterface::forcePause(QString gId, QString id)
+bool Aria2RPCInterface::forcePause(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
-    callRPC(ARIA2C_METHOD_FORCE_PAUSE, ja, id);
+    return callRPC(ARIA2C_METHOD_FORCE_PAUSE, ja, id);
 }
 
-void Aria2RPCInterface::pauseAll(QString id)
+bool Aria2RPCInterface::pauseAll(QString id)
 {
-    callRPC(ARIA2C_METHOD_PAUSE_ALL, id);
+    return callRPC(ARIA2C_METHOD_PAUSE_ALL, id);
 }
 
-void Aria2RPCInterface::forcePauseAll(QString id)
+bool Aria2RPCInterface::forcePauseAll(QString id)
 {
-    callRPC(ARIA2C_METHOD_FORCE_PAUSE_ALL, id);
+    return callRPC(ARIA2C_METHOD_FORCE_PAUSE_ALL, id);
 }
 
-void Aria2RPCInterface::unpause(QString gId, QString id)
-{
-    QJsonArray ja;
-    ja.append(gId);
-    callRPC(ARIA2C_METHOD_UNPAUSE, ja, id);
-}
-
-void Aria2RPCInterface::unpauseAll(QString id)
-{
-    callRPC(ARIA2C_METHOD_UNPAUSE_ALL, id);
-}
-
-void Aria2RPCInterface::remove(QString gId, QString id)
+bool Aria2RPCInterface::unpause(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
-    callRPC(ARIA2C_METHOD_REMOVE, ja, id);
+    return callRPC(ARIA2C_METHOD_UNPAUSE, ja, id);
 }
 
-void Aria2RPCInterface::forceRemove(QString gId, QString id)
+bool Aria2RPCInterface::unpauseAll(QString id)
+{
+    return callRPC(ARIA2C_METHOD_UNPAUSE_ALL, id);
+}
+
+bool Aria2RPCInterface::remove(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
-    callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
+    return callRPC(ARIA2C_METHOD_REMOVE, ja, id);
 }
 
-void Aria2RPCInterface::removeDownloadResult(QString gId, QString id)
+bool Aria2RPCInterface::forceRemove(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
-    callRPC(ARIA2C_METHOD_REMOVE_DOWNLOAD_RESULT, ja, id);
+    return callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
 }
 
-void Aria2RPCInterface::getFiles(QString gId, QString id)
+bool Aria2RPCInterface::removeDownloadResult(QString gId, QString id)
 {
     QJsonArray ja;
     ja.append(gId);
-    callRPC(ARIA2C_METHOD_GET_FILES, ja, id);
+    return callRPC(ARIA2C_METHOD_REMOVE_DOWNLOAD_RESULT, ja, id);
 }
 
-void Aria2RPCInterface::getGlobalSatat()
+bool Aria2RPCInterface::getFiles(QString gId, QString id)
 {
     QJsonArray ja;
-    callRPC(ARIA2C_METHOD_GET_GLOBAL_STAT, ja, "");
+    ja.append(gId);
+    return callRPC(ARIA2C_METHOD_GET_FILES, ja, id);
 }
 
-void Aria2RPCInterface::getGlobalOption()
+bool Aria2RPCInterface::getGlobalSatat()
 {
     QJsonArray ja;
-    callRPC(ARIA2C_METHOD_GET_GLOBAL_OPTION, ja, "");
+    return callRPC(ARIA2C_METHOD_GET_GLOBAL_STAT, ja, "");
 }
 
-void Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QString id)
+bool Aria2RPCInterface::getGlobalOption()
+{
+    QJsonArray ja;
+    return callRPC(ARIA2C_METHOD_GET_GLOBAL_OPTION, ja, "");
+}
+
+bool Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QString id)
 {
     QJsonArray ja;
     QJsonDocument doc = QJsonDocument::fromVariant(QVariant(options));
@@ -526,10 +528,10 @@ void Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QStr
     QJsonObject nobj = QJsonObject(QJsonDocument::fromJson(njba).object());
     QJsonObject optJson = doc.object();
     ja.append(nobj);
-    callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);
+    return callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);
 }
 
-void Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
+bool Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
 {
     QString strAll;
     QStringList strList;
@@ -543,6 +545,8 @@ void Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
     if (readFile.open((QIODevice::ReadOnly | QIODevice::Text))) {
         QTextStream stream(&readFile);
         strAll = stream.readAll();
+    } else {
+        return false;
     }
     readFile.close();
     QFile writeFile(m_aria2configPath);
@@ -565,19 +569,19 @@ void Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
         }
     }
     writeFile.close();
+    return true;
 }
 
-void Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
+bool Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
 {
     QMap<QString, QVariant> opt;
     QString value = "max-concurrent-downloads=" + maxDownload;
     modifyConfigFile("max-concurrent-downloads=", value);
     opt.insert("max-concurrent-downloads", maxDownload);
-    changeGlobalOption(opt);
-    qDebug() << "set max download num:" << maxDownload;
+    return changeGlobalOption(opt);
 }
 
-void Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed)
+bool Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed)
 {
     QMap<QString, QVariant> opt;
     QString down_speed = downloadSpeed + "K";
@@ -586,26 +590,21 @@ void Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString up
     QString upload_speed = uploadSpeed + "K";
     opt.insert("max-overall-upload-limit", upload_speed);
     changeGlobalOption(opt);
-
     QString value = "max-overall-download-limit=" + down_speed;
     modifyConfigFile("max-overall-download-limit=", value);
 
     value = "max-overall-upload-limit=" + upload_speed;
-    modifyConfigFile("max-overall-upload-limit=", value);
-
-    qDebug() << "set download upload limit speed:" << downloadSpeed << uploadSpeed;
+    return modifyConfigFile("max-overall-upload-limit=", value);
 }
 
-void Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)
+bool Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)
 {
     QMap<QString, QVariant> opt;
     QString cacheNum = disckCacheNum + "M";
     opt.insert("disk-cache", cacheNum);
     changeGlobalOption(opt);
     QString value = "disk-cache=" + cacheNum;
-    modifyConfigFile("disk-cache=", value);
-
-    qDebug() << "set disk cache num:" << disckCacheNum;
+    return modifyConfigFile("disk-cache=", value);
 }
 
 void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadLimitSpeed)
@@ -623,7 +622,7 @@ void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadLimitSpeed)
     qDebug() << "set download limit speed:" << downloadLimitSpeed;
 }
 
-void Aria2RPCInterface::setUploadLimitSpeed(QString UploadLimitSpeed)
+bool Aria2RPCInterface::setUploadLimitSpeed(QString UploadLimitSpeed)
 {
     QMap<QString, QVariant> opt;
     QString speed = UploadLimitSpeed + "K";
@@ -631,9 +630,7 @@ void Aria2RPCInterface::setUploadLimitSpeed(QString UploadLimitSpeed)
     changeGlobalOption(opt);
 
     QString value = "max-overall-upload-limit=" + speed;
-    modifyConfigFile("max-overall-upload-limit=", value);
-
-    qDebug() << "set upload limit speed:" << UploadLimitSpeed;
+    return modifyConfigFile("max-overall-upload-limit=", value);
 }
 
 QString Aria2RPCInterface::processThunderUri(QString thunder)
@@ -786,12 +783,12 @@ QString Aria2RPCInterface::bytesFormat(qint64 size)
     return QString::number(size * 1.0 / qPow(1024, qFloor(i)), 'f', (i > 1) ? 2 : 0) + sl.at(i);
 }
 
-void Aria2RPCInterface::shutdown(QString id)
+bool Aria2RPCInterface::shutdown(QString id)
 {
-    callRPC(ARIA2C_METHOD_SHUTDOWN, id);
+    return callRPC(ARIA2C_METHOD_SHUTDOWN, id);
 }
 
-void Aria2RPCInterface::forceShutdown(QString id)
+bool Aria2RPCInterface::forceShutdown(QString id)
 {
-    callRPC(ARIA2C_METHOD_FORCE_SHUTDOWN, id);
+    return callRPC(ARIA2C_METHOD_FORCE_SHUTDOWN, id);
 }

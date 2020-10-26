@@ -48,13 +48,13 @@ public:
      * @brief 设置文件保存路径
      * @param text 文件路径
      */
-    void setLineEditText(const QString &text);
+    bool setLineEditText(const QString &text);
 
     /**
      * @brief 设置当前选中按钮，当为1时，选中上次使用目录按钮
      * @param currentSelect 当前选中值
      */
-    void setCurrentSelectRadioButton(const int &currentSelect);
+    bool setCurrentSelectRadioButton(const int &currentSelect);
 
 signals:
     void textChanged(QString text);
@@ -73,7 +73,6 @@ public slots:
     void onLineEditTextChanged(const QString &text);
 
 private:
-
     /**
      * @brief 初始化界面
      */

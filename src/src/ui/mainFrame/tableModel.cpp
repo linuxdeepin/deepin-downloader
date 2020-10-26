@@ -127,28 +127,39 @@ DeleteDataItem *TableModel::find(const QString &gid, int flag)
     return nullptr;
 }
 
-void TableModel::append(DownloadDataItem *data)
+bool TableModel::append(DownloadDataItem *data)
 {
+    if (data == nullptr) {
+        return false;
+    }
     const int row = m_DataList.size();
 
     beginInsertRows(QModelIndex(), row, row);
     m_DataList.append(data);
     m_Map.insert(data->taskId, data);
     endInsertRows();
+    return true;
 }
 
-void TableModel::append(DeleteDataItem *data)
+bool TableModel::append(DeleteDataItem *data)
 {
+    if (data == nullptr) {
+        return false;
+    }
     const int row = m_RecyleList.size();
 
     beginInsertRows(QModelIndex(), row, row);
     m_RecyleList.append(data);
     m_Deletemap.insert(data->taskId, data);
     endInsertRows();
+    return true;
 }
 
-void TableModel::removeItem(DownloadDataItem *data)
+bool TableModel::removeItem(DownloadDataItem *data)
 {
+    if (data == nullptr) {
+        return false;
+    }
     if (m_Map.contains(data->taskId)) {
         beginRemoveRows(QModelIndex(), m_DataList.indexOf(data), m_DataList.indexOf(data));
         m_Map.remove(data->taskId);
@@ -157,10 +168,14 @@ void TableModel::removeItem(DownloadDataItem *data)
         delete data;
         endRemoveRows();
     }
+    return true;
 }
 
-void TableModel::removeItem(DeleteDataItem *data)
+bool TableModel::removeItem(DeleteDataItem *data)
 {
+    if (data == nullptr) {
+        return false;
+    }
     if (m_Deletemap.contains(data->taskId)) {
         beginRemoveRows(QModelIndex(), m_RecyleList.indexOf(data), m_RecyleList.indexOf(data));
         m_Deletemap.remove(data->taskId);
@@ -168,27 +183,30 @@ void TableModel::removeItem(DeleteDataItem *data)
         delete data;
         endRemoveRows();
     }
+    return true;
 }
 
-void TableModel::removeItems()
+bool TableModel::removeItems()
 {
     beginRemoveRows(QModelIndex(), 0, m_DataList.size());
     qDeleteAll(m_DataList.begin(), m_DataList.end());
     m_DataList.clear();
     m_Map.clear();
     endRemoveRows();
+    return true;
 }
 
-void TableModel::removeRecycleItems()
+bool TableModel::removeRecycleItems()
 {
     beginRemoveRows(QModelIndex(), 0, m_RecyleList.size());
     qDeleteAll(m_RecyleList.begin(), m_RecyleList.end());
     m_RecyleList.clear();
     m_Deletemap.clear();
     endRemoveRows();
+    return true;
 }
 
-void TableModel::switchDownloadingMode()
+bool TableModel::switchDownloadingMode()
 {
     m_Mode = Downloading;
     m_RenderList.clear();
@@ -199,9 +217,10 @@ void TableModel::switchDownloadingMode()
         }
     }
     sortDownload(m_SortColumn, m_SortOrder);
+    return true;
 }
 
-void TableModel::switchFinishedMode()
+bool TableModel::switchFinishedMode()
 {
     m_Mode = Finished;
     m_RenderList.clear();
@@ -212,6 +231,7 @@ void TableModel::switchFinishedMode()
         }
     }
     sortDownload(m_SortColumn, m_SortOrder);
+    return true;
 }
 
 int TableModel::rowCount(const QModelIndex &parent) const

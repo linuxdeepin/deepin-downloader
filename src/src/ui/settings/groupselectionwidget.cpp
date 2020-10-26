@@ -69,7 +69,6 @@ void GroupSelectionWidget::initUI()
 // 初始化链接
 void GroupSelectionWidget::initConnections()
 {
-
 }
 
 void GroupSelectionWidget::onItemChecked(bool isChecked)
@@ -99,9 +98,10 @@ void GroupSelectionWidget::onItemChecked(bool isChecked)
     }
 }
 
-void GroupSelectionWidget::setLabelText(const QString &text)
+bool GroupSelectionWidget::setLabelText(const QString &text)
 {
     m_label->setText(text);
+    return true;
 }
 
 void GroupSelectionWidget::setLabelIsHide(bool isHide)
@@ -129,5 +129,3 @@ void GroupSelectionWidget::setCurrentSelected(const QString &name)
         }
     }
 }
-
-
