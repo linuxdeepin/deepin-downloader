@@ -560,21 +560,19 @@ int TableModel::DownloadingCount()
     }
 }
 
-typedef bool (*LessThan)(const QPair<QString, int> &left,
-                         const QPair<QString, int> &right);
+typedef bool (*LessThan)(const QPair<QVariant, int> &left,
+                         const QPair<QVariant, int> &right);
 
-bool itemLessThan(const QPair<QString, int> &left,
-                  const QPair<QString, int> &right)
+bool itemLessThan(const QPair<QVariant, int> &left,
+                  const QPair<QVariant, int> &right)
 {
-    bool b = left.first < right.first;
-    return b;
+    return left.first < right.first;
 }
 
-bool itemGreaterThan(const QPair<QString, int> &left,
-                     const QPair<QString, int> &right)
+bool itemGreaterThan(const QPair<QVariant, int> &left,
+                     const QPair<QVariant, int> &right)
 {
-    bool b = right.first < left.first;
-    return b;
+    return right.first < left.first;
 }
 
 void TableModel::sort(int column, Qt::SortOrder order)
@@ -596,7 +594,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     if (Finished == m_Mode && column == 3) {
         return;
     }
-    QVector<QPair<QString, int>> sortable;
+    QVector<QPair<QVariant, int>> sortable;
     QVector<int> unsortable;
     int role = 0;
     switch (column) {
@@ -633,13 +631,13 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
         QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, column), role).toString());
         if (role == TableModel::Size || role == TableModel::TotalLength) {
             num = formatFileSize(itm.toString());
-            sortable.append(QPair<QString, int>(QString().number(num), row));
+            sortable.append(QPair<QVariant, int>(num, row));
         } else if (role == TableModel::Speed) {
             num = formatSpeed(itm.toString());
-            sortable.append(QPair<QString, int>(QString().number(num), row));
+            sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if (!itm.isNull()) {
-                sortable.append(QPair<QString, int>(itm.toString(), row));
+                sortable.append(QPair<QVariant, int>(itm, row));
             } else {
                 unsortable.append(row);
             }
@@ -668,7 +666,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
 
 void TableModel::sortRecycle(int column, Qt::SortOrder order)
 {
-    QVector<QPair<QString, int>> sortable;
+    QVector<QPair<QVariant, int>> sortable;
     QVector<int> unsortable;
 
     sortable.reserve(rowCount());
@@ -692,10 +690,10 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
         QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, column), role).toString());
         if (role == TableModel::TotalLength) {
             num = formatFileSize(itm.toString());
-            sortable.append(QPair<QString, int>(QString().number(num), row));
+            sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if (!itm.isNull()) {
-                sortable.append(QPair<QString, int>(itm.toString(), row));
+                sortable.append(QPair<QVariant, int>(itm, row));
             } else {
                 unsortable.append(row);
             }
