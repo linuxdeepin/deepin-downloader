@@ -63,6 +63,7 @@ struct DownloadDataItem {
     QString url;
     QString time;
     QString createTime;
+    QString strartDownloadTime = "";
 };
 /**
      * @struct DataItem

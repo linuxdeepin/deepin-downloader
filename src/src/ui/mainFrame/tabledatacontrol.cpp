@@ -249,11 +249,14 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     }
     if (statusStr == "active") {
         status = Global::DownloadJobStatus::Active;
-        QDateTime createTime = QDateTime::fromString(data->createTime, "yyyy-MM-dd hh:mm:ss");
-        createTime = createTime.addSecs(5);
+        if (data->strartDownloadTime.isEmpty()) {
+            data->strartDownloadTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+        }
+        QDateTime createTime = QDateTime::fromString(data->strartDownloadTime, "yyyy-MM-dd hh:mm:ss");
+        createTime = createTime.addSecs(15);
         QDateTime currentTime = QDateTime::currentDateTime();
         if ((!QFileInfo::exists(data->savePath)) && (createTime < currentTime)
-            && (!fileName.contains("[METADATA]"))) {
+            && (!fileName.contains("[METADATA]")) && (!data->strartDownloadTime.isEmpty())) {
             Aria2RPCInterface::instance()->remove(data->gid);
             if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
                 removeDownloadListJob(data);
@@ -327,9 +330,13 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             emit whenDownloadFinish();
         }
 
-        QTimer::singleShot(3000, [=]() { //bt下载完，有时候不会删除aria2文件
-            QFile::remove(filePath + ".aria2");
-        });
+        if (data->url.isEmpty()) { //bt下载完，有时候会在创建aria2文件
+            Aria2RPCInterface::instance()->forceRemove(data->gid, data->taskId);
+            QTimer::singleShot(3000, [=]() {
+                QFile::remove(filePath + ".aria2");
+            });
+        }
+
     } else if (statusStr == "removed") {
         status = Global::DownloadJobStatus::Removed;
     }

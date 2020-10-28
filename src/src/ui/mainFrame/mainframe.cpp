@@ -541,7 +541,7 @@ void MainFrame::onTrayQuitClick(bool force)
     m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
     m_RecycleTableView->getTableControl()->saveDataBeforeClose();
     Aria2RPCInterface::instance()->shutdown();
-    qApp->quit();
+    // qApp->quit();
 }
 
 void MainFrame::onMessageBoxConfirmClick()
@@ -1940,21 +1940,6 @@ void MainFrame::onUpdateMainUI()
             m_DownLoadingTableView->getTableControl()->updateDb();
         }
     }
-    if (activeCount >= 30 && activeCount < 50) {
-        m_timeInterval = 3000;
-        m_UpdateTimer->stop();
-        m_UpdateTimer->start(m_timeInterval);
-    }
-    if (activeCount >= 50 && activeCount < 100) {
-        m_timeInterval = 4000;
-        m_UpdateTimer->stop();
-        m_UpdateTimer->start(m_timeInterval);
-    }
-    if (activeCount >= 100) {
-        m_timeInterval = 5000;
-        m_UpdateTimer->stop();
-        m_UpdateTimer->start(m_timeInterval);
-    }
     setTaskNum();
 }
 
@@ -3042,7 +3027,7 @@ void MainFrame::deleteTask(DeleteDataItem *pItem)
         return;
     }
     Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
-    Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
+    Aria2RPCInterface::instance()->forceRemove(pItem->gid, pItem->taskId);
     QString filePath = pItem->savePath;
     if (!pItem->savePath.isEmpty()) {
         deleteDirectory(pItem->savePath);
