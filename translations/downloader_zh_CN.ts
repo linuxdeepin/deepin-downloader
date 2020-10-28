@@ -15,13 +15,13 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="133"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="325"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="334"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="387"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="416"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="445"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="473"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="523"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="324"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="333"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="415"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="444"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="472"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="522"/>
         <source>%1 files selected, %2</source>
         <translation>已选%1个文件，共%2</translation>
     </message>
@@ -52,8 +52,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="195"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="549"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="669"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="548"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="668"/>
         <source>Available:</source>
         <translation>剩余:</translation>
     </message>
@@ -69,19 +69,19 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="243"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="618"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="617"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="245"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="620"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="619"/>
         <source>Type</source>
         <translation>类型</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="246"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="621"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="620"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
@@ -660,139 +660,144 @@ Downloading tasks will be interrupted.</source>
     <name>MessageBox</name>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="42"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="73"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="96"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="95"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="89"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="88"/>
         <source>Redownload</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="98"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="97"/>
         <source>Download error</source>
         <translation>任务下载异常</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="100"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="73"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="99"/>
         <source>Download Again</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="101"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="77"/>
+        <source>Delete the downloaded files and download again?</source>
+        <translation>是否删除已下载内容并重新下载？</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="100"/>
         <source>Delete Task</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="114"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Are you sure you want to delete this download task permanently?</source>
         <translation>您确认要彻底删除此下载任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="117"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="116"/>
         <source>Local files will be deleted at the same time.</source>
         <translation>选择彻底删除后，本地文件也将被删除。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="120"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="119"/>
         <source>Are you sure you want to delete this download task?</source>
         <translation>您确认要删除此下载任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="124"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="126"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="123"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="125"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="143"/>
         <source>Delete local files</source>
         <translation>同时删除本地文件</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="131"/>
         <source>Permanently Delete</source>
         <translation>强制删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="182"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="181"/>
         <source>Please choose your action</source>
         <translation>请选择您的操作</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="184"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="183"/>
         <source>Minimize to system tray</source>
         <translation>最小化到系统托盘</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="185"/>
         <source>Do not ask again</source>
         <translation>不再询问</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="305"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="304"/>
         <source>Permission denied</source>
         <translation>选择的目录无操作权限</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="307"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="306"/>
         <source>Please try another folder.</source>
         <translation>请重新选择。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="88"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="130"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="87"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="129"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="76"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="74"/>
         <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>是否删除已下载内容并重新下载？</translation>
+        <translation>重新下载将删除原来的文件，确定重新下载？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="78"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="76"/>
         <source>The task already exists.</source>
         <translation>该任务已存在。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="134"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
         <source>Delete</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="141"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="140"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
         <translation>您确认清空回收站里的所有任务吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="146"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Empty</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="155"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="154"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="184"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="183"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="188"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="251"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="250"/>
         <source>file name can not containts &apos;\&apos; or &apos;/&apos; </source>
         <translation>文件名称不能包含 &apos;\&apos;或者 &apos;/&apos; </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="251"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="309"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="250"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="308"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
@@ -899,7 +904,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="255"/>
         <source>Close window</source>
-        <translation>关闭主界面</translation>
+        <translation>关闭主窗口</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="256"/>
@@ -1110,37 +1115,37 @@ and more resource consumption.</source>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="380"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="388"/>
         <source> &gt; 1 Day</source>
         <translation>&gt;1天</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="606"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="621"/>
         <source>Download failed</source>
         <translation>下载失败</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="607"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="622"/>
         <source>%1 download failed. Network error.</source>
         <translation>%1下载失败，网络故障。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="608"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="623"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="608"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="623"/>
         <source>View</source>
         <translation>查看</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="614"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="629"/>
         <source>Download complated</source>
         <translation>下载完成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="615"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
         <source>%1 download finished.</source>
         <translation>%1下载完成。</translation>
     </message>
@@ -1148,30 +1153,30 @@ and more resource consumption.</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="389"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="409"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="392"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="412"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="396"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="405"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="416"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="398"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="407"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="418"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="427"/>
         <source>Time finished</source>
         <translation>完成时间</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="400"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="409"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="420"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="429"/>
         <source>Time deleted</source>
         <translation>删除时间</translation>
     </message>

@@ -41,10 +41,10 @@
 #include <QCheckBox>
 #include <QDir>
 
-BtInfoDelegate::BtInfoDelegate(DDialog *dialog)
+BtInfoDelegate::BtInfoDelegate(DDialog *dialog):
+    m_dialog(dialog),
+    m_checkBtn(new QCheckBox)
 {
-    m_dialog = dialog;
-    m_checkBtn = new QCheckBox;
 }
 
 BtInfoDelegate::~BtInfoDelegate()
@@ -119,7 +119,7 @@ bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             model->setData(index, QVariant(v == "1" ? "0" : "1"), Qt::EditRole);
 
             ((BtInfoDialog *)m_dialog)->updateSelectedInfo();
-            return false;
+            return true;
         }
     }
     return false;

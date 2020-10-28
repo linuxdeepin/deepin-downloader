@@ -41,11 +41,11 @@
 #include <QSharedMemory>
 #include <dpinyin.h>
 
-BtInfoDialog::BtInfoDialog(QString torrentFile, QString bt_last_save_path)
-    : DDialog()
+BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath)
+    : DDialog(),
+        m_torrentFile(torrentFile),
+        m_defaultDownloadDir(btLastSavePath)
 {
-    m_torrentFile = torrentFile;
-    m_defaultDownloadDir = bt_last_save_path;
     setFixedSize(500, 525);
     setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
@@ -301,13 +301,12 @@ bool BtInfoDialog::onBtnOK()
     }
     if (free < (total / 1024)) { //剩余空间比较 KB
         qDebug() << "Disk capacity is not enough!";
-        MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
-        msg->exec();
+        MessageBox msg;
+        msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
+        msg.exec();
         return false;
     }
-    QString save_path = m_defaultDownloadDir;
-    Settings::getInstance()->setCustomFilePath(save_path);
+    Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
     close();
     accept();
     return true;
@@ -487,9 +486,9 @@ void BtInfoDialog::updateSelectedInfo()
     int allPic = 0;
     int allOther = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString v = m_model->data(m_model->index(i, 0)).toString();
+        QString isCheck = m_model->data(m_model->index(i, 0)).toString();
         QString type = m_model->data(m_model->index(i, 2)).toString();
-        if (v == "1") {
+        if (isCheck == "1") {
             total += m_model->data(m_model->index(i, 5)).toString().toLong();
             if (isVideo(type)) {
                 selectVideoCount++;
@@ -531,9 +530,9 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     QString strPath;
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
-        MessageBox *msg = new MessageBox();
-        msg->setFolderDenied();
-        msg->exec();
+        MessageBox msg;
+        msg.setFolderDenied();
+        msg.exec();
         strPath = m_editDir->directoryUrl().toString();
         QString text = getFileEditText(m_defaultDownloadDir);
         m_editDir->lineEdit()->setText(text);

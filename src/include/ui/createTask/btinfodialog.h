@@ -57,7 +57,7 @@ class BtInfoDialog : public DDialog
     Q_OBJECT
 
 public:
-    explicit BtInfoDialog(QString torrentFile, QString bt_last_save_path);
+    explicit BtInfoDialog(QString torrentFile, QString btLastSavePath);
     ~BtInfoDialog() override;
 
     /**
