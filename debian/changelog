@@ -1,3 +1,13 @@
+downloadmanager (5.2.0.18) stable; urgency=low
+
+ *修改二期六次送测产生的部分bug
+ *52337【5.2.0.17】【设置】自动将低速任务移动至队尾勾选后，正在下载列表的顺序有误
+ *51861【5.2.0.14】【重命名】已完成列表重命名后，点击除列表以外的空白处不能保存名称
+ *47517【5.2.0.4】【正在下载列表】下载完成后，有任务没有删除aria2文件
+ *51569【5.2.0.14】【重新下载】新建重复任务时提示语错误
+ *
+ -- unknown <unknown@uniontech.com>  Wed., 28 October 2020 18:11:16 +0800
+
 downloadmanager (5.2.0.17) stable; urgency=low
 
  *修改二期五次送测产生的部分bug
@@ -10,9 +20,7 @@ downloadmanager (5.2.0.17) stable; urgency=low
  *50905【5.2.0.11】【下载诊断工具】删除aria2.conf文件后，诊断结果错误
  *47517【5.2.0.4】【正在下载列表】下载完成后，有任务没有删除aria2文件
  *51569【5.2.0.14】【重新下载】新建重复任务时提示语错误
-
-*50251	 【5.2.0.10】【设置】高级设置恢复默认未回复下载设置的全速下载
-*
+ *
  -- unknown <unknown@uniontech.com>  Thu., 22 October 2020 15:26:16 +0800
 
 downloadmanager (5.2.0.14) stable; urgency=low
