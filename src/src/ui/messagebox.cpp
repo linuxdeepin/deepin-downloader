@@ -69,13 +69,12 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
 void MessageBox::setRedownload(const QString sameUrl, bool ret)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
-
-    setTitle(tr("Warning"));
-
     if(ret){
+        setTitle(tr("Download Again"));
         addLabel(tr("Do you want to delete the downloaded files and download again?"));
     }else {
-        addLabel(tr("The task already exists."));
+        setTitle(tr("The task already exists."));
+        addLabel(tr("Delete the downloaded files and download again?"));
     }
     addSpacing(10);
     DTextEdit *urlText = new DTextEdit(this);

@@ -15,13 +15,13 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="133"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="325"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="334"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="387"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="416"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="445"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="473"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="523"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="324"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="333"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="415"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="444"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="472"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="522"/>
         <source>%1 files selected, %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -52,8 +52,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="195"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="549"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="669"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="548"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="668"/>
         <source>Available:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -69,19 +69,19 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="243"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="618"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="617"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="245"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="620"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="619"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="246"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="621"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="620"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
@@ -658,139 +658,144 @@ Downloading tasks will be interrupted.</source>
     <name>MessageBox</name>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="42"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="73"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="96"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="95"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="76"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="74"/>
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="78"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="76"/>
         <source>The task already exists.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="88"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="130"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="87"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="129"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="89"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="88"/>
         <source>Redownload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="98"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="97"/>
         <source>Download error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="100"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="73"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="99"/>
         <source>Download Again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="101"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="77"/>
+        <source>Delete the downloaded files and download again?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="100"/>
         <source>Delete Task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="114"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Are you sure you want to delete this download task permanently?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="117"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="116"/>
         <source>Local files will be deleted at the same time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="120"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="119"/>
         <source>Are you sure you want to delete this download task?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="124"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="126"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="123"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="125"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="143"/>
         <source>Delete local files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="131"/>
         <source>Permanently Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="134"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="141"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="140"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="146"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="155"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="154"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="182"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="181"/>
         <source>Please choose your action</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="184"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="183"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="184"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="183"/>
         <source>Minimize to system tray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="185"/>
         <source>Do not ask again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="188"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="251"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="250"/>
         <source>file name can not containts &apos;\&apos; or &apos;/&apos; </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="251"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="309"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="250"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="308"/>
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="305"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="304"/>
         <source>Permission denied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="307"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="306"/>
         <source>Please try another folder.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1108,37 +1113,37 @@ and more resource consumption.</source>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="380"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="388"/>
         <source> &gt; 1 Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="606"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="621"/>
         <source>Download failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="607"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="622"/>
         <source>%1 download failed. Network error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="608"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="623"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="608"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="623"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="614"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="629"/>
         <source>Download complated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="615"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
         <source>%1 download finished.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1146,30 +1151,30 @@ and more resource consumption.</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="389"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="409"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="392"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="412"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="396"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="405"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="416"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="398"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="407"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="418"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="427"/>
         <source>Time finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="400"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="409"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="420"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="429"/>
         <source>Time deleted</source>
         <translation type="unfinished"></translation>
     </message>
