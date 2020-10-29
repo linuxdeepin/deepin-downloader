@@ -301,6 +301,7 @@ void CreateTaskWidget::onFileDialogOpen()
         BtInfoDialog dialog(btFile, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
         if (dialog.exec() == QDialog::Accepted) {
             QMap<QString, QVariant> opt;
+            opt.clear();
             QString infoName;
             QString infoHash;
             dialog.getBtInfo(opt, infoName, infoHash);
