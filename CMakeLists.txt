@@ -29,7 +29,7 @@ set(CMAKE_INSTALL_PREFIX /usr)
 option(DOTEST "option for test" OFF)
 
 # 是否开启单元测试编译
-set(DOTEST OFF)
+set(DOTEST ON)
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
