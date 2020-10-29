@@ -1,0 +1,5 @@
+add_subdirectory(createTask)
+#add_subdirectory(monitor)
+add_subdirectory(mainFrame)
+add_subdirectory(resource)
+add_subdirectory(settings)
