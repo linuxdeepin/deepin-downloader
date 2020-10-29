@@ -8,16 +8,35 @@ fetch_googletest(
     ${PROJECT_BINARY_DIR}/googletest
     )
 
-#ADD_EXECUTABLE(${PROJECT_NAME_TEST} ${SRC_LIST})
-#TARGET_LINK_LIBRARIES(${PROJECT_NAME} libgtest_dll.so)
+#src files
+AUX_SOURCE_DIRECTORY(. SRC_LIST)
+AUX_SOURCE_DIRECTORY(./ MAIN)
+LIST(APPEND SRC_LIST ${MAIN})
+AUX_SOURCE_DIRECTORY(./aria2 ARIA2)
+LIST(APPEND SRC_LIST ${ARIA2})
+AUX_SOURCE_DIRECTORY(./database DATABASE)
+LIST(APPEND SRC_LIST ${DATABASE})
+AUX_SOURCE_DIRECTORY(./log LOG)
+LIST(APPEND SRC_LIST ${LOG})
+AUX_SOURCE_DIRECTORY(./ui UI)
+LIST(APPEND SRC_LIST ${UI})
+AUX_SOURCE_DIRECTORY(./ui UI)
+LIST(APPEND SRC_LIST ${UI})
+AUX_SOURCE_DIRECTORY(./ui/createTask CREATETASK)
+LIST(APPEND SRC_LIST ${CREATETASK})
+AUX_SOURCE_DIRECTORY(./ui/mainFrame MAINFRAME)
+LIST(APPEND SRC_LIST ${MAINFRAME})
+AUX_SOURCE_DIRECTORY(./ui/settings SETTINGS)
+LIST(APPEND SRC_LIST ${SETTINGS})
 
+#aux_source_directory(${PROJECT_SOURCE_DIR}/src/src/database ALLSRC)
 
-add_executable(${PROJECT_NAME_TEST} ${allHeaders} ${allSource} ${allTestSource})
+add_executable(${PROJECT_NAME_TEST} ${SRC_LIST})
 
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main)
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core dlmdatabase)
 
 # 添加 QTest 测试
-add_test(${PROJECT_NAME_TEST} COMMAND ${PROJECT_NAME_TEST})
+add_test(${PROJECT_NAME_TEST} that-test-I-made COMMAND ${PROJECT_NAME_TEST})
 
 
 #------------------------------ 创建'make test'指令---------------------------------------
@@ -56,4 +75,11 @@ add_custom_command(TARGET test
 #'make test'命令依赖与我们的测试程序
 add_dependencies(test ${PROJECT_NAME_TEST})
 
-add_subdirectory(test)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/database)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/ui)
+
+
+
+#target_link_libraries(Qt5::Core)
+
+

@@ -64,8 +64,6 @@ set(CMAKE_AUTOUIC ON)
 
 set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
-# 开启单元测试
-
 
 #应用DTK库
 set(DTK Widget Core Gui Wm)
@@ -101,11 +99,12 @@ LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic
 )
 
+# 开启单元测试
 if(DOTEST)
     # 添加gocv覆盖率文件的输出
     set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
     # 设置测试模块
-    set(Test)
+    set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia Test)
     find_package(Qt5 COMPONENTS ${QT} REQUIRED)
     # 添加子模块test
     add_subdirectory(test)
