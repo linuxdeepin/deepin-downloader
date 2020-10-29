@@ -1,30 +1,29 @@
 #include <iostream>
 #include "gtest/gtest.h"
-#include "/home/bulw/test/downloadmanager/src/include/database/database.h"
+#include "database.h"
 
-class databaseTest : public ::testing::Test {
+class databaseTest : public ::testing::Test
+{
 protected:
-
-
-    databaseTest() {
+    databaseTest()
+    {
     }
 
-    virtual ~databaseTest() {
-
+    virtual ~databaseTest()
+    {
     }
-    virtual void SetUp() {
-
-    }
-
-    virtual void TearDown() {
-
+    virtual void SetUp()
+    {
     }
 
+    virtual void TearDown()
+    {
+    }
 };
 
-TEST_F(databaseTest, getDB) {
+TEST_F(databaseTest, getDB)
+{
     QSqlDatabase q = DataBase::Instance().getDB();
     bool ret = q.open();
     EXPECT_TRUE(ret);
 }
-
