@@ -1,25 +1,24 @@
 #include <iostream>
 #include "gtest/gtest.h"
-#include "/home/bulw/test/downloadmanager/src/include/database/dbinstance.h"
+#include "dbinstance.h"
 
-class dbinstance : public ::testing::Test {
+class dbinstance : public ::testing::Test
+{
 protected:
-
-
-    dbinstance() {
+    dbinstance()
+    {
     }
 
-    virtual ~dbinstance() {
-
+    virtual ~dbinstance()
+    {
     }
-    virtual void SetUp() {
-
-    }
-
-    virtual void TearDown() {
-
+    virtual void SetUp()
+    {
     }
 
+    virtual void TearDown()
+    {
+    }
 };
 
 //TEST_F(dbinstance, addTask) {
@@ -27,7 +26,6 @@ protected:
 //    bool ret = DBInstance::addTask();
 //    EXPECT_TRUE(ret);
 //}
-
 
 //    static bool addTask(TaskInfo &task);
 //    /**
