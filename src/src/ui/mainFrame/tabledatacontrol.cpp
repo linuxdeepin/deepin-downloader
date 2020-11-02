@@ -184,7 +184,7 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
             DBInstance::updateTaskInfoByID(task);
             data->fileName = getTaskInfo.downloadFilename;
         } else {
-            task = TaskInfo(id, gId, 0, "", "", "Unknow", time);
+            task = TaskInfo(id, gId, 0, "", "", "Unknown", time);
             DBInstance::addTask(task);
         }
         data->savePath = getTaskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
