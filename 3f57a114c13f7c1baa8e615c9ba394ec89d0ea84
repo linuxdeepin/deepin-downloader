@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0854de21_bc37f0c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T07:00:03Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "3f57a114c13f7c1baa8e615c9ba394ec89d0ea84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a82a22b_07379675",
         "filename": "src/include/ui/settings/settings.h",
         "patchSetId": 5
