@@ -621,14 +621,16 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             role = TableModel::Time;
         }
         break;
-    }
-    if (Settings::getInstance()->getAutoSortBySpeed()) {
-        role = TableModel::Speed;
+    case 5:
+        if (Downloading == m_Mode) {
+            role = TableModel::Speed;
+        }
+        break;
     }
     double num = -1;
     int hideCount = 0;
     for (int row = 0; row < rowCount(); ++row) {
-        QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, column), role).toString());
+        QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, 0), role).toString());
         if (role == TableModel::Size || role == TableModel::TotalLength) {
             num = formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
@@ -643,7 +645,7 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             }
         }
     }
-    if (Settings::getInstance()->getAutoSortBySpeed()) {
+    if (column == 5) {
         LessThan compare = &itemGreaterThan;
         std::stable_sort(sortable.begin(), sortable.end(), compare);
     } else {
