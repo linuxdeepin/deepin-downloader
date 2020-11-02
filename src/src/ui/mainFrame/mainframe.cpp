@@ -432,6 +432,14 @@ void MainFrame::initConnection()
     connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onIsStartAssociatedBTFile);
     connect(Settings::getInstance(), &Settings::autoDownloadBySpeedChanged,
             this, &MainFrame::onAutoDownloadBySpeed);
+    connect(Settings::getInstance(), &Settings::autoSortBySpeedChanged,
+            this, [=](bool state) {
+                if (state) {
+                    m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
+                } else {
+                    m_DownLoadingTableView->getTableHeader()->setSortIndicator(0, Qt::AscendingOrder);
+                }
+            });
 
     connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::onDownloadNewTorrent, Qt::UniqueConnection);
@@ -592,6 +600,11 @@ void MainFrame::initTabledata()
     }
     m_DownLoadingTableView->getTableModel()->switchDownloadingMode();
     m_DownLoadingTableView->refreshTableView(0);
+    if (Settings::getInstance()->getAutoSortBySpeed()) {
+        m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
+    } else {
+        m_DownLoadingTableView->getTableHeader()->setSortIndicator(0, Qt::AscendingOrder);
+    }
     setTaskNum();
 }
 
@@ -840,7 +853,11 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_NotaskWidget->show();
             m_NotaskTipLabel->show();
             m_NoResultlabel->hide();
-            m_DownLoadingTableView->getTableHeader()->setSortIndicator(3, Qt::AscendingOrder);
+            if (Settings::getInstance()->getAutoSortBySpeed()) {
+                m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
+            } else {
+                m_DownLoadingTableView->getTableHeader()->setSortIndicator(0, Qt::AscendingOrder);
+            }
         }
     } else {
         if (obj != nullptr) {
