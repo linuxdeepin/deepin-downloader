@@ -28,9 +28,6 @@ set(CMAKE_INSTALL_PREFIX /usr)
 
 option(DOTEST "option for test" OFF)
 
-# 是否开启单元测试编译
-set(DOTEST OFF)
-
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
     message("release")
@@ -62,11 +59,11 @@ set(CMAKE_AUTORCC ON)
 #打开全局uic
 set(CMAKE_AUTOUIC ON)
 
-set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia)
+set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 #应用DTK库
-set(DTK Widget Core Gui Wm)
+set(DTK Widget Core Gui)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
 #加载子模块

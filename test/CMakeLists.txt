@@ -33,7 +33,7 @@ LIST(APPEND SRC_LIST ${SETTINGS})
 
 add_executable(${PROJECT_NAME_TEST} ${SRC_LIST})
 
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core dlmdatabase)
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core dlmdatabase dlmaria2 dlmcontrolui dlmlog)
 
 # 添加 QTest 测试
 add_test(${PROJECT_NAME_TEST} that-test-I-made COMMAND ${PROJECT_NAME_TEST})
@@ -76,7 +76,9 @@ add_custom_command(TARGET test
 add_dependencies(test ${PROJECT_NAME_TEST})
 
 include_directories(${PROJECT_SOURCE_DIR}/src/include/database)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/aria2)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/log)
 
 
 
