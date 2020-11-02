@@ -5,8 +5,8 @@ downloadmanager (5.2.0.18) stable; urgency=low
  *51861【5.2.0.14】【重命名】已完成列表重命名后，点击除列表以外的空白处不能保存名称
  *47517【5.2.0.4】【正在下载列表】下载完成后，有任务没有删除aria2文件
  *51569【5.2.0.14】【重新下载】新建重复任务时提示语错误
- *
- -- unknown <unknown@uniontech.com>  Wed., 28 October 2020 18:11:16 +0800
+ 
+ -- unknown <unknown@uniontech.com>  Wed, 28 Oct 2020 18:11:16 +0800
 
 downloadmanager (5.2.0.17) stable; urgency=low
 
@@ -20,8 +20,8 @@ downloadmanager (5.2.0.17) stable; urgency=low
  *50905【5.2.0.11】【下载诊断工具】删除aria2.conf文件后，诊断结果错误
  *47517【5.2.0.4】【正在下载列表】下载完成后，有任务没有删除aria2文件
  *51569【5.2.0.14】【重新下载】新建重复任务时提示语错误
- *
- -- unknown <unknown@uniontech.com>  Thu., 22 October 2020 15:26:16 +0800
+ 
+ -- unknown <unknown@uniontech.com>  Thu, 22 Oct 2020 15:26:16 +0800
 
 downloadmanager (5.2.0.14) stable; urgency=low
 
@@ -46,8 +46,8 @@ downloadmanager (5.2.0.14) stable; urgency=low
 *45210	 【下载器】【5.1.0.20】正在下载列表与已完成列表全选任务后，右键彻底删除，出现弹框后全选框未勾选 
 *39080	 【5.1.0.3】【已完成列表】已完成列表右键重命名时，未保存修改后的名称
 *50251	 【5.2.0.10】【设置】高级设置恢复默认未回复下载设置的全速下载
-*
- -- unknown <unknown@uniontech.com>  Fri., 16 October 2020 15:26:16 +0800
+
+ -- unknown <unknown@uniontech.com>  Fri, 16 Oct 2020 15:26:16 +0800
 
 downloadmanager (5.2.0.11) stable; urgency=low
 
@@ -67,8 +67,7 @@ downloadmanager (5.2.0.11) stable; urgency=low
  *50596 【5.2.0.10】【创建下载】在下载完成、回收站界面创建任务后，回到正在下载界面任务没有下载
  *50571 【5.2.0.10】【ftp下载】ftp下载链接不能解析
 
-
- -- unknown <unknown@uniontech.com>  Mon., 12 October 2020 15:26:16 +0800
+ -- unknown <unknown@uniontech.com>  Mon, 12 Oct 2020 15:26:16 +0800
 
 
 downloadmanager (5.2.0.10) stable; urgency=low
@@ -93,9 +92,7 @@ downloadmanager (5.2.0.10) stable; urgency=low
  *49717	【5.2.0.9】下载列表点击确认后可以一直点击确认按钮
  *48775	【5.2.0.6】【剪切板识别】剪切板复制内容重启下载器后，再次弹出新建下载任务框
 
-
- -- unknown <unknown@uniontech.com>  Tue., 29 September 2020 15:26:16 +0800
-
+ -- unknown <unknown@uniontech.com>  Tue, 29 Sep 2020 15:26:16 +0800
 
 
 downloadmanager (5.2.0.9) stable; urgency=low
@@ -116,9 +113,7 @@ downloadmanager (5.2.0.9) stable; urgency=low
  *49639【5.2.0.8】【下载完成后】下载完成后关机再次查看列表还有任务
  *49640【5.2.0.8】【下载完成后】设置下载完成后休眠，下载完成后下载器退出
 
-
- -- unknown <unknown@uniontech.com>  Sat., 26 September 2020 17:52:16 +0800
-
+ -- unknown <unknown@uniontech.com>  Sat, 26 Sep 2020 17:52:16 +0800
 
 downloadmanager (5.2.0.7) stable; urgency=low
 
@@ -140,14 +135,13 @@ downloadmanager (5.2.0.7) stable; urgency=low
  *45696【5.2.0.1】 【磁力链下载】磁力链接正常下载时，下载速度也为0
  *48616 【5.2.0.5-1】【创建下载】创建任务时解析一个下载链接，不能创建下载
 
- -- unknown <unknown@uniontech.com>  Wed., 23 September 2020 09:52:16 +0800
+ -- unknown <unknown@uniontech.com>  Wed, 23 Sep 2020 09:52:16 +0800
 
 downloadmanager (5.2.0.6) stable; urgency=low
 
  *修改包名。
 
- -- unknown <unknown@uniontech.com>  Fri., 18 September 2020 14:52:16 +0800
-
+ -- unknown <unknown@uniontech.com>  Fri, 18 Sep 2020 14:52:16 +0800
 
 downloadmanager (5.2.0.5) stable; urgency=low
 
@@ -166,7 +160,7 @@ downloadmanager (5.2.0.5) stable; urgency=low
  *45875 【5.2.0.1】【已完成列表】重命名超长字符后未做校验，迅雷有做
  *45603 【5.2.0.1】【正在下载列表】【解析列表】创建任务时解析错误磁力链下载链接
 
- -- unknown <unknown@uniontech.com>  Thu., 17 September 2020 15:52:16 +0800
+ -- unknown <unknown@uniontech.com>  Thu, 17 Sep 2020 15:52:16 +0800
 
 downloadmanager (5.2.0.2) stable; urgency=low
 
@@ -202,12 +196,11 @@ downloadmanager (5.2.0.2) stable; urgency=low
  *46039 【5.2.0.1】【设置】【优先下载】优先下载小于100MB的任务功能失效
  *45681 【5.2.0.1】退出下载器提示框选择取消或x按钮后下载器退出到托盘
 
-
- -- unknown <unknown@uniontech.com>  Wed., 9 September 2020 10:52:16 +0800
+ -- unknown <unknown@uniontech.com>  Wed, 9 Sep 2020 10:52:16 +0800
 
 
 downloadmanager (5.2.0.1) stable; urgency=low
 
  * 完成二期所有任务,
 
- -- unknown <unknown@uniontech.com>  Tues., 31 August 2020 10:52:16 +0800
+ -- unknown <unknown@uniontech.com>  Tues, 31 Aug 2020 10:52:16 +0800
