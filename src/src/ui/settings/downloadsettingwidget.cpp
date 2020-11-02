@@ -192,6 +192,10 @@ void DownloadSettingWidget::onTimeChanged(const QTime &time)
 {
     QTimeEdit *timeEdit = qobject_cast<QTimeEdit *>(sender());
 
+    if (!m_speedLimitDownloadButton->isChecked()) {
+        return;
+    }
+
     if (m_startTimeEdit == timeEdit) {
         QString text = QString("speedlimit;%1;%2;%3;%4")
                            .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
@@ -214,6 +218,10 @@ void DownloadSettingWidget::onTimeChanged(const QTime &time)
 void DownloadSettingWidget::onTextChanged(QString text)
 {
     SettingInfoInputWidget *settingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
+
+    if (!m_speedLimitDownloadButton->isChecked()) {
+        return;
+    }
 
     if (m_maxDownloadSpeedLimit == settingInfoInputWidget) {
         if (text.toInt() < 100 || text.toInt() > 102400) {
