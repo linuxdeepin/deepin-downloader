@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "d5a0448c_ce4be129",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T06:56:55Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "a5cccf434843d2aed73070b5d873b63c5acd3ddd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21acf02d_2dbc7454",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T06:56:55Z",
+      "side": 1,
+      "message": "Bug后面必须存在一个\u0027:\u0027",
+      "revId": "a5cccf434843d2aed73070b5d873b63c5acd3ddd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c534ea6c_cd6535e1",
         "filename": "src/include/ui/settings/settings.h",
         "patchSetId": 1
