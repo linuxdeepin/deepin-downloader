@@ -362,6 +362,7 @@ signals:
     void disckCacheChanged(int number);
     void startAssociatedBTFileChanged(bool state);
     void autoDownloadBySpeedChanged(bool state);
+    void autoSortBySpeedChanged(bool state);
 
 public slots:
 
