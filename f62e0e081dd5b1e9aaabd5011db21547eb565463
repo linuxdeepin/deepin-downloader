@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f83f49d_c0e04e07",
+        "filename": "src/src/ui/settings/downloadsettingwidget.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T08:56:38Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 6; 注释率: 0.0%",
+      "revId": "f62e0e081dd5b1e9aaabd5011db21547eb565463",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3612cbd4_f0da8780",
+        "filename": "src/src/ui/settings/settings.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T08:56:38Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 3; 注释率: 66.7%",
+      "revId": "f62e0e081dd5b1e9aaabd5011db21547eb565463",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
