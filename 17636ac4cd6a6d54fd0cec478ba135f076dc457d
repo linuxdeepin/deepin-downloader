@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d1303ee_d4a1e3d4",
+        "filename": "src/include/aria2/aria2rpcinterface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T03:24:20Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 6; 注释率: 16.7%",
+      "revId": "17636ac4cd6a6d54fd0cec478ba135f076dc457d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff7aa10e_25921743",
+        "filename": "src/src/aria2/aria2rpcinterface.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T03:24:20Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 8; 注释率: 0.0%",
+      "revId": "17636ac4cd6a6d54fd0cec478ba135f076dc457d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1f583e0_a8a0819d",
+        "filename": "test/aria2/ut_aria2rpcinterface.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T03:24:20Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 48; 注释率: 0.0%",
+      "revId": "17636ac4cd6a6d54fd0cec478ba135f076dc457d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
