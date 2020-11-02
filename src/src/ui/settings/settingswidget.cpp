@@ -68,9 +68,18 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
             } else {
                 alertControl->hideAlertMessage();
             }
-            //            if (text.isEmpty()) {
-            //                m_Edit->lineEdit()->setText("100");
-            //            }
+            if (text.contains('+')) {
+                QString str = text;
+                int pos = m_Edit->lineEdit()->cursorPosition();
+                m_Edit->lineEdit()->setText(str.remove('+'));
+                m_Edit->lineEdit()->setCursorPosition(pos);
+            }
+            if (text.size() > 0 && text.at(0) == '0') {
+                QString str = text;
+                int pos = m_Edit->lineEdit()->cursorPosition();
+                m_Edit->lineEdit()->setText(str.remove(0, 1));
+                m_Edit->lineEdit()->setCursorPosition(pos);
+            }
         });
 
         connect(m_Edit, &DLineEdit::editingFinished, this, [=]() {
