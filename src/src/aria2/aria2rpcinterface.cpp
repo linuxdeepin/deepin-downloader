@@ -126,7 +126,7 @@ bool Aria2RPCInterface::checkAria2cFile()
     return file.exists();
 }
 
-void Aria2RPCInterface::Aria2RPCInterface::init()
+bool Aria2RPCInterface::Aria2RPCInterface::init()
 {
     //定义配置文件路径
     QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
@@ -144,6 +144,7 @@ void Aria2RPCInterface::Aria2RPCInterface::init()
     setConfigFilePath(m_aria2configPath);
     bool rs = startUp();
     qDebug() << "Startup aria2:" << QString::number(rs);
+    return rs;
 }
 
 bool Aria2RPCInterface::checkAria2cProc()
@@ -207,6 +208,9 @@ QString Aria2RPCInterface::getConfigFilePath() const
 
 bool Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString id)
 {
+    if (uri.isEmpty() || opt.isEmpty() || id.isEmpty()) {
+        return false;
+    }
     uri = processThunderUri(uri); //处理迅雷链接
     QJsonArray ja, inner;
     inner.append(uri); //可支持多个URI
@@ -261,7 +265,9 @@ bool Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> op
 QString Aria2RPCInterface::fileToBase64(QString filePath)
 {
     QFile file(filePath);
-    file.open(QIODevice::ReadOnly);
+    if (!file.open(QIODevice::ReadOnly)) {
+        return QString();
+    }
     QByteArray ba = file.readAll();
     QString b64Str = ba.toBase64();
     return b64Str;
