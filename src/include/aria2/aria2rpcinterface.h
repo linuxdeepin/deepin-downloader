@@ -48,15 +48,10 @@ public:
 
 public:
     /**
-     *@brief startUp 启动aria2c进程
-     *@return 启动成功true  启动失败 false
-     */
-    bool startUp();
-    /**
      *@brief init 初始化
      *@return
      */
-    void init(); //初始化RPC服务
+    bool init(); //初始化RPC服务
 
     /**
      * @brief addUri 添加下载 HTTP(S)/FTP/BitTorrent Magnet 链接 ，
@@ -385,6 +380,11 @@ public:
     bool forceShutdown(QString id = "");
 
 private:
+    /**
+     *@brief startUp 启动aria2c进程
+     *@return 启动成功true  启动失败 false
+     */
+    bool startUp();
     /**
      *@brief 调用RPC
      *@param method 调用的方法 params  该方法对应的参数   id
