@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "394bea22_6decd42b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T06:59:27Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "3d1c57c8db6d25cabe8c9c27e1091d1759f42306",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7dff1f9_4aaf56b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T06:59:27Z",
+      "side": 1,
+      "message": "bug大小写错误",
+      "revId": "3d1c57c8db6d25cabe8c9c27e1091d1759f42306",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23ad0eb7_3bb1d5f8",
         "filename": "src/include/ui/settings/settings.h",
         "patchSetId": 4
