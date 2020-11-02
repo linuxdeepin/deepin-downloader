@@ -152,6 +152,14 @@ Settings::Settings(QObject *parent)
         }
     });
 
+    //按下载速度排序
+    auto atoSortBySpeed = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoSortBySpeed");
+    connect(atoSortBySpeed, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            emit autoSortBySpeedChanged(value.toBool());
+        }
+    });
+
     // 下载磁盘缓存
     auto diskCacheNum = m_settings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
     connect(diskCacheNum, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
@@ -251,7 +259,7 @@ Settings::Settings(QObject *parent)
     auto autoStartUnfinishedTaskName = tr("Resume downloading on startup"); // 启动后自动开始未完成的任务
     auto downloadDirectoryName = tr("Download Directory"); // 下载目录
     auto oneClickDownloadName = tr("1-Click Download"); // 一键下载
-    auto createTasksDirectly = tr("Create tasks directly");  //一键创建新任务
+    auto createTasksDirectly = tr("Create tasks directly"); //一键创建新任务
     auto closeMainWindowName = tr("Close window"); // 关闭主界面
     auto minimizeToSystemTrayName = tr("Minimize to System Tray"); // 最小化到托盘
     auto exitName = tr("Exit"); // 退出下载器
@@ -1077,11 +1085,10 @@ void Settings::setIsShowTip(bool b)
     m_iniFile->sync();
 }
 
-
 bool Settings::getIsClipboradStart(QString str)
 {
     QString clipboradValue = m_iniFile->value("Clipborad/data").toString();
-    if(clipboradValue != str){
+    if (clipboradValue != str) {
         setIsClipboradStart(str);
     }
     return (str == clipboradValue) ? false : true;
@@ -1091,5 +1098,4 @@ void Settings::setIsClipboradStart(QString str)
 {
     m_iniFile->setValue("Clipborad/data", str);
     m_iniFile->sync();
-
 }
