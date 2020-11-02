@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "daa8ac68_fac80f9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-02T03:19:35Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "86a7c71c1ee8dad4802424994f367adc67b8085e",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d886910_96bd112b",
         "filename": "src/include/aria2/aria2rpcinterface.h",
         "patchSetId": 1
