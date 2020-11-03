@@ -69,10 +69,10 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
 void MessageBox::setRedownload(const QString sameUrl, bool ret)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
-    if(ret){
+    if (ret) {
         setTitle(tr("Download Again"));
         addLabel(tr("Do you want to delete the downloaded files and download again?"));
-    }else {
+    } else {
         setTitle(tr("The task already exists."));
         addLabel(tr("Delete the downloaded files and download again?"));
     }
@@ -247,7 +247,7 @@ void MessageBox::onRenameSureBtnClicked()
     QString newname = m_NewnameLineedit->text();
     if (newname.contains("\\") || newname.contains("/")) {
         MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("file name can not containts '\\' or '/' "), tr("sure"));
+        msg->setWarings(tr("file name can not contains '\\' or '/' "), tr("sure"));
         msg->exec();
         return;
     }
@@ -311,4 +311,3 @@ void MessageBox::setFolderDenied()
                 close();
             });
 }
-
