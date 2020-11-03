@@ -27,5 +27,5 @@ add_library(dlmaria2 SHARED
 
 target_link_libraries(dlmaria2 dlmlog Qt5::Core)
 
-install(TARGETS dlmaria2 DESTINATION lib)
+install(TARGETS dlmaria2 DESTINATION usr/lib)
 

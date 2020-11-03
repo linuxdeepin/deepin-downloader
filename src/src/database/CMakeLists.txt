@@ -24,4 +24,4 @@ add_library(dlmdatabase SHARED
 
 target_link_libraries(dlmdatabase dlmlog Qt5::Core Qt5::Widgets Qt5::Sql)
 
-install(TARGETS dlmdatabase DESTINATION lib)
+install(TARGETS dlmdatabase DESTINATION usr/lib)
