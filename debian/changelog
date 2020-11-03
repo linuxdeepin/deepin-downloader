@@ -1,4 +1,4 @@
-downloadmanager (5.2.0.19) stable; urgency=low
+downloadmanager (5.2.0.20) stable; urgency=low
 
   * 修改二期七次送测产生的部分bug
   * 52849【5.2.0.18】【设置】自动将低速任务移动至队尾勾选后，下载列表已完成列表点击排序按钮不能排序

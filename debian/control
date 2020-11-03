@@ -23,7 +23,6 @@ Build-Depends:
  qtmultimedia5-dev,
  libdtkgui-dev,
  libdtkwm2,
- libc6,
  libdtkwm-dev,
  libxext-dev,
  libglib2.0-dev,
