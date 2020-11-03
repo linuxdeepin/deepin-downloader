@@ -27,14 +27,15 @@ TEST_F(ut_aria2Test, init)
     EXPECT_TRUE(ret);
 }
 
-//TEST_F(ut_aria2Test, addUri)
-//{
-//    QString uri;
-//    QMap<QString, QVariant> opt;
-//    QString id;
-//    bool ret = Aria2RPCInterface::instance()->addUri(uri, opt, id);
-//    EXPECT_TRUE(ret);
-//}
+TEST_F(ut_aria2Test, addUri)
+{
+    QString uri = "test";
+    QMap<QString, QVariant> opt;
+    opt.insert("test", "test");
+    QString id = "test";
+    bool ret = Aria2RPCInterface::instance()->addUri(uri, opt, id);
+    EXPECT_TRUE(ret);
+}
 
 TEST_F(ut_aria2Test, addTorrent)
 {

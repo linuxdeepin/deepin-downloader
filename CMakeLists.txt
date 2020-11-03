@@ -66,9 +66,7 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 set(DTK Widget Core Gui)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
-#加载子模块
-add_subdirectory(src)
-add_subdirectory(translations)
+
 
 #安装
 # qm files
@@ -90,12 +88,6 @@ install(FILES ${CF_FILES} DESTINATION share/downloader/config)
 install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
 install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
-install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
-RUNTIME DESTINATION bin
-LIBRARY DESTINATION usr/lib
-ARCHIVE DESTINATION libstatic
-)
-
 # 开启单元测试
 if(DOTEST)
     # 添加gocv覆盖率文件的输出
@@ -105,4 +97,13 @@ if(DOTEST)
     find_package(Qt5 COMPONENTS ${QT} REQUIRED)
     # 添加子模块test
     add_subdirectory(test)
+else()
+    #加载子模块
+    add_subdirectory(src)
+    add_subdirectory(translations)
+    install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION usr/lib
+    ARCHIVE DESTINATION libstatic
+    )
 endif()
