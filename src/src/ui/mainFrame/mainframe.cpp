@@ -437,7 +437,7 @@ void MainFrame::initConnection()
                 if (state) {
                     m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
                 } else {
-                    m_DownLoadingTableView->getTableHeader()->setSortIndicator(0, Qt::AscendingOrder);
+                    m_DownLoadingTableView->getTableHeader()->setSortIndicator(6, Qt::AscendingOrder);
                 }
             });
 
@@ -603,7 +603,7 @@ void MainFrame::initTabledata()
     if (Settings::getInstance()->getAutoSortBySpeed()) {
         m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
     } else {
-        m_DownLoadingTableView->getTableHeader()->setSortIndicator(0, Qt::AscendingOrder);
+        m_DownLoadingTableView->getTableHeader()->setSortIndicator(6, Qt::AscendingOrder);
     }
     setTaskNum();
 }
@@ -856,7 +856,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             if (Settings::getInstance()->getAutoSortBySpeed()) {
                 m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
             } else {
-                m_DownLoadingTableView->getTableHeader()->setSortIndicator(0, Qt::AscendingOrder);
+                m_DownLoadingTableView->getTableHeader()->setSortIndicator(6, Qt::AscendingOrder);
             }
         }
     } else {

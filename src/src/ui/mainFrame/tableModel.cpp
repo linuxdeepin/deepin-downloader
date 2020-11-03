@@ -626,6 +626,11 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
             role = TableModel::Speed;
         }
         break;
+    case 6:
+        if (Downloading == m_Mode) {
+            role = TableModel::createTime;
+        }
+        break;
     }
     double num = -1;
     int hideCount = 0;
