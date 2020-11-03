@@ -1,5 +1,10 @@
 include_directories(${PROJECT_SOURCE_DIR}/src/include/log)
 
+link_directories(${CMAKE_BINARY_DIR}/lib)
+
+#预定义宏，主要用于dll导出
+ADD_DEFINITIONS(-DATABASE_LIB )
+
 add_library(dlmlog SHARED
     log.cpp
     )
