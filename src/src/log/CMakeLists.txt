@@ -1,5 +1,7 @@
 include_directories(${PROJECT_SOURCE_DIR}/src/include/log)
 
+link_directories(${CMAKE_BINARY_DIR}/lib)
+
 add_library(dlmlog SHARED
     log.cpp
     )
