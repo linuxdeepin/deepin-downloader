@@ -31,9 +31,27 @@ LIST(APPEND SRC_LIST ${SETTINGS})
 
 #aux_source_directory(${PROJECT_SOURCE_DIR}/src/src/database ALLSRC)
 
-add_executable(${PROJECT_NAME_TEST} ${SRC_LIST})
+file(GLOB ALL_HEADERS "../src/include/ui/*.h"
+                      "../src/include/aria2/*.h"
+                      "../src/include/database/*.h"
+                      "../src/include/log/*.h"
+                      "../src/include/ui/createTask/*.h"
+                      "../src/include/ui/mainFrame/*.h"
+                      "../src/include/ui/settings/*.h"
+                      )
+file(GLOB ALL_SOURCES "../src/src/ui/*.cpp"
+                      "../src/src/aria2/*.cpp"
+                      "../src/src/database/*.cpp"
+                      "../src/src/log/*.cpp"
+                      "../src/src/ui/createTask/*.cpp"
+                      "../src/src/ui/mainFrame/*.cpp"
+                      "../src/src/ui/settings/*.cpp")
 
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core dlmdatabase dlmaria2 dlmcontrolui dlmlog)
+add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES})
+
+
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus)
+    #dlmdatabase dlmaria2 dlmcontrolui dlmlog
 
 # 添加 QTest 测试
 add_test(${PROJECT_NAME_TEST} that-test-I-made COMMAND ${PROJECT_NAME_TEST})
@@ -78,7 +96,11 @@ add_dependencies(test ${PROJECT_NAME_TEST})
 include_directories(${PROJECT_SOURCE_DIR}/src/include/database)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/aria2)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/settings)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/createTask)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/log)
+include_directories(${PROJECT_BINARY_DIR})
 
 
 
