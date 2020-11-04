@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloader)
-set(PROJECT_VERSION "5.2.0.20")
+set(PROJECT_VERSION "5.2.0.21")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
@@ -38,7 +38,7 @@ endif ()
 
 #库 和 执行文件 的设置输出的路径
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/usr/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib)
@@ -98,12 +98,13 @@ if(DOTEST)
     # 添加子模块test
     add_subdirectory(test)
 else()
+    message("DO Not TEST")
     #加载子模块
     add_subdirectory(src)
     add_subdirectory(translations)
     install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
     RUNTIME DESTINATION bin
-    LIBRARY DESTINATION usr/lib
+    LIBRARY DESTINATION lib
     ARCHIVE DESTINATION libstatic
     )
 endif()

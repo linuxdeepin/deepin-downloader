@@ -3,7 +3,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src/include/database
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
 #预定义宏，主要用于dll导出
-ADD_DEFINITIONS(-DATABASE_LIB )
+ADD_DEFINITIONS(-DLM_DATABASE_LIB )
 
 #需要moc(加Q_OBJECT)的头文件
 set (DWM_DATABASE_HEADERS
@@ -24,4 +24,4 @@ add_library(dlmdatabase SHARED
 
 target_link_libraries(dlmdatabase dlmlog Qt5::Core Qt5::Widgets Qt5::Sql)
 
-install(TARGETS dlmdatabase DESTINATION usr/lib)
+#install(TARGETS dlmdatabase DESTINATION lib)

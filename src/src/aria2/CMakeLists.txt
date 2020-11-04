@@ -5,7 +5,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src/include/aria2
 message(${CMAKE_BINARY_DIR})
 message(aria2 123)
 link_directories(${CMAKE_BINARY_DIR}/lib)
-
+#SET_TARGET_PROPERTIES(dlmaria2 PROPERTIES VERSION PROJECT_VERSION SOVERSION 1)
 #预定义宏，主要用于共享库导出
 #ADD_DEFINITIONS(-DARIA_LIB )
 
@@ -27,5 +27,5 @@ add_library(dlmaria2 SHARED
 
 target_link_libraries(dlmaria2 dlmlog Qt5::Core)
 
-install(TARGETS dlmaria2 DESTINATION usr/lib)
+#install(TARGETS dlmaria2 DESTINATION lib)
 
