@@ -1,6 +1,7 @@
 #include <iostream>
 #include "gtest/gtest.h"
-//#include "dbinstance.h"
+#include "gmock/gmock.h"
+#include "dbinstance.h"
 
 class ut_dbinstance : public ::testing::Test
 {
@@ -14,144 +15,180 @@ protected:
     }
     virtual void SetUp()
     {
+//        sql.addBindValue(task.taskId);
+//        sql.addBindValue(task.gid);
+//        sql.addBindValue(task.gidIndex);
+//        sql.addBindValue(task.url);
+//        sql.addBindValue(task.downloadPath);
+//        sql.addBindValue(task.downloadFilename);
+//        sql.addBindValue(task.createTime);
+        m_taskInfo.gid = "4261f7807e5d90d8";
+        m_taskInfo.url = "http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.1.tar.gz";
+        m_taskInfo.taskId = "78d8db55-10c2-4200-b097-253120d71269";
+        m_taskInfo.gidIndex = 0;
+        m_taskInfo.downloadPath = "/home/bulw";
+        m_taskInfo.createTime = QDateTime::currentDateTime();
+
+        m_btTasknInfo.taskId = "78d8db55-10c2-4200-b097-253120d71269";
+        m_btTasknInfo.infoHash = "abdedf2a18f07c7501cf52e10b8d1b938adbb8bb";
+        m_btTasknInfo.seedFile = "/home/bulw/Desktop/种子/123@.torrent";
+        m_btTasknInfo.selectedNum = "1";
+        m_btTasknInfo.downloadType = "torrent";
     }
 
     virtual void TearDown()
     {
+
     }
+    TaskInfo m_taskInfo;
+    BtTaskInfo m_btTasknInfo;
 };
 
-//TEST_F(dbinstance, addTask) {
-//    QSqlDatabase q = DataBase::Instance().getDB();
-//    bool ret = DBInstance::addTask();
-//    EXPECT_TRUE(ret);
-//}
+TEST_F(ut_dbinstance, addTask) {
+    TaskInfo taskInfo;
+    bool ret = DBInstance::addTask(taskInfo);
+  //  EXPECT_TRUE(ret) << "空数据插入";
 
-//    static bool addTask(TaskInfo &task);
-//    /**
-//     * @brief 删除任务
-//     * @param id 根据id删除数据库中任务
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool delTask(QString id);
-//    /**
-//     * @brief 删除数据库中所有任务
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool delAllTask();
-//    /**
-//     * @brief 更新任务
-//     * @param task 传入任务，根据类中id更新数据库中任务信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool updateTaskInfoByID(TaskInfo &task);
+    ret = DBInstance::addTask(m_taskInfo);
+    EXPECT_TRUE(ret) << "有数据插入";
+}
 
-//    /**
-//     * @brief 更新所有任务
-//     * @param taskList 传入任务，根据类中id更新数据库中任务信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool updateAllTaskInfo(QList<TaskInfo> &taskList);
-//    /**
-//     * @brief 更新任务
-//     * @param id 需要查询任务id
-//     * @param task 传出根据id所得任务信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool getTaskByID(QString id, TaskInfo &task);
-//    /**
-//     * @brief 获取所有任务
-//     * @param taskList 传出QList<Task>任务
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool getAllTask(QList<TaskInfo> &taskList); //得到所有任务
-//    /**
-//     * @brief 判断Url是否存在
-//     * @param url 需要查询url
-//     * @param ret 传出参数，真为存在，假为不存在
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool isExistUrl(QString url, bool &ret);
+TEST_F(ut_dbinstance, delTask) {
+    bool ret = DBInstance::delTask(" zx");
+    EXPECT_TRUE(ret) << "空数据删除";
 
-//    /**
-//     * @brief 根据url查询任务数据
-//     * @param url 需要查询url
-//     * @param ret 传出参数，真为存在，假为不存在
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool getTaskForUrl(QString url, TaskInfo &task);
-//    /**
-//     * @brief 判断Url是否存在
-//     * @param hash 需要查询hash
-//     * @param ret 传出参数，真为存在，假为不存在
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool isExistBtInHash(QString hash, bool &ret);
-//    /**
-//     * @brief 添加任务状态
-//     * @param task 任务状态
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool addTaskStatus(TaskStatus &task); //添加TaskStatus任务状态
-//    /**
-//     * @brief 更新任务状态
-//     * @param @param task 传入任务状态，根据类中id更新数据库中任务状态信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool updateTaskStatusById(TaskStatus &task); //根据id更新TaskStatus任务
+    ret = DBInstance::delTask(m_taskInfo.taskId);
+    EXPECT_TRUE(ret) << "有数据插入";
+}
 
-//    /**
-//     * @brief 更新所有任务状态
-//     * @param @param taskList 传入任务状态，根据类中id更新数据库中任务状态信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool updateAllTaskStatus(QList<TaskStatus> &taskList);
+TEST_F(ut_dbinstance, updateTaskInfoByID) {
+    DBInstance::addTask(m_taskInfo);
+    TaskInfo taskInfo;
+    bool ret = DBInstance::updateTaskInfoByID(taskInfo);
+    EXPECT_TRUE(ret) << "更新一条不存在任务";
 
-//    /**
-//     * @brief 获取任务状态
-//     * @param id 需要查询任务状态id
-//     * @param task 传出根据id所得任务状态信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool getTaskStatusById(QString id, TaskStatus &task); //通过id得到任务状态信息
+     m_taskInfo.createTime = QDateTime::currentDateTime();
+    ret = DBInstance::updateTaskInfoByID(m_taskInfo);
+    EXPECT_TRUE(ret) << "更新一条存在任务";
+}
 
-//    /**
-//     * @brief 获取所有任务状态
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool getAllTaskStatus(QList<TaskStatus> &taskList); //获取所有任务状态信息
 
-//    /**
-//     * @brief 添加url
-//     * @param url url信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool addBtTask(BtTaskInfo &url); //添加一条bt信息
-//    /**
-//     * @brief 更新任务
-//     * @param id 需要查询任务id
-//     * @param task 传出根据id所得任务信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool updateBtTaskById(BtTaskInfo &url); //根据id更新bt信息
-//    /**
-//     * @brief 获取bt信息
-//     * @param taskId 任务id
-//     * @param task 传出根据id所得bt信息
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool getBtTaskById(QString taskId, BtTaskInfo &url); //根据id得到bt信息
-//    /**
-//     * @brief 获取所有url
-//     * @param urlList 传出所有任务
-//     * @return true 执行成功 false执行失败
-//     */
-//    static bool getAllBtTask(QList<BtTaskInfo> &urlList); //得到所有bt信息
 
-//    /**
-//     * @brief 获取重复名称个数
-//     * @param filename 文件名称
-//     * @return 重复名称个数
-//     */
-//    static int getSameNameCount(QString filename, QString type);
-//};
+TEST_F(ut_dbinstance, updateAllTaskInfo) {
+    DBInstance::addTask(m_taskInfo);
+    TaskInfo taskInfo;
+    QList<TaskInfo> taskInfoList;
+    taskInfoList.append(taskInfo);
+    bool ret = DBInstance::updateAllTaskInfo(taskInfoList);
+    EXPECT_TRUE(ret) << "更新所有不存在任务";
+
+    m_taskInfo.createTime = QDateTime::currentDateTime();
+    taskInfoList.clear();
+    taskInfoList.append(m_taskInfo);
+    ret = DBInstance::updateAllTaskInfo(taskInfoList);
+    EXPECT_TRUE(ret) << "更新所有存在任务";
+}
+
+TEST_F(ut_dbinstance, getTaskByID) {
+    TaskInfo taskInfo;
+    bool ret = DBInstance::getTaskByID("78d8db55-10c2-4200-b097-253120d7", taskInfo);
+    EXPECT_TRUE(ret) << "获取一条ID不存在任务信息";
+    ret = DBInstance::getTaskByID("78d8db55-10c2-4200-b097-253120d71269", taskInfo);
+    EXPECT_TRUE(ret) << "获取一条ID存在任务信息";
+}
+
+TEST_F(ut_dbinstance, getAllTask) {
+    QList<TaskInfo> taskList;
+    bool ret = DBInstance::getAllTask(taskList);
+    EXPECT_TRUE(ret) << "获取所有ID存在任务信息";
+}
+
+TEST_F(ut_dbinstance, isExistUrl) {
+    bool isExit;
+    bool ret = DBInstance::isExistUrl(m_taskInfo.url,isExit);
+    EXPECT_TRUE(ret) << "判断Url是否存在";
+}
+
+TEST_F(ut_dbinstance, getTaskForUrl) {
+    TaskInfo task;
+    bool ret = DBInstance::getTaskForUrl(m_taskInfo.url,task);
+    EXPECT_TRUE(ret) << "根据url查询任务数据";
+}
+
+TEST_F(ut_dbinstance, isExistBtInHash) {
+    bool isExis;
+    bool ret = DBInstance::isExistBtInHash("1111",isExis);
+    EXPECT_TRUE(ret) << "通过hash判断Url是否存在";
+}
+
+TEST_F(ut_dbinstance, addTaskStatus) {
+    TaskStatus taskStatus;
+    taskStatus.taskId = m_taskInfo.taskId;
+    bool ret = DBInstance::addTaskStatus(taskStatus);
+    EXPECT_TRUE(ret) << "添加任务状态";
+}
+
+TEST_F(ut_dbinstance, updateTaskStatusById) {
+    TaskStatus taskStatus;
+    taskStatus.taskId = m_taskInfo.taskId;
+    taskStatus.finishTime = QDateTime::currentDateTime();
+    bool ret = DBInstance::updateTaskStatusById(taskStatus);
+    EXPECT_TRUE(ret) << "更新任务状态";
+}
+
+TEST_F(ut_dbinstance, updateAllTaskStatus) {
+    TaskStatus taskStatus;
+    taskStatus.taskId = m_taskInfo.taskId;
+    taskStatus.finishTime = QDateTime::currentDateTime();
+    QList<TaskStatus> taskStatusList;
+    taskStatusList.append(taskStatus);
+    bool ret = DBInstance::updateAllTaskStatus(taskStatusList);
+    EXPECT_TRUE(ret) << "更新所有任务状态";
+}
+
+TEST_F(ut_dbinstance, getTaskStatusById) {
+    TaskStatus taskStatus;
+    bool ret = DBInstance::getTaskStatusById(m_taskInfo.taskId, taskStatus);
+    EXPECT_TRUE(ret) << "获取任务状态";
+}
+
+TEST_F(ut_dbinstance, getAllTaskStatus) {
+    QList<TaskStatus> taskStatusList;
+    bool ret = DBInstance::getAllTaskStatus(taskStatusList);
+    EXPECT_TRUE(ret) << "获取任务状态";
+}
+
+TEST_F(ut_dbinstance, addBtTask) {
+    bool ret = DBInstance::addBtTask(m_btTasknInfo);
+    EXPECT_TRUE(ret) << "添加一条bt信息";
+}
+
+TEST_F(ut_dbinstance, updateBtTaskById) {
+    m_btTasknInfo.downloadType = "/data/home/bulw/work";
+    bool ret = DBInstance::updateBtTaskById(m_btTasknInfo);
+    EXPECT_TRUE(ret) << "更新任务";
+}
+
+TEST_F(ut_dbinstance, getBtTaskById) {
+    BtTaskInfo btTaskInfo;
+    bool ret = DBInstance::getBtTaskById(m_btTasknInfo.taskId,btTaskInfo);
+    EXPECT_TRUE(ret) << "通过ID获取BT信息";
+}
+
+TEST_F(ut_dbinstance, getAllBtTask) {
+    QList<BtTaskInfo> btTaskInfoList;
+    bool ret = DBInstance::getAllBtTask(btTaskInfoList);
+    EXPECT_TRUE(ret) << "获取所有BT任务信息";
+}
+
+TEST_F(ut_dbinstance, getSameNameCount) {
+    QList<BtTaskInfo> btTaskInfoList;
+    int count = DBInstance::getSameNameCount("123", "txt");
+    bool ret  = count > -1;
+    EXPECT_TRUE(ret) << "获取相同文件个数";
+}
+
+TEST_F(ut_dbinstance, delAllTask) {
+    bool ret = DBInstance::delAllTask();
+    EXPECT_TRUE(ret) << "删除数据所有数据";
+}
