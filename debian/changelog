@@ -1,4 +1,4 @@
-downloadmanager (5.2.0.20) stable; urgency=low
+downloadmanager (5.2.0.21) stable; urgency=low
 
   * 修改二期七次送测产生的部分bug
   * 52849【5.2.0.18】【设置】自动将低速任务移动至队尾勾选后，下载列表已完成列表点击排序按钮不能排序
@@ -6,7 +6,7 @@ downloadmanager (5.2.0.20) stable; urgency=low
   * 52695【5.2.0.17】【设置】全局下载速度低于XX KB/s自动增加同时下载任务数的输入数值可以为符号
   * 52850【5.2.0.18】【设置】设置--高级设置--恢复默认后，关闭设置再开启设置，全速下载未恢复
   
- -- zhaoyue <zhaoyue@uniontech.com>  Tue, 03 Nov 2020 15:51:16 +0800
+ -- zhaoyue <zhaoyue@uniontech.com>  Sat, 04 Nov 2020 10:06:16 +0800
  
 downloadmanager (5.2.0.18) stable; urgency=low
 

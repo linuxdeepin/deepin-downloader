@@ -10,4 +10,4 @@ add_library(dlmlog SHARED
     )
 target_link_libraries(dlmlog Qt5::Core)
 
-install(TARGETS dlmlog DESTINATION usr/lib)
+install(TARGETS dlmlog DESTINATION lib)
