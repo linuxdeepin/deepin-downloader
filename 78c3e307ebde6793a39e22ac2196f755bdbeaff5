@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71abf387_3937b749",
+        "filename": "test/database/ut_database.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-04T07:55:49Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "78c3e307ebde6793a39e22ac2196f755bdbeaff5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50e1b1bf_8ca6816a",
+        "filename": "test/database/ut_dbinstance.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-04T07:55:49Z",
+      "side": 1,
+      "message": "注释行数: 9; 改动行数(修改和新增): 145; 注释率: 6.2%",
+      "revId": "78c3e307ebde6793a39e22ac2196f755bdbeaff5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
