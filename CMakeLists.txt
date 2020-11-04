@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloader)
-set(PROJECT_VERSION "5.2.0.20")
+set(PROJECT_VERSION "5.2.0.21")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
@@ -98,12 +98,13 @@ if(DOTEST)
     # 添加子模块test
     add_subdirectory(test)
 else()
+    message("DO Not TEST")
     #加载子模块
     add_subdirectory(src)
     add_subdirectory(translations)
     install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
     RUNTIME DESTINATION bin
-    LIBRARY DESTINATION usr/lib
+    LIBRARY DESTINATION lib
     ARCHIVE DESTINATION libstatic
     )
 endif()
