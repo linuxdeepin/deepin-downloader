@@ -2,13 +2,19 @@
 set(PROJECT_NAME_TEST
     ${PROJECT_NAME}_test)
 
+#开启moc编译
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+#执行cmake目录下的文件，生成gtest库
 include(../cmake/googletest.cmake)
 fetch_googletest(
     ${PROJECT_SOURCE_DIR}/cmake
     ${PROJECT_BINARY_DIR}/googletest
     )
 
-#src files
+#test files
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./ MAIN)
 LIST(APPEND SRC_LIST ${MAIN})
@@ -29,8 +35,7 @@ LIST(APPEND SRC_LIST ${MAINFRAME})
 AUX_SOURCE_DIRECTORY(./ui/settings SETTINGS)
 LIST(APPEND SRC_LIST ${SETTINGS})
 
-#aux_source_directory(${PROJECT_SOURCE_DIR}/src/src/database ALLSRC)
-
+#源头文件
 file(GLOB ALL_HEADERS "../src/include/ui/*.h"
                       "../src/include/aria2/*.h"
                       "../src/include/database/*.h"
@@ -39,6 +44,7 @@ file(GLOB ALL_HEADERS "../src/include/ui/*.h"
                       "../src/include/ui/mainFrame/*.h"
                       "../src/include/ui/settings/*.h"
                       )
+#源文件
 file(GLOB ALL_SOURCES "../src/src/ui/*.cpp"
                       "../src/src/aria2/*.cpp"
                       "../src/src/database/*.cpp"
@@ -47,10 +53,14 @@ file(GLOB ALL_SOURCES "../src/src/ui/*.cpp"
                       "../src/src/ui/mainFrame/*.cpp"
                       "../src/src/ui/settings/*.cpp")
 
-add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES})
+#需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
+QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${ALL_HEADERS})
 
+#将test文件，源文件，源头文件，moc文件加入到test程序中
+add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${UDLC_UI_HEADERS_MOC})
 
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus)
+#添加gtest库，Qt库，dtk库
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql dtkwidget dtkgui dtkcore)
     #dlmdatabase dlmaria2 dlmcontrolui dlmlog
 
 # 添加 QTest 测试
@@ -93,6 +103,7 @@ add_custom_command(TARGET test
 #'make test'命令依赖与我们的测试程序
 add_dependencies(test ${PROJECT_NAME_TEST})
 
+#添加头文件
 include_directories(${PROJECT_SOURCE_DIR}/src/include/database)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/aria2)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui)
@@ -102,8 +113,5 @@ include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/createTask)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/log)
 include_directories(${PROJECT_BINARY_DIR})
 
-
-
-#target_link_libraries(Qt5::Core)
 
 
