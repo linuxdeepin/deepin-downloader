@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloader)
-set(PROJECT_VERSION "5.2.0.20")
+set(PROJECT_VERSION "5.2.0.21")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
@@ -20,7 +20,7 @@ set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_BUILD_TYPE "Release")
 
 #设置安装路径
-set(CMAKE_INSTALL_PREFIX /usr)
+set(CMAKE_INSTALL_PREFIX /)
 ## Install settings
 #if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 #    set(CMAKE_INSTALL_PREFIX /usr)
@@ -98,6 +98,7 @@ if(DOTEST)
     # 添加子模块test
     add_subdirectory(test)
 else()
+    message("DO Not TEST")
     #加载子模块
     add_subdirectory(src)
     add_subdirectory(translations)
