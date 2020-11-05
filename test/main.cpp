@@ -1,4 +1,4 @@
- 
+
 #include "gtest/gtest.h"
 #include <QApplication>
 #include <QtTest>
@@ -17,18 +17,14 @@ public:
 private slots:
     void initTestCase();
     void cleanupTestCase();
-
-
 };
 
 QTestMain::QTestMain()
 {
-
 }
 
 QTestMain::~QTestMain()
 {
-
 }
 
 void QTestMain::initTestCase()
@@ -37,25 +33,24 @@ void QTestMain::initTestCase()
 
 void QTestMain::cleanupTestCase()
 {
-
 }
 
 void QTestMain::testGTest(int argc, char *argv[])
 {
     testing::InitGoogleTest(&argc, argv);
-    int ret =  RUN_ALL_TESTS();
+    int ret = RUN_ALL_TESTS();
     Q_UNUSED(ret)
 }
 
-
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-
     QApplication a(argc, argv);
-    testing::InitGoogleTest(&argc,argv);
-    return RUN_ALL_TESTS();
+    a.setOrganizationName("uos"); //设置公司名
+    a.setApplicationName("downloader"); //设置应用程序名
+    QTestMain tc;
+    tc.testGTest(argc, argv);
+    return QTest::qExec(&tc, argc, argv);
 }
-
 
 //#include <QtTest>
 //#include <QCoreApplication>
@@ -82,9 +77,6 @@ int main(int argc, char** argv)
 //        QTEST_SET_MAIN_SOURCE_PATH; \
 //        return QTest::qExec(&tc, argc, argv); \
 //    }
-
-
-
 
 //QMYTEST_MAIN(QTestMain)
 

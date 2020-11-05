@@ -100,6 +100,14 @@ public slots:
      */
     void onTrayQuitClick(bool force = false);
 
+    /**
+     * @brief 收到新建http任务
+     * @param url 收到url地址
+     * @param savePath 保存路径
+     * @param url类型
+    */
+    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "");
+
 private slots:
     /**
      * @brief 点击托盘图表的槽函数
@@ -146,14 +154,6 @@ private slots:
      * @param type 颜色类型
     */
     void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
-
-    /**
-     * @brief 收到新建http任务
-     * @param url 收到url地址
-     * @param savePath 保存路径
-     * @param url类型
-    */
-    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "");
 
     /**
      * @brief 收到新建bt任务

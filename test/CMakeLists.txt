@@ -1,18 +1,11 @@
 # 设置测试程序名字
 set(PROJECT_NAME_TEST
-    ${PROJECT_NAME})
+    ${PROJECT_NAME}_test)
 
 #开启moc编译
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
-#执行cmake目录下的文件，生成gtest库
-include(../cmake/googletest.cmake)
-fetch_googletest(
-    ${PROJECT_SOURCE_DIR}/cmake
-    ${PROJECT_BINARY_DIR}/googletest
-    )
 
 #test files
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
@@ -63,7 +56,7 @@ QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${ALL_HEADERS})
 add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${UDLC_UI_HEADERS_MOC} ${SRC_QRC})
 
 #添加gtest库，Qt库，dtk库
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test dtkwidget dtkgui dtkcore)
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main pthread Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test dtkwidget dtkgui dtkcore)
     #dlmdatabase dlmaria2 dlmcontrolui dlmlog
 
 # 添加 QTest 测试
