@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e8c20b6_4717988c",
+        "filename": "src/src/ui/createTask/taskdelegate.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-05T01:08:16Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 1; 注释率: 不计算",
+      "revId": "bc0ad3326b018be6a9f2794f327d2791290590c1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db89d807_cbeaa6d4",
+        "filename": "test/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-05T01:08:16Z",
+      "side": 1,
+      "message": "注释行数: 24; 改动行数(修改和新增): 59; 注释率: 40.7%",
+      "revId": "bc0ad3326b018be6a9f2794f327d2791290590c1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22fed364_93e63710",
+        "filename": "test/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-05T01:08:16Z",
+      "side": 1,
+      "message": "注释行数: 6; 改动行数(修改和新增): 33; 注释率: 18.2%",
+      "revId": "bc0ad3326b018be6a9f2794f327d2791290590c1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
