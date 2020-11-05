@@ -2841,8 +2841,8 @@ void MainFrame::onDownloadFinish()
         m_ShutdownAct->setChecked(false);
         m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
         m_RecycleTableView->getTableControl()->saveDataBeforeClose();
-        Aria2RPCInterface::instance()->shutdown();
         QTimer::singleShot(5000, this, [=]() {
+            Aria2RPCInterface::instance()->shutdown();
             QProcess p;
             p.start("shutdown -h now");
             p.waitForFinished();
