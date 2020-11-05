@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71bcddb5_de3108d3",
+        "filename": "src/include/ui/tableView.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-05T02:32:01Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 36; 注释率: 8.3%",
+      "revId": "6f39c16a7df86006558cdbdb5f16bc3bff6da4cf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
