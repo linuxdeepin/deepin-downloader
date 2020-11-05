@@ -11,6 +11,6 @@ add_executable(downloadmanager main.cpp)
 
 target_link_libraries(downloadmanager dlmcontrolui dlmlog Qt5::Core)
 
-INSTALL(TARGETS downloadmanager DESTINATION share/downloadmanager)
+#INSTALL(TARGETS downloadmanager DESTINATION share/downloadmanager)
 install(TARGETS downloadmanager DESTINATION bin)
 

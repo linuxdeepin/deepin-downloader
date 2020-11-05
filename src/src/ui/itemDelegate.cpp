@@ -336,6 +336,10 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     static bool firstInside = true;
     firstInside = true;
     DLineEdit *pEdit = new DLineEdit(parent);
+    QRegExp regx("[^\\\\/\':\\*\\?\"<>|#%]+"); //屏蔽特殊字符
+    QValidator *validator = new QRegExpValidator(regx, pEdit);
+    pEdit->lineEdit()->setValidator(validator);
+    pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
         QString str = index.data(TableModel::FileName).toString();

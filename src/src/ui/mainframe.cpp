@@ -1862,8 +1862,8 @@ void MainFrame::onRedownloadActionTriggered()
         QMap<QString, QVariant> opt;
         opt.insert("dir", savePath);
         QString filePath = QString(savePath).left(savePath.lastIndexOf('/'));
-        getUrlToName(task, url, filePath, fileName, "");
         deleteTaskByUrl(url);
+        getUrlToName(task, url, filePath, fileName, "");
         DBInstance::addTask(task);
         qDebug() << task.gid << "   " << task.url;
         Aria2RPCInterface::instance()->addNewUri(task.url, filePath, task.downloadFilename, task.taskId);
@@ -2958,6 +2958,12 @@ void MainFrame::deleteTask(DeleteDataItem *pItem)
     }
     DBInstance::delTask(pItem->taskId);
     m_RecycleTableView->getTableModel()->removeItem(pItem);
+    QTime time;
+    time.start();
+    while (time.elapsed() < 1000) {
+        QCoreApplication::processEvents();
+    }
+    return;
 }
 
 void MainFrame::deleteTask(DownloadDataItem *pItem)
@@ -2973,9 +2979,19 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
     }
     DBInstance::delTask(pItem->taskId);
     if (pItem->status == DownloadJobStatus::Active || pItem->status == DownloadJobStatus::Waiting) { //正在下载的任务，等删除返回成功在删除任务记录
+        QTime time;
+        time.start();
+        while (time.elapsed() < 1000) {
+            QCoreApplication::processEvents();
+        }
         return;
     }
     m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+    QTime time;
+    time.start();
+    while (time.elapsed() < 1000) {
+        QCoreApplication::processEvents();
+    }
     return;
 }
 

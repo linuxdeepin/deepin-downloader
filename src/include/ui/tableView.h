@@ -96,6 +96,8 @@ private slots:
      */
     void onModellayoutChanged();
 
+    //void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
+
 signals:
 
     //void getDatachanged();
@@ -153,6 +155,7 @@ private:
     ItemDelegate *m_Itemdegegate;
     Settings *m_Setting;
     TopButton *m_ToolBar;
+    QModelIndex m_PreviousIndex;
 };
 
 #endif // TABLEVIEW_H
