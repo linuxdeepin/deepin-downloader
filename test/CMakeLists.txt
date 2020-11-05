@@ -1,6 +1,6 @@
 # 设置测试程序名字
 set(PROJECT_NAME_TEST
-    ${PROJECT_NAME}_test)
+    ${PROJECT_NAME})
 
 #开启moc编译
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -53,18 +53,21 @@ file(GLOB ALL_SOURCES "../src/src/ui/*.cpp"
                       "../src/src/ui/mainFrame/*.cpp"
                       "../src/src/ui/settings/*.cpp")
 
+#添加资源文件
+file(GLOB SRC_QRC ${PROJECT_SOURCE_DIR}/src/src/ui/resource/*.qrc)
+
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
 QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${ALL_HEADERS})
 
 #将test文件，源文件，源头文件，moc文件加入到test程序中
-add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${UDLC_UI_HEADERS_MOC})
+add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${UDLC_UI_HEADERS_MOC} ${SRC_QRC})
 
 #添加gtest库，Qt库，dtk库
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql dtkwidget dtkgui dtkcore)
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main  Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test dtkwidget dtkgui dtkcore)
     #dlmdatabase dlmaria2 dlmcontrolui dlmlog
 
 # 添加 QTest 测试
-add_test(${PROJECT_NAME_TEST} that-test-I-made COMMAND ${PROJECT_NAME_TEST})
+add_test(${PROJECT_NAME_TEST} COMMAND ${PROJECT_NAME_TEST})
 
 
 #------------------------------ 创建'make test'指令---------------------------------------

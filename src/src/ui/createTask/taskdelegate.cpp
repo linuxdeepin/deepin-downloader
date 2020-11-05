@@ -47,7 +47,6 @@ TaskDelegate::TaskDelegate(DDialog *dialog)
     m_dialog = dialog;
     m_checkBtn = new QCheckBox;
     m_curName.clear();
-    connect(this, SIGNAL(commitData(QWidget *)), this, SLOT(onCommitData(QWidget *)));
 }
 
 TaskDelegate::~TaskDelegate()
