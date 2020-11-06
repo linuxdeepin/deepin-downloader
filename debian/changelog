@@ -1,3 +1,9 @@
+downloadmanager (5.1.0.24) stable; urgency=low
+
+  * 	删除掉不必要的依赖
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 06 Nov 2020 18:09:50 +0800
+
 downloadmanager (5.1.0.23) stable; urgency=low
 
  * 修改完成第10次送测的bug,
