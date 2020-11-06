@@ -327,7 +327,9 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             QDesktopServices::openUrl(url);
         }
         if (!checkTaskStatus()) {
-            emit whenDownloadFinish();
+            QTimer::singleShot(100, [=]() {
+                emit whenDownloadFinish();
+            });
         }
 
         if (data->url.isEmpty()) { //bt下载完，有时候会在创建aria2文件
