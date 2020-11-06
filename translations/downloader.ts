@@ -341,12 +341,12 @@ does not involve the privacy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="221"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="229"/>
         <source>Limited between 100-102400</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="243"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="251"/>
         <source>Limited between 16-5120</source>
         <translation type="unfinished"></translation>
     </message>
@@ -870,234 +870,234 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>20</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="256"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="257"/>
         <source>Basic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="257"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="258"/>
         <source>Start up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="258"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="259"/>
         <source>Auto startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="259"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="260"/>
         <source>Resume downloading on startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="260"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="261"/>
         <source>Download Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="261"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="262"/>
         <source>1-Click Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="262"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="263"/>
         <source>Create tasks directly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="263"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="264"/>
         <source>Close window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="264"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="265"/>
         <source>Minimize to System Tray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="265"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="266"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="266"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="267"/>
         <source>Tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="267"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="268"/>
         <source>Max. concurrent downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="268"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="269"/>
         <source>Open files when completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="269"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="270"/>
         <source>Delete tasks without files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="270"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="271"/>
         <source>Downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="271"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="272"/>
         <source>Monitoring</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="272"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="273"/>
         <source>Applications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="273"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="274"/>
         <source>Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="274"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="275"/>
         <source>Links Monitored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="275"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="276"/>
         <source>BT Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="276"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="277"/>
         <source>Create new task when a torrent file downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="277"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="278"/>
         <source>Create new task when opening a torrent file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="278"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="279"/>
         <source>Notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="279"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="280"/>
         <source>Notify me when downloading finished or failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="280"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="281"/>
         <source>Allow sounds when downloading succeed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="281"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="282"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="282"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="283"/>
         <source>Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="283"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="284"/>
         <source>Show main window when creating new task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="284"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="285"/>
         <source>Show main window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="285"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="286"/>
         <source>Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="286"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="287"/>
         <source>Move low speed tasks to the end</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>HTTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
         <source>BitTorrent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="412"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
         <source>Magnet URI scheme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="483"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>128</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="483"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>256</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="483"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>512</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="494"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="716"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="495"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="717"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="643"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="644"/>
         <source>When total speed is lower than</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="643"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="644"/>
         <source>KB/S add active downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="684"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="685"/>
         <source>Priority to download less than</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="684"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="685"/>
         <source>MB Task</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1113,37 +1113,37 @@ and more resource consumption.</source>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="395"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="397"/>
         <source> &gt; 1 Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="628"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
         <source>Download failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="629"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="631"/>
         <source>%1 download failed. Network error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="632"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="632"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="636"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="638"/>
         <source>Download complated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="637"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="639"/>
         <source>%1 download finished.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1182,7 +1182,7 @@ and more resource consumption.</source>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="204"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
         <source>Duplicate name!</source>
         <translation type="unfinished"></translation>
     </message>
