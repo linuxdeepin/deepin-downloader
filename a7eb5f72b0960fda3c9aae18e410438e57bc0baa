@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f596a28_99850d4f",
+        "filename": "test/aria2/ut_aria2rpcinterface.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-06T03:02:25Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 138; 注释率: 0.0%",
+      "revId": "a7eb5f72b0960fda3c9aae18e410438e57bc0baa",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
