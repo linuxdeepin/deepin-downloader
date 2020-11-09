@@ -50,34 +50,6 @@ int main(int argc, char **argv)
     QTestMain tc;
     tc.testGTest(argc, argv);
     return QTest::qExec(&tc, argc, argv);
+
 }
-
-//#include <QtTest>
-//#include <QCoreApplication>
-//#include <QApplication>
-//#include <QObject>
-//#include "mainframe.h"
-//#include "gtest/gtest.h"
-//#include <gmock/gmock-matchers.h>
-
-//DWIDGET_USE_NAMESPACE
-
-//#define QMYTEST_MAIN(TestObject) \
-//    QT_BEGIN_NAMESPACE \
-//    QTEST_ADD_GPU_BLACKLIST_SUPPORT_DEFS \
-//    QT_END_NAMESPACE \
-//    int main(int argc, char *argv[]) \
-//    { \
-//        QCoreApplication app(argc, argv); \
-//        app.setAttribute(Qt::AA_Use96Dpi, true); \
-//        QTEST_DISABLE_KEYPAD_NAVIGATION; \
-//        QTEST_ADD_GPU_BLACKLIST_SUPPORT; \
-//        TestObject tc; \
-//        tc.testGTest(argc, argv); \
-//        QTEST_SET_MAIN_SOURCE_PATH; \
-//        return QTest::qExec(&tc, argc, argv); \
-//    }
-
-//QMYTEST_MAIN(QTestMain)
-
 #include "main.moc"

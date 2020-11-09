@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
 #include "mainframe.h"
+#include "btinfodialog.h"
 
 class ut_CreateTaskWidget : public ::testing::Test
     , public QObject
@@ -33,8 +34,21 @@ TEST_F(ut_CreateTaskWidget, init)
     delete m;
     CreateTaskWidget *c = new CreateTaskWidget;
     c->setUrl("11");
-    //    c->setUrl("11");
-    //    qDebug()<<"222";
+    c->showNetErrorMsg();
+    c->updateSelectedInfo();
+    c->setUrlName(0, "11");
     EXPECT_TRUE(true);
-    //    qDebug()<<"33";
+}
+
+TEST_F(ut_CreateTaskWidget, BtInfoDialog)
+{
+    QString url;
+    BtInfoDialog btDiag(" ", " "); // torrent文件路径
+    QMap<QString, QVariant> opt;
+    QString infoName;
+    QString infoHash;
+    btDiag.onBtnOK();
+    btDiag.getBtInfo(opt, infoName, infoHash);
+
+    EXPECT_TRUE(true);
 }
