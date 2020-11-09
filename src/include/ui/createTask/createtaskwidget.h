@@ -83,6 +83,8 @@ public:
 
     void setTableReset();
 
+    // virtual int exec();
+
 private:
     /**
      * @brief 初始化ui

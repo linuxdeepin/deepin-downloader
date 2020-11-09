@@ -130,20 +130,20 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="164"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="873"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="874"/>
         <source>Total </source>
         <translation>总 </translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="170"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="590"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="624"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="657"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="690"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="723"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="756"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="788"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="938"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="591"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="625"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="658"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="691"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="724"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="757"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="789"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="939"/>
         <source>%1 files selected, %2</source>
         <translation>已选%1个文件，共%2</translation>
     </message>
@@ -184,7 +184,7 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="234"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="535"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="536"/>
         <source>Available:</source>
         <translation>剩余:</translation>
     </message>
@@ -209,17 +209,17 @@
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="298"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="299"/>
         <source>Choose Torrent File</source>
         <translation>选择BT文件</translation>
     </message>
     <message id="new MessageBox();">
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="550"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="551"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1029"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1038"/>
         <source>Network error, check your network and try later</source>
         <translation>网络错误，请检查网络后重试</translation>
     </message>
@@ -342,12 +342,12 @@ does not involve the privacy.</source>
         <translation>至</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="221"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="229"/>
         <source>Limited between 100-102400</source>
         <translation>请输入100-102400之间的整数</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="243"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="251"/>
         <source>Limited between 16-5120</source>
         <translation>请输入16-5120之间的整数</translation>
     </message>
@@ -416,7 +416,7 @@ does not involve the privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="112"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="113"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="279"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="280"/>
         <source>When completed</source>
         <translation>下载完成后</translation>
     </message>
@@ -426,153 +426,153 @@ does not involve the privacy.</source>
         <translation>退出下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="175"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="852"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="176"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="854"/>
         <source>No download tasks</source>
         <translation>暂无下载任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="182"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="183"/>
         <source>No search result</source>
         <translation>无搜索结果</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="194"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="195"/>
         <source>Click + to create new task</source>
         <translation>点击添加按钮新建下载任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="210"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
         <source>0 task</source>
         <translation>0项任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="235"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
         <source>Downloading</source>
         <translation>正在下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="237"/>
         <source>Completed</source>
         <translation>下载完成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="237"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="238"/>
         <source>Trash</source>
         <translation>回收站</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="275"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="276"/>
         <source>Show main window</source>
         <translation>显示主界面</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="276"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="277"/>
         <source>New task</source>
         <translation>新建任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="277"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="278"/>
         <source>Continue all tasks</source>
         <translation>全部开始</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="278"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="279"/>
         <source>Pause all tasks</source>
         <translation>全部暂停</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="283"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="284"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1864"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1866"/>
         <source>Ok</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2776"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2778"/>
         <source>seed file not exists or broken;</source>
         <translation>种子文件不存在</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="628"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="630"/>
         <source> item tasks</source>
         <translation> 项任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="540"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="542"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>退出程序将中断下载，
 您确定要退出吗？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="645"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="661"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="647"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="663"/>
         <source> files</source>
         <translation> 个文件</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="845"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="847"/>
         <source>No finished tasks</source>
         <translation>暂无下载完成的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="874"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="876"/>
         <source>No deleted tasks</source>
         <translation>暂无删除的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1175"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1177"/>
         <source>Resume</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1187"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1202"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1189"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1204"/>
         <source>Download Again</source>
         <translation>重新下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1265"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1267"/>
         <source>Permanently Delete</source>
         <translation>彻底删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1297"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1299"/>
         <source>Delete All</source>
         <translation>删除全部</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1556"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1558"/>
         <source>Do you continue?</source>
         <translation>是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1864"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1866"/>
         <source>Unable to parse the URL, please check</source>
         <translation>不能解析，请检查链接</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2265"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2267"/>
         <source>Copied to clipboard</source>
         <translation>已复制到剪切板</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="273"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2264"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="274"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2266"/>
         <source>Downloader</source>
         <translation>下载器</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2752"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2754"/>
         <source>View</source>
         <translation>查看</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="800"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="802"/>
         <source>Download</source>
         <translation>开始下载</translation>
     </message>
@@ -587,71 +587,71 @@ Downloading tasks will be interrupted.</source>
         <translation>休眠</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="800"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="802"/>
         <source>%1 downloading...</source>
         <translation>%1 正在下载...</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1181"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1183"/>
         <source>Pause</source>
         <translation>暂停</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1196"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1198"/>
         <source>Restore</source>
         <translation>还原</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1207"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1209"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1234"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1609"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1236"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1611"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1241"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1243"/>
         <source>Move to</source>
         <translation>移动到文件夹</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1250"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1271"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1282"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1252"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1273"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1284"/>
         <source>Copy download link</source>
         <translation>复制下载链接</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1215"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1290"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1217"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1292"/>
         <source>Open folder</source>
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1260"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1262"/>
         <source>Delete</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="541"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1506"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1558"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1610"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="543"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1508"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1560"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1612"/>
         <source>sure</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="541"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1558"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1610"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="543"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1560"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1612"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1973"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1975"/>
         <source>no item is selected,please check items!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -872,234 +872,234 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>3</source>
         <translation>3个</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>5</source>
         <translation>5个</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>10</source>
         <translation>10个</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="120"/>
         <source>20</source>
         <translation>20个</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="256"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="257"/>
         <source>Basic</source>
         <translation>基本设置</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="257"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="258"/>
         <source>Start up</source>
         <translation>启动</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="263"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="264"/>
         <source>Close window</source>
         <translation>关闭主窗口</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="264"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="265"/>
         <source>Minimize to System Tray</source>
         <translation>最小化到系统托盘</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="265"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="266"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="266"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="267"/>
         <source>Tasks</source>
         <translation>任务管理</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="269"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="270"/>
         <source>Delete tasks without files</source>
         <translation>自动删除“文件不存在”的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="270"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="271"/>
         <source>Downloads</source>
         <translation>下载设置</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="271"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="272"/>
         <source>Monitoring</source>
         <translation>接管设置</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="273"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="274"/>
         <source>Clipboard</source>
         <translation>剪切板</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="278"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="279"/>
         <source>Notifications</source>
         <translation>通知提醒</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="258"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="259"/>
         <source>Auto startup</source>
         <translation>开机启动</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="259"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="260"/>
         <source>Resume downloading on startup</source>
         <translation>启动后自动开始未完成的任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="260"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="261"/>
         <source>Download Directory</source>
         <translation>下载目录</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="261"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="262"/>
         <source>1-Click Download</source>
         <translation>一键下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="262"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="263"/>
         <source>Create tasks directly</source>
         <translation>一键创建新任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="267"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="268"/>
         <source>Max. concurrent downloads</source>
         <translation>同时下载最大任务数</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="268"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="269"/>
         <source>Open files when completed</source>
         <translation>下载完成后自动打开</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="272"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="273"/>
         <source>Applications</source>
         <translation>接管对象</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="274"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="275"/>
         <source>Links Monitored</source>
         <translation>接管下载类型</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="275"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="276"/>
         <source>BT Files</source>
         <translation>BT关联</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="276"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="277"/>
         <source>Create new task when a torrent file downloaded</source>
         <translation>下载种子文件后自动打开下载面板</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="277"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="278"/>
         <source>Create new task when opening a torrent file</source>
         <translation>关联BT种子文件</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="279"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="280"/>
         <source>Notify me when downloading finished or failed</source>
         <translation>下载完成/失败时，系统通知提醒</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="280"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="281"/>
         <source>Allow sounds when downloading succeed</source>
         <translation>下载完成后，播放提示音</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="281"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="282"/>
         <source>Advanced</source>
         <translation>高级设置</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="282"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="283"/>
         <source>Shortcuts</source>
         <translation>快捷设置</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="283"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="284"/>
         <source>Show main window when creating new task</source>
         <translation>新建任务时显示主界面</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="284"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="285"/>
         <source>Show main window</source>
         <translation>打开主界面快捷键</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="285"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="286"/>
         <source>Cache</source>
         <translation>下载磁盘缓存</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="286"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="287"/>
         <source>Move low speed tasks to the end</source>
         <translation>自动将低速任务移动至队尾</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>HTTP</source>
         <translation>HTTP下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
         <source>BitTorrent</source>
         <translation>BT下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="412"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
         <source>Magnet URI scheme</source>
         <translation>磁力链下载</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="483"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>128</source>
         <translation>128</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="483"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>256</source>
         <translation>256</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="483"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>512</source>
         <translation>512</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="494"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="716"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="495"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="717"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
         <translation>磁盘缓存越大，下载速度越快，占用电脑资源越多。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="643"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="644"/>
         <source>When total speed is lower than</source>
         <translation>全局下载速度低于</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="643"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="644"/>
         <source>KB/S add active downloads</source>
         <translation>KB/S 自动增加同时下载任务数</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="684"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="685"/>
         <source>Priority to download less than</source>
         <translation>优先下载小于</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="684"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="685"/>
         <source>MB Task</source>
         <translation>MB 任务</translation>
     </message>
@@ -1115,37 +1115,37 @@ and more resource consumption.</source>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="395"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="397"/>
         <source> &gt; 1 Day</source>
         <translation>&gt;1天</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="628"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
         <source>Download failed</source>
         <translation>下载失败</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="629"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="631"/>
         <source>%1 download failed. Network error.</source>
         <translation>%1下载失败，网络故障。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="632"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="630"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="632"/>
         <source>View</source>
         <translation>查看</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="636"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="638"/>
         <source>Download complated</source>
         <translation>下载完成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="637"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="639"/>
         <source>%1 download finished.</source>
         <translation>%1下载完成。</translation>
     </message>
@@ -1184,7 +1184,7 @@ and more resource consumption.</source>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="204"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
         <source>Duplicate name!</source>
         <translation>此名称已被占用，请使用其他名称！</translation>
     </message>
@@ -1192,47 +1192,47 @@ and more resource consumption.</source>
 <context>
     <name>TopButton</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="63"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="65"/>
         <source>New task</source>
         <translation>添加任务</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="69"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="140"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="71"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="142"/>
         <source>Pause</source>
         <translation>暂停</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="75"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="139"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="77"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="141"/>
         <source>Resume</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="81"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="125"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="133"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="141"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="83"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="127"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="135"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="143"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="123"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="125"/>
         <source>Empty</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="124"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="126"/>
         <source>Restore</source>
         <translation>还原</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="131"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="133"/>
         <source>Open Folder</source>
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="132"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="134"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>

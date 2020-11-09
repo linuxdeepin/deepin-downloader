@@ -74,7 +74,7 @@ using namespace Global;
 
 MainFrame::MainFrame(QWidget *parent)
     : DMainWindow(parent)
-    , m_TaskWidget(new CreateTaskWidget())
+    , m_TaskWidget(new CreateTaskWidget)
     , m_CurrentTab(downloadingTab)
     , m_CheckItem(nullptr)
     , m_CheckIndex(QModelIndex())
@@ -91,6 +91,7 @@ MainFrame::MainFrame(QWidget *parent)
     if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
         m_Clipboard->checkClipboardHasUrl();
     }
+    m_TaskWidget->setObjectName("newTaskWidget");
 }
 
 MainFrame::~MainFrame()
@@ -106,7 +107,9 @@ void MainFrame::init()
     // 添加设置界面
 
     DMenu *pSettingsMenu = new DMenu;
+    pSettingsMenu->setObjectName("settingsMenu");
     m_SettingAction = new QAction(tr("Settings"), this);
+    m_SettingAction->setObjectName("settingAction");
     pSettingsMenu->addAction(m_SettingAction);
 
     QAction *pFinishAction = new QAction(tr("When completed"), this);
@@ -131,6 +134,7 @@ void MainFrame::init()
     titlebar()->setMenu(pSettingsMenu);
     m_ToolBar = new TopButton(this);
     titlebar()->setCustomWidget(m_ToolBar, false);
+    titlebar()->setObjectName("titlebar");
 
     QPalette p;
     p.setColor(QPalette::Background, QColor(255, 255, 255));
@@ -526,6 +530,7 @@ void MainFrame::createNewTask(QString url)
                            pos().y() + this->height() / 2 - m_TaskWidget->height() / 2);
     }
     m_TaskWidget->exec();
+    QCoreApplication::processEvents();
 }
 
 void MainFrame::onTrayQuitClick(bool force)
@@ -1864,7 +1869,7 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
                 msg.setWarings(tr("Unable to parse the URL, please check"), tr("Ok"));
                 isMsg = false;
             }
-            msg.exec();
+            // msg.exec();
         }
     }
     // save_data_before_close();
