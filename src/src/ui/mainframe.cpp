@@ -1771,6 +1771,7 @@ void MainFrame::onUpdateMainUI()
             m_UpdateTimer->stop();
         }
     }
+    m_DownLoadingTableView->update(m_DownLoadingTableView->rect());
     setTaskNum();
 }
 

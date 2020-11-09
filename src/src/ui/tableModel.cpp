@@ -565,7 +565,7 @@ void TableModel::sort(int column, Qt::SortOrder order)
 
 void TableModel::sortDownload(int column, Qt::SortOrder order)
 {
-    if ((Finished == m_Mode && column == 3) || (0 == column)) {
+    if ((Finished == m_Mode && column == 3)) {
         return;
     }
 
@@ -573,9 +573,9 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     QVector<int> unsortable;
     int role = 0;
     switch (column) {
-    case 0:
-        role = TableModel::createTime;
-        break;
+        //    case 0:
+        //        role = TableModel::createTime;
+        //        break;
     case 1:
         role = TableModel::FileName;
         break;
