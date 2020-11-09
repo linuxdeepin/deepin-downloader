@@ -56,11 +56,11 @@ CreateTaskWidget::CreateTaskWidget(DDialog *parent)
     //DDialog 内将回车键绑定在action上，所以在解析框内无法出发回车函数，下列代码将DDialog中绑定回车的aciton删除
     QObjectList objectList = children();
     for (int i = 0; i < objectList.size(); i++) {
-        QAction * action =  qobject_cast<QAction*> (objectList[i]);
-        if(action == nullptr){
+        QAction *action = qobject_cast<QAction *>(objectList[i]);
+        if (action == nullptr) {
             continue;
         }
-        if(!action->autoRepeat()){
+        if (!action->autoRepeat()) {
             delete action;
             action = nullptr;
         }
@@ -93,7 +93,7 @@ void CreateTaskWidget::initUi()
     addContent(msgLab, Qt::AlignHCenter);
     addSpacing(10);
     m_texturl = new DTextEdit(this);
-
+    m_texturl->setObjectName("textUrl");
     m_texturl->setReadOnly(false);
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
@@ -279,6 +279,7 @@ void CreateTaskWidget::initUi()
 
     m_sureButton = new DSuggestButton(boxBtn);
     m_sureButton->setText(tr("Confirm"));
+    m_sureButton->setObjectName("sureBtn");
     policy = m_sureButton->sizePolicy();
     policy.setHorizontalPolicy(QSizePolicy::Expanding);
     m_sureButton->setSizePolicy(policy);
@@ -328,7 +329,7 @@ void CreateTaskWidget::onSureBtnClicked()
     }
     static QMutex mutex;
     bool ret = mutex.tryLock();
-    if(!ret){
+    if (!ret) {
         return;
     }
 
@@ -438,7 +439,7 @@ bool CreateTaskWidget::isHttp(QString url)
 bool CreateTaskWidget::isFtp(QString url)
 {
     url = url.toLower();
-    if(url.startsWith("ftp:")){
+    if (url.startsWith("ftp:")) {
         return true;
     }
     return false;
@@ -477,15 +478,15 @@ void CreateTaskWidget::onTextChanged()
             setData(i, name.mid(0, name.size() - 8), "torrent", "1KB", urlList[i], 1024, urlList[i]);
             continue;
         }
-        if(isFtp(urlList[i])){
-            QStringList nameList =urlList[i].split("/");
+        if (isFtp(urlList[i])) {
+            QStringList nameList = urlList[i].split("/");
             nameList.removeAll(QString(""));
-            name = nameList[nameList.size()-1];
+            name = nameList[nameList.size() - 1];
             QMimeDatabase db;
             QString type = db.suffixForFileName(urlList[i]);
-            if(type.isEmpty()){
+            if (type.isEmpty()) {
                 type = "html";
-            }else {
+            } else {
                 int index = name.lastIndexOf('.');
                 name.truncate(index);
             }
@@ -1031,6 +1032,5 @@ QString CreateTaskWidget::getNetErrTip()
 
 void CreateTaskWidget::keyPressEvent(QKeyEvent *event)
 {
-
     QWidget::keyPressEvent(event);
 }

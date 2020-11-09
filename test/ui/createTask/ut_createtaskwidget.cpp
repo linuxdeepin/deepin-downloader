@@ -34,7 +34,7 @@ TEST_F(ut_CreateTaskWidget, init)
     delete m;
     CreateTaskWidget *c = new CreateTaskWidget;
     c->setUrl("11");
-    c->showNetErrorMsg();
+    //c->showNetErrorMsg();
     c->updateSelectedInfo();
     c->setUrlName(0, "11");
     EXPECT_TRUE(true);
