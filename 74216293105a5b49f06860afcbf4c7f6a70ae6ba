@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "63db6824_74dba30d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-09T00:53:57Z",
+      "side": 1,
+      "message": "fix后必须存在一个\u0027:\u0027",
+      "revId": "74216293105a5b49f06860afcbf4c7f6a70ae6ba",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ad589e1e_2c00597c",
         "filename": "src/src/ui/mainframe.cpp",
         "patchSetId": 1
