@@ -13,7 +13,6 @@ Build-Depends:
  libdtkwidget-dev,
  libkf5codecs-dev,
  x11proto-xext-dev,
- libxcb-util0-dev,
  qttools5-dev-tools,
  libqt5svg5-dev,
  libgsettings-qt-dev,
@@ -22,8 +21,6 @@ Build-Depends:
  qttools5-dev,
  qtmultimedia5-dev,
  libdtkgui-dev,
- libdtkwm2,
- libdtkwm-dev,
  libxext-dev,
  libglib2.0-dev,
  libqt5network5

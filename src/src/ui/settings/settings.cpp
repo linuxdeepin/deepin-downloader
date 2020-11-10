@@ -44,7 +44,6 @@
 #include "filesavepathchooser.h"
 #include "settinginfoinputwidget.h"
 #include "itemselectionwidget.h"
-#include "groupselectionwidget.h"
 #include "downloadsettingwidget.h"
 #include "notificationssettiingwidget.h"
 #include "settingslabel.h"
@@ -426,104 +425,6 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
     return itemSelectionWidget;
 }
 
-QWidget *Settings::createDownloadTraySettingHandle(QObject *obj)
-{
-    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-
-    QStringList itemNameList;
-    itemNameList << "显示"
-                 << "下载时显示"
-                 << "隐藏";
-
-    QString currentSelected = option->value().toString();
-
-    if (currentSelected.isEmpty()) {
-        if (itemNameList.count() > 0) {
-            currentSelected = itemNameList.at(0);
-        }
-    }
-
-    GroupSelectionWidget *groupSelectionWidget = new GroupSelectionWidget(itemNameList);
-    groupSelectionWidget->setLabelIsHide(true);
-    groupSelectionWidget->setCurrentSelected(currentSelected);
-
-    connect(groupSelectionWidget, &GroupSelectionWidget::selectedChanged, groupSelectionWidget, [=](QVariant var) {
-        QString currentValue = var.toString();
-
-        if (currentValue.isEmpty()) {
-            if (itemNameList.count() > 0) {
-                currentValue = itemNameList.at(0);
-            }
-        }
-
-        option->setValue(currentValue);
-    });
-
-    connect(option, &DSettingsOption::valueChanged, groupSelectionWidget, [=](QVariant var) {
-        if (!var.toString().isEmpty()) {
-            QString currentSelected = option->value().toString();
-
-            if (currentSelected.isEmpty()) {
-                if (itemNameList.count() > 0) {
-                    currentSelected = itemNameList.at(0);
-                }
-            }
-
-            groupSelectionWidget->setCurrentSelected(currentSelected);
-        }
-    });
-
-    return groupSelectionWidget;
-}
-
-QWidget *Settings::createDownloadDiskCacheSettiingHandle(QObject *obj)
-{
-    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-
-    QStringList itemNameList;
-    itemNameList << tr("128") << tr("256") << tr("512");
-
-    QString currentSelected = option->value().toString();
-
-    if (currentSelected.isEmpty()) {
-        if (itemNameList.count() > 0) {
-            currentSelected = itemNameList.at(0);
-        }
-    }
-
-    GroupSelectionWidget *groupSelectionWidget = new GroupSelectionWidget(itemNameList);
-    groupSelectionWidget->setLabelText(tr("Larger disk cache will result in faster download speed \nand more resource consumption.")); // 磁盘缓存越大，下载速度越快，占用电脑资源越多
-    groupSelectionWidget->setCurrentSelected(currentSelected);
-
-    connect(groupSelectionWidget, &GroupSelectionWidget::selectedChanged, groupSelectionWidget, [=](QVariant var) {
-        QString currentValue = var.toString();
-
-        if (currentValue.isEmpty()) {
-            if (itemNameList.count() > 0) {
-                currentValue = itemNameList.at(0);
-            }
-        }
-
-        option->setValue(currentValue);
-    });
-
-    connect(option, &DSettingsOption::valueChanged, groupSelectionWidget, [=](QVariant var) {
-        if (!var.toString().isEmpty()) {
-            QString currentSelected = option->value().toString();
-
-            if (currentSelected.isEmpty()) {
-                if (itemNameList.count() > 0) {
-                    currentSelected = itemNameList.at(0);
-                }
-            }
-
-            groupSelectionWidget->setCurrentSelected(currentSelected);
-        }
-    });
-
-    return groupSelectionWidget;
-}
-
 QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
@@ -579,7 +480,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
     });
 
     connect(option, &DSettingsOption::valueChanged, downloadSettingWidget, [=](QVariant var) {
-       // option->blockSignals(true);
+        // option->blockSignals(true);
         if (!var.toString().isEmpty()) {
             QString currentValue = option->value().toString();
             int currentSelect = 2;
@@ -613,7 +514,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
             downloadSettingWidget->setMaxUploadSpeedLimit(maxUploadSpeedLimit);
             downloadSettingWidget->setStartTime(startTime);
             downloadSettingWidget->setEndTime(endTime);
-         //   option->blockSignals(false);
+            //   option->blockSignals(false);
         }
     });
 

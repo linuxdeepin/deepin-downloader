@@ -42,13 +42,14 @@
 #include <dpinyin.h>
 
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath)
-    : DDialog(),
-        m_torrentFile(torrentFile),
-        m_defaultDownloadDir(btLastSavePath)
+    : DDialog()
+    , m_torrentFile(torrentFile)
+    , m_defaultDownloadDir(btLastSavePath)
 {
     setFixedSize(500, 525);
     setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
+    setObjectName("btInfoDialog");
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &BtInfoDialog::onPaletteTypeChanged);
 }
 
@@ -191,7 +192,7 @@ void BtInfoDialog::initUI()
     //
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
- //   QString text = getFileEditText(m_defaultDownloadDir);
+    //   QString text = getFileEditText(m_defaultDownloadDir);
     QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
     m_labelCapacityFree = new DLabel(this);
@@ -212,6 +213,7 @@ void BtInfoDialog::initUI()
 
     //确定按钮
     m_btnOK = new DPushButton(this);
+    m_btnOK->setObjectName("sureBtn");
     //this->btnOK->setFixedWidth(190);
     m_btnOK->setGeometry(160, 480, 191, 35);
     m_btnOK->setText(tr("Download Now"));
@@ -686,7 +688,7 @@ QString BtInfoDialog::getFileEditText(QString text)
             hasLongStr++;
         }
     }
-    text = text.right(45 - hasLongStr/2);
+    text = text.right(45 - hasLongStr / 2);
     return text;
 }
 

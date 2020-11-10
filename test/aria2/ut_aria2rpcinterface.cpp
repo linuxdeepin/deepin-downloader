@@ -29,7 +29,7 @@ TEST_F(ut_aria2Test, init)
 
 TEST_F(ut_aria2Test, addUri)
 {
-    QString uri = "test";
+    QString uri = "http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz";
     QMap<QString, QVariant> opt;
     opt.insert("test", "test");
     QString id = "test";
@@ -48,7 +48,7 @@ TEST_F(ut_aria2Test, addUriEmpty)
 
 TEST_F(ut_aria2Test, addTorrent)
 {
-    QString uri = "test";
+    QString uri = "/home/sanhei/Documents/123@.torrent";
     QMap<QString, QVariant> opt;
     opt.insert("test", "test");
     QString id = "test";
@@ -81,7 +81,7 @@ TEST_F(ut_aria2Test, addMetalinkEmpty)
     QMap<QString, QVariant> opt;
     QString id;
     bool ret = Aria2RPCInterface::instance()->addMetalink(uri, opt, id);
-    EXPECT_TRUE(ret);
+    EXPECT_FALSE(ret);
 }
 
 TEST_F(ut_aria2Test, getBtInfo)

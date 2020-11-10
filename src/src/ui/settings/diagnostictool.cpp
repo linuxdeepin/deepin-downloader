@@ -65,6 +65,7 @@ void DiagnosticTool::initUI()
     pLabel->setFixedSize(202, 25);
     pLabel->setFont(f);
     m_Button = new QPushButton(tr("Diagnose Again"), this);
+    m_Button->setObjectName("diagnoseBtn");
     m_Button->setFixedSize(202, 36);
     connect(m_Button, &QPushButton::clicked, this, [=]() {
         m_Model->clearData();

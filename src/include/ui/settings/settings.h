@@ -86,13 +86,6 @@ public:
      * @param obj option对象
      */
     static QWidget *createMagneticDownloadEditHandle(QObject *obj);
-
-    /**
-     * @brief 创建下载托盘窗口
-     * @param obj option对象
-     */
-    static QWidget *createDownloadTraySettingHandle(QObject *obj);
-
     /**
      * @brief 创建下载磁盘缓存窗口
      * @param obj option对象
