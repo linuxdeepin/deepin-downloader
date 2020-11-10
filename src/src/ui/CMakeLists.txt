@@ -38,13 +38,10 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/taskdelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/btheaderview.h
 
-    #${PROJECT_SOURCE_DIR}/src/include/ui/settings/monitoringsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/notificationssettiingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settingswidget.h
-    #${PROJECT_SOURCE_DIR}/src/include/ui/settings/basicsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/downloadsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/filesavepathchooser.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/settings/groupselectionwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/itemselectionwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settinginfoinputwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settings.h
@@ -100,13 +97,10 @@ add_library(dlmcontrolui SHARED
        createTask/urlthread.cpp
        createTask/analysisurl.cpp
        createTask/taskdelegate.cpp
-       #settings/monitoringsettingwidget.cpp
        settings/notificationssettiingwidget.cpp
        settings/settingswidget.cpp
-       #settings/basicsettingwidget.cpp
        settings/downloadsettingwidget.cpp
        settings/filesavepathchooser.cpp
-       settings/groupselectionwidget.cpp
        settings/itemselectionwidget.cpp
        settings/settinginfoinputwidget.cpp
        settings/settings.cpp

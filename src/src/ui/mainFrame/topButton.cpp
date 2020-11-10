@@ -39,6 +39,7 @@ TopButton::TopButton(QWidget *parent)
 {
     Init();
     InitConnections();
+    setObjectName("toolBox");
 }
 
 void TopButton::Init()
@@ -58,17 +59,20 @@ void TopButton::Init()
 
     // searchEdit->setFixedSize(350,36);
     m_NewDownloadBtn = new DIconButton(this);
+    m_NewDownloadBtn->setObjectName("newTaskBtn");
     m_NewDownloadBtn->setFixedSize(36, 36);
     m_NewDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
     m_NewDownloadBtn->setToolTip(tr("New task"));
 
     m_PauseDownloadBtn = new DIconButton(this);
+    m_PauseDownloadBtn->setObjectName("pauseDownloadBtn");
     m_PauseDownloadBtn->setFixedSize(36, 36);
     m_PauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_PauseDownloadBtn->setEnabled(false);
     m_PauseDownloadBtn->setToolTip(tr("Pause"));
 
     m_StartDownloadBtn = new DIconButton(this);
+    m_StartDownloadBtn->setObjectName("startDownloadBtn");
     m_StartDownloadBtn->setFixedSize(36, 36);
     m_StartDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_StartDownloadBtn->setEnabled(false);
@@ -107,7 +111,7 @@ void TopButton::InitConnections()
 
 void TopButton::mousePressEvent(QMouseEvent *event)
 {
-    if(event->button() == Qt::RightButton){
+    if (event->button() == Qt::RightButton) {
         return;
     }
     QWidget::mousePressEvent(event);

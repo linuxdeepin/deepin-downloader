@@ -93,6 +93,15 @@ MainFrame::MainFrame(QWidget *parent)
     }
 }
 
+MainFrame *MainFrame::instance()
+{
+    static MainFrame *m = nullptr;
+    if (m == nullptr) {
+        m = new MainFrame;
+    }
+    return m;
+}
+
 MainFrame::~MainFrame()
 {
 }
@@ -104,9 +113,11 @@ void MainFrame::init()
     setTitlebarShadowEnabled(true);
     setAcceptDrops(true);
     // 添加设置界面
-
+    m_TaskWidget->setObjectName("newTaskWidget");
     DMenu *pSettingsMenu = new DMenu;
+    pSettingsMenu->setObjectName("settingsMenu");
     m_SettingAction = new QAction(tr("Settings"), this);
+    m_SettingAction->setObjectName("settingAction");
     pSettingsMenu->addAction(m_SettingAction);
 
     QAction *pFinishAction = new QAction(tr("When completed"), this);
@@ -131,6 +142,7 @@ void MainFrame::init()
     titlebar()->setMenu(pSettingsMenu);
     m_ToolBar = new TopButton(this);
     titlebar()->setCustomWidget(m_ToolBar, false);
+    titlebar()->setObjectName("titlebar");
 
     QPalette p;
     p.setColor(QPalette::Background, QColor(255, 255, 255));
@@ -143,6 +155,7 @@ void MainFrame::init()
     pMainHLayout->setSpacing(0);
 
     m_DownLoadingTableView = new TableView(tableviewFlag::downloading);
+    m_DownLoadingTableView->setObjectName("downloadTableView");
     m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
     m_DownLoadingTableView->setColumnHidden(4, true);
 
@@ -744,8 +757,6 @@ void MainFrame::onSettingsMenuClicked()
     SettingsDialog.widgetFactory()->registerWidget("btdownload", Settings::createBTDownloadEditHandle);
     SettingsDialog.widgetFactory()->registerWidget("magneticdownload", Settings::createMagneticDownloadEditHandle);
     SettingsDialog.widgetFactory()->registerWidget("diskcacheInfo", Settings::createDiskCacheSettiingLabelHandle);
-    SettingsDialog.widgetFactory()->registerWidget("downloaddiskcachesetting",
-                                                   Settings::createDownloadDiskCacheSettiingHandle);
     SettingsDialog.widgetFactory()->registerWidget("downloadspeedlimitsetting",
                                                    Settings::createDownloadSpeedLimitSettiingHandle);
     SettingsDialog.widgetFactory()->registerWidget("notificationsSettiing",

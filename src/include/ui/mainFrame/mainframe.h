@@ -77,6 +77,8 @@ public:
      */
     explicit MainFrame(QWidget *parent = Q_NULLPTR);
 
+    static MainFrame *instance();
+
     /**
      * @brief 析构函数
      */

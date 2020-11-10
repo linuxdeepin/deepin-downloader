@@ -225,6 +225,9 @@ bool Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString
 
 bool Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filename, QString id)
 {
+    if (uri.isEmpty() || savepath.isEmpty() || filename.isEmpty() || id.isEmpty()) {
+        return false;
+    }
     QMap<QString, QVariant> opt;
     opt.insert("dir", savepath);
     opt.insert("out", filename);
@@ -236,6 +239,9 @@ bool Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filenam
 
 bool Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> opt, QString id)
 {
+    if (torrentFile.isEmpty() || opt.isEmpty() || id.isEmpty()) {
+        return false;
+    }
     QString torrentB64Str = fileToBase64(torrentFile); //把bt文件转成base64编码
     QJsonArray ja;
     ja.append(torrentB64Str);
@@ -250,6 +256,9 @@ bool Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> 
 
 bool Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> opt, QString id)
 {
+    if (metalink.isEmpty() || opt.isEmpty() || id.isEmpty()) {
+        return false;
+    }
     QString metalinkB64Str = fileToBase64(metalink);
     QJsonArray ja;
     ja.append(metalinkB64Str);
