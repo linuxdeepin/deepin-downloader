@@ -107,6 +107,7 @@ void CreateTaskWidget::initUi()
     addSpacing(10);
 
     m_tableView = new BtInfoTableView(this);
+    m_tableView->setObjectName("tableView");
     m_tableView->setMouseTracking(true);
     m_tableView->setShowGrid(false);
     m_tableView->setFrameShape(QAbstractItemView::NoFrame);
@@ -127,6 +128,7 @@ void CreateTaskWidget::initUi()
     m_tableView->verticalHeader()->hide();
     m_tableView->verticalHeader()->setDefaultSectionSize(46);
     m_delegate = new TaskDelegate(this);
+    m_delegate->setObjectName("taskDelegate");
     m_tableView->setItemDelegate(m_delegate);
     m_model = new QStandardItemModel();
     m_tableView->setModel(m_model);
@@ -181,30 +183,37 @@ void CreateTaskWidget::initUi()
     QHBoxLayout *hlyt = new QHBoxLayout(m_checkWidget);
     m_checkAll = new DCheckBox(this);
     m_checkAll->setText(tr("All"));
+    m_checkAll->setObjectName("checkAll");
     connect(m_checkAll, SIGNAL(clicked()), this, SLOT(onAllCheck()));
 
     m_checkVideo = new DCheckBox(this);
     m_checkVideo->setText(tr("Videos"));
+    m_checkVideo->setObjectName("checkVideo");
     connect(m_checkVideo, SIGNAL(clicked()), this, SLOT(onVideoCheck()));
 
     m_checkPicture = new DCheckBox(this);
     m_checkPicture->setText(tr("Pictures"));
+    m_checkPicture->setObjectName("checkPicture");
     connect(m_checkPicture, SIGNAL(clicked()), this, SLOT(onPictureCheck()));
 
     m_checkAudio = new DCheckBox(this);
     m_checkAudio->setText(tr("Music"));
+    m_checkAudio->setObjectName("checkAudio");
     connect(m_checkAudio, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
 
     m_checkOther = new DCheckBox(this);
     m_checkOther->setText(tr("Others"));
+    m_checkOther->setObjectName("checkOther");
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
 
     m_checkDoc = new DCheckBox(this);
     m_checkDoc->setText(tr("doc"));
+    m_checkDoc->setObjectName("checkDoc");
     connect(m_checkDoc, SIGNAL(clicked()), this, SLOT(onDocCheck()));
 
     m_checkZip = new DCheckBox(this);
     m_checkZip->setText(tr("zip"));
+    m_checkZip->setObjectName("checkZip");
     connect(m_checkZip, SIGNAL(clicked()), this, SLOT(onZipCheck()));
 
     hlyt->addWidget(m_checkAll);
@@ -274,6 +283,7 @@ void CreateTaskWidget::initUi()
     policy.setHorizontalPolicy(QSizePolicy::Expanding);
     cancelButton->setSizePolicy(policy);
     cancelButton->setText(tr("Cancel"));
+    cancelButton->setObjectName("cancelButton");
     connect(cancelButton, &DPushButton::clicked, this, &CreateTaskWidget::onCancelBtnClicked);
     layout_right->addWidget(cancelButton);
 

@@ -42,8 +42,7 @@
 #include <QThread>
 #include <DAlertControl>
 
-TaskDelegate::TaskDelegate(DDialog *dialog)
-{
+TaskDelegate::TaskDelegate(DDialog *dialog){
     m_dialog = dialog;
     m_checkBtn = new QCheckBox;
     m_curName.clear();
