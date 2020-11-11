@@ -235,6 +235,7 @@ void MainFrame::init()
     pMainHLayout->addWidget(m_RightWidget);
 
     m_LeftList = new DListView;
+    m_LeftList->setObjectName("leftList");
     m_LeftList->setItemSpacing(0);
     m_LeftList->setItemSize(QSize(112, 40));
     m_LeftList->setItemMargins(QMargins(10, 2, 5, 2));
@@ -1180,6 +1181,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     }
 
     QMenu *delmenlist = new QMenu(this);
+    delmenlist->setObjectName("tableMenu");
     if (m_CurrentTab == downloadingTab) {
         if (pauseCount > 0 || errorCount > 0) {
             QAction *pActionStart = new QAction();
@@ -1242,6 +1244,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
 
         if (1 == chkedCnt && QFileInfo(pDownloadItem->savePath).exists()) {
             QAction *pactionRename = new QAction();
+            pactionRename->setObjectName("rename");
             pactionRename->setText(tr("Rename"));
             delmenlist->addAction(pactionRename);
             delmenlist->addSeparator();

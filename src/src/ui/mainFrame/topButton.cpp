@@ -79,6 +79,7 @@ void TopButton::Init()
     m_StartDownloadBtn->setToolTip(tr("Resume"));
 
     m_DeleteDownloadBtn = new DIconButton(this);
+    m_DeleteDownloadBtn->setObjectName("deleteBtn");
     m_DeleteDownloadBtn->setFixedSize(36, 36);
     m_DeleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_DeleteDownloadBtn->setEnabled(false);

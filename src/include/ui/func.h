@@ -42,24 +42,6 @@ public:
     static bool isNetConnect();
 
     /**
-     * @brief ipv6是否联通
-     * @return true为不通 false为通
-     */
-    static bool isIpv6Connect();
-
-    /**
-     * @brief dht是否联通
-     * @return true为不通 false为通
-     */
-    static bool isDHT();
-
-    /**
-     * @brief bt是否联通
-     * @return true为不通 false为通
-     */
-    static bool isBt();
-
-    /**
      * @brief http是否联通
      * @return true为不通 false为通
      */

@@ -37,14 +37,9 @@ TEST_F(ut_Settings, initSetting)
     DMenu *menu = bar->menu();
 
     QTimer::singleShot(1000, this, [=]() {
-        for (int i = 0; i < menu->children().size(); i++) {
-            qDebug() << menu->children().at(i)->objectName();
-        }
         QTimer::singleShot(1000, this, [=]() {
             QWidget *w = QApplication::activeWindow();
             w->close();
-
-            EXPECT_TRUE(true);
         });
         QTest::mouseClick(menu, Qt::LeftButton, Qt::MetaModifier, QPoint(10, 10));
         menu->close();

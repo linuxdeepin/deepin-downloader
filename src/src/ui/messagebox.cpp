@@ -40,6 +40,7 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setTitle(tr("Warning"));
+    setObjectName("messageBox");
 
     addLabel(warningMsg);
     addSpacing(10);
@@ -84,8 +85,10 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret)
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
     addContent(urlText);
-    addButton(tr("Cancel"));
-    addButton(tr("Redownload"));
+    QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
+    btn1->setObjectName("cancel");
+    QAbstractButton *btn2 = getButton(addButton(tr("Redownload"), true, ButtonType::ButtonWarning));
+    btn2->setObjectName("redownload");
 }
 
 void MessageBox::setUnusual(const QString &taskId)
@@ -126,11 +129,15 @@ void MessageBox::setDelete(bool permanentl, bool checked)
         }
     }
     addSpacing(10);
-    addButton(tr("Cancel"));
+
+    QAbstractButton *btn = getButton(addButton(tr("Cancel")));
+    btn->setObjectName("cancel");
     if (permanentl) {
-        addButton(tr("Permanently Delete"), true, ButtonType::ButtonWarning);
+        QAbstractButton *btn = getButton(addButton(tr("Permanently Delete"), true, ButtonType::ButtonWarning));
+        btn->setObjectName("delete");
     } else {
-        addButton(tr("Delete"), true, ButtonType::ButtonWarning);
+        QAbstractButton *btn = getButton(addButton(tr("Delete"), true, ButtonType::ButtonWarning));
+        btn->setObjectName("delete");
     }
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onDeleteBtnClicked);
 }

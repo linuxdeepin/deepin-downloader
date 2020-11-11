@@ -15,13 +15,13 @@ protected:
     }
     virtual void SetUp()
     {
-//        sql.addBindValue(task.taskId);
-//        sql.addBindValue(task.gid);
-//        sql.addBindValue(task.gidIndex);
-//        sql.addBindValue(task.url);
-//        sql.addBindValue(task.downloadPath);
-//        sql.addBindValue(task.downloadFilename);
-//        sql.addBindValue(task.createTime);
+        //        sql.addBindValue(task.taskId);
+        //        sql.addBindValue(task.gid);
+        //        sql.addBindValue(task.gidIndex);
+        //        sql.addBindValue(task.url);
+        //        sql.addBindValue(task.downloadPath);
+        //        sql.addBindValue(task.downloadFilename);
+        //        sql.addBindValue(task.createTime);
         m_taskInfo.gid = "4261f7807e5d90d8";
         m_taskInfo.url = "http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.1.tar.gz";
         m_taskInfo.taskId = "78d8db55-10c2-4200-b097-253120d71269";
@@ -38,22 +38,23 @@ protected:
 
     virtual void TearDown()
     {
-
     }
     TaskInfo m_taskInfo;
     BtTaskInfo m_btTasknInfo;
 };
 
-TEST_F(ut_dbinstance, addTask) {
+TEST_F(ut_dbinstance, addTask)
+{
     TaskInfo taskInfo;
     bool ret = DBInstance::addTask(taskInfo);
-  //  EXPECT_TRUE(ret) << "空数据插入";
+    //  EXPECT_TRUE(ret) << "空数据插入";
 
     ret = DBInstance::addTask(m_taskInfo);
     EXPECT_TRUE(ret) << "有数据插入";
 }
 
-TEST_F(ut_dbinstance, delTask) {
+TEST_F(ut_dbinstance, delTask)
+{
     bool ret = DBInstance::delTask(" zx");
     EXPECT_TRUE(ret) << "空数据删除";
 
@@ -61,20 +62,20 @@ TEST_F(ut_dbinstance, delTask) {
     EXPECT_TRUE(ret) << "有数据插入";
 }
 
-TEST_F(ut_dbinstance, updateTaskInfoByID) {
+TEST_F(ut_dbinstance, updateTaskInfoByID)
+{
     DBInstance::addTask(m_taskInfo);
     TaskInfo taskInfo;
     bool ret = DBInstance::updateTaskInfoByID(taskInfo);
     EXPECT_TRUE(ret) << "更新一条不存在任务";
 
-     m_taskInfo.createTime = QDateTime::currentDateTime();
+    m_taskInfo.createTime = QDateTime::currentDateTime();
     ret = DBInstance::updateTaskInfoByID(m_taskInfo);
     EXPECT_TRUE(ret) << "更新一条存在任务";
 }
 
-
-
-TEST_F(ut_dbinstance, updateAllTaskInfo) {
+TEST_F(ut_dbinstance, updateAllTaskInfo)
+{
     DBInstance::addTask(m_taskInfo);
     TaskInfo taskInfo;
     QList<TaskInfo> taskInfoList;
@@ -89,7 +90,8 @@ TEST_F(ut_dbinstance, updateAllTaskInfo) {
     EXPECT_TRUE(ret) << "更新所有存在任务";
 }
 
-TEST_F(ut_dbinstance, getTaskByID) {
+TEST_F(ut_dbinstance, getTaskByID)
+{
     TaskInfo taskInfo;
     bool ret = DBInstance::getTaskByID("78d8db55-10c2-4200-b097-253120d7", taskInfo);
     EXPECT_TRUE(ret) << "获取一条ID不存在任务信息";
@@ -97,38 +99,44 @@ TEST_F(ut_dbinstance, getTaskByID) {
     EXPECT_TRUE(ret) << "获取一条ID存在任务信息";
 }
 
-TEST_F(ut_dbinstance, getAllTask) {
+TEST_F(ut_dbinstance, getAllTask)
+{
     QList<TaskInfo> taskList;
     bool ret = DBInstance::getAllTask(taskList);
     EXPECT_TRUE(ret) << "获取所有ID存在任务信息";
 }
 
-TEST_F(ut_dbinstance, isExistUrl) {
+TEST_F(ut_dbinstance, isExistUrl)
+{
     bool isExit;
-    bool ret = DBInstance::isExistUrl(m_taskInfo.url,isExit);
+    bool ret = DBInstance::isExistUrl(m_taskInfo.url, isExit);
     EXPECT_TRUE(ret) << "判断Url是否存在";
 }
 
-TEST_F(ut_dbinstance, getTaskForUrl) {
+TEST_F(ut_dbinstance, getTaskForUrl)
+{
     TaskInfo task;
-    bool ret = DBInstance::getTaskForUrl(m_taskInfo.url,task);
+    bool ret = DBInstance::getTaskForUrl(m_taskInfo.url, task);
     EXPECT_TRUE(ret) << "根据url查询任务数据";
 }
 
-TEST_F(ut_dbinstance, isExistBtInHash) {
+TEST_F(ut_dbinstance, isExistBtInHash)
+{
     bool isExis;
-    bool ret = DBInstance::isExistBtInHash("1111",isExis);
+    bool ret = DBInstance::isExistBtInHash("1111", isExis);
     EXPECT_TRUE(ret) << "通过hash判断Url是否存在";
 }
 
-TEST_F(ut_dbinstance, addTaskStatus) {
+TEST_F(ut_dbinstance, addTaskStatus)
+{
     TaskStatus taskStatus;
     taskStatus.taskId = m_taskInfo.taskId;
     bool ret = DBInstance::addTaskStatus(taskStatus);
     EXPECT_TRUE(ret) << "添加任务状态";
 }
 
-TEST_F(ut_dbinstance, updateTaskStatusById) {
+TEST_F(ut_dbinstance, updateTaskStatusById)
+{
     TaskStatus taskStatus;
     taskStatus.taskId = m_taskInfo.taskId;
     taskStatus.finishTime = QDateTime::currentDateTime();
@@ -136,7 +144,8 @@ TEST_F(ut_dbinstance, updateTaskStatusById) {
     EXPECT_TRUE(ret) << "更新任务状态";
 }
 
-TEST_F(ut_dbinstance, updateAllTaskStatus) {
+TEST_F(ut_dbinstance, updateAllTaskStatus)
+{
     TaskStatus taskStatus;
     taskStatus.taskId = m_taskInfo.taskId;
     taskStatus.finishTime = QDateTime::currentDateTime();
@@ -146,49 +155,57 @@ TEST_F(ut_dbinstance, updateAllTaskStatus) {
     EXPECT_TRUE(ret) << "更新所有任务状态";
 }
 
-TEST_F(ut_dbinstance, getTaskStatusById) {
+TEST_F(ut_dbinstance, getTaskStatusById)
+{
     TaskStatus taskStatus;
     bool ret = DBInstance::getTaskStatusById(m_taskInfo.taskId, taskStatus);
     EXPECT_TRUE(ret) << "获取任务状态";
 }
 
-TEST_F(ut_dbinstance, getAllTaskStatus) {
+TEST_F(ut_dbinstance, getAllTaskStatus)
+{
     QList<TaskStatus> taskStatusList;
     bool ret = DBInstance::getAllTaskStatus(taskStatusList);
     EXPECT_TRUE(ret) << "获取任务状态";
 }
 
-TEST_F(ut_dbinstance, addBtTask) {
+TEST_F(ut_dbinstance, addBtTask)
+{
     bool ret = DBInstance::addBtTask(m_btTasknInfo);
     EXPECT_TRUE(ret) << "添加一条bt信息";
 }
 
-TEST_F(ut_dbinstance, updateBtTaskById) {
+TEST_F(ut_dbinstance, updateBtTaskById)
+{
     m_btTasknInfo.downloadType = "/data/home/bulw/work";
     bool ret = DBInstance::updateBtTaskById(m_btTasknInfo);
     EXPECT_TRUE(ret) << "更新任务";
 }
 
-TEST_F(ut_dbinstance, getBtTaskById) {
+TEST_F(ut_dbinstance, getBtTaskById)
+{
     BtTaskInfo btTaskInfo;
-    bool ret = DBInstance::getBtTaskById(m_btTasknInfo.taskId,btTaskInfo);
+    bool ret = DBInstance::getBtTaskById(m_btTasknInfo.taskId, btTaskInfo);
     EXPECT_TRUE(ret) << "通过ID获取BT信息";
 }
 
-TEST_F(ut_dbinstance, getAllBtTask) {
+TEST_F(ut_dbinstance, getAllBtTask)
+{
     QList<BtTaskInfo> btTaskInfoList;
     bool ret = DBInstance::getAllBtTask(btTaskInfoList);
     EXPECT_TRUE(ret) << "获取所有BT任务信息";
 }
 
-TEST_F(ut_dbinstance, getSameNameCount) {
+TEST_F(ut_dbinstance, getSameNameCount)
+{
     QList<BtTaskInfo> btTaskInfoList;
     int count = DBInstance::getSameNameCount("123", "txt");
-    bool ret  = count > -1;
+    bool ret = count > -1;
     EXPECT_TRUE(ret) << "获取相同文件个数";
 }
 
-TEST_F(ut_dbinstance, delAllTask) {
+TEST_F(ut_dbinstance, delAllTask)
+{
     bool ret = DBInstance::delAllTask();
     EXPECT_TRUE(ret) << "删除数据所有数据";
 }

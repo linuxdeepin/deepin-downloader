@@ -28,6 +28,10 @@ set(CMAKE_INSTALL_PREFIX /usr)
 
 option(DOTEST "option for test" OFF)
 
+if(DOTEST)
+ADD_DEFINITIONS(-DDOTEST)
+endif()
+
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
     message("release")
@@ -97,6 +101,8 @@ if(DOTEST)
     find_package(Qt5 COMPONENTS ${QT} REQUIRED)
     # 添加子模块test
     add_subdirectory(test)
+    message("do test")
+
 else()
     message("DO Not TEST")
     #加载子模块
