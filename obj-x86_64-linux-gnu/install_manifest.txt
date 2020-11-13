@@ -1,0 +1,16 @@
+/usr/share/downloader/translations/downloader.qm
+/usr/share/downloader/translations/downloader_zh_CN.qm
+/usr/share/downloader/translations/downloader_zh_HK.qm
+/usr/share/downloader/translations/downloader_zh_TW.qm
+/usr/share/applications/downloader.desktop
+/usr/share/downloader/database/downloader.db
+/usr/share/downloader/config/aria2.conf
+/usr/share/downloader/config/config.conf
+/usr/share/downloader/config/content-type.conf
+/usr/share/icons/hicolor/scalable/apps/downloader.svg
+/usr/share/downloader/icons/logo/downloader.svg
+/usr/bin/downloader
+/usr/lib/libdlmlog.so
+/usr/lib/libdlmdatabase.so
+/usr/lib/libdlmaria2.so
+/usr/lib/libdlmcontrolui.so

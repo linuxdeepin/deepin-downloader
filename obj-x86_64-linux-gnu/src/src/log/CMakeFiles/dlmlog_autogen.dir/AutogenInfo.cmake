@@ -1,0 +1,35 @@
+# Meta
+set(AM_MULTI_CONFIG "FALSE")
+set(AM_PARALLEL "4")
+set(AM_VERBOSITY "")
+# Directories
+set(AM_CMAKE_SOURCE_DIR "/data/home/bulw/downloadmanager")
+set(AM_CMAKE_BINARY_DIR "/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu")
+set(AM_CMAKE_CURRENT_SOURCE_DIR "/data/home/bulw/downloadmanager/src/src/log")
+set(AM_CMAKE_CURRENT_BINARY_DIR "/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/log")
+set(AM_CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE "")
+set(AM_BUILD_DIR "/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/log/dlmlog_autogen")
+set(AM_INCLUDE_DIR "/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/log/dlmlog_autogen/include")
+# Files
+set(AM_SOURCES "/data/home/bulw/downloadmanager/src/src/log/log.cpp")
+set(AM_HEADERS "")
+set(AM_SETTINGS_FILE "/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/log/CMakeFiles/dlmlog_autogen.dir/AutogenOldSettings.txt")
+# Qt
+set(AM_QT_VERSION_MAJOR 5)
+set(AM_QT_MOC_EXECUTABLE "/usr/lib/qt5/bin/moc")
+set(AM_QT_UIC_EXECUTABLE "/usr/lib/qt5/bin/uic")
+# MOC settings
+set(AM_MOC_SKIP "")
+set(AM_MOC_DEFINITIONS "LM_LOG_LIB;QT_CORE_LIB;QT_NO_DEBUG")
+set(AM_MOC_INCLUDES "/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/log;/data/home/bulw/downloadmanager/src/src/log;/usr/include/libdtk-5.2.2/DCore;/usr/include/libdtk-5.2.1/DCore/../DGui;/usr/include/libdtk-5.2.2/DCore/../DWidget;/data/home/bulw/downloadmanager/src/include/log;/usr/include/x86_64-linux-gnu/qt5;/usr/include/x86_64-linux-gnu/qt5/QtCore;/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++")
+set(AM_MOC_OPTIONS "")
+set(AM_MOC_RELAXED_MODE "")
+set(AM_MOC_MACRO_NAMES "Q_OBJECT;Q_GADGET;Q_NAMESPACE")
+set(AM_MOC_DEPEND_FILTERS "")
+set(AM_MOC_PREDEFS_CMD "/usr/bin/c++;-dM;-E;-c;/usr/share/cmake-3.13/Modules/CMakeCXXCompilerABI.cpp")
+# UIC settings
+set(AM_UIC_SKIP "")
+set(AM_UIC_TARGET_OPTIONS "")
+set(AM_UIC_OPTIONS_FILES "")
+set(AM_UIC_OPTIONS_OPTIONS "")
+set(AM_UIC_SEARCH_PATHS "")

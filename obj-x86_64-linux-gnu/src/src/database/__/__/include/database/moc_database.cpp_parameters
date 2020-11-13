@@ -1,0 +1,15 @@
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.1/DCore/../DGui
+-I/usr/include/libdtk-5.2.2/DCore/../DWidget
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.1/DCore/../DGui
+-I/data/home/bulw/downloadmanager/src/include/database
+-I/data/home/bulw/downloadmanager/src/include/ui/mainFrame
+-I/data/home/bulw/downloadmanager/src/src/database
+-I/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/database
+-DLM_DATABASE_LIB
+-o
+/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/database/__/__/include/database/moc_database.cpp
+/data/home/bulw/downloadmanager/src/include/database/database.h

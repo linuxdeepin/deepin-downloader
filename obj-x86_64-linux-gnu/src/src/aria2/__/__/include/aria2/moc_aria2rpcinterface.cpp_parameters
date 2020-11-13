@@ -1,0 +1,15 @@
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.1/DCore/../DGui
+-I/usr/include/libdtk-5.2.2/DCore/../DWidget
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.2/DCore
+-I/usr/include/libdtk-5.2.1/DCore/../DGui
+-I/data/home/bulw/downloadmanager/src/include/aria2
+-I/data/home/bulw/downloadmanager/src/include/log
+-I/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu
+-I/data/home/bulw/downloadmanager/src/src/aria2
+-I/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/aria2
+-o
+/data/home/bulw/downloadmanager/obj-x86_64-linux-gnu/src/src/aria2/__/__/include/aria2/moc_aria2rpcinterface.cpp
+/data/home/bulw/downloadmanager/src/include/aria2/aria2rpcinterface.h
