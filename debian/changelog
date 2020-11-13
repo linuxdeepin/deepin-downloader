@@ -1,4 +1,4 @@
-downloadmanager (5.2.0.22) stable; urgency=low
+downloadmanager (5.2.0.23) stable; urgency=low
 
   * 修改二期八次送测产生的部分bug
   * 53458【5.2.0.21】【下载完成后】设置下载完成后退出下载器，任务下载完成退出，再次查看任务概率性出现没有完成时间
