@@ -1,3 +1,13 @@
+downloadmanager (5.1.0.26) stable; urgency=low
+
+  * 修改KLU的bug
+  * 54027【KLU】【5.1.0.25】【下载列表】下载列表中任务无法复选
+  * 48228【KLU】【5.1.0.22】【重复下载】新建重复BT下载时下载失败
+  * 42821【KLU】【5.1.0.17】【下载器】下载失败的任务重新下载失败
+  * 39576【KLU】右键重命名时更改名字后鼠标点击空白处无法保存当前已修改的名称
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 13 Nov 2020 15:30:22 +0800
+
 downloadmanager (5.1.0.25) stable; urgency=low
 
   * 修改界面没有自动刷新的bug
