@@ -2982,7 +2982,7 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
     if (pItem->status == DownloadJobStatus::Active || pItem->status == DownloadJobStatus::Waiting) { //正在下载的任务，等删除返回成功在删除任务记录
         QTime time;
         time.start();
-        while (time.elapsed() < 1000) {
+        while (time.elapsed() < 3000) {
             QCoreApplication::processEvents();
         }
         return;
@@ -2990,7 +2990,7 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
     m_DownLoadingTableView->getTableModel()->removeItem(pItem);
     QTime time;
     time.start();
-    while (time.elapsed() < 1000) {
+    while (time.elapsed() < 3000) {
         QCoreApplication::processEvents();
     }
     return;
