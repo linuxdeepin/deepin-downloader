@@ -71,3 +71,23 @@ TEST_F(ut_Settings, diagnostictool)
     });
     menu->exec();
 }
+
+TEST_F(ut_Settings, close)
+{
+    MainFrame *m = MainFrame::instance();
+    QSystemTrayIcon *tray = m->findChild<QSystemTrayIcon *>("systemTray");
+    QMenu *menu = tray->contextMenu();
+    QTimer::singleShot(1000, this, [=]() {
+        QTimer::singleShot(1000, this, [=]() {
+            QWidget *w = QApplication::activeWindow();
+            QAbstractButton *btn = w->findChild<QAbstractButton *>("sure");
+            QTest::mouseClick(btn, Qt::LeftButton);
+            // w->close();
+        });
+        QPoint p = menu->rect().bottomRight();
+        QTest::mouseClick(menu, Qt::LeftButton, Qt::MetaModifier, QPoint(p.x() - 10, p.y() - 10));
+        // menu->close();
+    });
+    menu->exec();
+    //QTest::mouseClick(menu, Qt::RightButton);
+}
