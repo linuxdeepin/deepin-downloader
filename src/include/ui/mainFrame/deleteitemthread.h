@@ -65,6 +65,8 @@ private:
     bool deleteDirectory(const QString &path);
 
     bool DelDir(const QString &path);
+
+    // bool checkPath(DownloadDataItem &item);
 signals:
     /**
       * @brief 通知主界面调用aria2删除任务

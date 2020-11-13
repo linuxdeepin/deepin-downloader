@@ -58,9 +58,11 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
         addContent(urlText);
     }
     if (!cancelbtntext.isEmpty()) {
-        addButton(cancelbtntext);
+        QAbstractButton *btn1 = getButton(addButton(cancelbtntext));
+        btn1->setObjectName("cancel");
     }
-    addButton(surebtntext);
+    QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
+    btn2->setObjectName("sure");
     connect(this, &MessageBox::buttonClicked, this,
             [=]() {
                 close();

@@ -964,7 +964,11 @@ void Settings::setCloseMainWindowSelected(int select)
 
 QString Settings::getCustomFilePath()
 {
-    return m_iniFile->value("FilePath/Filename").toString();
+    QString path = m_iniFile->value("FilePath/Filename").toString();
+    if (path.remove(' ').isEmpty()) {
+        return getDownloadSavePath();
+    }
+    return path;
 }
 
 void Settings::setCustomFilePath(const QString &path)

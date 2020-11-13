@@ -283,6 +283,7 @@ void MainFrame::initTray()
     QIcon tryIcon = QIcon(":/icons/icon/downloader5.svg");
 
     m_SystemTray = new QSystemTrayIcon(this);
+    m_SystemTray->setObjectName("systemTray");
     m_SystemTray->setIcon(tryIcon);
     m_SystemTray->setToolTip(tr("Downloader"));
 
@@ -3061,7 +3062,18 @@ void MainFrame::deleteTask(DeleteDataItem *pItem)
     Aria2RPCInterface::instance()->forceRemove(pItem->gid, pItem->taskId);
     QString filePath = pItem->savePath;
     if (!pItem->savePath.isEmpty()) {
-        deleteDirectory(pItem->savePath);
+        if (pItem->url.isEmpty()) { //bt任务
+            BtTaskInfo info;
+            DBInstance::getBtTaskById(pItem->taskId, info);
+            QString torrentPath = info.seedFile;
+            Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
+            QString mode = btInfo.mode;
+            if (pItem->savePath.contains(btInfo.name)) {
+                deleteDirectory(pItem->savePath);
+            }
+        } else {
+            deleteDirectory(pItem->savePath);
+        }
         if (QFile::exists(filePath + ".aria2")) {
             QFile::remove(filePath + ".aria2");
             QTimer::singleShot(3000, [=]() {
@@ -3083,7 +3095,19 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
     Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
     QString filePath = pItem->savePath;
     if (!pItem->savePath.isEmpty()) {
-        deleteDirectory(pItem->savePath);
+        if (pItem->url.isEmpty()) { //bt任务
+            BtTaskInfo info;
+            DBInstance::getBtTaskById(pItem->taskId, info);
+            QString torrentPath = info.seedFile;
+            Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
+            QString mode = btInfo.mode;
+            if (pItem->savePath.contains(btInfo.name)) {
+                deleteDirectory(pItem->savePath);
+            }
+        } else {
+            deleteDirectory(pItem->savePath);
+        }
+
         if (QFile::exists(filePath + ".aria2")) {
             QFile::remove(filePath + ".aria2");
             QTimer::singleShot(3000, [=]() {
