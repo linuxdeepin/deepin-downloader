@@ -573,9 +573,9 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     QVector<int> unsortable;
     int role = 0;
     switch (column) {
-        //    case 0:
-        //        role = TableModel::createTime;
-        //        break;
+    case 0:
+        role = TableModel::createTime;
+        break;
     case 1:
         role = TableModel::FileName;
         break;
