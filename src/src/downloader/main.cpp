@@ -31,9 +31,9 @@ int main(int argc, char *argv[])
     a.setQuitOnLastWindowClosed(false);
     a.loadTranslator(); //加载程序的翻译文件
     a.setOrganizationName("uos"); //设置公司名
-    a.setApplicationName("downloadmanager"); //设置应用程序名
+    a.setApplicationName("downloader"); //设置应用程序名
     a.setApplicationVersion(DLM_VERSION_STRING); //设置应用程序版本
-    a.setProductIcon(QIcon(":/icons/icon/downloadmanager.svg")); //从系统主题中获取图标并设置成产品图标
+    a.setProductIcon(QIcon(":/icons/icon/downloader.svg")); //从系统主题中获取图标并设置成产品图标
     auto download_manager_name = QObject::tr("Downloader");
     a.setProductName(download_manager_name); //设置产品的名称
     auto download_manager_info = QObject::tr("This is a download manage application.");
@@ -45,16 +45,16 @@ int main(int argc, char *argv[])
     parser.process(a);
     QStringList comList = parser.positionalArguments();
     QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloadmanager");
+    sharedMemory.setKey("downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
         if (!checkProcessExist()) { //下载器任务不存在，清空共享内存并启动
             sharedMemory.detach();
         } else { //下载器任务存在
             if (comList.isEmpty()) {
-                QDBusInterface iface("com.downloadmanager.service",
-                                     "/downloadmanager/path",
-                                     "local.downloadmanager.MainFrame",
+                QDBusInterface iface("com.downloader.service",
+                                     "/downloader/path",
+                                     "local.downloader.MainFrame",
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("Raise");
             } else {
@@ -65,9 +65,9 @@ int main(int argc, char *argv[])
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
-                QDBusInterface iface("com.downloadmanager.service",
-                                     "/downloadmanager/path",
-                                     "local.downloadmanager.MainFrame",
+                QDBusInterface iface("com.downloader.service",
+                                     "/downloader/path",
+                                     "local.downloader.MainFrame",
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("OpenBt", comList[0]);
             }
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
             w.OpenBt(comList[i]);
         }
     }
-    w.setWindowIcon(QIcon(":/icons/icon/downloadmanager.svg"));
+    w.setWindowIcon(QIcon(":/icons/icon/downloader.svg"));
     QObject::connect(&a, &DlmApplication::applicatinQuit, &w, &MainFrame::onTrayQuitClick);
     Dtk::Widget::moveToCenter(&w);
     return a.exec();
@@ -142,7 +142,7 @@ bool checkProcessExist()
 {
     QProcess process;
     QStringList list;
-    process.start("pgrep downloadmanager");
+    process.start("pgrep downloader");
     process.start();
     process.waitForStarted(1000);
     process.waitForFinished(1000);
