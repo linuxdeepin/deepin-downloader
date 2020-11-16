@@ -1,0 +1,7 @@
+translations/*.qm /usr/share/downloader/translations
+desktop/downloader.desktop /usr/share/applications
+data/downloader.db /usr/share/downloader/database
+data/downloader.svg /usr/share/icons/hicolor/scalable/apps
+data/downloader.svg /usr/share/downloader/icons/logo
+docs/aria2.conf /usr/share/downloader/config
+docs/config.conf /usr/share/downloader/config
