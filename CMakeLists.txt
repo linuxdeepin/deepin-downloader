@@ -3,11 +3,11 @@ cmake_minimum_required(VERSION 3.1.0)
 
 
 #工程名
-project(downloadmanager)
-set(PROJECT_VERSION "5.1.0.25")
+project(downloader)
+set(PROJECT_VERSION "5.1.0.26")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
-set(DLM_NAME "downloadmanager")
+set(DLM_NAME "downloader")
 set(ARIA2_NAME "aria2c")
 
 # 设置C++标准为 C++ 11
@@ -72,24 +72,24 @@ add_subdirectory(translations)
 #安装
 # qm files
 file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/downloadmanager/translations)
+install(FILES ${QM_FILES} DESTINATION share/downloader/translations)
 
 #desktop
-install(FILES desktop/downloadmanager.desktop DESTINATION share/applications)
+install(FILES desktop/downloader.desktop DESTINATION share/applications)
 
 #datebases
-install(FILES data/uos-downloadmanager-task.db DESTINATION share/downloadmanager/database)
+install(FILES data/downloader.db DESTINATION share/downloader/database)
 
 # conf file
 file(GLOB CF_FILES "docs/*.conf")
-install(FILES ${CF_FILES} DESTINATION share/downloadmanager/config)
+install(FILES ${CF_FILES} DESTINATION share/downloader/config)
 
 
 #icon
-install(FILES data/downloadmanager.svg DESTINATION share/icons/hicolor/scalable/apps/)
-install(FILES data/downloadmanager.svg DESTINATION share/downloadmanager/icons/logo/)
+install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
+install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
-install(TARGETS downloadmanager dlmlog dlmdatabase dlmaria2 dlmcontrolui
+install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
 LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic
