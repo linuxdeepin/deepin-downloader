@@ -153,7 +153,6 @@ void TableView::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton) {
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
-        QTableView::mousePressEvent(event);
         QModelIndex index = indexAt(event->pos());
         if ((index.row() < 0) && (index.column() < 0)) {
             currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);

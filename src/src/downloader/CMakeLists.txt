@@ -7,10 +7,9 @@ link_directories(${CMAKE_BINARY_DIR}/lib)
 
 
 #设置输入执行文件名称
-add_executable(downloadmanager main.cpp)
+add_executable(downloader main.cpp)
 
-target_link_libraries(downloadmanager dlmcontrolui dlmlog Qt5::Core)
+target_link_libraries(downloader dlmcontrolui dlmlog Qt5::Core)
 
-#INSTALL(TARGETS downloadmanager DESTINATION share/downloadmanager)
-install(TARGETS downloadmanager DESTINATION bin)
+install(TARGETS downloader DESTINATION bin)
 

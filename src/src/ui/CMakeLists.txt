@@ -49,7 +49,7 @@ qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 #发布的时候生成qm文件
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     #生成 ts qm文件
-    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloadmanager_zh_CN.ts")
+    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_zh_CN.ts")
     qt5_create_translation(QM_FILES
         ${PROJECT_SOURCE_DIR}/translations
         ${TS_FILES}

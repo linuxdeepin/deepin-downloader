@@ -1,3 +1,10 @@
+downloadmanager (5.1.0.27) stable; urgency=low
+
+  * Non-maintainer upload.
+  * 
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 13 Nov 2020 17:04:23 +0800
+
 downloadmanager (5.1.0.25) stable; urgency=low
 
   * 修改界面没有自动刷新的bug

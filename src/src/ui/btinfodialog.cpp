@@ -724,7 +724,7 @@ void BtInfoDialog::setOkBtnStatus(int count)
 void BtInfoDialog::closeEvent(QCloseEvent *event)
 {
     QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloadmanager");
+    sharedMemory.setKey("downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
         sharedMemory.lock();
