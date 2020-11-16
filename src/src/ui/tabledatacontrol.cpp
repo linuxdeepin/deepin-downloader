@@ -445,7 +445,7 @@ void tableDataControl::aria2MethodShutdown(QJsonObject &json)
 
     if (result == "OK") {
         // m_bShutdownOk = true;
-        qDebug() << "close downloadmanager";
+        qDebug() << "close downloader";
         //m_pTableView->close();
         DApplication::exit();
     }
@@ -593,7 +593,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     QString in0(tr("Downloader")); //下载器
     uint in1 = 101;
     QString in2;
-    in2 = "downloadmanager";
+    in2 = "downloader";
     QString in3;
     QString in4;
     QStringList in5;
@@ -602,7 +602,7 @@ void tableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
         in3 = tr("Download failed"); //下载失败
         in4 = QString(tr("%1 download failed. Network error.")).arg(fileName); //【%1下载失败，网络故障。】
         in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
-        in6["x-deepin-action-_view"] = "downloadmanager";
+        in6["x-deepin-action-_view"] = "downloader";
         qDebug() << in4 + ("    errorCode: ") + errorCode;
         if ("12" == errorCode) {
         }
