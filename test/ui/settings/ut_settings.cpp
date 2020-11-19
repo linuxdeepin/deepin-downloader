@@ -6,6 +6,8 @@
 #include <QDebug>
 #include <QPushButton>
 #include <QTimer>
+#include <DRadioButton>
+
 class ut_Settings : public ::testing::Test
     , public QObject
 {
@@ -46,6 +48,23 @@ TEST_F(ut_Settings, initSetting)
     });
     menu->exec();
     EXPECT_TRUE(true);
+}
+
+TEST_F(ut_Settings, getSpeed)
+{
+    EXPECT_FALSE(Settings::getInstance()->getAutoSortBySpeed());
+}
+
+TEST_F(ut_Settings, getPath)
+{
+    QString str = Settings::getInstance()->getCustomFilePath();
+    QString str1 = Settings::getInstance()->getDownloadSavePath();
+    EXPECT_FALSE(str.isEmpty() && str1.isEmpty());
+}
+
+TEST_F(ut_Settings, getspeed)
+{
+    EXPECT_TRUE(Settings::getInstance()->getDownloadInfoSystemNotifyState());
 }
 
 TEST_F(ut_Settings, diagnostictool)

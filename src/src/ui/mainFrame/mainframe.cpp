@@ -160,6 +160,7 @@ void MainFrame::init()
     m_DownLoadingTableView->setColumnHidden(4, true);
 
     m_RecycleTableView = new TableView(tableviewFlag::recycle);
+    m_RecycleTableView->setObjectName("recycleTableView");
     m_RecycleTableView->verticalHeader()->setDefaultSectionSize(48);
     m_RecycleTableView->setColumnHidden(3, true);
     m_DownLoadingTableView->getTableControl()->setRecycleTable(m_RecycleTableView);
