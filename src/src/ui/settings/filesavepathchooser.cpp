@@ -48,7 +48,9 @@ void FileSavePathChooser::initUI()
 {
     m_fileChooserEdit = new DFileChooserEdit;
     m_autoLastPathRadioButton = new DRadioButton(tr("Last used directory")); // 自动修改为上次使用的目录
+    m_autoLastPathRadioButton->setObjectName("lastPathBtn");
     m_customsPathRadioButton = new DRadioButton(tr("Default directory")); // 设置默认目录
+    m_customsPathRadioButton->setObjectName("customPathBtn");
 
     m_fileChooserEdit->lineEdit()->setReadOnly(true);
     m_fileChooserEdit->lineEdit()->setClearButtonEnabled(false);

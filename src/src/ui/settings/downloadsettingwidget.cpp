@@ -49,6 +49,7 @@ void DownloadSettingWidget::initUI()
     m_UploadSpeedLimitValue = 32;
 
     m_fullSpeedDownloadButton = new DRadioButton(tr("Full speed")); // 全速下载
+    m_fullSpeedDownloadButton->setObjectName("fullSpeedBtn");
     m_fullSpeedDownloadButton->setToolTip(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
     //    m_fullSpeedDownloadButton->toolTip()
     //    DLabel *pFullSpeedLabel = new DLabel;
@@ -56,6 +57,7 @@ void DownloadSettingWidget::initUI()
     //    pFullSpeedLabel->setText(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
     //    pFullSpeedLabel->setWordWrap(true);
     m_speedLimitDownloadButton = new DRadioButton(tr("Limited speed")); // 限速下载
+    m_speedLimitDownloadButton->setObjectName("speedLimitBtn");
     m_speedLimitDownloadButton->setChecked(true);
     m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
     m_maxUploadSpeedLimit = new SettingInfoInputWidget;

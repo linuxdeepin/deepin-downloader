@@ -109,6 +109,7 @@ void MessageBox::setUnusual(const QString &taskId)
                 close();
             });
 }
+
 void MessageBox::setDelete(bool permanentl, bool checked)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
@@ -150,10 +151,13 @@ void MessageBox::setClear()
     addLabel(show_title);
     addSpacing(10);
     addCheckbox(tr("Delete local files"));
-    addButton(tr("Cancel"));
-    addButton(tr("Empty"));
+    QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
+    btn1->setObjectName("cancel");
+    QAbstractButton *btn2 = getButton(addButton(tr("Empty"), true, ButtonType::ButtonWarning));
+    btn2->setObjectName("empty");
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onClearBtnClicked);
 }
+
 void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
 {
     Q_UNUSED(title);

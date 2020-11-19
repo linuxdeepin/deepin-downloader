@@ -50,6 +50,5 @@ int main(int argc, char **argv)
     QTestMain tc;
     tc.testGTest(argc, argv);
     return QTest::qExec(&tc, argc, argv);
-
 }
 #include "main.moc"

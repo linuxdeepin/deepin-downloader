@@ -37,15 +37,14 @@ TEST_F(ut_CreateTaskWidget, init)
     c->setUrl("https://img.tukuppt.com/video_show/2475824/00/02/19/5b527330214a6_10s_big.mp4");
 
     DCheckBox *all = c->findChild<DCheckBox *>("checkAll");
-    DCheckBox * video = c->findChild<DCheckBox *>("checkVideo");
-    DCheckBox * picture = c->findChild<DCheckBox *>("checkPicture");
-    DCheckBox * audio = c->findChild<DCheckBox *>("checkAudio");
-    DCheckBox * other = c->findChild<DCheckBox *>("checkOther");
-    DCheckBox * doc = c->findChild<DCheckBox *>("checkDoc");
-    DCheckBox * zip = c->findChild<DCheckBox *>("checkZip");
-    DPushButton * cancel = c->findChild<DPushButton *>("cancelButton");
-    BtInfoTableView * tableView = c->findChild<BtInfoTableView *>("tableView");
-
+    DCheckBox *video = c->findChild<DCheckBox *>("checkVideo");
+    DCheckBox *picture = c->findChild<DCheckBox *>("checkPicture");
+    DCheckBox *audio = c->findChild<DCheckBox *>("checkAudio");
+    DCheckBox *other = c->findChild<DCheckBox *>("checkOther");
+    DCheckBox *doc = c->findChild<DCheckBox *>("checkDoc");
+    DCheckBox *zip = c->findChild<DCheckBox *>("checkZip");
+    DPushButton *cancel = c->findChild<DPushButton *>("cancelButton");
+    BtInfoTableView *tableView = c->findChild<BtInfoTableView *>("tableView");
 
     QTest::mouseClick(all, Qt::LeftButton);
     QTest::qWait(50);
@@ -65,12 +64,12 @@ TEST_F(ut_CreateTaskWidget, init)
 
     QTest::qWait(1000);
 
-    QTest::mouseDClick(tableView->viewport(),Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100,40));
-    QTest::mouseDClick(tableView->viewport(),Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100,40));
+    QTest::mouseDClick(tableView->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100, 40));
+    QTest::mouseDClick(tableView->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100, 40));
     QTest::qWait(500);
-    tableView->edit(tableView->model()->index(0,1));
-    DLineEdit * w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
-    QTest::keyClicks(w->lineEdit(),"111");
+    tableView->edit(tableView->model()->index(0, 1));
+    DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
+    QTest::keyClicks(w->lineEdit(), "111");
     QTest::qWait(1000);
 
     QTest::keyClick(w->lineEdit(), Qt::Key_Enter);
@@ -86,11 +85,11 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
 {
     BtInfoDialog btDiag(" ", " "); // torrent文件路径
     DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
-    DCheckBox * video = btDiag.findChild<DCheckBox *>("checkVideo");
-    DCheckBox * picture = btDiag.findChild<DCheckBox *>("checkPicture");
-    DCheckBox * audio = btDiag.findChild<DCheckBox *>("checkAudio");
-    DCheckBox * other = btDiag.findChild<DCheckBox *>("checkOther");
-    DPushButton * cancel = btDiag.findChild<DPushButton *>("cancelButton");
+    DCheckBox *video = btDiag.findChild<DCheckBox *>("checkVideo");
+    DCheckBox *picture = btDiag.findChild<DCheckBox *>("checkPicture");
+    DCheckBox *audio = btDiag.findChild<DCheckBox *>("checkAudio");
+    DCheckBox *other = btDiag.findChild<DCheckBox *>("checkOther");
+    DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
     QTest::mouseClick(all, Qt::LeftButton);
     QTest::qWait(50);
     QTest::mouseClick(video, Qt::LeftButton);
