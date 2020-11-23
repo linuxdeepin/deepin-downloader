@@ -261,22 +261,10 @@ public:
     bool getDownloadInfoSystemNotifyState();
 
     /**
-     * @brief 获取下载完成后播放提示音状态值
-     * @return 开启返回true，否则返回false
-     */
-    bool getDownloadFinishedPlayToneState();
-
-    /**
      * @brief 获取新建任务时显示主界面状态值
      * @return 开启返回true，否则返回false
      */
     bool getNewTaskShowMainWindowState();
-
-    /**
-     * @brief 获取打开主界面快捷键
-     * @return 返回快捷键，如：Alt+D
-     */
-    QString getOpenMainWindowShortcutKey();
 
     /**
      * @brief 获取磁盘缓存值

@@ -64,8 +64,6 @@ private:
       */
     bool deleteDirectory(const QString &path);
 
-    bool DelDir(const QString &path);
-
     // bool checkPath(DownloadDataItem &item);
 signals:
     /**

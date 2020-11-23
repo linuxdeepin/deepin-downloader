@@ -9,6 +9,7 @@
 #include <QDBusInterface>
 #include <QDBusPendingCall>
 #include <QPoint>
+#include <QClipboard>
 
 #include "mainframe.h"
 #include "createtaskwidget.h"
@@ -679,4 +680,11 @@ TEST_F(ut_MainFreme, clrearTrashTask)
     QTest::mouseClick(btn, Qt::LeftButton);
     EXPECT_TRUE(model->recyleList().isEmpty());
     QTest::qWait(2000);
+}
+
+TEST_F(ut_MainFreme, clipboard)
+{
+    QProcess p;
+    QString str = "echo \"https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4\" | xclip";
+    p.start();
 }

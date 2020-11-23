@@ -892,25 +892,11 @@ bool Settings::getDownloadInfoSystemNotifyState()
     return option->value().toBool();
 }
 
-bool Settings::getDownloadFinishedPlayToneState()
-{
-    auto option = m_settings->option("Notifications.remind.afterDownloadPlayTone");
-
-    return option->value().toBool();
-}
-
 bool Settings::getNewTaskShowMainWindowState()
 {
     auto option = m_settings->option("AdvancedSetting.ShortcutKeySetting.NewTaskShowMainwindow");
 
     return option->value().toBool();
-}
-
-QString Settings::getOpenMainWindowShortcutKey()
-{
-    auto option = m_settings->option("AdvancedSetting.ShortcutKeySetting.OpenMainWindowShortcutKey");
-
-    return option->value().toString();
 }
 
 int Settings::getDisckcacheNum()

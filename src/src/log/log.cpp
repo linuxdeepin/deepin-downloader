@@ -193,12 +193,15 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, cons
     s_logMutex.lock();
     QFile outFile(s_logPath);
     QFileInfo fileInfo(outFile);
-    if (!ensureDirExist(fileInfo.absoluteDir().absolutePath()))
+    if (!ensureDirExist(fileInfo.absoluteDir().absolutePath())) {
+        s_logMutex.unlock();
         return;
+    }
 
-    if (!outFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+    if (!outFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        s_logMutex.unlock();
         return;
-
+    }
     QTextStream ts(&outFile);
     ts << message.toUtf8() << endl;
     std::cout << msg.toStdString() << std::endl;
