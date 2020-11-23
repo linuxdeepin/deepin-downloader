@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "712884c0_4ca0db64",
+        "filename": "src/include/ui/mainFrame/deleteitemthread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 1; 注释率: 不计算",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d287a7e8_6b1cc1ba",
+        "filename": "src/include/ui/settings/settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 10; 注释率: 不计算",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03aa3df1_fadc9c6a",
+        "filename": "src/src/log/log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 6; 注释率: 0.0%",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef2eb29d_9c5237aa",
+        "filename": "src/src/ui/clipboardtimer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4032563_d3a49939",
+        "filename": "src/src/ui/mainFrame/deleteitemthread.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 21; 注释率: 不计算",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c723a2_dc185080",
+        "filename": "src/src/ui/settings/settings.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 10; 注释率: 不计算",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8842077_5add380b",
+        "filename": "test/aria2/ut_aria2rpcinterface.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 169; 注释率: 0.6%",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "434f3d48_84cb9ab3",
+        "filename": "test/log/ut_log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-23T01:48:00Z",
+      "side": 1,
+      "message": "注释行数: 45; 改动行数(修改和新增): 362; 注释率: 12.4%",
+      "revId": "a1274d34a9e50c28376f1119eaaf93cc39ed6d3d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
