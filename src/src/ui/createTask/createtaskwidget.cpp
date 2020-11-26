@@ -337,6 +337,17 @@ void CreateTaskWidget::onSureBtnClicked()
         showNetErrorMsg();
         return;
     }
+    QString strSelectSize =  m_labelSelectedFileNum->text().split(",")[1];
+    QString strCapacity =  m_labelCapacityFree->text().split(":")[1];
+    double iSelectSize = formatSpeed(strSelectSize);
+    double iCapacity = formatSpeed(strCapacity);
+    if (iSelectSize > iCapacity) { //剩余空间比较 KB
+        qDebug() << "Disk capacity is not enough!";
+        MessageBox msg;
+        msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
+        msg.exec();
+        return;
+    }
     static QMutex mutex;
     bool ret = mutex.tryLock();
     if (!ret) {
@@ -1043,4 +1054,29 @@ QString CreateTaskWidget::getNetErrTip()
 void CreateTaskWidget::keyPressEvent(QKeyEvent *event)
 {
     QWidget::keyPressEvent(event);
+}
+
+double CreateTaskWidget::formatSpeed(QString str)
+{
+    QString number = str;
+    if (str.contains("KB")) {
+        number.remove("KB");
+    } else if (str.contains("MB")) {
+        number.remove("MB");
+    } else if (str.contains("GB")) {
+        number.remove("GB");
+    }else if (str.contains("B")) {
+        number.remove("B");
+    }
+
+    double num = number.toDouble();
+    if (str.contains("KB")) {
+        num = num * 1024;
+    } else if (str.contains("MB")) {
+        num = num * 1024 * 1024;
+    } else if (str.contains("GB")) {
+        num = num * 1024 * 1024 * 1024;
+    }
+
+    return num;
 }

@@ -177,6 +177,13 @@ private:
      * @brief 获取断网提示
     */
     QString getNetErrTip();
+
+    /**
+     * @brief 磁盘大小转换
+     * @param 传入字符串
+     * @return 传出double大小
+    */
+    double formatSpeed(QString str);
 private slots:
     /**
      * @brief 打开选择文件窗口按钮

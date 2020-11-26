@@ -183,7 +183,7 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         return nullptr;
     }
     DLineEdit *pEdit = new DLineEdit(parent);
-    QRegExp regx("[^\\\\/\':\\*\\?\"<>|#%]+"); //屏蔽特殊字符
+    QRegExp regx("[^\\\\/\':\\*\\?\"<>|#%]+？"); //屏蔽特殊字符
     QValidator *validator = new QRegExpValidator(regx, pEdit);
     pEdit->lineEdit()->setValidator(validator);
     pEdit->lineEdit()->setMaxLength(83);
