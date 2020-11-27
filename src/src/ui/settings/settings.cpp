@@ -952,7 +952,7 @@ QString Settings::getCustomFilePath()
 {
     QString path = m_iniFile->value("FilePath/Filename").toString();
     if (path.remove(' ').isEmpty()) {
-        return getDownloadSavePath();
+        return "";
     }
     return path;
 }

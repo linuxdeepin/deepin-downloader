@@ -101,8 +101,10 @@ public slots:
      * @param event 事件类型
      */
     void onTrayQuitClick(bool force = false);
-
+#ifdef DOTEST
+#else
 private slots:
+#endif
     /**
      * @brief 点击托盘图表的槽函数
      * @param reason 激活原因
@@ -306,12 +308,6 @@ private slots:
     void onAutoDownloadBySpeed(bool status);
 
     /**
-    * @brief 重命名确认槽函数
-    * @param name 新名称
-    */
-    void onRenameConfirmSlot(QString &name);
-
-    /**
     * @brief 重新下载确认槽函数
     */
     void onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type);
@@ -355,8 +351,12 @@ private slots:
      * @brief 下载完成 的一些操作
      */
     void onDownloadFinish();
-
+#ifdef DOTEST
+public:
+#else
 private:
+#endif
+
     /**
      * @brief 初始化aria2
     */
@@ -437,11 +437,6 @@ private:
      * @brief showReloadMsgbox 显示重新下载窗口
      */
     void showReloadMsgbox();
-
-    /**
-     * @brief showRenameMsgbox 显示重命名窗口
-     */
-    void showRenameMsgbox();
 
     /**
      * @brief 显示重新下载窗口

@@ -253,6 +253,9 @@ int TableModel::columnCount(const QModelIndex &parent) const
 
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
+    if(!index.isValid()){
+        return QVariant();
+    }
     const int row = index.row();
     const DownloadDataItem *data = nullptr;
     const DeleteDataItem *deldata = nullptr;

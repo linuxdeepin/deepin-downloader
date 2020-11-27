@@ -52,6 +52,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     if (isLineEdit) {
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
+        m_Edit->setMinimumWidth(200);
         DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);
         QIntValidator *validator = new QIntValidator(1, 9999);
         m_Edit->lineEdit()->setValidator(validator);

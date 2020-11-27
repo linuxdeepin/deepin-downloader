@@ -1617,15 +1617,6 @@ void MainFrame::showDeleteMsgbox(bool permanently)
     }
 }
 
-void MainFrame::showRenameMsgbox()
-{
-    MessageBox msg;
-
-    connect(&msg, &MessageBox::Rename, this, &MainFrame::onRenameConfirmSlot);
-    QString title = tr("Rename");
-    msg.setReName(title, tr("sure"), tr("cancel"), m_CheckItem->fileName);
-    msg.exec();
-}
 
 bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
 {
@@ -2293,33 +2284,6 @@ void MainFrame::onDeletePermanentActionTriggered()
     showDeleteMsgbox(true);
 }
 
-void MainFrame::onRenameConfirmSlot(QString &name)
-{
-    if (name == m_CheckItem->fileName) {
-        return;
-    }
-
-    QString FilePath;
-    FilePath = m_CheckItem->savePath.left(m_CheckItem->savePath.length()
-                                          - m_CheckItem->fileName.length());
-
-    if (QFileInfo::exists(FilePath + name)) {
-        return;
-    }
-
-    QFile::rename(FilePath + m_CheckItem->fileName, FilePath + name);
-    m_CheckItem->fileName = name;
-    m_CheckItem->savePath = FilePath + name;
-    m_DownLoadingTableView->update();
-    m_CheckItem = nullptr;
-
-    TaskInfo task;
-    DBInstance::getTaskByID(m_CheckItem->taskId, task);
-    task.downloadPath = m_CheckItem->savePath;
-    task.downloadFilename = name;
-    DBInstance::updateTaskInfoByID(task);
-}
-
 void MainFrame::onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type)
 {
     if (sameUrl.contains(".torrent")) {
@@ -2895,14 +2859,15 @@ void MainFrame::clearSharedMemory()
 
 bool MainFrame::isNetConnect()
 {
-    QProcess *process = new QProcess(this);
-    QStringList list;
-    list << "-i"
-         << "www.baidu.com";
-    process->start("curl", list);
-    process->waitForFinished();
-    int ret = process->exitCode();
-    return ret ? true : false;
+//    QProcess *process = new QProcess(this);
+//    QStringList list;
+//    list << "-i"
+//         << "www.baidu.com";
+//    process->start("curl", list);
+//    process->waitForFinished();
+//    int ret = process->exitCode();
+//    return ret ? true : false;
+    return false;
 }
 
 bool MainFrame::isAutoStart()
