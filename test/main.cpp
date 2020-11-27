@@ -2,13 +2,14 @@
 #include "gtest/gtest.h"
 #include <QApplication>
 #include <QtTest>
+#include "mainframe.h"
 
 class QTestMain;
 
 class QTestMain : public QObject
 {
     Q_OBJECT
-
+friend class MainFrame;
 public:
     QTestMain();
     ~QTestMain();

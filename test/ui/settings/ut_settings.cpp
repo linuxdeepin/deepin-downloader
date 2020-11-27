@@ -32,24 +32,6 @@ protected:
     // CreateTaskWidget *m_createTaskWidget;
 };
 
-TEST_F(ut_Settings, initSetting)
-{
-    MainFrame *m = MainFrame::instance();
-    m->show();
-    DTitlebar *bar = m->findChild<DTitlebar *>("titlebar");
-    DMenu *menu = bar->menu();
-
-    QTimer::singleShot(1000, this, [=]() {
-        QTimer::singleShot(1000, this, [=]() {
-            QWidget *w = QApplication::activeWindow();
-            w->close();
-        });
-        QTest::mouseClick(menu, Qt::LeftButton, Qt::MetaModifier, QPoint(10, 10));
-        menu->close();
-    });
-    menu->exec();
-    EXPECT_TRUE(true);
-}
 
 //开机自启
 TEST_F(ut_Settings, autoStart)
@@ -305,29 +287,6 @@ TEST_F(ut_Settings, setIsClipboradStart)
     QTest::qWait(50);
 }
 
-TEST_F(ut_Settings, diagnostictool)
-{
-    MainFrame *m = MainFrame::instance();
-    m->show();
-    DTitlebar *bar = m->findChild<DTitlebar *>("titlebar");
-    DMenu *menu = bar->menu();
-    QTimer::singleShot(1000, this, [=]() {
-        QTimer *timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, this, [=]() {
-            QWidget *w = QApplication::activeWindow();
-            QPushButton *btn = w->findChild<QPushButton *>("diagnoseBtn");
-            if (btn->isEnabled()) {
-                w->close();
-                timer->stop();
-                EXPECT_TRUE(true);
-            }
-        });
-        timer->start(2000);
-        QTest::mouseClick(menu, Qt::LeftButton, Qt::MetaModifier, QPoint(70, 70));
-        menu->close();
-    });
-    menu->exec();
-}
 
 TEST_F(ut_Settings, close)
 {
