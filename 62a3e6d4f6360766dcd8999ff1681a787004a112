@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0837569_2f99fa14",
+        "filename": "test/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-27T08:54:32Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "62a3e6d4f6360766dcd8999ff1681a787004a112",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3da28341_b2097735",
+        "filename": "test/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-27T08:54:32Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 206; 注释率: 2.4%",
+      "revId": "62a3e6d4f6360766dcd8999ff1681a787004a112",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "478337a9_7d1a9e52",
+        "filename": "test/ui/settings/ut_settings.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-27T08:54:32Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 40; 注释率: 不计算",
+      "revId": "62a3e6d4f6360766dcd8999ff1681a787004a112",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
