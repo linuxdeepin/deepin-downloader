@@ -1,3 +1,12 @@
+downloadmanager (5.2.0.25) stable; urgency=low
+
+  * 修改下载器KLU的bug
+  * 55571【设置】【任务管理器】全局下载速度设置框当输入值时，输入框大小被改变
+  * 55579【下载列表】【列表右键操作】新建下载任务弹窗或已完成列表中可使用异常字符对文件命名
+  * 55615【下载列表】【新建下载】HTTP/HTTPS链接文件大小超过下载路径剩余空间时无提示信息且正常下载
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 27 Nov 2020 14:32:08 +0800
+
 downloadmanager (5.2.0.22) stable; urgency=low
 
   * 修改二期八次送测产生的部分bug
