@@ -337,11 +337,10 @@ void CreateTaskWidget::onSureBtnClicked()
         showNetErrorMsg();
         return;
     }
-    QString strSelectSize =  m_labelSelectedFileNum->text().split(",")[1];
-    QString strCapacity =  m_labelCapacityFree->text().split(":")[1];
-    double iSelectSize = formatSpeed(strSelectSize);
-    double iCapacity = formatSpeed(strCapacity);
-    if (iSelectSize > iCapacity) { //剩余空间比较 KB
+    double dSelectSize = getSelectSize();
+    QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
+    double dCapacity = formatSpeed(freeSize);
+    if (dSelectSize > dCapacity) { //剩余空间比较 KB
         qDebug() << "Disk capacity is not enough!";
         MessageBox msg;
         msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
@@ -1079,4 +1078,15 @@ double CreateTaskWidget::formatSpeed(QString str)
     }
 
     return num;
+}
+
+double CreateTaskWidget::getSelectSize()
+{
+    long total = 0;
+    for (int i = 0; i < m_model->rowCount(); i++) {
+        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        }
+    }
+    return total;
 }

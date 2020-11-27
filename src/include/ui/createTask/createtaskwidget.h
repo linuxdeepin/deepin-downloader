@@ -184,6 +184,13 @@ private:
      * @return 传出double大小
     */
     double formatSpeed(QString str);
+
+    /**
+     * @brief 获取当前选择文件大小
+     * @param 传入字符串
+     * @return 传出double大小
+    */
+    double getSelectSize();
 private slots:
     /**
      * @brief 打开选择文件窗口按钮
