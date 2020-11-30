@@ -793,22 +793,6 @@ int TableDataControl::onDelAction(int currentTab)
     return selectedCount;
 }
 
-int TableDataControl::RedownloadTrashList(QList<DeleteDataItem *> &reloadList)
-{
-    int selectedCount = 0;
-    reloadList.clear();
-    const QList<DeleteDataItem *> &selectList = m_DownloadTableView->getTableModel()->recyleList();
-    for (int i = 0; i < selectList.size(); ++i) {
-        if (selectList.at(i)->status == Removed) {
-            if ((selectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
-                DeleteDataItem *data = selectList.at(i);
-                reloadList.append(data);
-                ++selectedCount;
-            }
-        }
-    }
-    return selectedCount;
-}
 
 int TableDataControl::onDeletePermanentAction(int currentTab)
 {
