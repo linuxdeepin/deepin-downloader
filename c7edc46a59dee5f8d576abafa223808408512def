@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "3ff0e458_45d31493",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:12:16Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "c7edc46a59dee5f8d576abafa223808408512def",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "628a851d_bb94da4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:12:16Z",
+      "side": 1,
+      "message": "Bug: 后请输入正确网址, 例Bug: https://pms.uniontech/xxxxx/xxx.html",
+      "revId": "c7edc46a59dee5f8d576abafa223808408512def",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1bee31f0_bcc03938",
         "filename": "src/include/ui/mainFrame/tabledatacontrol.h",
         "patchSetId": 1
