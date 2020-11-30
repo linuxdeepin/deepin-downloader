@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fe8cdcb_49a07315",
+        "filename": "src/include/ui/mainFrame/tabledatacontrol.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:23:29Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 4; 注释率: 75.0%",
+      "revId": "8f19357064ffe4fcb0723e4595c6fe69c7300ec1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d89677_ccf08d6b",
+        "filename": "src/include/ui/messagebox.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:23:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "8f19357064ffe4fcb0723e4595c6fe69c7300ec1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7990a02d_aac5b767",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:23:29Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 10; 注释率: 不计算",
+      "revId": "8f19357064ffe4fcb0723e4595c6fe69c7300ec1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aba7bec2_62e09d82",
+        "filename": "src/src/ui/mainFrame/tabledatacontrol.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:23:29Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 16; 注释率: 不计算",
+      "revId": "8f19357064ffe4fcb0723e4595c6fe69c7300ec1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1703076_0358cf0f",
+        "filename": "src/src/ui/messagebox.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:23:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 8; 注释率: 0.0%",
+      "revId": "8f19357064ffe4fcb0723e4595c6fe69c7300ec1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e929dd9_dca14e79",
+        "filename": "test/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-30T01:23:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 41; 注释率: 0.0%",
+      "revId": "8f19357064ffe4fcb0723e4595c6fe69c7300ec1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
