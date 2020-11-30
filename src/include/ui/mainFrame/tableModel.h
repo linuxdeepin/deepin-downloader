@@ -218,7 +218,10 @@ public:
 
     ~TableModel();
 
+#ifdef DOTEST
+#else
 private:
+#endif
     void sortDownload(int column, Qt::SortOrder order);
     void sortRecycle(int column, Qt::SortOrder order);
     double formatFileSize(QString str);

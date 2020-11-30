@@ -29,7 +29,8 @@ AUX_SOURCE_DIRECTORY(./ui/settings SETTINGS)
 LIST(APPEND SRC_LIST ${SETTINGS})
 
 #源头文件
-file(GLOB ALL_HEADERS "../src/include/ui/*.h"
+file(GLOB ALL_HEADERS "./*.h"
+                      "../src/include/ui/*.h"
                       "../src/include/aria2/*.h"
                       "../src/include/database/*.h"
                       "../src/include/log/*.h"

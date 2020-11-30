@@ -177,8 +177,6 @@ public slots:
      * @brief
     */
     void onExitBtnClicked(int index);
-
-    int exec() Q_DECL_OVERRIDE;
 private:
     bool m_DeleteFlag;
     DCheckBox *m_CheckBox;

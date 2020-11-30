@@ -310,15 +310,6 @@ void MessageBox::onExitBtnClicked(int index)
     close();
 }
 
-int MessageBox::exec()
-{
-#ifdef DOTEST
-    return 0;
-#else
-    DDialog::exec();
-#endif
-}
-
 void MessageBox::setFolderDenied()
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));

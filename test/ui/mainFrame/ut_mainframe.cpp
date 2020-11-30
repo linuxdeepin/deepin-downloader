@@ -10,6 +10,7 @@
 #include <QDBusPendingCall>
 #include <QPoint>
 #include <QClipboard>
+#include <QMenu>
 
 #include "mainframe.h"
 #include "createtaskwidget.h"
@@ -19,6 +20,10 @@
 #include "tabledatacontrol.h"
 #include "dbdefine.h"
 #include "analysisurl.h"
+#include "stub.h"
+#include "stubAll.h"
+#include "diagnostictool.h"
+#include "messagebox.h"
 
 class ut_MainFreme : public ::testing::Test
     , public QObject
@@ -49,7 +54,7 @@ TEST_F(ut_MainFreme, addHttpFastTask)
 
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
-    QTest::qSleep(500);
+    QTest::qWait(500);
     EXPECT_TRUE(model->renderList().count());
 }
 
@@ -60,7 +65,7 @@ TEST_F(ut_MainFreme, addHttpTask)
 
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
-    QTest::qSleep(500);
+    QTest::qWait(500);
     EXPECT_TRUE(model->renderList().count());
 }
 
@@ -71,9 +76,9 @@ TEST_F(ut_MainFreme, addBtTask)
     QMap<QString, QVariant> opt;
     MainFrame::instance()->onDownloadNewTorrent("/home/sanhei/Documents/123@.torrent",
                             opt, "123@.torrent", "tar.gz");
-    QTest::qSleep(500);
+    QTest::qWait(500);
     EXPECT_TRUE(true);
-    QTest::qSleep(5000);
+    //QTest::qWait(5000);
 }
 
 TEST_F(ut_MainFreme, pauseTask)
@@ -97,6 +102,8 @@ TEST_F(ut_MainFreme, unpauseTask)
 
 TEST_F(ut_MainFreme, onContextMenu)
 {
+    Stub stub;
+    stub.set((QAction *(QMenu::*)(const QPoint &pos, QAction *at))ADDR(QMenu, exec), QMenu_exec);
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     MainFrame::instance()->onContextMenu(table->visualRect(model->index(0,2)).center());
@@ -287,6 +294,10 @@ TEST_F(ut_MainFreme, onCopyUrlActionTriggered)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(0,0));
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    model->setData(model->index(0,0), true, TableModel::Ischecked);
+    MainFrame::instance()->onTableItemSelected(model->index(0,0));
     MainFrame::instance()->onCopyUrlActionTriggered();
 }
 
@@ -406,11 +417,15 @@ TEST_F(ut_MainFreme, addHttpTask2)
 
 TEST_F(ut_MainFreme, onSettingsMenuClicked)
 {
+    Stub stub;
+    stub.set(ADDR(DSettingsDialog, exec), DSettingsDialog_exec);
     MainFrame::instance()->onSettingsMenuClicked();
 }
 
 TEST_F(ut_MainFreme, showDiagnosticTool)
 {
+    Stub stub;
+    stub.set(ADDR(DiagnosticTool, exec), DiagnosticTool_exec);
     MainFrame::instance()->showDiagnosticTool();
 }
 
@@ -421,26 +436,36 @@ TEST_F(ut_MainFreme, onRemoveFinished)
 
 TEST_F(ut_MainFreme, showWarningMsgbox)
 {
+    Stub stub;
+    stub.set(ADDR(MessageBox, exec), MessageBox_exec());
     MainFrame::instance()->showWarningMsgbox("");
 }
 
 TEST_F(ut_MainFreme, showClearMsgbox)
 {
+    Stub stub;
+    stub.set(ADDR(MessageBox, exec), MessageBox_exec());
     MainFrame::instance()->showClearMsgbox();
 }
 
 TEST_F(ut_MainFreme, showReloadMsgbox)
 {
+    Stub stub;
+    stub.set(ADDR(MessageBox, exec), MessageBox_exec());
     MainFrame::instance()->showReloadMsgbox();
 }
 
 TEST_F(ut_MainFreme, showDeleteMsgbox)
 {
+    Stub stub;
+    stub.set(ADDR(MessageBox, exec), MessageBox_exec());
     MainFrame::instance()->showDeleteMsgbox(true);
 }
 
 TEST_F(ut_MainFreme, showRedownloadMsgbox)
 {
+    Stub stub;
+    stub.set(ADDR(MessageBox, exec), MessageBox_exec());
     MainFrame::instance()->showRedownloadMsgbox("");
 }
 
@@ -448,4 +473,39 @@ TEST_F(ut_MainFreme, clearShardMemary)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     table->getTableControl()->clearShardMemary();
+}
+
+TEST_F(ut_MainFreme, initConnection)
+{
+    MainFrame::instance()->initConnection();
+}
+
+TEST_F(ut_MainFreme, initAria2)
+{
+    MainFrame::instance()->initAria2();
+}
+
+TEST_F(ut_MainFreme, initTabledata)
+{
+    MainFrame::instance()->initTabledata();
+}
+
+TEST_F(ut_MainFreme, updateDHTFile)
+{
+    MainFrame::instance()->updateDHTFile();
+}
+
+TEST_F(ut_MainFreme, formatFileSize)
+{
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    EXPECT_TRUE(model->formatFileSize("1KB") == 1024.0);
+}
+
+TEST_F(ut_MainFreme, formatSpeed)
+{
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+
+    EXPECT_TRUE(model->formatSpeed("1KB/s") == 1024.0);
 }
