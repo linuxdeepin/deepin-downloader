@@ -49,6 +49,7 @@ TEST_F(ut_MainFreme, addHttpFastTask)
 
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qSleep(500);
     EXPECT_TRUE(model->renderList().count());
 }
 
@@ -59,6 +60,7 @@ TEST_F(ut_MainFreme, addHttpTask)
 
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qSleep(500);
     EXPECT_TRUE(model->renderList().count());
 }
 
@@ -69,7 +71,9 @@ TEST_F(ut_MainFreme, addBtTask)
     QMap<QString, QVariant> opt;
     MainFrame::instance()->onDownloadNewTorrent("/home/sanhei/Documents/123@.torrent",
                             opt, "123@.torrent", "tar.gz");
+    QTest::qSleep(500);
     EXPECT_TRUE(true);
+    QTest::qSleep(5000);
 }
 
 TEST_F(ut_MainFreme, pauseTask)
@@ -286,6 +290,16 @@ TEST_F(ut_MainFreme, onCopyUrlActionTriggered)
     MainFrame::instance()->onCopyUrlActionTriggered();
 }
 
+TEST_F(ut_MainFreme, onOpenFileActionTriggered)
+{
+    MainFrame::instance()->onOpenFileActionTriggered();
+}
+
+TEST_F(ut_MainFreme, onOpenFolderActionTriggered)
+{
+    MainFrame::instance()->onOpenFolderActionTriggered();
+}
+
 TEST_F(ut_MainFreme, onRedownloadConfirmSlot)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
@@ -398,4 +412,40 @@ TEST_F(ut_MainFreme, onSettingsMenuClicked)
 TEST_F(ut_MainFreme, showDiagnosticTool)
 {
     MainFrame::instance()->showDiagnosticTool();
+}
+
+TEST_F(ut_MainFreme, onRemoveFinished)
+{
+    MainFrame::instance()->onRemoveFinished();
+}
+
+TEST_F(ut_MainFreme, showWarningMsgbox)
+{
+    MainFrame::instance()->showWarningMsgbox("");
+}
+
+TEST_F(ut_MainFreme, showClearMsgbox)
+{
+    MainFrame::instance()->showClearMsgbox();
+}
+
+TEST_F(ut_MainFreme, showReloadMsgbox)
+{
+    MainFrame::instance()->showReloadMsgbox();
+}
+
+TEST_F(ut_MainFreme, showDeleteMsgbox)
+{
+    MainFrame::instance()->showDeleteMsgbox(true);
+}
+
+TEST_F(ut_MainFreme, showRedownloadMsgbox)
+{
+    MainFrame::instance()->showRedownloadMsgbox("");
+}
+
+TEST_F(ut_MainFreme, clearShardMemary)
+{
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    table->getTableControl()->clearShardMemary();
 }
