@@ -372,17 +372,6 @@ void MainFrame::updateDHTFile()
     }
     QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht.dat");
     QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht6.dat");
-    //    QMap<QString, QVariant> opt;
-    //    opt.insert("dir", QString(QDir::homePath() + "/.config/uos/downloader"));
-    //    opt.insert("out", "dht.dat");
-    //    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/raw/master/dht.dat",
-    //                                          opt, "dht.dat");
-
-    //    QMap<QString, QVariant> opt2;
-    //    opt2.insert("dir", QString(QDir::homePath() + "/.config/uos/downloader"));
-    //    opt2.insert("out", "dht6.dat");
-    //    Aria2RPCInterface::instance()->addUri("https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat",
-    //                                          opt2, "dht6.dat");
 
     QString dhtpah = QDir::homePath() + "/.config/uos/downloader/";
     QProcess p;
@@ -1043,6 +1032,7 @@ void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName
     //if(m_pUpdateTimer->isActive() == false) {
     m_UpdateTimer->start(m_timeInterval);
     // }
+    qDebug() << "onDownloadNewUrl" << QTime::currentTime();
 }
 
 void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QString name, QString type)

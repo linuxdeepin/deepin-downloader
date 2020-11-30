@@ -123,11 +123,6 @@ public:
     int onDelAction(int currentTab);
 
     /**
-     * @brief 回收站重新下载ACtion槽函数
-    */
-    int RedownloadTrashList(QList<Global::DeleteDataItem *> &reloadList);
-
-    /**
      * @brief 永久删除ACtion槽函数
     */
     int onDeletePermanentAction(int currentTab);
@@ -155,6 +150,11 @@ public:
      * @brief  已删除列表重新下载
      */
     bool recycleListRedownload(QString id);
+
+    /**
+     * @brief 清空共享内存
+     */
+    void clearShardMemary();
 
 private:
     /**
@@ -188,10 +188,7 @@ private:
      */
     bool checkFileExist(QString &filePath);
 
-    /**
-     * @brief 清空共享内存
-     */
-    void clearShardMemary();
+
 
     /**
      * @brief 检查任务状态
