@@ -101,10 +101,7 @@ public slots:
      * @param event 事件类型
      */
     void onTrayQuitClick(bool force = false);
-#ifdef DOTEST
-#else
 private slots:
-#endif
     /**
      * @brief 点击托盘图表的槽函数
      * @param reason 激活原因
@@ -351,11 +348,7 @@ private slots:
      * @brief 下载完成 的一些操作
      */
     void onDownloadFinish();
-#ifdef DOTEST
-public:
-#else
 private:
-#endif
 
     /**
      * @brief 初始化aria2
