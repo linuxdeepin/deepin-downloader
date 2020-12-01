@@ -26,11 +26,7 @@ set(CMAKE_INSTALL_PREFIX /usr)
 #    set(CMAKE_INSTALL_PREFIX /usr)
 #endif ()
 
-option(DOTEST "option for test" OFF)
-
-if(DOTEST)
-ADD_DEFINITIONS(-DDOTEST)
-endif()
+#option(DOTEST "option for test" OFF)
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
@@ -63,7 +59,7 @@ set(CMAKE_AUTORCC ON)
 #打开全局uic
 set(CMAKE_AUTOUIC ON)
 
-set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg)
+set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Test)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 #应用DTK库
@@ -93,17 +89,14 @@ install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/
 install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
 # 开启单元测试
-if(DOTEST)
+#if(DOTEST)
     # 添加gocv覆盖率文件的输出
     set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
-    # 设置测试模块
-    set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia Test)
-    find_package(Qt5 COMPONENTS ${QT} REQUIRED)
     # 添加子模块test
     add_subdirectory(test)
     message("do test")
 
-else()
+#else()
     message("DO Not TEST")
     #加载子模块
     add_subdirectory(src)
@@ -113,4 +106,4 @@ else()
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION libstatic
     )
-endif()
+#endif()
