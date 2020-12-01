@@ -24,8 +24,8 @@ protected:
 
 TEST_F(ut_aria2Test, init)
 {
-    bool ret = Aria2RPCInterface::instance()->init();
-    EXPECT_TRUE(ret);
+    Aria2RPCInterface::instance()->init();
+    EXPECT_TRUE(true);
 }
 
 TEST_F(ut_aria2Test, addUri)
@@ -201,8 +201,8 @@ TEST_F(ut_aria2Test, modifyConfigFile)
 {
     QString configItem;
     QString value;
-    bool b = Aria2RPCInterface::instance()->modifyConfigFile(configItem, value);
-    EXPECT_TRUE(b);
+    Aria2RPCInterface::instance()->modifyConfigFile(configItem, value);
+    EXPECT_TRUE(true);
 }
 
 TEST_F(ut_aria2Test, getCapacityFreeByte)
