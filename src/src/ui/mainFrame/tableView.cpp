@@ -157,10 +157,6 @@ void TableView::mousePressEvent(QMouseEvent *event)
         } else {
             m_PreviousIndex = index;
         }
-    } else if (event->button() == Qt::RightButton) {
-#ifdef DOTEST
-        emit customContextMenuRequested(event->pos());
-#endif
     }
 }
 
