@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4567623e_32d25c39",
+        "filename": "src/include/ui/mainFrame/mainframe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-01T08:28:43Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 7; 注释率: 不计算",
+      "revId": "eb5286b48b62a561243d8afb230c727fb98607a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2facd9e9_441d448c",
+        "filename": "src/include/ui/mainFrame/tableModel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-01T08:28:43Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 3; 注释率: 不计算",
+      "revId": "eb5286b48b62a561243d8afb230c727fb98607a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf887a6b_9e5bbb10",
+        "filename": "src/src/ui/mainFrame/tableView.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-01T08:28:43Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 4; 注释率: 不计算",
+      "revId": "eb5286b48b62a561243d8afb230c727fb98607a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1879127a_7334b2fa",
+        "filename": "test/log/ut_log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-01T08:28:43Z",
+      "side": 1,
+      "message": "注释行数: 117; 改动行数(修改和新增): 117; 注释率: 100.0%",
+      "revId": "eb5286b48b62a561243d8afb230c727fb98607a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7f4c929_c470fb9b",
+        "filename": "test/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-01T08:28:43Z",
+      "side": 1,
+      "message": "注释行数: 8; 改动行数(修改和新增): 112; 注释率: 7.1%",
+      "revId": "eb5286b48b62a561243d8afb230c727fb98607a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
