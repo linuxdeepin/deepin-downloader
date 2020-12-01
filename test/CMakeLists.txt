@@ -7,6 +7,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+#可访问private
+ADD_COMPILE_OPTIONS(-fno-access-control)
+#添加-fno-inline编译选项，禁止内联，能获取到函数地址，可以对内联函数进行打桩
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-inline")
+
 #test files
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./ MAIN)
