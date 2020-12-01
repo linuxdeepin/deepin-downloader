@@ -7,6 +7,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+#可访问private
+ADD_COMPILE_OPTIONS(-fno-access-control)
+#添加-fno-inline编译选项，禁止内联，能获取到函数地址，可以对内联函数进行打桩
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-inline")
+
 #test files
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./ MAIN)
@@ -72,27 +77,27 @@ add_custom_target(test
 add_custom_command(TARGET test
     COMMAND echo " =================== CREAT LCOV REPROT BEGIN ==================== "
 
-    #1.清理原先的gcov信息
-    COMMAND lcov --directory ./CMakeFiles/${PROJECT_NAME_TEST}.dir --zerocounters
-    COMMAND lcov --directory ./CMakeFiles/${PROJECT_NAME}.dir --zerocounters
-    COMMAND ./bin/${PROJECT_NAME_TEST}
+#    #1.清理原先的gcov信息
+#    COMMAND lcov --directory ./CMakeFiles/${PROJECT_NAME_TEST}.dir --zerocounters
+#    COMMAND lcov --directory ./CMakeFiles/${PROJECT_NAME}.dir --zerocounters
+     COMMAND ${CMAKE_BINARY_DIR}/test/${PROJECT_NAME_TEST}
 
-    #2.收集gcov信息到.info文件中
-    COMMAND lcov --directory . --capture --output-file ./coverageResult/${PROJECT_NAME}_Coverage.info
+#    #2.收集gcov信息到.info文件中
+#    COMMAND lcov --directory . --capture --output-file ./coverageResult/${PROJECT_NAME}_Coverage.info
 
-    #3.过滤一些我们不感兴趣的文件的覆盖率信息
-    COMMAND echo " =================== do filter begin ==================== "
-    COMMAND lcov --remove ./coverageResult/${PROJECT_NAME}_Coverage.info
-    '*/${PROJECT_NAME_TEST}_autogen/*' '*/${PROJECT_NAME}_autogen/*' '*/usr/include/*' '*/tests/*' '*/googletest/*' '${PROJECT_SOURCE_DIR}/test/*' '${PROJECT_SOURCE_DIR}/src/include/*' '${PROJECT_BINARY_DIR}/*'
-    -o ./coverageResult/${PROJECT_NAME}_Coverage.info
-    COMMAND echo " =================== do filter end ==================== "
+#    #3.过滤一些我们不感兴趣的文件的覆盖率信息
+#    COMMAND echo " =================== do filter begin ==================== "
+#    COMMAND lcov --remove ./coverageResult/${PROJECT_NAME}_Coverage.info
+#    '*/${PROJECT_NAME_TEST}_autogen/*' '*/${PROJECT_NAME}_autogen/*' '*/usr/include/*' '*/tests/*' '*/googletest/*' '${PROJECT_SOURCE_DIR}/test/*' '${PROJECT_SOURCE_DIR}/src/include/*' '${PROJECT_BINARY_DIR}/*'
+#    -o ./coverageResult/${PROJECT_NAME}_Coverage.info
+#    COMMAND echo " =================== do filter end ==================== "
 
-    #3.将.info信息生成报告到reprot文件夹中
-    COMMAND genhtml -o ./coverageResult/report ./coverageResult/${PROJECT_NAME}_Coverage.info
+#    #3.将.info信息生成报告到reprot文件夹中
+#    COMMAND genhtml -o ./coverageResult/report ./coverageResult/${PROJECT_NAME}_Coverage.info
 
-    COMMAND echo " =================== CREAT LCOV REPROT END ==================== "
+#    COMMAND echo " =================== CREAT LCOV REPROT END ==================== "
 
-    COMMAND echo " Coverage files have been output to ${CMAKE_BINARY_DIR}/coverageResult/report "
+#    COMMAND echo " Coverage files have been output to ${CMAKE_BINARY_DIR}/coverageResult/report "
 
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
