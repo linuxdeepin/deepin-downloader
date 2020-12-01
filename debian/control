@@ -8,22 +8,14 @@ Build-Depends:
  pkg-config,
  libqt5widgets5,
  qtbase5-dev,
- libqt5x11extras5-dev,
+ qttools5-dev,
+ libqt5network5,
  libdtkcore-dev,
  libdtkwidget-dev,
- libkf5codecs-dev,
- x11proto-xext-dev,
- qttools5-dev-tools,
- libqt5svg5-dev,
- libgsettings-qt-dev,
- libdframeworkdbus-dev,
- qtbase5-private-dev,
- qttools5-dev,
- qtmultimedia5-dev,
  libdtkgui-dev,
- libxext-dev,
- libglib2.0-dev,
- libqt5network5
+ libdframeworkdbus-dev,
+ libgtest-dev,
+ libgmock-dev
 Standards-Version: 4.1.3
 Homepage: https://www.deepin.org/
 

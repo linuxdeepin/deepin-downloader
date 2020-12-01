@@ -13,10 +13,20 @@ void QThreadPool_start(QRunnable *runnable, int priority = 0);
 
 QAction* QMenu_exec(const QPoint &pos);
 
-int DSettingsDialog_exec();
+int DSettingsDialog_exec(void* obj);
 
-int DiagnosticTool_exec();
+int DiagnosticTool_exec(void* obj);
 
-int MessageBox_exec();
+int MessageBox_exec(void* obj);
+
+void QSystemTrayIcon_show();
+
+void MainFrame_onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type);
+
+bool MainFrame_showRedownloadMsgbox(const QString sameUrl);
+
+bool QIODevice_open(QIODevice::OpenMode flags);
+
+void ClipboardTimer_checkClipboardHasUrl();
 
 #endif // STUBALLTHREAD_H
