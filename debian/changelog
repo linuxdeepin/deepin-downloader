@@ -1,3 +1,9 @@
+downloadmanager (5.2.0.26) stable; urgency=low
+
+  * 修改包名称
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 03 Dec 2020 10:01:07 +0800
+
 downloadmanager (5.2.0.25) stable; urgency=low
 
   * 修改下载器KLU的bug
