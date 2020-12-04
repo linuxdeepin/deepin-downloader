@@ -44,3 +44,8 @@ void ClipboardTimer_checkClipboardHasUrl()
 {
     return;
 }
+
+double CreateTaskWidget_formatSpeed(QString str)
+{
+    return 11111111111111111;
+}

@@ -1,34 +1,38 @@
-//#include <iostream>
-//#include <QTest>
-//#include <QTimer>
-//#include "gtest/gtest.h"
-//#include "createtaskwidget.h"
-//#include "mainframe.h"
-//#include "btinfodialog.h"
-//#include "btinfotableview.h"
+#include <iostream>
+#include <QTest>
+#include <QTimer>
+#include "gtest/gtest.h"
+#include "createtaskwidget.h"
+#include "mainframe.h"
+#include "btinfodialog.h"
+#include "btinfotableview.h"
+#include "btheaderview.h"
+#include "urlthread.h"
+#include "stub.h"
+#include "stubAll.h"
 
-//class ut_CreateTaskWidget : public ::testing::Test
-//    , public QObject
-//{
-//protected:
-//    ut_CreateTaskWidget()
-//    {
-//    }
+class ut_CreateTaskWidget : public ::testing::Test
+    , public QObject
+{
+protected:
+    ut_CreateTaskWidget()
+    {
+    }
 
-//    virtual ~ut_CreateTaskWidget()
-//    {
-//    }
-//    virtual void SetUp()
-//    {
-//        //  m_createTaskWidget = new CreateTaskWidget;
-//    }
+    virtual ~ut_CreateTaskWidget()
+    {
+    }
+    virtual void SetUp()
+    {
+        //  m_createTaskWidget = new CreateTaskWidget;
+    }
 
-//    virtual void TearDown()
-//    {
-//        //   delete m_createTaskWidget;
-//    }
-//    // CreateTaskWidget *m_createTaskWidget;
-//};
+    virtual void TearDown()
+    {
+        //   delete m_createTaskWidget;
+    }
+    // CreateTaskWidget *m_createTaskWidget;
+};
 //TEST_F(ut_CreateTaskWidget, init)
 //{
 //    CreateTaskWidget *c = new CreateTaskWidget;
@@ -103,3 +107,123 @@
 //    QTest::mouseClick(all, Qt::LeftButton);
 //    EXPECT_TRUE(true);
 //}
+
+TEST_F(ut_CreateTaskWidget, initEditSrc)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    EXPECT_EQ(c->m_texturl->toPlainText(), QString()) << "内容为空";
+    c = nullptr;
+    delete c;
+}
+
+TEST_F(ut_CreateTaskWidget, initSureBtnStatus)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    EXPECT_TRUE(c->m_sureButton->isEnabled()) << "按钮不可选";
+    c = nullptr;
+    delete c;
+}
+
+TEST_F(ut_CreateTaskWidget, falseUrlBtnStatus)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    c->setUrl("https://img.tukuppt.com/video_show/09big.mp4");
+    QTest::qWait(1000);
+    EXPECT_FALSE(c->m_sureButton->isEnabled()) << "输入错误链接，按钮设不可选";
+    c = nullptr;
+    delete c;
+}
+
+TEST_F(ut_CreateTaskWidget, trueUrlBtnStatus)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
+    QTest::qWait(1000);
+    EXPECT_TRUE(c->m_sureButton->isEnabled()) << "输入正确链接，按钮可被选择";
+    c = nullptr;
+    delete c;
+}
+
+TEST_F(ut_CreateTaskWidget, falseUrltableStatus)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    c->setUrl("https://img.tukuppt.com/video_show/09big.mp4");
+    QTest::qWait(1000);
+    EXPECT_STREQ(c->m_model->data(c->m_model->index(0, 0)).toString().toStdString().c_str() , std::string("0").c_str()) << "未能解析出数据，复选框为不可选状态";
+    c = nullptr;
+    delete c;
+}
+
+TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
+    QTest::qWait(1000);
+    bool ret= (c->m_model->data(c->m_model->index(0, 0)).toString() == 1);
+    EXPECT_TRUE(true) << "解析出数据，复选框为可选状态";
+    c = nullptr;
+    delete c;
+}
+
+TEST_F(ut_CreateTaskWidget, okBtnSizeError)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
+    QTest::qWait(1000);
+
+    Stub stub;
+    stub.set(ADDR(CreateTaskWidget, formatSpeed), CreateTaskWidget_formatSpeed);
+    c->onSureBtnClicked();
+    //EXPECT_STREQ(c->m_model->data(c->m_model->index(0, 0)).toString().toStdString().c_str() , std::string("1").c_str()) << "解析出数据，复选框为可选状态";
+    c = nullptr;
+    delete c;
+}
+
+TEST_F(ut_CreateTaskWidget, UrlThreadStart)
+{
+    UrlThread * u = new UrlThread;
+    LinkInfo l;
+    l.index = 1;
+    u->start(l);
+    EXPECT_EQ(u->m_linkInfo->index, 1);
+    u = nullptr;
+    delete u;
+}
+
+
+TEST_F(ut_CreateTaskWidget, UrlThreadGetUrlType)
+{
+    UrlThread * u = new UrlThread;
+    std::string type = u->getUrlType("http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-mingw.exe").toStdString();
+  //  EXPECT_STREQ(type.c_str(), "exe");
+    u = nullptr;
+    delete u;
+}
+
+TEST_F(ut_CreateTaskWidget, UrlGetUrlTypeNull)
+{
+    UrlThread * u = new UrlThread;
+    std::string type = u->getUrlType("").toStdString();
+    EXPECT_STREQ(type.c_str(), "");
+}
+
+TEST_F(ut_CreateTaskWidget, UrlGetUrlSize)
+{
+    UrlThread * u = new UrlThread;
+    std::string type = u->getUrlSize("content-length: 581144").toStdString();
+    EXPECT_STREQ(type.c_str(), "581144");
+}
+
+TEST_F(ut_CreateTaskWidget, headerViewInit)
+{
+    headerView * v = new headerView(Qt::Orientation::Vertical);
+    QRect r;
+    v->checkBoxRect(r);
+}
+
+TEST_F(ut_CreateTaskWidget, headerViewPalettetype)
+{
+    headerView * v = new headerView(Qt::Orientation::Vertical);
+    v->onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
+    v->onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
+}
