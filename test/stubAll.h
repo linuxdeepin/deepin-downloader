@@ -27,6 +27,12 @@ bool MainFrame_showRedownloadMsgbox(const QString sameUrl);
 
 bool QIODevice_open(QIODevice::OpenMode flags);
 
+double CreateTaskWidget_formatSpeed(QString str);
+
 void ClipboardTimer_checkClipboardHasUrl();
+
+void ClipboardTimer_checkClipboardHasUrl();
+
+void BtInfoDialog_setWindowTitle(QString & str);
 
 #endif // STUBALLTHREAD_H
