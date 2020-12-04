@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9b83430e_c2f7a0ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T01:17:11Z",
+      "side": 1,
+      "message": "Fix大小写错误",
+      "revId": "5ca177ac0439e3cfcaafab8fd38dc1d39e3bc466",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47dba420_3efce424",
         "filename": "test/stubAll.cpp",
         "patchSetId": 1
