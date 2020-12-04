@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8f1b522_f8e9607b",
+        "filename": "src/include/ui/settings/diagnostictool.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T07:54:43Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 2; 注释率: 不计算",
+      "revId": "6f4aa2c92b86f0f566a34cda923e0d624d123863",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b768548_04f80817",
+        "filename": "src/src/ui/settings/diagnostictool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T07:54:43Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 9; 注释率: 不计算",
+      "revId": "6f4aa2c92b86f0f566a34cda923e0d624d123863",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a718569_f33b0af2",
+        "filename": "test/stubAll.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T07:54:43Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 1; 注释率: 100.0%",
+      "revId": "6f4aa2c92b86f0f566a34cda923e0d624d123863",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bfe8837_4c361b2b",
+        "filename": "test/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T07:54:43Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 31; 注释率: 0.0%",
+      "revId": "6f4aa2c92b86f0f566a34cda923e0d624d123863",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ac0e71_9a160eb4",
+        "filename": "test/ui/settings/ut_settings.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T07:54:43Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 113; 注释率: 0.0%",
+      "revId": "6f4aa2c92b86f0f566a34cda923e0d624d123863",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
