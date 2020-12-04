@@ -4,7 +4,7 @@
 #include <QThread>
 #include <QThreadPool>
 #include <QDebug>
-#include <DDialog>
+//#include <DDialog>
 #include <QMenu>
 #include <QCursor>
 #include <QAction>

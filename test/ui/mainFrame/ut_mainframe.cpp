@@ -542,6 +542,11 @@ TEST_F(ut_MainFreme, updateDHTFile)
     MainFrame::instance()->updateDHTFile();
 }
 
+TEST_F(ut_MainFreme, onTrayQuitClick)
+{
+    MainFrame::instance()->onTrayQuitClick();
+}
+
 TEST_F(ut_MainFreme, formatFileSize)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -555,4 +560,36 @@ TEST_F(ut_MainFreme, formatSpeed)
     TableModel *model = static_cast<TableModel *>(table->model());
 
     EXPECT_TRUE(model->formatSpeed("1KB/s") == 1024.0);
+}
+
+TEST_F(ut_MainFreme, tableView)
+{
+    TableView *table = new TableView(1);
+    table->mousePressEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+}
+
+TEST_F(ut_MainFreme, tableView2)
+{
+    TableView *table = new TableView(1);
+    table->mouseMoveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+}
+
+TEST_F(ut_MainFreme, tableView3)
+{
+    TableView *table = new TableView(1);
+    table->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+}
+
+TEST_F(ut_MainFreme, tableView4)
+{
+    TableView *table = new TableView(1);
+    QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::NoModifier);
+    table->leaveEvent(keyEvent);
+}
+
+TEST_F(ut_MainFreme, tableView5)
+{
+    TableView *table = new TableView(1);
+    QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::NoModifier);
+    table->keyPressEvent(keyEvent);
 }
