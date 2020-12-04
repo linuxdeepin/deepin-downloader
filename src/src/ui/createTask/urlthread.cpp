@@ -14,7 +14,7 @@
 #include "config.h"
 
 UrlThread::UrlThread(QObject *parent)
-    : QObject(parent)
+    : QObject(parent),m_linkInfo(new LinkInfo)
 {
     qRegisterMetaType<LinkInfo>("LinkInfo");
     QString iniConfigPath = QString("%1/%2/%3/content-type.conf")
