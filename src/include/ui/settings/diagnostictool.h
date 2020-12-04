@@ -81,8 +81,6 @@ public:
 
     void appendData(bool b);
 
-    void setData(bool b);
-
     void clearData();
 
 private:
@@ -138,7 +136,6 @@ class DiagnosticDelegate : public QStyledItemDelegate
     Q_OBJECT
 public:
     DiagnosticDelegate(QObject *parent = nullptr, int Flag = 0);
-    ~DiagnosticDelegate();
 
     /**
      * @brief 绘图事件

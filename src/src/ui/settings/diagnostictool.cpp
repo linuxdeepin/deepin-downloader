@@ -153,13 +153,6 @@ void DiagnosticModel::appendData(bool b)
     endInsertRows();
 }
 
-void DiagnosticModel::setData(bool b)
-{
-    //m_DiagnosticStatusList.replace(0, b);
-    //m_DiagnosticStatusList.replace(2, b);
-    //m_DiagnosticStatusList.replace(3, b);
-}
-
 void DiagnosticModel::clearData()
 {
     m_DiagnosticStatusList.clear();
@@ -234,10 +227,6 @@ DiagnosticDelegate::DiagnosticDelegate(QObject *parent, int Flag)
 {
     Q_UNUSED(parent);
     Q_UNUSED(Flag);
-}
-
-DiagnosticDelegate::~DiagnosticDelegate()
-{
 }
 
 void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
