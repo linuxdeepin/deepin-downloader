@@ -1,7 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: downloader
 Source: https://github.com/linuxdeepin/deepin-tool-kit
-
 Files: *
 Copyright: 2020 Deepin Technology Co., Ltd.
 License: LGPL-3+
@@ -20,3 +19,4 @@ License: LGPL-3+
  .
  On Debian systems, the complete text of the GNU Lesser General
  Public License version 3 can be found in "/usr/share/common-licenses/LGPL-3".
+

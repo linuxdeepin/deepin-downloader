@@ -3,11 +3,11 @@ cmake_minimum_required(VERSION 3.1.0)
 
 
 #工程名
-project(downloader)
-set(PROJECT_VERSION "5.2.0.25")
+project(downloadmanager)
+set(PROJECT_VERSION "5.1.0.26")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
-set(DLM_NAME "downloader")
+set(DLM_NAME "downloadmanager")
 set(ARIA2_NAME "aria2c")
 
 # 设置C++标准为 C++ 11
@@ -25,12 +25,6 @@ set(CMAKE_INSTALL_PREFIX /usr)
 #if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 #    set(CMAKE_INSTALL_PREFIX /usr)
 #endif ()
-
-option(DOTEST "option for test" OFF)
-
-if(DOTEST)
-ADD_DEFINITIONS(-DDOTEST)
-endif()
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
@@ -63,54 +57,41 @@ set(CMAKE_AUTORCC ON)
 #打开全局uic
 set(CMAKE_AUTOUIC ON)
 
-set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg)
+#应用qt库
+set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 #应用DTK库
-set(DTK Widget Core Gui)
+set(DTK Widget Core Gui Wm)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
-
+#加载子模块
+add_subdirectory(src)
+add_subdirectory(translations)
 
 #安装
 # qm files
 file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/downloader/translations)
+install(FILES ${QM_FILES} DESTINATION share/downloadmanager/translations)
 
 #desktop
-install(FILES desktop/downloader.desktop DESTINATION share/applications)
+install(FILES desktop/downloadmanager.desktop DESTINATION share/applications)
 
 #datebases
-install(FILES data/downloader.db DESTINATION share/downloader/database)
+install(FILES data/uos-downloadmanager-task.db DESTINATION share/downloadmanager/database)
 
 # conf file
 file(GLOB CF_FILES "docs/*.conf")
-install(FILES ${CF_FILES} DESTINATION share/downloader/config)
+install(FILES ${CF_FILES} DESTINATION share/downloadmanager/config)
 
 
 #icon
-install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
-install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
+install(FILES data/downloadmanager.svg DESTINATION share/icons/hicolor/scalable/apps/)
+install(FILES data/downloadmanager.svg DESTINATION share/downloadmanager/icons/logo/)
 
-# 开启单元测试
-if(DOTEST)
-    # 添加gocv覆盖率文件的输出
-    set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
-    # 设置测试模块
-    set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Multimedia Test)
-    find_package(Qt5 COMPONENTS ${QT} REQUIRED)
-    # 添加子模块test
-    add_subdirectory(test)
-    message("do test")
+install(TARGETS downloadmanager dlmlog dlmdatabase dlmaria2 dlmcontrolui
+RUNTIME DESTINATION bin
+LIBRARY DESTINATION lib
+ARCHIVE DESTINATION libstatic
+)
 
-else()
-    message("DO Not TEST")
-    #加载子模块
-    add_subdirectory(src)
-    add_subdirectory(translations)
-    install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION libstatic
-    )
-endif()
