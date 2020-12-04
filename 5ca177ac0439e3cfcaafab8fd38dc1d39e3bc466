@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47dba420_3efce424",
+        "filename": "test/stubAll.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T01:17:11Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "5ca177ac0439e3cfcaafab8fd38dc1d39e3bc466",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e206921b_7bcbd8f2",
+        "filename": "test/stubAll.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T01:17:11Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "5ca177ac0439e3cfcaafab8fd38dc1d39e3bc466",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc74c955_f347e4b1",
+        "filename": "test/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-04T01:17:11Z",
+      "side": 1,
+      "message": "注释行数: 11; 改动行数(修改和新增): 137; 注释率: 8.0%",
+      "revId": "5ca177ac0439e3cfcaafab8fd38dc1d39e3bc466",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
