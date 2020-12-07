@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "97266c4b_4dbd5e12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-07T06:00:33Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "9c9ae41779736c0f0e075623a1dd52f92db21a41",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d22473c9_c7ea10af",
         "filename": "test/ui/createTask/ut_createtaskwidget.cpp",
         "patchSetId": 1
