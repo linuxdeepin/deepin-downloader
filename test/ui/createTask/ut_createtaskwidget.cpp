@@ -185,9 +185,8 @@ TEST_F(ut_CreateTaskWidget, okBtnSizeError)
 
     Stub stub;
     stub.set(ADDR(CreateTaskWidget, formatSpeed), CreateTaskWidget_formatSpeed);
-    typedef int (*fptr)(CreateTaskWidget*);
-    fptr A_foo = (fptr)(&MessageBox::exec);
-    stub.set(A_foo, MessageBox_exec);
+
+    stub.set((int(MessageBox::*)())ADDR(MessageBox, exec), MessageBox_exec);
     c->onSureBtnClicked();
     //EXPECT_STREQ(c->m_model->data(c->m_model->index(0, 0)).toString().toStdString().c_str() , std::string("1").c_str()) << "解析出数据，复选框为可选状态";
     c = nullptr;
