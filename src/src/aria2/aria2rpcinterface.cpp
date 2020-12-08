@@ -30,6 +30,13 @@
 #include "log.h"
 #include "config.h"
 #include <QProcess>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QCryptographicHash>
+#include <QtMath>
 
 Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 

@@ -48,11 +48,11 @@ private:
     /**
      * @brief 私有拷贝构造，禁止外部构造
      */
-    DataBase(const DataBase &) {};
+    DataBase(const DataBase &) {}
     /**
      * @brief 私有赋值构造，禁止外部构造
      */
-    DataBase &operator=(const DataBase &) { return *this; };
+    DataBase &operator=(const DataBase &) { return *this; }
 
 private:
     QSqlDatabase m_db;

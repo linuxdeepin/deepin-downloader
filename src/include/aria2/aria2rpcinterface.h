@@ -33,18 +33,14 @@
 
 #include <QObject>
 #include <QJsonObject>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QCryptographicHash>
-#include <QtMath>
 
+class QNetworkReply;
 class Aria2RPCInterface : public QObject
 {
     Q_OBJECT
 public:
     explicit Aria2RPCInterface(QObject *parent = nullptr);
+    static Aria2RPCInterface *instance();
 
 public:
     /**
@@ -479,25 +475,16 @@ private:
      */
     bool checkAria2cFile();
 
-private:
-    QString m_rpcPort = "16800"; //rpc端口
-    QString m_rpcServer = "http://localhost:" + m_rpcPort + "/jsonrpc"; //rpc服务器地址
-    QString m_defaultDownloadPath; //默认下载路径
-    QString m_configPath = ""; //配置文件路径
-
 signals:
     void RPCSuccess(QString method, QJsonObject json); //rpc 正确返回处理信号
     void RPCError(QString method, QString id, int errCode, QJsonObject obj); //rpc错误返回处理信号
 
-public slots:
-
-public:
-    static Aria2RPCInterface *instance();
-
 private:
     static Aria2RPCInterface *m_instance;
-
-public:
+    QString m_rpcPort = "16800"; //rpc端口
+    QString m_rpcServer = "http://localhost:" + m_rpcPort + "/jsonrpc"; //rpc服务器地址
+    QString m_defaultDownloadPath; //默认下载路径
+    QString m_configPath = ""; //配置文件路径
     const QString m_aria2cCmd; //aria2c程序路径
     const QString m_basePath; //下载器安装目录
 };

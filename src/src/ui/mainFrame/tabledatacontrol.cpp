@@ -42,6 +42,8 @@
 #include <QBuffer>
 #include <QMimeDatabase>
 #include <QTimer>
+#include <QJsonArray>
+
 #include "../database/dbinstance.h"
 #include "global.h"
 #include "../aria2/aria2rpcinterface.h"
