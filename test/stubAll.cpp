@@ -1,56 +1,56 @@
 #include "stubAll.h"
 
-QAction *QMenu_exec(const QPoint &pos)
+QAction *QmenuExec(const QPoint &pos)
 {
     return nullptr;
 }
 
-int DSettingsDialog_exec(void* obj)
+int DsettingsdialogExec(void* obj)
 {
     return 0;
 }
 
-int DiagnosticTool_exec(void* obj)
+int DiagnostictoolExec(void* obj)
 {
     return 0;
 }
 
-int MessageBox_exec(void* obj)
+int MessageboxExec()
 {
     return 1;
 }
 
-void QSystemTrayIcon_show()
+void QsystemtrayiconShow()
 {
     return;
 }
 
-void MainFrame_onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type)
+void MainframeOndownloadnewurl(QString url, QString savePath, QString fileName, QString type)
 {
     return;
 }
 
-bool MainFrame_showRedownloadMsgbox(const QString sameUrl)
+bool MainframeShowredownloadmsgbox(const QString sameUrl)
 {
     return true;
 }
 
-bool QIODevice_open(QIODevice::OpenMode flags)
+bool QiodeviceOpen(QIODevice::OpenMode flags)
 {
     return true;
 }
 
-void ClipboardTimer_checkClipboardHasUrl()
+void ClipboardtimerCheckclipboardhasurl()
 {
     return;
 }
 
-double CreateTaskWidget_formatSpeed(QString str)
+double CreatetaskwidgetFormatspeed(QString str)
 {
     return 11111111111111111;
 }
 
-void BtInfoDialog_setWindowTitle(QString & str)
+void BtinfodialogSetwindowtitle(QString & str)
 {
     return;
 }
