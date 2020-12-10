@@ -26,6 +26,7 @@ DataBase::DataBase()
 
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName(dbPath);
+    m_db.open();
 }
 
 DataBase &DataBase::Instance()
@@ -40,4 +41,9 @@ DataBase &DataBase::Instance()
 QSqlDatabase &DataBase::getDB()
 {
     return m_db;
+}
+
+void DataBase::destory()
+{
+    m_db.close();
 }

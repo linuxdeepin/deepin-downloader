@@ -40,6 +40,11 @@ public:
      */
     QSqlDatabase &getDB();
 
+     /**
+     * @brief 关闭数据库，析构时调用
+     */
+    void destory();
+
 private:
     /**
      * @brief 私有默认构造，禁止外部构造
