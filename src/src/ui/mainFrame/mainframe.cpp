@@ -104,6 +104,7 @@ MainFrame *MainFrame::instance()
 
 MainFrame::~MainFrame()
 {
+    DataBase::Instance().destory();
 }
 
 void MainFrame::init()

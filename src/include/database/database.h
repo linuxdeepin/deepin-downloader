@@ -40,6 +40,8 @@ public:
      */
     QSqlDatabase &getDB();
 
+    void destory();
+
 private:
     /**
      * @brief 私有默认构造，禁止外部构造
