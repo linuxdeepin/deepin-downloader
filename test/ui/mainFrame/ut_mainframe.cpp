@@ -51,10 +51,10 @@ protected:
 TEST_F(ut_MainFreme, addHttpFastTask)
 {
     Stub stub;
-    stub.set(ADDR(QSystemTrayIcon, show), QSystemTrayIcon_show);
+    stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
 
     Stub stub2;
-    stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardTimer_checkClipboardHasUrl);
+    stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
 
     MainFrame::instance()->onDownloadNewUrl("https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4",
                             Settings::getInstance()->getDownloadSavePath(), "5f06cfe424c38_10s_big", "mp4");
@@ -108,7 +108,7 @@ TEST_F(ut_MainFreme, unpauseTask)
 TEST_F(ut_MainFreme, onContextMenu)
 {
     Stub stub;
-    stub.set((QAction *(QMenu::*)(const QPoint &pos, QAction *at))ADDR(QMenu, exec), QMenu_exec);
+    stub.set((QAction *(QMenu::*)(const QPoint &pos, QAction *at))ADDR(QMenu, exec), QmenuExec);
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     MainFrame::instance()->onContextMenu(table->visualRect(model->index(0,2)).center());
@@ -225,7 +225,7 @@ TEST_F(ut_MainFreme, deleteTrashTask)
 TEST_F(ut_MainFreme, addHttpFastTask2)
 {
     Stub stub;
-    stub.set(ADDR(MainFrame, showRedownloadMsgbox), MainFrame_showRedownloadMsgbox);
+    stub.set(ADDR(MainFrame, showRedownloadMsgbox), MainframeShowredownloadmsgbox);
     MainFrame::instance()->onDownloadNewUrl("https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4",
                             Settings::getInstance()->getDownloadSavePath(), "5f06cfe424c38_10s_big", "mp4");
 
@@ -369,7 +369,7 @@ TEST_F(ut_MainFreme, startDownloadTask)
 TEST_F(ut_MainFreme, onParseUrlList)
 {
     Stub stub;
-    stub.set(ADDR(MainFrame, onDownloadNewUrl), MainFrame_onDownloadNewUrl);
+    stub.set(ADDR(MainFrame, onDownloadNewUrl), MainframeOndownloadnewurl);
     QVector<LinkInfo> urlList;
     urlList << LinkInfo();
     QString path = Settings::getInstance()->getDownloadSavePath();
@@ -427,7 +427,7 @@ TEST_F(ut_MainFreme, downloadListRedownload)
 TEST_F(ut_MainFreme, onUnusualConfirm)
 {
     Stub stub;
-    stub.set(ADDR(MainFrame, showRedownloadMsgbox), MainFrame_showRedownloadMsgbox);
+    stub.set(ADDR(MainFrame, showRedownloadMsgbox), MainframeShowredownloadmsgbox);
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     if(model->renderList().count() >0){
@@ -439,7 +439,7 @@ TEST_F(ut_MainFreme, onUnusualConfirm)
 TEST_F(ut_MainFreme, addHttpTask2)
 {
     Stub stub;
-    stub.set(ADDR(MainFrame, showRedownloadMsgbox), MainFrame_showRedownloadMsgbox);
+    stub.set(ADDR(MainFrame, showRedownloadMsgbox), MainframeShowredownloadmsgbox);
     MainFrame::instance()->onDownloadNewUrl("http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz",
                             Settings::getInstance()->getDownloadSavePath(), "qt-x11-opensource-src-4.1.4", "tar.gz");
 
@@ -451,18 +451,18 @@ TEST_F(ut_MainFreme, addHttpTask2)
 //TEST_F(ut_MainFreme, onSettingsMenuClicked)
 //{
 //    typedef int (*fptr)(DSettingsDialog*);
-//    fptr A_foo = (fptr)(&DSettingsDialog::exec);
+//    fptr foo = (fptr)(&DSettingsDialog::exec);
 //    Stub stub;
-//    stub.set(A_foo, DSettingsDialog_exec);
+//    stub.set(foo, DSettingsDialog_exec);
 //    MainFrame::instance()->onSettingsMenuClicked();
 //}
 
 TEST_F(ut_MainFreme, showDiagnosticTool)
 {
     typedef int (*fptr)(DSettingsDialog*);
-    fptr A_foo = (fptr)(&DiagnosticTool::exec);
+    fptr foo = (fptr)(&DiagnosticTool::exec);
     Stub stub;
-    stub.set(A_foo, DiagnosticTool_exec);
+    stub.set(foo, DiagnostictoolExec);
     MainFrame::instance()->showDiagnosticTool();
 }
 
@@ -474,45 +474,45 @@ TEST_F(ut_MainFreme, onRemoveFinished)
 TEST_F(ut_MainFreme, showWarningMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog*);
-    fptr A_foo = (fptr)(&MessageBox::exec);
+    fptr foo = (fptr)(&MessageBox::exec);
     Stub stub;
-    stub.set(A_foo, MessageBox_exec);
+    stub.set(foo, MessageboxExec);
     MainFrame::instance()->showWarningMsgbox("");
 }
 
 TEST_F(ut_MainFreme, showClearMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog*);
-    fptr A_foo = (fptr)(&MessageBox::exec);
+    fptr foo = (fptr)(&MessageBox::exec);
     Stub stub;
-    stub.set(A_foo, MessageBox_exec);
+    stub.set(foo, MessageboxExec);
     MainFrame::instance()->showClearMsgbox();
 }
 
 TEST_F(ut_MainFreme, showReloadMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog*);
-    fptr A_foo = (fptr)(&MessageBox::exec);
+    fptr foo = (fptr)(&MessageBox::exec);
     Stub stub;
-    stub.set(A_foo, MessageBox_exec);
+    stub.set(foo, MessageboxExec);
     MainFrame::instance()->showReloadMsgbox();
 }
 
 TEST_F(ut_MainFreme, showDeleteMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog*);
-    fptr A_foo = (fptr)(&MessageBox::exec);
+    fptr foo = (fptr)(&MessageBox::exec);
     Stub stub;
-    stub.set(A_foo, MessageBox_exec);
+    stub.set(foo, MessageboxExec);
     MainFrame::instance()->showDeleteMsgbox(true);
 }
 
 TEST_F(ut_MainFreme, showRedownloadMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog*);
-    fptr A_foo = (fptr)(&MessageBox::exec);
+    fptr foo = (fptr)(&MessageBox::exec);
     Stub stub;
-    stub.set(A_foo, MessageBox_exec);
+    stub.set(foo, MessageboxExec);
     MainFrame::instance()->showRedownloadMsgbox("");
 }
 

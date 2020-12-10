@@ -88,7 +88,7 @@ TEST_F(ut_CreateTaskWidget, init)
 TEST_F(ut_CreateTaskWidget, BtInfoDialog)
 {
     Stub stub;
-    stub.set(ADDR(BtInfoDialog, setWindowTitle), BtInfoDialog_setWindowTitle);
+    stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
     BtInfoDialog btDiag(" ", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
     btDiag.onAllCheck();
     btDiag.onVideoCheck();
@@ -184,9 +184,12 @@ TEST_F(ut_CreateTaskWidget, okBtnSizeError)
     QTest::qWait(1000);
 
     Stub stub;
-    stub.set(ADDR(CreateTaskWidget, formatSpeed), CreateTaskWidget_formatSpeed);
+    stub.set(ADDR(CreateTaskWidget, formatSpeed), CreatetaskwidgetFormatspeed);
 
-    stub.set((int(MessageBox::*)())ADDR(MessageBox, exec), MessageBox_exec);
+    typedef int (*fptr)(CreateTaskWidget*);
+    fptr foo = (fptr)(&MessageBox::exec);
+    stub.set(foo, MessageboxExec);
+    //stub.set((int(MessageBox::*)())ADDR(MessageBox, exec), MessageBox_exec);
     c->onSureBtnClicked();
     //EXPECT_STREQ(c->m_model->data(c->m_model->index(0, 0)).toString().toStdString().c_str() , std::string("1").c_str()) << "解析出数据，复选框为可选状态";
     c = nullptr;
