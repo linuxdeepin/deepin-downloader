@@ -112,6 +112,7 @@ bool ClipboardTimer::isHttp(QString url)
     QStringList list = url.split(".");
     QString suffix = list[list.size() - 1];
     QStringList type;
+    type << "metalink";
     type << "asf"
          << "avi"
          << "iso"

@@ -114,6 +114,9 @@ void BtInfoDialog::initUI()
     //下载信息名称
     m_labelInfoName = new DLabel(this);
     m_labelInfoName->setGeometry(85, 89, 356, 40);
+    if(m_ariaInfo.name.isEmpty()){
+        m_ariaInfo.name = m_ariaInfo.files[0].path;
+    }
     m_labelInfoName->setText(m_ariaInfo.name);
     m_labelInfoName->setWordWrap(true);
 

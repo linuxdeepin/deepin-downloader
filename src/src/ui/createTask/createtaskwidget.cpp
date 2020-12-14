@@ -401,7 +401,7 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
     for (int i = 0; i < urlList.size(); ++i) {
         fileName = urlList.at(i).toString();
         if (!fileName.isEmpty()) { //若文件路径不为空
-            if (fileName.startsWith("file:") && fileName.endsWith(".torrent")) {
+            if (fileName.startsWith("file:") && (fileName.endsWith(".torrent") || fileName.endsWith(".metalink"))) {
                 fileName = fileName.right(fileName.length() - 7);
                 BtInfoDialog dialog(fileName, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
                 int ret = dialog.exec();
