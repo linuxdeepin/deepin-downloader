@@ -66,15 +66,15 @@ public:
 
 signals:
     void sendText(const QString &text);
-
+    void sendWebText(const QString &text);
 public slots:
     void receiveText(const QString &text)
     {
         bool b = Settings::getInstance()->getWebBrowserState();
+        if(b){
+            sendWebText(text);
+        }
         sendText(QString().number(b));
-        MessageBox box;
-        box.setWarings(text, "sure");
-        box.exec();
     }
 };
 

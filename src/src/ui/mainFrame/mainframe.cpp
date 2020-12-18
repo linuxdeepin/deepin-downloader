@@ -2952,6 +2952,9 @@ void MainFrame::initWebsocket()
                      channel, &QWebChannel::connectTo);
     Websockethandle *core = new Websockethandle;
     channel->registerObject(QStringLiteral("core"), core);
+    connect(core, &Websockethandle::sendWebText, this, [&](QString text){
+        createNewTask(text);
+    });
 }
 
 bool MainFrame::deleteDirectory(const QString &path)

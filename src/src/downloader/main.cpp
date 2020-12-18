@@ -91,11 +91,13 @@ int main(int argc, char *argv[])
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
-                QDBusInterface iface("com.downloader.service",
-                                     "/downloader/path",
-                                     "local.downloader.MainFrame",
-                                     QDBusConnection::sessionBus());
-                iface.asyncCall("OpenBt", comList[0]);
+                if(comList[0].contains(".torrent")){
+                    QDBusInterface iface("com.downloader.service",
+                                         "/downloader/path",
+                                         "local.downloader.MainFrame",
+                                         QDBusConnection::sessionBus());
+                    iface.asyncCall("OpenBt", comList[0]);
+                }
             }
             return 0;
         }

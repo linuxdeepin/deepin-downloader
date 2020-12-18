@@ -404,84 +404,68 @@ function main() {
     chrome.downloads.onCreated.addListener(item => onItemCreated(item));
     chrome.downloads.onChanged.addListener(onChanged);
     
+    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 
     socket  = new WebSocket("ws://localhost:12345");
-    socket.onopen = function() {
-        console.log("socket.onopen");
-        new QWebChannel(socket, function(channel) {
-            webChanel = channel;
-                    // make core object accessible globally
-            window.core = channel.objects.core;
-            
-            //连接C++信号与javascript函数
-            core.sendText.connect(function(message) {
-            console.log("Received message111111111111: " + message);
-            if(message == "0"){
-                downloadFlag = true;
-                chrome.downloads.download({
-                    url: downloadItem.url
-                  }, onDownload);
-                  chrome.downloads.setShelfEnabled(true);
-            } else{
-                chrome.downloads.cancel(downloadItem.id, function () {})
-                chrome.downloads.erase({ id: downloadItem.id })
-                chrome.downloads.setShelfEnabled(false);
-                }
-            });
-        });
-    }
+    socket.onopen = onSocketOpen
+    addContextMenu ("downloader", "使用下载器下载");
 }
 
 function onItemCreated(item) {
-    console.log("downloadId=" + item.downloadId  + "  byExtensionId:" + item.byExtensionId);
     downloadItem = item;
     if(downloadFlag == true){
         downloadFlag = false;
-        //chrome.downloads.setShelfEnabled(true);
-        console.log("onItemCreated  return");
         return;
     }
-    
     if(1 != socket.readyState){
         window.open("downloader:");
         setTimeout(()=>{reConnect(item)}, 1500);
+        return;
     }
-
     window.core = webChanel.objects.core;
     core.receiveText(item.url);
 };
 
 function reConnect(item) {
-    console.log("reConnect");
     socket  = new WebSocket("ws://localhost:12345");
-    socket.onopen = function() {
-        console.log("socket.onopen");
-        new QWebChannel(socket, function(channel) {
-            webChanel = channel;
-                    // make core object accessible globally
-            window.core = channel.objects.core;
-            
-            //连接C++信号与javascript函数
-            core.sendText.connect(function(message) {
-            console.log("Received message222222222222222: " + message);
-            if(message == "0"){
-                //chrome.downloads.setShelfEnabled(true);
-                downloadFlag = true;
-                // chrome.downloads.download({
-                //     url: item.url
-                //   });
-                }
-            });
-            core.receiveText(item.url);
-        });
-        
+    socket.onopen = onSocketOpen
+    window.core = channel.objects.core;
+    core.receiveText(downloadItem.url);
+    socket.onerror = function(){
+        console.log("websocket error")
+        downloadFlag = true;
+        chrome.downloads.download({
+            url: downloadItem.url
+        }, onDownload);
+        chrome.downloads.setShelfEnabled(true);
     }
 }
+
+function onSocketOpen() {
+    new QWebChannel(socket, function(channel) {
+        webChanel = channel;
+        window.core = channel.objects.core;
+        core.sendText.connect(function(message) {
+            if(message == "0"){
+                downloadFlag = true;
+                chrome.downloads.download({
+                    url: downloadItem.url
+                }, onDownload);
+                chrome.downloads.setShelfEnabled(true);
+            } else{
+                chrome.downloads.cancel(downloadItem.id, function () {})
+                chrome.downloads.erase({ id: downloadItem.id })
+                chrome.downloads.setShelfEnabled(false);
+            }
+        });
+    });
+}
+
+
 
 function onChanged(downloadDelta) {
     if(downloadId == downloadDelta.id) {
         chrome.downloads.setShelfEnabled(true);
-        console.log("onChanged: downloadId = " + downloadDelta.id);
         chrome.downloads.cancel(downloadDelta.id);
         chrome.downloads.erase({id: downloadDelta.id});
     }
@@ -489,8 +473,32 @@ function onChanged(downloadDelta) {
 
 function onDownload(id) {
     downloadId = id;
-    // chrome.downloads.setShelfEnabled(true);
-    // console.log("onDownload: downloadId = " + downloadId);
-    // chrome.downloads.cancel(downloadId);
-    // chrome.downloads.erase({id:downloadId});
+}
+
+function addContextMenu (id, title) {
+    chrome.contextMenus.create({
+      id: id,
+      title: title,
+      contexts: ['link']
+    })
+  }
+
+  function onContextMenuClicked(info, tab) {
+    window.open("downloader:");
+    setTimeout(()=>{onTimeout(info)}, 1500);
+    
+}
+
+function onTimeout(info) {
+    
+    console.log("onContextMenuClicked setTimeout")
+    socket  = new WebSocket("ws://localhost:12345");
+    socket.onopen = function() {
+        new QWebChannel(socket, function(channel) {
+            webChanel = channel;
+            window.core = channel.objects.core;
+            core.receiveText(info.linkUrl);  
+        })
+         
+    }
 }
