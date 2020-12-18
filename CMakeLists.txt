@@ -59,7 +59,7 @@ set(CMAKE_AUTORCC ON)
 #打开全局uic
 set(CMAKE_AUTOUIC ON)
 
-set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Test)
+set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Test WebChannel WebSockets)
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 #应用DTK库
@@ -93,7 +93,7 @@ install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
     # 添加gocv覆盖率文件的输出
     set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
     # 添加子模块test
-    add_subdirectory(test)
+    #add_subdirectory(test)
     message("do test")
 
 #else()

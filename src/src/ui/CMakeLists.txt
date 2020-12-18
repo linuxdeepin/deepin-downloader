@@ -5,6 +5,7 @@ include_directories( ${PROJECT_SOURCE_DIR}/src/include/ui
                      ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame
                      ${PROJECT_SOURCE_DIR}/src/include/ui/createTask
                      ${PROJECT_SOURCE_DIR}/src/include/ui/settings
+                     ${PROJECT_SOURCE_DIR}/src/include/ui/websocket
                      ${CMAKE_BINARY_DIR}
 )
 
@@ -47,6 +48,9 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settings.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settingslabel.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/diagnostictool.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websocketclientwrapper.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockettransport.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockethandle.h
 
     ${PROJECT_SOURCE_DIR}/src/include/ui/dlmapplication.h
 
@@ -106,6 +110,8 @@ add_library(dlmcontrolui SHARED
        settings/settings.cpp
        settings/settingslabel.cpp
        settings/diagnostictool.cpp
+       websocket/websocketclientwrapper.cpp
+       websocket/websockettransport.cpp
        clipboardtimer.cpp
        messagebox.cpp
        dlmapplication.cpp
@@ -115,7 +121,8 @@ add_library(dlmcontrolui SHARED
        ${QM_FILES}
 )
 
-target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget  Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus)
+target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget
+    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::WebChannel Qt5::WebSockets)
 
 #install(TARGETS dlmcontrolui DESTINATION lib)
 

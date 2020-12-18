@@ -225,6 +225,12 @@ public:
     bool getClipBoardState();
 
     /**
+     * @brief 获取接管浏览器状态值
+     * @return 开启返回true，否则返回false
+     */
+    bool getWebBrowserState();
+
+    /**
      * @brief 获取Http下载状态值
      * @return 选中返回true，否则返回false
      */

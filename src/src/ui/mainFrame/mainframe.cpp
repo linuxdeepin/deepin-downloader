@@ -48,6 +48,8 @@
 #include <QSharedMemory>
 #include <QMimeDatabase>
 #include <QUuid>
+#include <QWebChannel>
+#include <QWebSocketServer>
 
 #include <unistd.h>
 
@@ -67,6 +69,9 @@
 #include "diagnostictool.h"
 #include "settings.h"
 #include "headerView.h"
+#include "websocketclientwrapper.h"
+#include "websockettransport.h"
+#include "websockethandle.h"
 
 using namespace Global;
 
@@ -80,6 +85,7 @@ MainFrame::MainFrame(QWidget *parent)
     , m_CheckIndex(QModelIndex())
 {
     init();
+    initWebsocket();
     initTray();
     initDbus();
     initAria2();
@@ -2932,6 +2938,20 @@ void MainFrame::initDbus()
     QDBusConnection::sessionBus().unregisterService("com.downloader.service");
     QDBusConnection::sessionBus().registerService("com.downloader.service");
     QDBusConnection::sessionBus().registerObject("/downloader/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
+}
+
+void MainFrame::initWebsocket()
+{
+    QWebSocketServer *server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
+    if (!server->listen(QHostAddress("127.0.0.1"), 12345)) {
+        qFatal("Failed to open web socket server.");
+    }
+    WebSocketClientWrapper *clientWrapper = new WebSocketClientWrapper(server);
+    QWebChannel *channel = new QWebChannel;
+    QObject::connect(clientWrapper, &WebSocketClientWrapper::clientConnected,
+                     channel, &QWebChannel::connectTo);
+    Websockethandle *core = new Websockethandle;
+    channel->registerObject(QStringLiteral("core"), core);
 }
 
 bool MainFrame::deleteDirectory(const QString &path)

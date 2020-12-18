@@ -32,6 +32,8 @@ AUX_SOURCE_DIRECTORY(./ui/mainFrame MAINFRAME)
 LIST(APPEND SRC_LIST ${MAINFRAME})
 AUX_SOURCE_DIRECTORY(./ui/settings SETTINGS)
 LIST(APPEND SRC_LIST ${SETTINGS})
+AUX_SOURCE_DIRECTORY(./ui/websocket WEBSOCKET)
+LIST(APPEND SRC_LIST ${WEBSOCKET})
 
 #源头文件
 file(GLOB ALL_HEADERS "./*.h"
@@ -42,6 +44,7 @@ file(GLOB ALL_HEADERS "./*.h"
                       "../src/include/ui/createTask/*.h"
                       "../src/include/ui/mainFrame/*.h"
                       "../src/include/ui/settings/*.h"
+                      "../src/include/ui/websocket/*.h"
                       )
 #源文件
 file(GLOB ALL_SOURCES "../src/src/ui/*.cpp"
@@ -62,7 +65,8 @@ QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${ALL_HEADERS})
 add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${UDLC_UI_HEADERS_MOC} ${SRC_QRC})
 
 #添加gtest库，Qt库，dtk库
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main pthread Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test dtkwidget dtkgui dtkcore)
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main pthread
+    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test dtkwidget dtkgui dtkcore Qt5::WebChannel Qt5::WebSockets)
     #dlmdatabase dlmaria2 dlmcontrolui dlmlog
 
 # 添加 QTest 测试
