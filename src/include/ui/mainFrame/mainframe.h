@@ -83,6 +83,46 @@ public:
      * @brief 析构函数
      */
     ~MainFrame();
+private:
+
+    /**
+     * @brief 界面初始化
+    */
+    void init();
+
+    /**
+     * @brief 初始化aria2
+    */
+    void initAria2();
+
+    /**
+     * @brief 右下角托盘初始化
+    */
+    void initTray();
+
+    void updateDHTFile();
+
+    /**
+     * @brief 新建连接
+    */
+    void initConnection();
+
+    /**
+     * @brief 初始化三个列表，读数据库
+    */
+    void initTabledata();
+
+    /**
+     * @brief 初始化dbus
+     * @return
+     */
+    void initDbus();
+
+    /**
+     * @brief 初始化websocket
+     * @return
+     */
+    void initWebsocket();
 
 public slots:
     /**
@@ -112,6 +152,7 @@ private slots:
      * @brief 设置按钮槽函数
     */
     void onSettingsMenuClicked();
+
     /**
      * @brief 处理rpc返回的信息
      * @param method: aria2调用的接口名称
@@ -348,35 +389,8 @@ private slots:
      * @brief 下载完成 的一些操作
      */
     void onDownloadFinish();
+
 private:
-
-    /**
-     * @brief 初始化aria2
-    */
-    void initAria2();
-
-    /**
-     * @brief 界面初始化
-    */
-    void init();
-
-    /**
-     * @brief 右下角托盘初始化
-    */
-    void initTray();
-
-    void updateDHTFile();
-
-    /**
-     * @brief 新建连接
-    */
-    void initConnection();
-
-    /**
-     * @brief 初始化三个列表，读数据库
-    */
-    void initTabledata();
-
     /**
      * @brief 设置任务数
     */
@@ -521,11 +535,7 @@ private:
      */
     void setAutoStart(bool ret);
 
-    /**
-     * @brief 初始化dbus
-     * @return
-     */
-    void initDbus();
+
 
     //    /**
     //     * @brief 解析url获取url 类型

@@ -10,6 +10,8 @@ Build-Depends:
  qtbase5-dev,
  qttools5-dev,
  libqt5network5,
+ libqt5webchannel5-dev,
+ libqt5websockets5-dev,
  libdtkcore-dev,
  libdtkwidget-dev,
  libdtkgui-dev,

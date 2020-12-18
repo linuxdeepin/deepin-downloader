@@ -39,6 +39,7 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
+
 #include "mainframe.h"
 #include "log.h"
 #include "settings.h"
@@ -103,7 +104,6 @@ int main(int argc, char *argv[])
         char *to = static_cast<char *>(sharedMemory.data());
         memset(to, 0, 199);
     }
-
     // 保存程序的窗口主题设置
     DApplicationSettings as;
     Q_UNUSED(as)
