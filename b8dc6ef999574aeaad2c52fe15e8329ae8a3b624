@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a03b498_99185d81",
+        "filename": "src/include/ui/mainFrame/mainframe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-18T03:18:57Z",
+      "side": 1,
+      "message": "注释行数: 23; 改动行数(修改和新增): 32; 注释率: 71.9%",
+      "revId": "b8dc6ef999574aeaad2c52fe15e8329ae8a3b624",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5a74b1b_3c24ee9d",
+        "filename": "src/include/ui/settings/settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-18T03:18:57Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 5; 注释率: 0.0%",
+      "revId": "b8dc6ef999574aeaad2c52fe15e8329ae8a3b624",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d23f585_4fa72138",
+        "filename": "src/include/ui/websocket/websocketclientwrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-18T03:18:57Z",
+      "side": 1,
+      "message": "注释行数: 50; 改动行数(修改和新增): 69; 注释率: 72.5%",
+      "revId": "b8dc6ef999574aeaad2c52fe15e8329ae8a3b624",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d64b6133_6d88af24",
+        "filename": "src/include/ui/websocket/websockethandle.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-18T03:18:57Z",
+      "side": 1,
+      "message": "注释行数: 50; 改动行数(修改和新增): 74; 注释率: 67.6%",
+      "revId": "b8dc6ef999574aeaad2c52fe15e8329ae8a3b624",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48049878_d659486d",
+        "filename": "src/include/ui/websocket/websockettransport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-18T03:18:57Z",
+      "side": 1,
+      "message": "注释行数: 50; 改动行数(修改和新增): 68; 注释率: 73.5%",
+      "revId": "b8dc6ef999574aeaad2c52fe15e8329ae8a3b624",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
