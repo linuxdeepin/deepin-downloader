@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e012460_d7daea51",
+        "filename": "src/include/ui/createTask/createtaskwidget.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-21T02:50:10Z",
+      "side": 1,
+      "message": "注释行数: 10; 改动行数(修改和新增): 12; 注释率: 83.3%",
+      "revId": "b50bd6dc275e8a9ceec6b3ed5c30fa8a13a3c3c8",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58ca2ac0_5340ba57",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-21T02:50:10Z",
+      "side": 1,
+      "message": "注释行数: 7; 改动行数(修改和新增): 34; 注释率: 20.6%",
+      "revId": "b50bd6dc275e8a9ceec6b3ed5c30fa8a13a3c3c8",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c15924d3_29cd0eb2",
+        "filename": "test/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-21T02:50:10Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 10; 注释率: 40.0%",
+      "revId": "b50bd6dc275e8a9ceec6b3ed5c30fa8a13a3c3c8",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
