@@ -1957,7 +1957,6 @@ void MainFrame::onUpdateMainUI()
             if (m_CurrentTab == downloadingTab) {
                 m_NotaskTipLabel->show();
             }
-
             m_DownLoadingTableView->getTableControl()->updateDb();
         }
     }

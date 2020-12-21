@@ -70,7 +70,7 @@ public:
     /**
      * @brief 设置下载异常窗口（正在下载中，文件被删除）
     */
-    void setUnusual(const QString &taskId);
+    void setUnusual(const QString &taskId, QString taskList);
 
     /**
      * @brief 设置删除窗口

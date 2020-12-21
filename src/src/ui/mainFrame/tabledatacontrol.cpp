@@ -265,11 +265,22 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
                 return true;
             }
             data->status = Global::DownloadJobStatus::Error;
-            MessageBox msg;
-            msg.setUnusual(taskId);
-            connect(&msg, &MessageBox::unusualConfirm, this, &TableDataControl::onUnusualConfirm);
-            msg.exec();
-            //qDebug() << "文件不存在，";
+            static QString taskLsit;
+            static QString unusualId;
+
+
+            if(taskLsit.isEmpty()) {
+                QTimer::singleShot(500,this,[&](){
+                        MessageBox msg;
+                        msg.setUnusual(unusualId, taskLsit);
+                        connect(&msg, &MessageBox::unusualConfirm, this, &TableDataControl::onUnusualConfirm);
+                        msg.exec();
+                        taskLsit.clear();
+                        unusualId.clear();
+                });
+            }
+            taskLsit.append(fileName + "\n");
+            unusualId.append(taskId + "\n");
             return true;
         }
     } else if (statusStr == "waiting") {
@@ -695,38 +706,40 @@ bool TableDataControl::checkFileExist(QString &filePath)
     QFileInfo fInfo(filePath);
     return fInfo.exists();
 }
-void TableDataControl::onUnusualConfirm(int index, const QString &taskId)
+void TableDataControl::onUnusualConfirm(int index, const QString &taskIds)
 {
-    DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(taskId);
-    if (nullptr == pItem) {
-        return;
-    }
-    BtTaskInfo info;
-    bool isBttask = false;
-    if (pItem->url.isEmpty()) {
-        DBInstance::getBtTaskById(taskId, info);
-        isBttask = !info.taskId.isEmpty();
-    }
-    if (0 == index) {
-        if (isBttask) {
-            QMap<QString, QVariant> opt;
-            QString path = pItem->savePath.left(pItem->savePath.lastIndexOf("/"));
-            opt.insert("dir", path);
-            opt.insert("select-file", info.selectedNum);
-            QString fileName = pItem->fileName;
-            removeDownloadListJob(pItem, false, false);
-            emit DownloadUnusuaBtJob(info.seedFile, opt, fileName, info.infoHash);
-        } else {
-            QString url = pItem->url;
-            QString savepath = pItem->savePath.left(pItem->savePath.lastIndexOf("/"));
-            QMimeDatabase db;
-            QString mime = db.suffixForFileName(pItem->fileName);
-            QString fileName = pItem->fileName.mid(0, pItem->fileName.lastIndexOf(mime) - 1);
-            removeDownloadListJob(pItem, false, false);
-            emit DownloadUnusuaHttpJob(url, savepath, fileName, mime);
+    foreach(QString taskId, taskIds.split("\n")) {
+        DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(taskId);
+        if (nullptr == pItem) {
+            return;
         }
-    } else {
-        removeDownloadListJob(pItem);
+        BtTaskInfo info;
+        bool isBttask = false;
+        if (pItem->url.isEmpty()) {
+            DBInstance::getBtTaskById(taskId, info);
+            isBttask = !info.taskId.isEmpty();
+        }
+        if (0 == index) {
+            if (isBttask) {
+                QMap<QString, QVariant> opt;
+                QString path = pItem->savePath.left(pItem->savePath.lastIndexOf("/"));
+                opt.insert("dir", path);
+                opt.insert("select-file", info.selectedNum);
+                QString fileName = pItem->fileName;
+                removeDownloadListJob(pItem, false, false);
+                emit DownloadUnusuaBtJob(info.seedFile, opt, fileName, info.infoHash);
+            } else {
+                QString url = pItem->url;
+                QString savepath = pItem->savePath.left(pItem->savePath.lastIndexOf("/"));
+                QMimeDatabase db;
+                QString mime = db.suffixForFileName(pItem->fileName);
+                QString fileName = pItem->fileName.mid(0, pItem->fileName.lastIndexOf(mime) - 1);
+                removeDownloadListJob(pItem, false, false);
+                emit DownloadUnusuaHttpJob(url, savepath, fileName, mime);
+            }
+        } else {
+            removeDownloadListJob(pItem);
+        }
     }
 }
 void TableDataControl::onAria2Remove(QString gId, QString id)

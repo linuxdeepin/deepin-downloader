@@ -201,7 +201,7 @@ public slots:
     /**
      * @brief 异常处理确认
      */
-    void onUnusualConfirm(int index, const QString &taskId);
+    void onUnusualConfirm(int index, const QString &taskIds);
 
     /**
     * @brief 通知aria2删除任务

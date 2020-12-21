@@ -48,7 +48,7 @@ void ClipboardTimer::checkClipboardHasUrl()
 
 void ClipboardTimer::getDataChanged()
 {
-    qDebug() << "ClipboardTimer::getDataChanged()";
+    //qDebug() << "ClipboardTimer::getDataChanged()";
     const QMimeData *mimeData = m_clipboard->mimeData();
     QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
     if (mimeData->data("TIMESTAMP") == m_timeStamp) {

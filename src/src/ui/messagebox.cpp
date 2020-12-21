@@ -93,7 +93,7 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret)
     btn2->setObjectName("redownload");
 }
 
-void MessageBox::setUnusual(const QString &taskId)
+void MessageBox::setUnusual(const QString &taskId, QString taskList)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -101,7 +101,14 @@ void MessageBox::setUnusual(const QString &taskId)
 
     addLabel(tr("Download error"));
     addSpacing(10);
-    addButton(tr("Download Again"));
+    DTextEdit *urlText = new DTextEdit(this);
+    urlText->setReadOnly(true);
+    urlText->setFixedSize(QSize(454, 154));
+    urlText->setText(taskList);
+    addContent(urlText);
+    //if(taskList.split("\n").count() <= 1) {
+        addButton(tr("Download Again"));
+    //}
     addButton(tr("Delete Task"));
     connect(this, &MessageBox::buttonClicked, this,
             [=](int index) {
