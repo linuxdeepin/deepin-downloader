@@ -68,6 +68,7 @@
 #include "analysisurl.h"
 #include "diagnostictool.h"
 #include "settings.h"
+#include "func.h"
 #include "headerView.h"
 #include "websocketclientwrapper.h"
 #include "websockettransport.h"
@@ -2583,10 +2584,13 @@ void MainFrame::initDelDataItem(Global::DownloadDataItem *data, Global::DeleteDa
 
 void MainFrame::onIsStartAssociatedBTFile(bool status)
 {
+    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     if (status) {
-        startBtAssociat();
+        Func::setMimeappsValue("application/x-bittorrent","downloader.desktop");
+     //   startBtAssociat();
     } else {
-        endBtAssociat();
+        Func::setMimeappsValue("application/x-bittorrent"," ");
+    //    endBtAssociat();
     }
 }
 

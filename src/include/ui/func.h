@@ -47,6 +47,15 @@ public:
      */
     static bool isHTTPConnect();
 
+    /**
+     * @brief 设置Mimeapps文件中的值，如果key不存在，新建key。
+     * @param key 配置中的key，如果key不存在新建key
+     * @param value key对应值。
+     * @return 是否设置成功
+     */
+    static bool setMimeappsValue(QString key, QString value = "");
+
+
 private:
 };
 

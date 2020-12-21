@@ -200,9 +200,12 @@ private:
     double getFtpFileSize(QString ftpPath);
 
     /**
-     * @brief 获取ftp服务器文件大小
-     * @param 传入路径
-     * @return 传出double大小
+     * @brief 获取ftp服务器文件大小的回调函数
+     * @param curl CURL信息
+     * @param size  空
+     * @param nmemb 获取到ftp文件大小
+     * @param data  空
+     * @return 传出ftp大小
     */
     static size_t ftpSize(void *curl, size_t size, size_t nmemb, void *data);
 private slots:
