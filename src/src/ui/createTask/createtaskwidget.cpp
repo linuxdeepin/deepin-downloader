@@ -39,6 +39,8 @@
 #include <QStandardItemModel>
 #include <QMimeDatabase>
 #include <QDesktopWidget>
+#include <curl/curl.h>
+//#include <curl/easy.h>
 #include "btinfodialog.h"
 #include "messagebox.h"
 #include "btinfotableview.h"
@@ -499,6 +501,11 @@ void CreateTaskWidget::onTextChanged()
             continue;
         }
         if (isFtp(urlList[i])) {
+//            double ftpSize = getFtpFileSize(urlList[i]);
+//            QString strSize = "";
+//            if(ftpSize > 0){
+//                strSize = Aria2RPCInterface::instance()->bytesFormat(ftpSize);
+//            }
             QStringList nameList = urlList[i].split("/");
             nameList.removeAll(QString(""));
             name = nameList[nameList.size() - 1];
@@ -861,8 +868,6 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
 void CreateTaskWidget::setData(int index, QString name, QString type, QString size, QString url, long length, QString trueUrl)
 {
     m_model->setItem(index, 0, new QStandardItem(size == "" ? "0" : "1"));
-    //if (!name.isNull() && !m_model->item(index, 1))
-    //bool ret = !m_model->item(index, 1);
     if (!name.isNull())
         m_model->setItem(index, 1, new QStandardItem(name));
 
@@ -1089,4 +1094,35 @@ double CreateTaskWidget::getSelectSize()
         }
     }
     return total;
+}
+
+size_t CreateTaskWidget::ftpSize(void *curl, size_t size, size_t nmemb, void *data)
+{
+    return (size_t)(size *nmemb);
+}
+
+
+double CreateTaskWidget::getFtpFileSize(QString ftpPath)
+{
+    double len = 0.0;
+    CURL *curl = curl_easy_init();
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+    curl_easy_setopt(curl, CURLOPT_URL, ftpPath.toStdString().c_str());
+    curl_easy_setopt(curl, CURLOPT_HEADER, 1);
+    curl_easy_setopt(curl, CURLOPT_NOBODY,1);
+    curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
+    //curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 1 );
+    curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION,ftpSize);
+    if(curl_easy_perform(curl) == CURLE_OK){
+        if(CURLE_OK == curl_easy_getinfo(curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &len)){
+
+            return len;
+        }
+        qDebug()<< "link error";
+    }
+    else {
+        qDebug()<< "link error";
+    }
+    curl_easy_cleanup(curl);
+    return 0;
 }

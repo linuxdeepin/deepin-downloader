@@ -53,7 +53,9 @@ file(GLOB ALL_SOURCES "../src/src/ui/*.cpp"
                       "../src/src/log/*.cpp"
                       "../src/src/ui/createTask/*.cpp"
                       "../src/src/ui/mainFrame/*.cpp"
-                      "../src/src/ui/settings/*.cpp")
+                      "../src/src/ui/settings/*.cpp"
+                      "../src/src/ui/websocket/*.cpp"
+                      )
 
 #添加资源文件
 file(GLOB SRC_QRC ${PROJECT_SOURCE_DIR}/src/src/ui/resource/*.qrc)
@@ -65,9 +67,8 @@ QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${ALL_HEADERS})
 add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${UDLC_UI_HEADERS_MOC} ${SRC_QRC})
 
 #添加gtest库，Qt库，dtk库
-target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main pthread
+target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main pthread curl
     Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test dtkwidget dtkgui dtkcore Qt5::WebChannel Qt5::WebSockets)
-    #dlmdatabase dlmaria2 dlmcontrolui dlmlog
 
 # 添加 QTest 测试
 add_test(${PROJECT_NAME_TEST} COMMAND ${PROJECT_NAME_TEST})

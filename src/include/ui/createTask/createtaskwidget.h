@@ -191,6 +191,20 @@ private:
      * @return 传出double大小
     */
     double getSelectSize();
+
+    /**
+     * @brief 获取ftp服务器文件大小
+     * @param 传入路径
+     * @return 传出double大小
+    */
+    double getFtpFileSize(QString ftpPath);
+
+    /**
+     * @brief 获取ftp服务器文件大小
+     * @param 传入路径
+     * @return 传出double大小
+    */
+    static size_t ftpSize(void *curl, size_t size, size_t nmemb, void *data);
 private slots:
     /**
      * @brief 打开选择文件窗口按钮

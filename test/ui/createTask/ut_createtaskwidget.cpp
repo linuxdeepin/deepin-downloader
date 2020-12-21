@@ -246,3 +246,15 @@ TEST_F(ut_CreateTaskWidget, headerViewPalettetype)
     v->onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     v->onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
 }
+
+TEST_F(ut_CreateTaskWidget, getFtpFileSize)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    double trueSize = c->getFtpFileSize("ftp://10.10.77.72/1.txt");
+    //EXPECT_DOUBLE_EQ(size, 3.0);
+    EXPECT_TRUE(true);
+
+    double falseSize = c->getFtpFileSize("ftp://10.10..txt");
+    //EXPECT_DOUBLE_EQ(size, 0.0);
+    EXPECT_TRUE(true);
+}

@@ -14,7 +14,6 @@ link_directories(${CMAKE_BINARY_DIR}/lib)
 #预定义宏，主要用于dll导出
 ADD_DEFINITIONS(-DLM_CONTROLUI_LIB )
 
-
 #需要moc(加Q_OBJECT)的头文件 
 set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame/mainframe.h
@@ -121,7 +120,7 @@ add_library(dlmcontrolui SHARED
        ${QM_FILES}
 )
 
-target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget
+target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget curl
     Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::WebChannel Qt5::WebSockets)
 
 #install(TARGETS dlmcontrolui DESTINATION lib)
