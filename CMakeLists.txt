@@ -66,6 +66,8 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 set(DTK Widget Core Gui)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
+#find_package(CURL REQUIRED)
+
 
 
 #安装
