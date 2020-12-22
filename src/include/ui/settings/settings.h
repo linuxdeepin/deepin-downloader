@@ -82,6 +82,12 @@ public:
     static QWidget *createBTDownloadEditHandle(QObject *obj);
 
     /**
+     * @brief 创建MetaLink下载类型窗口
+     * @param obj option对象
+     */
+    static QWidget *createMetalinkdownloadEditHandle(QObject *obj);
+
+    /**
      * @brief 创建磁力链接下载类型窗口
      * @param obj option对象
      */
@@ -242,6 +248,8 @@ public:
      */
     bool getBtDownloadState();
 
+
+
     /**
      * @brief 获取磁力链接下载状态值
      * @return 选中返回true，否则返回false
@@ -349,6 +357,7 @@ signals:
     void disckCacheChanged(int number);
     void startAssociatedBTFileChanged(bool state);
     void controlBrowserChanged(bool state);
+    void startAssociatedMetaLinkFileChanged(bool state);
     void autoDownloadBySpeedChanged(bool state);
     void autoSortBySpeedChanged(bool state);
 

@@ -48,6 +48,7 @@
 #include "notificationssettiingwidget.h"
 #include "settingslabel.h"
 #include "settingswidget.h"
+#include "func.h"
 /**
  * @brief 判断字符串是否为纯数字
  * @param src 字符串
@@ -180,7 +181,23 @@ Settings::Settings(QObject *parent)
     auto startAssociatedBTFile = m_settings->option("Monitoring.BTRelation.AssociateBTFileAtStartup");
     connect(startAssociatedBTFile, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
         if (!value.isNull()) {
-            emit startAssociatedBTFileChanged(value.toBool());
+            QString key = "";
+            if(value.toBool()){
+                key = "downloader.desktop";
+            }
+            Func::setMimeappsValue("application/x-bittorrent", key);
+        }
+    });
+
+    // 启动时关联MetaLink种子文件
+    auto startAssociatedMetaLinkFile = m_settings->option("Monitoring.MetaLinkRelation.AssociateMetaLinkFileAtStartup");
+    connect(startAssociatedMetaLinkFile, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            QString key = "";
+            if(value.toBool()){
+                key = "downloader.desktop";
+            }
+            Func::setMimeappsValue("application/metalink+xml", key);
         }
     });
 
@@ -196,20 +213,24 @@ Settings::Settings(QObject *parent)
     auto optionClipBoard = m_settings->option("Monitoring.MonitoringObject.ClipBoard");
     auto optionHttpDownload = m_settings->option("Monitoring.MonitoringDownloadType.HttpDownload");
     auto optionBTDownload = m_settings->option("Monitoring.MonitoringDownloadType.BTDownload");
+    auto optionMetaLinkDownload = m_settings->option("Monitoring.MonitoringDownloadType.MetaLinkDownload");
     auto optionMagneticDownload = m_settings->option("Monitoring.MonitoringDownloadType.MagneticDownload");
 
     // 剪切板状态改变
     connect(optionClipBoard, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
         if (!value.isNull()) {
             if (value.toBool() == true) {
-                if (!optionHttpDownload->value().toBool() && !optionBTDownload->value().toBool() && !optionMagneticDownload->value().toBool()) {
+                if (!optionHttpDownload->value().toBool() && !optionBTDownload->value().toBool() &&
+                        !optionMagneticDownload->value().toBool() && optionMetaLinkDownload->value().toBool()) {
                     optionHttpDownload->setValue(true);
                     optionBTDownload->setValue(true);
+                    optionMetaLinkDownload->setValue(true);
                     optionMagneticDownload->setValue(true);
                 }
             } else {
                 optionHttpDownload->setValue(false);
                 optionBTDownload->setValue(false);
+                optionMetaLinkDownload->setValue(false);
                 optionMagneticDownload->setValue(false);
             }
         }
@@ -232,6 +253,21 @@ Settings::Settings(QObject *parent)
 
     // BT下载状态改变
     connect(optionBTDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            if (value.toBool()) {
+                if (!optionClipBoard->value().toBool()) {
+                    optionClipBoard->setValue(true);
+                }
+            } else {
+                if (!optionHttpDownload->value().toBool() && !optionMagneticDownload->value().toBool()) {
+                    optionClipBoard->setValue(false);
+                }
+            }
+        }
+    });
+
+    // metalink下载状态改变
+    connect(optionMetaLinkDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
         if (!value.isNull()) {
             if (value.toBool()) {
                 if (!optionClipBoard->value().toBool()) {
@@ -284,6 +320,9 @@ Settings::Settings(QObject *parent)
     auto monitoringBTFilesName = tr("BT Files"); // BT关联
     auto downloadingName = tr("Create new task when a torrent file downloaded"); // 下载种子文件后自动打开下载面板
     auto openingName = tr("Create new task when opening a torrent file"); // 启动时关联BT种子文件
+    auto monitoringMetaLinkFilesName = tr("MetaLink Files"); // metaLink关联
+    auto downloadingMetaLinkName = tr("Create new task when a metalink file downloaded"); // 下载MetaLink文件后自动打开下载面板
+    auto openinMetaLinkgName = tr("Create new task when opening a metalink file"); // 启动时关联MetaLink种子文件
     auto notificationsName = tr("Notifications"); // 通知提醒
     auto succeedOrFailedName = tr("Notify me when downloading finished or failed"); // 下载完成/失败时，系统通知提醒
     auto downloadingSucceedName = tr("Allow sounds when downloading succeed"); // 下载完成后，播放提示音
@@ -398,6 +437,27 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
     itemSelectionWidget->setLabelText(tr("BitTorrent")); // BT下载
+    itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+
+    connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=](QVariant var) {
+        option->setValue(var.toString());
+    });
+
+    connect(option, &DSettingsOption::valueChanged, itemSelectionWidget, [=](QVariant var) {
+        if (!var.toString().isEmpty()) {
+            itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
+        }
+    });
+
+    return itemSelectionWidget;
+}
+
+QWidget *Settings::createMetalinkdownloadEditHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
+    itemSelectionWidget->setLabelText(tr("MetaLink")); // MetaLink下载
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
     connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=](QVariant var) {

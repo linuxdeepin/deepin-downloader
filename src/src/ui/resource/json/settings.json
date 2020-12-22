@@ -160,6 +160,12 @@
                             "default":true
                         },
                         {
+                            "key":"MetaLinkDownload",
+                            "name":"",
+                            "type":"metalinkdownload",
+                            "default":true
+                        },
+                        {
                             "key":"MagneticDownload",
                             "name":"",
                             "type":"magneticdownload",
@@ -179,6 +185,23 @@
                         {
                             "key":"AssociateBTFileAtStartup",
                             "name":"Create new task when opening a torrent file",
+                            "type":"switchbutton",
+                            "default":true
+                        }
+                    ]
+                },
+                {
+                    "key":"MetaLinkRelation",
+                    "name":"MetaLink Files",
+                    "options":[{
+                            "key":"OpenDownloadMetaLinkPanel",
+                            "name":"Create new task when a metalink file downloaded",
+                            "type":"switchbutton",
+                            "default":false
+                        },
+                        {
+                            "key":"AssociateMetaLinkFileAtStartup",
+                            "name":"Create new task when opening a metalink file",
                             "type":"switchbutton",
                             "default":true
                         }
