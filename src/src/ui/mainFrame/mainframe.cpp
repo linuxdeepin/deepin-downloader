@@ -443,6 +443,7 @@ void MainFrame::initConnection()
     });
     connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
     connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onIsStartAssociatedBTFile);
+    connect(Settings::getInstance(), &Settings::controlBrowserChanged, this, &MainFrame::onIsControlBrowser);
     connect(Settings::getInstance(), &Settings::autoDownloadBySpeedChanged,
             this, &MainFrame::onAutoDownloadBySpeed);
     connect(Settings::getInstance(), &Settings::autoSortBySpeedChanged,
@@ -2590,6 +2591,16 @@ void MainFrame::onIsStartAssociatedBTFile(bool status)
     } else {
         Func::setMimeappsValue("application/x-bittorrent"," ");
     //    endBtAssociat();
+    }
+}
+
+void MainFrame::onIsControlBrowser(bool status)
+{
+    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
+    if (status) {
+        Func::setMimeappsValue("x-scheme-handler/downloader","downloader.desktop");
+    } else {
+        Func::setMimeappsValue("x-scheme-handler/downloader"," ");
     }
 }
 

@@ -184,6 +184,14 @@ Settings::Settings(QObject *parent)
         }
     });
 
+    // 是否接管浏览器
+    auto isControlBrowser = m_settings->option("Monitoring.MonitoringObject.WebBrowser");
+    connect(isControlBrowser, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            emit controlBrowserChanged(value.toBool());
+        }
+    });
+
     // 实现剪切板和接管下载类型关联
     auto optionClipBoard = m_settings->option("Monitoring.MonitoringObject.ClipBoard");
     auto optionHttpDownload = m_settings->option("Monitoring.MonitoringDownloadType.HttpDownload");

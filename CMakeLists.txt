@@ -95,7 +95,7 @@ install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
     # 添加gocv覆盖率文件的输出
     set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
     # 添加子模块test
-    #add_subdirectory(test)
+    add_subdirectory(test)
     message("do test")
 
 #else()

@@ -109,6 +109,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src/include/ui)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/settings)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/createTask)
+include_directories(${PROJECT_SOURCE_DIR}/src/include/ui/websocket)
 include_directories(${PROJECT_SOURCE_DIR}/src/include/log)
 include_directories(${PROJECT_BINARY_DIR})
 
