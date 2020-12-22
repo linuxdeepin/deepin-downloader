@@ -340,6 +340,12 @@ private slots:
     void onIsStartAssociatedBTFile(bool status);
 
     /**
+    * @brief 是否开启浏览器接管
+    * @param status true 为开启 false为关闭
+    */
+    void onIsControlBrowser(bool status);
+
+    /**
     * @brief 速度小于多少自动增加任务窗口
     * @param status true 为开启 false为关闭
     */

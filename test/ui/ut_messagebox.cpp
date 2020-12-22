@@ -32,7 +32,7 @@ TEST_F(ut_messageBox, setReName)
 TEST_F(ut_messageBox, setUnusual)
 {
     MessageBox msg;
-    msg.setUnusual("");
+    msg.setUnusual("", "");
 }
 
 TEST_F(ut_messageBox, setExit)

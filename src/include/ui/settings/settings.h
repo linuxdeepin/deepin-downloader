@@ -348,6 +348,7 @@ signals:
     void downloadSettingsChanged();
     void disckCacheChanged(int number);
     void startAssociatedBTFileChanged(bool state);
+    void controlBrowserChanged(bool state);
     void autoDownloadBySpeedChanged(bool state);
     void autoSortBySpeedChanged(bool state);
 

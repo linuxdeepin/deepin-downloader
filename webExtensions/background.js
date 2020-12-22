@@ -408,6 +408,9 @@ function main() {
 
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = onSocketOpen
+    socket.onerror = function(){
+        console.log("websocket error")
+    }
     addContextMenu ("downloader", "使用下载器下载");
 }
 
@@ -429,8 +432,7 @@ function onItemCreated(item) {
 function reConnect(item) {
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = onSocketOpen
-    window.core = channel.objects.core;
-    core.receiveText(downloadItem.url);
+    
     socket.onerror = function(){
         console.log("websocket error")
         downloadFlag = true;
@@ -439,6 +441,8 @@ function reConnect(item) {
         }, onDownload);
         chrome.downloads.setShelfEnabled(true);
     }
+    window.core = channel.objects.core;
+    core.receiveText(downloadItem.url);
 }
 
 function onSocketOpen() {
@@ -477,16 +481,15 @@ function onDownload(id) {
 
 function addContextMenu (id, title) {
     chrome.contextMenus.create({
-      id: id,
-      title: title,
-      contexts: ['link']
+        id: id,
+        title: title,
+        contexts: ['link']
     })
-  }
+}
 
-  function onContextMenuClicked(info, tab) {
+function onContextMenuClicked(info, tab) {
     window.open("downloader:");
     setTimeout(()=>{onTimeout(info)}, 1500);
-    
 }
 
 function onTimeout(info) {
@@ -499,6 +502,5 @@ function onTimeout(info) {
             window.core = channel.objects.core;
             core.receiveText(info.linkUrl);  
         })
-         
     }
 }
