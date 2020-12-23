@@ -449,3 +449,17 @@ TEST_F(ut_Settings, SettingsControlWidget6) {
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->m_Edit->setText("001");
 }
+
+TEST_F(ut_Settings, controlbrowserOn)
+{
+    auto option = Settings::getInstance()->m_settings->option("Basic.CloseMainWindow.closemainwindow");
+    option->setValue(true);
+    EXPECT_TRUE(Settings::getInstance()->getWebBrowserState());
+}
+
+TEST_F(ut_Settings, controlbrowserOff)
+{
+    auto option = Settings::getInstance()->m_settings->option("Basic.CloseMainWindow.closemainwindow");
+    option->setValue(false);
+    EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
+}
