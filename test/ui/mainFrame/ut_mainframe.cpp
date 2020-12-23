@@ -11,6 +11,7 @@
 #include <QPoint>
 #include <QClipboard>
 #include <QMenu>
+#include <QWebSocket>
 
 #include "mainframe.h"
 #include "createtaskwidget.h"
@@ -593,3 +594,20 @@ TEST_F(ut_MainFreme, tableView5)
     QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::NoModifier);
     table->keyPressEvent(keyEvent);
 }
+
+TEST_F(ut_MainFreme, Websockethandle)
+{
+    QList<QSslCertificate> cert = QSslCertificate::fromPath(QLatin1String("server-certificate.pem"));
+    QSslError error(QSslError::SelfSignedCertificate, cert.at(0));
+    QList<QSslError> expectedSslErrors;
+    expectedSslErrors.append(error);
+
+    QWebSocket socket;
+    socket.ignoreSslErrors(expectedSslErrors);
+    socket.open(QUrl(QStringLiteral("ws://localhost:12345")));
+    bool b = socket.isValid();
+    QString data = "http://test.html";
+    qint64 num = socket.sendTextMessage(data);
+    num++;
+}
+

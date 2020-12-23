@@ -588,6 +588,30 @@ void MainFrame::initAria2()
     qDebug() << "MainFrame initAria2 Finished";
 }
 
+void MainFrame::initDbus()
+{
+    QDBusConnection::sessionBus().unregisterService("com.downloader.service");
+    QDBusConnection::sessionBus().registerService("com.downloader.service");
+    QDBusConnection::sessionBus().registerObject("/downloader/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
+}
+
+void MainFrame::initWebsocket()
+{
+    QWebSocketServer *server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
+    if (!server->listen(QHostAddress("127.0.0.1"), 12345)) {
+        qFatal("Failed to open web socket server.");
+    }
+    WebSocketClientWrapper *clientWrapper = new WebSocketClientWrapper(server);
+    QWebChannel *channel = new QWebChannel;
+    QObject::connect(clientWrapper, &WebSocketClientWrapper::clientConnected,
+                     channel, &QWebChannel::connectTo);
+    Websockethandle *core = new Websockethandle;
+    channel->registerObject(QStringLiteral("core"), core);
+    connect(core, &Websockethandle::sendWebText, this, [&](QString text){
+        createNewTask(text);
+    });
+}
+
 void MainFrame::initTabledata()
 {
     //m_ptableDataControl->initTabledata();
@@ -1487,6 +1511,52 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
             break;
         }
     }
+
+    // 定时器打开
+    if (m_UpdateTimer->isActive() == false) {
+        m_UpdateTimer->start(m_timeInterval);
+    }
+    return true;
+}
+
+bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> &opt, QString infoName)
+{
+    QString selectedNum = opt.value("select-file").toString();
+
+    if (selectedNum.isNull()) {
+        qDebug() << "select is null";
+        return false;
+    }
+
+    // 将任务添加如task表中
+    TaskInfo task;
+    QString strId = QUuid::createUuid().toString();
+    task.taskId = strId;
+    task.gid = "";
+    task.gidIndex = 0;
+    task.url = "";
+    task.downloadPath = Settings::getInstance()->getCustomFilePath() + "/" + infoName;
+    task.downloadFilename = infoName;
+    task.createTime = QDateTime::currentDateTime();
+    DBInstance::addTask(task);
+
+    //opt.insert("out", infoName);
+    // 开始下载
+    Aria2RPCInterface::instance()->addMetalink(linkPath, opt, strId);
+    clearTableItemCheckStatus();
+
+    //const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
+//    foreach (DownloadDataItem *pItem, dataList) {
+//        QString str = "magnet:?xt=urn:btih:" + infoHash.toLower();
+//        QString url = pItem->url.toLower();
+//        if (url.startsWith(str)) {
+//            Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
+//            Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
+//            DBInstance::delTask(pItem->taskId);
+//            m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+//            break;
+//        }
+//    }
 
     // 定时器打开
     if (m_UpdateTimer->isActive() == false) {
@@ -2585,19 +2655,15 @@ void MainFrame::initDelDataItem(Global::DownloadDataItem *data, Global::DeleteDa
 
 void MainFrame::onIsStartAssociatedBTFile(bool status)
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     if (status) {
         Func::setMimeappsValue("application/x-bittorrent","downloader.desktop");
-     //   startBtAssociat();
     } else {
         Func::setMimeappsValue("application/x-bittorrent"," ");
-    //    endBtAssociat();
     }
 }
 
 void MainFrame::onIsControlBrowser(bool status)
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     if (status) {
         Func::setMimeappsValue("x-scheme-handler/downloader","downloader.desktop");
     } else {
@@ -2610,111 +2676,6 @@ void MainFrame::onAutoDownloadBySpeed(bool status)
     if (!status) {
         onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber(), false);
     }
-}
-
-void MainFrame::startBtAssociat()
-{
-    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
-    QFile readFile(path);
-    if (!readFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "error";
-        return;
-    }
-    QTextStream data(&readFile);
-    bool isDefault = false;
-    bool isAdded = false;
-    QStringList DefaultList;
-    QStringList AddedList;
-    //找到 [Default Applications] 和[Added Associations] 下面中的 application/x-bittorrent=字段
-    while (!data.atEnd()) {
-        QString sLine = data.readLine();
-        if (sLine == "[Default Applications]") {
-            isDefault = true;
-            isAdded = false;
-        } else if (sLine == "[Added Associations]") {
-            isDefault = false;
-            isAdded = true;
-        }
-        if (isDefault) {
-            DefaultList.append(sLine);
-        }
-        if (isAdded) {
-            AddedList.append(sLine);
-        }
-    }
-    //将application/x-bittorrent 字段替换为 application/x-bittorrent=uos-download.desktop。 uos-download.desktop为桌面文件夹名字
-    if (!DefaultList.isEmpty()) {
-        for (int i = 0; i < DefaultList.size(); i++) {
-            if (DefaultList[i].contains("application/x-bittorrent")) {
-                DefaultList[i] = "application/x-bittorrent=downloader.desktop;";
-            }
-            if (i == DefaultList.size() - 1 && !(DefaultList[i].contains("application/x-bittorrent"))) {
-                DefaultList.append("application/x-bittorrent=downloader.desktop;");
-            }
-        }
-    } else {
-        qDebug() << "[Default Associations] is Null";
-    }
-    if (!AddedList.isEmpty()) {
-        for (int i = 0; i < AddedList.size(); i++) {
-            if (AddedList[i].contains("application/x-bittorrent")) {
-                AddedList[i] = "application/x-bittorrent=downloader.desktop;";
-            }
-            if (i == AddedList.size() - 1 && !(AddedList[i].contains("application/x-bittorrent"))) {
-                AddedList.append("application/x-bittorrent=downloader.desktop;");
-            }
-        }
-    } else {
-        qDebug() << "[Default Associations] is Null";
-    }
-    readFile.close();
-
-    //将替换以后的字符串，重新写入到文件中去
-    QFile writerFile(path);
-    DefaultList << AddedList;
-    if (writerFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-    }
-    QTextStream writeData(&writerFile);
-
-    for (int i = 0; i < DefaultList.size(); i++) {
-        writeData << DefaultList[i] << endl;
-    }
-    writeData.flush();
-    writerFile.close();
-}
-
-void MainFrame::endBtAssociat()
-{
-    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
-    QFile readFile(path);
-    if (!readFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "open file error";
-        return;
-    }
-    QTextStream data(&readFile);
-    QStringList list;
-    while (!data.atEnd()) {
-        QString sLine = data.readLine();
-        list.append(sLine);
-    }
-    for (int i = 0; i < list.size(); i++) {
-        if (list[i].contains("application/x-bittorrent")) {
-            list[i] = "application/x-bittorrent=";
-        }
-    }
-    readFile.close();
-
-    QFile writerFile(path);
-    if (!writerFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug() << "writer file error";
-        return;
-    }
-    QTextStream writeData(&writerFile);
-    for (int i = 0; i < list.size(); i++) {
-        writeData << list[i] << endl;
-    }
-    writeData.flush();
-    writerFile.close();
 }
 
 void MainFrame::btNotificaitonSettings(QString head, QString text, bool isBt)
@@ -2948,29 +2909,7 @@ void MainFrame::setAutoStart(bool ret)
     writerFile.close();
 }
 
-void MainFrame::initDbus()
-{
-    QDBusConnection::sessionBus().unregisterService("com.downloader.service");
-    QDBusConnection::sessionBus().registerService("com.downloader.service");
-    QDBusConnection::sessionBus().registerObject("/downloader/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
-}
 
-void MainFrame::initWebsocket()
-{
-    QWebSocketServer *server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
-    if (!server->listen(QHostAddress("127.0.0.1"), 12345)) {
-        qFatal("Failed to open web socket server.");
-    }
-    WebSocketClientWrapper *clientWrapper = new WebSocketClientWrapper(server);
-    QWebChannel *channel = new QWebChannel;
-    QObject::connect(clientWrapper, &WebSocketClientWrapper::clientConnected,
-                     channel, &QWebChannel::connectTo);
-    Websockethandle *core = new Websockethandle;
-    channel->registerObject(QStringLiteral("core"), core);
-    connect(core, &Websockethandle::sendWebText, this, [&](QString text){
-        createNewTask(text);
-    });
-}
 
 bool MainFrame::deleteDirectory(const QString &path)
 {

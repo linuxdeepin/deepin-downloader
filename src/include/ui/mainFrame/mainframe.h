@@ -208,6 +208,16 @@ private slots:
     bool onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash);
 
     /**
+     * @brief 收到新建metalink任务
+     * @param btName 文件路径
+     * @param opt  下载参数
+     * @param savePath 保存路径
+     * @param infoName 文件名字
+     * @param infoName 文件hash值
+    */
+    bool onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> &opt, QString infoName);
+
+    /**
      * @brief 表头全部选择按键
      * @param  isChecked ：是否全选
     */
@@ -486,15 +496,6 @@ private:
      */
     void initDelDataItem(Global::DownloadDataItem *data, Global::DeleteDataItem *delData);
 
-    /**
-     * @brief 将bt文件设置右键启动
-     */
-    void startBtAssociat();
-
-    /**
-     * @brief 将bt文件关闭右键启动
-     */
-    void endBtAssociat();
     /**
      * @brief 修改aria2配置文件
      * @param configItem 配置文件中的id
