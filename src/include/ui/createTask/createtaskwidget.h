@@ -303,6 +303,14 @@ signals:
     */
     void downLoadTorrentCreate(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash);
 
+    /**
+     * @brief 新建MetaLink下载任务
+     * @param MetaLinkPath MetaLink下载地址
+     * @param opt 选项
+     * @param infoName bt文件名字
+    */
+    void downLoadMetaLinkCreate(QString MetaLinkPath, QMap<QString, QVariant> &opt, QString infoName);
+
 private:
     DTextEdit *m_texturl; //url文本框
     DSuggestButton *m_sureButton; //确认按钮

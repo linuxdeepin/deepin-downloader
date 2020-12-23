@@ -412,7 +412,11 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
                     QString infoName;
                     QString infoHash;
                     dialog.getBtInfo(opt, infoName, infoHash);
-                    emit downLoadTorrentCreate(fileName, opt, infoName, infoHash);
+                    if(fileName.endsWith(".torrent")){
+                        emit downLoadTorrentCreate(fileName, opt, infoName, infoHash);
+                    }else {
+                        emit downLoadMetaLinkCreate(fileName, opt, infoName);
+                    }
                     close();
                 }
             }

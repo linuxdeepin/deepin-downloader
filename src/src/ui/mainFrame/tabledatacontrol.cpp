@@ -139,6 +139,9 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         return false;
     }
     QString gId = json.value("result").toString();
+    if(json.value("result").isArray()) {
+        gId = json.value("result").toArray().at(1).toString();
+    }
     DownloadDataItem *findData = m_DownloadTableView->getTableModel()->find(id);
     if (findData != nullptr) {
         findData->gid = gId;

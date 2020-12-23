@@ -269,7 +269,7 @@ bool Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> op
     QString metalinkB64Str = fileToBase64(metalink);
     QJsonArray ja;
     ja.append(metalinkB64Str);
-    ja.append(QJsonArray());
+    //ja.append(QJsonArray());
 
     QJsonDocument doc = QJsonDocument::fromVariant(QVariant(opt));
     QJsonObject optJson = doc.object();

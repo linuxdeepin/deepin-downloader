@@ -457,6 +457,7 @@ void MainFrame::initConnection()
 
     connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::onDownloadNewTorrent, Qt::UniqueConnection);
+    connect(m_TaskWidget, &CreateTaskWidget::downLoadMetaLinkCreate, this, &MainFrame::onDownloadNewMetalink, Qt::UniqueConnection);
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -1544,19 +1545,6 @@ bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> 
     // 开始下载
     Aria2RPCInterface::instance()->addMetalink(linkPath, opt, strId);
     clearTableItemCheckStatus();
-
-    //const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
-//    foreach (DownloadDataItem *pItem, dataList) {
-//        QString str = "magnet:?xt=urn:btih:" + infoHash.toLower();
-//        QString url = pItem->url.toLower();
-//        if (url.startsWith(str)) {
-//            Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
-//            Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
-//            DBInstance::delTask(pItem->taskId);
-//            m_DownLoadingTableView->getTableModel()->removeItem(pItem);
-//            break;
-//        }
-//    }
 
     // 定时器打开
     if (m_UpdateTimer->isActive() == false) {
