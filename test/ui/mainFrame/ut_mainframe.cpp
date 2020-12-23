@@ -26,6 +26,7 @@
 #include "diagnostictool.h"
 #include "messagebox.h"
 #include "clipboardtimer.h"
+#include "websockethandle.h"
 
 class ut_MainFreme : public ::testing::Test
     , public QObject
@@ -603,11 +604,17 @@ TEST_F(ut_MainFreme, Websockethandle)
     expectedSslErrors.append(error);
 
     QWebSocket socket;
-    socket.ignoreSslErrors(expectedSslErrors);
-    socket.open(QUrl(QStringLiteral("ws://localhost:12345")));
+    //socket.ignoreSslErrors(expectedSslErrors);
+    socket.open(QUrl("ws://127.0.0.1:12345"));
     bool b = socket.isValid();
     QString data = "http://test.html";
     qint64 num = socket.sendTextMessage(data);
-    num++;
+    EXPECT_TRUE(num >= 0);
 }
 
+TEST_F(ut_MainFreme, Websocketconnect)
+{
+    Websockethandle *handle = new Websockethandle;
+    handle->receiveText("text");
+    EXPECT_NE(handle, nullptr);
+}
