@@ -1517,18 +1517,12 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     if (m_UpdateTimer->isActive() == false) {
         m_UpdateTimer->start(m_timeInterval);
     }
+    m_NotaskWidget->hide();
     return true;
 }
 
 bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> &opt, QString infoName)
 {
-    QString selectedNum = opt.value("select-file").toString();
-
-    if (selectedNum.isNull()) {
-        qDebug() << "select is null";
-        return false;
-    }
-
     // 将任务添加如task表中
     TaskInfo task;
     QString strId = QUuid::createUuid().toString();
@@ -1541,7 +1535,6 @@ bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> 
     task.createTime = QDateTime::currentDateTime();
     DBInstance::addTask(task);
 
-    //opt.insert("out", infoName);
     // 开始下载
     Aria2RPCInterface::instance()->addMetalink(linkPath, opt, strId);
     clearTableItemCheckStatus();
@@ -1550,6 +1543,7 @@ bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> 
     if (m_UpdateTimer->isActive() == false) {
         m_UpdateTimer->start(m_timeInterval);
     }
+    m_NotaskWidget->hide();
     return true;
 }
 
