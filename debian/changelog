@@ -1,3 +1,10 @@
+downloadmanager (5.3.0.1) stable; urgency=low
+
+  * 完成下载器1040部分功能
+  * 完成下载器的浏览器接管和创建metalink任务
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 24 Dec 2020 17:30:11 +0800
+
 downloadmanager (5.2.0.26) stable; urgency=low
 
   * 修改包名称

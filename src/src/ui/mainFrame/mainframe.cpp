@@ -1081,6 +1081,105 @@ void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName
     // }
 }
 
+bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash)
+{
+    QString selectedNum = opt.value("select-file").toString();
+
+    if (selectedNum.isNull()) {
+        qDebug() << "select is null";
+        return false;
+    }
+
+    // 数据库是否已存在相同的地址
+    if (!checkIsHasSameTask(infoHash.toLower())) {
+        return false;
+    }
+
+    // 将任务添加如task表中
+    TaskInfo task;
+    QString strId = QUuid::createUuid().toString();
+    task.taskId = strId;
+    task.gid = "";
+    task.gidIndex = 0;
+    task.url = "";
+    task.downloadPath = Settings::getInstance()->getCustomFilePath() + "/" + infoName;
+    task.downloadFilename = infoName;
+    task.createTime = QDateTime::currentDateTime();
+    DBInstance::addTask(task);
+
+    // 将任务添加如UrlInfo表中
+    BtTaskInfo urlInfo;
+    urlInfo.taskId = strId;
+    urlInfo.url = "";
+    urlInfo.downloadType = "torrent";
+    urlInfo.seedFile = btPath;
+    urlInfo.selectedNum = selectedNum;
+    urlInfo.infoHash = infoHash;
+    DBInstance::addBtTask(urlInfo);
+
+    //opt.insert("out", infoName);
+    // 开始下载
+    Aria2RPCInterface::instance()->addTorrent(btPath, opt, strId);
+    clearTableItemCheckStatus();
+
+    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
+    foreach (DownloadDataItem *pItem, dataList) {
+        QString str = "magnet:?xt=urn:btih:" + infoHash.toLower();
+        QString url = pItem->url.toLower();
+        if (url.startsWith(str)) {
+            Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
+            Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
+            DBInstance::delTask(pItem->taskId);
+            m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+            break;
+        }
+    }
+
+    // 定时器打开
+    if (m_UpdateTimer->isActive() == false) {
+        m_UpdateTimer->start(m_timeInterval);
+    }
+    m_NotaskWidget->hide();
+    return true;
+}
+
+bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> &opt, QString infoName)
+{
+//    bool isExitsUrl = false;
+//    // 判断url是否在数据中已存在
+//    DBInstance::isExistUrl(linkPath, isExitsUrl);
+//    if (isExitsUrl) {
+//        if (showRedownloadMsgbox(linkPath)) {
+//            deleteTaskByUrl(linkPath);
+//        } else {
+//            return false;
+//        }
+//    }
+
+    // 将任务添加如task表中
+    TaskInfo task;
+    QString strId = QUuid::createUuid().toString();
+    task.taskId = strId;
+    task.gid = "";
+    task.gidIndex = 0;
+    task.url = "";
+    task.downloadPath = Settings::getInstance()->getCustomFilePath() + "/" + infoName;
+    task.downloadFilename = infoName;
+    task.createTime = QDateTime::currentDateTime();
+    DBInstance::addTask(task);
+
+    // 开始下载
+    Aria2RPCInterface::instance()->addMetalink(linkPath, opt, strId);
+    clearTableItemCheckStatus();
+
+    // 定时器打开
+    if (m_UpdateTimer->isActive() == false) {
+        m_UpdateTimer->start(m_timeInterval);
+    }
+    m_NotaskWidget->hide();
+    return true;
+}
+
 void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QString name, QString type)
 {
     // 获取url文件名
@@ -1471,93 +1570,7 @@ void MainFrame::onSearchEditTextChanged(QString text)
     setTaskNum();
 }
 
-bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash)
-{
-    QString selectedNum = opt.value("select-file").toString();
 
-    if (selectedNum.isNull()) {
-        qDebug() << "select is null";
-        return false;
-    }
-
-    // 数据库是否已存在相同的地址
-    if (!checkIsHasSameTask(infoHash.toLower())) {
-        return false;
-    }
-
-    // 将任务添加如task表中
-    TaskInfo task;
-    QString strId = QUuid::createUuid().toString();
-    task.taskId = strId;
-    task.gid = "";
-    task.gidIndex = 0;
-    task.url = "";
-    task.downloadPath = Settings::getInstance()->getCustomFilePath() + "/" + infoName;
-    task.downloadFilename = infoName;
-    task.createTime = QDateTime::currentDateTime();
-    DBInstance::addTask(task);
-
-    // 将任务添加如UrlInfo表中
-    BtTaskInfo urlInfo;
-    urlInfo.taskId = strId;
-    urlInfo.url = "";
-    urlInfo.downloadType = "torrent";
-    urlInfo.seedFile = btPath;
-    urlInfo.selectedNum = selectedNum;
-    urlInfo.infoHash = infoHash;
-    DBInstance::addBtTask(urlInfo);
-
-    //opt.insert("out", infoName);
-    // 开始下载
-    Aria2RPCInterface::instance()->addTorrent(btPath, opt, strId);
-    clearTableItemCheckStatus();
-
-    const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
-    foreach (DownloadDataItem *pItem, dataList) {
-        QString str = "magnet:?xt=urn:btih:" + infoHash.toLower();
-        QString url = pItem->url.toLower();
-        if (url.startsWith(str)) {
-            Aria2RPCInterface::instance()->forcePause(pItem->gid, pItem->taskId);
-            Aria2RPCInterface::instance()->remove(pItem->gid, pItem->taskId);
-            DBInstance::delTask(pItem->taskId);
-            m_DownLoadingTableView->getTableModel()->removeItem(pItem);
-            break;
-        }
-    }
-
-    // 定时器打开
-    if (m_UpdateTimer->isActive() == false) {
-        m_UpdateTimer->start(m_timeInterval);
-    }
-    m_NotaskWidget->hide();
-    return true;
-}
-
-bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> &opt, QString infoName)
-{
-    // 将任务添加如task表中
-    TaskInfo task;
-    QString strId = QUuid::createUuid().toString();
-    task.taskId = strId;
-    task.gid = "";
-    task.gidIndex = 0;
-    task.url = "";
-    task.downloadPath = Settings::getInstance()->getCustomFilePath() + "/" + infoName;
-    task.downloadFilename = infoName;
-    task.createTime = QDateTime::currentDateTime();
-    DBInstance::addTask(task);
-
-    // 开始下载
-    Aria2RPCInterface::instance()->addMetalink(linkPath, opt, strId);
-    clearTableItemCheckStatus();
-
-    // 定时器打开
-    if (m_UpdateTimer->isActive() == false) {
-        m_UpdateTimer->start(m_timeInterval);
-    }
-    m_NotaskWidget->hide();
-    return true;
-}
 
 void MainFrame::onRedownload(QString taskId, int rd)
 {
