@@ -126,9 +126,9 @@ private:
 
 public slots:
     /**
-     * @brief 剪切板数据改变，受到bt文件url
+     * @brief 剪切板数据改变，受到托管文件url
     */
-    void OpenBt(QString url);
+    void OpenFile(QString url);
 
     /**
      * @brief 剪切板将

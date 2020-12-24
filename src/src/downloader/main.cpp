@@ -53,6 +53,7 @@ bool checkProcessExist();
 
 int main(int argc, char *argv[])
 {
+    qDebug()<< "OpenFile";
     DlmApplication::loadDXcbPlugin();
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     DlmApplication a(argc, argv);
@@ -72,6 +73,7 @@ int main(int argc, char *argv[])
     QStringList comList = parser.positionalArguments();
     QSharedMemory sharedMemory;
     sharedMemory.setKey("downloader");
+     qDebug()<< "OpenFile";
     if (sharedMemory.attach()) //设置成单例程序
     {
         if (!checkProcessExist()) { //下载器任务不存在，清空共享内存并启动
@@ -91,12 +93,13 @@ int main(int argc, char *argv[])
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
-                if(comList[0].contains(".torrent")){
+                if(comList[0].contains(".torrent") || comList[0].contains(".metalink")){
                     QDBusInterface iface("com.downloader.service",
                                          "/downloader/path",
                                          "local.downloader.MainFrame",
                                          QDBusConnection::sessionBus());
-                    iface.asyncCall("OpenBt", comList[0]);
+                    qDebug()<< "OpenFile";
+                    iface.asyncCall("OpenFile", comList[0]);
                 }
             }
             return 0;
@@ -131,11 +134,11 @@ int main(int argc, char *argv[])
     MainFrame w;
     w.show();
     for (int i = 0; i < comList.size(); i++) {
-        if (comList[i].endsWith(".torrent")) {
+        if (comList[i].endsWith(".torrent") || comList[i].endsWith(".metalink")) {
             if (Settings::getInstance()->getOneClickDownloadState()) {
                 w.hide();
             }
-            w.OpenBt(comList[i]);
+            w.OpenFile(comList[i]);
         }
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloader.svg"));

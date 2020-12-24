@@ -395,7 +395,7 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
     connect(m_DownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
-    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenFile);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::addMaxDownloadTask, this, [=](int num) {
@@ -410,7 +410,7 @@ void MainFrame::initConnection()
     connect(m_RecycleTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
     connect(m_RecycleTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_RecycleTableView->getTableControl(), &TableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
-    connect(m_RecycleTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenBt);
+    connect(m_RecycleTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenFile);
     connect(m_RecycleTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_RecycleTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
@@ -809,7 +809,7 @@ void MainFrame::onClipboardDataChanged(QString url)
     }
 }
 
-void MainFrame::OpenBt(QString url)
+void MainFrame::OpenFile(QString url)
 {
     if (isNetConnect()) {
         m_TaskWidget->showNetErrorMsg();
@@ -833,7 +833,12 @@ void MainFrame::OpenBt(QString url)
             return;
         }
         btDiag.getBtInfo(opt, infoName, infoHash);
-        bool ret = onDownloadNewTorrent(url, opt, infoName, infoHash);
+        bool ret;
+        if(url.endsWith(".metalink")){
+            ret = onDownloadNewMetalink(url, opt, infoName);
+        }else {
+            ret =onDownloadNewTorrent(url, opt, infoName, infoHash);
+        }
         if (ret) {
             btNotificaitonSettings(tr("Download"), QString(tr("%1 downloading...")).arg(infoName), true);
         }
@@ -856,7 +861,14 @@ void MainFrame::OpenBt(QString url)
     //    }
     if (ret == QDialog::Accepted) {
         btDiag.getBtInfo(opt, infoName, infoHash);
-        onDownloadNewTorrent(url, opt, infoName, infoHash);
+        if(url.endsWith(".metalink")){
+            ret = onDownloadNewMetalink(url, opt, infoName);
+        }else {
+            ret =onDownloadNewTorrent(url, opt, infoName, infoHash);
+        }
+        if (ret) {
+            btNotificaitonSettings(tr("Download"), QString(tr("%1 downloading...")).arg(infoName), true);
+        }
     }
     //clearSharedMemory();
 }
