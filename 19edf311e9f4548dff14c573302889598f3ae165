@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eef4758a_8eabd6af",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-24T09:33:53Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 87; 注释率: 21.8%",
+      "revId": "19edf311e9f4548dff14c573302889598f3ae165",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
