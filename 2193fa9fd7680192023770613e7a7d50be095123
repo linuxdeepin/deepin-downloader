@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "380ab9bf_75bf5e30",
+        "filename": "test/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-24T00:54:51Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 10; 注释率: 20.0%",
+      "revId": "2193fa9fd7680192023770613e7a7d50be095123",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42dd49ec_6f556673",
+        "filename": "test/ui/settings/ut_settings.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-24T00:54:51Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 12; 注释率: 0.0%",
+      "revId": "2193fa9fd7680192023770613e7a7d50be095123",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
