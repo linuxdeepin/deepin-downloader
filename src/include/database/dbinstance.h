@@ -121,27 +121,27 @@ public:
      * @param url url信息
      * @return true 执行成功 false执行失败
      */
-    static bool addBtTask(BtTaskInfo &url); //添加一条bt信息
+    static bool addBtTask(TaskInfoHash &url); //添加一条bt信息
     /**
      * @brief 更新任务
      * @param id 需要查询任务id
      * @param task 传出根据id所得任务信息
      * @return true 执行成功 false执行失败
      */
-    static bool updateBtTaskById(BtTaskInfo &url); //根据id更新bt信息
+    static bool updateBtTaskById(TaskInfoHash &url); //根据id更新bt信息
     /**
      * @brief 获取bt信息
      * @param taskId 任务id
      * @param task 传出根据id所得bt信息
      * @return true 执行成功 false执行失败
      */
-    static bool getBtTaskById(QString taskId, BtTaskInfo &url); //根据id得到bt信息
+    static bool getBtTaskById(QString taskId, TaskInfoHash &url); //根据id得到bt信息
     /**
      * @brief 获取所有url
      * @param urlList 传出所有任务
      * @return true 执行成功 false执行失败
      */
-    static bool getAllBtTask(QList<BtTaskInfo> &urlList); //得到所有bt信息
+    static bool getAllBtTask(QList<TaskInfoHash> &urlList); //得到所有bt信息
 
     /**
      * @brief 获取重复名称个数

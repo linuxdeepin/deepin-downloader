@@ -83,9 +83,9 @@ void DeleteItemThread::deleteRecycleData()
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
                         if (m_RecycleDeleteList.at(i).url.isEmpty()) { //bt任务
-                            BtTaskInfo info;
+                            TaskInfoHash info;
                             DBInstance::getBtTaskById(m_RecycleDeleteList.at(i).taskId, info);
-                            QString torrentPath = info.seedFile;
+                            QString torrentPath = info.filePath;
                             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                             QString mode = btInfo.mode;
                             if (m_RecycleDeleteList.at(i).savePath.contains(btInfo.name)) {
@@ -123,9 +123,9 @@ void DeleteItemThread::deleteDownloadData()
                 QFileInfo fileinfo(savePath);
                 if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
                     if (m_DeleteList.at(i).url.isEmpty()) { //bt任务
-                        BtTaskInfo info;
+                        TaskInfoHash info;
                         DBInstance::getBtTaskById(m_DeleteList.at(i).taskId, info);
-                        QString torrentPath = info.seedFile;
+                        QString torrentPath = info.filePath;
                         Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                         QString mode = btInfo.mode;
                         if (m_DeleteList.at(i).savePath.contains(btInfo.name)) {
@@ -147,9 +147,9 @@ void DeleteItemThread::deleteDownloadData()
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
                         if (m_DeleteList.at(i).url.isEmpty()) { //bt任务
-                            BtTaskInfo info;
+                            TaskInfoHash info;
                             DBInstance::getBtTaskById(m_DeleteList.at(i).taskId, info);
-                            QString torrentPath = info.seedFile;
+                            QString torrentPath = info.filePath;
                             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                             QString mode = btInfo.mode;
                             if (m_DeleteList.at(i).savePath.contains(btInfo.name)) {

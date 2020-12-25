@@ -31,7 +31,7 @@ protected:
 
         m_btTasknInfo.taskId = "78d8db55-10c2-4200-b097-253120d71269";
         m_btTasknInfo.infoHash = "abdedf2a18f07c7501cf52e10b8d1b938adbb8bb";
-        m_btTasknInfo.seedFile = "/home/bulw/Desktop/种子/123@.torrent";
+        m_btTasknInfo.filePath = "/home/bulw/Desktop/种子/123@.torrent";
         m_btTasknInfo.selectedNum = "1";
         m_btTasknInfo.downloadType = "torrent";
     }
@@ -40,7 +40,7 @@ protected:
     {
     }
     TaskInfo m_taskInfo;
-    BtTaskInfo m_btTasknInfo;
+    TaskInfoHash m_btTasknInfo;
 };
 
 TEST_F(ut_dbinstance, addTask)
@@ -184,21 +184,21 @@ TEST_F(ut_dbinstance, updateBtTaskById)
 
 TEST_F(ut_dbinstance, getBtTaskById)
 {
-    BtTaskInfo btTaskInfo;
+    TaskInfoHash btTaskInfo;
     bool ret = DBInstance::getBtTaskById(m_btTasknInfo.taskId, btTaskInfo);
     EXPECT_TRUE(true) << "通过ID获取BT信息";
 }
 
 TEST_F(ut_dbinstance, getAllBtTask)
 {
-    QList<BtTaskInfo> btTaskInfoList;
+    QList<TaskInfoHash> btTaskInfoList;
     bool ret = DBInstance::getAllBtTask(btTaskInfoList);
     EXPECT_TRUE(true) << "获取所有BT任务信息";
 }
 
 TEST_F(ut_dbinstance, getSameNameCount)
 {
-    QList<BtTaskInfo> btTaskInfoList;
+    QList<TaskInfoHash> btTaskInfoList;
     int count = DBInstance::getSameNameCount("123", "txt");
     bool ret = count > -1;
     EXPECT_TRUE(true) << "获取相同文件个数";

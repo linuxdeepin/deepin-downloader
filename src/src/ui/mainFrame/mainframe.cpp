@@ -1108,11 +1108,11 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     DBInstance::addTask(task);
 
     // 将任务添加如UrlInfo表中
-    BtTaskInfo urlInfo;
+    TaskInfoHash urlInfo;
     urlInfo.taskId = strId;
     urlInfo.url = "";
     urlInfo.downloadType = "torrent";
-    urlInfo.seedFile = btPath;
+    urlInfo.filePath = btPath;
     urlInfo.selectedNum = selectedNum;
     urlInfo.infoHash = infoHash;
     DBInstance::addBtTask(urlInfo);
@@ -1145,20 +1145,27 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
 
 bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> &opt, QString infoName)
 {
-//    bool isExitsUrl = false;
-//    // 判断url是否在数据中已存在
-//    DBInstance::isExistUrl(linkPath, isExitsUrl);
-//    if (isExitsUrl) {
-//        if (showRedownloadMsgbox(linkPath)) {
-//            deleteTaskByUrl(linkPath);
-//        } else {
-//            return false;
-//        }
-//    }
+    QString selectedNum = opt.value("select-file").toString();
+
+    // 数据库是否已存在相同的地址
+    if (!checkIsHasSameTask(Func::pathToMD5(linkPath).toLower())) {
+        return false;
+    }
+
+    QString strId = QUuid::createUuid().toString();
+    // 将任务添加如UrlInfo表中
+    TaskInfoHash urlInfo;
+    urlInfo.taskId = strId;
+    urlInfo.url = "";
+    urlInfo.downloadType = "metalink";
+    urlInfo.filePath = linkPath;
+    urlInfo.selectedNum = selectedNum;
+    urlInfo.infoHash = Func::pathToMD5(linkPath);
+    DBInstance::addBtTask(urlInfo);
 
     // 将任务添加如task表中
     TaskInfo task;
-    QString strId = QUuid::createUuid().toString();
+
     task.taskId = strId;
     task.gid = "";
     task.gidIndex = 0;
@@ -1823,7 +1830,7 @@ void MainFrame::onPauseDownloadBtnClicked()
         for (int i = 0; i < selectList.size(); ++i) {
             if (selectList.at(i)->Ischecked && !m_DownLoadingTableView->isRowHidden(i)) {
                 if (selectList.at(i)->status != Global::DownloadJobStatus::Paused) {
-                    BtTaskInfo info;
+                    TaskInfoHash info;
                     DBInstance::getBtTaskById(selectList.at(i)->taskId, info);
                     if (info.downloadType == "torrent" || selectList.at(i)->savePath.contains("[METADATA]")) {
                         Aria2RPCInterface::instance()->forcePause(selectList.at(i)->gid, selectList.at(i)->taskId);
@@ -2111,7 +2118,7 @@ void MainFrame::onRedownloadActionTriggered()
         QMap<QString, QVariant> opt;
 
         QString filePath = QString(savePath).left(savePath.lastIndexOf('/'));
-        BtTaskInfo info;
+        TaskInfoHash info;
         DBInstance::getBtTaskById(taskId, info);
 
         QString strId = QUuid::createUuid().toString();
@@ -2124,11 +2131,11 @@ void MainFrame::onRedownloadActionTriggered()
         task.createTime = QDateTime::currentDateTime();
         DBInstance::addTask(task);
 
-        BtTaskInfo urlInfo;
+        TaskInfoHash urlInfo;
         urlInfo.taskId = strId;
         urlInfo.url = "";
         urlInfo.downloadType = "torrent";
-        urlInfo.seedFile = info.seedFile;
+        urlInfo.filePath = info.filePath;
         urlInfo.selectedNum = info.selectedNum;
         urlInfo.infoHash = info.infoHash;
         DBInstance::addBtTask(urlInfo);
@@ -2137,7 +2144,7 @@ void MainFrame::onRedownloadActionTriggered()
         QString selectNum = info.selectedNum;
         opt.insert("select-file", selectNum);
         opt.insert("dir", task.downloadPath);
-        Aria2RPCInterface::instance()->addTorrent(info.seedFile, opt, strId);
+        Aria2RPCInterface::instance()->addTorrent(info.filePath, opt, strId);
     } else { // 非bt任务
         TaskInfo task;
         QMap<QString, QVariant> opt;
@@ -2210,7 +2217,7 @@ void MainFrame::onReturnOriginActionTriggered()
                 savePath = data->savePath.left(folderPathLength);
                 //opt.insert("dir", savePath);
                 //opt.insert("out", fileName);
-                BtTaskInfo taskInfo;
+                TaskInfoHash taskInfo;
                 DBInstance::getBtTaskById(returntoData->taskId, taskInfo);
                 if (!taskInfo.taskId.isEmpty()) {
                     if (taskInfo.downloadType == "torrent") {
@@ -2316,7 +2323,7 @@ void MainFrame::onClearRecyleActionTriggered()
 
 void MainFrame::onCopyUrlActionTriggered()
 {
-    BtTaskInfo getUrlInfo;
+    TaskInfoHash getUrlInfo;
     QString url;
     if (m_CurrentTab == downloadingTab || m_CurrentTab == finishTab) {
         DBInstance::getBtTaskById(m_CheckItem->taskId, getUrlInfo);
@@ -2725,22 +2732,32 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
     QMap<QString, QVariant> opt;
     opt.insert("dir", savePath.left(savePath.lastIndexOf("/")));
     opt.insert("out", pItem->fileName);
-    BtTaskInfo getUrlInfo;
+    TaskInfoHash getUrlInfo;
     DBInstance::getBtTaskById(pItem->taskId, getUrlInfo);
     if (!getUrlInfo.taskId.isEmpty()) {
         if (getUrlInfo.downloadType == "torrent") {
             QString selectNum = getUrlInfo.selectedNum;
             opt.insert("select-file", selectNum);
-            if (!QFile(getUrlInfo.seedFile).exists()) {
+            if (!QFile(getUrlInfo.filePath).exists()) {
                 showWarningMsgbox(tr("seed file not exists or broken;"));
                 qDebug() << "seed file not exists or broken;";
             } else {
-                Aria2RPCInterface::instance()->addTorrent(getUrlInfo.seedFile,
+                Aria2RPCInterface::instance()->addTorrent(getUrlInfo.filePath,
                                                           opt,
                                                           getUrlInfo.taskId);
                 if (m_UpdateTimer->isActive() == false) {
                     m_UpdateTimer->start(m_timeInterval);
                 }
+            }
+        } else if (getUrlInfo.downloadType == "metalink") {
+            QString selectNum = getUrlInfo.selectedNum;
+            //opt.insert("dir", getUrlInfo.filePath);
+            opt.insert("select-file", selectNum);
+            Aria2RPCInterface::instance()->addMetalink(getUrlInfo.filePath,
+                                                          opt,
+                                                          getUrlInfo.taskId);
+            if (m_UpdateTimer->isActive() == false) {
+                m_UpdateTimer->start(m_timeInterval);
             }
         }
     } else {
@@ -3003,9 +3020,9 @@ void MainFrame::deleteTask(DeleteDataItem *pItem)
     QString filePath = pItem->savePath;
     if (!pItem->savePath.isEmpty()) {
         if (pItem->url.isEmpty()) { //bt任务
-            BtTaskInfo info;
+            TaskInfoHash info;
             DBInstance::getBtTaskById(pItem->taskId, info);
-            QString torrentPath = info.seedFile;
+            QString torrentPath = info.filePath;
             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
             QString mode = btInfo.mode;
             if (pItem->savePath.contains(btInfo.name)) {
@@ -3036,9 +3053,9 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
     QString filePath = pItem->savePath;
     if (!pItem->savePath.isEmpty()) {
         if (pItem->url.isEmpty()) { //bt任务
-            BtTaskInfo info;
+            TaskInfoHash info;
             DBInstance::getBtTaskById(pItem->taskId, info);
-            QString torrentPath = info.seedFile;
+            QString torrentPath = info.filePath;
             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
             QString mode = btInfo.mode;
             if (pItem->savePath.contains(btInfo.name)) {
@@ -3069,9 +3086,9 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
 
 bool MainFrame::checkIsHasSameTask(QString infoHash)
 {
-    QList<BtTaskInfo> urlList;
+    QList<TaskInfoHash> urlList;
     DBInstance::getAllBtTask(urlList);
-    for (int i = 0; i < urlList.size(); i++) {
+    for (int i = 0; i < urlList.size(); i++) {  //删除重复的任务
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(urlList[i].taskId);
         DeleteDataItem *pDeleteItem = nullptr;
         if (pItem == nullptr) {
@@ -3080,7 +3097,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
         if (urlList[i].infoHash.toLower() == infoHash) {
             MessageBox msg;
             //msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("View"), tr("Redownload"), 0, QList<QString>());
-            msg.setRedownload(urlList[i].seedFile);
+            msg.setRedownload(urlList[i].filePath);
             int ret = msg.exec();
             if (!ret) {
                 return false;
