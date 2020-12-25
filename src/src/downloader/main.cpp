@@ -53,7 +53,6 @@ bool checkProcessExist();
 
 int main(int argc, char *argv[])
 {
-    qDebug()<< "OpenFile";
     DlmApplication::loadDXcbPlugin();
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     DlmApplication a(argc, argv);
@@ -73,7 +72,6 @@ int main(int argc, char *argv[])
     QStringList comList = parser.positionalArguments();
     QSharedMemory sharedMemory;
     sharedMemory.setKey("downloader");
-     qDebug()<< "OpenFile";
     if (sharedMemory.attach()) //设置成单例程序
     {
         if (!checkProcessExist()) { //下载器任务不存在，清空共享内存并启动
@@ -98,7 +96,6 @@ int main(int argc, char *argv[])
                                          "/downloader/path",
                                          "local.downloader.MainFrame",
                                          QDBusConnection::sessionBus());
-                    qDebug()<< "OpenFile";
                     iface.asyncCall("OpenFile", comList[0]);
                 }
             }

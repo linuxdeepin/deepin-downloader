@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QStandardPaths>
+#include <QCryptographicHash>
 
 bool Func::isNetConnect()
 {
@@ -95,4 +96,13 @@ bool Func::setMimeappsValue(QString key, QString value)
     writeData.flush();
     writerFile.close();
     return true;
+}
+
+QString Func::pathToMD5(QString path)
+{
+    QFile theFile(path);
+    theFile.open(QIODevice::ReadOnly);
+    QByteArray ba = QCryptographicHash::hash(theFile.readAll(), QCryptographicHash::Md5);
+    theFile.close();
+    return  ba.toHex().constData();
 }

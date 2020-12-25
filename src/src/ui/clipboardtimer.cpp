@@ -65,7 +65,7 @@ void ClipboardTimer::getDataChanged()
     if (data->hasText()) {
         QString text = data->text();
     }
-    for (int i = 0; i < data->formats().size(); ++i) {
+    for (int i = 0; i < data->formats().size(); i++) {
         QString format = data->formats()[i];
         QString formatData = data->data(data->formats()[i]);
         if (format == "FROM_DEEPIN_CLIPBOARD_MANAGER") {
@@ -88,7 +88,7 @@ void ClipboardTimer::getDataChanged()
     bool bIsBt = setting->getBtDownloadState();
     //将不符合规则链接剔除
     for (int i = 0; i < urlList.size(); i++) {
-        if ((isMagnet(urlList[i]) && bIsMagnet) || (isHttp(urlList[i]) && bIsHttp) || (isBt(urlList[i]) && bIsBt)) {
+        if ((isMagnetFormat(urlList[i]) && bIsMagnet) || (isHttpFormat(urlList[i]) && bIsHttp) || (isBtFormat(urlList[i]) && bIsBt)) {
             url.append(urlList[i]).append("\n");
         }
     }
@@ -98,13 +98,13 @@ void ClipboardTimer::getDataChanged()
     }
 }
 
-bool ClipboardTimer::isMagnet(QString url)
+bool ClipboardTimer::isMagnetFormat(QString url)
 {
     url = url.toLower();
     return url.mid(0, 20) == "magnet:?xt=urn:btih:";
 }
 
-bool ClipboardTimer::isHttp(QString url)
+bool ClipboardTimer::isHttpFormat(QString url)
 {
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
         return false;
@@ -184,14 +184,14 @@ bool ClipboardTimer::isHttp(QString url)
         return true;
     }
     for (int i = 0; i < type.size(); i++) {
-        if (type[i].toUpper() == suffix) {
+        if (type[i].toUpper() == suffix.toUpper()) {
             return true;
         }
     }
     return false;
 }
 
-bool ClipboardTimer::isBt(QString url)
+bool ClipboardTimer::isBtFormat(QString url)
 {
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
         return false;
@@ -204,7 +204,7 @@ bool ClipboardTimer::isBt(QString url)
         return true;
     }
     for (int i = 0; i < type.size(); i++) {
-        if (type[i].toUpper() == suffix) {
+        if (type[i].toUpper() == suffix.toUpper()) {
             return true;
         }
     }

@@ -79,17 +79,17 @@ private:
      * @brief isMagnet 是否是磁力链接
      * @param str url链接
      */
-    bool isMagnet(QString str);
+    bool isMagnetFormat(QString str);
     /**
      * @brief isMagnet 是否是http+后缀
      * @param str url链接
      */
-    bool isHttp(QString str);
+    bool isHttpFormat(QString str);
     /**
      * @brief isBt 是否是bt后缀
      * @param str url链接
      */
-    bool isBt(QString str);
+    bool isBtFormat(QString str);
 
 private slots:
     /**

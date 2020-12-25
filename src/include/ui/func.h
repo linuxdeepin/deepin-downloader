@@ -55,6 +55,13 @@ public:
      */
     static bool setMimeappsValue(QString key, QString value = "");
 
+    /**
+     * @brief 获取文件的md5值
+     * @param path 文件路径。
+     * @return md5值
+     */
+    static QString pathToMD5(QString path);
+
 
 private:
 };
