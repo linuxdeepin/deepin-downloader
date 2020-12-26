@@ -84,29 +84,29 @@ struct TaskInfo
     };
 };
 
-struct BtTaskInfo
+struct TaskInfoHash
 {
     QString taskId ;//任务id唯一标识
     QString url; //下载url
     QString downloadType; //下载类型
-    QString seedFile; //种子文件
+    QString filePath; //种子/metalink文件路径
     QString selectedNum; //选择的种子文件序号
     QString infoHash; //种子文件hash值
-    BtTaskInfo(){
+    TaskInfoHash(){
         taskId = "" ;
         url = "";
         downloadType = "";
-        seedFile = "";
+        filePath = "";
         selectedNum = "";
         infoHash = "";
     };
-    BtTaskInfo(QString task_id ,QString Url ,QString type,
+    TaskInfoHash(QString task_id ,QString Url ,QString type,
                QString seed,QString selNum,QString hash)
     {
         taskId = task_id ;
         url = Url;
         downloadType = type;
-        seedFile = seed;
+        filePath = seed;
         selectedNum = selNum;
         infoHash = hash;
     }

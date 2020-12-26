@@ -716,7 +716,7 @@ void TableDataControl::onUnusualConfirm(int index, const QString &taskIds)
         if (nullptr == pItem) {
             return;
         }
-        BtTaskInfo info;
+        TaskInfoHash info;
         bool isBttask = false;
         if (pItem->url.isEmpty()) {
             DBInstance::getBtTaskById(taskId, info);
@@ -730,7 +730,7 @@ void TableDataControl::onUnusualConfirm(int index, const QString &taskIds)
                 opt.insert("select-file", info.selectedNum);
                 QString fileName = pItem->fileName;
                 removeDownloadListJob(pItem, false, false);
-                emit DownloadUnusuaBtJob(info.seedFile, opt, fileName, info.infoHash);
+                emit DownloadUnusuaBtJob(info.filePath, opt, fileName, info.infoHash);
             } else {
                 QString url = pItem->url;
                 QString savepath = pItem->savePath.left(pItem->savePath.lastIndexOf("/"));
@@ -917,7 +917,7 @@ bool TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                   data->total,
                                   finishTime);
         if (permanent || ischecked) {
-            BtTaskInfo info;
+            TaskInfoHash info;
             DBInstance::getBtTaskById(taskId, info);
             if (info.downloadType == "torrent") {
                 clearShardMemary();
@@ -1029,7 +1029,7 @@ bool TableDataControl::downloadListRedownload(QString id)
     }
     //m_pTableView->getTableModel()->removeItem(data);
     //DBInstance::delTask(taskId);
-    BtTaskInfo taskInfo;
+    TaskInfoHash taskInfo;
     DBInstance::getBtTaskById(taskId, taskInfo);
     if (!taskInfo.taskId.isEmpty()) {
         if (taskInfo.downloadType == "torrent") {
@@ -1045,7 +1045,7 @@ bool TableDataControl::downloadListRedownload(QString id)
                              fileName,
                              QDateTime::currentDateTime());
             DBInstance::addTask(addTask);
-            Aria2RPCInterface::instance()->addTorrent(taskInfo.seedFile, opt, taskInfo.taskId);
+            Aria2RPCInterface::instance()->addTorrent(taskInfo.filePath, opt, taskInfo.taskId);
         }
     } else {
         QUuid uuid = QUuid::createUuid();
@@ -1095,7 +1095,7 @@ bool TableDataControl::recycleListRedownload(QString id)
     }
     QUuid uuid = QUuid::createUuid();
     QString strId = uuid.toString();
-    BtTaskInfo taskInfo;
+    TaskInfoHash taskInfo;
     DBInstance::getBtTaskById(taskId, taskInfo);
     if (!taskInfo.taskId.isEmpty()) {
         if (taskInfo.downloadType == "torrent") {
@@ -1114,7 +1114,7 @@ bool TableDataControl::recycleListRedownload(QString id)
                              fileName,
                              QDateTime::currentDateTime());
             DBInstance::addTask(addTask);
-            Aria2RPCInterface::instance()->addTorrent(taskInfo.seedFile, opt, taskInfo.taskId);
+            Aria2RPCInterface::instance()->addTorrent(taskInfo.filePath, opt, taskInfo.taskId);
         }
     } else {
         QMap<QString, QVariant> opt;

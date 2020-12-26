@@ -350,7 +350,7 @@ bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
     return true;
 }
 
-bool DBInstance::addBtTask(BtTaskInfo &url)
+bool DBInstance::addBtTask(TaskInfoHash &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
@@ -362,7 +362,7 @@ bool DBInstance::addBtTask(BtTaskInfo &url)
     sql.addBindValue(url.taskId);
     sql.addBindValue(url.url);
     sql.addBindValue(url.downloadType);
-    sql.addBindValue(url.seedFile);
+    sql.addBindValue(url.filePath);
     sql.addBindValue(url.selectedNum);
     sql.addBindValue(url.infoHash);
     if (!sql.exec()) {
@@ -372,7 +372,7 @@ bool DBInstance::addBtTask(BtTaskInfo &url)
     return true;
 }
 
-bool DBInstance::updateBtTaskById(BtTaskInfo &url)
+bool DBInstance::updateBtTaskById(TaskInfoHash &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
@@ -383,14 +383,14 @@ bool DBInstance::updateBtTaskById(BtTaskInfo &url)
     sql.prepare("update  url_info set url=?,download_type=?,seedFile=?,selectedNum=? ,infoHash=? where task_id= ?");
     sql.addBindValue(url.url);
     sql.addBindValue(url.downloadType);
-    sql.addBindValue(url.seedFile);
+    sql.addBindValue(url.filePath);
     sql.addBindValue(url.selectedNum);
     sql.addBindValue(url.infoHash);
     sql.addBindValue(url.taskId);
     return true;
 }
 
-bool DBInstance::getBtTaskById(QString taskId, BtTaskInfo &url)
+bool DBInstance::getBtTaskById(QString taskId, TaskInfoHash &url)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
@@ -408,14 +408,14 @@ bool DBInstance::getBtTaskById(QString taskId, BtTaskInfo &url)
         url.taskId = sql.value(0).toString(); //任务id
         url.url = sql.value(1).toString(); // url 下载地址
         url.downloadType = sql.value(2).toString(); //下载类型
-        url.seedFile = sql.value(3).toString(); //种子文件
+        url.filePath = sql.value(3).toString(); //种子文件
         url.selectedNum = sql.value(4).toString(); //选择的种子文件号码
         url.infoHash = sql.value(5).toString(); //种子文件hash值
     }
     return true;
 }
 
-bool DBInstance::getAllBtTask(QList<BtTaskInfo> &urlList)
+bool DBInstance::getAllBtTask(QList<TaskInfoHash> &urlList)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
@@ -429,12 +429,12 @@ bool DBInstance::getAllBtTask(QList<BtTaskInfo> &urlList)
         qDebug() << sql.lastError();
         return false;
     }
-    BtTaskInfo url;
+    TaskInfoHash url;
     while (sql.next()) {
         url.taskId = sql.value(0).toString(); //任务id
         url.url = sql.value(1).toString(); // url 下载地址
         url.downloadType = sql.value(2).toString(); //下载类型
-        url.seedFile = sql.value(3).toString(); //种子文件
+        url.filePath = sql.value(3).toString(); //种子文件
         url.selectedNum = sql.value(4).toString(); //选择的种子文件号码
         url.infoHash = sql.value(5).toString(); //种子文件hash值
         urlList.push_back(url);

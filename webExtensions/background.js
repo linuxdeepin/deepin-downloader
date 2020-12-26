@@ -417,7 +417,9 @@ function main() {
 function onItemCreated(item) {
     downloadItem = item;
     if(downloadFlag == true){
+        console.log("downloadFlag true")
         downloadFlag = false;
+        //chrome.downloads.setShelfEnabled(false);
         return;
     }
     if(1 != socket.readyState){
@@ -425,15 +427,19 @@ function onItemCreated(item) {
         setTimeout(()=>{reConnect(item)}, 1500);
         return;
     }
-    window.core = webChanel.objects.core;
-    core.receiveText(item.url);
-};
+    webChanel.objects.core.receiveText(item.url);
+}
 
 function reConnect(item) {
     socket  = new WebSocket("ws://localhost:12345");
-    socket.onopen = onSocketOpen
+    socket.onopen = function() {
+        onSocketOpen();
+        setTimeout(()=>{
+            webChanel.objects.core.receiveText(item.url);
+        }, 100);
+    }
     
-    socket.onerror = function(){
+    socket.onerror = function() {
         console.log("websocket error")
         downloadFlag = true;
         chrome.downloads.download({
@@ -441,15 +447,15 @@ function reConnect(item) {
         }, onDownload);
         chrome.downloads.setShelfEnabled(true);
     }
-    window.core = channel.objects.core;
-    core.receiveText(downloadItem.url);
 }
 
 function onSocketOpen() {
+    console.log("websocket Open")
     new QWebChannel(socket, function(channel) {
+        console.log("QWebChannel new")
         webChanel = channel;
-        window.core = channel.objects.core;
-        core.sendText.connect(function(message) {
+        channel.objects.core.sendText.connect(function(message) {
+            console.log("message :" + message)
             if(message == "0"){
                 downloadFlag = true;
                 chrome.downloads.download({
@@ -461,8 +467,8 @@ function onSocketOpen() {
                 chrome.downloads.erase({ id: downloadItem.id })
                 chrome.downloads.setShelfEnabled(false);
             }
-        });
-    });
+        })
+    })
 }
 
 
@@ -476,6 +482,7 @@ function onChanged(downloadDelta) {
 }
 
 function onDownload(id) {
+    console.log("onDownload")
     downloadId = id;
 }
 
@@ -499,8 +506,7 @@ function onTimeout(info) {
     socket.onopen = function() {
         new QWebChannel(socket, function(channel) {
             webChanel = channel;
-            window.core = channel.objects.core;
-            core.receiveText(info.linkUrl);  
+            webChanel.objects.core.receiveText(info.linkUrl);  
         })
     }
 }

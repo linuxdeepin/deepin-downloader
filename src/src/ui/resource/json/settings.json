@@ -140,7 +140,7 @@
                             "key":"WebBrowser",
                             "name":"WebBrowser",
                             "type":"switchbutton",
-                            "default":true
+                            "default":false
                         }
                     ]
                 },

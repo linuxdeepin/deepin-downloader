@@ -71,10 +71,10 @@ public slots:
     void receiveText(const QString &text)
     {
         bool b = Settings::getInstance()->getWebBrowserState();
+        sendText(QString().number(b));
         if(b){
             sendWebText(text);
         }
-        sendText(QString().number(b));
     }
 };
 
