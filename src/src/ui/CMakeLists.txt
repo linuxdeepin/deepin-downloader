@@ -22,12 +22,9 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame/headerView.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame/itemDelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame/topButton.h
-
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame/deleteitemthread.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame/tabledatacontrol.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/global.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/clipboardtimer.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame/searchresoultwidget.h
 
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/createtaskwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/btinfodelegate.h
@@ -47,12 +44,15 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settings.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settingslabel.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/diagnostictool.h
+
     ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websocketclientwrapper.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockettransport.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockethandle.h
 
+    ${PROJECT_SOURCE_DIR}/src/include/ui/global.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/clipboardtimer.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/dlmapplication.h
-
     ${PROJECT_SOURCE_DIR}/src/include/ui/func.h
 )
 
@@ -92,6 +92,7 @@ add_library(dlmcontrolui SHARED
        mainFrame/itemDelegate.cpp
        mainFrame/topButton.cpp
        mainFrame/deleteitemthread.cpp
+       mainFrame/searchresoultwidget.cpp
        createTask/createtaskwidget.cpp
        createTask/btinfodelegate.cpp
        createTask/btinfodialog.cpp

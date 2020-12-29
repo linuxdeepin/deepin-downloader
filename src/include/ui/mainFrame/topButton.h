@@ -108,6 +108,8 @@ public:
         return true;
     }
 
+    QPoint getSearchEditPosition();
+
 public slots:
     /**
      * @brief 当前显示列表改变

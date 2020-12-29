@@ -401,7 +401,7 @@ var downloadId;
 
 function main() {
     chrome.downloads.setShelfEnabled(false);
-    chrome.downloads.onCreated.addListener(item => onItemCreated(item));
+    chrome.downloads.onCreated.addListener(onItemCreated(item));
     chrome.downloads.onChanged.addListener(onChanged);
     
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
@@ -415,27 +415,30 @@ function main() {
 }
 
 function onItemCreated(item) {
+    console.log("onItemCreated : " + item.url)
     downloadItem = item;
-    if(downloadFlag == true){
+    if(downloadFlag === true){
         console.log("downloadFlag true")
         downloadFlag = false;
         //chrome.downloads.setShelfEnabled(false);
         return;
     }
     if(1 != socket.readyState){
+        console.log("socket not ready")
         window.open("downloader:");
-        setTimeout(()=>{reConnect(item)}, 1500);
+        setTimeout(reConnect, 1500);
         return;
     }
     webChanel.objects.core.receiveText(item.url);
 }
 
-function reConnect(item) {
+function reConnect() {
+    console.log("reConnect")
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = function() {
         onSocketOpen();
         setTimeout(()=>{
-            webChanel.objects.core.receiveText(item.url);
+            webChanel.objects.core.receiveText(downloadItem.url);
         }, 100);
     }
     
@@ -474,6 +477,7 @@ function onSocketOpen() {
 
 
 function onChanged(downloadDelta) {
+    console.log("onChanged")
     if(downloadId == downloadDelta.id) {
         chrome.downloads.setShelfEnabled(true);
         chrome.downloads.cancel(downloadDelta.id);
@@ -495,18 +499,20 @@ function addContextMenu (id, title) {
 }
 
 function onContextMenuClicked(info, tab) {
+    console.log("onContextMenuClicked")
     window.open("downloader:");
     setTimeout(()=>{onTimeout(info)}, 1500);
 }
 
 function onTimeout(info) {
     
-    console.log("onContextMenuClicked setTimeout")
-    socket  = new WebSocket("ws://localhost:12345");
-    socket.onopen = function() {
+    console.log("setTimeout")
+    var soc  = new WebSocket("ws://localhost:12345");
+    soc.onopen = function() {
         new QWebChannel(socket, function(channel) {
             webChanel = channel;
-            webChanel.objects.core.receiveText(info.linkUrl);  
+            channel.objects.core.receiveText(info.linkUrl + ",true");  
+            soc.close()
         })
     }
 }

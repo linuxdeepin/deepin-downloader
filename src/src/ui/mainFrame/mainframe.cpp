@@ -73,6 +73,7 @@
 #include "websocketclientwrapper.h"
 #include "websockettransport.h"
 #include "websockethandle.h"
+#include "searchresoultwidget.h"
 
 using namespace Global;
 
@@ -1560,6 +1561,16 @@ void MainFrame::clearTableItemCheckStatus()
 
 void MainFrame::onSearchEditTextChanged(QString text)
 {
+    static SearchResoultWidget * pwidget = new SearchResoultWidget(this);
+    pwidget->setData(0,"");
+    pwidget->setData(0,"");
+    pwidget->setData(0,"");
+    pwidget->setData(0,"");
+    //pwidget->setFixedWidth();
+    QPoint p = m_ToolBar->getSearchEditPosition();
+    QPoint pp = QPoint(m_ToolBar->rect().width()/2, p.y() + 10);
+    pwidget->move(pp);
+    //pwidget->show();
     if (!text.isEmpty()) {
         m_NotaskLabel->hide();
         m_NotaskTipLabel->hide();
@@ -1601,7 +1612,6 @@ void MainFrame::onRemoveFinished()
 void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList)
 {
     MessageBox msg;
-
     msg.setWarings(title, tr("sure"), "", sameUrlCount, sameUrlList);
     msg.exec();
 }
@@ -1609,7 +1619,6 @@ void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString
 void MainFrame::showClearMsgbox()
 {
     MessageBox msg;
-
     connect(&msg, &MessageBox::Clearrecycle, this, &MainFrame::onClearRecycle);
     msg.setClear();
     int rs = msg.exec();
@@ -1843,13 +1852,9 @@ void MainFrame::onPauseDownloadBtnClicked()
                     TaskStatus downloadStatus(selectList.at(i)->taskId,
                                               Global::DownloadJobStatus::Paused,
                                               QDateTime::currentDateTime(),
-                                              selectList.at(
-                                                            i)
-                                                  ->completedLength,
+                                              selectList.at(i)->completedLength,
                                               selectList.at(i)->speed,
-                                              selectList.at(
-                                                            i)
-                                                  ->totalLength,
+                                              selectList.at(i)->totalLength,
                                               selectList.at(i)->percent,
                                               selectList.at(i)->total,
                                               finishTime);

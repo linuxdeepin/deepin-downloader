@@ -42,6 +42,11 @@ TopButton::TopButton(QWidget *parent)
     setObjectName("toolBox");
 }
 
+QPoint TopButton::getSearchEditPosition()
+{
+    return mapFromParent(m_SearchEdit->rect().bottomLeft());
+}
+
 void TopButton::Init()
 {
     QHBoxLayout *mainHlayout = new QHBoxLayout(this);
