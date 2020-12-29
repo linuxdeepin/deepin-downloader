@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "755d9548_03562ec9",
+        "filename": "src/include/ui/mainFrame/searchresoultwidget.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-29T02:28:00Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 10; 注释率: 10.0%",
+      "revId": "30d44939b7ad3c510efda1f6971e7f27b232bc43",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f51269d_fef48940",
+        "filename": "src/include/ui/mainFrame/topButton.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-29T02:28:00Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "30d44939b7ad3c510efda1f6971e7f27b232bc43",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e158575_72669412",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-29T02:28:00Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 13; 注释率: 15.4%",
+      "revId": "30d44939b7ad3c510efda1f6971e7f27b232bc43",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffbf3d5_c6de6506",
+        "filename": "src/src/ui/mainFrame/searchresoultwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-29T02:28:00Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 15; 注释率: 0.0%",
+      "revId": "30d44939b7ad3c510efda1f6971e7f27b232bc43",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fefe49a_f0035982",
+        "filename": "src/src/ui/mainFrame/topButton.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-29T02:28:00Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "30d44939b7ad3c510efda1f6971e7f27b232bc43",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
