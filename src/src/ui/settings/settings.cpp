@@ -108,6 +108,18 @@ Settings::Settings(QObject *parent)
         m_iniFile->setValue("Close/showTip", "true");
     }
 
+    if (!m_iniFile->contains("LinksMonitored/DefaultSuffix")) {
+        m_iniFile->setValue("LinksMonitored/DefaultSuffix", "");
+    }
+
+    if (!m_iniFile->contains("LinksMonitored/CurSuffix")) {
+        m_iniFile->setValue("LinksMonitored/CurSuffix", "");
+    }
+
+    if (!m_iniFile->contains("LinksMonitored/CurWeb")) {
+        m_iniFile->setValue("LinksMonitored/CurWeb", "");
+    }
+
     // 初始化同时下载最大任务数
     auto maxDownloadTaskOption = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
 
