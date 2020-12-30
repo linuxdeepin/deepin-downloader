@@ -50,6 +50,7 @@
 #include <QUuid>
 #include <QWebChannel>
 #include <QWebSocketServer>
+#include <QTableWidgetItem>
 
 #include <unistd.h>
 
@@ -889,18 +890,12 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_DownLoadingTableView->horizontalHeader()->reset();
         m_DownLoadingTableView->reset(true);
         if (index.row() == 1) {
-            //m_pDownLoadingTableView->setFocus();
-            //m_pDownLoadingTableView->getTableModel()->setData()
-            //m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
             m_NotaskWidget->show();
             m_NotaskLabel->setText(tr("No finished tasks"));
             m_NotaskTipLabel->hide();
             m_NoResultlabel->hide();
             m_DownLoadingTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         } else {
-            //m_pDownLoadingTableView->setFocus();
-            //m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
-            m_NotaskLabel->setText(tr("No download tasks"));
             m_NotaskWidget->show();
             m_NotaskTipLabel->show();
             m_NoResultlabel->hide();
@@ -937,7 +932,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
     clearTableItemCheckStatus();
     emit isHeaderChecked(false);
     setTaskNum();
-    onSearchEditTextChanged(m_ToolBar->getSearchText());
+    //onSearchEditTextChanged(m_ToolBar->getSearchText());
     emit tableChanged(index.row());
 }
 
@@ -1043,25 +1038,25 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
 
 void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type)
 {
-    if (url.startsWith("magnet")) {
-        QString left = url.split('&').at(0);
-        QString infoHash = left.right(left.length() - left.lastIndexOf(':') - 1);
-        if (!checkIsHasSameTask(infoHash.toLower())) {
-            return;
-        }
-    }
-    qDebug() << "getNewDownloadUrl: " << url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
-    bool isExitsUrl = false;
+//    if (url.startsWith("magnet")) {
+//        QString left = url.split('&').at(0);
+//        QString infoHash = left.right(left.length() - left.lastIndexOf(':') - 1);
+//        if (!checkIsHasSameTask(infoHash.toLower())) {
+//            return;
+//        }
+//    }
+//    qDebug() << "getNewDownloadUrl: " << url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+//    bool isExitsUrl = false;
 
-    // 判断url是否在数据中已存在
-    DBInstance::isExistUrl(url, isExitsUrl);
-    if (isExitsUrl) {
-        if (showRedownloadMsgbox(url)) {
-            deleteTaskByUrl(url);
-        } else {
-            return;
-        }
-    }
+//    // 判断url是否在数据中已存在
+//    DBInstance::isExistUrl(url, isExitsUrl);
+//    if (isExitsUrl) {
+//        if (showRedownloadMsgbox(url)) {
+//            deleteTaskByUrl(url);
+//        } else {
+//            return;
+//        }
+//    }
 
     // 将url加入数据库和aria
     TaskInfo task;
@@ -1562,15 +1557,10 @@ void MainFrame::clearTableItemCheckStatus()
 void MainFrame::onSearchEditTextChanged(QString text)
 {
     static SearchResoultWidget * pwidget = new SearchResoultWidget(this);
-    pwidget->setData(0,"");
-    pwidget->setData(0,"");
-    pwidget->setData(0,"");
-    pwidget->setData(0,"");
-    //pwidget->setFixedWidth();
+    connect(pwidget, &SearchResoultWidget::itemClicked, this, &MainFrame::onSearchItemClicked);
     QPoint p = m_ToolBar->getSearchEditPosition();
     QPoint pp = QPoint(m_ToolBar->rect().width()/2, p.y() + 10);
     pwidget->move(pp);
-    //pwidget->show();
     if (!text.isEmpty()) {
         m_NotaskLabel->hide();
         m_NotaskTipLabel->hide();
@@ -1581,14 +1571,21 @@ void MainFrame::onSearchEditTextChanged(QString text)
             m_NotaskTipLabel->show();
         }
         m_NoResultlabel->hide();
+        pwidget->hide();
+        return;
     }
     m_SearchContent = text;
-    m_DownLoadingTableView->getTableControl()->searchEditTextChanged(text);
-    m_RecycleTableView->getTableControl()->searchEditTextChanged(text);
+    QList<QString> taskIDList;
+    QList<int> taskStatusList;
+    QList<QString> tasknameList;
+
+    m_DownLoadingTableView->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
+    m_RecycleTableView->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
+
+    pwidget->setData(taskIDList, taskStatusList, tasknameList);
+    pwidget->show();
     setTaskNum();
 }
-
-
 
 void MainFrame::onRedownload(QString taskId, int rd)
 {
@@ -1710,12 +1707,12 @@ void MainFrame::showDeleteMsgbox(bool permanently)
 }
 
 
-bool MainFrame::showRedownloadMsgbox(const QString sameUrl)
+bool MainFrame::showRedownloadMsgbox(const QString sameUrl, bool ret, bool isShowRedownload)
 {
     MessageBox msg;
 
     connect(&msg, &MessageBox::reDownload, this, &MainFrame::onRedownloadConfirmSlot);
-    msg.setRedownload(sameUrl);
+    msg.setRedownload(sameUrl, ret, isShowRedownload);
     int rs = msg.exec();
     if (rs == DDialog::Accepted) {
         return true;
@@ -1752,9 +1749,9 @@ void MainFrame::onDeleteConfirm(bool ischecked, bool permanent)
     }
     setTaskNum();
 
-    if (!m_SearchContent.isEmpty()) {
-        onSearchEditTextChanged(m_SearchContent);
-    }
+//    if (!m_SearchContent.isEmpty()) {
+//        onSearchEditTextChanged(m_SearchContent);
+//    }
     if (m_UpdateTimer->isActive() == false) {
         m_UpdateTimer->start(m_timeInterval);
     }
@@ -2803,14 +2800,47 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
         }
     }
 
+    QVector<LinkInfo> sameUrlList;
     foreach (LinkInfo info, urlList) {
         QString url = info.urlTrueLink.isEmpty() ? info.url : info.urlTrueLink;
+
+        if (url.startsWith("magnet")) {
+            QString left = url.split('&').at(0);
+            QString infoHash = left.right(left.length() - left.lastIndexOf(':') - 1);
+            if (!checkIsHasSameTask(infoHash.toLower())) {
+                sameUrlList << info;
+                continue;
+            }
+        }
+        bool isExitsUrl = false;
+        // 判断url是否在数据中已存在
+        DBInstance::isExistUrl(url, isExitsUrl);
+        if (isExitsUrl) {
+            sameUrlList << info;
+            continue;
+        }
+
         onDownloadNewUrl(url, path, info.urlName, info.type);
         QTime time;
         time.start();
         while (time.elapsed() < 500) {
             QCoreApplication::processEvents();
         }
+    }
+    if (!sameUrlList.isEmpty()) {
+        if(sameUrlList.size() == 1) {
+            if (showRedownloadMsgbox(sameUrlList.at(0).url)) {
+                deleteTaskByUrl(sameUrlList.at(0).url);
+                onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type);
+            }
+        } else {
+            QString urls;
+            foreach (LinkInfo info, urlList) {
+                urls += info.url + "\n";
+            }
+            showRedownloadMsgbox(urls, false, true);
+        }
+
     }
 }
 
@@ -2841,6 +2871,37 @@ void MainFrame::onDownloadFinish()
     } else if (m_QuitProcessAct->isChecked()) {
         m_QuitProcessAct->setChecked(false);
         onTrayQuitClick(true);
+    }
+}
+
+void MainFrame::onSearchItemClicked(QListWidgetItem *item)
+{
+    SearchResoultWidget *pWidget = static_cast<SearchResoultWidget *>(sender());
+    pWidget->hide();
+    m_ToolBar->clearSearchText();
+    QString taskId = item->data(Qt::WhatsThisRole).toString();
+    QString tab = item->text().split("->").first();
+    if("Downloading" == tab) {
+        onListClicked(m_LeftList->model()->index(0,0));
+        m_LeftList->setCurrentIndex(m_LeftList->model()->index(0,0));
+        DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
+        if(pItem != nullptr) {
+            pItem->Ischecked = true;
+        }
+    } else if("Completed" == tab) {
+        onListClicked(m_LeftList->model()->index(1,0));
+        m_LeftList->setCurrentIndex(m_LeftList->model()->index(1,0));
+        DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
+        if(pItem != nullptr) {
+            pItem->Ischecked = true;
+        }
+    } else if("Trash" == tab) {
+        onListClicked(m_LeftList->model()->index(2,0));
+        m_LeftList->setCurrentIndex(m_LeftList->model()->index(2,0));
+        DeleteDataItem *pItem = m_RecycleTableView->getTableModel()->find(taskId, 2);
+        if(pItem != nullptr) {
+            pItem->Ischecked = true;
+        }
     }
 }
 

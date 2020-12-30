@@ -447,7 +447,7 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         }*/
     m_DownloadTableView->refreshTableView(iCurrentRow);
     if ((data->status == Complete) && (!searchContent.isEmpty())) {
-        searchEditTextChanged(searchContent);
+        //searchEditTextChanged(searchContent);
     }
     return true;
 }
@@ -745,33 +745,34 @@ void TableDataControl::onUnusualConfirm(int index, const QString &taskIds)
         }
     }
 }
+
 void TableDataControl::onAria2Remove(QString gId, QString id)
 {
 }
-bool TableDataControl::searchEditTextChanged(QString text)
+
+bool TableDataControl::searchEditTextChanged(QString text, QList<QString> &taskIDList,
+                                             QList<int> &taskStatusList, QList<QString> &tasknameList)
 {
     TableModel *pModel = m_DownloadTableView->getTableModel();
-    if (text.isEmpty()) {
-        for (int i = 0; i < pModel->rowCount(); i++) {
-            m_DownloadTableView->setRowHidden(i, false);
-            pModel->setData(pModel->index(i, 0), false, TableModel::IsHide);
-            pModel->setData(pModel->index(i, 0), false, TableModel::Ischecked);
-        }
-    } else {
-        for (int i = 0; i < pModel->rowCount(); i++) {
-            m_DownloadTableView->setRowHidden(i, false);
-            pModel->setData(pModel->index(i, 0), false, TableModel::IsHide);
-            QString fileName = pModel->data(pModel->index(i, 1), TableModel::FileName).toString();
-            if (!fileName.contains(text, Qt::CaseInsensitive)) {
-                m_DownloadTableView->setRowHidden(i, true);
-                pModel->setData(pModel->index(i, 0), true, TableModel::IsHide);
-            }
-            pModel->setData(pModel->index(i, 0), false, TableModel::Ischecked);
+    for (const DownloadDataItem *pItem : pModel->dataList()) {
+        QString fileName = pItem->fileName;
+        if (fileName.contains(text, Qt::CaseInsensitive)) {
+           taskIDList.append(pItem->taskId);
+           taskStatusList.append(pItem->status);
+           tasknameList.append(pItem->fileName);
         }
     }
-    m_DownloadTableView->reset();
+    for (const DeleteDataItem *pItem : pModel->recyleList()) {
+        QString fileName = pItem->fileName;
+        if (fileName.contains(text, Qt::CaseInsensitive)) {
+           taskIDList.append(pItem->taskId);
+           taskStatusList.append(pItem->status);
+           tasknameList.append(pItem->fileName);
+        }
+    }
     return true;
 }
+
 int TableDataControl::onDelAction(int currentTab)
 {
     int selectedCount = 0;

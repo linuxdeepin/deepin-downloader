@@ -57,6 +57,7 @@ class ClipboardTimer;
 class BtInfoDialog;
 class TableDataControl;
 class CreateTaskWidget;
+class QListWidgetItem;
 struct LinkInfo;
 
 namespace Global {
@@ -406,6 +407,11 @@ private slots:
      */
     void onDownloadFinish();
 
+    /**
+     * @brief 选中搜索框的一个元素，切换到相应列表并选中列表中此元素
+     */
+    void onSearchItemClicked(QListWidgetItem *item);
+
 private:
     /**
      * @brief 设置任务数
@@ -464,7 +470,7 @@ private:
     /**
      * @brief 显示重新下载窗口
      */
-    bool showRedownloadMsgbox(const QString sameUrl);
+    bool showRedownloadMsgbox(const QString sameUrl, bool ret = false, bool isShowRedownload = false);
 
     /**
      * @brief 显示重新下载窗口
