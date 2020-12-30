@@ -401,7 +401,9 @@ var downloadId;
 
 function main() {
     chrome.downloads.setShelfEnabled(false);
-    chrome.downloads.onCreated.addListener(onItemCreated(item));
+    chrome.downloads.onCreated.addListener(function(item) {
+        onItemCreated(item);
+      });
     chrome.downloads.onChanged.addListener(onChanged);
     
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
@@ -415,7 +417,12 @@ function main() {
 }
 
 function onItemCreated(item) {
-    console.log("onItemCreated : " + item.url)
+    console.log("onItemCreated : " + item.url + "stat: " + item.state)
+
+    if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
+        return;
+    }
+
     downloadItem = item;
     if(downloadFlag === true){
         console.log("downloadFlag true")
@@ -509,7 +516,7 @@ function onTimeout(info) {
     console.log("setTimeout")
     var soc  = new WebSocket("ws://localhost:12345");
     soc.onopen = function() {
-        new QWebChannel(socket, function(channel) {
+        new QWebChannel(soc, function(channel) {
             webChanel = channel;
             channel.objects.core.receiveText(info.linkUrl + ",true");  
             soc.close()

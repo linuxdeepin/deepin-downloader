@@ -69,7 +69,7 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
             });
 }
 
-void MessageBox::setRedownload(const QString sameUrl, bool ret)
+void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedownload)
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     if (ret) {
@@ -87,10 +87,16 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret)
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
     addContent(urlText);
-    QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
-    btn1->setObjectName("cancel");
-    QAbstractButton *btn2 = getButton(addButton(tr("Redownload"), true, ButtonType::ButtonWarning));
-    btn2->setObjectName("redownload");
+
+    if(isShowRedownload){
+        QAbstractButton *btn1 = getButton(addButton(tr("sure")));
+        btn1->setObjectName("sure");
+    } else {
+        QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
+        btn1->setObjectName("cancel");
+        QAbstractButton *btn2 = getButton(addButton(tr("Redownload"), true, ButtonType::ButtonWarning));
+        btn2->setObjectName("redownload");
+    }
 }
 
 void MessageBox::setUnusual(const QString &taskId, QString taskList)

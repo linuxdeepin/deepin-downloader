@@ -115,7 +115,8 @@ public:
     /**
      * @brief 查找的文本改变
     */
-    bool searchEditTextChanged(QString text);
+    bool searchEditTextChanged(QString text, QList<QString> &taskIDList,
+                            QList<int> &taskStatusList,QList<QString> &tasknameList);
 
     /**
      * @brief 删除ACtion槽函数

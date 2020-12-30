@@ -8,7 +8,8 @@ class SearchResoultWidget : public QListWidget
 public:
     SearchResoultWidget(QWidget *parent = nullptr);
 
-    void setData(int currentTab, QString text);
+    void setData(QList<QString> &taskIDList,
+                 QList<int> &taskStatusList, QList<QString> &tasknameList);
 };
 
 #endif // SEARCHRESOULTWIDGET_H

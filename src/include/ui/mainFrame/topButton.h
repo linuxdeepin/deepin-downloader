@@ -69,6 +69,14 @@ public:
     }
 
     /**
+     * @brief 清空查找文本框
+    */
+    void clearSearchText()
+    {
+        m_SearchEdit->clear();
+    }
+
+    /**
      * @brief 启用新建任务按键
      * @param enable： 启用开关
     */
