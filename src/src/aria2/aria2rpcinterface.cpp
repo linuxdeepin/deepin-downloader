@@ -362,6 +362,11 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
             temp += line.trimmed();
         }
     }
+    if(btInfo.totalLengthByets == 0){
+        for (int i = 0; i < btInfo.files.size(); i++) {
+            btInfo.totalLengthByets +=  btInfo.files[i].lengthBytes;
+        }
+    }
     return btInfo;
 }
 

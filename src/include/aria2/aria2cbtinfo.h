@@ -50,7 +50,7 @@ public:
     QString pieceLength; //分片大小
     int pieceNumber; //分片数量
     QString totalLength; //总大小(带单位)
-    long totalLengthByets; //总大小(字节)
+    long totalLengthByets = 0; //总大小(字节)
     QString name; //种子名称(多文件时为文件夹名,单文件为文件名)
     QString magnet; //对应的磁力链接
     QList<Aria2cBtFileInfo> files; //文件列表
