@@ -2885,22 +2885,34 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
         onListClicked(m_LeftList->model()->index(0,0));
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(0,0));
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
+        int position = m_DownLoadingTableView->getTableModel()->renderList().indexOf(pItem, 0);
         if(pItem != nullptr) {
             pItem->Ischecked = true;
+            QModelIndex index = m_DownLoadingTableView->getTableModel()->index(position, 0);
+            m_DownLoadingTableView->setCurrentIndex(index);
+            m_DownLoadingTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
         }
     } else if("Completed" == tab) {
         onListClicked(m_LeftList->model()->index(1,0));
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(1,0));
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
+        int position = m_DownLoadingTableView->getTableModel()->renderList().indexOf(pItem, 0);
         if(pItem != nullptr) {
             pItem->Ischecked = true;
+            QModelIndex index = m_DownLoadingTableView->getTableModel()->index(position, 0);
+            m_DownLoadingTableView->setCurrentIndex(index);
+            m_DownLoadingTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
         }
     } else if("Trash" == tab) {
         onListClicked(m_LeftList->model()->index(2,0));
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(2,0));
         DeleteDataItem *pItem = m_RecycleTableView->getTableModel()->find(taskId, 2);
+        int position = m_RecycleTableView->getTableModel()->recyleList().indexOf(pItem, 0);
         if(pItem != nullptr) {
             pItem->Ischecked = true;
+            QModelIndex index = m_RecycleTableView->getTableModel()->index(position, 0);
+            m_RecycleTableView->setCurrentIndex(index);
+            m_RecycleTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
         }
     }
 }

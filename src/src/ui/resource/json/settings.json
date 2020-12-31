@@ -137,8 +137,8 @@
                             "default":true
                         },
                         {
-                            "key":"WebBrowser",
-                            "name":"WebBrowser",
+                            "key":"Browser",
+                            "name":"Browser",
                             "type":"switchbutton",
                             "default":false
                         }

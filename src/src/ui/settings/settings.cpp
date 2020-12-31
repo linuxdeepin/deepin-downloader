@@ -327,7 +327,7 @@ Settings::Settings(QObject *parent)
     auto monitoringName = tr("Monitoring"); // 接管设置
     auto monitoringApplicationName = tr("Applications"); // 接管对象
     auto clipBoardName = tr("Clipboard"); // 剪切板
-    auto WebBrowser = tr("WebBrowser"); // 浏览器
+    auto WebBrowser = tr("Browser"); // 浏览器
     auto monitoringDownloadLinkName = tr("Links Monitored"); // 接管下载类型
     auto monitoringBTFilesName = tr("BT Files"); // BT关联
     auto downloadingName = tr("Create new task when a torrent file downloaded"); // 下载种子文件后自动打开下载面板
