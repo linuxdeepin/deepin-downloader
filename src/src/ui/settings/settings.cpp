@@ -214,7 +214,7 @@ Settings::Settings(QObject *parent)
     });
 
     // 是否接管浏览器
-    auto isControlBrowser = m_settings->option("Monitoring.MonitoringObject.WebBrowser");
+    auto isControlBrowser = m_settings->option("Monitoring.MonitoringObject.Browser");
     connect(isControlBrowser, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
         if (!value.isNull()) {
             emit controlBrowserChanged(value.toBool());
@@ -933,7 +933,7 @@ bool Settings::getClipBoardState()
 
 bool Settings::getWebBrowserState()
 {
-    auto option = m_settings->option("Monitoring.MonitoringObject.WebBrowser");
+    auto option = m_settings->option("Monitoring.MonitoringObject.Browser");
 
     return option->value().toBool();
 }
