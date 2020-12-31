@@ -160,12 +160,6 @@
                             "default":true
                         },
                         {
-                            "key":"MetaLinkDownload",
-                            "name":"",
-                            "type":"metalinkdownload",
-                            "default":true
-                        },
-                        {
                             "key":"MagneticDownload",
                             "name":"",
                             "type":"magneticdownload",
