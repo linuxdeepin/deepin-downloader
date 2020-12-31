@@ -436,6 +436,7 @@ function onItemCreated(item) {
         setTimeout(reConnect, 1500);
         return;
     }
+    console.log("onItemCreated send text to client")
     webChanel.objects.core.receiveText(item.url);
 }
 
@@ -444,10 +445,11 @@ function reConnect() {
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = function() {
         onSocketOpen();
-        setTimeout(()=>{
-            webChanel.objects.core.receiveText(downloadItem.url);
-        }, 100);
     }
+    setTimeout(()=>{
+        console.log("reConnect send text to client")
+        webChanel.objects.core.receiveText(downloadItem.url);
+    }, 100);
     
     socket.onerror = function() {
         console.log("websocket error")
