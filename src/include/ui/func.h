@@ -62,6 +62,25 @@ public:
      */
     static QString pathToMD5(QString path);
 
+    /**
+     * @brief 获取*.ini文件的指
+     * @param path 文件路径。
+     * @param group 组
+     * @param key 键
+     * @return 值
+     */
+    static QString getIniConfigValue(QString path, QString group, QString key);
+
+    /**
+     * @brief 设置*.ini文件的指
+     * @param path 文件路径。
+     * @param group 组
+     * @param key 键
+     * @param value 值
+     * @return 是否写入成功
+     */
+    static bool setIniConfigValue(QString path, QString group, QString key, QString value);
+
 
 private:
 };

@@ -42,7 +42,7 @@ class ItemSelectionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ItemSelectionWidget(QWidget *parent = nullptr);
+    explicit ItemSelectionWidget(QWidget *parent = nullptr, bool isHttp = false);
 
     /**
      * @brief 设置标题
@@ -84,7 +84,7 @@ private:
     /**
      * @brief 初始化界面
      */
-    void initUI();
+    void initUI(bool ret);
 
     /**
      * @brief 初始化信号连接

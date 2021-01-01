@@ -91,6 +91,18 @@ private:
      */
     bool isBtFormat(QString str);
 
+    /**
+     * @brief getTypeList 获取配置文件中的type
+     * @return 返回解析后的后缀名列表
+     */
+    QStringList getTypeList();
+
+    /**
+     * @brief getWebList 获取配置文件中的不接管网站
+     * @return 返回解析后的不接管网站列表
+     */
+    QStringList getWebList();
+
 private slots:
     /**
      * @brief getDataChanged 获取剪切板内容

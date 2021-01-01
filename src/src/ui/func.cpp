@@ -2,6 +2,7 @@
 #include <QProcess>
 #include <QDir>
 #include <QDebug>
+#include <QSettings>
 #include <QStandardPaths>
 #include <QCryptographicHash>
 
@@ -106,3 +107,92 @@ QString Func::pathToMD5(QString path)
     theFile.close();
     return  ba.toHex().constData();
 }
+
+QString Func::getIniConfigValue(QString path, QString group, QString key)
+{
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly)) {
+        qDebug() << "error";
+        return "";
+    }
+     QTextStream data(&f);
+     group = QString("[%1]").arg(group);
+     bool isGroup = false;
+     while (!data.atEnd()) {
+         QString sLine = data.readLine();
+         if(sLine.isNull()){
+             continue;
+         }
+         if(sLine == group){
+            isGroup = true;
+            continue;
+         }
+         if(isGroup){
+             if(sLine.startsWith('[') && sLine.endsWith(']')){
+                 isGroup = false;
+                 continue;
+             }
+             if(sLine.split('=')[0] == key){
+                 return sLine.split('=')[1];
+             }
+
+         }
+     }
+}
+
+bool Func::setIniConfigValue(QString path, QString group, QString key, QString value)
+{
+    QFile f(path);
+    if (!f.open(QIODevice::ReadWrite)) {
+        qDebug() << "error";
+        return false;
+    }
+    QTextStream data(&f);
+    QStringList dataList = data.readAll().split("\n");
+    group = QString("[%1]").arg(group);
+    bool isGroup = false;
+    for (int i = 0; i < dataList.size(); i++) {
+        if(dataList[i].isNull()){
+            continue;
+        }
+        if(dataList[i] == group){
+            isGroup = true;
+            continue;
+        }
+        if(isGroup){
+            if(dataList[i].startsWith('[') && dataList[i].endsWith(']')){
+                isGroup = false;
+                continue;
+            }
+            if(dataList[i].split('=')[0] == key){
+                dataList[i] = dataList[i].split('=')[0] + "=" + value;
+
+                //将替换以后的字符串，重新写入到文件中去
+                QFile writerFile(path);
+                if (writerFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                }
+                QTextStream writeData(&writerFile);
+                for (int i = 0; i < dataList.size(); i++) {
+                    writeData << dataList[i] <<endl;
+                }
+                writeData.flush();
+                writerFile.close();
+                return true;
+
+            }
+
+        }
+    }
+    return false;
+}
+
+
+
+
+
+
+
+
+
+
+

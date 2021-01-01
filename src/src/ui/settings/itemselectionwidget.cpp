@@ -28,16 +28,18 @@
 
 #include <QHBoxLayout>
 #include <QDebug>
+#include <DCommandLinkButton>
+#include "httpadvancedsettingwidget.h"
 
-ItemSelectionWidget::ItemSelectionWidget(QWidget *parent)
+ItemSelectionWidget::ItemSelectionWidget(QWidget *parent, bool isHttp)
     : QWidget(parent)
 {
-    initUI();
+    initUI(isHttp);
     initConnections();
 }
 
 // 初始化界面
-void ItemSelectionWidget::initUI()
+void ItemSelectionWidget::initUI(bool isHttp)
 {
 //    setStyleSheet("background:rgba(211, 211, 211, 1)");
 
@@ -51,6 +53,14 @@ void ItemSelectionWidget::initUI()
     mainLayout->addWidget(m_label);
     mainLayout->addStretch();
     mainLayout->setContentsMargins(0, 0, 0, 0);
+    if(isHttp){
+        DCommandLinkButton * combtn = new DCommandLinkButton(tr("Advanced"));   //高级设置
+        connect(combtn,&DCommandLinkButton::clicked, [](){
+            HttpAdvancedSettingWidget h;
+            h.exec();
+        });
+        mainLayout->addWidget(combtn);
+    }
 
     setLayout(mainLayout);
 }

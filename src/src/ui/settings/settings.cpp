@@ -426,7 +426,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
-    ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
+    ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget(NULL, true);
     itemSelectionWidget->setLabelText(tr("HTTP")); // HTTP下载
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 

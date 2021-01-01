@@ -44,6 +44,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settings.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settingslabel.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/diagnostictool.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/settings/httpadvancedsettingwidget.h
 
     ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websocketclientwrapper.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockettransport.h
@@ -110,6 +111,7 @@ add_library(dlmcontrolui SHARED
        settings/settings.cpp
        settings/settingslabel.cpp
        settings/diagnostictool.cpp
+       settings/httpadvancedsettingwidget.cpp
        websocket/websocketclientwrapper.cpp
        websocket/websockettransport.cpp
        clipboardtimer.cpp

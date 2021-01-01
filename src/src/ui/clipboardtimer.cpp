@@ -28,7 +28,12 @@
 #include "clipboardtimer.h"
 #include <QClipboard>
 #include <QtDebug>
+#include <QFile>
 #include <QMimeData>
+#include <QStandardPaths>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include "func.h"
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
     : QObject(parent)
@@ -111,80 +116,23 @@ bool ClipboardTimer::isHttpFormat(QString url)
     }
     QStringList list = url.split(".");
     QString suffix = list[list.size() - 1];
-    QStringList type;
-    type << "metalink";
-    type << "asf"
-         << "avi"
-         << "iso"
-         << "mp3"
-         << "mpeg"
-         << "ra"
-         << "rar"
-         << "rm"
-         << "rmvb"
-         << "tar"
-         << "wma"
-         << "wmp"
-         << "wmv"
-         << "mov"
-         << "zip"
-         << "3gp"
-         << "chm"
-         << "mdf"
-         << "jar"
-         << "msi"
-         << "arj"
-         << "bin"
-         << "dll"
-         << "psd"
-         << "hqx"
-         << "sit"
-         << "lzh"
-         << "gz"
-         << "tgz"
-         << "xlsx"
-         << "xls"
-         << "doc"
-         << "docx"
-         << "ppt"
-         << "pptx"
-         << "flv"
-         << "swf"
-         << "mkv"
-         << "tp"
-         << "ts"
-         << "flac"
-         << "ape"
-         << "wav"
-         << "aac"
-         << "txt"
-         << "dat"
-         << "7z"
-         << "ttf"
-         << "bat"
-         << "xv"
-         << "xvx"
-         << "pdf"
-         << "mp4"
-         << "apk"
-         << "ipa"
-         << "epub"
-         << "mobi"
-         << "deb"
-         << "sisx"
-         << "cab"
-         << "pxl"
-         << "xlb"
-         << "dmg"
-         << "msu"
-         << "bz2"
-         << "png"
-         << "exe";
-    if (type.contains(suffix)) {
+    QStringList typeList = getTypeList();
+
+    if (typeList.contains(suffix)) {
         return true;
     }
-    for (int i = 0; i < type.size(); i++) {
-        if (type[i].toUpper() == suffix.toUpper()) {
+    for (int i = 0; i < typeList.size(); i++) {
+        if (typeList[i].toUpper() == suffix.toUpper()) {
+            return true;
+        }
+    }
+
+    QStringList webList =getWebList();
+    for (int i = 0; i < webList.size(); i++) {
+        if(url.contains(webList[i])){
+            return false;
+        }
+        if(i == webList.size()-1 && !url.contains(webList[i])){
             return true;
         }
     }
@@ -210,3 +158,53 @@ bool ClipboardTimer::isBtFormat(QString url)
     }
     return false;
 }
+
+QStringList ClipboardTimer::getTypeList()
+{
+
+    QString configPath = QString("%1/%2/%3/httpAdvanced.json")
+                       .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                       .arg(qApp->organizationName())
+                       .arg(qApp->applicationName());
+    QFile file(configPath);
+    if(!file.open(QIODevice::ReadWrite)) {
+        qDebug() << "File open failed!";
+    }
+    QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
+    QJsonObject obj = jdc.object();
+    QString defaultSuffix = obj.value("CurSuffix").toString();
+    defaultSuffix.remove('.');
+    QStringList defaulList = defaultSuffix.split("\n");
+    for (int i = 0; i < defaulList.size(); i++) {
+        defaulList[i].remove(';');
+    }
+    return  defaulList;
+}
+
+QStringList ClipboardTimer::getWebList()
+{
+    QString configPath = QString("%1/%2/%3/httpAdvanced.json")
+                       .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                       .arg(qApp->organizationName())
+                       .arg(qApp->applicationName());
+    QFile file(configPath);
+    if(!file.open(QIODevice::ReadWrite)) {
+        qDebug() << "File open failed!";
+    }
+    QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
+    QJsonObject obj = jdc.object();
+    QString curWeb = obj.value("CurWeb").toString();
+
+
+    return  curWeb.split("\n");
+}
+
+
+
+
+
+
+
+
+
+
