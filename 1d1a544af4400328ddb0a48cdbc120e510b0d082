@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f2fa7dc_da9c2b5a",
+        "filename": "src/include/ui/clipboardtimer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-01T09:26:37Z",
+      "side": 1,
+      "message": "注释行数: 8; 改动行数(修改和新增): 10; 注释率: 80.0%",
+      "revId": "1d1a544af4400328ddb0a48cdbc120e510b0d082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e0f38c3_cb82a77d",
+        "filename": "src/include/ui/func.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-01T09:26:37Z",
+      "side": 1,
+      "message": "注释行数: 15; 改动行数(修改和新增): 17; 注释率: 88.2%",
+      "revId": "1d1a544af4400328ddb0a48cdbc120e510b0d082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa999f05_4f17cc8a",
+        "filename": "src/include/ui/settings/httpadvancedsettingwidget.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-01T09:26:37Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 47; 注释率: 40.4%",
+      "revId": "1d1a544af4400328ddb0a48cdbc120e510b0d082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc2c1e09_ceb839de",
+        "filename": "src/include/ui/settings/itemselectionwidget.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-01T09:26:37Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "1d1a544af4400328ddb0a48cdbc120e510b0d082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "208fcee8_a6d876da",
+        "filename": "src/src/ui/clipboardtimer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-01T09:26:37Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 53; 注释率: 0.0%",
+      "revId": "1d1a544af4400328ddb0a48cdbc120e510b0d082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d5aa566_88a3820e",
+        "filename": "src/src/ui/func.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-01T09:26:37Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 73; 注释率: 1.4%",
+      "revId": "1d1a544af4400328ddb0a48cdbc120e510b0d082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc055f3_597acf0a",
+        "filename": "src/src/ui/settings/httpadvancedsettingwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-01T09:26:37Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 136; 注释率: 3.7%",
+      "revId": "1d1a544af4400328ddb0a48cdbc120e510b0d082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
