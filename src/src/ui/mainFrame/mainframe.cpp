@@ -398,6 +398,7 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenFile);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadMetalink, this, &MainFrame::OpenFile);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::addMaxDownloadTask, this, [=](int num) {
@@ -413,6 +414,7 @@ void MainFrame::initConnection()
     connect(m_RecycleTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_RecycleTableView->getTableControl(), &TableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
     connect(m_RecycleTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenFile);
+    connect(m_RecycleTableView->getTableControl(), &TableDataControl::AutoDownloadMetalink, this, &MainFrame::OpenFile);
     connect(m_RecycleTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_RecycleTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
@@ -567,6 +569,9 @@ void MainFrame::onTrayQuitClick(bool force)
     m_RecycleTableView->getTableControl()->saveDataBeforeClose();
     Aria2RPCInterface::instance()->shutdown();
     // qApp->quit();
+    QTimer::singleShot(3000, this, [&]() {
+        qApp->quit();
+    });
 }
 
 void MainFrame::onMessageBoxConfirmClick()
@@ -838,7 +843,7 @@ void MainFrame::OpenFile(QString url)
         bool ret;
         if(url.endsWith(".metalink")){
             ret = onDownloadNewMetalink(url, opt, infoName);
-        }else {
+        } else {
             ret =onDownloadNewTorrent(url, opt, infoName, infoHash);
         }
         if (ret) {
@@ -2840,7 +2845,6 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
             }
             showRedownloadMsgbox(urls, false, true);
         }
-
     }
 }
 

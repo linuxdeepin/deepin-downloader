@@ -216,6 +216,11 @@ signals:
     void AutoDownloadBt(QString btFilePath);
 
     /**
+     * @brief 文件为metalink，自动开始下载
+     */
+    void AutoDownloadMetalink(QString filePath);
+
+    /**
      * @brief 重新下载信号
      */
     void RedownloadJob(QString taskId, int rd);

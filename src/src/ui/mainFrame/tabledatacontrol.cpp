@@ -301,16 +301,23 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     } else if (statusStr == "complete") {
         data->status = Global::DownloadJobStatus::Complete;
         status = Global::DownloadJobStatus::Complete;
-        //下载文件为种子文件
-        if (fileName.endsWith(".torrent")) {
+        if (fileName.endsWith(".torrent")) { //自动下载种子文件
             data->status = Global::DownloadJobStatus::Complete;
-            if (Settings::getInstance()->getAutoOpennewTaskWidgetState()) {
+            if (Settings::getInstance()->getAutoOpenBtTaskState()) {
                 QTimer::singleShot(100, this, [=]() {
                     emit AutoDownloadBt(filePath);
                 });
                 clearShardMemary();
             }
-        }
+        } else if (fileName.endsWith(".metalink")) { //自动下载metalink文件
+                data->status = Global::DownloadJobStatus::Complete;
+                if (Settings::getInstance()->getAutoOpenMetalinkTaskState()) {
+                    QTimer::singleShot(100, this, [=]() {
+                        emit AutoDownloadMetalink(filePath);
+                    });
+                    clearShardMemary();
+                }
+            }
         //下载文件为磁链种子文件
         QString infoHash = result.value("infoHash").toString();
         bool isMetaData = false;

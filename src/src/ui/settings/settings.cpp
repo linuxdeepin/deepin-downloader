@@ -959,12 +959,20 @@ bool Settings::getMagneticDownloadState()
     return option->value().toBool();
 }
 
-bool Settings::getAutoOpennewTaskWidgetState()
+bool Settings::getAutoOpenBtTaskState()
 {
     auto option = m_settings->option("Monitoring.BTRelation.OpenDownloadPanel");
 
     return option->value().toBool();
 }
+
+bool Settings::getAutoOpenMetalinkTaskState()
+{
+    auto option = m_settings->option("Monitoring.MetaLinkRelation.OpenDownloadMetaLinkPanel");
+
+    return option->value().toBool();
+}
+
 
 bool Settings::getStartAssociatedBTFileState()
 {

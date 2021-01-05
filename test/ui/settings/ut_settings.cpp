@@ -216,7 +216,7 @@ TEST_F(ut_Settings, getMagneticDownloadState)
 
 TEST_F(ut_Settings, getAutoOpennewTaskWidgetState)
 {
-    Settings::getInstance()->getAutoOpennewTaskWidgetState();
+    Settings::getInstance()->getAutoOpenBtTaskState();
     EXPECT_TRUE(true);
     QTest::qWait(50);
 }

@@ -260,7 +260,13 @@ public:
      * @brief 获取下载种子文件后自动打开新建窗口状态值
      * @return 开启返回true，否则返回false
      */
-    bool getAutoOpennewTaskWidgetState();
+    bool getAutoOpenBtTaskState();
+
+    /**
+     * @brief 获取下载metalink文件后自动打开新建窗口状态值
+     * @return 开启返回true，否则返回false
+     */
+    bool getAutoOpenMetalinkTaskState();
 
     /**
      * @brief 获取启动时关联BT种子文件状态值
@@ -349,6 +355,7 @@ public:
     void setIsClipboradStart(QString str);
 
     DSettings *m_settings;
+
 
 signals:
     void poweronChanged(bool state);

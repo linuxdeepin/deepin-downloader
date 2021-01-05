@@ -397,6 +397,7 @@ var webChanel;
 var downloadFlag = false;
 var downloadItem;
 var downloadId;
+var socketIsOpen = false;
 //var core;
 
 function main() {
@@ -409,7 +410,10 @@ function main() {
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 
     socket  = new WebSocket("ws://localhost:12345");
-    socket.onopen = onSocketOpen
+    socket.onopen = function() {
+        socketIsOpen = true;
+        onSocketOpen();
+    }
     socket.onerror = function(){
         console.log("websocket error")
     }
@@ -417,20 +421,20 @@ function main() {
 }
 
 function onItemCreated(item) {
-    console.log("onItemCreated : " + item.url + "stat: " + item.state)
-
     if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
         return;
     }
+    console.log("onItemCreated : " + item.url + " stat: " + item.state)
 
     downloadItem = item;
-    if(downloadFlag === true){
+    if(downloadFlag == true){
         console.log("downloadFlag true")
         downloadFlag = false;
         //chrome.downloads.setShelfEnabled(false);
         return;
     }
-    if(1 != socket.readyState){
+    if(!socketIsOpen){
+        socketIsOpen = true;
         console.log("socket not ready")
         window.open("downloader:");
         setTimeout(reConnect, 1500);
@@ -441,9 +445,13 @@ function onItemCreated(item) {
 }
 
 function reConnect() {
+    if(socketIsOpen) {
+        return
+    }
     console.log("reConnect")
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = function() {
+        socketIsOpen = true;
         onSocketOpen();
     }
     setTimeout(()=>{
@@ -462,6 +470,7 @@ function reConnect() {
 }
 
 function onSocketOpen() {
+    socketIsOpen = true;
     console.log("websocket Open")
     new QWebChannel(socket, function(channel) {
         console.log("QWebChannel new")

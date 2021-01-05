@@ -35,20 +35,6 @@
 
 #include <QWidget>
 
-//class DownloadManagerBtn : public Dtk::Widget::DIconButton
-//{
-//    Q_OBJECT
-//public:
-//     explicit DownloadManagerBtn(QWidget *parent = nullptr);
-//    ~DownloadManagerBtn();
-//protected:
-//    void mouseMoveEvent(QMouseEvent *event);
-//private slots:
-//    void onTimeOut();
-//private:
-//    QTimer *m_pHoverTimer;
-//};
-
 /**
  * @class TopButton
  * @brief 顶部按钮和搜索框
@@ -65,7 +51,7 @@ public:
     */
     QString getSearchText()
     {
-        return m_SearchEdit->text();
+        return m_searchEdit->text();
     }
 
     /**
@@ -73,7 +59,7 @@ public:
     */
     void clearSearchText()
     {
-        m_SearchEdit->clear();
+        m_searchEdit->clear();
     }
 
     /**
@@ -82,7 +68,7 @@ public:
     */
     bool enableCreateTaskBtn(bool enable)
     {
-        m_NewDownloadBtn->setEnabled(enable);
+        m_newDownloadBtn->setEnabled(enable);
         return true;
     }
 
@@ -92,7 +78,7 @@ public:
     */
     bool enableStartBtn(bool enable)
     {
-        m_StartDownloadBtn->setEnabled(enable);
+        m_startDownloadBtn->setEnabled(enable);
         return true;
     }
 
@@ -102,7 +88,7 @@ public:
     */
     bool enablePauseBtn(bool enable)
     {
-        m_PauseDownloadBtn->setEnabled(enable);
+        m_pauseDownloadBtn->setEnabled(enable);
         return true;
     }
 
@@ -112,7 +98,7 @@ public:
     */
     bool enableDeleteBtn(bool enable)
     {
-        m_DeleteDownloadBtn->setEnabled(enable);
+        m_deleteDownloadBtn->setEnabled(enable);
         return true;
     }
 
@@ -164,13 +150,14 @@ signals:
     void SearchEditTextChange(QString text);
 
 private:
-    Dtk::Widget::DLabel *m_IconLable;
-    Dtk::Widget::DIconButton *m_NewDownloadBtn;
-    Dtk::Widget::DIconButton *m_StartDownloadBtn;
-    Dtk::Widget::DIconButton *m_StopDownloadBtn;
-    Dtk::Widget::DIconButton *m_PauseDownloadBtn;
-    Dtk::Widget::DIconButton *m_DeleteDownloadBtn;
-    Dtk::Widget::DSearchEdit *m_SearchEdit;
+    Dtk::Widget::DLabel *m_iconLable;
+    Dtk::Widget::DIconButton *m_newDownloadBtn;
+    Dtk::Widget::DIconButton *m_startDownloadBtn;
+    Dtk::Widget::DIconButton *m_stopDownloadBtn;
+    Dtk::Widget::DIconButton *m_pauseDownloadBtn;
+    Dtk::Widget::DIconButton *m_deleteDownloadBtn;
+    Dtk::Widget::DSearchEdit *m_searchEdit;
+    QCompleter* m_completer;
 };
 
 #endif // TOOLBAR_H
