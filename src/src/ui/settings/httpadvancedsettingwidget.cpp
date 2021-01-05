@@ -7,8 +7,10 @@
 #include <QApplication>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QFileInfo>
 #include <QFile>
 #include "func.h"
+#include "config.h"
 
 HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(DDialog *parent)
     : DDialog(parent)
@@ -18,6 +20,11 @@ HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(DDialog *parent)
                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                        .arg(qApp->organizationName())
                        .arg(qApp->applicationName());
+    //判断文件是否存在,如果不存在复制配置文件内容到目录下
+    QFileInfo fileInfo(m_configPath);
+    if (!fileInfo.exists()) {
+        QFile::copy(CONTENT_HTTP_ADVANCED_PATH, m_configPath);
+    }
     initUI();
 }
 
@@ -66,7 +73,7 @@ void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 {
     QFile file(m_configPath);
     if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open failed!";
+        return;
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
@@ -79,7 +86,7 @@ void HttpAdvancedSettingWidget::onWebBtnClicked()
 {
     QFile file(m_configPath);
     if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open failed!";
+        return;
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
@@ -94,7 +101,7 @@ void HttpAdvancedSettingWidget::onRstoreDefaultClicked()
 {
     QFile file(m_configPath);
     if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open failed!";
+        return;
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
@@ -107,7 +114,7 @@ void HttpAdvancedSettingWidget::onSureClicked()
 {
     QFile file(m_configPath);
     if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open failed!";
+        return;
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();

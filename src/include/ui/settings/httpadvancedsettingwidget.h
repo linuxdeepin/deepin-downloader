@@ -9,6 +9,8 @@
 
 DWIDGET_USE_NAMESPACE
 
+const QString UOS_DONWLOAD_HTTPADVANCED_PATH = "/usr/share/downloader/database/"; //备份数据库路径
+
 class HttpAdvancedSettingWidget : public DDialog
 {
     Q_OBJECT

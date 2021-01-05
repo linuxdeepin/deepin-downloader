@@ -12,6 +12,7 @@
 #include "downloadsettingwidget.h"
 #include "filesavepathchooser.h"
 #include "settingswidget.h"
+#include "httpadvancedsettingwidget.h"
 
 class ut_Settings : public ::testing::Test
     , public QObject
@@ -463,3 +464,26 @@ TEST_F(ut_Settings, controlbrowserOff)
     option->setValue(false);
     EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
 }
+
+TEST_F(ut_Settings, HttpAdvancedChangeSuffix)
+{
+    HttpAdvancedSettingWidget advance;
+    advance.onSuffixBtnClicked();
+    advance.onWebBtnClicked();
+    advance.onRstoreDefaultClicked();
+    advance.onSureClicked();
+    advance.onCancelClicked();
+    EXPECT_TRUE(true);
+
+}
+
+
+
+
+
+
+
+
+
+
+

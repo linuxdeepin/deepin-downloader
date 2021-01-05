@@ -6,3 +6,4 @@ data/downloader.svg /usr/share/downloader/icons/logo
 docs/aria2.conf /usr/share/downloader/config
 docs/config.conf /usr/share/downloader/config
 docs/content-type.conf /usr/share/downloader/config
+docs/httpAdvanced.json /usr/share/downloader/config

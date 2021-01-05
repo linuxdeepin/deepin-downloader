@@ -2,6 +2,7 @@
 #define DLM_VERSION_STRING "${PROJECT_VERSION}"
 #define ARIA_CONFIG_PATH "${CMAKE_INSTALL_PREFIX}/share/downloader/config/aria2.conf"
 #define CONTENT_TYPE_CONFIG_PATH "${CMAKE_INSTALL_PREFIX}/share/downloader/config/content-type.conf"
+#define CONTENT_HTTP_ADVANCED_PATH "${CMAKE_INSTALL_PREFIX}/share/downloader/config/httpAdvanced.json"
 #define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH  "${CMAKE_INSTALL_PREFIX}/share/applications/"
 #define ARIA2C_PATH "${CMAKE_INSTALL_PREFIX}/bin/"
 #define ARIA2C_NAME "${ARIA2_NAME}"
