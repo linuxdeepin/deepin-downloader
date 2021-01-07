@@ -549,21 +549,6 @@ TEST_F(ut_MainFreme, onTrayQuitClick)
     MainFrame::instance()->onTrayQuitClick();
 }
 
-TEST_F(ut_MainFreme, formatFileSize)
-{
-    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-    TableModel *model = static_cast<TableModel *>(table->model());
-    EXPECT_TRUE(model->formatFileSize("1KB") == 1024.0);
-}
-
-TEST_F(ut_MainFreme, formatSpeed)
-{
-    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-    TableModel *model = static_cast<TableModel *>(table->model());
-
-    EXPECT_TRUE(model->formatSpeed("1KB/s") == 1024.0);
-}
-
 TEST_F(ut_MainFreme, tableView)
 {
     TableView *table = new TableView(1);

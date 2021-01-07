@@ -504,13 +504,13 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 void MainFrame::closeEvent(QCloseEvent *event)
 {
     m_SystemTray->show();
-    if (Settings::getInstance()->getIsShowTip()) {
+    if (Settings::getInstance()->getIsShowTip() || (Settings::getInstance()->getCloseMainWindowSelected() == 2)) {
         MessageBox msg;
         connect(&msg, &MessageBox::closeConfirm, this, &MainFrame::onMessageBoxConfirmClick);
         msg.setExit();
         msg.exec();
     } else {
-        onMessageBoxConfirmClick();
+        onMessageBoxConfirmClick(Settings::getInstance()->getCloseMainWindowSelected());
     }
     // setWindowFlags(Qt::Tool);
     event->ignore();
@@ -574,9 +574,9 @@ void MainFrame::onTrayQuitClick(bool force)
     });
 }
 
-void MainFrame::onMessageBoxConfirmClick()
+void MainFrame::onMessageBoxConfirmClick(int index)
 {
-    if (Settings::getInstance()->getCloseMainWindowSelected()) {
+    if (index) {
         onTrayQuitClick(false);
     } else {
         //showMinimized();
@@ -1289,6 +1289,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     int activeCount = 0;
     int pauseCount = 0;
     int errorCount = 0;
+    int waitCount = 0;
     int existFileCount = 0;
     DownloadDataItem *pDownloadItem = nullptr;
     DeleteDataItem *pDeleteItem = nullptr;
@@ -1318,6 +1319,9 @@ void MainFrame::onContextMenu(const QPoint &pos)
                 if (pDownloadItem->status == Global::DownloadJobStatus::Error) {
                     ++errorCount;
                 }
+                if (pDownloadItem->status == Global::DownloadJobStatus::Waiting) {
+                    ++waitCount;
+                }
             }
         }
     }
@@ -1339,6 +1343,12 @@ void MainFrame::onContextMenu(const QPoint &pos)
             pActionPause->setText(tr("Pause"));
             delmenlist->addAction(pActionPause);
             connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
+        }
+        if (chkedCnt ==1 && (waitCount == 1 || pauseCount == 1)) {
+            QAction *pActionDownloadNow = new QAction();
+            pActionDownloadNow->setText(tr("Download first"));
+            delmenlist->addAction(pActionDownloadNow);
+            connect(pActionDownloadNow, &QAction::triggered, this, &MainFrame::onDownloadFirstBtnClicked);
         }
         if ((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction();
@@ -1874,6 +1884,30 @@ void MainFrame::onPauseDownloadBtnClicked()
     } else {
         onReturnOriginActionTriggered();
     }
+}
+
+void MainFrame::onDownloadFirstBtnClicked()
+{
+    showWarningMsgbox(tr("The number of max. concurrent tasks reached. Other tasks will be queuing."));
+    const QList<DownloadDataItem *> &list = m_DownLoadingTableView->getTableModel()->renderList();
+    const DownloadDataItem * lowSpeedItem = nullptr;
+    for(const DownloadDataItem * item : list) {
+        static double speed = 99999;
+
+        if(Func::formatSpeed(item->speed) > 0 && Func::formatSpeed(item->speed) < speed) {
+            speed = Func::formatSpeed(item->speed);
+            lowSpeedItem = item;
+        }
+    }
+    Aria2RPCInterface::instance()->changePosition(m_CheckItem->gid, 0);
+
+    if(lowSpeedItem == nullptr) {
+        return;
+    }
+    Aria2RPCInterface::instance()->pause(lowSpeedItem->gid, lowSpeedItem->taskId);
+    QTimer::singleShot(500, this, [=]() {
+        Aria2RPCInterface::instance()->unpause(lowSpeedItem->gid, lowSpeedItem->taskId);
+    });
 }
 
 void MainFrame::onDeleteDownloadBtnClicked()

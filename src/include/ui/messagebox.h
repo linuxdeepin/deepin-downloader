@@ -147,7 +147,7 @@ signals:
     /**
      * @brief 关闭确认信号
     */
-    void closeConfirm();
+    void closeConfirm(int index);
 
     /**
      * @brief 异常确认信号

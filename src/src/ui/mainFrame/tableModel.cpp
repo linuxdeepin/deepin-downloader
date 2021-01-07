@@ -34,6 +34,7 @@
 #include "settings.h"
 #include <dpinyin.h>
 #include "global.h"
+#include "func.h"
 using namespace Global;
 using namespace DTK_CORE_NAMESPACE;
 
@@ -640,10 +641,10 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     for (int row = 0; row < rowCount(); ++row) {
         QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, 0), role).toString());
         if (role == TableModel::Size || role == TableModel::TotalLength) {
-            num = formatFileSize(itm.toString());
+            num = Func::formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
         } else if (role == TableModel::Speed) {
-            num = formatSpeed(itm.toString());
+            num = Func::formatSpeed(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if (!itm.isNull()) {
@@ -699,7 +700,7 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
     for (int row = 0; row < rowCount(); ++row) {
         QVariant itm = DTK_NAMESPACE::Core::Chinese2Pinyin(data(index(row, column), role).toString());
         if (role == TableModel::TotalLength) {
-            num = formatFileSize(itm.toString());
+            num = Func::formatFileSize(itm.toString());
             sortable.append(QPair<QVariant, int>(num, row));
         } else {
             if (!itm.isNull()) {
@@ -725,47 +726,5 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
     emit layoutChanged();
 }
 
-double TableModel::formatFileSize(QString str)
-{
-    if (str.contains("KB/s")) {
-        str.remove("KB/s");
-    } else if (str.contains("MB/s")) {
-        str.remove("MB/s");
-    } else if (str.contains("B/s")) {
-        str.remove("B/s");
-    }
-    double num = -1;
-    QString number = str.left(str.length() - 2);
-    num = number.toDouble();
-    if (str.contains("KB")) {
-        num = num * 1024;
-    } else if (str.contains("MB")) {
-        num = num * 1024 * 1024;
-    } else if (str.contains("GB")) {
-        num = num * 1024 * 1024 * 1024;
-    }
 
-    return num;
-}
 
-double TableModel::formatSpeed(QString str)
-{
-    QString number = str;
-    if (str.contains("KB/s")) {
-        str.remove("KB/s");
-    } else if (str.contains("MB/s")) {
-        str.remove("MB/s");
-    } else if (str.contains("B/s")) {
-        str.remove("B/s");
-    }
-    double num = str.toDouble();
-    if (number.contains("KB")) {
-        num = num * 1024;
-    } else if (number.contains("MB")) {
-        num = num * 1024 * 1024;
-    } else if (number.contains("GB")) {
-        num = num * 1024 * 1024 * 1024;
-    }
-
-    return num;
-}

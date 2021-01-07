@@ -255,6 +255,11 @@ private slots:
     void onPauseDownloadBtnClicked();
 
     /**
+     * @brief 优先下载按键按下槽函数
+    */
+    void onDownloadFirstBtnClicked();
+
+    /**
      * @brief 删除按键按下槽函数
     */
     void onDeleteDownloadBtnClicked();
@@ -292,7 +297,7 @@ private slots:
      * @brief messageBox关闭返回事件
      * @param index 按钮index
      */
-    void onMessageBoxConfirmClick();
+    void onMessageBoxConfirmClick(int index);
 
     /**
      * @brief 删除ACtion槽函数

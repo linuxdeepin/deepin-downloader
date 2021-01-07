@@ -341,7 +341,6 @@ Settings::Settings(QObject *parent)
     auto advancedName = tr("Advanced"); // 高级设置
     auto shortcutsName = tr("Shortcuts"); // 快捷设置
     auto newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
-    auto showMainName = tr("Show main window"); // 打开主界面快捷键
     auto diskCacheName = tr("Cache"); // 下载磁盘缓存
     auto AutoSortBySpeedName = tr("Move low speed tasks to the end"); // 低速的移动到末尾
 }
@@ -426,7 +425,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
-    ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget(NULL, true);
+    ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget(nullptr, true);
     itemSelectionWidget->setLabelText(tr("HTTP")); // HTTP下载
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 

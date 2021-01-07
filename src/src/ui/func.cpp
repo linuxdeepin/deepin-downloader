@@ -186,9 +186,43 @@ bool Func::setIniConfigValue(QString path, QString group, QString key, QString v
     return false;
 }
 
+double Func::formatSpeed(QString str)
+{
+    QString number = str;
+    if (str.contains("KB/s")) {
+        str.remove("KB/s");
+    } else if (str.contains("MB/s")) {
+        str.remove("MB/s");
+    } else if (str.contains("B/s")) {
+        str.remove("B/s");
+    }
+    double num = str.toDouble();
+    if (number.contains("KB")) {
+        num = num * 1024;
+    } else if (number.contains("MB")) {
+        num = num * 1024 * 1024;
+    } else if (number.contains("GB")) {
+        num = num * 1024 * 1024 * 1024;
+    }
 
+    return num;
+}
 
+double Func::formatFileSize(QString str)
+{
+    double num = -1;
+    QString number = str.left(str.length() - 2);
+    num = number.toDouble();
+    if (str.contains("KB")) {
+        num = num * 1024;
+    } else if (str.contains("MB")) {
+        num = num * 1024 * 1024;
+    } else if (str.contains("GB")) {
+        num = num * 1024 * 1024 * 1024;
+    }
 
+    return num;
+}
 
 
 

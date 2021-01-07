@@ -54,7 +54,8 @@
                             "type": "radiogroup",
                             "items": [
                               "Minimize to System Tray",
-                              "Exit"
+                              "Exit",
+                              "Ask me always"
                             ],
                             "default": 0
                         }

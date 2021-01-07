@@ -313,15 +313,15 @@ void MessageBox::onDeleteBtnClicked(int index)
 void MessageBox::onExitBtnClicked(int index)
 {
     if (index == 1) {
-        if (m_ButtonMin->isChecked()) {
-            Settings::getInstance()->setCloseMainWindowSelected(0);
-        } else {
-            Settings::getInstance()->setCloseMainWindowSelected(1);
-        }
         if (m_CheckBox->isChecked()) {
             Settings::getInstance()->setIsShowTip(false);
+            if (m_ButtonMin->isChecked()) {
+                Settings::getInstance()->setCloseMainWindowSelected(0);
+            } else {
+                Settings::getInstance()->setCloseMainWindowSelected(1);
+            }
         }
-        emit closeConfirm();
+        emit closeConfirm(m_ButtonMin->isChecked() ? 0 : 1);
     }
     close();
 }

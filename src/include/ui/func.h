@@ -81,7 +81,17 @@ public:
      */
     static bool setIniConfigValue(QString path, QString group, QString key, QString value);
 
+    /**
+     * @brief 速度字符串转数值
+     * @param str 速度
+     */
+    static double formatSpeed(QString str);
 
+    /**
+     * @brief 文件大小字符串转数值
+     * @param str 文件大小
+     */
+    static double formatFileSize(QString str);
 private:
 };
 

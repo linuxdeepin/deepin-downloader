@@ -278,6 +278,15 @@ public:
     bool changeGlobalOption(QMap<QString, QVariant> options, QString id = "");
 
     /**
+     * @brief changeGlobalOption 修改指定任务在aria2下载队列中的位置
+     * @param options 配置项键值map
+     * @param id
+     *
+     * signal_success信号中异步返回，参数结构见aria2文档
+     */
+    bool changePosition(QString gId, int pos);
+
+    /**
      * @brief setMaxDownloadNum 设置最大任务数
      * @param maxDownload
      *

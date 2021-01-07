@@ -650,16 +650,16 @@ void TableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
     QStringList in5;
     QVariantMap in6;
     if (statusStr == "error") {
-        in3 = tr("Download failed"); //下载失败
-        in4 = QString(tr("%1 download failed. Network error.")).arg(fileName); //【%1下载失败，网络故障。】
+        in3 = tr("Download failed");
+        in4 = QString(tr("%1 download failed. Network error.")).arg(fileName);
         in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
         in6["x-deepin-action-_view"] = "Downloader";
         qDebug() << in4 + ("    errorCode: ") + errorCode;
         if ("12" == errorCode) {
         }
     } else {
-        in3 = tr("Download complated"); //下载完成
-        in4 = QString(tr("%1 download finished.")).arg(fileName); //【【%1下载完成。】
+        in3 = tr("Download completed");
+        in4 = QString(tr("%1 download finished.")).arg(fileName);
     }
     int in7 = 5000;
     arg << in0 << in1 << in2 << in3 << in4 << in5 << in6 << in7;

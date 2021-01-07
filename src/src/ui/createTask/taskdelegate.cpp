@@ -200,7 +200,7 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         for (int i = 0; i < index.model()->rowCount(); i++) {
             curName = index.model()->data(index.model()->index(i, 1)).toString() + "." + index.model()->data(index.model()->index(i, 2)).toString();
             if (curName == typeName && i != index.row()) {
-                pEdit->showAlertMessage(tr("Duplicate name!"),
+                pEdit->showAlertMessage(tr("Duplicate name"),
                                         pEdit->parentWidget()->parentWidget(), -1);
                 alertControl->setMessageAlignment(Qt::AlignLeft);
                 break;

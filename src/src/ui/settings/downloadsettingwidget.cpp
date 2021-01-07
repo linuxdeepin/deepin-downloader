@@ -50,7 +50,9 @@ void DownloadSettingWidget::initUI()
 
     m_fullSpeedDownloadButton = new DRadioButton(tr("Full speed")); // 全速下载
     m_fullSpeedDownloadButton->setObjectName("fullSpeedBtn");
-    m_fullSpeedDownloadButton->setToolTip(tr("Downloaded files will be uploaded through P2P, \nwhich could help other users speed up the downloading, \ndoes not involve the privacy."));
+    m_fullSpeedDownloadButton->setToolTip(tr("Downloaded files will be uploaded through P2P, "
+                                             "\nwhich could help other users speed up the downloading, "
+                                             "\nand it does not involve user privacy."));
     //    m_fullSpeedDownloadButton->toolTip()
     //    DLabel *pFullSpeedLabel = new DLabel;
     //    // 下载文件会通过P2P的方式上传分享，帮助其他网友加速下载，不会涉及任何用户隐私。

@@ -140,7 +140,7 @@ void TopButton::onTableChanged(int index)
         m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
         m_deleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
 
-        m_startDownloadBtn->setToolTip(tr("Open Folder"));
+        m_startDownloadBtn->setToolTip(tr("Open folder"));
         m_pauseDownloadBtn->setToolTip(tr("Open"));
         m_deleteDownloadBtn->setToolTip(tr("Delete"));
     } else {

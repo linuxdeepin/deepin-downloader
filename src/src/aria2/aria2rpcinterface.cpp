@@ -383,6 +383,7 @@ bool Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
     if (!params.isEmpty()) {
         json.insert("params", params);
     }
+    json.insert("", 0);
     return sendMessage(json, method);
 }
 
@@ -556,6 +557,15 @@ bool Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QStr
     QJsonObject optJson = doc.object();
     ja.append(nobj);
     return callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);
+}
+
+bool Aria2RPCInterface::changePosition(QString gId, int pos)
+{
+    QJsonArray ja;
+    ja.append(gId);
+    ja.append(pos);
+    ja.append("POS_SET");
+    return callRPC(ARIA2C_METHOD_CHANGE_POSITION, ja, gId);
 }
 
 bool Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)

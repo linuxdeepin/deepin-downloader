@@ -424,7 +424,7 @@ function onItemCreated(item) {
     if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
         return;
     }
-    console.log("onItemCreated : " + item.url + " stat: " + item.state)
+    console.log("onItemCreated : " + item.url + "           referrer: " + item.referrer)
 
     downloadItem = item;
     if(downloadFlag == true){
@@ -495,7 +495,7 @@ function onSocketOpen() {
 
 
 function onChanged(downloadDelta) {
-    console.log("onChanged")
+    console.log("onChanged :  " + downloadDelta.url)
     if(downloadId == downloadDelta.id) {
         chrome.downloads.setShelfEnabled(true);
         chrome.downloads.cancel(downloadDelta.id);
