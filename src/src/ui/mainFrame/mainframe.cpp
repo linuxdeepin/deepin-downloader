@@ -3215,7 +3215,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
             //msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("View"), tr("Redownload"), 0, QList<QString>());
             msg.setRedownload(urlList[i].filePath);
             int ret = msg.exec();
-            if (!ret) {
+            if (ret != DDialog::Accepted) {
                 return false;
             } else {
                 if (pItem != nullptr) {
