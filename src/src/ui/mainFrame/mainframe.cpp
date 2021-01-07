@@ -1891,16 +1891,14 @@ void MainFrame::onDownloadFirstBtnClicked()
     showWarningMsgbox(tr("The number of max. concurrent tasks reached. Other tasks will be queuing."));
     const QList<DownloadDataItem *> &list = m_DownLoadingTableView->getTableModel()->renderList();
     const DownloadDataItem * lowSpeedItem = nullptr;
+    double speed = 99999;
     for(const DownloadDataItem * item : list) {
-        static double speed = 99999;
-
         if(Func::formatSpeed(item->speed) > 0 && Func::formatSpeed(item->speed) < speed) {
             speed = Func::formatSpeed(item->speed);
             lowSpeedItem = item;
         }
     }
     Aria2RPCInterface::instance()->changePosition(m_CheckItem->gid, 0);
-
     if(lowSpeedItem == nullptr) {
         return;
     }
