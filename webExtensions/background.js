@@ -417,6 +417,10 @@ function main() {
     socket.onerror = function(){
         console.log("websocket error")
     }
+    socket.onclose = function(){
+        socketIsOpen = false;
+        console.log("websocket close")
+    }
     addContextMenu ("downloader", "使用下载器下载");
 }
 
@@ -434,7 +438,7 @@ function onItemCreated(item) {
         return;
     }
     if(!socketIsOpen){
-        socketIsOpen = true;
+        //socketIsOpen = true;
         console.log("socket not ready")
         window.open("downloader:");
         setTimeout(reConnect, 1500);
@@ -466,6 +470,10 @@ function reConnect() {
             url: downloadItem.url
         }, onDownload);
         chrome.downloads.setShelfEnabled(true);
+    }
+    socket.onclose = function(){
+        socketIsOpen = false;
+        console.log("websocket close")
     }
 }
 
@@ -527,10 +535,9 @@ function onTimeout(info) {
     console.log("setTimeout")
     var soc  = new WebSocket("ws://localhost:12345");
     soc.onopen = function() {
-        new QWebChannel(soc, function(channel) {
-            webChanel = channel;
-            channel.objects.core.receiveText(info.linkUrl + ",true");  
-            soc.close()
+        new QWebChannel(soc, function(chan) {
+            chan.objects.core.receiveText(info.linkUrl + ",true");  
+            //soc.close()
         })
     }
 }

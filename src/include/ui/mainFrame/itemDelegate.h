@@ -47,14 +47,15 @@ class ItemDelegate : public QStyledItemDelegate
 public:
     ItemDelegate(QObject *parent = nullptr, int Flag = 0);
     ~ItemDelegate();
+
+private:
+
     /**
      * @brief 绘图事件
      */
-
-private:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    /**
 
+    /**
      * @brief 大小
      */
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
