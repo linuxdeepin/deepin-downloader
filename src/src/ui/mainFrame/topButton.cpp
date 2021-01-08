@@ -46,7 +46,7 @@ TopButton::TopButton(QWidget *parent)
 
 QPoint TopButton::getSearchEditPosition()
 {
-    return mapFromParent(m_searchEdit->rect().bottomLeft());
+    return mapToGlobal(m_searchEdit->rect().bottomLeft());
 }
 
 void TopButton::Init()
