@@ -92,6 +92,12 @@ public:
      * @param str 文件大小
      */
     static double formatFileSize(QString str);
+
+    /**
+     * @brief 删除拼音中的数字
+     * @param input 带数字的拼音
+     */
+    static QString removeDigital(QString input);
 private:
 };
 

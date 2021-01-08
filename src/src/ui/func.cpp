@@ -224,7 +224,24 @@ double Func::formatFileSize(QString str)
     return num;
 }
 
+QString Func::removeDigital(QString input)
+{
+    if ("" == input)
+        return "";
 
+    QString value = "";
+    QByteArray ba = input.toLocal8Bit();
+    char *data = nullptr;
+    data = ba.data();
+    while (*data) {
+        if (!(*data >= '0' && *data <= '9')) {
+            value += *data;
+        }
+        data++;
+    }
+
+    return value;
+}
 
 
 

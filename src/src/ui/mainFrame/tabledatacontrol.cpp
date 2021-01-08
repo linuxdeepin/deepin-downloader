@@ -43,6 +43,7 @@
 #include <QMimeDatabase>
 #include <QTimer>
 #include <QJsonArray>
+#include <dpinyin.h>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -55,6 +56,7 @@
 #include "tableView.h"
 #include "deleteitemthread.h"
 #include "messagebox.h"
+#include "func.h"
 using namespace Global;
 TableDataControl::TableDataControl(TableView *pTableView, QObject *parent)
     : QObject(parent)
@@ -763,7 +765,8 @@ bool TableDataControl::searchEditTextChanged(QString text, QList<QString> &taskI
     TableModel *pModel = m_DownloadTableView->getTableModel();
     for (const DownloadDataItem *pItem : pModel->dataList()) {
         QString fileName = pItem->fileName;
-        if (fileName.contains(text, Qt::CaseInsensitive)) {
+        QString namePinyin = Func::removeDigital(Chinese2Pinyin(fileName));
+        if ((fileName.contains(text, Qt::CaseInsensitive)) || namePinyin.contains(text, Qt::CaseInsensitive)) {
            taskIDList.append(pItem->taskId);
            taskStatusList.append(pItem->status);
            tasknameList.append(pItem->fileName);
@@ -771,7 +774,8 @@ bool TableDataControl::searchEditTextChanged(QString text, QList<QString> &taskI
     }
     for (const DeleteDataItem *pItem : pModel->recyleList()) {
         QString fileName = pItem->fileName;
-        if (fileName.contains(text, Qt::CaseInsensitive)) {
+        QString namePinyin = Func::removeDigital(Chinese2Pinyin(fileName));
+        if ((fileName.contains(text, Qt::CaseInsensitive)) || namePinyin.contains(text, Qt::CaseInsensitive)) {
            taskIDList.append(pItem->taskId);
            taskStatusList.append(pItem->status);
            tasknameList.append(pItem->fileName);
