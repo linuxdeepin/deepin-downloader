@@ -929,10 +929,10 @@ void MainFrame::onListClicked(const QModelIndex &index)
 
         m_RecycleTableView->resize(m_RecycleTableView->width() - 1, m_RecycleTableView->height() - 1);
         m_RecycleTableView->resize(m_RecycleTableView->width() + 1, m_RecycleTableView->height() + 1);
-        m_RecycleTableView->update();
+        //m_RecycleTableView->update();
         m_RecycleTableView->horizontalHeader()->reset();
         m_RecycleTableView->reset(true);
-        m_RecycleTableView->repaint();
+        //m_RecycleTableView->repaint();
     }
     clearTableItemCheckStatus();
     emit isHeaderChecked(false);
@@ -1571,35 +1571,33 @@ void MainFrame::clearTableItemCheckStatus()
 
 void MainFrame::onSearchEditTextChanged(QString text)
 {
-    static SearchResoultWidget * pwidget = new SearchResoultWidget(this);
-    connect(pwidget, &SearchResoultWidget::itemClicked, this, &MainFrame::onSearchItemClicked);
-    QPoint p = m_ToolBar->getSearchEditPosition();
-    QPoint pp = QPoint(m_ToolBar->rect().width()/2, p.y() + 10);
-    pwidget->move(pp);
-    if (!text.isEmpty()) {
-        m_NotaskLabel->hide();
-        m_NotaskTipLabel->hide();
-        m_NoResultlabel->show();
-    } else {
-        m_NotaskLabel->show();
-        if (m_CurrentTab == downloadingTab) {
-            m_NotaskTipLabel->show();
-        }
-        m_NoResultlabel->hide();
+
+    static SearchResoultWidget *pwidget = new SearchResoultWidget(this);
+    if(text.isEmpty()){
         pwidget->hide();
         return;
     }
+    static int flag = 1;
+    if(flag) {
+        connect(pwidget, &SearchResoultWidget::itemClicked, this, &MainFrame::onSearchItemClicked);
+        connect(m_ToolBar->getSearchEdit()->lineEdit(), &QLineEdit::editingFinished, this, [&](){
+            pwidget->hide();
+        });
+        flag = 0;
+    }
+    QPoint p = m_ToolBar->getSearchEditPosition();
+    QPoint pp = QPoint(p.x() + 250 , p.y() + 10);
+    pwidget->move(pp);
     m_SearchContent = text;
     QList<QString> taskIDList;
     QList<int> taskStatusList;
     QList<QString> tasknameList;
-
     m_DownLoadingTableView->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
     m_RecycleTableView->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
 
     pwidget->setData(taskIDList, taskStatusList, tasknameList);
     pwidget->show();
-    setTaskNum();
+
 }
 
 void MainFrame::onRedownload(QString taskId, int rd)
@@ -2369,6 +2367,8 @@ void MainFrame::onCopyUrlActionTriggered()
         if (!getUrlInfo.taskId.isEmpty()) {
             if (getUrlInfo.downloadType == "torrent") {
                 url = "magnet:?xt=urn:btih:" + getUrlInfo.infoHash;
+            } else if(getUrlInfo.downloadType == "metalink") {
+                url = getUrlInfo.filePath;
             }
         } else {
             url = m_CheckItem->url;
@@ -2913,11 +2913,9 @@ void MainFrame::onDownloadFinish()
 void MainFrame::onSearchItemClicked(QListWidgetItem *item)
 {
     SearchResoultWidget *pWidget = static_cast<SearchResoultWidget *>(sender());
-    pWidget->hide();
-    m_ToolBar->clearSearchText();
     QString taskId = item->data(Qt::WhatsThisRole).toString();
-    QString tab = item->text().split("->").first();
-    if("Downloading" == tab) {
+    QString tab = item->text().split("-->").first();
+    if(tab.contains("Downloading")) {
         onListClicked(m_LeftList->model()->index(0,0));
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(0,0));
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
@@ -2928,7 +2926,7 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
             m_DownLoadingTableView->setCurrentIndex(index);
             m_DownLoadingTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
         }
-    } else if("Completed" == tab) {
+    } else if(tab.contains("Completed")) {
         onListClicked(m_LeftList->model()->index(1,0));
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(1,0));
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
@@ -2939,18 +2937,23 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
             m_DownLoadingTableView->setCurrentIndex(index);
             m_DownLoadingTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
         }
-    } else if("Trash" == tab) {
+    } else if(tab.contains("Trash")) {
         onListClicked(m_LeftList->model()->index(2,0));
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(2,0));
         DeleteDataItem *pItem = m_RecycleTableView->getTableModel()->find(taskId, 2);
         int position = m_RecycleTableView->getTableModel()->recyleList().indexOf(pItem, 0);
         if(pItem != nullptr) {
-            pItem->Ischecked = true;
-            QModelIndex index = m_RecycleTableView->getTableModel()->index(position, 0);
-            m_RecycleTableView->setCurrentIndex(index);
-            m_RecycleTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
+            QTimer::singleShot(100, [=]() { // 其他列表为空的时候切换到回收站列表，会显示不全，刷新两次就可以
+                pItem->Ischecked = true;
+                QModelIndex index = m_RecycleTableView->getTableModel()->index(position, 0);
+                m_RecycleTableView->setCurrentIndex(index);
+                m_RecycleTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
+            });
         }
     }
+
+    m_ToolBar->clearSearchText();
+    pWidget->hide();
 }
 
 void MainFrame::clearSharedMemory()

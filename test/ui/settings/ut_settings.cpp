@@ -453,14 +453,14 @@ TEST_F(ut_Settings, SettingsControlWidget6) {
 
 TEST_F(ut_Settings, controlbrowserOn)
 {
-    auto option = Settings::getInstance()->m_settings->option("Basic.CloseMainWindow.closemainwindow");
+    auto option = Settings::getInstance()->m_settings->option("Monitoring.MonitoringObject.Browser");
     option->setValue(true);
     EXPECT_TRUE(Settings::getInstance()->getWebBrowserState());
 }
 
 TEST_F(ut_Settings, controlbrowserOff)
 {
-    auto option = Settings::getInstance()->m_settings->option("Basic.CloseMainWindow.closemainwindow");
+    auto option = Settings::getInstance()->m_settings->option("Monitoring.MonitoringObject.Browser");
     option->setValue(false);
     EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
 }

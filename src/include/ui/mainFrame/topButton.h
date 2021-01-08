@@ -49,9 +49,9 @@ public:
      * @brief 获取查找的内容
      * @return 查找的内容
     */
-    QString getSearchText()
+    Dtk::Widget::DSearchEdit* getSearchEdit()
     {
-        return m_searchEdit->text();
+        return m_searchEdit;
     }
 
     /**
