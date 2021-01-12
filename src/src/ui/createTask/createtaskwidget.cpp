@@ -88,7 +88,7 @@ void CreateTaskWidget::initUi()
     QString titleMsg = tr("New Task");
     msgTitle->setText(titleMsg);
     addContent(msgTitle, Qt::AlignHCenter);
-    QString msg = tr("When adding download links, please enter one URL in each line");
+    QString msg = tr("Please enter one URL per line");
     addSpacing(10);
     DLabel *msgLab = new DLabel(this);
     msgLab->setText(msg);
@@ -98,7 +98,7 @@ void CreateTaskWidget::initUi()
     m_texturl->setObjectName("textUrl");
     m_texturl->setReadOnly(false);
     m_texturl->setAcceptDrops(false);
-    m_texturl->setPlaceholderText(tr("Enter download links or drag torrent file here"));
+    m_texturl->setPlaceholderText(tr("Enter download links or drag a torrent file here"));
     m_texturl->setFixedSize(QSize(500, 154));
     // m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
@@ -209,12 +209,12 @@ void CreateTaskWidget::initUi()
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
 
     m_checkDoc = new DCheckBox(this);
-    m_checkDoc->setText(tr("doc"));
+    m_checkDoc->setText(tr("Documents"));
     m_checkDoc->setObjectName("checkDoc");
     connect(m_checkDoc, SIGNAL(clicked()), this, SLOT(onDocCheck()));
 
     m_checkZip = new DCheckBox(this);
-    m_checkZip->setText(tr("zip"));
+    m_checkZip->setText(tr("Archives"));
     m_checkZip->setObjectName("checkZip");
     connect(m_checkZip, SIGNAL(clicked()), this, SLOT(onZipCheck()));
 
@@ -579,7 +579,7 @@ void CreateTaskWidget::showNetErrorMsg()
 {
     MessageBox msg; //= new MessageBox();
     //QString title = tr("Network error, check your network and try later");
-    msg.setWarings(getNetErrTip(), tr("sure"), ""); //网络连接失败
+    msg.setWarings(getNetErrTip(), tr("OK"), ""); //网络连接失败
     msg.exec();
 }
 
