@@ -135,7 +135,6 @@ QString Func::getIniConfigValue(QString path, QString group, QString key)
              if(sLine.split('=')[0] == key){
                  return sLine.split('=')[1];
              }
-
          }
      }
 }
@@ -178,9 +177,7 @@ bool Func::setIniConfigValue(QString path, QString group, QString key, QString v
                 writeData.flush();
                 writerFile.close();
                 return true;
-
             }
-
         }
     }
     return false;
@@ -204,7 +201,6 @@ double Func::formatSpeed(QString str)
     } else if (number.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
     }
-
     return num;
 }
 
@@ -220,7 +216,6 @@ double Func::formatFileSize(QString str)
     } else if (str.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
     }
-
     return num;
 }
 
@@ -239,7 +234,6 @@ QString Func::removeDigital(QString input)
         }
         data++;
     }
-
     return value;
 }
 

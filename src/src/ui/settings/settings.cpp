@@ -49,6 +49,7 @@
 #include "settingslabel.h"
 #include "settingswidget.h"
 #include "func.h"
+#include "aria2rpcinterface.h"
 /**
  * @brief 判断字符串是否为纯数字
  * @param src 字符串
@@ -125,27 +126,43 @@ Settings::Settings(QObject *parent)
 
     QStringList values;
     QStringList keys;
-    keys << "3"
-         << "5"
-         << "10"
-         << "20";
+    keys << "3" << "5" << "10" << "20";
     values << tr("3") << tr("5") << tr("10") << tr("20");
 
     QMap<QString, QVariant> mapData;
     mapData.insert("keys", keys);
     mapData.insert("values", values);
-
     maxDownloadTaskOption->setData("items", mapData);
-
     if (maxDownloadTaskOption->value().toString().isEmpty()) {
         maxDownloadTaskOption->setValue("5");
     }
-
-    // 最大下载任务数
-    auto maxDownloadTaskNumber = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
-    connect(maxDownloadTaskNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+    connect(maxDownloadTaskOption, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
         if (!value.isNull()) {
             emit maxDownloadTaskNumberChanged(value.toInt());
+        }
+    });
+
+    // 初始化 原始地址线程数
+
+    auto DownloadSettingsOption = m_settings->option("DownloadSettings.downloadmanagement.addressthread");
+
+    QStringList values2;
+    QStringList keys2;
+    keys2 << "1" << "3" << "5" << "7" << "10";
+    values2 << tr("1") << tr("3") << tr("5") << tr("7") << tr("10");
+    QMap<QString, QVariant> mapData2;
+    mapData2.insert("keys", keys2);
+    mapData2.insert("values", values2);
+    DownloadSettingsOption->setData("items", mapData2);
+    if (DownloadSettingsOption->value().toString().isEmpty()) {
+        DownloadSettingsOption->setValue("5");
+    }
+    connect(DownloadSettingsOption, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            QMap<QString, QVariant> opt;
+            opt.insert("split", value.toString());
+            Aria2RPCInterface::instance()->changeGlobalOption(opt);
+            Aria2RPCInterface::instance()->modifyConfigFile("split", value.toString());
         }
     });
 
@@ -687,6 +704,27 @@ QWidget *Settings::createPriorityDownloadBySizeHandle(QObject *obj)
         }
     });
 
+    return pWidget;
+}
+
+QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+
+    QString size = "";
+    bool check = false;
+
+    if (option->value().toString().isEmpty()) {
+        size = "30";
+        check = false;
+    } else {
+        size = option->value().toString().mid(2);
+        check = option->value().toString().left(1).toInt();
+    }
+    SettingsControlWidget *pWidget = new SettingsControlWidget();
+    pWidget->initUI(tr("Limit max. number of concurrent download resources"), tr(""), true);
+    pWidget->setSize(size);
+    pWidget->setSwitch(check);
     return pWidget;
 }
 

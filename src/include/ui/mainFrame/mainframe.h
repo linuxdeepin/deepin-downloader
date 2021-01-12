@@ -508,12 +508,6 @@ private:
     void initDelDataItem(Global::DownloadDataItem *data, Global::DeleteDataItem *delData);
 
     /**
-     * @brief 修改aria2配置文件
-     * @param configItem 配置文件中的id
-     * @param value 配置文件中的value
-     */
-    void modifyConfigFile(QString configItem, QString value);
-    /**
      * @brief 处理设置界面通知设置函数
      */
     void btNotificaitonSettings(QString head, QString fileName, bool isBt = false);

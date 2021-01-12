@@ -474,9 +474,22 @@ TEST_F(ut_Settings, HttpAdvancedChangeSuffix)
     advance.onSureClicked();
     advance.onCancelClicked();
     EXPECT_TRUE(true);
-
 }
 
+
+TEST_F(ut_Settings, OpenDownloadMetaLinkPanelTrue)
+{
+    auto option = Settings::getInstance()->m_settings->option("Monitoring.MetaLinkRelation.OpenDownloadMetaLinkPanel");
+    option->setValue(false);
+    EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
+}
+
+TEST_F(ut_Settings, OpenDownloadMetaLinkPanelFalse)
+{
+    auto option = Settings::getInstance()->m_settings->option("Monitoring.MetaLinkRelation.OpenDownloadMetaLinkPanel");
+    option->setValue(true);
+    EXPECT_TRUE(Settings::getInstance()->getWebBrowserState());
+}
 
 
 

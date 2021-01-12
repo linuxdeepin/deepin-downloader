@@ -591,7 +591,7 @@ bool Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
         QTextStream stream(&writeFile);
         strList = strAll.split("\n");
         for (int i = 0; i < strList.count(); i++) {
-            if (strList.at(i).contains(configItem)) {
+            if (strList.at(i) == (configItem)) {
                 QString tempStr = strList.at(i);
                 tempStr.replace(0, tempStr.length(), value);
                 stream << tempStr << '\n';

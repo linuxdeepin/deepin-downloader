@@ -799,6 +799,8 @@ void MainFrame::onSettingsMenuClicked()
                                                    Settings::createAutoDownloadBySpeedHandle);
     SettingsDialog.widgetFactory()->registerWidget("prioritydownloadbysize",
                                                    Settings::createPriorityDownloadBySizeHandle);
+    SettingsDialog.widgetFactory()->registerWidget("limitmaxnumber",
+                                                   Settings::createLimitMaxNumberHandle);
     SettingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);
 
     Settings::getInstance()->setAutoStart(isAutoStart());
@@ -2517,7 +2519,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask)
     QMap<QString, QVariant> opt;
     QString value = QString("max-concurrent-downloads=%1").arg(maxDownloadTaskCount);
 
-    modifyConfigFile("max-concurrent-downloads=", value);
+    Aria2RPCInterface::instance()->modifyConfigFile("max-concurrent-downloads=", value);
     opt.insert("max-concurrent-downloads", QString().number(maxDownloadTaskCount));
     Aria2RPCInterface::instance()->changeGlobalOption(opt);
 
@@ -2567,46 +2569,7 @@ void MainFrame::onDisckCacheChanged(int nNum)
     opt.insert("disk-cache", cacheNum);
     Aria2RPCInterface::instance()->changeGlobalOption(opt);
     QString value = "disk-cache=" + cacheNum;
-    modifyConfigFile("disk-cache=", value);
-}
-
-void MainFrame::modifyConfigFile(QString configItem, QString value)
-{
-    QString strAll;
-    QStringList strList;
-
-    QString aria2configPath = QString("%1/%2/%3/aria2.conf")
-                                  .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                                  .arg(qApp->organizationName())
-                                  .arg(qApp->applicationName());
-
-    QFile readFile(aria2configPath);
-
-    if (readFile.open((QIODevice::ReadOnly | QIODevice::Text))) {
-        QTextStream stream(&readFile);
-        strAll = stream.readAll();
-    }
-    readFile.close();
-    QFile writeFile(aria2configPath);
-    if (writeFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream stream(&writeFile);
-        strList = strAll.split("\n");
-        for (int i = 0; i < strList.count(); i++) {
-            if (strList.at(i).contains(configItem)) {
-                QString tempStr = strList.at(i);
-                tempStr.replace(0, tempStr.length(), value);
-                stream << tempStr << '\n';
-            } else {
-                if (i == strList.count() - 1) {
-                    // 最后一行不需要换行
-                    stream << strList.at(i);
-                } else {
-                    stream << strList.at(i) << '\n';
-                }
-            }
-        }
-    }
-    writeFile.close();
+    Aria2RPCInterface::instance()->modifyConfigFile("disk-cache=", value);
 }
 
 bool MainFrame::checkIfInPeriod(QTime *currentTime, QTime *periodStartTime, QTime *periodEndTime)
@@ -2912,7 +2875,7 @@ void MainFrame::onDownloadFinish()
 
 void MainFrame::onSearchItemClicked(QListWidgetItem *item)
 {
-    SearchResoultWidget *pWidget = static_cast<SearchResoultWidget *>(sender());
+    SearchResoultWidget *pWidget = dynamic_cast<SearchResoultWidget *>(sender());
     QString taskId = item->data(Qt::WhatsThisRole).toString();
     QString tab = item->text().split("-->").first();
     if(tab.contains("Downloading")) {
@@ -2948,10 +2911,11 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
                 QModelIndex index = m_RecycleTableView->getTableModel()->index(position, 0);
                 m_RecycleTableView->setCurrentIndex(index);
                 m_RecycleTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
+                onCheckChanged(0,0);
             });
         }
     }
-
+    onCheckChanged(0,0);
     m_ToolBar->clearSearchText();
     pWidget->hide();
 }
@@ -3049,8 +3013,6 @@ void MainFrame::setAutoStart(bool ret)
     writeData.flush();
     writerFile.close();
 }
-
-
 
 bool MainFrame::deleteDirectory(const QString &path)
 {
