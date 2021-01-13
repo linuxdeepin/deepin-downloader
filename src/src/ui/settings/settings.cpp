@@ -127,7 +127,7 @@ Settings::Settings(QObject *parent)
     QStringList values;
     QStringList keys;
     keys << "3" << "5" << "10" << "20";
-    values << tr("3") << tr("5") << tr("10") << tr("20");
+    values << "3" << "5" << "10" << "20";
 
     QMap<QString, QVariant> mapData;
     mapData.insert("keys", keys);
@@ -149,7 +149,7 @@ Settings::Settings(QObject *parent)
     QStringList values2;
     QStringList keys2;
     keys2 << "1" << "3" << "5" << "7" << "10";
-    values2 << tr("1") << tr("3") << tr("5") << tr("7") << tr("10");
+    values2 << "1" << "3" << "5" << "7" << "10";
     QMap<QString, QVariant> mapData2;
     mapData2.insert("keys", keys2);
     mapData2.insert("values", values2);
@@ -162,7 +162,7 @@ Settings::Settings(QObject *parent)
             QMap<QString, QVariant> opt;
             opt.insert("split", value.toString());
             Aria2RPCInterface::instance()->changeGlobalOption(opt);
-            Aria2RPCInterface::instance()->modifyConfigFile("split", value.toString());
+            Aria2RPCInterface::instance()->modifyConfigFile("split=", "split=" + value.toString());
         }
     });
 
@@ -327,14 +327,15 @@ Settings::Settings(QObject *parent)
 
     // json文件国际化
     auto basicName = tr("Basic"); // 基本设置
-    auto startName = tr("Start up"); // 启动
+    auto startName = tr("Startup"); // 启动
     auto powerOnName = tr("Auto startup"); // 开机启动
     auto autoStartUnfinishedTaskName = tr("Resume downloading on startup"); // 启动后自动开始未完成的任务
     auto downloadDirectoryName = tr("Download Directory"); // 下载目录
     auto oneClickDownloadName = tr("1-Click Download"); // 一键下载
     auto createTasksDirectly = tr("Create tasks directly"); //一键创建新任务
-    auto closeMainWindowName = tr("Close window"); // 关闭主界面
-    auto minimizeToSystemTrayName = tr("Minimize to System Tray"); // 最小化到托盘
+    auto closeMainWindowName = tr("Close Main Window"); // 关闭主界面
+    auto minimizeToSystemTrayName = tr("Minimize to system tray"); // 最小化到托盘
+    auto askMeAlwaysName = tr("Ask me always"); // 总是询问
     auto exitName = tr("Exit"); // 退出下载器
     auto tasksName = tr("Tasks"); // 任务管理
     auto activeDownloadsName = tr("Max. concurrent downloads"); // 同时下载最大任务数
@@ -354,12 +355,12 @@ Settings::Settings(QObject *parent)
     auto openinMetaLinkgName = tr("Create new task when opening a metalink file"); // 启动时关联MetaLink种子文件
     auto notificationsName = tr("Notifications"); // 通知提醒
     auto succeedOrFailedName = tr("Notify me when downloading finished or failed"); // 下载完成/失败时，系统通知提醒
-    auto downloadingSucceedName = tr("Allow sounds when downloading succeed"); // 下载完成后，播放提示音
+    auto downloadingSucceedName = tr("Play a sound when downloading finished"); // 下载完成后，播放提示音
     auto advancedName = tr("Advanced"); // 高级设置
     auto shortcutsName = tr("Shortcuts"); // 快捷设置
     auto newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
     auto diskCacheName = tr("Cache"); // 下载磁盘缓存
-    auto AutoSortBySpeedName = tr("Move low speed tasks to the end"); // 低速的移动到末尾
+    auto AutoSortBySpeedName = tr("Move slow downloads to the end"); // 低速的移动到末尾
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
@@ -639,7 +640,7 @@ QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
         check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
-    pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
+    pWidget->initUI(tr("When total speed less than"), tr("KB/s, increase concurrent tasks"));
     pWidget->setSpeend(speed);
     pWidget->setSwitch(check);
 
@@ -680,7 +681,7 @@ QWidget *Settings::createPriorityDownloadBySizeHandle(QObject *obj)
         check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
-    pWidget->initUI(tr("Priority to download less than"), tr("MB Task"), false);
+    pWidget->initUI(tr("Download files less than"), tr("MB first"), false);
     pWidget->setSize(size);
     pWidget->setSwitch(check);
 

@@ -97,14 +97,14 @@ void DownloadSettingWidget::initUI()
 
     m_maxDownloadSpeedLimit->setTitleLabelText(tr("Max. download speed")); // 最大下载限速
     m_maxDownloadSpeedLimit->setUnitLabelText(tr("KB/s"));
-    m_maxDownloadSpeedLimit->setRangeLabelText(tr("(100-102400)"));
-    m_maxDownloadSpeedLimit->setLineEditText(tr("102400"));
+    m_maxDownloadSpeedLimit->setRangeLabelText("(100-102400)");
+    m_maxDownloadSpeedLimit->setLineEditText("102400");
     m_maxDownloadSpeedLimit->setValid(100, 102400);
 
     m_maxUploadSpeedLimit->setTitleLabelText(tr("Max. upload speed")); // 最大上传限速
     m_maxUploadSpeedLimit->setUnitLabelText(tr("KB/s"));
-    m_maxUploadSpeedLimit->setRangeLabelText(tr("(16-5120)"));
-    m_maxUploadSpeedLimit->setLineEditText(tr("32"));
+    m_maxUploadSpeedLimit->setRangeLabelText("(16-5120)");
+    m_maxUploadSpeedLimit->setLineEditText("32");
     m_maxUploadSpeedLimit->setValid(16, 5120);
 
     DLabel *leftLabel = new DLabel(tr("Limit period")); // 限速时段

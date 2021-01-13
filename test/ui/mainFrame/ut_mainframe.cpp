@@ -491,15 +491,6 @@ TEST_F(ut_MainFreme, showClearMsgbox)
     MainFrame::instance()->showClearMsgbox();
 }
 
-TEST_F(ut_MainFreme, showReloadMsgbox)
-{
-    typedef int (*fptr)(DSettingsDialog*);
-    fptr foo = (fptr)(&MessageBox::exec);
-    Stub stub;
-    stub.set(foo, MessageboxExec);
-    MainFrame::instance()->showReloadMsgbox();
-}
-
 TEST_F(ut_MainFreme, showDeleteMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog*);

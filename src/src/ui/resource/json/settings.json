@@ -4,7 +4,7 @@
             "name":"Basic",
             "groups":[{
                     "key":"Start",
-                    "name":"Start up",
+                    "name":"Startp",
                     "options":[{
                             "key":"PowerOn",
                             "name":"Auto startup",
@@ -47,13 +47,13 @@
                 },
                 {
                     "key":"CloseMainWindow",
-                    "name":"Close window",
+                    "name":"Close Main Window",
                     "options":[
                         {
                             "key": "closemainwindow",
                             "type": "radiogroup",
                             "items": [
-                              "Minimize to System Tray",
+                              "Minimize to system tray",
                               "Exit",
                               "Ask me always"
                             ],
@@ -95,7 +95,7 @@
                         },
                         {
                             "key":"AutoSortBySpeed",
-                            "name":"Move low speed tasks to the end",
+                            "name":"Move slow downloads to the end",
                             "type":"switchbutton",
                             "default":false
                         },

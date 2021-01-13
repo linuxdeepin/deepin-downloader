@@ -60,9 +60,13 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
     if (!cancelbtntext.isEmpty()) {
         QAbstractButton *btn1 = getButton(addButton(cancelbtntext));
         btn1->setObjectName("cancel");
+        QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
+        btn2->setObjectName("Confirm");
+    } else {
+        QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
+        btn2->setObjectName("OK");
     }
-    QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
-    btn2->setObjectName("sure");
+
     connect(this, &MessageBox::buttonClicked, this,
             [=]() {
                 close();
@@ -92,12 +96,12 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
     addContent(urlText);
 
     if(isShowRedownload){
-        QAbstractButton *btn1 = getButton(addButton(tr("sure")));
-        btn1->setObjectName("sure");
+        QAbstractButton *btn1 = getButton(addButton(tr("OK")));
+        btn1->setObjectName("OK");
     } else {
         QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
         btn1->setObjectName("cancel");
-        QAbstractButton *btn2 = getButton(addButton(tr("Redownload"), true, ButtonType::ButtonWarning));
+        QAbstractButton *btn2 = getButton(addButton(tr("Download Again"), true, ButtonType::ButtonWarning));
         btn2->setObjectName("redownload");
     }
 }
@@ -276,7 +280,7 @@ void MessageBox::onRenameSureBtnClicked()
     QString newname = m_NewnameLineedit->text();
     if (newname.contains("\\") || newname.contains("/")) {
         MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("file name can not contains '\\' or '/' "), tr("sure"));
+        msg->setWarings(tr("The file name cannot contain '\' or '/' "), tr("sure"));
         msg->exec();
         return;
     }
@@ -332,9 +336,9 @@ void MessageBox::setFolderDenied()
 
     setTitle(tr("Permission denied"));
 
-    addLabel(tr("Please try another folder."));
+    addLabel(tr("Please try another folder"));
     addSpacing(10);
-    addButton(tr("sure"));
+    addButton(tr("OK"));
     connect(this, &MessageBox::buttonClicked, this,
             [=]() {
                 close();

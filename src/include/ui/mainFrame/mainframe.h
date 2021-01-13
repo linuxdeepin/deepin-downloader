@@ -468,11 +468,6 @@ private:
     void showDeleteMsgbox(bool permanently);
 
     /**
-     * @brief showReloadMsgbox 显示重新下载窗口
-     */
-    void showReloadMsgbox();
-
-    /**
      * @brief 显示重新下载窗口
      */
     bool showRedownloadMsgbox(const QString sameUrl, bool ret = false, bool isShowRedownload = false);
