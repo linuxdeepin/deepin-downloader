@@ -37,7 +37,7 @@ const QString ACTIVE = QObject::tr("Downloading");
 const QString WAITING = QObject::tr("Waiting");
 const QString PAUSED = QObject::tr("Paused");
 const QString ERROR = QObject::tr("Error");
-const QString COMPLETE = QObject::tr("Complete");
+const QString COMPLETE = QObject::tr("Completed");
 const QString REMOVED = QObject::tr("Removed");
 const QString UNKNOWN = QObject::tr("Unknown");
 

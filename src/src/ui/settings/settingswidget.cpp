@@ -63,7 +63,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
             if (Settings::getInstance()->getDownloadSettingSelected()
                 && text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()
                 && text.toInt() <= 0) {
-                alertControl->showAlertMessage(tr("Total speed neet less than Max download speed!"),
+                alertControl->showAlertMessage(tr("Total speed should be less than max. download speed"),
                                                m_Edit->parentWidget()->parentWidget(), -1);
                 alertControl->setMessageAlignment(Qt::AlignLeft);
             } else {

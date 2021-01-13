@@ -419,7 +419,7 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
             d = (totalLength - completedLength * 1.0) / downloadSpeed;
         }
         if (d > 60 * 60 * 24) {
-            data->time = tr(" > 1 Day");
+            data->time = tr(" > 1 day");
         } else {
             t = t.addSecs(static_cast<int>(d));
             data->time = t.toString("hh:mm:ss");
