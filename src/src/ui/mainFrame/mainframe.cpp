@@ -1869,6 +1869,9 @@ void MainFrame::onDownloadFirstBtnClicked()
             lowSpeedItem = item;
         }
     }
+    if(m_CheckItem->status == Global::DownloadJobStatus::Paused) {
+        Aria2RPCInterface::instance()->unpause(m_CheckItem->gid, m_CheckItem->taskId);
+    }
     Aria2RPCInterface::instance()->changePosition(m_CheckItem->gid, 0);
     if(lowSpeedItem == nullptr) {
         return;
