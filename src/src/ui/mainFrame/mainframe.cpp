@@ -136,7 +136,7 @@ void MainFrame::init()
     m_ShutdownAct->setCheckable(true);
     m_SleepAct = new QAction(tr("Hibernate"), this);
     m_SleepAct->setCheckable(true);
-    m_QuitProcessAct = new QAction(tr("Exit Downloader"), this);
+    m_QuitProcessAct = new QAction(tr("Exit"), this);
     m_QuitProcessAct->setCheckable(true);
 
     pFinishMenu->addAction(m_ShutdownAct);
@@ -203,7 +203,7 @@ void MainFrame::init()
 
     m_NoResultlabel = new Dtk::Widget::DLabel();
     m_NoResultlabel->setFont(lableFont);
-    m_NoResultlabel->setText(tr("No search result"));
+    m_NoResultlabel->setText(tr("No search results"));
     m_NoResultlabel->setWindowOpacity(0.2);
     m_NoResultlabel->setAlignment(Qt::AlignHCenter);
     m_NoResultlabel->setForegroundRole(DPalette::TextTitle);
@@ -231,7 +231,7 @@ void MainFrame::init()
     //m_pTaskNumWidget->setPalette(pa);
     QHBoxLayout *TaskNumWidgetlayout = new QHBoxLayout(m_TaskNumWidget);
     TaskNumWidgetlayout->setMargin(0);
-    m_TaskNum = new QLabel(tr("0 task"));
+    m_TaskNum = new QLabel(tr("0 tasks"));
     m_TaskNum->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_TaskNum->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
     TaskNumWidgetlayout->addWidget(m_TaskNum);
@@ -300,8 +300,8 @@ void MainFrame::initTray()
 
     QAction *pShowMainAct = new QAction(tr("Show main window"), this);
     QAction *pNewDownloadAct = new QAction(tr("New task"), this);
-    QAction *pStartAllAct = new QAction(tr("Continue all tasks"), this);
-    QAction *pPauseAllAct = new QAction(tr("Pause all tasks"), this);
+    QAction *pStartAllAct = new QAction(tr("Resume all"), this);
+    QAction *pPauseAllAct = new QAction(tr("Pause all"), this);
     QMenu *pFinishMenu = new QMenu(tr("When completed"), this);
     pFinishMenu->addAction(m_ShutdownAct);
     pFinishMenu->addAction(m_SleepAct);
@@ -557,7 +557,7 @@ void MainFrame::onTrayQuitClick(bool force)
         }
         if (msgBoxFlg) {
             QString title = tr("Are you sure you want to exit? \nDownloading tasks will be interrupted.");
-            msgBox.setWarings(title, tr("sure"), tr("cancel"));
+            msgBox.setWarings(title, tr("Exit"), tr("Cancel"));
             msgBoxFlg = false;
         }
         int rs = msgBox.exec();
@@ -671,7 +671,7 @@ void MainFrame::setTaskNum()
             }
             i++;
         }
-        activeNum = QString::number(activeCount) + tr(" item tasks");
+        activeNum = QString::number(activeCount) + tr(" tasks");
         if (activeCount == 0) {
             m_NotaskWidget->show();
         } else {
@@ -849,7 +849,7 @@ void MainFrame::OpenFile(QString url)
             ret =onDownloadNewTorrent(url, opt, infoName, infoHash);
         }
         if (ret) {
-            btNotificaitonSettings(tr("Download"), QString(tr("%1 downloading...")).arg(infoName), true);
+            btNotificaitonSettings(tr("Downloading"), QString(tr("Downloading %1...")).arg(infoName), true);
         }
         return;
     }
@@ -876,7 +876,7 @@ void MainFrame::OpenFile(QString url)
             ret =onDownloadNewTorrent(url, opt, infoName, infoHash);
         }
         if (ret) {
-            btNotificaitonSettings(tr("Download"), QString(tr("%1 downloading...")).arg(infoName), true);
+            btNotificaitonSettings(tr("Downloading"), QString(tr("Downloading %1...")).arg(infoName), true);
         }
     }
     //clearSharedMemory();
@@ -1354,7 +1354,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
         if ((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction();
-            pActionredownload->setText(tr("Download Again"));
+            pActionredownload->setText(tr("Download again"));
             delmenlist->addAction(pActionredownload);
             connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
         }
@@ -1369,7 +1369,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     }
     if ((m_CurrentTab == recycleTab || m_CurrentTab == finishTab) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction();
-        pActionredownload->setText(tr("Download Again"));
+        pActionredownload->setText(tr("Download again"));
         delmenlist->addAction(pActionredownload);
         connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
         if ((m_CurrentTab == finishTab && QFileInfo(pDownloadItem->savePath).exists()) || (m_CurrentTab == recycleTab && QFileInfo(pDeleteItem->savePath).exists())) {
@@ -1433,7 +1433,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::onDeleteActionTriggered);
 
     QAction *pactionDeletePermanently = new QAction();
-    pactionDeletePermanently->setText(tr("Permanently Delete"));
+    pactionDeletePermanently->setText(tr("Permanently delete"));
     delmenlist->addAction(pactionDeletePermanently);
     connect(pactionDeletePermanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
 
@@ -1465,7 +1465,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
 
     if (m_CurrentTab == recycleTab) {
         QAction *pActionClearRecycle = new QAction();
-        pActionClearRecycle->setText(tr("Delete All"));
+        pActionClearRecycle->setText(tr("Delete all"));
         delmenlist->addAction(pActionClearRecycle);
         connect(pActionClearRecycle, &QAction::triggered, this, &MainFrame::onClearRecyleActionTriggered);
     }
@@ -1624,7 +1624,7 @@ void MainFrame::onRemoveFinished()
 void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList)
 {
     MessageBox msg;
-    msg.setWarings(title, tr("sure"), "", sameUrlCount, sameUrlList);
+    msg.setWarings(title, tr("OK"), "", sameUrlCount, sameUrlList);
     msg.exec();
 }
 
@@ -1667,35 +1667,6 @@ void MainFrame::onClearRecycle(bool ischecked)
     m_RecycleTableView->getTableModel()->removeRecycleItems();
     if (m_RecycleTableView->getTableModel()->recyleList().isEmpty()) {
         emit isHeaderChecked(false);
-    }
-}
-
-void MainFrame::showReloadMsgbox()
-{
-    MessageBox msg;
-    QString title = tr("Do you continue?");
-
-    msg.setWarings(title, tr("sure"), tr("cancel"));
-    int rs = msg.exec();
-    if (rs == DDialog::Accepted) {
-        // ToolBar禁用按钮联动：确认后禁用按钮
-        m_ToolBar->enableStartBtn(false);
-        m_ToolBar->enablePauseBtn(false);
-        m_ToolBar->enableDeleteBtn(false);
-
-        // 重新下载：通知aria2移除下载项
-
-        if ((m_CurrentTab == downloadingTab) || (m_CurrentTab == finishTab)) {
-            for (int i = 0; i < m_ReloadList.size(); i++) {
-                DownloadDataItem *data = m_ReloadList.at(i);
-                Aria2RPCInterface::instance()->forceRemove(data->gid, "REDOWNLOAD_" + QString::number(m_CurrentTab) + "_" + data->taskId);
-            }
-        } else {
-            for (int i = 0; i < m_RecycleReloadList.size(); i++) {
-                DeleteDataItem *data = m_RecycleReloadList.at(i);
-                Aria2RPCInterface::instance()->forceRemove(data->gid, "REDOWNLOAD_" + QString::number(m_CurrentTab) + "_" + data->taskId);
-            }
-        }
     }
 }
 
@@ -1990,7 +1961,7 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
                 return;
             }
             if (isMsg) {
-                msg.setWarings(tr("Unable to parse the URL, please check"), tr("Ok"));
+                msg.setWarings(tr("Unable to parse the URL, please check"), tr("OK"));
                 isMsg = false;
             }
             msg.exec();
@@ -2097,11 +2068,7 @@ void MainFrame::onDeleteActionTriggered()
     } else {
         selectedCount = m_DownLoadingTableView->getTableControl()->onDelAction(m_CurrentTab);
     }
-    if (selectedCount == 0) {
-        showWarningMsgbox(tr("no item is selected,please check items!"));
-    } else {
-        showDeleteMsgbox(false);
-    }
+    showDeleteMsgbox(false);
 }
 
 void MainFrame::onRedownloadActionTriggered()
@@ -2391,9 +2358,8 @@ void MainFrame::onCopyUrlActionTriggered()
     clipboard->setText(url);
     //m_TaskNum->setText(tr("Copied to clipboard"));
 
-    QString showHead(tr("Downloader"));
     QString showInfo(tr("Copied to clipboard"));
-    btNotificaitonSettings(showHead, showInfo);
+    btNotificaitonSettings("", showInfo);
 }
 
 void MainFrame::onDeletePermanentActionTriggered()
@@ -2741,8 +2707,8 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
             QString selectNum = getUrlInfo.selectedNum;
             opt.insert("select-file", selectNum);
             if (!QFile(getUrlInfo.filePath).exists()) {
-                showWarningMsgbox(tr("seed file not exists or broken;"));
-                qDebug() << "seed file not exists or broken;";
+                showWarningMsgbox(tr("Torrent file not exist or broken"));
+                qDebug() << "Torrent file not exist or broken";
             } else {
                 Aria2RPCInterface::instance()->addTorrent(getUrlInfo.filePath,
                                                           opt,

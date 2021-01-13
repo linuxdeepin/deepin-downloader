@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
     a.setApplicationVersion(DLM_VERSION_STRING); //设置应用程序版本
     a.setProductIcon(QIcon(":/icons/icon/downloader.svg")); //从系统主题中获取图标并设置成产品图标
     a.setProductName(QObject::tr("Downloader")); //设置产品的名称
-    a.setApplicationDescription(QObject::tr("This is a download manage application.")); //设置产品的描述信息
-    a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application")); //设置应用程序的显示信息
+    a.setApplicationDescription(QObject::tr("Downloader is a user-friendly download tool, supporting URLs and torrent files")); //设置产品的描述信息
+    //a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application")); //设置应用程序的显示信息
 
     //处理命令行类
     QCommandLineParser parser;

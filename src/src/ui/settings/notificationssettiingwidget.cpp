@@ -40,7 +40,7 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     lableFont.setPixelSize(14);
     //lableFont.setBold(QFont::DemiBold);
     lableFont.setFamily("T5");
-    DLabel *pTextLabel = new DLabel(tr("Allow notifications when downloading succeed or failed"), this);
+    DLabel *pTextLabel = new DLabel(tr("Notify me when downloading finished or failed"), this);
     pTextLabel->setFont(lableFont);
     QFont tipFont;
     tipFont.setPixelSize(12);
@@ -55,7 +55,7 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     QFont btnFont;
     btnFont.setPixelSize(14);
     btnFont.setFamily("T6");
-    QPushButton *btn = new QPushButton(tr("Go to set"), this);
+    QPushButton *btn = new QPushButton(tr("Settings"), this);
     btn->setFont(btnFont);
     btn->setMaximumWidth(150);
     QVBoxLayout *pVLayout = new QVBoxLayout();
