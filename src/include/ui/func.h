@@ -94,11 +94,20 @@ public:
     static double formatFileSize(QString str);
 
     /**
+     * @brief 将字符串中的中文转成拼音
+     * @param input 输入的字符串
+     */
+    static QString chineseToPinyin(QString input);
+
+
+
+private:
+
+    /**
      * @brief 删除拼音中的数字
      * @param input 带数字的拼音
      */
     static QString removeDigital(QString input);
-private:
 };
 
 #endif // FUNC_H

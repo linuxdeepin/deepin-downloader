@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QCryptographicHash>
+#include <dpinyin.h>
 
 bool Func::isNetConnect()
 {
@@ -219,11 +220,27 @@ double Func::formatFileSize(QString str)
     return num;
 }
 
+QString Func::chineseToPinyin(QString input)
+{
+    if ("" == input) {
+        return "";
+    }
+    QString value = input;
+    for(int i = input.size() - 1; i >= 0; i--) {
+        QString ch = input.at(i);
+        if(ch.contains(QRegExp("[\\x4e00-\\x9fa5]+"))){
+            QString pinyin = removeDigital(DTK_NAMESPACE::Core::Chinese2Pinyin(ch));
+            value.replace(ch, pinyin);
+        }
+    }
+    return value;
+}
+
 QString Func::removeDigital(QString input)
 {
-    if ("" == input)
+    if ("" == input) {
         return "";
-
+    }
     QString value = "";
     QByteArray ba = input.toLocal8Bit();
     char *data = nullptr;

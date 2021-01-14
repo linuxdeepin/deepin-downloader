@@ -765,7 +765,7 @@ bool TableDataControl::searchEditTextChanged(QString text, QList<QString> &taskI
     TableModel *pModel = m_DownloadTableView->getTableModel();
     for (const DownloadDataItem *pItem : pModel->dataList()) {
         QString fileName = pItem->fileName;
-        QString namePinyin = Func::removeDigital(Chinese2Pinyin(fileName));
+        QString namePinyin = Func::chineseToPinyin(fileName);
         if ((fileName.contains(text, Qt::CaseInsensitive)) || namePinyin.contains(text, Qt::CaseInsensitive)) {
            taskIDList.append(pItem->taskId);
            taskStatusList.append(pItem->status);
@@ -774,7 +774,7 @@ bool TableDataControl::searchEditTextChanged(QString text, QList<QString> &taskI
     }
     for (const DeleteDataItem *pItem : pModel->recyleList()) {
         QString fileName = pItem->fileName;
-        QString namePinyin = Func::removeDigital(Chinese2Pinyin(fileName));
+        QString namePinyin = Func::chineseToPinyin(fileName);
         if ((fileName.contains(text, Qt::CaseInsensitive)) || namePinyin.contains(text, Qt::CaseInsensitive)) {
            taskIDList.append(pItem->taskId);
            taskStatusList.append(pItem->status);
