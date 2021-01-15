@@ -46,17 +46,17 @@ TEST_F(ut_func, pathToMD5)
     EXPECT_TRUE(true);
 }
 
-TEST_F(ut_func, getIniConfigValue)
-{
-    Func::getIniConfigValue("xxx", "yyy", "zzz");
-    EXPECT_TRUE(true);
-}
+//TEST_F(ut_func, getIniConfigValue)
+//{
+//    Func::getIniConfigValue("xxx", "yyy", "zzz");
+//    EXPECT_TRUE(true);
+//}
 
-TEST_F(ut_func, setIniConfigValue)
-{
-    Func::setIniConfigValue("xxx", "yyy", "zzz", "www");
-    EXPECT_TRUE(true);
-}
+//TEST_F(ut_func, setIniConfigValue)
+//{
+//    Func::setIniConfigValue("xxx", "yyy", "zzz", "www");
+//    EXPECT_TRUE(true);
+//}
 
 TEST_F(ut_func, formatSpeed)
 {
@@ -96,4 +96,14 @@ TEST_F(ut_func, removeDigital)
 TEST_F(ut_func, removeDigital2)
 {
     EXPECT_EQ("abc", Func::removeDigital("a1b2c3"));
+}
+
+TEST_F(ut_func, chineseToPinyin)
+{
+    EXPECT_EQ("ce1.2.3shi", Func::chineseToPinyin("测1.2.3试"));
+}
+
+TEST_F(ut_func, chineseToPinyin2)
+{
+    EXPECT_EQ("a1b2c3", Func::chineseToPinyin("a1b2c3"));
 }

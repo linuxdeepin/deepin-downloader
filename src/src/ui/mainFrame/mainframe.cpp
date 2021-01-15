@@ -593,6 +593,7 @@ void MainFrame::initAria2()
             SLOT(onRpcError(QString, QString, int, QJsonObject)));
     onDownloadLimitChanged();
     onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
+    Func::setfdLimit(200);
     qDebug() << "MainFrame initAria2 Finished";
 }
 

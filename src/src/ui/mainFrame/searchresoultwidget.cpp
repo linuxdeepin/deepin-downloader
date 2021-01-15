@@ -36,9 +36,11 @@ SearchResoultWidget::SearchResoultWidget(QWidget *parent)
     : QListWidget(parent)
 {
     setMinimumWidth(380);
-    setFixedHeight(200);
+    setFixedHeight(230);
     DPlatformWindowHandle handle(this);
     handle.setWindowRadius(18);
+    setIconSize(QSize(16, 16));
+    setSpacing(2);
 }
 
 void SearchResoultWidget::setData(QList<QString> &taskIDList,

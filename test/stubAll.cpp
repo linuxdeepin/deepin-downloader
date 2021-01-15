@@ -14,6 +14,10 @@ int DiagnostictoolExec(void* obj)
 {
     return 0;
 }
+int createtaskwidgetExec()
+{
+    return 0;
+}
 
 int MessageboxExec()
 {

@@ -27,6 +27,7 @@
 #include "messagebox.h"
 #include "clipboardtimer.h"
 #include "websockethandle.h"
+#include "searchresoultwidget.h"
 
 class ut_MainFreme : public ::testing::Test
     , public QObject
@@ -78,11 +79,32 @@ TEST_F(ut_MainFreme, addHttpTask)
     EXPECT_TRUE(true);
 }
 
+TEST_F(ut_MainFreme, createNewTask)
+{
+    typedef int (*fptr)(CreateTaskWidget*);
+    fptr foo = (fptr)(&CreateTaskWidget::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
+    MainFrame::instance()->createNewTask("http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz");
+    QTest::qWait(500);
+    EXPECT_TRUE(true);
+}
+
 TEST_F(ut_MainFreme, addBtTask)
 {
     QMap<QString, QVariant> opt;
     MainFrame::instance()->onDownloadNewTorrent("/home/sanhei/Documents/123@.torrent",
                             opt, "123@.torrent", "tar.gz");
+    QTest::qWait(500);
+    EXPECT_TRUE(true);
+    //QTest::qWait(5000);
+}
+
+TEST_F(ut_MainFreme, addMetalinkTask)
+{
+    QMap<QString, QVariant> opt;
+    MainFrame::instance()->onDownloadNewMetalink("/home/sanhei/Documents/123@.metalink",
+                            opt, "123@.metalink");
     QTest::qWait(500);
     EXPECT_TRUE(true);
     //QTest::qWait(5000);
@@ -135,6 +157,17 @@ TEST_F(ut_MainFreme, deleteTask)
     MainFrame::instance()->onDeleteConfirm(false, false);
     TableView *table2 = MainFrame::instance()->findChild<TableView *>("recycleTableView");
     TableModel *model2 = static_cast<TableModel *>(table2->model());
+    EXPECT_TRUE(true);
+}
+
+TEST_F(ut_MainFreme, searchEditTextChanged)
+{
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    QString text;
+    QList<QString> taskIDList;
+    QList<int> taskStatusList;
+    QList<QString> tasknameList;
+    table->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
     EXPECT_TRUE(true);
 
 }
@@ -336,12 +369,30 @@ TEST_F(ut_MainFreme, onOpenFolderActionTriggered)
     }
 }
 
+TEST_F(ut_MainFreme, checkIfInPeriod)
+{
+    QTime currentTime = QTime::currentTime();
+    QTime periodStartTime;
+    QTime periodEndTime;
+    periodStartTime.setHMS(0,0,0);
+    periodEndTime.setHMS(24, 59,59);
+    MainFrame::instance()->checkIfInPeriod(&currentTime, &periodStartTime, &periodEndTime);
+}
+
 TEST_F(ut_MainFreme, onRedownloadConfirmSlot)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(0,0));
-    MainFrame::instance()->onRedownloadConfirmSlot("https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4",
-                                                   "5f06cfe424c38_10s_big", "mp4");
+    MainFrame::instance()->onRedownloadConfirmSlot("http://download.qt.io/archive/qt/4.1/qt-mac-opensource-src-4.1.1.tar.gz",
+                                                   "qt-mac-opensource-src-4.1.1", "tar.gz");
+}
+
+TEST_F(ut_MainFreme, removeDownloadListJob)
+{
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    Global::DownloadDataItem *data = model->renderList().at(0);
+    table->getTableControl()->removeDownloadListJob(data, true, true);
 }
 
 TEST_F(ut_MainFreme, initDataItem)
@@ -372,6 +423,12 @@ TEST_F(ut_MainFreme, onParseUrlList)
 {
     Stub stub;
     stub.set(ADDR(MainFrame, onDownloadNewUrl), MainframeOndownloadnewurl);
+
+    typedef int (*fptr)(DSettingsDialog*);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub2;
+    stub2.set(foo, MessageboxExec);
+
     QVector<LinkInfo> urlList;
     urlList << LinkInfo();
     QString path = Settings::getInstance()->getDownloadSavePath();
@@ -381,6 +438,11 @@ TEST_F(ut_MainFreme, onParseUrlList)
 TEST_F(ut_MainFreme, setAutoStart_true)
 {
     MainFrame::instance()->setAutoStart(true);
+}
+
+TEST_F(ut_MainFreme, onDownloadFinish)
+{
+    MainFrame::instance()->onDownloadFinish();
 }
 
 TEST_F(ut_MainFreme, setAutoStart_false)
@@ -393,13 +455,7 @@ TEST_F(ut_MainFreme, initDbus)
     MainFrame::instance()->initDbus();
 }
 
-TEST_F(ut_MainFreme, removeDownloadListJob)
-{
-    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-    TableModel *model = static_cast<TableModel *>(table->model());
-    Global::DownloadDataItem *data = model->renderList().at(0);
-    table->getTableControl()->removeDownloadListJob(data, true, true);
-}
+
 
 TEST_F(ut_MainFreme, aria2MethodUnpauseAll)
 {
@@ -467,6 +523,16 @@ TEST_F(ut_MainFreme, showDiagnosticTool)
     stub.set(foo, DiagnostictoolExec);
     MainFrame::instance()->showDiagnosticTool();
 }
+
+//TEST_F(ut_MainFreme, onDownloadFirstBtnClicked)
+//{
+//    typedef int (*fptr)(DSettingsDialog*);
+//    fptr foo = (fptr)(&MessageBox::exec);
+//    Stub stub;
+//    stub.set(foo, MessageboxExec);
+
+//    MainFrame::instance()->onDownloadFirstBtnClicked();
+//}
 
 TEST_F(ut_MainFreme, onRemoveFinished)
 {
@@ -574,11 +640,6 @@ TEST_F(ut_MainFreme, tableView5)
 
 TEST_F(ut_MainFreme, Websockethandle)
 {
-    QList<QSslCertificate> cert = QSslCertificate::fromPath(QLatin1String("server-certificate.pem"));
-    QSslError error(QSslError::SelfSignedCertificate, cert.at(0));
-    QList<QSslError> expectedSslErrors;
-    expectedSslErrors.append(error);
-
     QWebSocket socket;
     //socket.ignoreSslErrors(expectedSslErrors);
     socket.open(QUrl("ws://127.0.0.1:12345"));
@@ -594,3 +655,22 @@ TEST_F(ut_MainFreme, Websocketconnect)
     handle->receiveText("text");
     EXPECT_NE(handle, nullptr);
 }
+
+TEST_F(ut_MainFreme, SearchResoultWidget)
+{
+    SearchResoultWidget *widget = new SearchResoultWidget;
+    EXPECT_TRUE(true);
+    delete widget;
+}
+
+TEST_F(ut_MainFreme, SearchResoultWidgetsetData)
+{
+    SearchResoultWidget *widget = new SearchResoultWidget;
+    QList<QString> taskIDList;
+    QList<int> taskStatusList;
+    QList<QString> tasknameList;
+    widget->setData(taskIDList, taskStatusList, tasknameList);
+    EXPECT_TRUE(true);
+    delete widget;
+}
+

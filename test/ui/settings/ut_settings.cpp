@@ -476,11 +476,11 @@ TEST_F(ut_Settings, HttpAdvancedChangeSuffix)
     EXPECT_TRUE(true);
 }
 
-
 TEST_F(ut_Settings, OpenDownloadMetaLinkPanelTrue)
 {
     auto option = Settings::getInstance()->m_settings->option("Monitoring.MetaLinkRelation.OpenDownloadMetaLinkPanel");
     option->setValue(false);
+    QTest::qWait(100);
     EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
 }
 
@@ -488,15 +488,6 @@ TEST_F(ut_Settings, OpenDownloadMetaLinkPanelFalse)
 {
     auto option = Settings::getInstance()->m_settings->option("Monitoring.MetaLinkRelation.OpenDownloadMetaLinkPanel");
     option->setValue(true);
-    EXPECT_TRUE(Settings::getInstance()->getWebBrowserState());
+    QTest::qWait(100);
+    EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
 }
-
-
-
-
-
-
-
-
-
-

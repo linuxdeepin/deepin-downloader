@@ -6,6 +6,7 @@
 #include <QStandardPaths>
 #include <QCryptographicHash>
 #include <dpinyin.h>
+#include <sys/resource.h>
 
 bool Func::isNetConnect()
 {
@@ -187,7 +188,9 @@ bool Func::setIniConfigValue(QString path, QString group, QString key, QString v
 double Func::formatSpeed(QString str)
 {
     QString number = str;
-    if (str.contains("KB/s")) {
+    if (str.contains("GB/s")) {
+        str.remove("GB/s");
+    }if (str.contains("KB/s")) {
         str.remove("KB/s");
     } else if (str.contains("MB/s")) {
         str.remove("MB/s");
@@ -254,6 +257,16 @@ QString Func::removeDigital(QString input)
     return value;
 }
 
+bool Func::setfdLimit(unsigned long maxLen)
+{
+    struct rlimit rt;
+    rt.rlim_max = rt.rlim_cur = maxLen + 3;
+    if (setrlimit(RLIMIT_NOFILE, &rt) == -1) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 
 

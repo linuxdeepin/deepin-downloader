@@ -19,6 +19,8 @@ int DiagnostictoolExec(void* obj);
 
 int MessageboxExec();
 
+int createtaskwidgetExec();
+
 void QsystemtrayiconShow();
 
 void MainframeOndownloadnewurl(QString url, QString savePath, QString fileName, QString type);
