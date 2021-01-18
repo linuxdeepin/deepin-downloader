@@ -49,6 +49,8 @@ struct DownloadDataItem {
     int status = 0;
     int percent = 0;
     int total = 0;
+    int connection = 0;
+    int announceList = 0;
 
     bool Ischecked;
     bool IsHide = false;

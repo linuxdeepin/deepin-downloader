@@ -90,7 +90,7 @@ void TableView::initUI()
     m_HeaderView->setStretchLastSection(true);
     m_HeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     setColumnWidth(0, 20);
-    setColumnWidth(1, 320);
+    setColumnWidth(1, 248);
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     setColumnWidth(2, 110);
     setColumnWidth(3, QHeaderView::Interactive);

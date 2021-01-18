@@ -210,11 +210,8 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 {
     QJsonObject result = json.value("result").toObject();
     QJsonObject bittorrent = result.value("bittorrent").toObject();
-    QString mode;
     QString filePath;
-    QString bitTorrentName;
     QString taskId = json.value("id").toString();
-    QString bitTorrentDir = "";
     QJsonArray files = result.value("files").toArray();
     if (files.size() == 1) {
         filePath = files[0].toObject().value("path").toString();
@@ -254,6 +251,8 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
     if (data == nullptr) {
         return false;
     }
+    data->connection = result.value("connections").toString().toLong();
+    data->announceList = bittorrent.value("announceList").toArray().size();
     if (statusStr == "active") {
         status = Global::DownloadJobStatus::Active;
         if (data->strartDownloadTime.isEmpty()) {
@@ -389,11 +388,6 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         //                }
         data->status = status;
     } else {
-        // data->fileName = (bittorrent_name.isEmpty()) ? Global::UNKNOWN :
-        // bittorrent_name;
-        if (mode == "multi") {
-            filePath = bitTorrentDir + "/" + bitTorrentName;
-        }
         if ((totalLength != 0) && (totalLength == completedLength)) {
             data->status = DownloadJobStatus::Complete;
             dealNotificaitonSettings("complete", filePath, errorCode);

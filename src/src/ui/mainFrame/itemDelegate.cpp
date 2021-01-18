@@ -241,9 +241,14 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                     speed = "0KB/s";
                 }
                 QString str = " " + index.data(TableModel::Percent).toString()
-                              + "%    " + speed
-                              + "   " + tr("Time left ")
-                              + index.data(TableModel::Time).toString();
+                        + "%    " + speed;
+                if(index.data(TableModel::announceList).toInt()){
+                    str += "  Resources: " + QString("%1/%2")
+                            .arg(index.data(TableModel::connection).toInt())
+                            .arg(index.data(TableModel::announceList).toInt());
+                }
+                str +="   " + tr("Time left ")+ index.data(TableModel::Time).toString();
+
                 const QString sizeText = painter->fontMetrics().elidedText(str,
                                                                            Qt::ElideRight,
                                                                            textRect.width() - 10);

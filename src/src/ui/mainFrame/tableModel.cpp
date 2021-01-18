@@ -387,6 +387,18 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             return deldata->IsHide;
         }
     }
+    case TableModel::connection: {
+        if (m_TableviewtabFlag == 0) {
+            return data->connection;
+        }
+        break;
+    }
+    case TableModel::announceList: {
+        if (m_TableviewtabFlag == 0) {
+            return data->announceList;
+        }
+        break;
+    }
     }
     return QVariant();
 }

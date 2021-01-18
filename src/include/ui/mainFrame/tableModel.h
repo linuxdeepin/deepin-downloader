@@ -66,7 +66,9 @@ public:
         SavePath,
         taskId,
         createTime,
-        IsHide
+        IsHide,
+        connection,
+        announceList
     };
 
     /**
