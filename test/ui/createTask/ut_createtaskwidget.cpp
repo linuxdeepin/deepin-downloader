@@ -85,40 +85,40 @@ TEST_F(ut_CreateTaskWidget, init)
     EXPECT_TRUE(true);
 }
 
-TEST_F(ut_CreateTaskWidget, BtInfoDialog)
-{
-    Stub stub;
-    stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
-    BtInfoDialog btDiag(" ", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
-    btDiag.onAllCheck();
-    btDiag.onVideoCheck();
-    btDiag.onAudioCheck();
-    btDiag.onPictureCheck();
-    btDiag.onOtherCheck();
-    btDiag.getSelected();
-    btDiag.getSaveto();
-    btDiag.getName();
-    btDiag.updateSelectedInfo();
+//TEST_F(ut_CreateTaskWidget, BtInfoDialog)
+//{
+//    Stub stub;
+//    stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
+//    BtInfoDialog btDiag(" ", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
+//    btDiag.onAllCheck();
+//    btDiag.onVideoCheck();
+//    btDiag.onAudioCheck();
+//    btDiag.onPictureCheck();
+//    btDiag.onOtherCheck();
+//    btDiag.getSelected();
+//    btDiag.getSaveto();
+//    btDiag.getName();
+//    btDiag.updateSelectedInfo();
 
-//    DCheckBox *video = btDiag.findChild<DCheckBox *>("checkVideo");
-//    DCheckBox *picture = btDiag.findChild<DCheckBox *>("checkPicture");
-//    DCheckBox *audio = btDiag.findChild<DCheckBox *>("checkAudio");
-//    DCheckBox *other = btDiag.findChild<DCheckBox *>("checkOther");
-//    DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
-//    DPushButton *checkAll = btDiag.findChild<DPushButton *>("checkAll");
-//    QTest::mouseClick(checkAll, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(video, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(picture, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(audio, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(other, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(checkAll, Qt::LeftButton);
-    EXPECT_TRUE(true);
-}
+////    DCheckBox *video = btDiag.findChild<DCheckBox *>("checkVideo");
+////    DCheckBox *picture = btDiag.findChild<DCheckBox *>("checkPicture");
+////    DCheckBox *audio = btDiag.findChild<DCheckBox *>("checkAudio");
+////    DCheckBox *other = btDiag.findChild<DCheckBox *>("checkOther");
+////    DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
+////    DPushButton *checkAll = btDiag.findChild<DPushButton *>("checkAll");
+////    QTest::mouseClick(checkAll, Qt::LeftButton);
+////    QTest::qWait(50);
+////    QTest::mouseClick(video, Qt::LeftButton);
+////    QTest::qWait(50);
+////    QTest::mouseClick(picture, Qt::LeftButton);
+////    QTest::qWait(50);
+////    QTest::mouseClick(audio, Qt::LeftButton);
+////    QTest::qWait(50);
+////    QTest::mouseClick(other, Qt::LeftButton);
+////    QTest::qWait(50);
+////    QTest::mouseClick(checkAll, Qt::LeftButton);
+//    EXPECT_TRUE(true);
+//}
 
 TEST_F(ut_CreateTaskWidget, initEditSrc)
 {
