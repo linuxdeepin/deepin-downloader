@@ -66,10 +66,6 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 set(DTK Widget Core Gui)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
-#find_package(CURL REQUIRED)
-
-
-
 #安装
 # qm files
 file(GLOB QM_FILES "translations/*.qm")
@@ -91,21 +87,14 @@ install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/
 install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
 # 开启单元测试
-#if(DOTEST)
-    # 添加gocv覆盖率文件的输出
-    set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
-    # 添加子模块test
-    add_subdirectory(test)
-    message("do test")
 
-#else()
-    message("DO Not TEST")
-    #加载子模块
-    add_subdirectory(src)
-    add_subdirectory(translations)
-    install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION libstatic
-    )
-#endif()
+# 添加子模块test
+add_subdirectory(src)
+add_subdirectory(translations)
+add_subdirectory(test)
+
+install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
+RUNTIME DESTINATION bin
+LIBRARY DESTINATION lib
+ARCHIVE DESTINATION libstatic
+)
