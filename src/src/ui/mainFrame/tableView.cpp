@@ -95,6 +95,7 @@ void TableView::initUI()
     setColumnWidth(2, 110);
     setColumnWidth(3, QHeaderView::Interactive);
     setColumnWidth(4, QHeaderView::Interactive);
+    setTabKeyNavigation(true);
 }
 
 void TableView::initConnections()
@@ -258,4 +259,15 @@ void TableView::onModellayoutChanged()
             }
         }
     }
+}
+
+LeftListView::LeftListView()
+{
+
+}
+
+void LeftListView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
+{
+    Q_UNUSED(previous);
+    emit currentIndexChanged(current);
 }

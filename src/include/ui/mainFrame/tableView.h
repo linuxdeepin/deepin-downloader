@@ -30,6 +30,7 @@
 
 #include <QTableView>
 
+
 class Settings;
 class TableModel;
 class ItemDelegate;
@@ -159,6 +160,20 @@ private:
     Settings *m_Setting;
     TopButton *m_ToolBar;
     QModelIndex m_PreviousIndex;
+};
+
+#include <DListView>
+DWIDGET_USE_NAMESPACE
+class LeftListView : public DListView
+{
+    Q_OBJECT
+public:
+    explicit LeftListView();
+protected:
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
+signals:
+    void currentIndexChanged(const QModelIndex &current);
+
 };
 
 #endif // TABLEVIEW_H

@@ -99,11 +99,11 @@ public:
      */
     static QString chineseToPinyin(QString input);
 
-    /**
-     * @brief 设置最大打开文件个数（全局最大同事下载资源数）
-     * @param maxLen 个数
-     */
-    static bool setfdLimit(unsigned long maxLen);
+//    /**
+//     * @brief 设置最大打开文件个数（全局最大同事下载资源数）
+//     * @param maxLen 个数
+//     */
+//    static bool setfdLimit(unsigned long maxLen);
 private:
 
     /**

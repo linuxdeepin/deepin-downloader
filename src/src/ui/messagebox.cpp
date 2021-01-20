@@ -280,7 +280,7 @@ void MessageBox::onRenameSureBtnClicked()
     QString newname = m_NewnameLineedit->text();
     if (newname.contains("\\") || newname.contains("/")) {
         MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("The file name cannot contain '\' or '/' "), tr("sure"));
+        msg->setWarings(tr("The file name cannot contain a backslash (\\) or slash (/)"), tr("OK"));
         msg->exec();
         return;
     }

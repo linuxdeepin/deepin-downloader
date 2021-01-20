@@ -39,6 +39,7 @@ DWIDGET_USE_NAMESPACE
 */
 class SearchResoultWidget : public QListWidget
 {
+    Q_OBJECT
 public:
     SearchResoultWidget(QWidget *parent = nullptr);
 

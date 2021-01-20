@@ -47,19 +47,19 @@ void HttpAdvancedSettingWidget::initUI()
     m_textEdit->setFixedSize(454,168);
     addContent(m_textEdit, Qt::AlignHCenter);
 
-    m_defaultBtn = new DCommandLinkButton(tr("恢复默认"), this);
+    m_defaultBtn = new DCommandLinkButton(tr("Restore"), this);
     connect(m_defaultBtn,&DCommandLinkButton::clicked, this, &HttpAdvancedSettingWidget::onRstoreDefaultClicked);
     addContent(m_defaultBtn,  Qt::AlignRight);
 
     QWidget *w = new QWidget(this);
     DPushButton * cancel = new DPushButton(this);
     connect(cancel,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onCancelClicked);
-    cancel->setText(tr("取消"));
+    cancel->setText(tr("Cancel"));
     cancel->setFixedSize(216,36);
     DPushButton * sure = new DPushButton(this);
     connect(sure,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onSureClicked);
     sure->setFixedSize(216,36);
-    sure->setText(tr("确认"));
+    sure->setText(tr("Confirm"));
     QHBoxLayout * hblyt = new QHBoxLayout();
     hblyt->addWidget(cancel);
     hblyt->addWidget(sure);

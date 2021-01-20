@@ -50,16 +50,16 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
 
     for(int i = 0; i< taskIDList.count(); i++){
         QListWidgetItem *item = new QListWidgetItem;
-        QString text;
+        QString text = "   ";
         if(taskStatusList.at(i) == Global::Complete) {
             item->setIcon(QIcon::fromTheme("dcc_print_done"));
-            text += tr("   Completed");
+            text += tr("Completed");
         } else if(taskStatusList.at(i) == Global::Removed) {
             item->setIcon(QIcon::fromTheme("dcc_list_delete"));
-            text += tr("   Trash");
+            text += tr("Trash");
         } else {
             item->setIcon(QIcon::fromTheme("dcc_list_downloading"));
-            text += tr("   Downloading");
+            text += tr("Downloading");
         }
 
         item->setText(text + "  -->  " + tasknameList.at(i));
@@ -70,5 +70,6 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
 
 void SearchResoultWidget::focusOutEvent(QFocusEvent *event)
 {
+    Q_UNUSED(event);
     this->hide();
 }

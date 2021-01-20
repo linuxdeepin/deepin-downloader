@@ -88,6 +88,7 @@ MainFrame::MainFrame(QWidget *parent)
     , m_CheckIndex(QModelIndex())
 {
     init();
+    initTab();
     initWebsocket();
     initTray();
     initDbus();
@@ -245,7 +246,7 @@ void MainFrame::init()
     pMainHLayout->addWidget(m_LeftWidget);
     pMainHLayout->addWidget(m_RightWidget);
 
-    m_LeftList = new DListView;
+    m_LeftList = new LeftListView;
     m_LeftList->setObjectName("leftList");
     m_LeftList->setItemSpacing(0);
     m_LeftList->setItemSize(QSize(112, 40));
@@ -273,6 +274,7 @@ void MainFrame::init()
     pLeftLayout->addWidget(m_LeftList, 0);
 
     m_LeftList->setCurrentIndex(pleftlistModel->index(0, 0));
+    m_LeftList->setTabKeyNavigation(true);
 
     m_Clipboard = new ClipboardTimer; // 获取当前剪切板
     m_UpdateTimer = new QTimer(this);
@@ -287,6 +289,11 @@ void MainFrame::init()
     //              qApp->quit();
     //          }
     //    });
+}
+
+void MainFrame::initTab()
+{
+    //setTabOrder(m_DownloadingItem, m_DownloadFinishItem);
 }
 
 void MainFrame::initTray()
@@ -425,7 +432,8 @@ void MainFrame::initConnection()
 
     connect(m_SettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_Clipboard, &ClipboardTimer::sendClipboardTextChange, this, &MainFrame::onClipboardDataChanged);
-    connect(m_LeftList, &DListView::pressed, this, &MainFrame::onListClicked);
+    connect(m_LeftList, &LeftListView::pressed, this, &MainFrame::onListClicked);
+    connect(m_LeftList, &LeftListView::currentIndexChanged, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
 
@@ -593,7 +601,6 @@ void MainFrame::initAria2()
             SLOT(onRpcError(QString, QString, int, QJsonObject)));
     onDownloadLimitChanged();
     onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
-    Func::setfdLimit(200);
     qDebug() << "MainFrame initAria2 Finished";
 }
 
@@ -1046,26 +1053,6 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
 
 void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type)
 {
-//    if (url.startsWith("magnet")) {
-//        QString left = url.split('&').at(0);
-//        QString infoHash = left.right(left.length() - left.lastIndexOf(':') - 1);
-//        if (!checkIsHasSameTask(infoHash.toLower())) {
-//            return;
-//        }
-//    }
-//    qDebug() << "getNewDownloadUrl: " << url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
-//    bool isExitsUrl = false;
-
-//    // 判断url是否在数据中已存在
-//    DBInstance::isExistUrl(url, isExitsUrl);
-//    if (isExitsUrl) {
-//        if (showRedownloadMsgbox(url)) {
-//            deleteTaskByUrl(url);
-//        } else {
-//            return;
-//        }
-//    }
-
     // 将url加入数据库和aria
     TaskInfo task;
     QMap<QString, QVariant> opt;
@@ -1210,14 +1197,14 @@ void MainFrame::getUrlToName(TaskInfo &task, QString url, QString savePath, QStr
     }
 
     // 对url进行转码
-    if (!fileName.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
-        const QByteArray byte = fileName.toLatin1();
-        QString decode = QUrl::fromPercentEncoding(byte);
-        if (decode.contains("?")) {
-            decode = decode.split("?")[0];
-        }
-        fileName = decode;
-    }
+//    if (!fileName.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
+//        const QByteArray byte = fileName.toLatin1();
+//        QString decode = QUrl::fromPercentEncoding(byte);
+//        if (decode.contains("?")) {
+//            decode = decode.split("?")[0];
+//        }
+//        fileName = decode;
+//    }
     if (fileName.contains(".torrent")) {
         if (!fileName.endsWith(".torrent")) {
             fileName = fileName.remove(".torrent");

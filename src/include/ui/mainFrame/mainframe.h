@@ -58,6 +58,7 @@ class BtInfoDialog;
 class TableDataControl;
 class CreateTaskWidget;
 class QListWidgetItem;
+class LeftListView;
 struct LinkInfo;
 
 namespace Global {
@@ -90,6 +91,11 @@ private:
      * @brief 界面初始化
     */
     void init();
+
+    /**
+     * @brief 初始化tab顺序
+    */
+    void initTab();
 
     /**
      * @brief 初始化aria2
@@ -630,7 +636,7 @@ private:
     QStackedWidget *m_RightStackwidget;
     QWidget *m_TaskNumWidget;
     QLabel *m_TaskNum;
-    DListView *m_LeftList;
+    LeftListView *m_LeftList;
 
     DStandardItem *m_DownloadingItem;
     DStandardItem *m_DownloadFinishItem;

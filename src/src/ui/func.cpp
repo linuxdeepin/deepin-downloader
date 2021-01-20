@@ -257,16 +257,16 @@ QString Func::removeDigital(QString input)
     return value;
 }
 
-bool Func::setfdLimit(unsigned long maxLen)
-{
-    struct rlimit rt;
-    rt.rlim_max = rt.rlim_cur = maxLen + 3;
-    if (setrlimit(RLIMIT_NOFILE, &rt) == -1) {
-        return false;
-    } else {
-        return true;
-    }
-}
+//bool Func::setfdLimit(unsigned long maxLen)
+//{
+//    struct rlimit rt;
+//    rt.rlim_max = rt.rlim_cur = maxLen + 3;
+//    if (setrlimit(RLIMIT_NOFILE, &rt) == -1) {
+//        return false;
+//    } else {
+//        return true;
+//    }
+//}
 
 
 

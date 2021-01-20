@@ -655,7 +655,7 @@ void TableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
         }
     } else {
         in3 = tr("Download completed");
-        in4 = QString(tr("%1 download finished.")).arg(fileName);
+        in4 = QString(tr("%1 download finished")).arg(fileName);
     }
     int in7 = 5000;
     arg << in0 << in1 << in2 << in3 << in4 << in5 << in6 << in7;
