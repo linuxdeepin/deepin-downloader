@@ -12,6 +12,9 @@ ADD_COMPILE_OPTIONS(-fno-access-control)
 #添加-fno-inline编译选项，禁止内联，能获取到函数地址，可以对内联函数进行打桩
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-inline")
 
+# 添加gocv覆盖率文件的输出
+set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
+
 #test files
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./ MAIN)
@@ -75,9 +78,13 @@ add_test(${PROJECT_NAME_TEST} COMMAND ${PROJECT_NAME_TEST})
 
 
 #------------------------------ 创建'make test'指令---------------------------------------
-#add_custom_target(test
-#    COMMAND mkdir -p coverageResult
-#    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+add_custom_target(test
+    COMMAND echo " =================== TEST BEGIN ==================== "
+    COMMAND mkdir -p coverageResult
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME_TEST}
+    COMMAND echo " =================== TEST END ==================== "
+)
 #add_custom_command(TARGET test
 #    COMMAND echo " =================== CREAT LCOV REPROT BEGIN ==================== "
 ##    #1.清理原先的gcov信息
@@ -99,8 +106,9 @@ add_test(${PROJECT_NAME_TEST} COMMAND ${PROJECT_NAME_TEST})
 #    COMMAND echo " Coverage files have been output to ${CMAKE_BINARY_DIR}/coverageResult/report "
 #    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 #    )
-##'make test'命令依赖与我们的测试程序
-#add_dependencies(test ${PROJECT_NAME_TEST})
+
+#'make test'命令依赖与我们的测试程序
+add_dependencies(test ${PROJECT_NAME_TEST})
 
 #添加头文件
 include_directories(${PROJECT_SOURCE_DIR}/src/include/database)
