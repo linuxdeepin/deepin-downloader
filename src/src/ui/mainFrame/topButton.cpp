@@ -162,6 +162,9 @@ void TopButton::onTableChanged(int index)
 SearchWidget::SearchWidget(QWidget *parent)
      : DTK_WIDGET_NAMESPACE::DSearchEdit(parent)
 {
+    connect(lineEdit(), &QLineEdit::editingFinished, this, [&](){
+                emit keyPressed(Qt::Key_Enter);
+    });
 }
 
 bool SearchWidget::eventFilter(QObject *o, QEvent *e)
