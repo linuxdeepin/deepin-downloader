@@ -29,6 +29,7 @@
 #include "searchresoultwidget.h"
 #include <QListWidgetItem>
 #include <QWidget>
+#include <QKeyEvent>
 #include <dplatformwindowhandle.h>
 #include "global.h"
 
@@ -47,7 +48,7 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
                                   QList<int> &taskStatusList, QList<QString> &tasknameList)
 {
     this->clear();
-
+    bool first = true;
     for(int i = 0; i< taskIDList.count(); i++){
         QListWidgetItem *item = new QListWidgetItem;
         QString text = "   ";
@@ -65,6 +66,33 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
         item->setText(text + "  -->  " + tasknameList.at(i));
         item->setData(Qt::WhatsThisRole, taskIDList.at(i));
         addItem(item);
+        if(first) {
+            setCurrentItem(item);
+            first = false;
+        }
+    }
+
+}
+
+void SearchResoultWidget::onKeypressed(Qt::Key k)
+{
+    QModelIndex index = currentIndex();
+    if(k == Qt::Key_Up) {
+        if(currentItem() == nullptr){
+            setCurrentIndex(index.sibling(0,0));
+            return;
+        }
+        setCurrentIndex(index.sibling
+                        (index.row() - 1, index.column()));
+    } else if(k == Qt::Key_Down) {
+        if(currentItem() == nullptr){
+            setCurrentIndex(index.sibling(0,0));
+            return;
+        }
+        setCurrentIndex(index.sibling
+                        (index.row() + 1, index.column()));
+    } else if(k == Qt::Key_Enter) {
+        emit itemClicked(currentItem());
     }
 }
 
@@ -72,4 +100,11 @@ void SearchResoultWidget::focusOutEvent(QFocusEvent *event)
 {
     Q_UNUSED(event);
     this->hide();
+}
+
+void SearchResoultWidget::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key() == Qt::Key_Enter) {
+        emit itemClicked(currentItem());
+    }
 }

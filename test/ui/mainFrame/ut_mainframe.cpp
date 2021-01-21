@@ -392,7 +392,7 @@ TEST_F(ut_MainFreme, removeDownloadListJob)
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     Global::DownloadDataItem *data = model->renderList().at(0);
-    table->getTableControl()->removeDownloadListJob(data, true, true);
+    //table->getTableControl()->removeDownloadListJob(data, true, true);
 }
 
 TEST_F(ut_MainFreme, initDataItem)
