@@ -55,16 +55,20 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
         if(taskStatusList.at(i) == Global::Complete) {
             item->setIcon(QIcon::fromTheme("dcc_print_done"));
             text += tr("Completed");
+            item->setData(Qt::UserRole, "Completed");
         } else if(taskStatusList.at(i) == Global::Removed) {
             item->setIcon(QIcon::fromTheme("dcc_list_delete"));
             text += tr("Trash");
+            item->setData(Qt::UserRole, "Trash");
         } else {
             item->setIcon(QIcon::fromTheme("dcc_list_downloading"));
             text += tr("Downloading");
+            item->setData(Qt::UserRole, "Downloading");
         }
 
         item->setText(text + "  -->  " + tasknameList.at(i));
         item->setData(Qt::WhatsThisRole, taskIDList.at(i));
+
         addItem(item);
         if(first) {
             setCurrentItem(item);
@@ -82,11 +86,17 @@ void SearchResoultWidget::onKeypressed(Qt::Key k)
             setCurrentIndex(index.sibling(0,0));
             return;
         }
+        if(index.row() - 1 < 0) {
+            return;
+        }
         setCurrentIndex(index.sibling
                         (index.row() - 1, index.column()));
     } else if(k == Qt::Key_Down) {
         if(currentItem() == nullptr){
             setCurrentIndex(index.sibling(0,0));
+            return;
+        }
+        if(index.row() + 1 >= count()) {
             return;
         }
         setCurrentIndex(index.sibling

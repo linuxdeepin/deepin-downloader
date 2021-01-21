@@ -2833,7 +2833,7 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
 {
     SearchResoultWidget *pWidget = dynamic_cast<SearchResoultWidget *>(sender());
     QString taskId = item->data(Qt::WhatsThisRole).toString();
-    QString tab = item->text().split("-->").first();
+    QString tab = item->data(Qt::UserRole).toString();
     if(tab.contains("Downloading")) {
         onListClicked(m_LeftList->model()->index(0,0));
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(0,0));
