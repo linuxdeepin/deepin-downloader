@@ -102,7 +102,9 @@ void SearchResoultWidget::onKeypressed(Qt::Key k)
         setCurrentIndex(index.sibling
                         (index.row() + 1, index.column()));
     } else if(k == Qt::Key_Enter) {
-        emit itemClicked(currentItem());
+        if(currentItem() != nullptr) {
+            emit itemClicked(currentItem());
+        }
     }
 }
 

@@ -1585,8 +1585,9 @@ void MainFrame::onSearchEditTextChanged(QString text)
     psearchWidget->setData(taskIDList, taskStatusList, tasknameList);
     if(!taskIDList.isEmpty()) {
         psearchWidget->show();
+    } else {
+        psearchWidget->hide();
     }
-
 }
 
 void MainFrame::onRedownload(QString taskId, int rd)
