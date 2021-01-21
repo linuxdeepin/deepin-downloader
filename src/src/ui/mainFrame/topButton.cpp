@@ -59,7 +59,7 @@ void TopButton::Init()
     QIcon logo_icon = QIcon(":icons/icon/downloader5.svg");
     m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
     m_iconLable->setFixedSize(36, 36);
-    m_searchEdit = new DSearchEdit();
+    m_searchEdit = new SearchWidget();
     m_searchEdit->setMinimumWidth(350);
     m_searchEdit->setFixedHeight(36);
     m_searchEdit->lineEdit()->setMaxLength(256);
@@ -115,6 +115,7 @@ void TopButton::InitConnections()
     connect(m_deleteDownloadBtn, &DIconButton::clicked, this, &TopButton::deleteDownloadBtnClicked);
     connect(m_searchEdit, &DSearchEdit::focusChanged, this, &TopButton::SearchEditFocus);
     connect(m_searchEdit, &DSearchEdit::textChanged, this, &TopButton::SearchEditTextChange);
+    connect(m_searchEdit, &SearchWidget::keyPressed, this, &TopButton::SearchEditKeyPressed);
 }
 
 void TopButton::mousePressEvent(QMouseEvent *event)
@@ -156,4 +157,33 @@ void TopButton::onTableChanged(int index)
         m_pauseDownloadBtn->setEnabled(false);
         m_deleteDownloadBtn->setEnabled(false);
     }
+}
+
+SearchWidget::SearchWidget(QWidget *parent)
+     : DTK_WIDGET_NAMESPACE::DSearchEdit(parent)
+{
+}
+
+bool SearchWidget::eventFilter(QObject *o, QEvent *e)
+{
+    if (e->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(e);
+        switch (ke->key()) {
+        case Qt::Key_Up: {
+            emit keyPressed(Qt::Key_Up);
+            return true;
+        }
+        case Qt::Key_Down: {
+            emit keyPressed(Qt::Key_Down);
+            return true;
+        }
+        case Qt::Key_Enter: {
+            emit keyPressed(Qt::Key_Enter);
+            return true;
+        }
+        default:
+            break;
+        }
+    }
+    return QWidget::eventFilter(o, e);
 }
