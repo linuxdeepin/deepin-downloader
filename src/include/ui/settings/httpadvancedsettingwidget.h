@@ -52,6 +52,9 @@ private:
     DButtonBox *m_btnBox;
     DCommandLinkButton * m_defaultBtn;
     QString m_configPath;
+
+    QString m_curSuffixStr;
+    QString m_curWebStr;
 };
 
 

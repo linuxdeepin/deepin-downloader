@@ -26,6 +26,7 @@ HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(DDialog *parent)
         QFile::copy(CONTENT_HTTP_ADVANCED_PATH, m_configPath);
     }
     initUI();
+
 }
 
 void HttpAdvancedSettingWidget::initUI()
@@ -66,34 +67,39 @@ void HttpAdvancedSettingWidget::initUI()
     w->setLayout(hblyt);
     addContent(w, Qt::AlignHCenter);
 
+    QFile file(m_configPath);
+    if(!file.open(QIODevice::ReadWrite)) {
+       m_curSuffixStr = "";
+       m_curWebStr = "";
+    }
+    else {
+        QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
+        QJsonObject obj = jdc.object();
+        m_curSuffixStr = obj.value("CurSuffix").toString();
+        m_curWebStr = obj.value("CurWeb").toString();
+    }
     suffixBtn->click();
 }
 
 void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 {
-    QFile file(m_configPath);
-    if(!file.open(QIODevice::ReadWrite)) {
-        return;
+    QString curPlaceholderText = m_textEdit->placeholderText();
+    if(!(curPlaceholderText == tr("Separate file extensions by semicolons (;)"))
+            && !curPlaceholderText.isEmpty()){
+        m_curWebStr = m_textEdit->toPlainText();
     }
-    QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
-    QJsonObject obj = jdc.object();
-    QString curSuffix = obj.value("CurSuffix").toString();
     m_textEdit->setPlaceholderText(tr("Separate file extensions by semicolons (;)"));   //请输入正确的文件扩展名，以;分隔
-    m_textEdit->setText(curSuffix);
+    m_textEdit->setText(m_curSuffixStr);
     m_defaultBtn->show();
 }
 void HttpAdvancedSettingWidget::onWebBtnClicked()
 {
-    QFile file(m_configPath);
-    if(!file.open(QIODevice::ReadWrite)) {
-        return;
+    if(!(m_textEdit->placeholderText() == tr("P lease enter one URL per line"))
+            && !m_textEdit->placeholderText().isEmpty()){
+        m_curSuffixStr = m_textEdit->toPlainText();
     }
-    QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
-    QJsonObject obj = jdc.object();
-    file.close();
-    QString curWeb = obj.value("CurWeb").toString();
     m_textEdit->setPlaceholderText(tr("Please enter one URL per line"));        //添加多个网站链接时，请确保每行只有一个链接
-    m_textEdit->setText(curWeb);
+    m_textEdit->setText(m_curWebStr);
     m_defaultBtn->hide();
 }
 
