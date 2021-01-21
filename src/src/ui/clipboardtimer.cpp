@@ -116,10 +116,13 @@ bool ClipboardTimer::isHttpFormat(QString url)
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
         return false;
     }
+
+    if(!isWebFormat(url)){
+        return false;
+    }
     QStringList list = url.split(".");
     QString suffix = list[list.size() - 1];
     QStringList typeList = getTypeList();
-
     if (typeList.contains(suffix)) {
         return true;
     }
@@ -129,21 +132,15 @@ bool ClipboardTimer::isHttpFormat(QString url)
         }
     }
 
-    QStringList webList =getWebList();
-    for (int i = 0; i < webList.size(); i++) {
-        if(url.contains(webList[i])){
-            return false;
-        }
-        if(i == webList.size()-1 && !url.contains(webList[i])){
-            return true;
-        }
-    }
     return false;
 }
 
 bool ClipboardTimer::isBtFormat(QString url)
 {
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
+        return false;
+    }
+    if(!isWebFormat(url)){
         return false;
     }
     QStringList list = url.split(".");
@@ -164,6 +161,9 @@ bool ClipboardTimer::isBtFormat(QString url)
 bool ClipboardTimer::isMlFormat(QString url)
 {
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
+        return false;
+    }
+    if(!isWebFormat(url)){
         return false;
     }
     QStringList list = url.split(".");
@@ -230,7 +230,19 @@ QStringList ClipboardTimer::getWebList()
     return  curWeb.split("\n");
 }
 
-
+bool ClipboardTimer::isWebFormat(QString url)
+{
+    QStringList webList =getWebList();
+    for (int i = 0; i < webList.size(); i++) {
+        if(webList[i].simplified().isEmpty()){
+            continue;
+        }
+        if(url.contains(webList[i])){
+            return false;
+        }
+    }
+    return true;
+}
 
 
 

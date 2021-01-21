@@ -109,6 +109,13 @@ private:
      */
     QStringList getWebList();
 
+    /**
+     * @brief isWebFormat 是否符合不接管网站
+     * @param str url链接
+     * @return bool 真假
+     */
+    bool isWebFormat(QString url);
+
 private slots:
     /**
      * @brief getDataChanged 获取剪切板内容
