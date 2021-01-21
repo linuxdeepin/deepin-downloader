@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa78045d_b2840beb",
+        "filename": "src/include/ui/mainFrame/searchresoultwidget.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-21T09:37:18Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 3; 注释率: 0.0%",
+      "revId": "97d5a767861b79ed3ebffac345183973ac340244",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1f8f699_a16ad5e7",
+        "filename": "src/include/ui/mainFrame/topButton.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-21T09:37:18Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 15; 注释率: 20.0%",
+      "revId": "97d5a767861b79ed3ebffac345183973ac340244",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c00c136_6bfe7c07",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-21T09:37:18Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 20; 注释率: 15.0%",
+      "revId": "97d5a767861b79ed3ebffac345183973ac340244",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c26a22_6fb8e615",
+        "filename": "src/src/ui/mainFrame/searchresoultwidget.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-21T09:37:18Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 33; 注释率: 0.0%",
+      "revId": "97d5a767861b79ed3ebffac345183973ac340244",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890888db_8414bf7f",
+        "filename": "src/src/ui/mainFrame/tableView.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-21T09:37:18Z",
+      "side": 1,
+      "message": "注释行数: 8; 改动行数(修改和新增): 8; 注释率: 100.0%",
+      "revId": "97d5a767861b79ed3ebffac345183973ac340244",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32582b64_07b6db17",
+        "filename": "src/src/ui/mainFrame/topButton.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-21T09:37:18Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 29; 注释率: 0.0%",
+      "revId": "97d5a767861b79ed3ebffac345183973ac340244",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
