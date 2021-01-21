@@ -32,8 +32,18 @@
 #include <DPushButton>
 #include <DSearchEdit>
 #include <DLabel>
-
 #include <QWidget>
+
+class SearchWidget : public DTK_WIDGET_NAMESPACE::DSearchEdit
+{
+    Q_OBJECT
+public:
+    SearchWidget(QWidget *parent = nullptr);
+protected:
+    bool eventFilter(QObject *o, QEvent *e) override;
+signals:
+    void keyPressed(Qt::Key);
+};
 
 /**
  * @class TopButton
@@ -149,6 +159,11 @@ signals:
     */
     void SearchEditTextChange(QString text);
 
+    /**
+     * @brief 搜索框按键按下
+    */
+    void SearchEditKeyPressed(Qt::Key);
+
 private:
     Dtk::Widget::DLabel *m_iconLable;
     Dtk::Widget::DIconButton *m_newDownloadBtn;
@@ -156,7 +171,7 @@ private:
     Dtk::Widget::DIconButton *m_stopDownloadBtn;
     Dtk::Widget::DIconButton *m_pauseDownloadBtn;
     Dtk::Widget::DIconButton *m_deleteDownloadBtn;
-    Dtk::Widget::DSearchEdit *m_searchEdit;
+    SearchWidget *m_searchEdit;
     QCompleter* m_completer;
 };
 

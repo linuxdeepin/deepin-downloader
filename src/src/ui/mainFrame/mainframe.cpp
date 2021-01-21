@@ -30,6 +30,7 @@
 #include <DLabel>
 #include <DFontSizeManager>
 #include <DTitlebar>
+#include <DApplicationHelper>
 
 #include <QDir>
 #include <QLayout>
@@ -252,6 +253,9 @@ void MainFrame::init()
     m_LeftList->setItemSize(QSize(112, 40));
     m_LeftList->setItemMargins(QMargins(10, 2, 5, 2));
     m_LeftList->setIconSize(QSize(14, 14));
+    m_LeftList->setTabKeyNavigation(true);
+    //m_LeftList->setBackgroundRole(QPalette::NoRole);
+    //m_LeftList->setFrameShape(QFrame::Shape::NoFrame);
     QFont font;
     font.setFamily("Source Han Sans");
     font.setPixelSize(14);
@@ -259,6 +263,7 @@ void MainFrame::init()
     QStandardItemModel *pleftlistModel = new QStandardItemModel(this);
 
     m_DownloadingItem = new DStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
+    m_DownloadingItem->setBackgroundRole(QPalette::NoRole);
     m_DownloadFinishItem = new DStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
     m_RecycleItem = new DStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
     m_DownloadingItem->setFontSize(DFontSizeManager::T6);
@@ -272,28 +277,17 @@ void MainFrame::init()
     pleftlistModel->appendRow(m_RecycleItem);
     m_LeftList->setModel(pleftlistModel);
     pLeftLayout->addWidget(m_LeftList, 0);
-
     m_LeftList->setCurrentIndex(pleftlistModel->index(0, 0));
-    m_LeftList->setTabKeyNavigation(true);
-
+    //m_LeftList->viewport()->setAutoFillBackground(true);
     m_Clipboard = new ClipboardTimer; // 获取当前剪切板
     m_UpdateTimer = new QTimer(this);
     m_TrayClickTimer = new QTimer(this);
     m_CurOpenBtDialogPath = "";
-
-    //   QApplication *pApp = dynamic_cast<QApplication *>(QApplication::instance()) ;
-    //    connect(pApp, &QApplication::lastWindowClosed,
-    //      this, [ & ]() {
-    //          auto quit = Settings::getInstance()->getCloseMainWindowSelected();
-    //          if (quit == 1) {
-    //              qApp->quit();
-    //          }
-    //    });
 }
 
 void MainFrame::initTab()
 {
-    //setTabOrder(m_DownloadingItem, m_DownloadFinishItem);
+    setTabOrder(m_ToolBar, m_LeftWidget);
 }
 
 void MainFrame::initTray()
@@ -724,7 +718,9 @@ void MainFrame::setTaskNum()
 
 void MainFrame::setPaletteType()
 {
-    m_LeftList->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
+    DPalette pb = DApplicationHelper::instance()->palette(m_LeftList->viewport());
+    pb.setBrush(DPalette::Base, QColor(0, 0, 0, 0));
+    m_LeftList->setPalette(pb);
 
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
         DPalette deepthemePalette;
@@ -1562,23 +1558,23 @@ void MainFrame::clearTableItemCheckStatus()
 
 void MainFrame::onSearchEditTextChanged(QString text)
 {
-
-    static SearchResoultWidget *pwidget = new SearchResoultWidget(this);
+    static SearchResoultWidget *psearchWidget = new SearchResoultWidget(this);
     if(text.isEmpty()){
-        pwidget->hide();
+        psearchWidget->hide();
         return;
     }
     static int flag = 1;
     if(flag) {
-        connect(pwidget, &SearchResoultWidget::itemClicked, this, &MainFrame::onSearchItemClicked);
+        connect(psearchWidget, &SearchResoultWidget::itemClicked, this, &MainFrame::onSearchItemClicked);
+        connect(m_ToolBar, &TopButton::SearchEditKeyPressed, psearchWidget, &SearchResoultWidget::onKeypressed);
         connect(m_ToolBar->getSearchEdit()->lineEdit(), &QLineEdit::editingFinished, this, [&](){
-            pwidget->hide();
+            psearchWidget->hide();
         });
         flag = 0;
     }
     QPoint p = m_ToolBar->getSearchEditPosition();
     QPoint pp = QPoint(p.x() + 250 , p.y() + 10);
-    pwidget->move(pp);
+    psearchWidget->move(pp);
     m_SearchContent = text;
     QList<QString> taskIDList;
     QList<int> taskStatusList;
@@ -1586,8 +1582,10 @@ void MainFrame::onSearchEditTextChanged(QString text)
     m_DownLoadingTableView->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
     m_RecycleTableView->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
 
-    pwidget->setData(taskIDList, taskStatusList, tasknameList);
-    pwidget->show();
+    psearchWidget->setData(taskIDList, taskStatusList, tasknameList);
+    if(!taskIDList.isEmpty()) {
+        psearchWidget->show();
+    }
 
 }
 

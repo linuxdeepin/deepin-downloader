@@ -193,6 +193,14 @@ void TableView::keyPressEvent(QKeyEvent *event)
     if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_C)) {
         return;
     }
+//    if(event->key() == Qt::Key_Down) {
+//        currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row() + 1, 0), m_PreviousIndex);
+//        setCurrentIndex(m_PreviousIndex.sibling(m_PreviousIndex.row() + 1, 0));
+//    }
+//    if(event->key() == Qt::Key_Up) {
+//        currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row() - 1, 0), m_PreviousIndex);
+//        setCurrentIndex(m_PreviousIndex.sibling(m_PreviousIndex.row() - 1, 0));
+//    }
     QWidget::keyPressEvent(event);
 }
 
