@@ -345,7 +345,7 @@ void CreateTaskWidget::onMLFileDialogOpen()
             QString infoName;
             QString infoHash;
             dialog.getBtInfo(opt, infoName, infoHash);
-            emit downLoadTorrentCreate(mlFile, opt, infoName, infoHash);
+            emit downLoadMetaLinkCreate(mlFile, opt, infoName);
             close();
         }
     }
