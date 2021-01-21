@@ -172,6 +172,12 @@
                             "default":true
                         },
                         {
+                            "key":"MetaLinkDownload",
+                            "name":"",
+                            "type":"metalinkdownload",
+                            "default":true
+                        },
+                        {
                             "key":"BTDownload",
                             "name":"",
                             "type":"btdownload",

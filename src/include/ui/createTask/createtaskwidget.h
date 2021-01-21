@@ -213,6 +213,12 @@ private slots:
      * @brief 打开选择文件窗口按钮
      */
     void onFileDialogOpen();
+
+    /**
+     * @brief 打开metalink选择文件窗口按钮
+     */
+    void onMLFileDialogOpen();
+
     /**
      * @brief 关闭窗口按钮
      */

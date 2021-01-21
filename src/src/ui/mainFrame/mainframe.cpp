@@ -833,7 +833,8 @@ void MainFrame::OpenFile(QString url)
         return;
     }
     bool bIsBt = Settings::getInstance()->getStartAssociatedBTFileState();
-    if (!bIsBt) {
+    bool bIsMl = Settings::getInstance()->getStartAssociatedMetaLinkFileState();
+    if ((!bIsBt && url.endsWith(".torrent")) || (!bIsMl && url.endsWith(".metalink"))) {
         return;
     }
     QString savePath = Settings::getInstance()->getDownloadSavePath();

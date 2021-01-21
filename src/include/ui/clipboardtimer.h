@@ -92,6 +92,12 @@ private:
     bool isBtFormat(QString str);
 
     /**
+     * @brief isMl 是否是Ml后缀
+     * @param str url链接
+     */
+    bool isMlFormat(QString str);
+
+    /**
      * @brief getTypeList 获取配置文件中的type
      * @return 返回解析后的后缀名列表
      */

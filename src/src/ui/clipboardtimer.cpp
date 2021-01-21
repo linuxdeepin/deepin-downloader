@@ -91,9 +91,11 @@ void ClipboardTimer::getDataChanged()
     bool bIsHttp = setting->getHttpDownloadState();
     bool bIsMagnet = setting->getMagneticDownloadState();
     bool bIsBt = setting->getBtDownloadState();
+    bool bIsMl = setting->getMLDownloadState();
     //将不符合规则链接剔除
     for (int i = 0; i < urlList.size(); i++) {
-        if ((isMagnetFormat(urlList[i]) && bIsMagnet) || (isHttpFormat(urlList[i]) && bIsHttp) || (isBtFormat(urlList[i]) && bIsBt)) {
+        if ((isMagnetFormat(urlList[i]) && bIsMagnet) || (isHttpFormat(urlList[i]) && bIsHttp)
+                || (isBtFormat(urlList[i]) && bIsBt) || (isMlFormat(urlList[i]) && bIsMl)) {
             url.append(urlList[i]).append("\n");
         }
     }
@@ -159,6 +161,26 @@ bool ClipboardTimer::isBtFormat(QString url)
     return false;
 }
 
+bool ClipboardTimer::isMlFormat(QString url)
+{
+    if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
+        return false;
+    }
+    QStringList list = url.split(".");
+    QString suffix = list[list.size() - 1];
+    QStringList type;
+    type << "metalink";
+    if (type.contains(suffix)) {
+        return true;
+    }
+    for (int i = 0; i < type.size(); i++) {
+        if (type[i].toUpper() == suffix.toUpper()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 QStringList ClipboardTimer::getTypeList()
 {
 
@@ -173,12 +195,21 @@ QStringList ClipboardTimer::getTypeList()
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
     QString defaultSuffix = obj.value("CurSuffix").toString();
-    defaultSuffix.remove('.');
-    QStringList defaulList = defaultSuffix.split("\n");
-    for (int i = 0; i < defaulList.size(); i++) {
-        defaulList[i].remove(';');
+    //defaultSuffix.remove('.');
+    QStringList defaulList = defaultSuffix.split(".");
+    QStringList::iterator it = defaulList.begin();
+    for (;it != defaulList.end() ; it++) {
+        QString str = *it;
+        if(!it->endsWith(';')){
+            it = defaulList.erase(it);
+            it--;
+            continue;
+        } 
+        it->remove(";");
     }
-    return  defaulList;
+   defaulList.removeAll("metalink");
+   defaulList.removeAll("torrent");
+   return  defaulList;
 }
 
 QStringList ClipboardTimer::getWebList()

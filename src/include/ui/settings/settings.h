@@ -254,13 +254,17 @@ public:
      */
     bool getBtDownloadState();
 
-
-
     /**
      * @brief 获取磁力链接下载状态值
      * @return 选中返回true，否则返回false
      */
     bool getMagneticDownloadState();
+
+    /**
+     * @brief 获取metalink下载状态值
+     * @return 选中返回true，否则返回false
+     */
+    bool getMLDownloadState();
 
     /**
      * @brief 获取下载种子文件后自动打开新建窗口状态值
@@ -279,6 +283,12 @@ public:
      * @return 开启返回true，否则返回false
      */
     bool getStartAssociatedBTFileState();
+
+    /**
+     * @brief 获取启动时关联metalink种子文件状态值
+     * @return 开启返回true，否则返回false
+     */
+    bool getStartAssociatedMetaLinkFileState();
 
     /**
      * @brief 获取下载完成/失败时系统通知提醒状态值

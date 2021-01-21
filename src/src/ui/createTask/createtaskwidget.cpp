@@ -274,6 +274,15 @@ void CreateTaskWidget::initUi()
     iconBtn->setToolTip(tr("Select file"));
     layout->addWidget(iconBtn);
 
+    DIconButton *mlBtn = new DIconButton(boxBtn);
+    //  QIcon tryIcon1(QIcon::fromTheme("dcc_bt"));
+    mlBtn->setIcon(QIcon::fromTheme("dcc_ml"));
+    mlBtn->setIconSize(QSize(18, 15));
+    mlBtn->setFixedSize(QSize(36, 36));
+    connect(mlBtn, &DIconButton::clicked, this, &CreateTaskWidget::onMLFileDialogOpen);
+    mlBtn->setToolTip(tr("Select file"));
+    layout->addWidget(mlBtn);
+
     QWidget *rightBox = new QWidget(boxBtn);
     QHBoxLayout *layout_right = new QHBoxLayout(rightBox);
     layout->setSpacing(10);
@@ -319,6 +328,24 @@ void CreateTaskWidget::onFileDialogOpen()
             QString infoHash;
             dialog.getBtInfo(opt, infoName, infoHash);
             emit downLoadTorrentCreate(btFile, opt, infoName, infoHash);
+            close();
+        }
+    }
+}
+
+void CreateTaskWidget::onMLFileDialogOpen()
+{
+    QString mlFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.metalink");
+    if (mlFile != "") {
+        //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+        BtInfoDialog dialog(mlFile, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
+        if (dialog.exec() == QDialog::Accepted) {
+            QMap<QString, QVariant> opt;
+            opt.clear();
+            QString infoName;
+            QString infoHash;
+            dialog.getBtInfo(opt, infoName, infoHash);
+            emit downLoadTorrentCreate(mlFile, opt, infoName, infoHash);
             close();
         }
     }

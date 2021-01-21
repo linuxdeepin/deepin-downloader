@@ -242,7 +242,7 @@ Settings::Settings(QObject *parent)
     auto optionClipBoard = m_settings->option("Monitoring.MonitoringObject.ClipBoard");
     auto optionHttpDownload = m_settings->option("Monitoring.MonitoringDownloadType.HttpDownload");
     auto optionBTDownload = m_settings->option("Monitoring.MonitoringDownloadType.BTDownload");
-  //  auto optionMetaLinkDownload = m_settings->option("Monitoring.MonitoringDownloadType.MetaLinkDownload");
+    auto optionMetaLinkDownload = m_settings->option("Monitoring.MonitoringDownloadType.MetaLinkDownload");
     auto optionMagneticDownload = m_settings->option("Monitoring.MonitoringDownloadType.MagneticDownload");
 
     // 剪切板状态改变
@@ -253,13 +253,13 @@ Settings::Settings(QObject *parent)
                         !optionMagneticDownload->value().toBool()) {
                     optionHttpDownload->setValue(true);
                     optionBTDownload->setValue(true);
-                   // optionMetaLinkDownload->setValue(true);
+                    optionMetaLinkDownload->setValue(true);
                     optionMagneticDownload->setValue(true);
                 }
             } else {
                 optionHttpDownload->setValue(false);
                 optionBTDownload->setValue(false);
-            //    optionMetaLinkDownload->setValue(false);
+                optionMetaLinkDownload->setValue(false);
                 optionMagneticDownload->setValue(false);
             }
         }
@@ -296,19 +296,19 @@ Settings::Settings(QObject *parent)
     });
 
     // metalink下载状态改变
-//    connect(optionMetaLinkDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
-//        if (!value.isNull()) {
-//            if (value.toBool()) {
-//                if (!optionClipBoard->value().toBool()) {
-//                    optionClipBoard->setValue(true);
-//                }
-//            } else {
-//                if (!optionHttpDownload->value().toBool() && !optionMagneticDownload->value().toBool()) {
-//                    optionClipBoard->setValue(false);
-//                }
-//            }
-//        }
-//    });
+    connect(optionMetaLinkDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            if (value.toBool()) {
+                if (!optionClipBoard->value().toBool()) {
+                    optionClipBoard->setValue(true);
+                }
+            } else {
+                if (!optionHttpDownload->value().toBool() && !optionMagneticDownload->value().toBool()) {
+                    optionClipBoard->setValue(false);
+                }
+            }
+        }
+    });
 
     // 磁力链接下载状态改变
     connect(optionMagneticDownload, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
@@ -997,6 +997,13 @@ bool Settings::getMagneticDownloadState()
     return option->value().toBool();
 }
 
+bool Settings::getMLDownloadState()
+{
+    auto option = m_settings->option("Monitoring.MonitoringDownloadType.MetaLinkDownload");
+
+    return option->value().toBool();
+}
+
 bool Settings::getAutoOpenBtTaskState()
 {
     auto option = m_settings->option("Monitoring.BTRelation.OpenDownloadPanel");
@@ -1015,6 +1022,13 @@ bool Settings::getAutoOpenMetalinkTaskState()
 bool Settings::getStartAssociatedBTFileState()
 {
     auto option = m_settings->option("Monitoring.BTRelation.AssociateBTFileAtStartup");
+
+    return option->value().toBool();
+}
+
+bool Settings::getStartAssociatedMetaLinkFileState()
+{
+    auto option = m_settings->option("Monitoring.MetaLinkRelation.AssociateMetaLinkFileAtStartup");
 
     return option->value().toBool();
 }
