@@ -86,12 +86,17 @@ install(FILES ${CF_FILES} DESTINATION share/downloader/config)
 install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
 install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
-# 开启单元测试
+
 
 # 添加子模块test
 add_subdirectory(src)
 add_subdirectory(translations)
-add_subdirectory(test)
+
+# 开启单元测试
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "amd64")
+    add_subdirectory(test)
+endif()
+
 
 install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
