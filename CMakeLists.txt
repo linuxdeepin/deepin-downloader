@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloader)
-set(PROJECT_VERSION "5.3.5")
+set(PROJECT_VERSION "5.3.6")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
@@ -86,12 +86,17 @@ install(FILES ${CF_FILES} DESTINATION share/downloader/config)
 install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
 install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
-# 开启单元测试
+
 
 # 添加子模块test
 add_subdirectory(src)
 add_subdirectory(translations)
-add_subdirectory(test)
+# 开启单元测试
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+    message("amd64")
+    add_subdirectory(test)
+endif()
+
 
 install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin

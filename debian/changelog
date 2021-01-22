@@ -1,4 +1,4 @@
-downloadmanager (5.3.5) stable; urgency=low
+downloadmanager (5.3.6) stable; urgency=low
 
   * 完成 【三期任务】原始地址线程数
   * 完成 BT下载，显示种子活跃个数
