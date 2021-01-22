@@ -426,7 +426,7 @@ void MainFrame::initConnection()
 
     connect(m_SettingAction, &QAction::triggered, this, &MainFrame::onSettingsMenuClicked);
     connect(m_Clipboard, &ClipboardTimer::sendClipboardTextChange, this, &MainFrame::onClipboardDataChanged);
-    connect(m_LeftList, &LeftListView::pressed, this, &MainFrame::onListClicked);
+    //connect(m_LeftList, &LeftListView::pressed, this, &MainFrame::onListClicked);
     connect(m_LeftList, &LeftListView::currentIndexChanged, this, &MainFrame::onListClicked);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged, this, &MainFrame::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &MainFrame::onPalettetypechanged);
@@ -909,6 +909,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_DownLoadingTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         } else {
             m_NotaskWidget->show();
+            m_NotaskLabel->setText(tr("No download tasks"));
             m_NotaskTipLabel->show();
             m_NoResultlabel->hide();
             if (Settings::getInstance()->getAutoSortBySpeed()) {
