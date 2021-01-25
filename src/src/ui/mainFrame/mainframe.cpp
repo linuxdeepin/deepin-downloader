@@ -77,14 +77,12 @@
 #include "websockethandle.h"
 #include "searchresoultwidget.h"
 
-using namespace Global;
-
 #define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH "/usr/share/applications/"
 
 MainFrame::MainFrame(QWidget *parent)
     : DMainWindow(parent)
     , m_TaskWidget(new CreateTaskWidget())
-    , m_CurrentTab(downloadingTab)
+    , m_CurrentTab(Global::downloadingTab)
     , m_CheckItem(nullptr)
     , m_CheckIndex(QModelIndex())
 {
@@ -2361,11 +2359,10 @@ void MainFrame::onCopyUrlActionTriggered()
 void MainFrame::onDeletePermanentActionTriggered()
 {
     if (m_CurrentTab == recycleTab) {
-        m_RecycleTableView->getTableControl()->onDeletePermanentAction(m_CurrentTab);
+        m_RecycleTableView->getTableControl()->onDelAction(m_CurrentTab);
     } else {
-        m_DownLoadingTableView->getTableControl()->onDeletePermanentAction(m_CurrentTab);
+        m_DownLoadingTableView->getTableControl()->onDelAction(m_CurrentTab);
     }
-
     showDeleteMsgbox(true);
 }
 

@@ -42,6 +42,10 @@
 #include <QNetworkReply>
 #include <QProcess>
 
+#include "global.h"
+
+using namespace Global;
+
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
@@ -61,10 +65,6 @@ class QListWidgetItem;
 class LeftListView;
 struct LinkInfo;
 
-namespace Global {
-class DownloadDataItem;
-class DeleteDataItem;
-} // namespace Global
 
 /**
  * @class MainFrame
@@ -620,11 +620,7 @@ private:
         downloading,
         recycle
     };
-    enum CurrentTab {
-        downloadingTab = 0,
-        finishTab,
-        recycleTab
-    };
+
     TopButton *m_ToolBar;
     TableView *m_DownLoadingTableView, *m_RecycleTableView;
     QWidget *m_LeftWidget;
