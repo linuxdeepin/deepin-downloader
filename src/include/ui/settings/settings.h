@@ -183,6 +183,19 @@ public:
     int getMaxDownloadTaskNumber();
 
     /**
+     * @brief 获取原始地址线程数
+     * @return 返回原始地址线程数
+     */
+    int getOriginalAddressThreadsNumber();
+
+    /**
+     * @brief 获取全局最大下载资源数
+     * @return 返回全局最大下载资源数,如果未开启，返回0
+     */
+    int getMaxDownloadResourcesNumber();
+
+
+    /**
      * @brief 获取下载完成后自动打开状态值
      * @return 开启返回true，否则返回false
      */

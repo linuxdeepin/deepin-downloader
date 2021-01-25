@@ -138,12 +138,14 @@ Settings::Settings(QObject *parent)
     }
     connect(maxDownloadTaskOption, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
         if (!value.isNull()) {
+            int threadTask = Settings::getInstance()->getOriginalAddressThreadsNumber();
+            int maxResource = Settings::getInstance()->getMaxDownloadResourcesNumber();
+            if(value.toInt() < maxResource / threadTask)
             emit maxDownloadTaskNumberChanged(value.toInt());
         }
     });
 
     // 初始化 原始地址线程数
-
     auto DownloadSettingsOption = m_settings->option("DownloadSettings.downloadmanagement.addressthread");
 
     QStringList values2;
@@ -163,6 +165,20 @@ Settings::Settings(QObject *parent)
             opt.insert("split", value.toString());
             Aria2RPCInterface::instance()->changeGlobalOption(opt);
             Aria2RPCInterface::instance()->modifyConfigFile("split=", "split=" + value.toString());
+        }
+    });
+
+    // 全局最大下载资源数
+    QPointer<DSettingsOption> maxTask = m_settings->option("DownloadSettings.downloadmanagement.maxlimit");
+    connect(maxTask, &Dtk::Core::DSettingsOption::valueChanged, this, [=](QVariant value) {
+        if (!value.isNull()) {
+            int num = getMaxDownloadTaskNumber();
+            auto option = m_settings->option("DownloadSettings.downloadmanagement.addressthread");
+            int count = option->value().toInt();
+            int maxtaskcount = value.toString().mid(2).toInt();
+            if(num > maxtaskcount / count) {
+                emit maxDownloadTaskNumberChanged(maxtaskcount / count);
+            }
         }
     });
 
@@ -647,6 +663,46 @@ QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
     connect(pWidget, &SettingsControlWidget::TextChanged, pWidget, [=](QString text) {
         option->setValue("1:" + text);
     });
+    DAlertControl *alertControl = new DAlertControl(pWidget->lineEdit(), pWidget->lineEdit());
+    connect(pWidget->lineEdit(), &DLineEdit::textChanged, pWidget, [=](const QString &text) { //设置速度不能高于最大限速
+        if (Settings::getInstance()->getDownloadSettingSelected()
+            && text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()
+            && text.toInt() <= 0) {
+            alertControl->showAlertMessage(tr("Total speed should be less than max. download speed"),
+                                           pWidget->lineEdit()->parentWidget()->parentWidget(), -1);
+            alertControl->setMessageAlignment(Qt::AlignLeft);
+        } else {
+            alertControl->hideAlertMessage();
+        }
+        if (text.contains('+')) {
+            QString str = text;
+            int pos = pWidget->lineEdit()->lineEdit()->cursorPosition();
+            pWidget->lineEdit()->lineEdit()->setText(str.remove('+'));
+            pWidget->lineEdit()->lineEdit()->setCursorPosition(pos);
+        }
+        if (text.size() > 0 && text.at(0) == '0') {
+            QString str = text;
+            int pos = pWidget->lineEdit()->lineEdit()->cursorPosition();
+            pWidget->lineEdit()->lineEdit()->setText(str.remove(0, 1));
+            pWidget->lineEdit()->lineEdit()->setCursorPosition(pos);
+        }
+    });
+
+    connect(pWidget->lineEdit(), &DLineEdit::editingFinished, pWidget, [=]() {
+        if (pWidget->lineEdit()->lineEdit()->text().toInt() <= 0) {
+            pWidget->lineEdit()->lineEdit()->setText("100");
+        }
+    });
+
+    connect(pWidget->lineEdit(), &DLineEdit::focusChanged, pWidget, [=](bool onFocus) { //设置速度不能高于最大限速
+        if (!onFocus) {
+            alertControl->hideAlertMessage();
+        }
+        if (pWidget->lineEdit()->lineEdit()->text().toInt() <= 0) {
+            pWidget->lineEdit()->lineEdit()->setText("100");
+        }
+    });
+
     connect(pWidget, &SettingsControlWidget::checkedChanged, pWidget, [=](bool stat) {
         if (stat) {
             option->setValue("1:" + option->value().toString().mid(2));
@@ -719,13 +775,19 @@ QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
         size = "30";
         check = false;
     } else {
+        QString str = option->value().toString();
         size = option->value().toString().mid(2);
         check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
     pWidget->initUI(tr("Limit max. number of concurrent download resources"), tr(""), true);
-    pWidget->setSize(size);
+    pWidget->setSpeend(size);
     pWidget->setSwitch(check);
+
+    connect(pWidget->lineEdit(), &DLineEdit::textChanged, pWidget, [=](const QString &text) { //设置速度不能高于最大限速
+        option->setValue("1:" + text);
+    });
+
     return pWidget;
 }
 
@@ -817,44 +879,52 @@ QString Settings::getDownloadSavePath()
 bool Settings::getOneClickDownloadState()
 {
     auto option = m_settings->option("Basic.OnekeyDownload.onekeydownload");
-
     return option->value().toBool();
 }
 
 int Settings::getCloseMainWindowSelected()
 {
     auto option = m_settings->option("Basic.CloseMainWindow.closemainwindow");
-
     return option->value().toInt();
 }
 
 int Settings::getMaxDownloadTaskNumber()
 {
     auto option = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
-
     return option->value().toInt();
+}
+
+int Settings::getOriginalAddressThreadsNumber()
+{
+    auto option = m_settings->option("DownloadSettings.downloadmanagement.addressthread");
+    return option->value().toInt();
+}
+
+int Settings::getMaxDownloadResourcesNumber()
+{
+    auto option = m_settings->option("DownloadSettings.downloadmanagement.maxlimit");
+    if(option->value().toString().left(1).toInt()) {
+        return option->value().toString().mid(2).toInt();
+    }
+    return 0;
 }
 
 bool Settings::getDownloadFinishedOpenState()
 {
     auto option = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoOpen");
-
     return option->value().toBool();
 }
 
 bool Settings::getAutoDeleteFileNoExistentTaskState()
 {
     auto option = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoDelete");
-
     return option->value().toBool();
 }
 
 int Settings::getDownloadSettingSelected()
 {
     auto option = m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
-
     QString currentValue = option->value().toString();
-
     if (currentValue.contains("speedlimit;")) {
         return 1;
     } else {
@@ -972,49 +1042,42 @@ bool Settings::getClipBoardState()
 bool Settings::getWebBrowserState()
 {
     auto option = m_settings->option("Monitoring.MonitoringObject.Browser");
-
     return option->value().toBool();
 }
 
 bool Settings::getHttpDownloadState()
 {
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.HttpDownload");
-
     return option->value().toBool();
 }
 
 bool Settings::getBtDownloadState()
 {
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.BTDownload");
-
     return option->value().toBool();
 }
 
 bool Settings::getMagneticDownloadState()
 {
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.MagneticDownload");
-
     return option->value().toBool();
 }
 
 bool Settings::getMLDownloadState()
 {
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.MetaLinkDownload");
-
     return option->value().toBool();
 }
 
 bool Settings::getAutoOpenBtTaskState()
 {
     auto option = m_settings->option("Monitoring.BTRelation.OpenDownloadPanel");
-
     return option->value().toBool();
 }
 
 bool Settings::getAutoOpenMetalinkTaskState()
 {
     auto option = m_settings->option("Monitoring.MetaLinkRelation.OpenDownloadMetaLinkPanel");
-
     return option->value().toBool();
 }
 
@@ -1022,28 +1085,24 @@ bool Settings::getAutoOpenMetalinkTaskState()
 bool Settings::getStartAssociatedBTFileState()
 {
     auto option = m_settings->option("Monitoring.BTRelation.AssociateBTFileAtStartup");
-
     return option->value().toBool();
 }
 
 bool Settings::getStartAssociatedMetaLinkFileState()
 {
     auto option = m_settings->option("Monitoring.MetaLinkRelation.AssociateMetaLinkFileAtStartup");
-
     return option->value().toBool();
 }
 
 bool Settings::getDownloadInfoSystemNotifyState()
 {
     auto option = m_settings->option("Notifications.remind.downloadInfoNotify");
-
     return option->value().toBool();
 }
 
 bool Settings::getNewTaskShowMainWindowState()
 {
     auto option = m_settings->option("AdvancedSetting.ShortcutKeySetting.NewTaskShowMainwindow");
-
     return option->value().toBool();
 }
 

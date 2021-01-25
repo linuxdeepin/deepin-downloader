@@ -46,7 +46,7 @@ public:
     void setSpeend(QString speed);
     void setSize(QString size);
     void setSwitch(bool arg);
-
+    Dtk::Widget::DLineEdit *lineEdit();
 private:
     Dtk::Widget::DLineEdit *m_Edit;
     Dtk::Widget::DComboBox *m_ComboBox;

@@ -53,50 +53,11 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
         m_Edit->setMinimumWidth(200);
-        DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);
         QIntValidator *validator = new QIntValidator(1, 9999);
         m_Edit->lineEdit()->setValidator(validator);
         m_Edit->lineEdit()->setText("100");
         layout->addWidget(m_Edit);
         connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);
-        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString &text) { //设置速度不能高于最大限速
-            if (Settings::getInstance()->getDownloadSettingSelected()
-                && text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()
-                && text.toInt() <= 0) {
-                alertControl->showAlertMessage(tr("Total speed should be less than max. download speed"),
-                                               m_Edit->parentWidget()->parentWidget(), -1);
-                alertControl->setMessageAlignment(Qt::AlignLeft);
-            } else {
-                alertControl->hideAlertMessage();
-            }
-            if (text.contains('+')) {
-                QString str = text;
-                int pos = m_Edit->lineEdit()->cursorPosition();
-                m_Edit->lineEdit()->setText(str.remove('+'));
-                m_Edit->lineEdit()->setCursorPosition(pos);
-            }
-            if (text.size() > 0 && text.at(0) == '0') {
-                QString str = text;
-                int pos = m_Edit->lineEdit()->cursorPosition();
-                m_Edit->lineEdit()->setText(str.remove(0, 1));
-                m_Edit->lineEdit()->setCursorPosition(pos);
-            }
-        });
-
-        connect(m_Edit, &DLineEdit::editingFinished, this, [=]() {
-            if (m_Edit->lineEdit()->text().toInt() <= 0) {
-                m_Edit->lineEdit()->setText("100");
-            }
-        });
-
-        connect(m_Edit, &DLineEdit::focusChanged, this, [=](bool onFocus) { //设置速度不能高于最大限速
-            if (!onFocus) {
-                alertControl->hideAlertMessage();
-            }
-            if (m_Edit->lineEdit()->text().toInt() <= 0) {
-                m_Edit->lineEdit()->setText("100");
-            }
-        });
     } else {
         m_ComboBox = new DComboBox();
         m_ComboBox->setEnabled(false);
@@ -152,4 +113,9 @@ void SettingsControlWidget::setSize(QString size)
 void SettingsControlWidget::setSwitch(bool arg)
 {
     m_SwitchBtn->setChecked(arg);
+}
+
+DLineEdit *SettingsControlWidget::lineEdit()
+{
+    return m_Edit;
 }
