@@ -125,7 +125,7 @@
                             "key":"maxlimit",
                             "name":"Limit max. number of concurrent download resources",
                             "type":"limitmaxnumber",
-                            "default":"5"
+                            "default":"0:500"
                         }
                     ]
                 },

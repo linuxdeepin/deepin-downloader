@@ -594,7 +594,11 @@ void MainFrame::initAria2()
     connect(Aria2RPCInterface::instance(), SIGNAL(RPCError(QString, QString, int, QJsonObject)), this,
             SLOT(onRpcError(QString, QString, int, QJsonObject)));
     onDownloadLimitChanged();
-    onMaxDownloadTaskNumberChanged(Settings::getInstance()->getMaxDownloadTaskNumber());
+    int maxCount = Settings::getInstance()->getMaxDownloadTaskNumber();
+    int threadTask = Settings::getInstance()->getOriginalAddressThreadsNumber();
+    int maxResource = Settings::getInstance()->getMaxDownloadResourcesNumber();
+    int count = maxCount > maxResource / threadTask ? maxResource / threadTask : maxCount;
+    onMaxDownloadTaskNumberChanged(count);
     qDebug() << "MainFrame initAria2 Finished";
 }
 
