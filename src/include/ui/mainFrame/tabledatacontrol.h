@@ -121,12 +121,7 @@ public:
     /**
      * @brief 删除ACtion槽函数
     */
-    int onDelAction(int currentTab);
-
-    /**
-     * @brief 永久删除ACtion槽函数
-    */
-    int onDeletePermanentAction(int currentTab);
+    bool onDelAction(int currentTab);
 
     /**
      * @brief  获取删除正在下载和已完成列表窗口确定信号
@@ -196,6 +191,19 @@ private:
      * @return true: 有激活的任务  false：没有激活的任务
      */
     bool checkTaskStatus();
+
+    /**
+     * @brief 删除任务
+     * @return true: 删除成功  false：删除失败
+     */
+    bool deleteTask(bool ifDeleteLocal, TableView *pRecycleTableView);
+
+    /**
+     * @brief 重新下载任务
+     * @return true: 重新下载成功  false：失败
+     */
+    bool reDownloadTask(QString taskId, QString filePath, QString fileName, QString url);
+
 
 public slots:
 
