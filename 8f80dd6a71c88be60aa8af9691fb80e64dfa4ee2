@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07323f51_95865411",
+        "filename": "src/include/ui/settings/settings.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-25T12:57:09Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 10; 注释率: 40.0%",
+      "revId": "8f80dd6a71c88be60aa8af9691fb80e64dfa4ee2",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e0dfd4b_6bb3d238",
+        "filename": "src/include/ui/settings/settingswidget.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-25T12:57:09Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "8f80dd6a71c88be60aa8af9691fb80e64dfa4ee2",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d00d95c_a2af3ce1",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-25T12:57:09Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 5; 注释率: 0.0%",
+      "revId": "8f80dd6a71c88be60aa8af9691fb80e64dfa4ee2",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce7b69c_3dde32b0",
+        "filename": "src/src/ui/settings/settings.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-25T12:57:09Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 71; 注释率: 5.6%",
+      "revId": "8f80dd6a71c88be60aa8af9691fb80e64dfa4ee2",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cc81b1c_7d96c312",
+        "filename": "src/src/ui/settings/settingswidget.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-25T12:57:09Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "8f80dd6a71c88be60aa8af9691fb80e64dfa4ee2",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
