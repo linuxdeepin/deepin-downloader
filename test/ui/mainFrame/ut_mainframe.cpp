@@ -252,7 +252,7 @@ TEST_F(ut_MainFreme, deleteTrashTask)
     TableView *table = MainFrame::instance()->findChild<TableView *>("recycleTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     model->setData(model->index(0, 0), true, TableModel::Ischecked);
-    table->getTableControl()->onDeletePermanentAction(2);
+    table->getTableControl()->onDelAction(2);
     MainFrame::instance()->onDeleteConfirm(true, true);
     QTest::qWait(1000);
 }

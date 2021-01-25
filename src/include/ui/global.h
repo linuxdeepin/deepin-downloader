@@ -85,6 +85,13 @@ struct DeleteDataItem {
     QString deleteTime;
     QString finishTime;
 };
+
+enum CurrentTab {
+    downloadingTab = 0,
+    finishTab,
+    recycleTab
+};
+
 /**
      * @enum Status
      * @brief 列表项当前状态
