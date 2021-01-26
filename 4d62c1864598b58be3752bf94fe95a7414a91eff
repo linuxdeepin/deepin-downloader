@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "14e93e4e_be2a7b9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-26T01:59:07Z",
+      "side": 1,
+      "message": "fix:后必须存在一个空格",
+      "revId": "4d62c1864598b58be3752bf94fe95a7414a91eff",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39d33089_e8538df9",
         "filename": "src/include/ui/global.h",
         "patchSetId": 1
