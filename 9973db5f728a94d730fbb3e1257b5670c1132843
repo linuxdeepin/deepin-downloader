@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "8ee6fc78_30d30a3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-27T06:43:22Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "9973db5f728a94d730fbb3e1257b5670c1132843",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c54f3b53_1f0e7719",
         "filename": "src/src/ui/mainFrame/itemDelegate.cpp",
         "patchSetId": 1
