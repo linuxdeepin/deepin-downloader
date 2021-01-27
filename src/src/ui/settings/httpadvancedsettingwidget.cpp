@@ -94,7 +94,7 @@ void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 }
 void HttpAdvancedSettingWidget::onWebBtnClicked()
 {
-    if(!(m_textEdit->placeholderText() == tr("P lease enter one URL per line"))
+    if(!(m_textEdit->placeholderText() == tr("Please enter one URL per line"))
             && !m_textEdit->placeholderText().isEmpty()){
         m_curSuffixStr = m_textEdit->toPlainText();
     }
