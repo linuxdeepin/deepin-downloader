@@ -904,6 +904,11 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_DownLoadingTableView->horizontalHeader()->reset();
         m_DownLoadingTableView->reset(true);
         if (index.row() == 1) {
+            if (obj != nullptr) {
+                QTimer::singleShot(50, [=]() { // 其他列表为空的时候切换到当前列表，会显示不全，刷新两次就可以
+                    onListClicked(index);
+                });
+            }
             m_NotaskWidget->show();
             m_NotaskLabel->setText(tr("No finished tasks"));
             m_NotaskTipLabel->hide();
@@ -922,7 +927,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
         }
     } else {
         if (obj != nullptr) {
-            QTimer::singleShot(100, [=]() { // 其他列表为空的时候切换到回收站列表，会显示不全，刷新两次就可以
+            QTimer::singleShot(50, [=]() { // 其他列表为空的时候切换到当前列表，会显示不全，刷新两次就可以
                 onListClicked(index);
             });
         }
@@ -2854,10 +2859,12 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
         int position = m_DownLoadingTableView->getTableModel()->renderList().indexOf(pItem, 0);
         if(pItem != nullptr) {
+            QTimer::singleShot(50, [=]() {
             pItem->Ischecked = true;
             QModelIndex index = m_DownLoadingTableView->getTableModel()->index(position, 0);
             m_DownLoadingTableView->setCurrentIndex(index);
             m_DownLoadingTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
+            });
         }
     } else if(tab.contains("Trash")) {
         onListClicked(m_LeftList->model()->index(2,0));
@@ -2865,7 +2872,7 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
         DeleteDataItem *pItem = m_RecycleTableView->getTableModel()->find(taskId, 2);
         int position = m_RecycleTableView->getTableModel()->recyleList().indexOf(pItem, 0);
         if(pItem != nullptr) {
-            QTimer::singleShot(100, [=]() { // 其他列表为空的时候切换到回收站列表，会显示不全，刷新两次就可以
+            QTimer::singleShot(50, [=]() {
                 pItem->Ischecked = true;
                 QModelIndex index = m_RecycleTableView->getTableModel()->index(position, 0);
                 m_RecycleTableView->setCurrentIndex(index);
