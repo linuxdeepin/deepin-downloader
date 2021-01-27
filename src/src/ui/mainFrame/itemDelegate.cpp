@@ -230,7 +230,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->setRenderHint(QPainter::Antialiasing);
                 painter->setPen(QColor("#8AA1B4"));
                 const QRect rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
-                const QString wattingText = painter->fontMetrics().elidedText(tr("Wating"),
+                const QString wattingText = painter->fontMetrics().elidedText(tr("Waiting"),
                                                                               Qt::ElideRight,
                                                                               rect_text.width() - 10);
                 painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, wattingText);

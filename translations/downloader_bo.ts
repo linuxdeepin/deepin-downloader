@@ -1,15 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="bo" version="2.1">
 <context>
     <name>BtInfoDialog</name>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="109"/>
         <source>New Task</source>
-        <translation>新建下载任务</translation>
+        <translation>ཕབ་ལེན་བྱེད་རྒྱུའི་ལས་འགན་གསར་བཟོ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
         <source>Total </source>
-        <translation>总</translation>
+        <translation>སྤྱི།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="137"/>
@@ -21,77 +21,77 @@
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="482"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="532"/>
         <source>%1 files selected, %2</source>
-        <translation>已选%1个文件，共%2</translation>
+        <translation>ཡིག་ཆ་%1བདམས་ཟིན་པ་དང་། ཁྱོན་%2ཡོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="161"/>
         <source>All</source>
-        <translation>全选</translation>
+        <translation>ཚང་མ་འདེམས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="168"/>
         <source>Videos</source>
-        <translation>视频</translation>
+        <translation>བརྙན་འཕྲིན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="175"/>
         <source>Pictures</source>
-        <translation>图片</translation>
+        <translation>པར་རིས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
         <source>Music</source>
-        <translation>音乐</translation>
+        <translation>རོལ་དབྱངས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
         <source>Others</source>
-        <translation>其他</translation>
+        <translation>གཞན་དག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="204"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="558"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="678"/>
         <source>Available:</source>
-        <translation>剩余：</translation>
+        <translation>ལྷག་མ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="219"/>
         <source>Change download folder</source>
-        <translation>选择文件保存路径</translation>
+        <translation>ཡིག་ཆ་ཉར་ལམ་འདེམས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="227"/>
         <source>Download Now</source>
-        <translation>立即下载</translation>
+        <translation>ལམ་སེང་ཕབ་ལེན་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="253"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="627"/>
         <source>Name</source>
-        <translation>名称</translation>
+        <translation>མིང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="255"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="629"/>
         <source>Type</source>
-        <translation>类型</translation>
+        <translation>རིགས་གྲས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="256"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="630"/>
         <source>Size</source>
-        <translation>大小</translation>
+        <translation>ཆེ་ཆུང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>磁盘空间不足，请重新选择下载路径</translation>
+        <translation>སྡུད་སྡེར་གྱི་བར་སྟོང་མི་འདང་བས། ཕབ་ལེན་བྱེད་ལམ་ཡང་བསྐྱར་འདེམས་རོགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>གཏན་འཁེལ།</translation>
     </message>
 </context>
 <context>
@@ -99,38 +99,38 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="88"/>
         <source>New Task</source>
-        <translation>新建下载任务</translation>
+        <translation>ཕབ་ལེན་བྱེད་རྒྱུའི་ལས་འགན་གསར་བཟོ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
         <source>Please enter one URL per line</source>
-        <translation>添加多个下载链接时，请确保每行只有一个链接</translation>
+        <translation>ཕབ་ལེན་གྱི་སྦྲེལ་མཐུད་མང་པོ་ཞིག་སྣོན་སྐབས། བསྟར་པ་རེར་སྦྲེལ་མཐུད་གཅིག་ལས་མེད་པའི་འགན་ལེན་བྱེད་དགོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="101"/>
         <source>Enter download links or drag a torrent file here</source>
-        <translation>请输入下载地址或将文件拖动到此</translation>
+        <translation>ཕབ་ལེན་བྱེད་སའི་ས་གནས་ནང་འཇུག་བྱེད་པའམ་ཡིག་ཆ་འདིར་འདྲུད་རོགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="139"/>
         <source>Name</source>
-        <translation>名称</translation>
+        <translation>མིང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
         <source>Type</source>
-        <translation>类型</translation>
+        <translation>རིགས་གྲས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="142"/>
         <source>Size</source>
-        <translation>大小</translation>
+        <translation>ཆེ་ཆུང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="168"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="930"/>
         <source>Total </source>
-        <translation>总</translation>
+        <translation>སྤྱི།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="174"/>
@@ -143,91 +143,91 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="847"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="995"/>
         <source>%1 files selected, %2</source>
-        <translation>已选%1个文件，共%2</translation>
+        <translation>ཡིག་ཆ་%1བདམས་ཟིན་པ་དང་། ཁྱོན་%2ཡོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="187"/>
         <source>All</source>
-        <translation>全选</translation>
+        <translation>ཚང་མ་འདེམས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
         <source>Videos</source>
-        <translation>视频</translation>
+        <translation>བརྙན་འཕྲིན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="197"/>
         <source>Pictures</source>
-        <translation>图片</translation>
+        <translation>པར་རིས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
         <source>Music</source>
-        <translation>音乐</translation>
+        <translation>རོལ་དབྱངས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
         <source>Others</source>
-        <translation>其他</translation>
+        <translation>གཞན་དག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="212"/>
         <source>Documents</source>
-        <translation>文档</translation>
+        <translation>ཡིག་ཆ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
         <source>Archives</source>
-        <translation>压缩包</translation>
+        <translation>སྡུད་སྒྲིལ་ཁུག་མ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="594"/>
         <source>Available:</source>
-        <translation>剩余：</translation>
+        <translation>ལྷག་མ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="259"/>
         <source>Change download folder</source>
-        <translation>选择文件保存路径</translation>
+        <translation>ཡིག་ཆ་ཉར་ལམ་འདེམས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="283"/>
         <source>Select file</source>
-        <translation>选择文件</translation>
+        <translation>ཡིག་ཆ་འདེམས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>འདོར་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
         <source>Confirm</source>
-        <translation>确定</translation>
+        <translation>གཏན་འཁེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="320"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="338"/>
         <source>Choose Torrent File</source>
-        <translation>选择Torrent文件</translation>
+        <translation>ཡིག་ཆ་Torrentའདེམས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>磁盘空间不足，请重新选择下载路径</translation>
+        <translation>སྡུད་སྡེར་གྱི་བར་སྟོང་མི་འདང་བས། ཕབ་ལེན་བྱེད་ལམ་ཡང་བསྐྱར་འདེམས་རོགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="609"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>གཏན་འཁེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
         <source>Network error, check your network and try later</source>
-        <translation>网络错误，请检查网络后重试</translation>
+        <translation>དྲ་རྒྱ་ནོར་འདུག་པས། དྲ་རྒྱར་ཞིབ་བཤེར་བྱས་རྗེས་ཡང་བསྐྱར་ཚོད་ལྟ་བྱོས།</translation>
     </message>
 </context>
 <context>
@@ -235,37 +235,37 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="203"/>
         <source>DHT status</source>
-        <translation>DHT状态</translation>
+        <translation>DHTརྣམ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="205"/>
         <source>HTTP task</source>
-        <translation>HTTP任务</translation>
+        <translation>HTTPལས་འགན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="207"/>
         <source>BT task</source>
-        <translation>BT任务</translation>
+        <translation>BTལས་འགན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="209"/>
         <source>Magnet task</source>
-        <translation>磁力链任务</translation>
+        <translation>ལྕགས་ཁབ་ལེན་གྱི་ལས་འགན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="211"/>
         <source>Network detection</source>
-        <translation>网络检测</translation>
+        <translation>དྲ་རྒྱ་དཔྱད་འཇལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Pass</source>
-        <translation>正常</translation>
+        <translation>རྒྱུན་ལྡན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Failed</source>
-        <translation>失败</translation>
+        <translation>ཕམ་པ།</translation>
     </message>
 </context>
 <context>
@@ -273,12 +273,12 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="64"/>
         <source>Result:</source>
-        <translation>诊断结果：</translation>
+        <translation>བརྟག་དཔྱད་བྱས་འབྲས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="67"/>
         <source>Diagnose Again</source>
-        <translation>再次诊断</translation>
+        <translation>བརྟག་དཔྱད་ཡང་བསྐྱར་བྱེད་པ།</translation>
     </message>
 </context>
 <context>
@@ -286,26 +286,26 @@
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="51"/>
         <source>Full speed</source>
-        <translation>全速下载</translation>
+        <translation>མྱུར་མགྱོགས་ཕབ་ལེན་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="53"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
-        <translation>下载文件会通过P2P的方式上传分享，
-帮助其他网友加速下载，
-不会涉及任务用户隐私。</translation>
+        <translation>ཕབ་ལེན་བྱས་པའི་ཡིག་ཆ་དག་P2Pགི་བྱ་ཐབས་བརྒྱུད་ནས་ཡར་སྤྲད་དེ་མཉམ་སྤྱོད་བྱེད་སྲིད།
+དྲ་གྲོགས་གཞན་ཚོར་རོགས་རམ་བྱས་ནས་མྱུར་མགྱོགས་ཕབ་ལེན་བྱེད་པ།
+སྤྱོད་མཁན་གྱི་གསང་དོན་གང་དང་ཡང་འབྲེལ་བ་མེད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
         <source>Limited speed</source>
-        <translation>限速下载</translation>
+        <translation>ཚད་བཀག་ཕབ་ལེན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="98"/>
         <source>Max. download speed</source>
-        <translation>最大下载限速</translation>
+        <translation>ཚད་བཀག་ཕབ་ལེན་མཐོ་ཤོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="99"/>
@@ -316,27 +316,27 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="104"/>
         <source>Max. upload speed</source>
-        <translation>最大上传限速</translation>
+        <translation>ཡར་སྤྲོད་པའི་ཚད་བཀག་ཆེ་ཤོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
         <source>Limit period</source>
-        <translation>限速时段</translation>
+        <translation>ཚད་བཀག་དུས་རིམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="111"/>
         <source>to</source>
-        <translation>至</translation>
+        <translation>བར།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="233"/>
         <source>Limited between 100-102400</source>
-        <translation>请输入100-102400之间的整数</translation>
+        <translation>100-102400བར་གྱི་ཧྲིལ་གྲངས་ནང་འཇུག་བྱོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="255"/>
         <source>Limited between 16-5120</source>
-        <translation>请输入16-5120之间的整数</translation>
+        <translation>16-5120བར་གྱི་ཧྲིལ་གྲངས་ནང་འཇུག་བྱོས།</translation>
     </message>
 </context>
 <context>
@@ -344,12 +344,12 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="50"/>
         <source>Last used directory</source>
-        <translation>上次使用目录</translation>
+        <translation>སྔོན་མ་བེད་སྤྱོད་བྱས་པའི་དཀར་ཆག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="52"/>
         <source>Default directory</source>
-        <translation>默认目录</translation>
+        <translation>སོར་བཞག་དཀར་ཆག</translation>
     </message>
 </context>
 <context>
@@ -357,39 +357,39 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="36"/>
         <source>Edit File Extensions</source>
-        <translation>编辑下载文件扩展名</translation>
+        <translation>ཕབ་ལེན་ཡིག་ཆའི་རྒྱ་སྐྱེད་མིང་རྩོམ་སྒྲིག་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
         <source>Edit Unmonitored Sites</source>
-        <translation>编辑不接管的网站</translation>
+        <translation>རྩིས་སྤྲོད་དང་ལེན་མི་བྱེད་པའི་དྲ་ཚིགས་རྩོམ་སྒྲིག་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="51"/>
         <source>Restore</source>
-        <translation>还原</translation>
+        <translation>སོར་ཆུད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="58"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>འདོར་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="63"/>
         <source>Confirm</source>
-        <translation>确定</translation>
+        <translation>གཏན་འཁེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="87"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="91"/>
         <source>Separate file extensions by semicolons (;)</source>
-        <translation>请输入正确的文件扩展名，以;号分隔</translation>
+        <translation>ཡིག་ཆའི་རྒྱ་སྐྱེད་མིང་ཡང་དག་པ་ནང་འཇུག་བྱེད་པ་དང་། རྟགས་;ཡིས་དབྱེ་བ་ཕྱེ་རོགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
         <source>Please enter one URL per line</source>
-        <translation>添加多个下载链接时，请确保每行只有一个链接</translation>
+        <translation>ཕབ་ལེན་གྱི་སྦྲེལ་མཐུད་མང་པོ་ཞིག་སྣོན་སྐབས། བསྟར་པ་རེར་སྦྲེལ་མཐུད་གཅིག་ལས་མེད་པའི་འགན་ལེན་བྱེད་དགོས།</translation>
     </message>
 </context>
 <context>
@@ -397,27 +397,27 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="210"/>
         <source>Paused</source>
-        <translation>已暂停</translation>
+        <translation>མཚམས་བཞག་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
         <source>Failed</source>
-        <translation>下载失败</translation>
+        <translation>ཕབ་ལེན་བྱེད་མི་ཐུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
         <source>Waiting</source>
-        <translation>等待中</translation>
+        <translation>སྒུག་བཞིན་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
         <source>Time left </source>
-        <translation>剩余</translation>
+        <translation>ལྷག་མ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
         <source>Duplicate name</source>
-        <translation>文件名重复</translation>
+        <translation>ཡིག་ཆའི་མིང་བསྐྱར་ཟློས།</translation>
     </message>
 </context>
 <context>
@@ -425,7 +425,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="57"/>
         <source>Advanced</source>
-        <translation>高级设置</translation>
+        <translation>མཐོ་རིམ་སྒྲིག་འགོད།</translation>
     </message>
 </context>
 <context>
@@ -433,237 +433,237 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="129"/>
         <source>Settings</source>
-        <translation>设置</translation>
+        <translation>སྒྲིག་འགོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="134"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
         <source>When completed</source>
-        <translation>下载完成后</translation>
+        <translation>ཕབ་ལེན་བྱས་ཚར་རྗེས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
         <source>Shut down</source>
-        <translation>关机</translation>
+        <translation>རྩིས་འཁོར་གློག་གསོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
         <source>Hibernate</source>
-        <translation>休眠</translation>
+        <translation>མལ་གསོ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="308"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="560"/>
         <source>Exit</source>
-        <translation>退出</translation>
+        <translation>ཕྱིར་འཐོན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="148"/>
         <source>Diagnostic tool</source>
-        <translation>诊断工具</translation>
+        <translation>བརྟག་དཔྱད་བྱེད་ཆས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="199"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="919"/>
         <source>No download tasks</source>
-        <translation>暂无下载任务</translation>
+        <translation>གནས་སྐབས་ཕབ་ལེན་བྱེད་རྒྱུ་མེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="206"/>
         <source>No search results</source>
-        <translation>无搜索结果</translation>
+        <translation>བཙལ་འབྲས་མེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="218"/>
         <source>Click + to create new task</source>
-        <translation>点击 + 按钮新建下载任务</translation>
+        <translation>མཐེབ་གཅུས་+ མནན་ནས་ཕབ་ལེན་བྱེད་རྒྱུའི་ལས་འགན་གསར་པ་བཟོ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="234"/>
         <source>0 tasks</source>
-        <translation>0个任务</translation>
+        <translation>ལས་འགན་0།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="263"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="859"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="886"/>
         <source>Downloading</source>
-        <translation>正在下载</translation>
+        <translation>ཕབ་ལེན་བྱེད་བཞིན་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
         <source>Completed</source>
-        <translation>下载完成</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="266"/>
         <source>Trash</source>
-        <translation>回收站</translation>
+        <translation>སྙིགས་སྣོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="298"/>
         <source>Downloader</source>
-        <translation>下载器</translation>
+        <translation>ཕབ་ལེན་བྱེད་ཆས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
         <source>Show main window</source>
-        <translation>显示主界面</translation>
+        <translation>མཐུད་ངོས་ཨ་མ་མངོན་སྟོན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="301"/>
         <source>New task</source>
-        <translation>新建任务</translation>
+        <translation>ལས་འགན་གསར་བཟོ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
         <source>Resume all</source>
-        <translation>全部开始</translation>
+        <translation>ཚང་མ་འགོ་ཚུགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
         <source>Pause all</source>
-        <translation>全部暂停</translation>
+        <translation>ཚང་མ་མཚམས་འཇོག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="559"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation>退出程序将中断下载，您确定要退出吗？</translation>
+        <translation>བྱ་རིམ་ལས་ཕྱིར་དོན་ཚེ་ཕབ་ལེན་བྱེད་མཚམས་འཇོག་སྲིད་པས། ཁྱོད་ཀྱིས་ཕྱིར་དོན་རྒྱུ་གཏན་འཁེལ་ལམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="560"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>འདོར་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="678"/>
         <source> tasks</source>
-        <translation>个任务</translation>
+        <translation>ལས་འགན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="695"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="711"/>
         <source> files</source>
-        <translation> 文件</translation>
+        <translation>ཡིག་ཆ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="859"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="886"/>
         <source>Downloading %1...</source>
-        <translation>%1开始下载</translation>
+        <translation>%1ཕབ་ལེན་བྱེད་འགོ་བརྩམས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="913"/>
         <source>No finished tasks</source>
-        <translation>暂无下载完成的任务</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན་པའི་ལས་འགན་མེད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="940"/>
         <source>No deleted tasks</source>
-        <translation>暂无删除的任务</translation>
+        <translation>བསུབས་ཟིན་པའི་ལས་འགན་མེད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1332"/>
         <source>Resume</source>
-        <translation>开始</translation>
+        <translation>འགོ་ཚུགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1338"/>
         <source>Pause</source>
-        <translation>暂停</translation>
+        <translation>མཚམས་འཇོག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1344"/>
         <source>Download first</source>
-        <translation>优先下载</translation>
+        <translation>སྔོན་ལ་ཕབ་ལེན་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1365"/>
         <source>Download again</source>
-        <translation>重新下载</translation>
+        <translation>ཡང་བསྐྱར་ཕབ་ལེན་བྱེད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1359"/>
         <source>Restore</source>
-        <translation>还原</translation>
+        <translation>སོར་ཆུད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1370"/>
         <source>Open</source>
-        <translation>打开</translation>
+        <translation>ཁ་ཕྱེ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1378"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1454"/>
         <source>Open folder</source>
-        <translation>打开文件夹</translation>
+        <translation>ཡིག་ཁུག་ཁ་ཕྱེ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1398"/>
         <source>Rename</source>
-        <translation>重命名</translation>
+        <translation>མིང་ཡང་བསྐྱར་འདོགས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1405"/>
         <source>Move to</source>
-        <translation>移动到文件夹</translation>
+        <translation>ཡིག་ཁུག་ནང་སྤོ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1414"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1435"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1446"/>
         <source>Copy download link</source>
-        <translation>复制下载链接</translation>
+        <translation>ཕབ་ལེན་གྱི་སྦྲེལ་མཐུད་པར་སློག་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1424"/>
         <source>Delete</source>
-        <translation>删除</translation>
+        <translation>བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1429"/>
         <source>Permanently delete</source>
-        <translation>彻底删除</translation>
+        <translation>རྩ་བ་ནས་བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1461"/>
         <source>Delete all</source>
-        <translation>删除全部</translation>
+        <translation>ཚང་མ་བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1623"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1963"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>གཏན་འཁེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1858"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>已达同时下载任务数上限，自动暂停其它任务</translation>
+        <translation>ཕབ་ལེན་བྱེད་ཚད་མང་ཤོས་སུ་སླེབས་ཡོད་པས། ལས་འགན་གཞན་རང་བཞིན་གྱིས་མཚམས་འཇོག་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1963"/>
         <source>Unable to parse the URL, please check</source>
-        <translation>无法解析URL，请检查</translation>
+        <translation>URLདབྱེ་ཞིབ་བྱེད་ཐབས་བྲལ་བས། ཞིབ་བཤེར་བྱེད་རོགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2360"/>
         <source>Copied to clipboard</source>
-        <translation>已复制到剪切板</translation>
+        <translation>དྲས་གཏུབ་པང་དུ་པར་སློག་བྱས་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2684"/>
         <source>View</source>
-        <translation>查看</translation>
+        <translation>ལྟ་བཤེར།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2708"/>
         <source>Torrent file not exist or broken</source>
-        <translation>种子文件不存在或已损坏</translation>
+        <translation>ས་བོན་ཡིག་ཆ་མེད་པའམ་གཏོར་བརླག་ཤོར་ཟིན།</translation>
     </message>
 </context>
 <context>
@@ -672,36 +672,36 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="42"/>
         <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Warning</source>
-        <translation>警告</translation>
+        <translation>ཐ་ཚིག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="80"/>
         <location filename="../src/src/ui/messagebox.cpp" line="104"/>
         <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Download Again</source>
-        <translation>重新下载</translation>
+        <translation>ཡང་བསྐྱར་ཕབ་ལེན་བྱེད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="81"/>
         <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>重新下载将删除原来的文件，确定重新下载？</translation>
+        <translation>ཡང་བསྐྱར་ཕབ་ལེན་བྱས་ཚེ་ཐོག་མའི་ཡིག་ཆ་བསུབ་སྲིད་པས། ཡང་བསྐྱར་ཕབ་ལེན་བྱེད་རྒྱུ་ཡིན་ནམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>The task already exists.</source>
-        <translation>该任务已存在。</translation>
+        <translation>ལས་འགན་འདི་འདུག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="86"/>
         <source>Delete the downloaded files and download again?</source>
-        <translation>是否删除已下载内容并重新下载？</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན་པའི་ནང་དོན་དག་བསུབས་ནས་ཡང་བསྐྱར་ཕབ་ལེན་བྱེད་རྒྱུ་ཡིན་ནམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="99"/>
         <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <location filename="../src/src/ui/messagebox.cpp" line="341"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>གཏན་འཁེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="102"/>
@@ -709,104 +709,104 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="174"/>
         <location filename="../src/src/ui/messagebox.cpp" line="219"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>འདོར་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="115"/>
         <source>Download error</source>
-        <translation>任务下载异常</translation>
+        <translation>ལས་འགན་ཕབ་ལེན་བྱེད་པ་རྒྱུན་འགལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Delete Task</source>
-        <translation>删除任务</translation>
+        <translation>ལས་འགན་བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="139"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation>您确认要彻底删除此下载任务吗？</translation>
+        <translation>ཁྱོད་ཀྱིས་ཕབ་ལེན་བྱེད་རྒྱུའི་ལས་འགན་འདི་བསུབ་རྒྱུ་ཡིན་པ་གཏན་འཁེལ་ལམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="142"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation>选择彻底删除后，本地文件也将被删除。</translation>
+        <translation>རྩ་བ་ནས་བསུབ་པ་ཞེས་པ་བདམས་རྗེས། རང་སའི་ཡིག་ཆ་ཡང་བསུབ་སྲིད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation>您确认要删除此下载任务吗？</translation>
+        <translation>ཁྱོད་ཀྱིས་ཕབ་ལེན་བྱེད་རྒྱུའི་ལས་འགན་འདི་བསུབ་རྒྱུ་ཡིན་པ་གཏན་འཁེལ་ལམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="149"/>
         <location filename="../src/src/ui/messagebox.cpp" line="151"/>
         <location filename="../src/src/ui/messagebox.cpp" line="173"/>
         <source>Delete local files</source>
-        <translation>同时删除本地文件</translation>
+        <translation>དུས་མཚུངས་རང་སའི་ཡིག་ཆ་ཡང་བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Permanently Delete</source>
-        <translation>彻底删除</translation>
+        <translation>རྩ་བ་ནས་བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="162"/>
         <source>Delete</source>
-        <translation>删除</translation>
+        <translation>བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>您确认清空回收站里的所有任务吗？</translation>
+        <translation>ཁྱོད་ཀྱིས་སྙིགས་སྣོད་ནང་གི་ལས་འགན་ཚང་མ་གཙང་སེལ་བྱེད་རྒྱུ་གཏན་འཁེལ་ལམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="176"/>
         <source>Empty</source>
-        <translation>清空</translation>
+        <translation>གཙང་སེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Rename</source>
-        <translation>重命名</translation>
+        <translation>མིང་ཡང་བསྐྱར་འདོགས་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="214"/>
         <source>Please choose your action</source>
-        <translation>请选择您的操作</translation>
+        <translation>ཁྱོད་ཀྱི་བབཀོལ་སྤྱོད་འདེམས་རོགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Exit</source>
-        <translation>退出</translation>
+        <translation>ཕྱིར་འཐོན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Minimize to system tray</source>
-        <translation>最小化到系统托盘</translation>
+        <translation>རྒྱུད་ཁོངས་ཀྱི་སྡེར་མའི་ནང་ཆུང་འགྱུར་བྱོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="218"/>
         <source>Do not ask again</source>
-        <translation>不再询问</translation>
+        <translation>འདྲི་རྩད་མི་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="220"/>
         <source>Confirm</source>
-        <translation>确定</translation>
+        <translation>གཏན་འཁེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
-        <translation>文件名不得包含“\”或“/”</translation>
+        <translation>ཡིག་ཆའི་མིང་ནང་“\”ཡང་ན་“/”ཡོད་མི་རུང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="337"/>
         <source>Permission denied</source>
-        <translation>选择的目录无操作权限</translation>
+        <translation>བདམས་པའི་དཀར་ཆག་ལ་བཀོལ་སྤྱོད་བྱེད་དབང་མེད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="339"/>
         <source>Please try another folder</source>
-        <translation>请重新选择</translation>
+        <translation>ཡང་བསྐྱར་འདེམས་རོགས།</translation>
     </message>
 </context>
 <context>
@@ -814,17 +814,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="43"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>下载完成/失败时，系统通知提醒</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན་པ་/བྱེད་མི་ཐུབ་ཚེ། རྒྱུད་ཁོངས་ཀྱིས་བརྡ་ཐོ་བཏང་ནས་དྲན་སྐུལ་བྱེད་སྲིད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="51"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
-        <translation>请前往“控制中心 - 通知 -下载器”进行设置</translation>
+        <translation>“ཚོད་འཛིན་ལྟེ་གནས་ - བརྡ་ཐོ་ -ཕབ་ལེན་བྱེད་ཆས་”ནང་ནས་སྒྲིག་འགོད་བྱོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="58"/>
         <source>Settings</source>
-        <translation>设置</translation>
+        <translation>སྒྲིག་འགོད།</translation>
     </message>
 </context>
 <context>
@@ -832,48 +832,48 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/include/ui/global.h" line="36"/>
         <source>Downloading</source>
-        <translation>正在下载</translation>
+        <translation>ཕབ་ལེན་བྱེད་བཞིན་པ།</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="37"/>
         <source>Waiting</source>
-        <translation>等待中</translation>
+        <translation>སྒུག་བཞིན་པ།</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="38"/>
         <source>Paused</source>
-        <translation>已暂停</translation>
+        <translation>མཚམས་བཞག་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="39"/>
         <source>Error</source>
-        <translation>下载异常</translation>
+        <translation>ཕབ་ལེན་རྒྱུན་འགལ།</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="40"/>
         <source>Completed</source>
-        <translation>下载完成</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="41"/>
         <source>Removed</source>
-        <translation>已移动</translation>
+        <translation>སྤོས་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="42"/>
         <location filename="../src/include/ui/global.h" line="59"/>
         <source>Unknown</source>
-        <translation>未知</translation>
+        <translation>རྒྱུས་མེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="65"/>
         <source>Downloader</source>
-        <translation>下载器</translation>
+        <translation>ཕབ་ལེན་བྱེད་ཆས།</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="66"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation>下载器是一个简单易用的下载工具，支持URL和种子文件下载。</translation>
+        <translation>ཕབ་ལེན་བྱེད་ཆས་ནི་སྟབས་བདེ་ཞིང་སྤྱོད་བདེ་བའི་ཕབ་ལེན་ཡོ་བྱད་ཅིག་རེད། URLདང་ས་བོན་ཡིག་ཆ་ཕབ་ལེན་བྱེད་པར་རྒྱབ་སྐྱོར་བྱེད་པ།</translation>
     </message>
 </context>
 <context>
@@ -881,17 +881,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="57"/>
         <source>Completed</source>
-        <translation>下载完成</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="61"/>
         <source>Trash</source>
-        <translation>回收站</translation>
+        <translation>སྙིགས་སྣོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="65"/>
         <source>Downloading</source>
-        <translation>正在下载</translation>
+        <translation>ཕབ་ལེན་བྱེད་བཞིན་པ།</translation>
     </message>
 </context>
 <context>
@@ -899,202 +899,202 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="345"/>
         <source>Basic</source>
-        <translation>基本设置</translation>
+        <translation>གཞི་རྩའི་སྒྲིག་འགོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
         <source>Startup</source>
-        <translation>启动</translation>
+        <translation>འགོ་སློང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="347"/>
         <source>Auto startup</source>
-        <translation>开机启动</translation>
+        <translation>ཁ་ཕྱེ་སྟེ་འགོ་སློང་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="348"/>
         <source>Resume downloading on startup</source>
-        <translation>启动后自动开始未完成的任务</translation>
+        <translation>འགོ་བསླངས་རྗེས་རང་བཞིན་གྱིས་གྲུབ་མེད་པའི་ལས་འགན་འགོ་རྩོམ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="349"/>
         <source>Download Directory</source>
-        <translation>下载目录</translation>
+        <translation>ཕབ་ལེན་དཀར་ཆག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="350"/>
         <source>1-Click Download</source>
-        <translation>一键下载</translation>
+        <translation>ཐེངས་གཅིག་ལ་ཕབ་ལེན་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
         <source>Create tasks directly</source>
-        <translation>一键创建新任务</translation>
+        <translation>ལས་འགན་གསར་པ་ཐེངས་གཅིག་ལ་བཟོ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="352"/>
         <source>Close Main Window</source>
-        <translation>关闭主窗口</translation>
+        <translation>སྒེའུ་ཁུང་ཨ་མ་སྒོ་བརྒྱབ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="353"/>
         <source>Minimize to system tray</source>
-        <translation>最小化到系统托盘</translation>
+        <translation>རྒྱུད་ཁོངས་ཀྱི་སྡེར་མའི་ནང་ཆུང་འགྱུར་བྱོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="354"/>
         <source>Ask me always</source>
-        <translation>每次询问</translation>
+        <translation>རྟག་པར་འདྲི་རྩད་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="355"/>
         <source>Exit</source>
-        <translation>退出</translation>
+        <translation>ཕྱིར་འཐོན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="356"/>
         <source>Tasks</source>
-        <translation>任务管理</translation>
+        <translation>ལས་འགན་དོ་དམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
         <source>Max. concurrent downloads</source>
-        <translation>同时下载最大任务数</translation>
+        <translation>སྡེབ་གཅིག་ལ་ཕབ་ལེན་བྱེད་ཐུབ་པའི་ཁ་གྲངས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="358"/>
         <source>Open files when completed</source>
-        <translation>下载完成后自动打开</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན་རྗེས་ཁ་ཕྱེ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
         <source>Delete tasks without files</source>
-        <translation>自动删除“文件不存在”的任务</translation>
+        <translation>“ཡིག་ཆ་མེད་པའི་”ལས་འགན་དག་རང་བཞིན་གྱིས་བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
         <source>Downloads</source>
-        <translation>下载设置</translation>
+        <translation>ཕབ་ལེན་སྒྲིག་འགོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="361"/>
         <source>Monitoring</source>
-        <translation>接管设置</translation>
+        <translation>རྩིས་སྤྲོད་དོ་དམ་སྒྲིག་འགོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="362"/>
         <source>Applications</source>
-        <translation>应用程序</translation>
+        <translation>ཉེར་སྤྱོད་བྱ་རིམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="363"/>
         <source>Clipboard</source>
-        <translation>剪贴板</translation>
+        <translation>དྲས་གཏུབ་པང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="364"/>
         <source>Browser</source>
-        <translation>浏览器</translation>
+        <translation>བཤར་ཆས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="365"/>
         <source>Links Monitored</source>
-        <translation>接管下载类型</translation>
+        <translation>ཕབ་ལེན་གྱི་རིགས་གྲས་རྩིས་སྤྲོད་དོ་དམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="366"/>
         <source>BT Files</source>
-        <translation>BT关联</translation>
+        <translation>BTའབྲེལ་བཙུགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>下载种子文件后自动打开下载面板</translation>
+        <translation>ས་བོན་ཡིག་ཆ་ཕབ་ལེན་བྱས་རྗེས་ཕབ་ལེན་གྱི་ངོས་ཁ་ཕྱེ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
         <source>Create new task when opening a torrent file</source>
-        <translation>关联BT种子文件</translation>
+        <translation>BTས་བོན་ཡིག་ཆར་འབྲེལ་འཙུགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
         <source>MetaLink Files</source>
-        <translation>MetaLink关联</translation>
+        <translation>MetaLinkའབྲེལ་འཛུགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
         <source>Create new task when a metalink file downloaded</source>
-        <translation>下载MetaLink文件后自动打开下载面板</translation>
+        <translation>MetaLinkཡིག་ཆ་ཕབ་ལེན་བྱས་རྗེས་ཕབ་ལེན་གྱི་ངོས་ཁ་ཕྱེ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>Create new task when opening a metalink file</source>
-        <translation>关联MetaLink文件</translation>
+        <translation>MetaLinkཡིག་ཆ་འབྲེལ་འཛུགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
         <source>Notifications</source>
-        <translation>通知提醒</translation>
+        <translation>དྲན་སྐུལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>下载完成/失败时，系统通知提醒</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན་པ་/བྱེད་མི་ཐུབ་ཚེ། རྒྱུད་ཁོངས་ཀྱིས་བརྡ་ཐོ་བཏང་ནས་དྲན་སྐུལ་བྱེད་སྲིད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
         <source>Play a sound when downloading finished</source>
-        <translation>下载完成后，播放提示音</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན་རྗེས་དྲན་བརྡ་གཏོང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
         <source>Advanced</source>
-        <translation>高级设置</translation>
+        <translation>མཐོ་རིམ་སྒྲིག་འགོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
         <source>Shortcuts</source>
-        <translation>快捷设置</translation>
+        <translation>མྱུར་ལམ་སྒྲིག་འགོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
         <source>Show main window when creating new task</source>
-        <translation>新建任务时显示主界面</translation>
+        <translation>ལས་འགན་གསར་པ་བཟོ་སྐབས་མཐུད་ངོས་ཨ་མ་མངོན་སྟོན་བྱེད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
         <source>Cache</source>
-        <translation>下载磁盘缓存</translation>
+        <translation>ཕབ་ལེན་སྡུད་སྡེར་ཤོང་གསོག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
         <source>Move slow downloads to the end</source>
-        <translation>自动将低速任务移动至队尾</translation>
+        <translation>མྱུར་ཚད་དལ་བའི་ལས་འགན་རང་བཞིན་གྱིས་མཇུག་ཏུ་སྤོ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Original address threads</source>
-        <translation>原始地址线程数</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Download Management</source>
-        <translation>下载管理</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Speed Settings</source>
-        <translation>速度设置</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="466"/>
         <source>HTTP</source>
-        <translation>HTTP下载</translation>
+        <translation>HTTPཕབ་ལེན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="487"/>
         <source>BitTorrent</source>
-        <translation>BT下载</translation>
+        <translation>BTཕབ་ལེན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="508"/>
@@ -1104,43 +1104,43 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="529"/>
         <source>Magnet URI scheme</source>
-        <translation>磁力链下载</translation>
+        <translation>ཁབ་ལེན་ཕབ་ལེན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="662"/>
         <source>When total speed less than</source>
-        <translation>全局下载速度低于</translation>
+        <translation>ཕབ་ལེན་བྱེད་པའི་མྱུར་ཚད་་་་་་་་་ལས་དམའ་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="662"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>KB/s时，自动增加同时下载任务数</translation>
+        <translation>KB/sསྐབས། སྡེབ་གཅིག་ལ་ཕབ་ལེན་བྱེད་པའི་ལས་འགན་རང་བཞིན་གྱིས་ཁ་སྣོན་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="674"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation>全局下载速度应小于最大下载速度</translation>
+        <translation>སྤྱིའི་ཕབ་ལེན་བྱེད་པའི་མྱུར་ཚད་དེ་ཕབ་ལེན་གྱི་མྱུར་ཚད་མགྱོགས་ཤོས་ལས་ཆུང་བ་ཡོད་དགོས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="743"/>
         <source>Download files less than</source>
-        <translation>优先下载小于</translation>
+        <translation>སྔོན་ལ་ཕབ་ལེན་བྱེད་པ་་་་་་ཆུང་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="743"/>
         <source>MB first</source>
-        <translation>MB的任务</translation>
+        <translation>MBཡི་ལས་འགན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="786"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation>限制全局最大同时下载资源数</translation>
+        <translation>སྡེབ་གཅིག་ལ་ཕབ་ལེན་བྱེད་པའི་ཐོན་ཁུངས་ཀྱི་ཁ་གྲངས་མང་ཤོས་ལ་ཚོད་འཛིན་བྱེད་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="802"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>磁盘缓存越大，下载速度越快，占用电脑资源越多。</translation>
+        <translation>སྡུད་སྡེར་གྱི་ཤོང་གསོག་ཇི་ཙམ་ཆེ་ན། ཕབ་ལེན་བྱེད་པའི་མྱུར་ཚད་ཀྱང་དེ་ཙམ་གྱིས་མགྱོགས་པ་ཡོད་པས། གློག་ཀླད་ཀྱི་ཐོན་ཁུངས་ཀྱང་དེ་བས་མང་བ་ཟིན་ཡོད།</translation>
     </message>
 </context>
 <context>
@@ -1148,37 +1148,37 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="416"/>
         <source> &gt; 1 day</source>
-        <translation> &gt; 1 天</translation>
+        <translation>&gt;ཉིན་1།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>Download failed</source>
-        <translation>下载失败</translation>
+        <translation>ཕབ་ལེན་བྱེད་མ་ཐུབ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="646"/>
         <source>%1 download failed. Network error.</source>
-        <translation>%1下载失败，网络故障</translation>
+        <translation>%1ཕབ་ལེན་བྱེད་མ་ཐུབ། དྲ་རྒྱར་སྐྱོན་ཤོར་འདུག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="647"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>འདོར་བ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="647"/>
         <source>View</source>
-        <translation>查看</translation>
+        <translation>ལྟ་བཤེར།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>Download completed</source>
-        <translation>下载完成</translation>
+        <translation>ཕབ་ལེན་བྱས་ཟིན།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="652"/>
         <source>%1 download finished</source>
-        <translation>%1下载完成</translation>
+        <translation>%1ཕབ་ལེན་བྱས་ཟིན།</translation>
     </message>
 </context>
 <context>
@@ -1186,30 +1186,30 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Name</source>
-        <translation>名称</translation>
+        <translation>མིང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="428"/>
         <source>Size</source>
-        <translation>大小</translation>
+        <translation>ཆེ་ཆུང་།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="432"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="441"/>
         <source>Status</source>
-        <translation>状态</translation>
+        <translation>རྣམ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="443"/>
         <source>Time finished</source>
-        <translation>完成时间</translation>
+        <translation>ཚར་བའི་དུས་ཚོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="436"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="445"/>
         <source>Time deleted</source>
-        <translation>删除时间</translation>
+        <translation>བསུབས་པའི་དུས་ཚོད།</translation>
     </message>
 </context>
 <context>
@@ -1217,7 +1217,7 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
         <source>Duplicate name</source>
-        <translation>文件名重复</translation>
+        <translation>ཡིག་ཆའི་མིང་བསྐྱར་ཟློས།</translation>
     </message>
 </context>
 <context>
@@ -1225,19 +1225,19 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="72"/>
         <source>New task</source>
-        <translation>新建任务</translation>
+        <translation>ལས་འགན་གསར་བཟོ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="153"/>
         <source>Pause</source>
-        <translation>暂停</translation>
+        <translation>མཚམས་འཇོག</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="86"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="152"/>
         <source>Resume</source>
-        <translation>开始</translation>
+        <translation>འགོ་ཚུགས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="93"/>
@@ -1245,27 +1245,27 @@ and more resource consumption.</source>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="146"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="154"/>
         <source>Delete</source>
-        <translation>删除</translation>
+        <translation>བསུབ་པ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="136"/>
         <source>Empty</source>
-        <translation>清空</translation>
+        <translation>གཙང་སེལ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="137"/>
         <source>Restore</source>
-        <translation>还原</translation>
+        <translation>སོར་ཆུད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="144"/>
         <source>Open folder</source>
-        <translation>打开文件夹</translation>
+        <translation>ཡིག་ཁུག་ཁ་ཕྱེ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="145"/>
         <source>Open</source>
-        <translation>打开</translation>
+        <translation>ཁ་ཕྱེ།</translation>
     </message>
 </context>
 </TS>
