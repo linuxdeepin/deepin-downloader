@@ -59,21 +59,21 @@ set (UDLC_UI_HEADERS
 
 
 
-#发布的时候生成qm文件
-if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
-    #生成 ts qm文件
-    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_zh_CN.ts")
-    qt5_create_translation(QM_FILES
-        ${PROJECT_SOURCE_DIR}/translations
-        ${TS_FILES}
-        OPTIONS -source-language en_US -no-obsolete)
+##发布的时候生成qm文件
+#if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
+#    #生成 ts qm文件
+#    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_zh_CN.ts")
+#    qt5_create_translation(QM_FILES
+#        ${PROJECT_SOURCE_DIR}/translations
+#        ${TS_FILES}
+#        OPTIONS -source-language en_US -no-obsolete)
 
-    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader.ts")
-    qt5_create_translation(QM_FILES
-        ${PROJECT_SOURCE_DIR}/translations
-        ${TS_FILES}
-        OPTIONS -source-language en_US -no-obsolete)
-endif ()
+#    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader.ts")
+#    qt5_create_translation(QM_FILES
+#        ${PROJECT_SOURCE_DIR}/translations
+#        ${TS_FILES}
+#        OPTIONS -source-language en_US -no-obsolete)
+#endif ()
 
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用

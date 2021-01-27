@@ -377,6 +377,9 @@ Settings::Settings(QObject *parent)
     auto newTaskName = tr("Show main window when creating new task"); // 新建任务时显示主界面
     auto diskCacheName = tr("Cache"); // 下载磁盘缓存
     auto AutoSortBySpeedName = tr("Move slow downloads to the end"); // 低速的移动到末尾
+    auto originalAddressThreads = tr("Original address threads");  // 原始地址线程数
+    auto downloadManagement = tr("Download Management");  //下载管理
+    auto speedSettings = tr("Speed Settings");  //下载管理
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
