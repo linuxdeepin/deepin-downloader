@@ -374,11 +374,6 @@ private slots:
     void onAutoDownloadBySpeed(bool status);
 
     /**
-    * @brief 重新下载确认槽函数
-    */
-    void onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type);
-
-    /**
     * @brief 列表项双击事件，打开文件
     */
     void onTableViewItemDoubleClicked(QModelIndex index);
@@ -627,7 +622,6 @@ private:
     QWidget *m_RightWidget;
     QWidget *m_NotaskWidget;
     DLabel *m_NotaskLabel;
-    DLabel *m_NoResultlabel;
     DLabel *m_NotaskTipLabel;
     QStackedWidget *m_RightStackwidget;
     QWidget *m_TaskNumWidget;

@@ -379,14 +379,6 @@ TEST_F(ut_MainFreme, checkIfInPeriod)
     MainFrame::instance()->checkIfInPeriod(&currentTime, &periodStartTime, &periodEndTime);
 }
 
-TEST_F(ut_MainFreme, onRedownloadConfirmSlot)
-{
-    DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
-    MainFrame::instance()->onListClicked(list->model()->index(0,0));
-    MainFrame::instance()->onRedownloadConfirmSlot("http://download.qt.io/archive/qt/4.1/qt-mac-opensource-src-4.1.1.tar.gz",
-                                                   "qt-mac-opensource-src-4.1.1", "tar.gz");
-}
-
 TEST_F(ut_MainFreme, removeDownloadListJob)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");

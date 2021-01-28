@@ -174,7 +174,7 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         DownloadDataItem *data = new DownloadDataItem;
         data->taskId = id;
         data->gid = gId;
-        data->Ischecked = 0;
+        data->Ischecked = false;
         data->completedLength = "0KB";
         QDateTime time = QDateTime::currentDateTime();
         data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
@@ -766,7 +766,7 @@ bool TableDataControl::onDelAction(int currentTab)
         m_RecycleDeleteList.clear();
         const QList<DeleteDataItem *> &pList = m_DownloadTableView->getTableModel()->recyleList();
         for (int i = 0; i < pList.size(); ++i) {
-            if ((pList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
+            if (pList.at(i)->Ischecked) {
                 m_RecycleDeleteList.append(pList.at(i));
             }
         }
@@ -776,7 +776,7 @@ bool TableDataControl::onDelAction(int currentTab)
         for (int i = 0; i < pSelectList.size(); ++i) {
             if ((currentTab == Global::finishTab && pSelectList.at(i)->status == Complete) ||
                 (currentTab == Global::downloadingTab && pSelectList.at(i)->status != Complete)) {
-                if ((pSelectList.at(i)->Ischecked == 1) && !m_DownloadTableView->isRowHidden(i)) {
+                if (pSelectList.at(i)->Ischecked) {
                     m_DeleteList.append(pSelectList.at(i));
                 }
             }
