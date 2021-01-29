@@ -593,12 +593,6 @@ protected:
     void keyReleaseEvent(QKeyEvent *event) override;
 
     /**
-     * @brief 主窗口大小变化事件
-     * @param event 事件类型
-     */
-    void resizeEvent(QResizeEvent *event) override;
-
-    /**
      * @brief mainwidow关闭事件
      * @param event 事件类型
      */

@@ -209,15 +209,6 @@ void TableView::currentChanged(const QModelIndex &current, const QModelIndex &pr
     QTableView::currentChanged(current, previous);
 }
 
-void TableView::resizeEvent(QResizeEvent *event)
-{
-    if (event->oldSize().width() <= 0) {
-        return;
-    }
-    int leng = event->size().width() - event->oldSize().width();
-    setColumnWidth(1, columnWidth(1) + leng);
-}
-
 bool TableView::refreshTableView(const int &index)
 {
     if (index > 1) {

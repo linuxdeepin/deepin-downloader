@@ -1666,15 +1666,6 @@ void MainFrame::keyReleaseEvent(QKeyEvent *event)
     QWidget::keyReleaseEvent(event);
 }
 
-void MainFrame::resizeEvent(QResizeEvent *event)
-{
-    Q_UNUSED(event);
-    //    m_DownLoadingTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    //    m_DownLoadingTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    //    m_RecycleTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    //    m_RecycleTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-}
-
 void MainFrame::onNewBtnClicked()
 {
     createNewTask("");

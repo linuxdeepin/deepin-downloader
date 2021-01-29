@@ -148,9 +148,6 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
-
-    void resizeEvent(QResizeEvent *event) override;
-
 private:
     int m_TableFlag;
     TableModel *m_TableModel;
