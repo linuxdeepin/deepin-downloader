@@ -1,3 +1,11 @@
+downloadmanager (5.3.6) stable; urgency=low
+
+  * 56268 兼容性需求—字体兼容—支持切换语言至简、英、繁、正、维、藏
+  * 50621【三期任务】限制全局最大同时下载资源数
+  * 修复上次测试产生的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 29 Jan 2021 14:36:09 +0800
+
 downloadmanager (5.3.5) stable; urgency=low
 
   * 完成 【三期任务】原始地址线程数
