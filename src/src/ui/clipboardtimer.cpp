@@ -195,18 +195,18 @@ QStringList ClipboardTimer::getTypeList()
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
     QString defaultSuffix = obj.value("CurSuffix").toString();
-    //defaultSuffix.remove('.');
-    QStringList defaulList = defaultSuffix.split(".");
+    defaultSuffix.remove('.');
+    QStringList defaulList = defaultSuffix.split(";");
     QStringList::iterator it = defaulList.begin();
-    for (;it != defaulList.end() ; it++) {
-        QString str = *it;
-        if(!it->endsWith(';')){
-            it = defaulList.erase(it);
-            it--;
-            continue;
-        } 
-        it->remove(";");
-    }
+//    for (;it != defaulList.end() ; it++) {
+//        QString str = *it;
+//        if(!it->endsWith(';')){
+//            it = defaulList.erase(it);
+//            it--;
+//            continue;
+//        }
+//        it->remove(";");
+//    }
    defaulList.removeAll("metalink");
    defaulList.removeAll("torrent");
    return  defaulList;
@@ -232,6 +232,9 @@ QStringList ClipboardTimer::getWebList()
 
 bool ClipboardTimer::isWebFormat(QString url)
 {
+
+    url = url.mid(url.indexOf("//")+2);
+    url = url.mid(0,url.indexOf("/"));
     QStringList webList =getWebList();
     for (int i = 0; i < webList.size(); i++) {
         if(webList[i].simplified().isEmpty()){

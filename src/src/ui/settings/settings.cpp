@@ -266,7 +266,7 @@ Settings::Settings(QObject *parent)
         if (!value.isNull()) {
             if (value.toBool() == true) {
                 if (!optionHttpDownload->value().toBool() && !optionBTDownload->value().toBool() &&
-                        !optionMagneticDownload->value().toBool()) {
+                        !optionMagneticDownload->value().toBool() && !optionMetaLinkDownload->value().toBool()) {
                     optionHttpDownload->setValue(true);
                     optionBTDownload->setValue(true);
                     optionMetaLinkDownload->setValue(true);
@@ -289,7 +289,7 @@ Settings::Settings(QObject *parent)
                     optionClipBoard->setValue(true);
                 }
             } else {
-                if (!optionBTDownload->value().toBool() && !optionMagneticDownload->value().toBool()) {
+                if (!optionBTDownload->value().toBool() && !optionMagneticDownload->value().toBool() && !optionMetaLinkDownload->value().toBool()) {
                     optionClipBoard->setValue(false);
                 }
             }
@@ -304,7 +304,7 @@ Settings::Settings(QObject *parent)
                     optionClipBoard->setValue(true);
                 }
             } else {
-                if (!optionHttpDownload->value().toBool() && !optionMagneticDownload->value().toBool()) {
+                if (!optionHttpDownload->value().toBool() && !optionMagneticDownload->value().toBool() && !optionMetaLinkDownload->value().toBool()) {
                     optionClipBoard->setValue(false);
                 }
             }
@@ -319,7 +319,7 @@ Settings::Settings(QObject *parent)
                     optionClipBoard->setValue(true);
                 }
             } else {
-                if (!optionHttpDownload->value().toBool() && !optionMagneticDownload->value().toBool()) {
+                if (!optionHttpDownload->value().toBool() && !optionMagneticDownload->value().toBool()  && !optionBTDownload->value().toBool()) {
                     optionClipBoard->setValue(false);
                 }
             }
@@ -334,7 +334,7 @@ Settings::Settings(QObject *parent)
                     optionClipBoard->setValue(true);
                 }
             } else {
-                if (!optionHttpDownload->value().toBool() && !optionBTDownload->value().toBool()) {
+                if (!optionHttpDownload->value().toBool() && !optionBTDownload->value().toBool()  && !optionMetaLinkDownload->value().toBool()) {
                     optionClipBoard->setValue(false);
                 }
             }

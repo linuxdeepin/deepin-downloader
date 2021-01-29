@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sed -i '/Added\ Associations/aapplication/metalink+xml=downloader.desktop' /home/${USER}/.config/mimeapps.list
+sed -i '/Default\ Applications/aapplication/metalink+xml=downloader.desktop' /home/${USER}/.config/mimeapps.list
+sed -i '/Added\ Associations/aapplication/x-bittorrent=downloader.desktop' /home/${USER}/.config/mimeapps.list
+sed -i '/Default\ Applications/aapplication/x-bittorrent=downloader.desktop' /home/${USER}/.config/mimeapps.list
