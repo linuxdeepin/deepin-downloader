@@ -166,7 +166,7 @@ bool Aria2RPCInterface::checkAria2cProc()
     QString output = QString::fromLocal8Bit(proc.readAllStandardOutput());
     QStringList lineList = output.split("\n");
     int cnt = 0;
-    foreach (QString t, lineList) {
+    for (QString t : lineList) {
         if (t.isEmpty()) {
             continue;
         }
@@ -312,7 +312,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
     bool bFlag = false;
     QString temp = "";
 
-    foreach (QString line, strList) {
+    for (QString line : strList) {
         if (line.startsWith("Mode: ")) {
             btInfo.mode = line.mid(6);
         } else if (line.startsWith("Announce:")) {
@@ -463,7 +463,7 @@ bool Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
     QJsonArray ja;
     ja.append(gId);
     QJsonArray ka;
-    foreach (QString k, keys) {
+    for (QString k : keys) {
         ka.append(k);
     }
     ja.append(ka);

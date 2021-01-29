@@ -203,7 +203,7 @@ bool DeleteItemThread::deleteDirectory(const QString &path)
 
     dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
     QFileInfoList fileList = dir.entryInfoList();
-    foreach (QFileInfo fi, fileList) {
+    for (QFileInfo fi : fileList) {
         if (fi.isFile()) {
             fi.dir().remove(fi.fileName());
         } else {

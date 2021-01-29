@@ -499,7 +499,7 @@ bool TableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
 {
     Q_UNUSED(json);
     const QList<Global::DownloadDataItem *> &pItemList = m_DownloadTableView->getTableModel()->dataList();
-    foreach (DownloadDataItem *pItem, pItemList) {
+    for (DownloadDataItem *pItem : pItemList) {
         if (pItem->status != Global::DownloadJobStatus::Complete) {
             pItem->status = Global::DownloadJobStatus::Active;
         }
@@ -696,7 +696,7 @@ bool TableDataControl::checkFileExist(QString &filePath)
 }
 void TableDataControl::onUnusualConfirm(int index, const QString &taskIds)
 {
-    foreach(QString taskId, taskIds.split("\n")) {
+    for(QString taskId : taskIds.split("\n")) {
         DownloadDataItem *pItem = m_DownloadTableView->getTableModel()->find(taskId);
         if (nullptr == pItem) {
             continue;
@@ -729,10 +729,6 @@ void TableDataControl::onUnusualConfirm(int index, const QString &taskIds)
             removeDownloadListJob(pItem);
         }
     }
-}
-
-void TableDataControl::onAria2Remove(QString gId, QString id)
-{
 }
 
 bool TableDataControl::searchEditTextChanged(QString text, QList<QString> &taskIDList,

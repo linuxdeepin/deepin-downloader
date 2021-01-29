@@ -116,7 +116,7 @@ bool DBInstance::updateAllTaskInfo(QList<TaskInfo> &taskList)
         qDebug() << q.lastError();
         return false;
     }
-    foreach (TaskInfo task, taskList) {
+    for (TaskInfo task : taskList) {
         QSqlQuery sql;
         sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? where task_id= ?");
         sql.addBindValue(task.gid);
@@ -272,7 +272,7 @@ bool DBInstance::updateAllTaskStatus(QList<TaskStatus> &taskList)
         qDebug() << q.lastError();
         return false;
     }
-    foreach (TaskStatus task, taskList) {
+    for (TaskStatus task : taskList) {
         QSqlQuery sql;
         sql.prepare("update  download_task_status set  download_status=? , modify_time=? ,compeletedLength=? , download_speed=? , totalLength=? ,percent=? , totalFromSource=? ,finish_time=? where task_id= ?");
         sql.addBindValue(task.downloadStatus);

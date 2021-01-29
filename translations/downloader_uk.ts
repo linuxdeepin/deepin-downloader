@@ -408,6 +408,11 @@ and it does not involve user privacy.</source>
         <translation>Очікування</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="246"/>
+        <source>Resources:</source>
+        <translation>Ресурси:</translation>
+    </message>
+    <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
         <source>Time left </source>
         <translation>Лишилося часу</translation>
@@ -436,7 +441,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="134"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="295"/>
         <source>When completed</source>
         <translation>При завершенні</translation>
     </message>
@@ -452,8 +457,8 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="308"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="560"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="299"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="551"/>
         <source>Exit</source>
         <translation>Вийти</translation>
     </message>
@@ -464,202 +469,191 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="199"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="919"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="868"/>
         <source>No download tasks</source>
         <translation>Немає завдань із отримання</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="206"/>
-        <source>No search results</source>
-        <translation>Нічого не знайдено</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="218"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="209"/>
         <source>Click + to create new task</source>
         <translation>Натисніть «+» для створення завдання</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="234"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="225"/>
         <source>0 tasks</source>
         <translation>0 завдання</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="263"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="859"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="886"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="254"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="812"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="839"/>
         <source>Downloading</source>
         <translation>Отримання</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="256"/>
         <source>Completed</source>
         <translation>Завершено</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="266"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="257"/>
         <source>Trash</source>
         <translation>Смітник</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="298"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="289"/>
         <source>Downloader</source>
         <translation>Отримувач даних</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="291"/>
         <source>Show main window</source>
         <translation>Показати головне вікно</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="301"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="292"/>
         <source>New task</source>
         <translation>Нове завдання</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="293"/>
         <source>Resume all</source>
         <translation>Відновити усі</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="294"/>
         <source>Pause all</source>
         <translation>Призупинити усі</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="559"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="550"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>Ви справді хочете вийти? Завдання з отримання буде перервано.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="560"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="551"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="678"/>
-        <source> tasks</source>
-        <translation> завдання</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="695"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="711"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="671"/>
         <source> files</source>
         <translation> файлів</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="859"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="886"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="812"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="839"/>
         <source>Downloading %1...</source>
         <translation>Отримання %1…</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="913"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="865"/>
         <source>No finished tasks</source>
         <translation>Немає завершених завдань</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="940"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="878"/>
         <source>No deleted tasks</source>
         <translation>Немає вилучених завдань</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1332"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1236"/>
         <source>Resume</source>
         <translation>Продовжити</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1338"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1242"/>
         <source>Pause</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1344"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1248"/>
         <source>Download first</source>
         <translation>Отримати першим</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1365"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1254"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1269"/>
         <source>Download again</source>
         <translation>Отримати ще раз</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1359"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1263"/>
         <source>Restore</source>
         <translation>Відновити</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1370"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1274"/>
         <source>Open</source>
         <translation>Відкрити</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1378"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1454"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1282"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
         <source>Open folder</source>
         <translation>Відкрити теку</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1398"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1301"/>
         <source>Rename</source>
         <translation>Перейменувати</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1405"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1308"/>
         <source>Move to</source>
         <translation>Пересунути до</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1414"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1435"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1446"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1317"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1338"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1349"/>
         <source>Copy download link</source>
         <translation>Копіювати посилання на завантаження</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1424"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1327"/>
         <source>Delete</source>
         <translation>Вилучити</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1429"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1332"/>
         <source>Permanently delete</source>
         <translation>Остаточно вилучити</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1364"/>
         <source>Delete all</source>
         <translation>Вилучити все</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1623"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1963"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1523"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1860"/>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1858"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1755"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>Досягнуто обмеження на максимальну кількість паралельних завдань. Інші завдання буде додано до черги.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1963"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1860"/>
         <source>Unable to parse the URL, please check</source>
         <translation>Не вдалося обробити адресу. Будь ласка, перевірте, чи правильно вказано адресу.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2360"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2257"/>
         <source>Copied to clipboard</source>
         <translation>Скопійовано до буфера обміну</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2684"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2551"/>
         <source>View</source>
         <translation>Перегляд</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2708"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2575"/>
         <source>Torrent file not exist or broken</source>
         <translation>Файл торента не існує або файл пошкоджено</translation>
     </message>
@@ -1072,17 +1066,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>Потоки з початкової адреси</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Download Management</source>
-        <translation type="unfinished"/>
+        <translation>Керування отриманням</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Speed Settings</source>
-        <translation type="unfinished"/>
+        <translation>Параметри швидкості</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="466"/>

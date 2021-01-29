@@ -243,7 +243,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 QString str = " " + index.data(TableModel::Percent).toString()
                         + "%    " + speed;
                 if(index.data(TableModel::announceList).toInt()){
-                    str += "  Resources: " + QString("%1/%2")
+                    str += "  " + tr("Resources:") + " " + QString("%1/%2")
                             .arg(index.data(TableModel::connection).toInt())
                             .arg(index.data(TableModel::announceList).toInt());
                 }

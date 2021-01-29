@@ -186,7 +186,7 @@ TEST_F(ut_MainFreme, redownloadTrashTask)
     TableView *table2 = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model2 = static_cast<TableModel *>(table2->model());
     QList<Global::DownloadDataItem *> list = model2->dataList();
-    foreach (Global::DownloadDataItem *item, list) {
+    for (Global::DownloadDataItem *item : list) {
         if (item->url == "https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4") {
             EXPECT_TRUE(true);
             return;

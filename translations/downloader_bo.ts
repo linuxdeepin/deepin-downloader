@@ -410,6 +410,11 @@ and it does not involve user privacy.</source>
         <translation>སྒུག་བཞིན་པ།</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="246"/>
+        <source>Resources:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
         <source>Time left </source>
         <translation>ལྷག་མ།</translation>
@@ -438,7 +443,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="134"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="295"/>
         <source>When completed</source>
         <translation>ཕབ་ལེན་བྱས་ཚར་རྗེས།</translation>
     </message>
@@ -454,8 +459,8 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="308"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="560"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="299"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="551"/>
         <source>Exit</source>
         <translation>ཕྱིར་འཐོན།</translation>
     </message>
@@ -466,202 +471,191 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="199"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="919"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="868"/>
         <source>No download tasks</source>
         <translation>གནས་སྐབས་ཕབ་ལེན་བྱེད་རྒྱུ་མེད་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="206"/>
-        <source>No search results</source>
-        <translation>བཙལ་འབྲས་མེད་པ།</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="218"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="209"/>
         <source>Click + to create new task</source>
         <translation>མཐེབ་གཅུས་+ མནན་ནས་ཕབ་ལེན་བྱེད་རྒྱུའི་ལས་འགན་གསར་པ་བཟོ་བ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="234"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="225"/>
         <source>0 tasks</source>
         <translation>ལས་འགན་0།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="263"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="859"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="886"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="254"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="812"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="839"/>
         <source>Downloading</source>
         <translation>ཕབ་ལེན་བྱེད་བཞིན་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="256"/>
         <source>Completed</source>
         <translation>ཕབ་ལེན་བྱས་ཟིན།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="266"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="257"/>
         <source>Trash</source>
         <translation>སྙིགས་སྣོད།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="298"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="289"/>
         <source>Downloader</source>
         <translation>ཕབ་ལེན་བྱེད་ཆས།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="291"/>
         <source>Show main window</source>
         <translation>མཐུད་ངོས་ཨ་མ་མངོན་སྟོན།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="301"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="292"/>
         <source>New task</source>
         <translation>ལས་འགན་གསར་བཟོ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="293"/>
         <source>Resume all</source>
         <translation>ཚང་མ་འགོ་ཚུགས།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="294"/>
         <source>Pause all</source>
         <translation>ཚང་མ་མཚམས་འཇོག</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="559"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="550"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>བྱ་རིམ་ལས་ཕྱིར་དོན་ཚེ་ཕབ་ལེན་བྱེད་མཚམས་འཇོག་སྲིད་པས། ཁྱོད་ཀྱིས་ཕྱིར་དོན་རྒྱུ་གཏན་འཁེལ་ལམ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="560"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="551"/>
         <source>Cancel</source>
         <translation>འདོར་བ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="678"/>
-        <source> tasks</source>
-        <translation>ལས་འགན།</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="695"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="711"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="671"/>
         <source> files</source>
         <translation>ཡིག་ཆ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="859"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="886"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="812"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="839"/>
         <source>Downloading %1...</source>
         <translation>%1ཕབ་ལེན་བྱེད་འགོ་བརྩམས་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="913"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="865"/>
         <source>No finished tasks</source>
         <translation>ཕབ་ལེན་བྱས་ཟིན་པའི་ལས་འགན་མེད།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="940"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="878"/>
         <source>No deleted tasks</source>
         <translation>བསུབས་ཟིན་པའི་ལས་འགན་མེད།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1332"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1236"/>
         <source>Resume</source>
         <translation>འགོ་ཚུགས།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1338"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1242"/>
         <source>Pause</source>
         <translation>མཚམས་འཇོག</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1344"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1248"/>
         <source>Download first</source>
         <translation>སྔོན་ལ་ཕབ་ལེན་བྱེད་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1365"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1254"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1269"/>
         <source>Download again</source>
         <translation>ཡང་བསྐྱར་ཕབ་ལེན་བྱེད།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1359"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1263"/>
         <source>Restore</source>
         <translation>སོར་ཆུད།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1370"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1274"/>
         <source>Open</source>
         <translation>ཁ་ཕྱེ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1378"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1454"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1282"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
         <source>Open folder</source>
         <translation>ཡིག་ཁུག་ཁ་ཕྱེ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1398"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1301"/>
         <source>Rename</source>
         <translation>མིང་ཡང་བསྐྱར་འདོགས་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1405"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1308"/>
         <source>Move to</source>
         <translation>ཡིག་ཁུག་ནང་སྤོ་བ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1414"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1435"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1446"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1317"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1338"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1349"/>
         <source>Copy download link</source>
         <translation>ཕབ་ལེན་གྱི་སྦྲེལ་མཐུད་པར་སློག་བྱེད་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1424"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1327"/>
         <source>Delete</source>
         <translation>བསུབ་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1429"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1332"/>
         <source>Permanently delete</source>
         <translation>རྩ་བ་ནས་བསུབ་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1461"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1364"/>
         <source>Delete all</source>
         <translation>ཚང་མ་བསུབ་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1623"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1963"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1523"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1860"/>
         <source>OK</source>
         <translation>གཏན་འཁེལ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1858"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1755"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>ཕབ་ལེན་བྱེད་ཚད་མང་ཤོས་སུ་སླེབས་ཡོད་པས། ལས་འགན་གཞན་རང་བཞིན་གྱིས་མཚམས་འཇོག་པ།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1963"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1860"/>
         <source>Unable to parse the URL, please check</source>
         <translation>URLདབྱེ་ཞིབ་བྱེད་ཐབས་བྲལ་བས། ཞིབ་བཤེར་བྱེད་རོགས།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2360"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2257"/>
         <source>Copied to clipboard</source>
         <translation>དྲས་གཏུབ་པང་དུ་པར་སློག་བྱས་ཟིན།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2684"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2551"/>
         <source>View</source>
         <translation>ལྟ་བཤེར།</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2708"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2575"/>
         <source>Torrent file not exist or broken</source>
         <translation>ས་བོན་ཡིག་ཆ་མེད་པའམ་གཏོར་བརླག་ཤོར་ཟིན།</translation>
     </message>
@@ -1074,17 +1068,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>གདོད་མའི་གནས་ཡུལ་གྱི་སྐུད་རིམ་ཁ་གྲངས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Download Management</source>
-        <translation type="unfinished"/>
+        <translation>ཕབ་ལེན་དོ་དམ།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Speed Settings</source>
-        <translation type="unfinished"/>
+        <translation>མྱུར་ཚད་སྒྲིག་འགོད།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="466"/>
