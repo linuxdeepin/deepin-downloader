@@ -586,7 +586,12 @@ void MainFrame::initAria2()
     int maxCount = Settings::getInstance()->getMaxDownloadTaskNumber();
     int threadTask = Settings::getInstance()->getOriginalAddressThreadsNumber();
     int maxResource = Settings::getInstance()->getMaxDownloadResourcesNumber();
-    int count = maxCount > maxResource / threadTask ? maxResource / threadTask : maxCount;
+    int count = 0;
+    if(maxResource > 0) {
+        count = maxCount > maxResource / threadTask ? maxResource / threadTask : maxCount;
+    } else {
+        count = maxCount;
+    }
     onMaxDownloadTaskNumberChanged(count);
     qDebug() << "MainFrame initAria2 Finished";
 }

@@ -140,6 +140,9 @@ Settings::Settings(QObject *parent)
         if (!value.isNull()) {
             int threadTask = Settings::getInstance()->getOriginalAddressThreadsNumber();
             int maxResource = Settings::getInstance()->getMaxDownloadResourcesNumber();
+            if(maxResource <= 0) {
+                emit maxDownloadTaskNumberChanged(value.toInt());
+            }
             if(value.toInt() < maxResource / threadTask)
             emit maxDownloadTaskNumberChanged(value.toInt());
         }
@@ -787,8 +790,13 @@ QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
     pWidget->setSpeend(size);
     pWidget->setSwitch(check);
 
-    connect(pWidget->lineEdit(), &DLineEdit::textChanged, pWidget, [=](const QString &text) { //设置速度不能高于最大限速
-        option->setValue("1:" + text);
+    connect(pWidget->lineEdit(), &DLineEdit::textChanged, pWidget, [=](const QString &text) {
+        QString value = option->value().toString().left(1) + ":" + text;
+        option->setValue(value);
+    });
+    connect(pWidget, &SettingsControlWidget::checkedChanged, pWidget, [=](bool stat) {
+        QString value = QString("%1").arg(stat) + ":" + option->value().toString().mid(2);
+        option->setValue(value);
     });
 
     return pWidget;
