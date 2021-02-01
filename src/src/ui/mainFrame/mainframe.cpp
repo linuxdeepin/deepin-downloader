@@ -433,9 +433,7 @@ void MainFrame::initConnection()
 
     connect(Settings::getInstance(), &Settings::downloadSettingsChanged, this, &MainFrame::onDownloadLimitChanged);
     connect(Settings::getInstance(), &Settings::poweronChanged, this, &MainFrame::onPowerOnChanged);
-    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, [=](int num) {
-        onMaxDownloadTaskNumberChanged(num);
-    });
+    connect(Settings::getInstance(), &Settings::maxDownloadTaskNumberChanged, this, &MainFrame::onMaxDownloadTaskNumberChanged);
     connect(Settings::getInstance(), &Settings::disckCacheChanged, this, &MainFrame::onDisckCacheChanged);
     connect(Settings::getInstance(), &Settings::startAssociatedBTFileChanged, this, &MainFrame::onIsStartAssociatedBTFile);
     connect(Settings::getInstance(), &Settings::controlBrowserChanged, this, &MainFrame::onIsControlBrowser);
@@ -2331,12 +2329,12 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
     }
 }
 
-void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask)
+void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask, bool isAddOne)
 {
     static int maxDownloadTaskCount = 0;
-    if (nTaskNumber != 1) {
+    if (nTaskNumber != 1 || isAddOne == false) {
         maxDownloadTaskCount = nTaskNumber;
-    } else {
+    } else if(isAddOne) {
         if (maxDownloadTaskCount < 20) {
             maxDownloadTaskCount += 1;
         } else {
@@ -2350,7 +2348,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask)
     opt.insert("max-concurrent-downloads", QString().number(maxDownloadTaskCount));
     Aria2RPCInterface::instance()->changeGlobalOption(opt);
 
-    if (nTaskNumber == 1) {
+    if (nTaskNumber == 1 && isAddOne) {
         return;
     }
     const QList<DownloadDataItem *> &dataList = m_DownLoadingTableView->getTableModel()->dataList();
