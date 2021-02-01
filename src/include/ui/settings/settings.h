@@ -388,7 +388,7 @@ public:
 
 signals:
     void poweronChanged(bool state);
-    void maxDownloadTaskNumberChanged(int taskNumber);
+    void maxDownloadTaskNumberChanged(int taskNumber, bool isStopTask, bool isAddOne);
     void downloadSettingsChanged();
     void disckCacheChanged(int number);
     void startAssociatedBTFileChanged(bool state);

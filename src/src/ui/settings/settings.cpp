@@ -140,11 +140,15 @@ Settings::Settings(QObject *parent)
         if (!value.isNull()) {
             int threadTask = Settings::getInstance()->getOriginalAddressThreadsNumber();
             int maxResource = Settings::getInstance()->getMaxDownloadResourcesNumber();
-            if(maxResource <= 0) {
-                emit maxDownloadTaskNumberChanged(value.toInt());
+            int count = maxResource / threadTask;
+            if(count <= 0) {
+                emit maxDownloadTaskNumberChanged(value.toInt(), true, false);
             }
-            if(value.toInt() < maxResource / threadTask)
-            emit maxDownloadTaskNumberChanged(value.toInt());
+            if(value.toInt() < count) {
+                emit maxDownloadTaskNumberChanged(value.toInt(), true, false);
+            } else {
+                emit maxDownloadTaskNumberChanged(count, true, false);
+            }
         }
     });
 
@@ -179,8 +183,11 @@ Settings::Settings(QObject *parent)
             auto option = m_settings->option("DownloadSettings.downloadmanagement.addressthread");
             int count = option->value().toInt();
             int maxtaskcount = value.toString().mid(2).toInt();
-            if(num > maxtaskcount / count) {
-                emit maxDownloadTaskNumberChanged(maxtaskcount / count);
+            int maxcount = maxtaskcount / count;
+            if(num > maxcount && maxcount > 0) {
+                emit maxDownloadTaskNumberChanged(maxcount, true, false);
+            } else if(num < maxcount) {
+                emit maxDownloadTaskNumberChanged(num, true, false);
             }
         }
     });
