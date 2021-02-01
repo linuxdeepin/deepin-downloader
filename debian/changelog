@@ -1,3 +1,9 @@
+downloadmanager (5.3.7) stable; urgency=low
+
+  *修改bug: 新建下载任务，下载器下载不了图片 
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 01 Feb 2021 18:48:42 +0800
+
 downloadmanager (5.3.6) stable; urgency=low
 
   * 56268 兼容性需求—字体兼容—支持切换语言至简、英、繁、正、维、藏
