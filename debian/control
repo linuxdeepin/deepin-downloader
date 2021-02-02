@@ -24,6 +24,6 @@ Homepage: https://www.deepin.org/
 
 Package: org.deepin.downloader
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},sqlite3,libnotify-bin,aria2,libaria2,curl
+Depends: ${shlibs:Depends}, ${misc:Depends},sqlite3,aria2,curl
 Description: it's a user-friendly download manager, supporting URLs and torrent files.
  downloader for deepin desktop environment.
