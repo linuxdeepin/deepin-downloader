@@ -1,20 +1,12 @@
 %global repo downloadmanager
-%define pkgrelease  1
-%if 0%{?openeuler}
-%define specrelease %{pkgrelease}
-%else
-## allow specrelease to have configurable %%{?dist} tag in other distribution
-%define specrelease %{pkgrelease}%{?dist}
-%endif
 
-
-Name:           org.deepin.downloader
-Version:        5.3.8.2
+Name:           downloadmanager
+Version:        5.3.8test4
 Release:        1%{?dist}
 Summary:        a user-friendly download tool, supporting URLs and torrent files
 License:        GPLv3+
 URL:            https://github.com/linuxdeepin/org.deepin.downloader
-Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
+Source0:        %{name}_%{version}.orig.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
