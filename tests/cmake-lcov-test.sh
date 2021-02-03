@@ -25,9 +25,12 @@ mkdir -p coverage
 #收集gcov信息到.info文件中
 lcov -d ../ -c -o ./coverage/coverage.info
 #提取特定数据的覆盖率数据
-lcov --extract ./coverage/coverage.info '*/downloadmanager/src/*' '*/downloadmanager/test/*' -o ./coverage/coverage.info
+lcov --extract ./coverage/coverage.info '*/src/*' -o ./coverage/coverage.info
 #过滤一些我们不感兴趣的文件的覆盖率信息
-lcov --remove ./coverage/coverage.info '*/test/*' '*/src/downloader/main.cpp' '*/src/ui/createTask/btinfodelegate.cpp' '*/src/ui/createTask/taskdelegate.cpp' -o ./coverage/coverage.info
+lcov --remove ./coverage/coverage.info '*/tests/*' -o ./coverage/coverage.info
+
 mkdir ../report
+
 genhtml -o ../report ./coverage/coverage.info
+
 exit 0
