@@ -16,8 +16,10 @@ bool Func::isNetConnect()
          << "www.baidu.com";
     process->start("curl", list);
     process->waitForFinished();
-    int ret = process->exitCode();
-    return ret ? false : true;
+    if(!process->exitCode()){
+        return true;
+    }
+    return isLanConnect();
 }
 
 bool Func::isHTTPConnect()
@@ -27,6 +29,7 @@ bool Func::isHTTPConnect()
     //    }
     return isNetConnect();
 }
+        
 
 bool Func::setMimeappsValue(QString key, QString value)
 {
@@ -257,16 +260,79 @@ QString Func::removeDigital(QString input)
     return value;
 }
 
-//bool Func::setfdLimit(unsigned long maxLen)
-//{
-//    struct rlimit rt;
-//    rt.rlim_max = rt.rlim_cur = maxLen + 3;
-//    if (setrlimit(RLIMIT_NOFILE, &rt) == -1) {
-//        return false;
-//    } else {
-//        return true;
-//    }
-//}
+bool Func::isLanConnect()
+{
+    QString geteWay;
+    QString str;
+    {
+        QProcess netStatProcess;
+        QStringList netArgv;
+        netArgv << "-r";
+        netStatProcess.start("netstat", netArgv);
+        netStatProcess.waitForFinished();
+        str = netStatProcess.readAllStandardOutput();
+        netStatProcess.kill();
+        netStatProcess.close();
+        netStatProcess.deleteLater();
+        QStringList netstatInfo = str.split('\n');
+        QStringList geteWayList;
+        QStringList::iterator it;
+        for(int i = 2; i < netstatInfo.size()-1; i++){
+            geteWayList = netstatInfo[i].split(' ');
+            for (it = geteWayList.begin() ; it != geteWayList.end(); it++) {
+                QString a = *it;
+                if(it->isEmpty()){
+                    geteWayList.erase(it);
+                }
+            }
+            if(geteWayList[1] != "0.0.0.0")
+            {
+                geteWay = geteWayList[1];
+                break;
+            }
+        }
+    }
+    if(geteWay.isEmpty()){
+        return false;
+    }
+
+    QStringList nmapInfo;
+    QStringList lanInfo;
+    {
+        QProcess nmapProcess;
+        QStringList nmapArgv;
+        nmapArgv << "-sP" << QString("%1\/24").arg(geteWay);
+        nmapProcess.start("nmap", nmapArgv);
+        nmapProcess.waitForFinished();
+        str = nmapProcess.readAllStandardOutput();
+        nmapProcess.kill();
+        nmapProcess.close();
+        nmapInfo = str.split('\n');
+        lanInfo = nmapInfo[nmapInfo.size()-4].split(" ");
+    }
+
+    {
+        if(lanInfo[lanInfo.size()-1] != geteWay){
+            QProcess *lanProcess = new QProcess();
+            QStringList pingArgv;
+            pingArgv<< "-W" <<  "1" << "-c" << "1" << lanInfo[lanInfo.size()-1];
+            lanProcess->start("ping", pingArgv);
+            lanProcess->waitForFinished();
+            str = lanProcess->readAllStandardOutput();
+            lanProcess->kill();
+            lanProcess->close();
+            lanProcess->deleteLater();
+            if(lanProcess != nullptr){
+                delete lanProcess;
+            }
+            QStringList lanPingInfo = str.split("\n");
+            if(lanPingInfo[lanPingInfo.size() -3].contains("0% packet loss")){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 
 

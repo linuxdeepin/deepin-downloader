@@ -91,7 +91,7 @@ install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 # 添加子模块test
 add_subdirectory(src)
 add_subdirectory(translations)
-add_subdirectory(test)
+add_subdirectory(tests)
 
 install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin

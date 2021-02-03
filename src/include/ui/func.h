@@ -111,6 +111,12 @@ private:
      * @param input 带数字的拼音
      */
     static QString removeDigital(QString input);
+
+    /**
+     * @brief 判断当前电脑是否连接局域网
+     * @retrun 是否连接, true为连接, false为未连接
+     */
+    static bool isLanConnect();
 };
 
 #endif // FUNC_H
