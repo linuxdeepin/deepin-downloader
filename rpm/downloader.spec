@@ -9,7 +9,7 @@
 
 
 Name:           org.deepin.downloader
-Version:        5.3.8
+Version:        5.3.8.2
 Release:        1%{?dist}
 Summary:        a user-friendly download tool, supporting URLs and torrent files
 License:        GPLv3+
