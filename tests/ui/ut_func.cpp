@@ -28,11 +28,11 @@ protected:
 //    EXPECT_TRUE(true);
 //}
 
-TEST_F(ut_func, isHTTPConnect)
-{
-    Func::isNetConnect();
-    EXPECT_TRUE(true);
-}
+//TEST_F(ut_func, isHTTPConnect)
+//{
+//    Func::isNetConnect();
+//    EXPECT_TRUE(true);
+//}
 
 TEST_F(ut_func, setMimeappsValue)
 {
