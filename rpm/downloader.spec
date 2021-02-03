@@ -1,7 +1,15 @@
 %global repo downloadmanager
+%define pkgrelease  1
+%if 0%{?openeuler}
+%define specrelease %{pkgrelease}
+%else
+## allow specrelease to have configurable %%{?dist} tag in other distribution
+%define specrelease %{pkgrelease}%{?dist}
+%endif
+
 
 Name:           org.deepin.downloader
-Version:        5.3.7
+Version:        5.3.8
 Release:        1%{?dist}
 Summary:        a user-friendly download tool, supporting URLs and torrent files.
 License:        GPLv3+
@@ -29,7 +37,7 @@ Requires:       curl
 Downloader is a user-friendly download tool, supporting URLs and torrent files.
 
 %prep
-%autosetup -p1 -n %{repo}
+%autosetup -p1 -n %{repo}-%{version}
 
 %build
 # help find (and prefer) qt5 utilities, e.g. qmake, lrelease
