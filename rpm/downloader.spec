@@ -11,10 +11,10 @@
 Name:           org.deepin.downloader
 Version:        5.3.8
 Release:        1%{?dist}
-Summary:        a user-friendly download tool, supporting URLs and torrent files.
+Summary:        a user-friendly download tool, supporting URLs and torrent files
 License:        GPLv3+
 URL:            https://github.com/linuxdeepin/org.deepin.downloader
-Source0:        %{url}/archive/%{version}/%{repo}.tar.gz
+Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
