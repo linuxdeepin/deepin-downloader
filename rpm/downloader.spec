@@ -1,8 +1,15 @@
 %global repo downloadmanager
 
+%define pkgrelease  1
+%if 0%{?openeuler}
+%define specrelease %{pkgrelease}
+%else
+%define specrelease %{pkgrelease}%{?dist}
+%endif
+
 Name:           downloadmanager
 Version:        5.3.8test4
-Release:        1%{?dist}
+Release:        1%{pkgrelease}
 Summary:        a user-friendly download tool, supporting URLs and torrent files
 License:        GPLv3+
 URL:            https://github.com/linuxdeepin/org.deepin.downloader
