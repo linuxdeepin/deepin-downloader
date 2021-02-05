@@ -89,6 +89,7 @@ struct BtTaskInfo
     QString taskId ;//任务id唯一标识
     QString url; //下载url
     QString downloadType; //下载类型
+    QString filePath; //种子/metalink文件路径
     QString seedFile; //种子文件
     QString selectedNum; //选择的种子文件序号
     QString infoHash; //种子文件hash值

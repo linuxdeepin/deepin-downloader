@@ -856,139 +856,44 @@ int TableDataControl::onDeletePermanentAction(int currentTab)
 }
 bool TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView *pRecycleTableView)
 {
-    QString gid;
-    QString ariaTempFile;
-    QString savePath;
-    QString taskId;
     bool ifDeleteLocal = permanent || ischecked;
-    QList<DownloadDataItem> threadDeleteList;
-    for (int i = 0; i < m_DeleteList.size(); i++) {
-        DownloadDataItem tempdata;
-        tempdata.status = m_DeleteList.at(i)->status;
-        tempdata.percent = m_DeleteList.at(i)->percent;
-        tempdata.total = m_DeleteList.at(i)->total;
-        tempdata.Ischecked = m_DeleteList.at(i)->Ischecked;
-        tempdata.taskId = m_DeleteList.at(i)->taskId;
-        tempdata.fileName = m_DeleteList.at(i)->fileName;
-        tempdata.completedLength = m_DeleteList.at(i)->completedLength;
-        tempdata.totalLength = m_DeleteList.at(i)->totalLength;
-        tempdata.savePath = m_DeleteList.at(i)->savePath;
-        tempdata.speed = m_DeleteList.at(i)->speed;
-        tempdata.gid = m_DeleteList.at(i)->gid;
-        tempdata.url = m_DeleteList.at(i)->url;
-        tempdata.time = m_DeleteList.at(i)->time;
-        tempdata.createTime = m_DeleteList.at(i)->createTime;
-        threadDeleteList.append(tempdata);
-    }
-    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadDeleteList,
+    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_DeleteList,
                                                                m_DownloadTableView,
                                                                ifDeleteLocal,
                                                                "download_delete");
-    //connect(pDeleteItemThread, &DeleteItemThread::signalAria2Remove, this, &tableDataControl::Aria2RemoveSlot);
-    qDebug() << "subThread: " << QThread::currentThreadId();
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, this, [](QString gId, QString id) {
-        qDebug() << "subThread: " << QThread::currentThreadId();
         Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
-    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &TableDataControl::removeFinished);
+    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, [=](){
+        deleteTask(permanent, pRecycleTableView);
+        emit removeFinished();
+    });
+
     pDeleteItemThread->start();
-    //pDeleteItemThread->deleteLater();
-    for (int i = 0; i < m_DeleteList.size(); i++) {
-        DownloadDataItem *data = m_DeleteList.at(i);
-        savePath = data->savePath;
-        gid = data->gid;
-        taskId = data->taskId;
-        QDateTime finishTime;
-        if (data->status == Complete) {
-            finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
-        } else {
-            finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
-        }
-        TaskStatus getStatus;
-        TaskStatus downloadStatus(data->taskId,
-                                  Global::DownloadJobStatus::Removed,
-                                  QDateTime::currentDateTime(),
-                                  data->completedLength,
-                                  data->speed,
-                                  data->totalLength,
-                                  data->percent,
-                                  data->total,
-                                  finishTime);
-        if (permanent || ischecked) {
-            BtTaskInfo info;
-            DBInstance::getBtTaskById(taskId, info);
-            if (info.downloadType == "torrent") {
-                clearShardMemary();
-            }
-            DBInstance::delTask(taskId);
-            Aria2RPCInterface::instance()->purgeDownloadResult(data->gid);
-        }
-        if (!permanent && !ischecked) {
-            DeleteDataItem *delData = new DeleteDataItem;
-            delData->taskId = data->taskId;
-            delData->gid = data->gid;
-            delData->url = data->url;
-            delData->fileName = data->fileName;
-            delData->savePath = data->savePath;
-            delData->status = DownloadJobStatus::Removed;
-            delData->Ischecked = false;
-            delData->totalLength = data->totalLength;
-            delData->completedLength = data->completedLength;
-            delData->deleteTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-            delData->finishTime = data->time;
-            pRecycleTableView->getTableModel()->append(delData);
-            m_DownloadTableView->update();
-            if (DBInstance::getTaskStatusById(delData->taskId, getStatus)) {
-                DBInstance::updateTaskStatusById(downloadStatus);
-            } else {
-                DBInstance::addTaskStatus(downloadStatus);
-            }
-        }
-        m_DownloadTableView->getTableModel()->removeItem(data);
-        QThread::usleep(10);
-    }
-    if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
-        m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
-    }
-    pRecycleTableView->update();
     return true;
 }
 bool TableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent)
 {
     bool ifDeleteLocal = permanent || ischecked;
-    QList<DeleteDataItem> threadRecycleDeleteList;
-    for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
-        DeleteDataItem tempdata;
-        tempdata.status = m_RecycleDeleteList.at(i)->status;
-        tempdata.Ischecked = m_RecycleDeleteList.at(i)->Ischecked;
-        tempdata.taskId = m_RecycleDeleteList.at(i)->taskId;
-        tempdata.fileName = m_RecycleDeleteList.at(i)->fileName;
-        tempdata.completedLength = m_RecycleDeleteList.at(i)->completedLength;
-        tempdata.savePath = m_RecycleDeleteList.at(i)->savePath;
-        tempdata.gid = m_RecycleDeleteList.at(i)->gid;
-        tempdata.url = m_RecycleDeleteList.at(i)->url;
-        tempdata.totalLength = m_RecycleDeleteList.at(i)->totalLength;
-        tempdata.deleteTime = m_RecycleDeleteList.at(i)->deleteTime;
-        tempdata.finishTime = m_RecycleDeleteList.at(i)->finishTime;
-        threadRecycleDeleteList.append(tempdata);
-    }
-    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(threadRecycleDeleteList,
+    DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_RecycleDeleteList,
                                                                m_DownloadTableView,
                                                                ifDeleteLocal,
                                                                "recycle_delete");
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, [=](QString gId, QString id) {
         Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
-    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, &TableDataControl::removeFinished);
+    connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, [&](){
+        for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
+            DeleteDataItem *data = m_RecycleDeleteList.at(i);
+            DBInstance::delTask(data->taskId);
+            m_DownloadTableView->getTableModel()->removeItem(data);
+        }
+        if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
+            m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
+        }
+        emit removeFinished();
+    });
     pDeleteItemThread->start();
-    for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
-        DeleteDataItem *data = m_RecycleDeleteList.at(i);
-        DBInstance::delTask(data->taskId);
-        m_DownloadTableView->getTableModel()->removeItem(data);
-    }
-    if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
-        m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
-    }
     return true;
 }
 bool TableDataControl::downloadListRedownload(QString id)
@@ -1152,4 +1057,72 @@ bool TableDataControl::checkTaskStatus()
         }
     }
     return false;
+}
+
+bool TableDataControl::deleteTask(bool ifDeleteLocal, TableView *pRecycleTableView)
+{
+    QString gid;
+    QString ariaTempFile;
+    QString savePath;
+    QString taskId;
+
+    for (int i = 0; i < m_DeleteList.size(); i++) {
+        DownloadDataItem *data = m_DeleteList.at(i);
+        savePath = data->savePath;
+        gid = data->gid;
+        taskId = data->taskId;
+        QDateTime finishTime;
+        if (data->status == Complete) {
+            finishTime = QDateTime::fromString(data->time, "yyyy-MM-dd hh:mm:ss");
+        } else {
+            finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+        }
+        TaskStatus getStatus;
+        TaskStatus downloadStatus(data->taskId,
+                                  Global::DownloadJobStatus::Removed,
+                                  QDateTime::currentDateTime(),
+                                  data->completedLength,
+                                  data->speed,
+                                  data->totalLength,
+                                  data->percent,
+                                  data->total,
+                                  finishTime);
+        if (ifDeleteLocal) {
+            BtTaskInfo info;
+            DBInstance::getBtTaskById(taskId, info);
+            if (info.downloadType == "torrent") {
+                clearShardMemary();
+            }
+            DBInstance::delTask(taskId);
+            Aria2RPCInterface::instance()->purgeDownloadResult(data->gid);
+        }
+        if (!ifDeleteLocal) {
+            DeleteDataItem *delData = new DeleteDataItem;
+            delData->taskId = data->taskId;
+            delData->gid = data->gid;
+            delData->url = data->url;
+            delData->fileName = data->fileName;
+            delData->savePath = data->savePath;
+            delData->status = DownloadJobStatus::Removed;
+            delData->Ischecked = false;
+            delData->totalLength = data->totalLength;
+            delData->completedLength = data->completedLength;
+            delData->deleteTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+            delData->finishTime = data->time;
+            pRecycleTableView->getTableModel()->append(delData);
+            m_DownloadTableView->update();
+            if (DBInstance::getTaskStatusById(delData->taskId, getStatus)) {
+                DBInstance::updateTaskStatusById(downloadStatus);
+            } else {
+                DBInstance::addTaskStatus(downloadStatus);
+            }
+        }
+        m_DownloadTableView->getTableModel()->removeItem(data);
+        QThread::usleep(10);
+    }
+    if (m_DownloadTableView->getTableModel()->recyleList().isEmpty()) {
+        m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
+    }
+    pRecycleTableView->update();
+    return true;
 }

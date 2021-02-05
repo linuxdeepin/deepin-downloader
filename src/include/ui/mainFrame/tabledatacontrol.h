@@ -194,6 +194,12 @@ private:
     void clearShardMemary();
 
     /**
+     * @brief 删除任务
+     * @return true: 删除成功  false：删除失败
+     */
+    bool deleteTask(bool ifDeleteLocal, TableView *pRecycleTableView);
+
+    /**
      * @brief 检查任务状态
      * @return true: 有激活的任务  false：没有激活的任务
      */

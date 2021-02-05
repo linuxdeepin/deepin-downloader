@@ -1467,6 +1467,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     urlInfo.url = "";
     urlInfo.downloadType = "torrent";
     urlInfo.seedFile = btPath;
+    urlInfo.filePath = btPath;
     urlInfo.selectedNum = selectedNum;
     urlInfo.infoHash = infoHash;
     DBInstance::addBtTask(urlInfo);
