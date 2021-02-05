@@ -227,7 +227,7 @@ QStringList ClipboardTimer::getWebList()
     QString curWeb = obj.value("CurWeb").toString();
 
 
-    return  curWeb.split("\n");
+    return  midWebList(curWeb.split("\n"));
 }
 
 bool ClipboardTimer::isWebFormat(QString url)
@@ -236,6 +236,7 @@ bool ClipboardTimer::isWebFormat(QString url)
     url = url.mid(url.indexOf("//")+2);
     url = url.mid(0,url.indexOf("/"));
     QStringList webList =getWebList();
+    QString webUrl;
     for (int i = 0; i < webList.size(); i++) {
         if(webList[i].simplified().isEmpty()){
             continue;
@@ -245,6 +246,19 @@ bool ClipboardTimer::isWebFormat(QString url)
         }
     }
     return true;
+}
+
+QStringList ClipboardTimer::midWebList(QStringList webList)
+{
+    for (int i = 0; i < webList.size() ; ++i) {
+        if (!((-1 == webList[i].indexOf("ftp:")) && (-1 == webList[i].indexOf("http://")) && (-1 == webList[i].indexOf("https://")))) {
+            webList[i] = webList[i].mid(webList[i].indexOf("//")+2);
+        }
+        if(webList[i].contains("/")){
+            webList[i] = webList[i].mid(0,webList[i].indexOf("/"));
+        }
+    }
+    return webList;
 }
 
 

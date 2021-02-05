@@ -579,6 +579,18 @@ private:
      */
     bool checkIsHasSameTask(QString infoHash);
 
+    /**
+    * @brief 是否开启metalink下载
+    * @param status true 为开启 false为关闭
+    */
+    void onIsMetalinkDownload(bool status);
+
+    /**
+    * @brief 是否开启bt下载
+    * @param status true 为开启 false为关闭
+    */
+    void onIsBtDownload(bool status);
+
 protected:
     /**
      * @brief 键盘按下事件

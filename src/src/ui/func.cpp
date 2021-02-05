@@ -65,7 +65,9 @@ bool Func::setMimeappsValue(QString key, QString value)
     if (!DefaultList.isEmpty()) {
         for (int i = 0; i < DefaultList.size(); i++) {
             if (DefaultList[i].contains(key)) {
-                DefaultList[i] = key+ "=" + value;
+                if(DefaultList[i] != key+ "=" + value){
+                    DefaultList[i] = key+ "=" + value;
+                }
                 break;
             }
             if (i == DefaultList.size() - 1 && !(DefaultList[i].contains(key))) {
@@ -78,7 +80,9 @@ bool Func::setMimeappsValue(QString key, QString value)
     if (!AddedList.isEmpty()) {
         for (int i = 0; i < AddedList.size(); i++) {
             if (AddedList[i].contains(key)) {
-                AddedList[i] = key+ "=" + value;
+                if(AddedList[i] != key+ "=" + value){
+                    AddedList[i] = key+ "=" + value;
+                }
                 break;
             }
             if (i == AddedList.size() - 1 && !(AddedList[i].contains("application/x-bittorrent"))) {

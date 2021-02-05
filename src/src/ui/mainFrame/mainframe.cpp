@@ -766,6 +766,8 @@ void MainFrame::onSettingsMenuClicked()
     SettingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);
 
     Settings::getInstance()->setAutoStart(isAutoStart());
+    onIsMetalinkDownload(Settings::getInstance()->getMLDownloadState());
+    onIsBtDownload(Settings::getInstance()->getBtDownloadState());
 
     SettingsDialog.exec();
     Settings::getInstance()->m_settings->sync();
@@ -2509,6 +2511,21 @@ void MainFrame::onIsControlBrowser(bool status)
         Func::setMimeappsValue("x-scheme-handler/downloader","downloader.desktop");
     } else {
         Func::setMimeappsValue("x-scheme-handler/downloader"," ");
+    }
+}
+
+void MainFrame::onIsMetalinkDownload(bool status)
+{
+    if(status){
+        Func::setMimeappsValue("application/metalink+xml", "downloader.desktop");
+    }
+
+}
+
+void MainFrame::onIsBtDownload(bool status)
+{
+    if(status){
+        Func::setMimeappsValue("application/x-bittorrent","downloader.desktop");
     }
 }
 
