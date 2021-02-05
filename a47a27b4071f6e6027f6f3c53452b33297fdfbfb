@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0053fd9f_83ee473e",
+        "filename": "src/include/ui/clipboardtimer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-05T09:24:13Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 6; 注释率: 83.3%",
+      "revId": "a47a27b4071f6e6027f6f3c53452b33297fdfbfb",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54372973_2aa1a065",
+        "filename": "src/include/ui/mainFrame/mainframe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-05T09:24:13Z",
+      "side": 1,
+      "message": "注释行数: 8; 改动行数(修改和新增): 10; 注释率: 80.0%",
+      "revId": "a47a27b4071f6e6027f6f3c53452b33297fdfbfb",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a51590_d12798f7",
+        "filename": "src/src/ui/clipboardtimer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-05T09:24:13Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 14; 注释率: 14.3%",
+      "revId": "a47a27b4071f6e6027f6f3c53452b33297fdfbfb",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d30cec_fe830465",
+        "filename": "src/src/ui/func.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-05T09:24:13Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 6; 注释率: 0.0%",
+      "revId": "a47a27b4071f6e6027f6f3c53452b33297fdfbfb",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21db4e87_28f5c1ae",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-05T09:24:13Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 14; 注释率: 0.0%",
+      "revId": "a47a27b4071f6e6027f6f3c53452b33297fdfbfb",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
