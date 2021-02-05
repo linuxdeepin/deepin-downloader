@@ -53,7 +53,11 @@ bool checkProcessExist();
 
 int main(int argc, char *argv[])
 {
-    DlmApplication::loadDXcbPlugin();
+    auto e = QProcessEnvironment::systemEnvironment();
+    QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+    if (XDG_SESSION_TYPE == QLatin1String("x11")) {
+        DlmApplication::loadDXcbPlugin();
+    }
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     DlmApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);
@@ -91,7 +95,7 @@ int main(int argc, char *argv[])
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
-                if(comList[0].contains(".torrent") || comList[0].contains(".metalink")){
+                if (comList[0].contains(".torrent") || comList[0].contains(".metalink")) {
                     QDBusInterface iface("com.downloader.service",
                                          "/downloader/path",
                                          "local.downloader.MainFrame",
