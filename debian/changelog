@@ -1,4 +1,5 @@
-downloadmanager (5.2.29) stable; urgency=low
+
+downloadmanager (5.2.30) stable; urgency=low
 
   * 修改bug: 【下载列表】新建多个磁力链下载，批量彻底删除正在下载中的种子，软件闪退
 
