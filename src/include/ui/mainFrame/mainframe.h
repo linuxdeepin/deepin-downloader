@@ -65,7 +65,6 @@ class QListWidgetItem;
 class LeftListView;
 struct LinkInfo;
 
-
 /**
  * @class MainFrame
  * @brief 主界面类
@@ -85,8 +84,8 @@ public:
      * @brief 析构函数
      */
     ~MainFrame();
-private:
 
+private:
     /**
      * @brief 界面初始化
     */
@@ -526,12 +525,6 @@ private:
     void startDownloadTask(Global::DownloadDataItem *pItem);
 
     /**
-     * @brief 网络是否联通
-     * @return true为不通 false为通
-     */
-    bool isNetConnect();
-
-    /**
      * @brief 当前是否是自动开启
      * @return true为是 false为否
      */
@@ -542,8 +535,6 @@ private:
      * @return true为是 false为否
      */
     void setAutoStart(bool ret);
-
-
 
     //    /**
     //     * @brief 解析url获取url 类型
