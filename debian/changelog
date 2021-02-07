@@ -1,3 +1,9 @@
+downloadmanager (5.2.29) stable; urgency=low
+
+  * 修改bug: 【下载列表】新建多个磁力链下载，批量彻底删除正在下载中的种子，软件闪退
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Sun, 07 Feb 2021 09:35:47 +0800
+
 downloadmanager (5.2.0.27) stable; urgency=low
   * 修改包名称
  -- zhaoyue <zhaoyue@uniontech.com>  Thu, 03 Dec 2020 10:01:07 +0800
