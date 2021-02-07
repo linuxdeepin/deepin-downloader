@@ -105,15 +105,22 @@ void HttpAdvancedSettingWidget::onWebBtnClicked()
 
 void HttpAdvancedSettingWidget::onRstoreDefaultClicked()
 {
-    QFile file(m_configPath);
-    if(!file.open(QIODevice::ReadWrite)) {
-        return;
-    }
-    QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
-    QJsonObject obj = jdc.object();
-    file.close();
-    QString defaultSuffix = obj.value("DefaultSuffix").toString();
-    m_textEdit->setText(defaultSuffix);
+//    QFile file(m_configPath);
+//    if(!file.open(QIODevice::ReadWrite)) {
+//        return;
+//    }
+//    QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
+//    QJsonObject obj = jdc.object();
+//    file.close();
+//    QString defaultSuffix = obj.value("DefaultSuffix").toString();
+//    m_textEdit->setText(defaultSuffix);
+    m_textEdit->setText(".asf;.avi;.exe;.iso;.mp3;.mpeg;.mpg;.mpga;"
+                        ".ra;.rar;.rm;.rmvb;.tar;.wma;.wmp;.wmv;.mov;"
+                        ".zip;.3gp;.chm;.mdf;.torrent;.jar;.msi;.arj;."
+                        "bin;.dll;.psd;.hqx;.sit;.lzh;.gz;.tgz;.xlsx;"
+                        ".xls;.doc;.docx;.ppt;.pptx;.flv;.swf;.mkv;.tp;"
+                        ".ts;.flac;.ape;.wav;.aac;.txt;.dat;.7z;.ttf;.bat;"
+                        ".xv;.xvx;.pdf;.mp4;.apk;.ipa;.epub;.mobi;.deb;.sisx;.cab;.pxl;");
 }
 
 void HttpAdvancedSettingWidget::onSureClicked()
