@@ -112,7 +112,9 @@ void DownloadSettingWidget::initUI()
     m_startTimeEdit = new QTimeEdit(QTime(8, 0, 0));
     m_endTimeEdit = new QTimeEdit(QTime(17, 0, 0));
     m_startTimeEdit->setDisplayFormat("h:mm");
+    m_startTimeEdit->setMinimumWidth(160);
     m_endTimeEdit->setDisplayFormat("h:mm");
+    m_endTimeEdit->setMinimumWidth(160);
 
     QHBoxLayout *timeLayout = new QHBoxLayout;
     timeLayout->addWidget(leftLabel);
