@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cccad68f_c95a8da7",
+        "filename": "src/src/ui/settings/httpadvancedsettingwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-07T07:02:18Z",
+      "side": 1,
+      "message": "注释行数: 9; 改动行数(修改和新增): 16; 注释率: 56.2%",
+      "revId": "7304968fae0b3aab21dc130b8835cde8dc2edfbe",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
