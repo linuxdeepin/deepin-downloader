@@ -525,7 +525,7 @@ void MainFrame::createNewTask(QString url)
         }
     }
     m_TaskWidget->setUrl(url);
-    if (isNetConnect()) {
+    if (!Func::isNetConnect()) {
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -784,7 +784,7 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::OpenFile(QString url)
 {
-    if (isNetConnect()) {
+    if (!Func::isNetConnect()) {
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -1676,7 +1676,7 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onStartDownloadBtnClicked()
 {
-    if (isNetConnect()) {
+    if (!Func::isNetConnect()) {
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -1697,7 +1697,7 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::onPauseDownloadBtnClicked()
 {
-    if (isNetConnect()) {
+    if (!Func::isNetConnect()) {
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -1963,7 +1963,7 @@ void MainFrame::onDeleteActionTriggered()
 
 void MainFrame::onRedownloadActionTriggered()
 {
-    if (isNetConnect()) {
+    if (!Func::isNetConnect()) {
         m_TaskWidget->showNetErrorMsg();
         return;
     }
@@ -2514,16 +2514,15 @@ void MainFrame::onIsControlBrowser(bool status)
 
 void MainFrame::onIsMetalinkDownload(bool status)
 {
-    if(status){
+    if (status) {
         Func::setMimeappsValue("application/metalink+xml", "downloader.desktop");
     }
-
 }
 
 void MainFrame::onIsBtDownload(bool status)
 {
-    if(status){
-        Func::setMimeappsValue("application/x-bittorrent","downloader.desktop");
+    if (status) {
+        Func::setMimeappsValue("application/x-bittorrent", "downloader.desktop");
     }
 }
 
@@ -2673,7 +2672,7 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
             }
         } else {
             QString urls;
-            for (LinkInfo info : urlList) {
+            for (LinkInfo info : sameUrlList) {
                 urls += info.url + "\n";
             }
             showRedownloadMsgbox(urls, false, true);
@@ -2768,19 +2767,6 @@ void MainFrame::clearSharedMemory()
             sharedMemory.unlock();
         }
     }
-}
-
-bool MainFrame::isNetConnect()
-{
-    //    QProcess *process = new QProcess(this);
-    //    QStringList list;
-    //    list << "-i"
-    //         << "www.baidu.com";
-    //    process->start("curl", list);
-    //    process->waitForFinished();
-    //    int ret = process->exitCode();
-    //    return ret ? true : false;
-    return false;
 }
 
 bool MainFrame::isAutoStart()
