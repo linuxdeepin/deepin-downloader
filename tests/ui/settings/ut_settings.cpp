@@ -13,6 +13,9 @@
 #include "filesavepathchooser.h"
 #include "settingswidget.h"
 #include "httpadvancedsettingwidget.h"
+#include "messagebox.h"
+#include "stub.h"
+#include "stubAll.h"
 
 class ut_Settings : public ::testing::Test
     , public QObject
@@ -36,7 +39,6 @@ protected:
     }
     // CreateTaskWidget *m_createTaskWidget;
 };
-
 
 //开机自启
 TEST_F(ut_Settings, autoStart)
@@ -303,26 +305,25 @@ TEST_F(ut_Settings, setIsClipboradStart)
     QTest::qWait(50);
 }
 
-
-TEST_F(ut_Settings, close)
-{
-    MainFrame *m = MainFrame::instance();
-    QSystemTrayIcon *tray = m->findChild<QSystemTrayIcon *>("systemTray");
-    QMenu *menu = tray->contextMenu();
-    QTimer::singleShot(1000, this, [=]() {
-        QTimer::singleShot(1000, this, [=]() {
-            QWidget *w = QApplication::activeWindow();
-            QAbstractButton *btn = w->findChild<QAbstractButton *>("sure");
-            QTest::mouseClick(btn, Qt::LeftButton);
-            // w->close();
-        });
-        QPoint p = menu->rect().bottomRight();
-        QTest::mouseClick(menu, Qt::LeftButton, Qt::MetaModifier, QPoint(p.x() - 10, p.y() - 10));
-        // menu->close();
-    });
-    menu->exec();
-    //QTest::mouseClick(menu, Qt::RightButton);
-}
+//TEST_F(ut_Settings, close)
+//{
+//    MainFrame *m = MainFrame::instance();
+//    QSystemTrayIcon *tray = m->findChild<QSystemTrayIcon *>("systemTray");
+//    QMenu *menu = tray->contextMenu();
+//    QTimer::singleShot(1000, this, [=]() {
+//        QTimer::singleShot(1000, this, [=]() {
+//            QWidget *w = QApplication::activeWindow();
+//            QAbstractButton *btn = w->findChild<QAbstractButton *>("sure");
+//            QTest::mouseClick(btn, Qt::LeftButton);
+//            // w->close();
+//        });
+//        QPoint p = menu->rect().bottomRight();
+//        QTest::mouseClick(menu, Qt::LeftButton, Qt::MetaModifier, QPoint(p.x() - 10, p.y() - 10));
+//        // menu->close();
+//    });
+//    menu->exec();
+//    //QTest::mouseClick(menu, Qt::RightButton);
+//}
 
 TEST_F(ut_Settings, DiagnosticModel)
 {
@@ -335,7 +336,7 @@ TEST_F(ut_Settings, DiagnosticModel1)
 {
     DiagnosticModel *model = new DiagnosticModel;
     model->appendData(true);
-    model->setData(model->index(0,0), true, Qt::DisplayRole);
+    model->setData(model->index(0, 0), true, Qt::DisplayRole);
     EXPECT_TRUE(true);
 }
 
@@ -343,12 +344,12 @@ TEST_F(ut_Settings, DiagnosticModel2)
 {
     DiagnosticModel *model = new DiagnosticModel;
     model->appendData(true);
-    model->data(model->index(0,0), Qt::DisplayRole);
-    model->data(model->index(0,1), Qt::DisplayRole);
-    model->data(model->index(1,1), Qt::DisplayRole);
-    model->data(model->index(2,1), Qt::DisplayRole);
-    model->data(model->index(3,1), Qt::DisplayRole);
-    model->data(model->index(4,1), Qt::DisplayRole);
+    model->data(model->index(0, 0), Qt::DisplayRole);
+    model->data(model->index(0, 1), Qt::DisplayRole);
+    model->data(model->index(1, 1), Qt::DisplayRole);
+    model->data(model->index(2, 1), Qt::DisplayRole);
+    model->data(model->index(3, 1), Qt::DisplayRole);
+    model->data(model->index(4, 1), Qt::DisplayRole);
     EXPECT_TRUE(true);
 }
 
@@ -364,7 +365,6 @@ TEST_F(ut_Settings, DiagnosticModel4)
     DiagnosticDelegate *pDelegate = new DiagnosticDelegate;
     EXPECT_TRUE(true);
 }
-
 
 TEST_F(ut_Settings, DownloadSettingWidget)
 {
@@ -390,62 +390,81 @@ TEST_F(ut_Settings, DownloadSettingWidget3)
     pWidget->onFocusChanged(true);
 }
 
-TEST_F(ut_Settings, FileSavePathChooser) {
-    FileSavePathChooser *pWidget = new FileSavePathChooser(1,"");
+TEST_F(ut_Settings, FileSavePathChooser)
+{
+    FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->onRadioButtonClicked();
 }
 
-TEST_F(ut_Settings, FileSavePathChooser1) {
-    FileSavePathChooser *pWidget = new FileSavePathChooser(1,"");
+TEST_F(ut_Settings, FileSavePathChooser1)
+{
+    typedef int (*fptr)(DDialog *);
+    fptr foo = (fptr)(&DDialog::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
+    FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->onLineEditTextChanged("123");
 }
 
-TEST_F(ut_Settings, FileSavePathChooser2) {
-    FileSavePathChooser *pWidget = new FileSavePathChooser(1,"");
+TEST_F(ut_Settings, FileSavePathChooser2)
+{
+    FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->setCurrentSelectRadioButton(0);
 }
 
-TEST_F(ut_Settings, FileSavePathChooser3) {
-    FileSavePathChooser *pWidget = new FileSavePathChooser(1,"");
+TEST_F(ut_Settings, FileSavePathChooser3)
+{
+    typedef int (*fptr)(DDialog *);
+    fptr foo = (fptr)(&DDialog::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
+    FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->setLineEditText("123456");
 }
 
-TEST_F(ut_Settings, SettingsControlWidget) {
+TEST_F(ut_Settings, SettingsControlWidget)
+{
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
 }
 
-TEST_F(ut_Settings, SettingsControlWidget1) {
+TEST_F(ut_Settings, SettingsControlWidget1)
+{
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->setSize("111");
 }
 
-TEST_F(ut_Settings, SettingsControlWidget2) {
+TEST_F(ut_Settings, SettingsControlWidget2)
+{
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->setSpeend("111");
 }
 
-TEST_F(ut_Settings, SettingsControlWidget3) {
+TEST_F(ut_Settings, SettingsControlWidget3)
+{
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->setSwitch(false);
 }
 
-TEST_F(ut_Settings, SettingsControlWidget4) {
+TEST_F(ut_Settings, SettingsControlWidget4)
+{
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->m_Edit->setText("4444");
 }
 
-TEST_F(ut_Settings, SettingsControlWidget5) {
+TEST_F(ut_Settings, SettingsControlWidget5)
+{
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->m_Edit->setText("+11");
 }
 
-TEST_F(ut_Settings, SettingsControlWidget6) {
+TEST_F(ut_Settings, SettingsControlWidget6)
+{
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->m_Edit->setText("001");
