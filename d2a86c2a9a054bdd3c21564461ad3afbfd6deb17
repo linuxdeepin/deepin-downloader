@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b60dcf7_a6cf4fa6",
+        "filename": "src/include/ui/mainFrame/mainframe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-08T08:42:54Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "d2a86c2a9a054bdd3c21564461ad3afbfd6deb17",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4df81da_754647cf",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-08T08:42:54Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 9; 注释率: 0.0%",
+      "revId": "d2a86c2a9a054bdd3c21564461ad3afbfd6deb17",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "760ac9f2_3b746d29",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-08T08:42:54Z",
+      "side": 1,
+      "message": "注释行数: 564; 改动行数(修改和新增): 564; 注释率: 100.0%",
+      "revId": "d2a86c2a9a054bdd3c21564461ad3afbfd6deb17",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb0451be_8ccbee10",
+        "filename": "tests/ui/settings/ut_settings.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-08T08:42:54Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 52; 注释率: 36.5%",
+      "revId": "d2a86c2a9a054bdd3c21564461ad3afbfd6deb17",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
