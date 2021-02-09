@@ -1,3 +1,12 @@
+downloadmanager (5.3.9) stable; urgency=low
+
+  * 完成【三期任务】正在下载时，文件被删除的任务有多个时，错误提示合并
+  * 完成【三期任务】添加链接时，重复链接只生成一个任务。
+  * 完成内网下载功能
+  * 修改bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Sun, 07 Feb 2021 14:54:55 +0800
+
 downloadmanager (5.3.7) stable; urgency=low
 
   *修改bug: 新建下载任务，下载器下载不了图片 
