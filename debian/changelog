@@ -1,4 +1,4 @@
-downloadmanager (5.3.9) stable; urgency=low
+downloadmanager (5.3.10) stable; urgency=low
 
   * 完成【三期任务】正在下载时，文件被删除的任务有多个时，错误提示合并
   * 完成【三期任务】添加链接时，重复链接只生成一个任务。
