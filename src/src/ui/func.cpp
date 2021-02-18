@@ -312,6 +312,9 @@ bool Func::isLanConnect()
         nmapProcess.kill();
         nmapProcess.close();
         nmapInfo = str.split('\n');
+        if(nmapInfo.size() < 4){
+            return false;
+        }
         lanInfo = nmapInfo[nmapInfo.size()-4].split(" ");
     }
 

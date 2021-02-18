@@ -22,11 +22,11 @@ protected:
     }
 };
 
-//TEST_F(ut_func, isNetConnect)
-//{
-//    Func::isNetConnect();
-//    EXPECT_TRUE(true);
-//}
+TEST_F(ut_func, isNetConnect)
+{
+    Func::isNetConnect();
+    EXPECT_TRUE(true);
+}
 
 //TEST_F(ut_func, isHTTPConnect)
 //{
