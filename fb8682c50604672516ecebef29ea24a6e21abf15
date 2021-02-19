@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c618b0c7_0bbb65c6",
+        "filename": "src/src/ui/clipboardtimer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-19T02:47:46Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 1; 注释率: 不计算",
+      "revId": "fb8682c50604672516ecebef29ea24a6e21abf15",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
