@@ -100,7 +100,6 @@ MainFrame::MainFrame(QWidget *parent)
     if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
         m_Clipboard->checkClipboardHasUrl();
     }
-    qDebug() << "construct finished";
 }
 
 MainFrame *MainFrame::instance()
