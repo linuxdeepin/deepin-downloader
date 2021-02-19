@@ -1149,10 +1149,10 @@ double CreateTaskWidget::getFtpFileSize(QString ftpPath)
 
             return len;
         }
-        qDebug()<< "link error";
+       // qDebug()<< "link error";
     }
     else {
-        qDebug()<< "link error";
+        //qDebug()<< "link error";
     }
     curl_easy_cleanup(curl);
     return 0;
