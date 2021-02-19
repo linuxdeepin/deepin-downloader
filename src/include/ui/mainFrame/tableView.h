@@ -30,7 +30,6 @@
 
 #include <QTableView>
 
-
 class Settings;
 class TableModel;
 class ItemDelegate;
@@ -86,11 +85,6 @@ private:
      * @brief 信号槽连接初始化
     */
     void initConnections();
-
-    /**
-     * @brief 表格初始化
-    */
-    void initTableView();
 
 private slots:
     /**
@@ -148,6 +142,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
+
 private:
     int m_TableFlag;
     TableModel *m_TableModel;
@@ -166,11 +161,11 @@ class LeftListView : public DListView
     Q_OBJECT
 public:
     explicit LeftListView();
+
 protected:
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 signals:
     void currentIndexChanged(const QModelIndex &current);
-
 };
 
 #endif // TABLEVIEW_H

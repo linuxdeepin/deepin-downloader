@@ -11,11 +11,11 @@
 
 void QthreadpoolStart(QRunnable *runnable, int priority = 0);
 
-QAction* QmenuExec(const QPoint &pos);
+QAction *QmenuExec(const QPoint &pos);
 
-int DsettingsdialogExec(void* obj);
+int DsettingsdialogExec(void *obj);
 
-int DiagnostictoolExec(void* obj);
+int DiagnostictoolExec(void *obj);
 
 int MessageboxExec();
 
@@ -33,6 +33,8 @@ double CreatetaskwidgetFormatspeed(QString str);
 
 void ClipboardtimerCheckclipboardhasurl();
 
-void BtinfodialogSetwindowtitle(QString & str);
+void MainFrameInitWebsocket();
+
+void BtinfodialogSetwindowtitle(QString &str);
 
 #endif // STUBALLTHREAD_H
