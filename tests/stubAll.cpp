@@ -5,12 +5,12 @@ QAction *QmenuExec(const QPoint &pos)
     return nullptr;
 }
 
-int DsettingsdialogExec(void* obj)
+int DsettingsdialogExec(void *obj)
 {
     return 0;
 }
 
-int DiagnostictoolExec(void* obj)
+int DiagnostictoolExec(void *obj)
 {
     return 0;
 }
@@ -44,7 +44,7 @@ bool QiodeviceOpen(QIODevice::OpenMode flags)
     return true;
 }
 
-void ClipboardtimerCheckclipboardhasurl()
+void MainFrameInitWebsocket()
 {
     return;
 }
@@ -54,7 +54,12 @@ double CreatetaskwidgetFormatspeed(QString str)
     return 11111111111111111;
 }
 
-void BtinfodialogSetwindowtitle(QString & str)
+void BtinfodialogSetwindowtitle(QString &str)
+{
+    return;
+}
+
+void ClipboardtimerCheckclipboardhasurl()
 {
     return;
 }
