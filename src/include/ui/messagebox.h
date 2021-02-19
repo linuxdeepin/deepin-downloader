@@ -84,15 +84,6 @@ public:
     void setClear();
 
     /**
-     * @brief 设置重命名窗口
-     * @param title 设置标题
-     * @param surebtntext 设置确定按钮内容
-     * @param cancelbtn 设置取消按钮内容
-     * @param oldname 曾用名
-    */
-    void setReName(QString title, QString surebtntext, QString cancelbtn, QString oldname);
-
-    /**
      * @brief 设置退出窗口
     */
     void setExit();
@@ -177,6 +168,7 @@ public slots:
      * @brief
     */
     void onExitBtnClicked(int index);
+
 private:
     bool m_DeleteFlag;
     DCheckBox *m_CheckBox;
