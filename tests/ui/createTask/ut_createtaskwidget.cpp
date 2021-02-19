@@ -100,23 +100,23 @@ TEST_F(ut_CreateTaskWidget, init)
 //    btDiag.getName();
 //    btDiag.updateSelectedInfo();
 
-////    DCheckBox *video = btDiag.findChild<DCheckBox *>("checkVideo");
-////    DCheckBox *picture = btDiag.findChild<DCheckBox *>("checkPicture");
-////    DCheckBox *audio = btDiag.findChild<DCheckBox *>("checkAudio");
-////    DCheckBox *other = btDiag.findChild<DCheckBox *>("checkOther");
-////    DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
-////    DPushButton *checkAll = btDiag.findChild<DPushButton *>("checkAll");
-////    QTest::mouseClick(checkAll, Qt::LeftButton);
-////    QTest::qWait(50);
-////    QTest::mouseClick(video, Qt::LeftButton);
-////    QTest::qWait(50);
-////    QTest::mouseClick(picture, Qt::LeftButton);
-////    QTest::qWait(50);
-////    QTest::mouseClick(audio, Qt::LeftButton);
-////    QTest::qWait(50);
-////    QTest::mouseClick(other, Qt::LeftButton);
-////    QTest::qWait(50);
-////    QTest::mouseClick(checkAll, Qt::LeftButton);
+//    DCheckBox *video = btDiag.findChild<DCheckBox *>("checkVideo");
+//    DCheckBox *picture = btDiag.findChild<DCheckBox *>("checkPicture");
+//    DCheckBox *audio = btDiag.findChild<DCheckBox *>("checkAudio");
+//    DCheckBox *other = btDiag.findChild<DCheckBox *>("checkOther");
+//    DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
+//    DPushButton *checkAll = btDiag.findChild<DPushButton *>("checkAll");
+//    QTest::mouseClick(checkAll, Qt::LeftButton);
+//    QTest::qWait(50);
+//    QTest::mouseClick(video, Qt::LeftButton);
+//    QTest::qWait(50);
+//    QTest::mouseClick(picture, Qt::LeftButton);
+//    QTest::qWait(50);
+//    QTest::mouseClick(audio, Qt::LeftButton);
+//    QTest::qWait(50);
+//    QTest::mouseClick(other, Qt::LeftButton);
+//    QTest::qWait(50);
+//    QTest::mouseClick(checkAll, Qt::LeftButton);
 //    EXPECT_TRUE(true);
 //}
 
@@ -258,3 +258,29 @@ TEST_F(ut_CreateTaskWidget, getFtpFileSize)
     //EXPECT_DOUBLE_EQ(size, 0.0);
     EXPECT_TRUE(true);
 }
+
+TEST_F(ut_CreateTaskWidget, tableView1)
+{
+    BtInfoTableView *table = new BtInfoTableView();
+    table->mouseMoveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+}
+
+TEST_F(ut_CreateTaskWidget, tableView2)
+{
+    BtInfoTableView *table = new BtInfoTableView();
+    table->leaveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+}
+
+TEST_F(ut_CreateTaskWidget, tableView3)
+{
+    BtInfoTableView *table = new BtInfoTableView();
+    table->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+}
+
+TEST_F(ut_CreateTaskWidget, tableView4)
+{
+    BtInfoTableView *table = new BtInfoTableView();
+    const QModelIndex model;
+    table->onDoubleClicked(model);
+}
+

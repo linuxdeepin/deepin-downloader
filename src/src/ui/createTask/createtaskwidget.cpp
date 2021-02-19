@@ -1146,13 +1146,12 @@ double CreateTaskWidget::getFtpFileSize(QString ftpPath)
     curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION,ftpSize);
     if(curl_easy_perform(curl) == CURLE_OK){
         if(CURLE_OK == curl_easy_getinfo(curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &len)){
-
             return len;
         }
-        qDebug()<< "link error";
+       // qDebug()<< "link error";
     }
     else {
-        qDebug()<< "link error";
+        //qDebug()<< "link error";
     }
     curl_easy_cleanup(curl);
     return 0;
