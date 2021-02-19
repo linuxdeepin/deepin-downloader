@@ -80,9 +80,8 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
         setTitle(tr("Download Again"));
         addLabel(tr("Do you want to delete the downloaded files and download again?"));
     } else {
-
         setTitle(tr("The task already exists."));
-        if(!isShowRedownload) {
+        if (!isShowRedownload) {
             addLabel(tr("Delete the downloaded files and download again?"));
         }
     }
@@ -95,7 +94,7 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
     addContent(urlText);
 
-    if(isShowRedownload){
+    if (isShowRedownload) {
         QAbstractButton *btn1 = getButton(addButton(tr("OK")));
         btn1->setObjectName("OK");
     } else {
@@ -120,7 +119,7 @@ void MessageBox::setUnusual(const QString &taskId, QString taskList)
     urlText->setText(taskList);
     addContent(urlText);
     //if(taskList.split("\n").count() <= 1) {
-        addButton(tr("Download Again"));
+    addButton(tr("Download Again"));
     //}
     addButton(tr("Delete Task"));
     connect(this, &MessageBox::buttonClicked, this,
@@ -176,35 +175,6 @@ void MessageBox::setClear()
     QAbstractButton *btn2 = getButton(addButton(tr("Empty"), true, ButtonType::ButtonWarning));
     btn2->setObjectName("empty");
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onClearBtnClicked);
-}
-
-void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
-{
-    Q_UNUSED(title);
-    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
-
-    setCloseButtonVisible(false);
-    setTitle(tr("Rename"));
-    m_NewnameLineedit = new DLineEdit();
-    m_NewnameLineedit->setText(oldname);
-    m_NewnameLineedit->setFixedWidth(400);
-    addContent(m_NewnameLineedit, Qt::AlignHCenter);
-    addSpacing(20);
-    QWidget *button_box = new QWidget(this);
-    QHBoxLayout *layout = new QHBoxLayout(button_box);
-    QPushButton *cancel_button = new QPushButton(button_box);
-    cancel_button->setText(cancelbtntext);
-    connect(cancel_button, &DPushButton::clicked, this,
-            [=]() {
-                close();
-            });
-    layout->addWidget(cancel_button);
-    m_RenameSureButton = new QPushButton(button_box);
-    m_RenameSureButton->setText(surebtntext);
-    connect(m_RenameSureButton, &DPushButton::clicked, this, &MessageBox::onRenameSureBtnClicked);
-    layout->addWidget(m_RenameSureButton);
-    addContent(button_box);
-    connect(m_NewnameLineedit, &DLineEdit::textChanged, this, &MessageBox::onRenamelineeditChanged);
 }
 
 void MessageBox::setExit()
