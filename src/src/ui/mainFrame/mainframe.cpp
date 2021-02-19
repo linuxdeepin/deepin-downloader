@@ -88,18 +88,23 @@ MainFrame::MainFrame(QWidget *parent)
 {
     init();
     initTab();
+      qDebug() << "initTab finished";
     initWebsocket();
+      qDebug() << "initWebsocket finished";
     initTray();
     initDbus();
     initAria2();
+      qDebug() << "initAria2 finished";
     updateDHTFile();
     initConnection();
+      qDebug() << "initConnection finished";
     initTabledata();
     setPaletteType();
     QString clipboradStr = QApplication::clipboard()->text();
     if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
         m_Clipboard->checkClipboardHasUrl();
     }
+    qDebug() << "construct finished";
 }
 
 MainFrame *MainFrame::instance()
