@@ -34,6 +34,9 @@ protected:
         m_btTasknInfo.filePath = "/home/bulw/Desktop/种子/123@.torrent";
         m_btTasknInfo.selectedNum = "1";
         m_btTasknInfo.downloadType = "torrent";
+        QSqlDatabase q = DataBase::Instance().getDB();
+        q.setDatabaseName(QDir::current().absolutePath() + "/data/downloader.db");
+        q.open();
     }
 
     virtual void TearDown()
