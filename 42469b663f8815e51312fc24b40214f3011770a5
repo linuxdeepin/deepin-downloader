@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3576563_613d984b",
+        "filename": "src/include/aria2/aria2rpcinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T06:49:02Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 5; 注释率: 0.0%",
+      "revId": "42469b663f8815e51312fc24b40214f3011770a5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66ea72a4_d0c59fef",
+        "filename": "src/include/ui/mainFrame/mainframe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T06:49:02Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "42469b663f8815e51312fc24b40214f3011770a5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3d6c4e7_05bc47ca",
+        "filename": "src/include/ui/settings/settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T06:49:02Z",
+      "side": 1,
+      "message": "注释行数: 8; 改动行数(修改和新增): 13; 注释率: 61.5%",
+      "revId": "42469b663f8815e51312fc24b40214f3011770a5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f834e4_df2ffbab",
+        "filename": "src/src/aria2/aria2rpcinterface.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T06:49:02Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 19; 注释率: 15.8%",
+      "revId": "42469b663f8815e51312fc24b40214f3011770a5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25b3f830_761ccbdc",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T06:49:02Z",
+      "side": 1,
+      "message": "注释行数: 6; 改动行数(修改和新增): 16; 注释率: 37.5%",
+      "revId": "42469b663f8815e51312fc24b40214f3011770a5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d4589c_95cbf11f",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T06:49:02Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 6; 注释率: 0.0%",
+      "revId": "42469b663f8815e51312fc24b40214f3011770a5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf516406_3a293292",
+        "filename": "src/src/ui/settings/settings.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T06:49:02Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 38; 注释率: 0.0%",
+      "revId": "42469b663f8815e51312fc24b40214f3011770a5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
