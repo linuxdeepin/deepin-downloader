@@ -386,6 +386,12 @@ public:
 
 private:
     /**
+     *@brief 设置配置文件目录
+     *@return
+     */
+    bool setupConfig();
+
+    /**
      *@brief startUp 启动aria2c进程
      *@return 启动成功true  启动失败 false
      */

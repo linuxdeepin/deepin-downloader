@@ -64,6 +64,11 @@ public:
     static Settings *getInstance();
 
     /**
+     * @brief 初始化
+     */
+    void init();
+
+    /**
      * @brief 创建下载目录窗口
      * @param obj option对象
      */
@@ -193,7 +198,6 @@ public:
      * @return 返回全局最大下载资源数,如果未开启，返回0
      */
     int getMaxDownloadResourcesNumber();
-
 
     /**
      * @brief 获取下载完成后自动打开状态值
@@ -385,6 +389,16 @@ public:
 
     DSettings *m_settings;
 
+private:
+    /**
+     * @brief 设置配置文件路径
+     */
+    void setupCOnfigFile();
+
+    /**
+     * @brief 初始化
+     */
+    void initWidget();
 
 signals:
     void poweronChanged(bool state);

@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 #include "aria2rpcinterface.h"
 #include <qtest.h>
-
+#include <QDir>
 class ut_aria2Test : public ::testing::Test
 {
 protected:
@@ -22,9 +22,16 @@ protected:
     }
 };
 
-TEST_F(ut_aria2Test, init)
+TEST_F(ut_aria2Test, setupConfig)
 {
-    Aria2RPCInterface::instance()->init();
+    Aria2RPCInterface::instance()->setupConfig();
+    Aria2RPCInterface::instance()->setConfigFilePath(QDir::current().absolutePath() + "/docs/aria2.conf");
+    EXPECT_TRUE(true);
+}
+
+TEST_F(ut_aria2Test, startUp)
+{
+    Aria2RPCInterface::instance()->startUp();
     EXPECT_TRUE(true);
 }
 
