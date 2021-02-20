@@ -2,7 +2,6 @@
 #include "gtest/gtest.h"
 #include "aria2rpcinterface.h"
 #include <qtest.h>
-
 class ut_aria2Test : public ::testing::Test
 {
 protected:
