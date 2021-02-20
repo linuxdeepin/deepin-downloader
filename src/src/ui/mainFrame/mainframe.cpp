@@ -81,13 +81,14 @@
 
 MainFrame::MainFrame(QWidget *parent)
     : DMainWindow(parent)
-    , m_TaskWidget(new CreateTaskWidget())
     , m_CurrentTab(Global::downloadingTab)
     , m_CheckItem(nullptr)
     , m_CheckIndex(QModelIndex())
 {
     init();
     initTab();
+    initSetting();
+    m_TaskWidget = new CreateTaskWidget();
     initWebsocket();
     initTray();
     initDbus();
@@ -123,7 +124,6 @@ void MainFrame::init()
     setTitlebarShadowEnabled(true);
     setAcceptDrops(true);
     // 添加设置界面
-    m_TaskWidget->setObjectName("newTaskWidget");
     DMenu *pSettingsMenu = new DMenu;
     pSettingsMenu->setObjectName("settingsMenu");
     m_SettingAction = new QAction(tr("Settings"), this);
@@ -277,6 +277,11 @@ void MainFrame::init()
 void MainFrame::initTab()
 {
     setTabOrder(m_ToolBar, m_LeftWidget);
+}
+
+void MainFrame::initSetting()
+{
+    Settings::getInstance()->init();
 }
 
 void MainFrame::initTray()

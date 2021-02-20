@@ -30,7 +30,9 @@ protected:
     }
     virtual void SetUp()
     {
-        //  m_createTaskWidget = new CreateTaskWidget;
+        Settings::getInstance()->setupCOnfigFile();
+        Settings::getInstance()->m_configPath = QDir::current().absolutePath() + "/../docs/config.conf";
+        Settings::getInstance()->initWidget();
     }
 
     virtual void TearDown()
