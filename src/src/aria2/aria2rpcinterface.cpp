@@ -135,20 +135,7 @@ bool Aria2RPCInterface::checkAria2cFile()
 
 bool Aria2RPCInterface::Aria2RPCInterface::init()
 {
-    //定义配置文件路径
-    QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
-                                    .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                                    .arg(qApp->organizationName())
-                                    .arg(qApp->applicationName());
-
-    //判断文件是否存在,如果不存在复制配置文件内容到目录下
-    QFileInfo fileInfo(m_aria2configPath);
-    if (!fileInfo.exists()) {
-        QFile::copy(ARIA_CONFIG_PATH, m_aria2configPath);
-    }
-
-    //设置配置文件路径
-    setConfigFilePath(m_aria2configPath);
+    setupConfig();
     bool rs = startUp();
     qDebug() << "Startup aria2:" << QString::number(rs);
     return rs;
@@ -362,9 +349,9 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
             temp += line.trimmed();
         }
     }
-    if(btInfo.totalLengthByets == 0){
+    if (btInfo.totalLengthByets == 0) {
         for (int i = 0; i < btInfo.files.size(); i++) {
-            btInfo.totalLengthByets +=  btInfo.files[i].lengthBytes;
+            btInfo.totalLengthByets += btInfo.files[i].lengthBytes;
         }
     }
     return btInfo;
@@ -828,4 +815,23 @@ bool Aria2RPCInterface::shutdown(QString id)
 bool Aria2RPCInterface::forceShutdown(QString id)
 {
     return callRPC(ARIA2C_METHOD_FORCE_SHUTDOWN, id);
+}
+
+bool Aria2RPCInterface::setupConfig()
+{
+    //定义配置文件路径
+    QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
+                                    .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                                    .arg(qApp->organizationName())
+                                    .arg(qApp->applicationName());
+
+    //判断文件是否存在,如果不存在复制配置文件内容到目录下
+    QFileInfo fileInfo(m_aria2configPath);
+    if (!fileInfo.exists()) {
+        QFile::copy(ARIA_CONFIG_PATH, m_aria2configPath);
+    }
+
+    //设置配置文件路径
+    setConfigFilePath(m_aria2configPath);
+    return true;
 }
