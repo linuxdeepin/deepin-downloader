@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "6a9626c2_5a143553",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T01:45:29Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "b7882e332ce672f9b1512adcb759c03a04148476",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3340395d_5ed8cd5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T01:45:29Z",
+      "side": 1,
+      "message": "test后必须存在一个\u0027:\u0027",
+      "revId": "b7882e332ce672f9b1512adcb759c03a04148476",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "563bec0e_36e085a3",
         "filename": "tests/aria2/ut_aria2rpcinterface.cpp",
         "patchSetId": 1
