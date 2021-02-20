@@ -30,7 +30,6 @@ protected:
     }
     virtual void SetUp()
     {
-        //  m_createTaskWidget = new CreateTaskWidget;
     }
 
     virtual void TearDown()
@@ -117,7 +116,7 @@ TEST_F(ut_Settings, getDownloadSavePath)
 
 TEST_F(ut_Settings, getOneClickDownloadState)
 {
-    Settings *pSettings = new Settings;
+    Settings *pSettings = Settings::getInstance();
     EXPECT_NE(pSettings, nullptr);
     pSettings->getOneClickDownloadState();
     EXPECT_TRUE(true);

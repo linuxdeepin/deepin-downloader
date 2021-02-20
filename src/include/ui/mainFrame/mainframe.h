@@ -97,6 +97,11 @@ private:
     void initTab();
 
     /**
+     * @brief 初始化设置部分
+    */
+    void initSetting();
+
+    /**
      * @brief 初始化aria2
     */
     void initAria2();
