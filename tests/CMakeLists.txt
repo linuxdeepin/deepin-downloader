@@ -85,6 +85,8 @@ add_custom_target(test
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMAND ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME_TEST}
     COMMAND echo " =================== TEST END ==================== "
+    COMMAND ls ./
+    COMMAND ls ../
 )
 #add_custom_command(TARGET test
 #    COMMAND echo " =================== CREAT LCOV REPROT BEGIN ==================== "
