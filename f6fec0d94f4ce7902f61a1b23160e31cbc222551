@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "731a0e2a_70913b22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T01:21:04Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "f6fec0d94f4ce7902f61a1b23160e31cbc222551",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcbf1608_546c76dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-20T01:21:04Z",
+      "side": 1,
+      "message": "test后必须存在一个\u0027:\u0027",
+      "revId": "f6fec0d94f4ce7902f61a1b23160e31cbc222551",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86995f0f_6d98c7be",
         "filename": "tests/main.cpp",
         "patchSetId": 1
