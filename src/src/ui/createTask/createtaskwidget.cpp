@@ -76,6 +76,7 @@ CreateTaskWidget::~CreateTaskWidget()
 
 void CreateTaskWidget::initUi()
 {
+    setObjectName("newTaskWidget");
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
@@ -439,9 +440,9 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
                     QString infoName;
                     QString infoHash;
                     dialog.getBtInfo(opt, infoName, infoHash);
-                    if(fileName.endsWith(".torrent")){
+                    if (fileName.endsWith(".torrent")) {
                         emit downLoadTorrentCreate(fileName, opt, infoName, infoHash);
-                    }else {
+                    } else {
                         emit downLoadMetaLinkCreate(fileName, opt, infoName);
                     }
                     close();
@@ -532,11 +533,11 @@ void CreateTaskWidget::onTextChanged()
             continue;
         }
         if (isFtp(urlList[i])) {
-//            double ftpSize = getFtpFileSize(urlList[i]);
-//            QString strSize = "";
-//            if(ftpSize > 0){
-//                strSize = Aria2RPCInterface::instance()->bytesFormat(ftpSize);
-//            }
+            //            double ftpSize = getFtpFileSize(urlList[i]);
+            //            QString strSize = "";
+            //            if(ftpSize > 0){
+            //                strSize = Aria2RPCInterface::instance()->bytesFormat(ftpSize);
+            //            }
             QStringList nameList = urlList[i].split("/");
             nameList.removeAll(QString(""));
             name = nameList[nameList.size() - 1];
@@ -1100,7 +1101,7 @@ double CreateTaskWidget::formatSpeed(QString str)
         number.remove("MB");
     } else if (str.contains("GB")) {
         number.remove("GB");
-    }else if (str.contains("B")) {
+    } else if (str.contains("B")) {
         number.remove("B");
     }
 
@@ -1129,9 +1130,8 @@ double CreateTaskWidget::getSelectSize()
 
 size_t CreateTaskWidget::ftpSize(void *curl, size_t size, size_t nmemb, void *data)
 {
-    return (size_t)(size *nmemb);
+    return (size_t)(size * nmemb);
 }
-
 
 double CreateTaskWidget::getFtpFileSize(QString ftpPath)
 {
@@ -1140,17 +1140,16 @@ double CreateTaskWidget::getFtpFileSize(QString ftpPath)
     curl_global_init(CURL_GLOBAL_DEFAULT);
     curl_easy_setopt(curl, CURLOPT_URL, ftpPath.toStdString().c_str());
     curl_easy_setopt(curl, CURLOPT_HEADER, 1);
-    curl_easy_setopt(curl, CURLOPT_NOBODY,1);
+    curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
     curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
     //curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 1 );
-    curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION,ftpSize);
-    if(curl_easy_perform(curl) == CURLE_OK){
-        if(CURLE_OK == curl_easy_getinfo(curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &len)){
+    curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, ftpSize);
+    if (curl_easy_perform(curl) == CURLE_OK) {
+        if (CURLE_OK == curl_easy_getinfo(curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &len)) {
             return len;
         }
-       // qDebug()<< "link error";
-    }
-    else {
+        // qDebug()<< "link error";
+    } else {
         //qDebug()<< "link error";
     }
     curl_easy_cleanup(curl);

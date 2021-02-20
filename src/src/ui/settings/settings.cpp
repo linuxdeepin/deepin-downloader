@@ -83,11 +83,15 @@ Settings *Settings::getInstance()
 Settings::Settings(QObject *parent)
     : QObject(parent)
 {
-    m_configPath = QString("%1/%2/%3/config.conf")
-                       .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                       .arg(qApp->organizationName())
-                       .arg(qApp->applicationName());
+}
 
+void Settings::init()
+{
+    setupCOnfigFile();
+    initWidget();
+}
+void Settings::initWidget()
+{
     m_backend = new QSettingBackend(m_configPath);
     m_settings = DSettings::fromJsonFile(":/json/settings");
 
@@ -403,6 +407,14 @@ Settings::Settings(QObject *parent)
     auto originalAddressThreads = tr("Original address threads"); // 原始地址线程数
     auto downloadManagement = tr("Download Management"); //下载管理
     auto speedSettings = tr("Speed Settings"); //下载管理
+}
+
+void Settings::setupCOnfigFile()
+{
+    m_configPath = QString("%1/%2/%3/config.conf")
+                       .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                       .arg(qApp->organizationName())
+                       .arg(qApp->applicationName());
 }
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
