@@ -240,7 +240,7 @@ bool ClipboardTimer::isWebFormat(QString url)
         if(webList[i].simplified().isEmpty()){
             continue;
         }
-        if(url.contains(webList[i])){
+        if(url == webList[i]){
             return false;
         }
     }

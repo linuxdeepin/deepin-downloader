@@ -284,3 +284,10 @@ TEST_F(ut_CreateTaskWidget, tableView4)
     table->onDoubleClicked(model);
 }
 
+TEST_F(ut_CreateTaskWidget, TaskDelegate)
+{
+//    TaskDelegate *table = new TaskDelegate();
+//    const QModelIndex model;
+   // table->onDoubleClicked(model);
+}
+

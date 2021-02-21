@@ -99,8 +99,8 @@ QString BtInfoDialog::getName()
 void BtInfoDialog::initUI()
 {
     m_ariaInfo = Aria2RPCInterface::instance()->getBtInfo(m_torrentFile);
-    setTitle(" ");
-    setWindowTitle(tr(""));
+//    setTitle(" ");
+//    setWindowTitle(tr(""));
 
     m_labelTitle = new DLabel(this);
     m_labelTitle->setFixedSize(width(), 30);
