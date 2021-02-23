@@ -612,6 +612,8 @@ protected:
      */
     void paintEvent(QPaintEvent *event) override;
 
+    bool eventFilter(QObject *o, QEvent *e) override;
+
 private:
     enum tableviewFlag {
         downloading,

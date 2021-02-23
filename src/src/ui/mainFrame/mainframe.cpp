@@ -252,12 +252,11 @@ void MainFrame::init()
     QStandardItemModel *pleftlistModel = new QStandardItemModel(this);
 
     m_DownloadingItem = new DStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
-    m_DownloadingItem->setBackgroundRole(QPalette::NoRole);
+    m_DownloadingItem->setFont(font);
     m_DownloadFinishItem = new DStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
+    m_DownloadFinishItem->setFont(font);
     m_RecycleItem = new DStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
-    m_DownloadingItem->setFontSize(DFontSizeManager::T6);
-    m_DownloadFinishItem->setFontSize(DFontSizeManager::T6);
-    m_RecycleItem->setFontSize(DFontSizeManager::T6);
+    m_RecycleItem->setFont(font);
     m_DownloadingItem->setEditable(false);
     m_DownloadFinishItem->setEditable(false);
     m_RecycleItem->setEditable(false);
@@ -272,6 +271,9 @@ void MainFrame::init()
     m_UpdateTimer = new QTimer(this);
     m_TrayClickTimer = new QTimer(this);
     m_CurOpenBtDialogPath = "";
+    m_LeftList->installEventFilter(this);
+    m_DownLoadingTableView->installEventFilter(this);
+    m_RecycleTableView->installEventFilter(this);
 }
 
 void MainFrame::initTab()
@@ -344,7 +346,7 @@ void MainFrame::initTray()
     connect(pStartAllAct, &QAction::triggered, [=]() {
         const QList<DownloadDataItem *> selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (auto *pData : selectList) {
-            if (pData->status != Global::DownloadJobStatus::Complete)
+            if (pData->status != Global::DownloadTaskStatus::Complete)
                 continueDownload(pData);
         }
 
@@ -517,6 +519,15 @@ void MainFrame::paintEvent(QPaintEvent *event)
     setPaletteType();
 }
 
+bool MainFrame::eventFilter(QObject *o, QEvent *e)
+{
+    qDebug() << e->type();
+    if (e->type() == QEvent::FontChange) {
+        return false;
+    }
+    return QMainWindow::eventFilter(o, e);
+}
+
 void MainFrame::createNewTask(QString url)
 {
     if (Settings::getInstance()->getNewTaskShowMainWindowState()) {
@@ -633,8 +644,8 @@ void MainFrame::initTabledata()
     for (TaskInfo info : list) {
         DownloadDataItem *data = new DownloadDataItem;
         initDataItem(data, info);
-        if (data->status != Global::DownloadJobStatus::Removed) {
-            if (data->status == Global::DownloadJobStatus::Lastincomplete) {
+        if (data->status != Global::DownloadTaskStatus::Removed) {
+            if (data->status == Global::DownloadTaskStatus::Lastincomplete) {
                 if (Settings::getInstance()->getAutostartUnfinishedTaskState()) { //启动后自动下载未完成的任务
                     startDownloadTask(data);
                 }
@@ -914,13 +925,13 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
     if (m_CurrentTab == downloadingTab && isChecked) {
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (auto *pDownloadItem : selectList) {
-            if (pDownloadItem->status == Global::DownloadJobStatus::Active) {
+            if (pDownloadItem->status == Global::DownloadTaskStatus::Active) {
                 ++activeCount;
             }
-            if ((pDownloadItem->status == Global::DownloadJobStatus::Paused) || (pDownloadItem->status == Global::DownloadJobStatus::Lastincomplete)) {
+            if ((pDownloadItem->status == Global::DownloadTaskStatus::Paused) || (pDownloadItem->status == Global::DownloadTaskStatus::Lastincomplete)) {
                 ++pauseCount;
             }
-            if (pDownloadItem->status == Global::DownloadJobStatus::Error) {
+            if (pDownloadItem->status == Global::DownloadTaskStatus::Error) {
                 ++errorCount;
             }
         }
@@ -1154,8 +1165,8 @@ void MainFrame::continueDownload(DownloadDataItem *pItem)
 {
     m_ToolBar->enablePauseBtn(true);
     m_ToolBar->enableStartBtn(false);
-    if (pItem->status != Global::DownloadJobStatus::Active) {
-        if (pItem->status == Global::DownloadJobStatus::Lastincomplete || pItem->status == Global::DownloadJobStatus::Error) {
+    if (pItem->status != Global::DownloadTaskStatus::Active) {
+        if (pItem->status == Global::DownloadTaskStatus::Lastincomplete || pItem->status == Global::DownloadTaskStatus::Error) {
             startDownloadTask(pItem);
         } else {
             Aria2RPCInterface::instance()->unpause(pItem->gid, pItem->taskId);
@@ -1218,16 +1229,16 @@ void MainFrame::onContextMenu(const QPoint &pos)
             if (item->Ischecked) {
                 chkedCnt++;
                 pDownloadItem = item;
-                if (pDownloadItem->status == Global::DownloadJobStatus::Active) {
+                if (pDownloadItem->status == Global::DownloadTaskStatus::Active) {
                     ++activeCount;
                 }
-                if ((pDownloadItem->status == Global::DownloadJobStatus::Paused) || (pDownloadItem->status == Global::DownloadJobStatus::Lastincomplete)) {
+                if ((pDownloadItem->status == Global::DownloadTaskStatus::Paused) || (pDownloadItem->status == Global::DownloadTaskStatus::Lastincomplete)) {
                     ++pauseCount;
                 }
-                if (pDownloadItem->status == Global::DownloadJobStatus::Error) {
+                if (pDownloadItem->status == Global::DownloadTaskStatus::Error) {
                     ++errorCount;
                 }
-                if (pDownloadItem->status == Global::DownloadJobStatus::Waiting) {
+                if (pDownloadItem->status == Global::DownloadTaskStatus::Waiting) {
                     ++waitCount;
                 }
             }
@@ -1417,12 +1428,12 @@ void MainFrame::onCheckChanged(bool checked, int flag)
             m_ToolBar->enableStartBtn(true);
             m_ToolBar->enablePauseBtn(true);
             m_ToolBar->enableDeleteBtn(true);
-            if (m_CheckItem->status == DownloadJobStatus::Paused || m_CheckItem->status == DownloadJobStatus::Lastincomplete) {
+            if (m_CheckItem->status == DownloadTaskStatus::Paused || m_CheckItem->status == DownloadTaskStatus::Lastincomplete) {
                 m_ToolBar->enablePauseBtn(false);
             } else {
                 m_ToolBar->enablePauseBtn(true);
             }
-            if (m_CheckItem->status == DownloadJobStatus::Active) {
+            if (m_CheckItem->status == DownloadTaskStatus::Active) {
                 m_ToolBar->enableStartBtn(false);
             } else {
                 m_ToolBar->enableStartBtn(true);
@@ -1714,7 +1725,7 @@ void MainFrame::onPauseDownloadBtnClicked()
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (auto *item : selectList) {
             if (item->Ischecked) {
-                if (item->status != Global::DownloadJobStatus::Paused) {
+                if (item->status != Global::DownloadTaskStatus::Paused) {
                     TaskInfoHash info;
                     DBInstance::getBtTaskById(item->taskId, info);
                     if (info.downloadType == "torrent" || item->savePath.contains("[METADATA]")) {
@@ -1726,7 +1737,7 @@ void MainFrame::onPauseDownloadBtnClicked()
 
                     TaskStatus getStatus;
                     TaskStatus downloadStatus(item->taskId,
-                                              Global::DownloadJobStatus::Paused,
+                                              Global::DownloadTaskStatus::Paused,
                                               QDateTime::currentDateTime(),
                                               item->completedLength,
                                               item->speed,
@@ -1762,7 +1773,7 @@ void MainFrame::onDownloadFirstBtnClicked()
             lowSpeedItem = item;
         }
     }
-    if (m_CheckItem->status == Global::DownloadJobStatus::Paused) {
+    if (m_CheckItem->status == Global::DownloadTaskStatus::Paused) {
         Aria2RPCInterface::instance()->unpause(m_CheckItem->gid, m_CheckItem->taskId);
     }
     Aria2RPCInterface::instance()->changePosition(m_CheckItem->gid, 0);
@@ -1930,14 +1941,14 @@ void MainFrame::onUpdateMainUI()
     int activeCount = 0;
     m_ShutdownOk = true;
     for (const auto *item : dataList) {
-        if ((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting)) {
+        if ((item->status == Global::DownloadTaskStatus::Active) || (item->status == Global::DownloadTaskStatus::Waiting)) {
             Aria2RPCInterface::instance()->tellStatus(item->gid, item->taskId);
         }
-        if ((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Waiting)
-            || (item->status == Global::DownloadJobStatus::Lastincomplete)) {
+        if ((item->status == Global::DownloadTaskStatus::Active) || (item->status == Global::DownloadTaskStatus::Waiting)
+            || (item->status == Global::DownloadTaskStatus::Lastincomplete)) {
             ++activeCount;
         }
-        if (item->status == Global::DownloadJobStatus::Active) {
+        if (item->status == Global::DownloadTaskStatus::Active) {
             m_ShutdownOk = false;
         }
     }
@@ -2078,11 +2089,11 @@ void MainFrame::onReturnOriginActionTriggered()
             ++selectedCount;
             if (data->completedLength == data->totalLength) {
                 if (data->totalLength != "0B") {
-                    returntoData->status = Global::DownloadJobStatus::Complete;
-                    getStatus.downloadStatus = Global::DownloadJobStatus::Complete;
+                    returntoData->status = Global::DownloadTaskStatus::Complete;
+                    getStatus.downloadStatus = Global::DownloadTaskStatus::Complete;
                 } else {
-                    returntoData->status = Global::DownloadJobStatus::Lastincomplete;
-                    getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
+                    returntoData->status = Global::DownloadTaskStatus::Lastincomplete;
+                    getStatus.downloadStatus = Global::DownloadTaskStatus::Lastincomplete;
                 }
             } else {
                 if ((data->completedLength != "0B") && (data->totalLength != "0B")) {
@@ -2090,8 +2101,8 @@ void MainFrame::onReturnOriginActionTriggered()
                     returntoData->percent = static_cast<int>(d);
 
                     if ((returntoData->percent < 0) || (returntoData->percent > 100)) {
-                        returntoData->status = Global::DownloadJobStatus::Lastincomplete;
-                        getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
+                        returntoData->status = Global::DownloadTaskStatus::Lastincomplete;
+                        getStatus.downloadStatus = Global::DownloadTaskStatus::Lastincomplete;
                         //returntoData->percent = 0;
                     }
                 } else {
@@ -2106,9 +2117,9 @@ void MainFrame::onReturnOriginActionTriggered()
             returntoData->gid = data->gid;
             returntoData->time = data->finishTime;
             returntoData->taskId = data->taskId;
-            if (returntoData->status == Global::DownloadJobStatus::Removed || getStatus.downloadStatus == Global::DownloadJobStatus::Removed) {
-                returntoData->status = Global::DownloadJobStatus::Lastincomplete;
-                getStatus.downloadStatus = Global::DownloadJobStatus::Lastincomplete;
+            if (returntoData->status == Global::DownloadTaskStatus::Removed || getStatus.downloadStatus == Global::DownloadTaskStatus::Removed) {
+                returntoData->status = Global::DownloadTaskStatus::Lastincomplete;
+                getStatus.downloadStatus = Global::DownloadTaskStatus::Lastincomplete;
             }
             //returntoData->status = Global::Status::Lastincomplete;
             m_DownLoadingTableView->getTableModel()->append(returntoData);
@@ -2204,7 +2215,7 @@ void MainFrame::onMoveToActionTriggered()
     if (!filePath.isEmpty()) {
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (auto *item : selectList) {
-            if ((item->status == DownloadJobStatus::Complete) && (item->Ischecked)) {
+            if ((item->status == DownloadTaskStatus::Complete) && (item->Ischecked)) {
                 DownloadDataItem *data = item;
                 QFile::rename(data->savePath, filePath + "/" + data->fileName);
                 data->savePath = filePath + "/" + data->fileName;
@@ -2362,7 +2373,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask,
     m_ShutdownOk = true;
     if (isStopTask) {
         for (const auto *item : dataList) { //暂停掉之前已经开始的多余下载总数的任务
-            if (item->status == Global::DownloadJobStatus::Active) {
+            if (item->status == Global::DownloadTaskStatus::Active) {
                 activeCount++;
                 if (activeCount > maxDownloadTaskCount) {
                     Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
@@ -2372,7 +2383,7 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask,
                     QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
                     TaskStatus getStatus;
                     TaskStatus downloadStatus(item->taskId,
-                                              Global::DownloadJobStatus::Paused,
+                                              Global::DownloadTaskStatus::Paused,
                                               QDateTime::currentDateTime(),
                                               item->completedLength,
                                               item->speed,
@@ -2470,15 +2481,15 @@ void MainFrame::initDataItem(Global::DownloadDataItem *data, const TaskInfo &tbT
         if (data->url.toLower().contains("magnet:?xt=urn:btih")) {
             data->completedLength = "0KB";
         }
-        if (taskStatus.downloadStatus == Global::DownloadJobStatus::Active
-            || taskStatus.downloadStatus == Global::DownloadJobStatus::Paused
-            || taskStatus.downloadStatus == Global::DownloadJobStatus::Waiting) {
-            data->status = Global::DownloadJobStatus::Lastincomplete;
+        if (taskStatus.downloadStatus == Global::DownloadTaskStatus::Active
+            || taskStatus.downloadStatus == Global::DownloadTaskStatus::Paused
+            || taskStatus.downloadStatus == Global::DownloadTaskStatus::Waiting) {
+            data->status = Global::DownloadTaskStatus::Lastincomplete;
         } else {
             data->status = taskStatus.downloadStatus;
         }
         data->total = taskStatus.totalFromSource;
-        if (data->status == Global::DownloadJobStatus::Complete) {
+        if (data->status == Global::DownloadTaskStatus::Complete) {
             data->time = taskStatus.modifyTime.toString("yyyy-MM-dd hh:mm:ss");
         }
     }
@@ -2984,7 +2995,7 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
         }
     }
     DBInstance::delTask(pItem->taskId);
-    if (pItem->status == DownloadJobStatus::Active || pItem->status == DownloadJobStatus::Waiting) { //正在下载的任务，等删除返回成功在删除任务记录
+    if (pItem->status == DownloadTaskStatus::Active || pItem->status == DownloadTaskStatus::Waiting) { //正在下载的任务，等删除返回成功在删除任务记录
         return;
     }
     m_DownLoadingTableView->getTableModel()->removeItem(pItem);
@@ -3022,7 +3033,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
     const QList<DeleteDataItem *> &recyleList = m_DownLoadingTableView->getTableModel()->recyleList();
     for (auto *item : dataList) {
         QString url = item->url.toUpper();
-        if (url.contains(infoHash.toUpper()) && item->status != DownloadJobStatus::Complete) {
+        if (url.contains(infoHash.toUpper()) && item->status != DownloadTaskStatus::Complete) {
             if (showRedownloadMsgbox(item->url)) {
                 deleteTaskByUrl(item->url);
                 break;
@@ -3034,7 +3045,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
 
     for (auto *item : recyleList) {
         QString url = item->url.toUpper();
-        if (url.contains(infoHash.toUpper()) && item->status != DownloadJobStatus::Complete) {
+        if (url.contains(infoHash.toUpper()) && item->status != DownloadTaskStatus::Complete) {
             if (showRedownloadMsgbox(item->url)) {
                 deleteTaskByUrl(item->url);
                 break;
