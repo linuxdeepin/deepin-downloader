@@ -62,11 +62,11 @@ void TableModel::onCheckdatachange(int flag)
     if (flag == 0) {
         for (DownloadDataItem *item : m_DataList) {
             if (m_Mode == Downloading) {
-                if (item->status != Global::DownloadJobStatus::Complete) {
+                if (item->status != Global::DownloadTaskStatus::Complete) {
                     activeList.append(item);
                 }
             } else {
-                if (item->status == Global::DownloadJobStatus::Complete) {
+                if (item->status == Global::DownloadTaskStatus::Complete) {
                     finishList.append(item);
                 }
             }
@@ -213,7 +213,7 @@ bool TableModel::switchDownloadingMode()
     m_RenderList.clear();
 
     for (DownloadDataItem *item : m_DataList) {
-        if ((item->status == Global::DownloadJobStatus::Active) || (item->status == Global::DownloadJobStatus::Paused) || (item->status == Global::DownloadJobStatus::Waiting) || (item->status == Global::DownloadJobStatus::Lastincomplete) || (item->status == Global::DownloadJobStatus::Error)) {
+        if ((item->status == Global::DownloadTaskStatus::Active) || (item->status == Global::DownloadTaskStatus::Paused) || (item->status == Global::DownloadTaskStatus::Waiting) || (item->status == Global::DownloadTaskStatus::Lastincomplete) || (item->status == Global::DownloadTaskStatus::Error)) {
             m_RenderList.append(item);
         }
     }
@@ -227,7 +227,7 @@ bool TableModel::switchFinishedMode()
     m_RenderList.clear();
 
     for (DownloadDataItem *item : m_DataList) {
-        if (item->status == Global::DownloadJobStatus::Complete) {
+        if (item->status == Global::DownloadTaskStatus::Complete) {
             m_RenderList.append(item);
         }
     }

@@ -39,6 +39,7 @@ class SearchWidget : public DTK_WIDGET_NAMESPACE::DSearchEdit
     Q_OBJECT
 public:
     SearchWidget(QWidget *parent = nullptr);
+
 protected:
     bool eventFilter(QObject *o, QEvent *e) override;
 signals:
@@ -59,7 +60,7 @@ public:
      * @brief 获取查找的内容
      * @return 查找的内容
     */
-    Dtk::Widget::DSearchEdit* getSearchEdit()
+    Dtk::Widget::DSearchEdit *getSearchEdit()
     {
         return m_searchEdit;
     }
@@ -138,22 +139,27 @@ signals:
      * @brief 新建下载信号
     */
     void newDownloadBtnClicked();
+
     /**
      * @brief 暂停下载信号
     */
     void pauseDownloadBtnClicked();
+
     /**
      * @brief 开始下载信号
     */
     void startDownloadBtnClicked();
+
     /**
      * @brief 删除下载信号
     */
     void deleteDownloadBtnClicked();
+
     /**
      * @brief 搜索框焦点改变信号
     */
     void SearchEditFocus(bool focus);
+
     /**
      * @brief 搜索框内容改变信号
     */
@@ -172,7 +178,7 @@ private:
     Dtk::Widget::DIconButton *m_pauseDownloadBtn;
     Dtk::Widget::DIconButton *m_deleteDownloadBtn;
     SearchWidget *m_searchEdit;
-    QCompleter* m_completer;
+    QCompleter *m_completer;
 };
 
 #endif // TOOLBAR_H

@@ -204,8 +204,8 @@ TEST_F(ut_dbinstance, getSameNameCount)
     EXPECT_TRUE(true) << "获取相同文件个数";
 }
 
-TEST_F(ut_dbinstance, delAllTask)
-{
-    bool ret = DBInstance::delAllTask();
-    EXPECT_TRUE(true) << "删除数据所有数据";
-}
+//TEST_F(ut_dbinstance, delAllTask)
+//{
+//    bool ret = DBInstance::delAllTask();
+//    EXPECT_TRUE(true) << "删除数据所有数据";
+//}
