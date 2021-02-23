@@ -96,6 +96,10 @@ void TableView::initUI()
     setColumnWidth(3, QHeaderView::Interactive);
     setColumnWidth(4, QHeaderView::Interactive);
     setTabKeyNavigation(true);
+    QFont font;
+    font.setFamily("Source Han Sans");
+    font.setPixelSize(14);
+    setFont(font);
 }
 
 void TableView::initConnections()

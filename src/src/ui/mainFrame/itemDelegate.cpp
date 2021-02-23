@@ -88,7 +88,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     const bool isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
 
     QFont font;
-    // font.setPointSize(11);
+    font.setPointSize(11);
     painter->setFont(font);
 
     painter->setRenderHint(QPainter::Antialiasing);
@@ -151,7 +151,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         const QString path = index.data(TableModel::SavePath).toString();
         int status = index.data(TableModel::Status).toInt();
-        if ((!QFileInfo::exists(path)) && (status == Global::DownloadJobStatus::Complete || status == Global::DownloadJobStatus::Removed)) { //文件不存在的任务，添加提示
+        if ((!QFileInfo::exists(path)) && (status == Global::DownloadTaskStatus::Complete || status == Global::DownloadTaskStatus::Removed)) { //文件不存在的任务，添加提示
             QPixmap errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
             painter->drawPixmap(x + 10, y + 10, errorPic);
         }
@@ -241,13 +241,11 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                     speed = "0KB/s";
                 }
                 QString str = " " + index.data(TableModel::Percent).toString()
-                        + "%    " + speed;
-                if(index.data(TableModel::announceList).toInt()){
-                    str += "  " + tr("Resources:") + " " + QString("%1/%2")
-                            .arg(index.data(TableModel::connection).toInt())
-                            .arg(index.data(TableModel::announceList).toInt());
+                              + "%    " + speed;
+                if (index.data(TableModel::announceList).toInt()) {
+                    str += "  " + tr("Resources:") + " " + QString("%1/%2").arg(index.data(TableModel::connection).toInt()).arg(index.data(TableModel::announceList).toInt());
                 }
-                str +="   " + tr("Time left ")+ index.data(TableModel::Time).toString();
+                str += "   " + tr("Time left ") + index.data(TableModel::Time).toString();
 
                 const QString sizeText = painter->fontMetrics().elidedText(str,
                                                                            Qt::ElideRight,
