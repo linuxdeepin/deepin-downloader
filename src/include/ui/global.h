@@ -96,7 +96,7 @@ enum CurrentTab {
      * @enum Status
      * @brief 列表项当前状态
      */
-enum DownloadJobStatus {
+enum DownloadTaskStatus {
     Active = 0,
     Waiting,
     Paused,
@@ -104,19 +104,6 @@ enum DownloadJobStatus {
     Removed,
     Lastincomplete,
     Error
-};
-/**
-     * @enum MsgboxType
-     * @brief 消息弹框类型
-     */
-enum MsgboxType {
-    NewDownloding = 0,
-    Warnings = 1,
-    Delete = 2,
-    ReDownload = 3,
-    ReName = 4,
-    Clear = 5,
-    RepeatDownload = 6
 };
 
 }; // namespace Global

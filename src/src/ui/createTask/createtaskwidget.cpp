@@ -55,6 +55,7 @@ CreateTaskWidget::CreateTaskWidget(DDialog *parent)
     : DDialog(parent)
     , m_analysisUrl(new AnalysisUrl)
 {
+    setObjectName("newTaskWidget");
     //DDialog 内将回车键绑定在action上，所以在解析框内无法出发回车函数，下列代码将DDialog中绑定回车的aciton删除
     QObjectList objectList = children();
     for (int i = 0; i < objectList.size(); i++) {
@@ -76,7 +77,6 @@ CreateTaskWidget::~CreateTaskWidget()
 
 void CreateTaskWidget::initUi()
 {
-    setObjectName("newTaskWidget");
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
