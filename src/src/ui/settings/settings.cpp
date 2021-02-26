@@ -499,12 +499,12 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget(nullptr, true);
     itemSelectionWidget->setLabelText(tr("HTTP")); // HTTP下载
+    itemSelectionWidget->setAccessibleName("httpCheck");
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
-
     connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=](QVariant var) {
         option->setValue(var.toString());
     });
-
+    //option
     connect(option, &DSettingsOption::valueChanged, itemSelectionWidget, [=](QVariant var) {
         if (!var.toString().isEmpty()) {
             itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
@@ -520,6 +520,7 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
     itemSelectionWidget->setLabelText(tr("BitTorrent")); // BT下载
+    itemSelectionWidget->setAccessibleName("btCheck");
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
     connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=](QVariant var) {
@@ -541,6 +542,7 @@ QWidget *Settings::createMetalinkdownloadEditHandle(QObject *obj)
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
     itemSelectionWidget->setLabelText(tr("MetaLink")); // MetaLink下载
+    itemSelectionWidget->setAccessibleName("MetaLinkCheck");
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
     connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=](QVariant var) {
@@ -562,6 +564,7 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
     itemSelectionWidget->setLabelText(tr("Magnet URI scheme")); // 磁力链接下载
+    itemSelectionWidget->setAccessibleName("magnetCheck");
     itemSelectionWidget->setCheckBoxChecked(option->value().toBool());
 
     connect(itemSelectionWidget, &ItemSelectionWidget::checkBoxIsChecked, itemSelectionWidget, [=](QVariant var) {

@@ -305,6 +305,7 @@ void CreateTaskWidget::initUi()
     policy = m_sureButton->sizePolicy();
     policy.setHorizontalPolicy(QSizePolicy::Expanding);
     m_sureButton->setSizePolicy(policy);
+    m_sureButton->setAccessibleName("createSureBtn");
     connect(m_sureButton, &DPushButton::clicked, this, &CreateTaskWidget::onSureBtnClicked);
     layout_right->addSpacing(10);
     layout_right->addWidget(m_sureButton);

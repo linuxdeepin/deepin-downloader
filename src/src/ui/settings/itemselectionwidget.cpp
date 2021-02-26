@@ -100,3 +100,8 @@ void ItemSelectionWidget::setBlockSignals(bool lock)
     m_checkBox->blockSignals(lock);
 }
 
+void ItemSelectionWidget::setAccessibleName(QString name)
+{
+    m_checkBox->setAccessibleName(name);
+}
+

@@ -2,6 +2,10 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include "dbinstance.h"
+#include "database.h"
+#include "stub.h"
+#include "stubAll.h"
+#include <stdio.h>
 
 class ut_dbinstance : public ::testing::Test
 {
@@ -43,11 +47,21 @@ protected:
     TaskInfoHash m_btTasknInfo;
 };
 
+TEST_F(ut_dbinstance, removeDB)
+{
+    // QString _dataBasePath = qApp->applicationDirPath();
+    QString dbPath = QString("%1/%2/%3/downloader.db")
+                         .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                         .arg(qApp->organizationName())
+                         .arg(qApp->applicationName());
+    QFile::remove(dbPath);
+}
+
 TEST_F(ut_dbinstance, addTask)
 {
     TaskInfo taskInfo;
     bool ret = DBInstance::addTask(taskInfo);
-    //  EXPECT_TRUE(true) << "空数据插入";
+    //  EXPECT_TRUE(true) << "空数据插入"
 
     ret = DBInstance::addTask(m_taskInfo);
     EXPECT_TRUE(true) << "有数据插入";
@@ -209,3 +223,63 @@ TEST_F(ut_dbinstance, delAllTask)
     bool ret = DBInstance::delAllTask();
     EXPECT_TRUE(true) << "删除数据所有数据";
 }
+
+TEST_F(ut_dbinstance, delTaskError)
+{
+    TaskStatus taskStatus;
+    taskStatus.taskId = m_taskInfo.taskId;
+
+    DBInstance::delTask("vdfaga'");
+    DBInstance::addTask(m_taskInfo);
+    DBInstance::delTask(m_taskInfo.taskId);
+    DBInstance::addTask(m_taskInfo);
+    DBInstance::addTaskStatus(taskStatus);
+    DBInstance::delTask(m_taskInfo.taskId);
+}
+
+TEST_F(ut_dbinstance, updateTaskInfoByIDError)
+{
+    TaskInfo taskInfo;
+    DBInstance::updateTaskInfoByID(taskInfo);
+     EXPECT_TRUE(true);
+}
+
+TEST_F(ut_dbinstance, notOpenDb)
+{
+    TaskInfo task;
+    TaskStatus taskStatus;
+    TaskInfoHash taskInfoHash;
+    QList<TaskInfo> taskList;
+    QList<TaskStatus> taskStatusList;
+    QList<TaskInfoHash> taskInfoHashList;
+    bool ret = true;
+    DataBase::Instance().m_db = QSqlDatabase::addDatabase("QSQ23LITE");
+    DBInstance::addTask(task);
+    DBInstance::delTask(task.taskId);
+    DBInstance::delAllTask();
+    DBInstance::updateTaskInfoByID(task);
+    DBInstance::updateAllTaskInfo(taskList);
+    DBInstance::getTaskByID("11", task);
+    DBInstance::getAllTask(taskList);
+    DBInstance::isExistUrl("11",ret);
+    DBInstance::addTaskStatus(taskStatus);
+    DBInstance::updateTaskStatusById(taskStatus);
+    DBInstance::updateAllTaskStatus(taskStatusList);
+    DBInstance::getTaskStatusById("11", taskStatus);
+    DBInstance::getAllTaskStatus(taskStatusList);
+    DBInstance::addBtTask(taskInfoHash);
+    DBInstance::updateBtTaskById(taskInfoHash);
+    DBInstance::getBtTaskById("11", taskInfoHash);
+    DBInstance::getAllBtTask(taskInfoHashList);
+    DBInstance::getSameNameCount("11","11");
+    DBInstance::isExistBtInHash("11", ret);
+    DBInstance::getTaskForUrl("11", task);
+
+    DataBase::Instance().m_db = QSqlDatabase::addDatabase("QSQLITE");
+    DBInstance::addTask(task);
+
+    DataBase::Instance().destory();
+}
+
+
+
