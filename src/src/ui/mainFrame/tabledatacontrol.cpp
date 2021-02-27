@@ -107,7 +107,7 @@ bool TableDataControl::removeDownloadListJob(Global::DownloadDataItem *pData,
         delData->url = pData->url;
         delData->fileName = pData->fileName;
         delData->savePath = pData->savePath;
-        delData->Ischecked = false;
+        delData->isChecked = false;
         delData->status = Global::DownloadTaskStatus::Removed;
         delData->totalLength = pData->totalLength;
         delData->completedLength = pData->completedLength;
@@ -174,7 +174,7 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         DownloadDataItem *data = new DownloadDataItem;
         data->taskId = id;
         data->gid = gId;
-        data->Ischecked = false;
+        data->isChecked = false;
         data->completedLength = "0KB";
         QDateTime time = QDateTime::currentDateTime();
         data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
@@ -762,7 +762,7 @@ bool TableDataControl::onDelAction(int currentTab)
         m_RecycleDeleteList.clear();
         const QList<DeleteDataItem *> &pList = m_DownloadTableView->getTableModel()->recyleList();
         for (int i = 0; i < pList.size(); ++i) {
-            if (pList.at(i)->Ischecked) {
+            if (pList.at(i)->isChecked) {
                 m_RecycleDeleteList.append(pList.at(i));
             }
         }
@@ -771,7 +771,7 @@ bool TableDataControl::onDelAction(int currentTab)
         const QList<DownloadDataItem *> &pSelectList = m_DownloadTableView->getTableModel()->renderList();
         for (int i = 0; i < pSelectList.size(); ++i) {
             if ((currentTab == Global::finishTab && pSelectList.at(i)->status == Complete) || (currentTab == Global::downloadingTab && pSelectList.at(i)->status != Complete)) {
-                if (pSelectList.at(i)->Ischecked) {
+                if (pSelectList.at(i)->isChecked) {
                     m_DeleteList.append(pSelectList.at(i));
                 }
             }
@@ -909,7 +909,7 @@ bool TableDataControl::deleteTask(bool ifDeleteLocal, TableView *pRecycleTableVi
             delData->fileName = data->fileName;
             delData->savePath = data->savePath;
             delData->status = DownloadTaskStatus::Removed;
-            delData->Ischecked = false;
+            delData->isChecked = false;
             delData->totalLength = data->totalLength;
             delData->completedLength = data->completedLength;
             delData->deleteTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");

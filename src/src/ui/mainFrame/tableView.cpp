@@ -37,6 +37,7 @@
 #include <QProcess>
 #include <QThread>
 #include <QDesktopServices>
+#include <DApplicationHelper>
 #include <QStandardItemModel>
 
 #include "../database/dbinstance.h"
@@ -62,6 +63,11 @@ TableView::TableView(int Flag)
 {
     initUI();
     initConnections();
+}
+
+TableView::~TableView()
+{
+    delete (m_TableModel);
 }
 
 void TableView::initUI()
@@ -242,7 +248,7 @@ void TableView::onModellayoutChanged()
     if (m_TableFlag == 0) {
         const QList<DownloadDataItem *> &selectList = getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); i++) {
-            if (selectList.at(i)->IsHide) {
+            if (selectList.at(i)->isHide) {
                 setRowHidden(i, true);
             } else {
                 setRowHidden(i, false);
@@ -251,7 +257,7 @@ void TableView::onModellayoutChanged()
     } else {
         const QList<DeleteDataItem *> &selectList = getTableModel()->recyleList();
         for (int i = 0; i < selectList.size(); i++) {
-            if (selectList.at(i)->IsHide) {
+            if (selectList.at(i)->isHide) {
                 setRowHidden(i, true);
             } else {
                 setRowHidden(i, false);
@@ -268,4 +274,13 @@ void LeftListView::currentChanged(const QModelIndex &current, const QModelIndex 
 {
     Q_UNUSED(previous);
     emit currentIndexChanged(current);
+}
+
+void LeftListView::paintEvent(QPaintEvent *e)
+{
+    DPalette pa;
+    pa = DApplicationHelper::instance()->palette(this);
+    pa.setBrush(DPalette::ItemBackground, pa.brush(DPalette::Base));
+    DApplicationHelper::instance()->setPalette(this, pa);
+    DListView::paintEvent(e);
 }

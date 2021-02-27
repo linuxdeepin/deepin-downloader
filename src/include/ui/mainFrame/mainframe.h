@@ -139,7 +139,7 @@ public slots:
     /**
      * @brief 剪切板数据改变，受到托管文件url
     */
-    void OpenFile(QString url);
+    void OpenFile(const QString &url);
 
     /**
      * @brief 剪切板将
@@ -444,7 +444,7 @@ private:
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    void getUrlToName(TaskInfo &task, QString url, QString savePaht, QString name, QString type = "");
+    void getNameFromUrl(TaskInfo &task, QString url, QString savePaht, QString name, QString type = "");
 
     /**
      * @brief 开始或者继续下载任务

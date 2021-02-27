@@ -45,6 +45,7 @@ class TableView : public QTableView
     Q_OBJECT
 public:
     TableView(int Flag);
+    ~TableView();
     void reset(bool switched = false);
     /**
      * @brief 获取model
@@ -164,6 +165,7 @@ public:
 
 protected:
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);
+    void paintEvent(QPaintEvent *e);
 signals:
     void currentIndexChanged(const QModelIndex &current);
 };

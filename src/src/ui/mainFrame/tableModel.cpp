@@ -73,7 +73,7 @@ void TableModel::onCheckdatachange(int flag)
         }
         if ((m_Mode == Downloading) && (activeList.size() > 0)) {
             for (DownloadDataItem *item : activeList) {
-                if (item->Ischecked) {
+                if (item->isChecked) {
                     checkNum++;
                 }
             }
@@ -85,7 +85,7 @@ void TableModel::onCheckdatachange(int flag)
         }
         if ((m_Mode == Finished) && (finishList.size() > 0)) {
             for (DownloadDataItem *item : finishList) {
-                if (item->Ischecked) {
+                if (item->isChecked) {
                     checkNum++;
                 }
             }
@@ -98,7 +98,7 @@ void TableModel::onCheckdatachange(int flag)
     } else {
         for (int i = 0; i < m_RecyleList.size(); i++) {
             DeleteDataItem *del_data = m_RecyleList.at(i);
-            if (del_data->Ischecked) {
+            if (del_data->isChecked) {
                 checkNum++;
             }
         }
@@ -254,7 +254,7 @@ int TableModel::columnCount(const QModelIndex &parent) const
 
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
-    if(!index.isValid()){
+    if (!index.isValid()) {
         return QVariant();
     }
     const int row = index.row();
@@ -281,9 +281,9 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case TableModel::Ischecked: {
         if (m_TableviewtabFlag == 0) {
-            return data->Ischecked ? Qt::Checked : Qt::Unchecked;
+            return data->isChecked ? Qt::Checked : Qt::Unchecked;
         } else {
-            return deldata->Ischecked ? Qt::Checked : Qt::Unchecked;
+            return deldata->isChecked ? Qt::Checked : Qt::Unchecked;
         }
     }
 
@@ -382,9 +382,9 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     }
     case TableModel::IsHide: {
         if (m_TableviewtabFlag == 0) {
-            return data->IsHide;
+            return data->isHide;
         } else {
-            return deldata->IsHide;
+            return deldata->isHide;
         }
     }
     case TableModel::connection: {
@@ -488,10 +488,10 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
     case TableModel::Ischecked: {
         if (nColumn == 0) {
             if (m_TableviewtabFlag == 0) {
-                data->Ischecked = value.toBool();
+                data->isChecked = value.toBool();
                 m_RenderList.replace(index.row(), data);
             } else {
-                deldata->Ischecked = value.toBool();
+                deldata->isChecked = value.toBool();
                 m_RecyleList.replace(index.row(), deldata);
             }
 
@@ -527,10 +527,10 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
     }
     case TableModel::IsHide: {
         if (m_TableviewtabFlag == 0) {
-            data->IsHide = value.toBool();
+            data->isHide = value.toBool();
             m_RenderList.replace(index.row(), data);
         } else {
-            deldata->IsHide = value.toBool();
+            deldata->isHide = value.toBool();
             m_RecyleList.replace(index.row(), deldata);
         }
         break;
@@ -737,6 +737,3 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
     m_RecyleList = sortData;
     emit layoutChanged();
 }
-
-
-

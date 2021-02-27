@@ -52,8 +52,8 @@ struct DownloadDataItem {
     int connection = 0;
     int announceList = 0;
 
-    bool Ischecked;
-    bool IsHide = false;
+    bool isChecked;
+    bool isHide = false;
     QString taskId;
     //        QString fileName = Global::UNKNOWN;
     QString fileName = QObject::tr("Unknown");
@@ -73,8 +73,8 @@ struct DownloadDataItem {
      */
 struct DeleteDataItem {
     int status = 5;
-    bool Ischecked;
-    bool IsHide = false;
+    bool isChecked;
+    bool isHide = false;
     QString taskId;
     QString fileName;
     QString completedLength;
