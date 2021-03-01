@@ -10,13 +10,13 @@
 
 bool Func::isNetConnect()
 {
-    QProcess *process = new QProcess();
+    QProcess process;
     QStringList list;
     list << "-i"
          << "www.baidu.com";
-    process->start("curl", list);
-    process->waitForFinished();
-    if(!process->exitCode()){
+    process.start("curl", list);
+    process.waitForFinished();
+    if(!process.exitCode()){
         return true;
     }
     return isLanConnect();
