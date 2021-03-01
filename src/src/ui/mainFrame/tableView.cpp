@@ -68,6 +68,7 @@ TableView::TableView(int Flag)
 TableView::~TableView()
 {
     delete (m_TableModel);
+    delete (m_TableDataControl);
 }
 
 void TableView::initUI()

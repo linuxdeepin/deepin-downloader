@@ -53,8 +53,9 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
         m_Edit->setMinimumWidth(200);
-        QIntValidator *validator = new QIntValidator(1, 9999);
-        m_Edit->lineEdit()->setValidator(validator);
+        QSharedPointer<QIntValidator> validator =
+                    QSharedPointer<QIntValidator>(new QIntValidator(1, 9999), &QObject::deleteLater);
+        m_Edit->lineEdit()->setValidator(validator.data());
         m_Edit->lineEdit()->setText("100");
         layout->addWidget(m_Edit);
         connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);

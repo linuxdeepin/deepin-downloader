@@ -623,17 +623,23 @@ void MainFrame::initDbus()
 
 void MainFrame::initWebsocket()
 {
-    QWebSocketServer *server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
+
+    QSharedPointer<QWebSocketServer> server = QSharedPointer<QWebSocketServer>(new QWebSocketServer(QStringLiteral("QWebChannel Server"),
+                                                                                                 QWebSocketServer::NonSecureMode), &QObject::deleteLater);
     if (!server->listen(QHostAddress("127.0.0.1"), 12345)) {
         qFatal("Failed to open web socket server.");
     }
-    WebSocketClientWrapper *clientWrapper = new WebSocketClientWrapper(server);
-    QWebChannel *channel = new QWebChannel;
-    QObject::connect(clientWrapper, &WebSocketClientWrapper::clientConnected,
-                     channel, &QWebChannel::connectTo);
-    Websockethandle *core = new Websockethandle;
-    channel->registerObject(QStringLiteral("core"), core);
-    connect(core, &Websockethandle::sendWebText, this, [&](QString text) {
+    QSharedPointer<WebSocketClientWrapper> clientWrapper =
+            QSharedPointer<WebSocketClientWrapper>(new WebSocketClientWrapper(server.data()), &QObject::deleteLater);
+
+    QSharedPointer<QWebChannel> channel =
+            QSharedPointer<QWebChannel>(new QWebChannel(), &QObject::deleteLater);
+    QObject::connect(clientWrapper.data(), &WebSocketClientWrapper::clientConnected,
+                     channel.data(), &QWebChannel::connectTo);
+
+    QSharedPointer<Websockethandle> core = QSharedPointer<Websockethandle>(new Websockethandle(), &QObject::deleteLater);
+    channel->registerObject(QStringLiteral("core"), core.data());
+    connect(core.data(), &Websockethandle::sendWebText, this, [&](QString text) {
         createNewTask(text);
     });
 }
@@ -768,7 +774,7 @@ void MainFrame::onSettingsMenuClicked()
     DSettingsDialog settingsDialog;
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPixelSize(12);
+    font.setPixelSize(14);
     settingsDialog.setFont(font);
 
     settingsDialog.widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
@@ -777,8 +783,7 @@ void MainFrame::onSettingsMenuClicked()
     settingsDialog.widgetFactory()->registerWidget("metalinkdownload", Settings::createMetalinkdownloadEditHandle);
     settingsDialog.widgetFactory()->registerWidget("magneticdownload", Settings::createMagneticDownloadEditHandle);
     settingsDialog.widgetFactory()->registerWidget("diskcacheInfo", Settings::createDiskCacheSettiingLabelHandle);
-    settingsDialog.widgetFactory()->registerWidget("downloadspeedlimitsetting",
-                                                   Settings::createDownloadSpeedLimitSettiingHandle);
+    settingsDialog.widgetFactory()->registerWidget("downloadspeedlimitsetting",                                      Settings::createDownloadSpeedLimitSettiingHandle);
     settingsDialog.widgetFactory()->registerWidget("notificationsSettiing",
                                                    Settings::createNotificationsSettiingHandle);
     settingsDialog.widgetFactory()->registerWidget("autodownloadbyspeed",
