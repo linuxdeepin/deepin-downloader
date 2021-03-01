@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ce0523b_a1d3f97c",
+        "filename": "src/src/ui/createTask/btinfodelegate.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-01T06:57:59Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 3; 注释率: 0.0%",
+      "revId": "fac0c52f1bac3a723ea190817852604a1fbf0d7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef5a5ec4_cc8377e1",
+        "filename": "src/src/ui/createTask/btinfodialog.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-01T06:57:59Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 16; 注释率: 6.2%",
+      "revId": "fac0c52f1bac3a723ea190817852604a1fbf0d7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b59e376_bf67a884",
+        "filename": "src/src/ui/createTask/btinfotableview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-01T06:57:59Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "fac0c52f1bac3a723ea190817852604a1fbf0d7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5413266_f2153710",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-01T06:57:59Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 19; 注释率: 5.3%",
+      "revId": "fac0c52f1bac3a723ea190817852604a1fbf0d7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "748c8f06_bb63242b",
+        "filename": "src/src/ui/createTask/taskdelegate.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-01T06:57:59Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 3; 注释率: 0.0%",
+      "revId": "fac0c52f1bac3a723ea190817852604a1fbf0d7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
