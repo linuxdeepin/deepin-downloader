@@ -95,6 +95,9 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
     painter->restore();
     painter->save();
+    QFont font;
+    font.setPointSize(11);
+    painter->setFont(font);
 
     if (index.column() == 0) {
         QStyleOptionButton checkBoxStyle;

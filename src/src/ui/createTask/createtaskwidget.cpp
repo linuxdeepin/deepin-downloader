@@ -39,6 +39,7 @@
 #include <QStandardItemModel>
 #include <QMimeDatabase>
 #include <QDesktopWidget>
+#include <QFont>
 #include <curl/curl.h>
 //#include <curl/easy.h>
 #include "btinfodialog.h"
@@ -85,14 +86,21 @@ void CreateTaskWidget::initUi()
     setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
     //setTitle(tr("New Task"));
 
+    QFont font;
+    font.setFamily("Source Han Sans");
+    font.setPixelSize(13);
+
     DLabel *msgTitle = new DLabel(this);
     QString titleMsg = tr("New Task");
+
     msgTitle->setText(titleMsg);
+    msgTitle->setFont(font);
     addContent(msgTitle, Qt::AlignHCenter);
     QString msg = tr("Please enter one URL per line");
     addSpacing(10);
     DLabel *msgLab = new DLabel(this);
     msgLab->setText(msg);
+    msgLab->setFont(font);
     addContent(msgLab, Qt::AlignHCenter);
     addSpacing(10);
     m_texturl = new DTextEdit(this);
@@ -101,6 +109,7 @@ void CreateTaskWidget::initUi()
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag a torrent file here"));
     m_texturl->setFixedSize(QSize(500, 154));
+    m_texturl->setFont(font);
     // m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
     QPalette pal;
@@ -120,7 +129,7 @@ void CreateTaskWidget::initUi()
     m_tableView->setEditTriggers(QAbstractItemView::EditKeyPressed);
     m_tableView->setAlternatingRowColors(true);
 
-    QFont font;
+ //   QFont font;
     font.setPixelSize(13);
     m_tableView->setFont(font);
     headerView *header = new headerView(Qt::Horizontal, m_tableView);
@@ -152,6 +161,7 @@ void CreateTaskWidget::initUi()
     m_tableView->setColumnWidth(0, 290);
     m_tableView->setColumnWidth(2, 60);
     m_tableView->horizontalHeader()->setStretchLastSection(true);
+    m_tableView->horizontalHeader()->setFont(font);
     DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &TaskDelegate::onhoverChanged);
     //connect(m_delegate, &TaskDelegate::editChange, m_tableView, &BtInfoTableView::onEditChange);
@@ -186,36 +196,43 @@ void CreateTaskWidget::initUi()
     QHBoxLayout *hlyt = new QHBoxLayout(m_checkWidget);
     m_checkAll = new DCheckBox(this);
     m_checkAll->setText(tr("All"));
+    m_checkAll->setFont(font);
     m_checkAll->setObjectName("checkAll");
     connect(m_checkAll, SIGNAL(clicked()), this, SLOT(onAllCheck()));
 
     m_checkVideo = new DCheckBox(this);
     m_checkVideo->setText(tr("Videos"));
+    m_checkVideo->setFont(font);
     m_checkVideo->setObjectName("checkVideo");
     connect(m_checkVideo, SIGNAL(clicked()), this, SLOT(onVideoCheck()));
 
     m_checkPicture = new DCheckBox(this);
     m_checkPicture->setText(tr("Pictures"));
+    m_checkPicture->setFont(font);
     m_checkPicture->setObjectName("checkPicture");
     connect(m_checkPicture, SIGNAL(clicked()), this, SLOT(onPictureCheck()));
 
     m_checkAudio = new DCheckBox(this);
     m_checkAudio->setText(tr("Music"));
+    m_checkAudio->setFont(font);
     m_checkAudio->setObjectName("checkAudio");
     connect(m_checkAudio, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
 
     m_checkOther = new DCheckBox(this);
     m_checkOther->setText(tr("Others"));
+    m_checkOther->setFont(font);
     m_checkOther->setObjectName("checkOther");
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
 
     m_checkDoc = new DCheckBox(this);
     m_checkDoc->setText(tr("Documents"));
+    m_checkDoc->setFont(font);
     m_checkDoc->setObjectName("checkDoc");
     connect(m_checkDoc, SIGNAL(clicked()), this, SLOT(onDocCheck()));
 
     m_checkZip = new DCheckBox(this);
     m_checkZip->setText(tr("Archives"));
+    m_checkZip->setFont(font);
     m_checkZip->setObjectName("checkZip");
     connect(m_checkZip, SIGNAL(clicked()), this, SLOT(onZipCheck()));
 
@@ -252,6 +269,7 @@ void CreateTaskWidget::initUi()
     m_editDir->lineEdit()->setEnabled(false);
     m_editDir->lineEdit()->setTextMargins(0, 0, m_editDir->lineEdit()->width(), 0);
     m_editDir->lineEdit()->setLayout(siezhlyt);
+    m_editDir->setFont(font);
     m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
     m_editDir->setText(m_defaultDownloadDir);
@@ -296,12 +314,14 @@ void CreateTaskWidget::initUi()
     cancelButton->setSizePolicy(policy);
     cancelButton->setText(tr("Cancel"));
     cancelButton->setObjectName("cancelButton");
+    cancelButton->setFont(font);
     connect(cancelButton, &DPushButton::clicked, this, &CreateTaskWidget::onCancelBtnClicked);
     layout_right->addWidget(cancelButton);
 
     m_sureButton = new DSuggestButton(boxBtn);
     m_sureButton->setText(tr("Confirm"));
     m_sureButton->setObjectName("sureBtn");
+    m_sureButton->setFont(font);
     policy = m_sureButton->sizePolicy();
     policy.setHorizontalPolicy(QSizePolicy::Expanding);
     m_sureButton->setSizePolicy(policy);

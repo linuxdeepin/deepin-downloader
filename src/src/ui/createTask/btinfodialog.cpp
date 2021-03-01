@@ -40,6 +40,7 @@
 #include <QStandardPaths>
 #include <QSharedMemory>
 #include <dpinyin.h>
+#include <QFont>
 
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath)
     : DDialog()
@@ -101,12 +102,17 @@ void BtInfoDialog::initUI()
     m_ariaInfo = Aria2RPCInterface::instance()->getBtInfo(m_torrentFile);
 //    setTitle(" ");
 //    setWindowTitle(tr(""));
+    QFont font;
+    font.setFamily("Source Han Sans");
+    font.setPixelSize(13);
+
 
     m_labelTitle = new DLabel(this);
     m_labelTitle->setFixedSize(width(), 30);
     m_labelTitle->setAlignment(Qt::AlignCenter);
     m_labelTitle->move(0, 48);
     m_labelTitle->setText(tr("New Task"));
+    m_labelTitle->setFont(font);
     m_folderIcon = new DLabel(this);
     m_folderIcon->setPixmap(QPixmap(":/icons/icon/folder.svg")); ///usr/share/icons/bloom/places/32/folder.svg
     m_folderIcon->move(45, 92);
@@ -118,6 +124,7 @@ void BtInfoDialog::initUI()
         m_ariaInfo.name = m_ariaInfo.files[0].path;
     }
     m_labelInfoName->setText(m_ariaInfo.name);
+    m_labelInfoName->setFont(font);
     m_labelInfoName->setWordWrap(true);
 
     //总大小标签
@@ -159,6 +166,7 @@ void BtInfoDialog::initUI()
     m_checkAll->setObjectName("checkAll");
     m_checkAll->setGeometry(15, 401, 95, 29);
     m_checkAll->setText(tr("All"));
+    m_checkAll->setFont(font);
     m_checkAll->setChecked(true);
     connect(m_checkAll, SIGNAL(clicked()), this, SLOT(onAllCheck()));
 
@@ -166,6 +174,7 @@ void BtInfoDialog::initUI()
     m_checkVideo->setObjectName("checkVideo");
     m_checkVideo->setGeometry(100, 401, 95, 29);
     m_checkVideo->setText(tr("Videos"));
+    m_checkVideo->setFont(font);
     m_checkVideo->setChecked(true);
     connect(m_checkVideo, SIGNAL(clicked()), this, SLOT(onVideoCheck()));
 
@@ -173,6 +182,7 @@ void BtInfoDialog::initUI()
     m_checkPicture->setObjectName("checkPicture");
     m_checkPicture->setGeometry(185, 401, 95, 29);
     m_checkPicture->setText(tr("Pictures"));
+    m_checkPicture->setFont(font);
     m_checkPicture->setChecked(true);
     connect(m_checkPicture, SIGNAL(clicked()), this, SLOT(onPictureCheck()));
 
@@ -180,6 +190,7 @@ void BtInfoDialog::initUI()
     m_checkAudio->setObjectName("checkAudio");
     m_checkAudio->setGeometry(270, 401, 95, 29);
     m_checkAudio->setText(tr("Music"));
+    m_checkAudio->setFont(font);
     m_checkAudio->setChecked(true);
     connect(m_checkAudio, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
 
@@ -187,6 +198,7 @@ void BtInfoDialog::initUI()
     m_checkOther->setObjectName("checkOther");
     m_checkOther->setGeometry(355, 401, 95, 29); //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
     m_checkOther->setText(tr("Others"));
+    m_checkOther->setFont(font);
     m_checkOther->setChecked(true);
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
 
@@ -200,6 +212,7 @@ void BtInfoDialog::initUI()
     //
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
+    m_editDir->setFont(font);
     //   QString text = getFileEditText(m_defaultDownloadDir);
     QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
@@ -225,6 +238,7 @@ void BtInfoDialog::initUI()
     //this->btnOK->setFixedWidth(190);
     m_btnOK->setGeometry(160, 480, 191, 35);
     m_btnOK->setText(tr("Download Now"));
+    m_btnOK->setFont(font);
     connect(m_btnOK, SIGNAL(clicked()), this, SLOT(onBtnOK()));
     //文件列表配置
     m_tableView->setShowGrid(false);
@@ -234,11 +248,12 @@ void BtInfoDialog::initUI()
     m_tableView->setAlternatingRowColors(true);
     m_tableView->setFrameShape(QAbstractItemView::NoFrame);
 
-    QFont font;
+//    QFont font;
     font.setPixelSize(13);
     m_tableView->setFont(font);
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     m_tableView->horizontalHeader()->setHighlightSections(false);
+    m_tableView->horizontalHeader()->setFont(font);
 
     m_tableView->verticalHeader()->hide();
     m_tableView->verticalHeader()->setDefaultSectionSize(46);
@@ -248,6 +263,7 @@ void BtInfoDialog::initUI()
 
     m_model = new QStandardItemModel();
     m_tableView->setModel(m_model);
+    DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
 
     m_model->setColumnCount(5);
     m_model->setHeaderData(0, Qt::Horizontal, tr("Name"));

@@ -32,6 +32,10 @@ BtInfoTableView::BtInfoTableView(QWidget *parent)
 {
     setEditTriggers(QAbstractItemView::SelectedClicked);
     connect(this, &QAbstractItemView::doubleClicked, this, &BtInfoTableView::onDoubleClicked);
+    QFont font;
+    font.setFamily("Source Han Sans");
+    font.setPixelSize(13);
+    setFont(font);
 }
 
 void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
