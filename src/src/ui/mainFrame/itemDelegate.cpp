@@ -111,8 +111,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         checkBoxStyle.rect = option.rect;
         checkBoxStyle.rect.setX(option.rect.x() + 5);
         checkBoxStyle.rect.setWidth(20);
-        DCheckBox *checkBtn = new DCheckBox;
-        QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, checkBtn);
+        QSharedPointer<DCheckBox> checkBtn = QSharedPointer<DCheckBox>(new DCheckBox, &QObject::deleteLater);
+        QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, checkBtn.data());
     } else if (column == 1) {
         if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
             painter->setPen(QColor("#C0C6D4"));

@@ -119,7 +119,7 @@ bool Aria2RPCInterface::startUp()
 
     qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
-    QProcess proc;
+    static QProcess proc;
     proc.start(m_basePath + m_aria2cCmd, opt);
     proc.waitForStarted();
     bCheck = checkAria2cProc();

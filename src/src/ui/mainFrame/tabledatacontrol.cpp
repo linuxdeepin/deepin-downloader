@@ -45,6 +45,7 @@
 #include <QJsonArray>
 #include <dpinyin.h>
 #include <iostream>
+#include <memory>
 
 #include "../database/dbinstance.h"
 #include "global.h"
@@ -171,7 +172,9 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         // 获取下载信息
         // aria2c->tellStatus(gId, gId);
         Aria2RPCInterface::instance()->getFiles(gId, id);
-        DownloadDataItem *data = new DownloadDataItem;
+        //std::shared_ptr<DownloadDataItem> data(new DownloadDataItem);
+        //QSharedPointer<DownloadDataItem> data = QSharedPointer<DownloadDataItem>(new DownloadDataItem);
+        DownloadDataItem* data = new DownloadDataItem;
         data->taskId = id;
         data->gid = gId;
         data->isChecked = false;
@@ -600,13 +603,7 @@ bool TableDataControl::updateDb()
             finishTime = QDateTime::currentDateTime();
         }
         TaskStatus getStatus;
-        int status;
-        if ((data->status == Global::DownloadTaskStatus::Complete) || (data->status == Global::DownloadTaskStatus::Removed)) {
-            status = data->status;
-        } else {
-            status = Global::DownloadTaskStatus::Lastincomplete;
-        }
-        TaskStatus downloadStatus(data->taskId, status, finishTime, data->completedLength, data->speed,
+        TaskStatus downloadStatus(data->taskId, data->status, finishTime, data->completedLength, data->speed,
                                   data->totalLength, data->percent, data->total, finishTime);
         if (DBInstance::getTaskStatusById(data->taskId, getStatus)) {
             //DBInstance::updateTaskStatusById(downloadStatus);

@@ -8,7 +8,7 @@ MimeType=application/torrent;application/x-bittorrent;
 Name=Deepin Downloader
 StartupNotify=false
 Type=Application
-X-Deepin-Vendor=user-custom
+X-Deepin-Vendor=deepin
 
 # Translations:
 # Do not manually modify!
