@@ -1,4 +1,5 @@
 #include "analysisurl.h"
+#include "urlthread.h"
 #include <QThread>
 #include <QDebug>
 #include <QMetaType>

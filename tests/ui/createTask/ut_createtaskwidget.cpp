@@ -202,7 +202,7 @@ TEST_F(ut_CreateTaskWidget, UrlThreadStart)
     LinkInfo l;
     l.index = 1;
     u->start(l);
-    EXPECT_EQ(u->m_linkInfo->index, 1);
+    EXPECT_EQ(u->m_linkInfo.index, 1);
     u = nullptr;
     delete u;
 }
@@ -210,7 +210,7 @@ TEST_F(ut_CreateTaskWidget, UrlThreadStart)
 TEST_F(ut_CreateTaskWidget, UrlThreadGetUrlType)
 {
     UrlThread *u = new UrlThread;
-    u->m_linkInfo->url = "http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-mingw.exe";
+    u->m_linkInfo.url = "http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-mingw.exe";
     std::string type = u->getUrlType("http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-mingw.exe").toStdString();
     //  EXPECT_STREQ(type.c_str(), "exe");
     u = nullptr;
@@ -220,7 +220,7 @@ TEST_F(ut_CreateTaskWidget, UrlThreadGetUrlType)
 TEST_F(ut_CreateTaskWidget, UrlGetUrlTypeNull)
 {
     UrlThread *u = new UrlThread;
-    u->m_linkInfo->url = "http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-min";
+    u->m_linkInfo.url = "http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-min";
     std::string type = u->getUrlType("").toStdString();
     EXPECT_STREQ(type.c_str(), "");
 }

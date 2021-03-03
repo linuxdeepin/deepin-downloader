@@ -29,7 +29,7 @@
 
 #include "analysisurl.h"
 #include <QObject>
-class LinkInfo;
+//class LinkInfo;
 class QThread;
 class QSettings;
 class QNetworkReply;
@@ -89,7 +89,7 @@ signals:
     void sendTrueUrl(LinkInfo link);
 
 private:
-    LinkInfo *m_linkInfo; //当前url信息
+    LinkInfo m_linkInfo; //当前url信息
 };
 
 #endif // URLTHREAD_H

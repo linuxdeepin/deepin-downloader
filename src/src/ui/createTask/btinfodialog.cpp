@@ -155,7 +155,7 @@ void BtInfoDialog::initUI()
     QVBoxLayout *vb = new QVBoxLayout(m_widget);
     vb->setContentsMargins(10, 0, 10, 5);
     vb->addWidget(m_tableView);
-    QHBoxLayout *hb = new QHBoxLayout();
+    QHBoxLayout *hb = new QHBoxLayout(this);
     hb->addWidget(m_labelSelectedFileNum, Qt::AlignLeft);
     hb->addStretch();
     hb->addWidget(m_labelFileSize, Qt::AlignRight);
@@ -203,7 +203,7 @@ void BtInfoDialog::initUI()
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
 
     //下载路径所在分区剩余磁盘容量
-    m_labelCapacityFree = new DLabel();
+    m_labelCapacityFree = new DLabel(this);
     m_labelCapacityFree->setGeometry(350, 363, 86, 23);
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
     m_labelCapacityFree->setPalette(pal);

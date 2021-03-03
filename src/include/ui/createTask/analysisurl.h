@@ -27,7 +27,7 @@
 #ifndef ANALYSISURL_H
 #define ANALYSISURL_H
 
-#include "urlthread.h"
+//#include "urlthread.h"
 #include <QObject>
 #include <QMap>
 class UrlThread;
