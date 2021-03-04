@@ -136,7 +136,13 @@ void AnalysisUrl::stopWork(int index)
     if (isLock) {
 
         QMap<int,QThread*>::iterator it=m_workThread.find(index);
+        if(it == m_workThread.end()){
+            return;
+        }
         QMap<int,UrlThread*>::iterator urlIt=m_urlThread.find(index);
+        if(urlIt == m_urlThread.end()){
+            return;
+        }
         if(urlIt.value() == nullptr){
             return;
         }

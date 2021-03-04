@@ -67,52 +67,52 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
     case 200: // redirect (Location: [URL])   真实链接
     {
         QProcess *process = new QProcess;
-                QStringList list;
-                list << "-I" << reply->url().toString();
-                process->start("curl", list);
-                connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
-                    static QMutex mutex;
-                    mutex.lock();
-                    QProcess *proc = dynamic_cast<QProcess *>(sender());
-                    QString str = proc->readAllStandardOutput();
-                    proc->kill();
-                    proc->close();
-                    QStringList urlList;
-                    urlList.append(proc->arguments().at(1));
-                    proc->deleteLater();
-                    if(proc != nullptr){
-                        delete proc;
-                        proc = nullptr;
-                    }
-                    m_linkInfo.urlSize = getUrlSize(str);
-                    if(m_linkInfo.urlSize.isEmpty()){
-                        m_linkInfo.urlSize = "1kb";
-                    }
-                    m_linkInfo.type = getUrlType(str);
-                    if(m_linkInfo.type.isEmpty()){
-                        m_linkInfo.type = "html";
-                    }
-                    if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
-                    {
+        QStringList list;
+        list << "-I" << reply->url().toString();
+        process->start("curl", list);
+        connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
+            static QMutex mutex;
+            mutex.lock();
+            QProcess *proc = dynamic_cast<QProcess *>(sender());
+            QString str = proc->readAllStandardOutput();
+            proc->kill();
+            proc->close();
+            QStringList urlList;
+            urlList.append(proc->arguments().at(1));
+            proc->deleteLater();
+            if(proc != nullptr){
+                delete proc;
+                proc = nullptr;
+            }
+            m_linkInfo.urlSize = getUrlSize(str);
+            if(m_linkInfo.urlSize.isEmpty()){
+                m_linkInfo.urlSize = "1kb";
+            }
+            m_linkInfo.type = getUrlType(str);
+            if(m_linkInfo.type.isEmpty()){
+                m_linkInfo.type = "html";
+            }
+            if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
+            {
 
-                        emit sendFinishedUrl(m_linkInfo);
-                        mutex.unlock();
-                        return;
-                    }
-                    QStringList urlInfoList = str.split("\r\n");
-                    for (int i = 0; i < urlInfoList.size(); i++) {
-                        if (urlInfoList[i].startsWith("Content-Disposition:")) //为405链接
-                        {
-                            int start = urlInfoList[i].lastIndexOf("'");
-                            QString urlName = urlInfoList[i].mid(start);
-                            QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
-                            m_linkInfo.urlName = encodingUrlName;
-                            emit sendFinishedUrl(m_linkInfo);
-                        }
-                    }
-                    mutex.unlock();
-                });
-                break;
+                emit sendFinishedUrl(m_linkInfo);
+                mutex.unlock();
+                return;
+            }
+            QStringList urlInfoList = str.split("\r\n");
+            for (int i = 0; i < urlInfoList.size(); i++) {
+                if (urlInfoList[i].startsWith("Content-Disposition:")) //为405链接
+                {
+                    int start = urlInfoList[i].lastIndexOf("'");
+                    QString urlName = urlInfoList[i].mid(start);
+                    QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
+                    m_linkInfo.urlName = encodingUrlName;
+                    emit sendFinishedUrl(m_linkInfo);
+                }
+            }
+            mutex.unlock();
+        });
+        break;
     }
     case 301:
     case 302: // redirect (Location: [URL])  重定向链接

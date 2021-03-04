@@ -66,32 +66,18 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
     if (index.row() == m_hoverRow && !size.isEmpty()) {
         if (index.row() % 2 == 1) {
-            //painter->fillRect(option.rect, QColor(0, 0, 0, 0));
             painter->fillRect(option.rect, QColor(231, 231, 231));
         } else {
-            //painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
             painter->fillRect(option.rect, QColor(214, 214, 214));
         }
     } else {
         if (index.row() % 2 == 1) {
-           // painter->fillRect(option.rect, QColor(0, 0, 0, 20));
             painter->fillRect(option.rect, QColor(238, 238, 238));
         } else {
-           // painter->fillRect(option.rect, QColor(0, 0, 0, 35));
             painter->fillRect(option.rect, QColor(225, 225, 225));
         }
     }
 
-
-//    if (size.isEmpty()) {
-//        if (index.row() % 2 == 1) {
-//           // painter->fillRect(option.rect, QColor(0, 0, 0, 20));
-//            painter->fillRect(option.rect, QColor(238, 238, 238));
-//        } else {
-//           // painter->fillRect(option.rect, QColor(0, 0, 0, 35));
-//            painter->fillRect(option.rect, QColor(225, 225, 225));
-//        }
-//    }
 
     painter->restore();
     painter->save();

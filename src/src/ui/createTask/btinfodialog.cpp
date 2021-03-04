@@ -155,7 +155,7 @@ void BtInfoDialog::initUI()
     QVBoxLayout *vb = new QVBoxLayout(m_widget);
     vb->setContentsMargins(10, 0, 10, 5);
     vb->addWidget(m_tableView);
-    QHBoxLayout *hb = new QHBoxLayout(this);
+    QSharedPointer<QHBoxLayout> hb = QSharedPointer<QHBoxLayout>(new QHBoxLayout);
     hb->addWidget(m_labelSelectedFileNum, Qt::AlignLeft);
     hb->addStretch();
     hb->addWidget(m_labelFileSize, Qt::AlignRight);

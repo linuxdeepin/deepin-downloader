@@ -74,6 +74,7 @@ CreateTaskWidget::CreateTaskWidget(DDialog *parent)
 
 CreateTaskWidget::~CreateTaskWidget()
 {
+    m_model->clear();
 }
 
 void CreateTaskWidget::initUi()
@@ -142,7 +143,8 @@ void CreateTaskWidget::initUi()
     m_delegate = new TaskDelegate(this);
     m_delegate->setObjectName("taskDelegate");
     m_tableView->setItemDelegate(m_delegate);
-    m_model = new QStandardItemModel();
+   // m_model = QSharedPointer<QStandardItemModel>(new QStandardItemModel(this), &QObject::deleteLater);
+    m_model = new QStandardItemModel(this);
     m_tableView->setModel(m_model);
 
     m_model->setColumnCount(5);
@@ -621,7 +623,17 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
 void CreateTaskWidget::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event);
+    while (m_model->rowCount()) {
+        auto itemList = m_model->takeRow(m_model->rowCount() -1);
+        for(auto item : itemList){
+            if(item != nullptr){
+                delete item;
+                item = nullptr;
+            }
+        }
+    }
     m_texturl->clear();
+
 }
 
 void CreateTaskWidget::showNetErrorMsg()
@@ -920,6 +932,15 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
 
 void CreateTaskWidget::setData(int index, QString name, QString type, QString size, QString url, long length, QString trueUrl)
 {
+    //if(m_model->rowCount()+1  > index){
+//        auto itemList = m_model->takeRow(index);
+//        for(auto item : itemList){
+//            if(item != nullptr){
+//                delete item;
+//                item = nullptr;
+//            }
+//        }
+  //  }
     m_model->setItem(index, 0, new QStandardItem(size == "" ? "0" : "1"));
     if (!name.isNull())
         m_model->setItem(index, 1, new QStandardItem(name));
@@ -1053,6 +1074,9 @@ void CreateTaskWidget::hideTableWidget()
     setMinimumSize(521, 321);
 
     //QDesktopWidget *deskdop = QApplication::desktop();
+//    QRect rect = geometry();
+//    rect.x();
+//    move(rect.x(), rect.y() - 20);
     //move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
     m_sureButton->setEnabled(false);
 }
@@ -1070,8 +1094,10 @@ void CreateTaskWidget::showTableWidget()
     setMaximumSize(521, 575);
     setMinimumSize(521, 575);
 
-    //QDesktopWidget *deskdop = QApplication::desktop();
-    //move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
+//    QDesktopWidget *deskdop = QApplication::desktop();
+//    move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
+    QRect rect = geometry();
+    move(rect.x(), rect.y() - 100);
     m_sureButton->setEnabled(true);
 }
 
