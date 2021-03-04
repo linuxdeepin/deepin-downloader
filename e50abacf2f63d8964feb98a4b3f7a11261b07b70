@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1b6ee51_1faf67e0",
+        "filename": "src/src/ui/createTask/analysisurl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-04T02:18:24Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 6; 注释率: 0.0%",
+      "revId": "e50abacf2f63d8964feb98a4b3f7a11261b07b70",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52673d69_14fcf15c",
+        "filename": "src/src/ui/createTask/btinfodialog.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-04T02:18:24Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "e50abacf2f63d8964feb98a4b3f7a11261b07b70",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8afea710_71c2fb43",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-04T02:18:24Z",
+      "side": 1,
+      "message": "注释行数: 15; 改动行数(修改和新增): 28; 注释率: 53.6%",
+      "revId": "e50abacf2f63d8964feb98a4b3f7a11261b07b70",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30aff2a1_a3bc838b",
+        "filename": "src/src/ui/createTask/taskdelegate.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-04T02:18:24Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 13; 注释率: 不计算",
+      "revId": "e50abacf2f63d8964feb98a4b3f7a11261b07b70",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7b44d99_beb0dd5f",
+        "filename": "src/src/ui/createTask/urlthread.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-04T02:18:24Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 45; 注释率: 4.4%",
+      "revId": "e50abacf2f63d8964feb98a4b3f7a11261b07b70",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
