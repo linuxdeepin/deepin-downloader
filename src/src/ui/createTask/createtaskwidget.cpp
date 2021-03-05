@@ -434,6 +434,15 @@ void CreateTaskWidget::onSureBtnClicked()
     hide();
     emit downloadWidgetCreate(urlList, m_defaultDownloadDir);
 
+    while (m_model->rowCount()) {
+        auto itemList = m_model->takeRow(m_model->rowCount() -1);
+        for(auto item : itemList){
+            if(item != nullptr){
+                delete item;
+                item = nullptr;
+            }
+        }
+    }
     m_texturl->clear();
     if (m_analysisUrl != nullptr) {
         delete m_analysisUrl;
@@ -953,6 +962,20 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 //            }
 //        }
   //  }
+    for(int i = 0; i < m_model->columnCount(); i++){
+         auto item = m_model->item(index, i);
+        if(name.isNull() && i == 1){
+            if(item != nullptr){
+                continue;
+            }
+        }
+        if(item != nullptr){
+            delete item;
+            item = nullptr;
+        }
+    }
+
+
     m_model->setItem(index, 0, new QStandardItem(size == "" ? "0" : "1"));
     if (!name.isNull())
         m_model->setItem(index, 1, new QStandardItem(name));
