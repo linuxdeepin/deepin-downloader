@@ -45,7 +45,7 @@ DiagnosticTool::DiagnosticTool(DDialog *parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
 {
-    setFixedSize(453, 371);
+    setFixedSize(453, 391);
     initUI();
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
 }
@@ -55,9 +55,10 @@ void DiagnosticTool::initUI()
     QIcon tryIcon = QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
-
-    baseWidget *pWidget = new baseWidget("", this);
-    pWidget->setFixedSize(433, 290);
+    QLabel *mainLabel = new QLabel(this);
+    mainLabel->setFixedSize(440, 330);
+    baseWidget *pWidget = new baseWidget("");
+    pWidget->setFixedSize(420, 260);
 //    QPalette p;
 //    p.setColor(QPalette::Background, QColor(255, 255, 255));
 //    pWidget->setPalette(p);
@@ -79,17 +80,23 @@ void DiagnosticTool::initUI()
             startDiagnostic();
         });
     });
-    QHBoxLayout *pHLayout = new QHBoxLayout(this);
+    QHBoxLayout *pHLayout = new QHBoxLayout();
     pHLayout->addStretch();
     pHLayout->addWidget(m_Button);
     pHLayout->addStretch();
 
-    QVBoxLayout *pLayout = new QVBoxLayout(this);
+    QVBoxLayout *pLayout = new QVBoxLayout();
     pLayout->addWidget(pLabel);
     pLayout->addWidget(m_Tableview);
-    pLayout->addLayout(pHLayout);
+    pLayout->addStretch();
+    //pLayout->addLayout(pHLayout);
     pWidget->setLayout(pLayout);
-    addContent(pWidget, Qt::AlignHCenter | Qt::AlignTop);
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    mainLayout->addWidget(pWidget);
+    mainLayout->addStretch();
+    mainLayout->addLayout(pHLayout);
+    mainLabel->setLayout(mainLayout);
+    addContent(mainLabel, Qt::AlignHCenter |  Qt::AlignTop);
 
     DiagnosticDelegate *pDelegate = new DiagnosticDelegate();
     m_Tableview->setModel(m_Model);
@@ -97,7 +104,7 @@ void DiagnosticTool::initUI()
     m_Tableview->horizontalHeader()->hide();
     m_Tableview->verticalHeader()->hide();
     m_Tableview->verticalHeader()->setDefaultSectionSize(40);
-    m_Tableview->setFixedSize(418, 205);
+    m_Tableview->setFixedSize(404, 205);
     m_Tableview->setShowGrid(false);
     m_Tableview->setColumnWidth(0, 42);
     m_Tableview->setColumnWidth(1, 310);
