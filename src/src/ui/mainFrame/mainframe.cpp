@@ -551,7 +551,7 @@ void MainFrame::createNewTask(QString url)
     }
     if (m_TaskWidget->isHidden()) {
         m_TaskWidget->move(pos().x() + this->width() / 2 - m_TaskWidget->width() / 2,
-                           pos().y() + this->height() / 2 - m_TaskWidget->height() / 2);
+                           pos().y() + this->height() / 2 - 575 / 2);
     }
     m_TaskWidget->exec();
 }

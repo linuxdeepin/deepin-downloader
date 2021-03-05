@@ -93,6 +93,12 @@ public:
     */
     void setFolderDenied();
 
+    /**
+     * @brief 设置网络链接错误
+    */
+    void setNetWorkError(QString warningMsg);
+
+
 private:
     /**
      * @brief 设置label
