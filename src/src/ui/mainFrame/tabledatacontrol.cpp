@@ -784,12 +784,14 @@ bool TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
                                                                m_DownloadTableView,
                                                                ifDeleteLocal,
                                                                "download_delete");
+    pDeleteItemThread->setParent(this);
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, this, [](QString gId, QString id) {
         Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
     connect(pDeleteItemThread, &DeleteItemThread::removeFinished, this, [=]() {
         deleteTask(permanent, pRecycleTableView);
         emit removeFinished();
+        //delete pDeleteItemThread;
     });
 
     pDeleteItemThread->start();
@@ -798,10 +800,12 @@ bool TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
 bool TableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent)
 {
     bool ifDeleteLocal = permanent || ischecked;
+
     DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_RecycleDeleteList,
                                                                m_DownloadTableView,
                                                                ifDeleteLocal,
                                                                "recycle_delete");
+    pDeleteItemThread->setParent(this);
     connect(pDeleteItemThread, &DeleteItemThread::Aria2Remove, [=](QString gId, QString id) {
         Aria2RPCInterface::instance()->forceRemove(gId, id);
     });
@@ -815,6 +819,7 @@ bool TableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent
             m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
         }
         emit removeFinished();
+        //delete pDeleteItemThread;
     });
     pDeleteItemThread->start();
     return true;

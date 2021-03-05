@@ -295,15 +295,15 @@ bool Aria2RPCInterface::purgeDownloadResult(QString id)
 
 Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
 {
-    QProcess *pProc = new QProcess; //进程调用指针
+    QProcess Proc; //进程调用指针
     QStringList opt;
     opt << "--show-files=true";
     opt << torrentPath;
-    pProc->start(m_basePath + m_aria2cCmd, opt); //启动aria2c进程
-    pProc->waitForFinished(); //等待执行完成
+    Proc.start(m_basePath + m_aria2cCmd, opt); //启动aria2c进程
+    Proc.waitForFinished(); //等待执行完成
 
-    QByteArray array = pProc->readAllStandardOutput(); //获取进程执行返回值
-    pProc->close(); //关闭进程
+    QByteArray array = Proc.readAllStandardOutput(); //获取进程执行返回值
+    Proc.close(); //关闭进程
 
     QStringList strList = QString(array).split("\n"); //将array内容分割开了
 
