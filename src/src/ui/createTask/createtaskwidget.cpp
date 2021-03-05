@@ -132,9 +132,13 @@ void CreateTaskWidget::initUi()
     m_tableView->setAlternatingRowColors(true);
 
     DPalette tableviewPalette;
+    QBrush brush(QColor(0,0,0,1));
 
-    tableviewPalette.setBrush(DPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
+    tableviewPalette.setBrush(DPalette::Base, brush);
     m_tableView->setPalette(tableviewPalette);
+    brush.setColor(QColor(0,0,0,2));
+    tableviewPalette.setBrush(DPalette::Base, brush);
+    m_tableView->horizontalHeader()->setPalette(tableviewPalette);
 
 
  //   QFont font;
