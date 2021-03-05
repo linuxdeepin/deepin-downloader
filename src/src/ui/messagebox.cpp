@@ -314,3 +314,22 @@ void MessageBox::setFolderDenied()
                 close();
             });
 }
+
+void MessageBox::setNetWorkError(QString warningMsg)
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+   // setTitle(warningMsg);
+    setObjectName("messageBox");
+
+    addLabel(warningMsg);
+    addSpacing(10);
+    addButton(tr("OK"));
+//        QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
+//        btn2->setObjectName("OK");
+
+    connect(this, &MessageBox::buttonClicked, this,
+            [=]() {
+                close();
+            });
+}

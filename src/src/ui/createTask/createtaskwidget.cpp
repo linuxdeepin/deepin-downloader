@@ -111,6 +111,7 @@ void CreateTaskWidget::initUi()
     m_texturl->setPlaceholderText(tr("Enter download links or drag a torrent file here"));
     m_texturl->setFixedSize(QSize(500, 154));
     m_texturl->setFont(font);
+    m_texturl->setWordWrapMode(QTextOption::NoWrap);
     // m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
     QPalette pal;
@@ -129,6 +130,12 @@ void CreateTaskWidget::initUi()
     m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_tableView->setEditTriggers(QAbstractItemView::EditKeyPressed);
     m_tableView->setAlternatingRowColors(true);
+
+    DPalette tableviewPalette;
+
+    tableviewPalette.setBrush(DPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
+    m_tableView->setPalette(tableviewPalette);
+
 
  //   QFont font;
     font.setPixelSize(13);
@@ -640,7 +647,8 @@ void CreateTaskWidget::showNetErrorMsg()
 {
     MessageBox msg; //= new MessageBox();
     //QString title = tr("Network error, check your network and try later");
-    msg.setWarings(getNetErrTip(), tr("OK"), ""); //网络连接失败
+   // msg.setWarings(getNetErrTip(), tr("OK"), ""); //网络连接失败
+    msg.setNetWorkError(getNetErrTip());
     msg.exec();
 }
 
@@ -1070,14 +1078,9 @@ void CreateTaskWidget::hideTableWidget()
     m_labelFileSize->hide();
     m_checkWidget->hide();
     m_editDir->hide();
-    setMaximumSize(521, 321);
-    setMinimumSize(521, 321);
+    setMaximumSize(521, 325);
+    setMinimumSize(521, 325);
 
-    //QDesktopWidget *deskdop = QApplication::desktop();
-//    QRect rect = geometry();
-//    rect.x();
-//    move(rect.x(), rect.y() - 20);
-    //move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
     m_sureButton->setEnabled(false);
 }
 
@@ -1094,10 +1097,9 @@ void CreateTaskWidget::showTableWidget()
     setMaximumSize(521, 575);
     setMinimumSize(521, 575);
 
-//    QDesktopWidget *deskdop = QApplication::desktop();
-//    move((deskdop->width() - this->width()) / 2, (deskdop->height() - this->height()) / 2);
     QRect rect = geometry();
-    move(rect.x(), rect.y() - 100);
+    move(rect.x(), rect.y());
+
     m_sureButton->setEnabled(true);
 }
 

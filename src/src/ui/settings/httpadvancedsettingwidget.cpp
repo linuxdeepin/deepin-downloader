@@ -43,14 +43,18 @@ void HttpAdvancedSettingWidget::initUI()
     m_btnBox->setButtonList(list,true);
     m_btnBox->setFixedSize(280,36);
     addContent(m_btnBox, Qt::AlignHCenter);
+    addSpacing(10);
 
     m_textEdit = new DTextEdit(this);
     m_textEdit->setFixedSize(454,168);
     addContent(m_textEdit, Qt::AlignHCenter);
+    addSpacing(8);
 
     m_defaultBtn = new DCommandLinkButton(tr("Restore"), this);
     connect(m_defaultBtn,&DCommandLinkButton::clicked, this, &HttpAdvancedSettingWidget::onRstoreDefaultClicked);
-    addContent(m_defaultBtn,  Qt::AlignRight);
+    m_defaultBtn->setGeometry(418,272,56,20);
+   // addContent(m_defaultBtn,  Qt::AlignRight);
+    addSpacing(20);
 
     QWidget *w = new QWidget(this);
     DPushButton * cancel = new DPushButton(this);
@@ -61,11 +65,15 @@ void HttpAdvancedSettingWidget::initUI()
     connect(sure,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onSureClicked);
     sure->setFixedSize(216,36);
     sure->setText(tr("Confirm"));
-    QHBoxLayout * hblyt = new QHBoxLayout();
+    QHBoxLayout * hblyt = new QHBoxLayout(w);
+    hblyt->setContentsMargins(0,0,0,0);
+    w->setFixedSize(454, 44);
     hblyt->addWidget(cancel);
+    hblyt->addSpacing(20);
     hblyt->addWidget(sure);
     w->setLayout(hblyt);
     addContent(w, Qt::AlignHCenter);
+
 
     QFile file(m_configPath);
     if(!file.open(QIODevice::ReadWrite)) {
