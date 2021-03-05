@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "37d26acd_2b620918",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-05T07:40:12Z",
+      "side": 1,
+      "message": "log大小写错误",
+      "revId": "0acd8261a3c885d817a5ef208eb4096eae87646f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42c798dc_94fb51ea",
         "filename": "src/include/ui/settings/settings.h",
         "patchSetId": 1
