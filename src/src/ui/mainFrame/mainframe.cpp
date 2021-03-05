@@ -664,6 +664,7 @@ void MainFrame::initTabledata()
         } else {
             DeleteDataItem *deldata = new DeleteDataItem;
             initDelDataItem(data, deldata);
+            delete data;
             m_RecycleTableView->getTableModel()->append(deldata);
         }
     }

@@ -1,3 +1,10 @@
+downloadmanager (5.3.12) stable; urgency=low
+
+  * 修改bug
+  * 修改界面设计
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mar, 07 Fri 2021 17:54:55 +0800
+
 downloadmanager (5.3.11) stable; urgency=low
 
   * 完成【三期任务】正在下载时，文件被删除的任务有多个时，错误提示合并

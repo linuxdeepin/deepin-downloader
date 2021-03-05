@@ -31,6 +31,7 @@
 #include <DDialog>
 #include <QAbstractTableModel>
 #include <QStyledItemDelegate>
+#include <QLabel>
 
 DWIDGET_USE_NAMESPACE
 
@@ -141,6 +142,16 @@ public:
      * @brief 绘图事件
      */
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+};
+
+
+class baseWidget : public QLabel
+{
+    Q_OBJECT
+public:
+    baseWidget(const QString &text, QWidget *parent=nullptr, Qt::WindowFlags f=Qt::WindowFlags());
+protected:
+    void paintEvent(QPaintEvent *e) override;
 };
 
 #endif //DIAGNOSTICTOOL_H

@@ -35,6 +35,7 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QScrollBar>
+#include <QPaintEvent>
 
 #include "func.h"
 #include "aria2rpcinterface.h"
@@ -55,11 +56,13 @@ void DiagnosticTool::initUI()
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
 
-    QLabel *pWidget = new QLabel(this);
-    pWidget->setFixedSize(453, 310);
-    QPalette p;
-    p.setColor(QPalette::Background, QColor(255, 255, 255));
-    pWidget->setPalette(p);
+    baseWidget *pWidget = new baseWidget("", this);
+    pWidget->setFixedSize(433, 290);
+//    QPalette p;
+//    p.setColor(QPalette::Background, QColor(255, 255, 255));
+//    pWidget->setPalette(p);
+    //pWidget->setStyleSheet("QLabel{background-color: rgb(255, 255, 255);}");
+    //setPalette(p);
 
     QFont f;
     f.setPixelSize(17);
@@ -234,6 +237,27 @@ DiagnosticDelegate::DiagnosticDelegate(QObject *parent, int Flag)
 
 void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+
+    const int radius = 8;
+    QRect paintRect = QRect(option.rect.left(), option.rect.top(), option.rect.width(), option.rect.height());
+        QPainterPath path;
+        path.moveTo(paintRect.bottomRight() - QPoint(0, radius));
+        path.lineTo(paintRect.topRight() + QPoint(0, radius));
+        path.arcTo(QRect(QPoint(paintRect.topRight() - QPoint(radius * 2, 0)),
+                         QSize(radius * 2, radius * 2)),
+                   0, 90);
+        path.lineTo(paintRect.topLeft() + QPoint(radius, 0));
+        path.arcTo(QRect(QPoint(paintRect.topLeft()), QSize(radius * 2, radius * 2)), 90, 90);
+        path.lineTo(paintRect.bottomLeft() - QPoint(0, radius));
+        path.arcTo(QRect(QPoint(paintRect.bottomLeft() - QPoint(0, radius * 2)),
+                         QSize(radius * 2, radius * 2)),
+                   180, 90);
+        path.lineTo(paintRect.bottomLeft() + QPoint(radius, 0));
+        path.arcTo(QRect(QPoint(paintRect.bottomRight() - QPoint(radius * 2, radius * 2)),
+                         QSize(radius * 2, radius * 2)),
+                   270, 90);
+
+
     painter->setPen(QColor(index.data(Qt::TextColorRole).toString()));
     if (index.row() % 2 == 0) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().toolTipBase().color());
@@ -258,4 +282,34 @@ void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
     default:
         break;
     }
+}
+
+baseWidget::baseWidget(const QString &text, QWidget *parent, Qt::WindowFlags f)
+    :QLabel (text, parent, f)
+{
+
+}
+
+void baseWidget::paintEvent(QPaintEvent *e)
+{
+    QPainter painter( this);
+    const int radius = 8;
+    QRect paintRect = e->rect();
+    QPainterPath path;
+    path.moveTo(paintRect.bottomRight() - QPoint(0, radius));
+    path.lineTo(paintRect.topRight() + QPoint(0, radius));
+    path.arcTo(QRect(QPoint(paintRect.topRight() - QPoint(radius * 2, 0)),
+                     QSize(radius * 2, radius * 2)),
+               0, 90);
+    path.lineTo(paintRect.topLeft() + QPoint(radius, 0));
+    path.arcTo(QRect(QPoint(paintRect.topLeft()), QSize(radius * 2, radius * 2)), 90, 90);
+    path.lineTo(paintRect.bottomLeft() - QPoint(0, radius));
+    path.arcTo(QRect(QPoint(paintRect.bottomLeft() - QPoint(0, radius * 2)),
+                     QSize(radius * 2, radius * 2)),
+               180, 90);
+    path.lineTo(paintRect.bottomLeft() + QPoint(radius, 0));
+    path.arcTo(QRect(QPoint(paintRect.bottomRight() - QPoint(radius * 2, radius * 2)),
+                     QSize(radius * 2, radius * 2)),
+               270, 90);
+    painter.fillPath(path, QColor(255, 255, 255));
 }

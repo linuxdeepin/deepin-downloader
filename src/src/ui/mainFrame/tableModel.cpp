@@ -51,6 +51,12 @@ TableModel::TableModel(int Flag, QObject *parent)
 
 TableModel::~TableModel()
 {
+    for(auto data : m_DataList) {
+        delete data;
+    }
+    for(auto data : m_RecyleList) {
+        delete data;
+    }
 }
 
 void TableModel::onCheckdatachange(int flag)
