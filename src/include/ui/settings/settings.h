@@ -134,6 +134,18 @@ public:
     static QWidget *createLimitMaxNumberHandle(QObject *obj);
 
     /**
+     * @brief 创建原始地址线程数窗口
+     * @param obj option对象
+     */
+    static QWidget *createAddressThreadHandle(QObject *obj);
+
+    /**
+     * @brief 创建下载任务数数窗口
+     * @param obj option对象
+     */
+    static QWidget *createMaxDownloadTaskHandle(QObject *obj);
+
+    /**
      * @brief 创建下载磁盘缓存文本提示窗口
      * @param obj option对象
      */

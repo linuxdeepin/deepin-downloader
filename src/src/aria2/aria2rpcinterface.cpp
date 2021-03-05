@@ -122,6 +122,18 @@ bool Aria2RPCInterface::startUp()
     static QProcess proc;
     proc.start(m_basePath + m_aria2cCmd, opt);
     proc.waitForStarted();
+
+//    proc.start("ulimit -n 40");
+//    bool b = proc.waitForFinished();
+//    QByteArray sssss = proc.readAllStandardError();
+//    QByteArray wwwww = proc.readAllStandardOutput();
+
+//    proc.start("ulimit -n");
+//    int r = proc.waitForFinished(-1);
+//    int r1 = proc.waitForReadyRead();
+//    sssss = proc.readAllStandardError();
+//    wwwww = proc.readAllStandardOutput();
+
     bCheck = checkAria2cProc();
     qDebug() << "启动aria2c完成！ " << proc.state() << bCheck;
     return bCheck;
