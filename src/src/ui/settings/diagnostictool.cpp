@@ -44,7 +44,7 @@ DiagnosticTool::DiagnosticTool(DDialog *parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
 {
-    setFixedSize(453, 411);
+    setFixedSize(453, 371);
     initUI();
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
 }
@@ -55,8 +55,11 @@ void DiagnosticTool::initUI()
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
 
-    QWidget *pWidget = new QWidget(this);
+    QLabel *pWidget = new QLabel(this);
     pWidget->setFixedSize(453, 310);
+    QPalette p;
+    p.setColor(QPalette::Background, QColor(255, 255, 255));
+    pWidget->setPalette(p);
 
     QFont f;
     f.setPixelSize(17);
@@ -83,7 +86,7 @@ void DiagnosticTool::initUI()
     pLayout->addWidget(m_Tableview);
     pLayout->addLayout(pHLayout);
     pWidget->setLayout(pLayout);
-    addContent(pWidget, Qt::AlignHCenter);
+    addContent(pWidget, Qt::AlignHCenter | Qt::AlignTop);
 
     DiagnosticDelegate *pDelegate = new DiagnosticDelegate();
     m_Tableview->setModel(m_Model);

@@ -71,7 +71,7 @@
                     "options":[{
                             "key":"MaxDownloadTask",
                             "name":"Max. concurrent downloads",
-                            "type":"combobox",
+                            "type":"maxdownloadtask",
                             "default":"5"
                         },
                         {
@@ -117,7 +117,7 @@
                     "options":[{
                             "key":"addressthread",
                             "name":"Original address threads",
-                            "type":"combobox",
+                            "type":"customcombobox",
                             "default":"5"
                         },
                         {

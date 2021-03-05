@@ -192,11 +192,11 @@ void MainFrame::init()
 
     QFont lableFont;
     lableFont.setPointSize(15);
-    lableFont.setBold(QFont::ExtraLight);
-    //lableFont.setFamily("T5");
+    //lableFont.setBold(QFont::Normal);
+    lableFont.setFamily("T5");
     m_NotaskLabel = new Dtk::Widget::DLabel();
     m_NotaskLabel->setFont(lableFont);
-    m_NotaskLabel->setWindowOpacity(0.2);
+    m_NotaskLabel->setWindowOpacity(0.9);
     m_NotaskLabel->setText(tr("No download tasks"));
     m_NotaskLabel->setAlignment(Qt::AlignHCenter);
     m_NotaskLabel->setForegroundRole(DPalette::PlaceholderText);
@@ -783,7 +783,7 @@ void MainFrame::onSettingsMenuClicked()
     settingsDialog.widgetFactory()->registerWidget("metalinkdownload", Settings::createMetalinkdownloadEditHandle);
     settingsDialog.widgetFactory()->registerWidget("magneticdownload", Settings::createMagneticDownloadEditHandle);
     settingsDialog.widgetFactory()->registerWidget("diskcacheInfo", Settings::createDiskCacheSettiingLabelHandle);
-    settingsDialog.widgetFactory()->registerWidget("downloadspeedlimitsetting",                                      Settings::createDownloadSpeedLimitSettiingHandle);
+    settingsDialog.widgetFactory()->registerWidget("downloadspeedlimitsetting", Settings::createDownloadSpeedLimitSettiingHandle);
     settingsDialog.widgetFactory()->registerWidget("notificationsSettiing",
                                                    Settings::createNotificationsSettiingHandle);
     settingsDialog.widgetFactory()->registerWidget("autodownloadbyspeed",
@@ -792,6 +792,12 @@ void MainFrame::onSettingsMenuClicked()
                                                    Settings::createPriorityDownloadBySizeHandle);
     settingsDialog.widgetFactory()->registerWidget("limitmaxnumber",
                                                    Settings::createLimitMaxNumberHandle);
+    settingsDialog.widgetFactory()->registerWidget("customcombobox",
+                                                   Settings::createAddressThreadHandle);
+    settingsDialog.widgetFactory()->registerWidget("maxdownloadtask",
+                                                   Settings::createMaxDownloadTaskHandle);
+
+
     settingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);
 
     Settings::getInstance()->setAutoStart(isAutoStart());
@@ -1277,11 +1283,25 @@ void MainFrame::onContextMenu(const QPoint &pos)
             delmenlist->addAction(pActionPause);
             connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
         }
-        if (chkedCnt == 1 && (waitCount == 1 || pauseCount == 1)) {
+        if (chkedCnt == 1 && waitCount == 1) {
             QAction *pActionDownloadNow = new QAction(this);
             pActionDownloadNow->setText(tr("Download first"));
             delmenlist->addAction(pActionDownloadNow);
             connect(pActionDownloadNow, &QAction::triggered, this, &MainFrame::onDownloadFirstBtnClicked);
+        } else if(chkedCnt == 1 && pauseCount == 1) {
+            const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
+            int activec = 0;
+            for (auto item : selectList) {
+                    if (item->status == Global::DownloadTaskStatus::Active) {
+                        ++activec;
+                    }
+            }
+            if(activec == Settings::getInstance()->getMaxDownloadTaskNumber()){
+                QAction *pActionDownloadNow = new QAction(this);
+                pActionDownloadNow->setText(tr("Download first"));
+                delmenlist->addAction(pActionDownloadNow);
+                connect(pActionDownloadNow, &QAction::triggered, this, &MainFrame::onDownloadFirstBtnClicked);
+            }
         }
         if ((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction(this);

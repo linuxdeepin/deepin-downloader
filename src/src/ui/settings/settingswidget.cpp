@@ -52,7 +52,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     if (isLineEdit) {
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
-        m_Edit->setMinimumWidth(200);
+        m_Edit->setMinimumWidth(20);
         QSharedPointer<QIntValidator> validator =
                     QSharedPointer<QIntValidator>(new QIntValidator(1, 9999), &QObject::deleteLater);
         m_Edit->lineEdit()->setValidator(validator.data());
@@ -119,4 +119,41 @@ void SettingsControlWidget::setSwitch(bool arg)
 DLineEdit *SettingsControlWidget::lineEdit()
 {
     return m_Edit;
+}
+
+SettingsLineWidget::SettingsLineWidget(QWidget *parent)
+    : QWidget(parent)
+{
+}
+
+bool SettingsLineWidget::initUI(QString text)
+{
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    DLabel *pLabel = new DLabel(text,this);
+    m_SwitchBtn = new DSwitchButton();
+    layout->addWidget(pLabel);
+    layout->addStretch();
+    layout->addWidget(m_SwitchBtn, 0, Qt::AlignRight);
+
+    connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat) {
+        emit checkedChanged(stat);
+    });
+    return true;
+}
+
+bool SettingsLineWidget::initUI(QString text, QStringList textList)
+{
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    DLabel *pLabel = new DLabel(text,this);
+    m_comboBox = new QComboBox(this);
+    m_comboBox->setFixedWidth(150);
+    m_comboBox->addItems(textList);
+    layout->addWidget(pLabel);
+    layout->addStretch();
+    layout->addWidget(m_comboBox, 0, Qt::AlignRight);
+
+    connect(m_comboBox, &QComboBox::currentTextChanged, this, [=](const QString & text) {
+        emit currentTextChanged(text);
+    });
+    return true;
 }

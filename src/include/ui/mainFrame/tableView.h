@@ -144,6 +144,8 @@ protected:
 
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
 
+    void paintEvent(QPaintEvent *e);
+
 private:
     int m_TableFlag;
     TableModel *m_TableModel;

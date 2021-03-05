@@ -32,6 +32,7 @@
 #include <DLineEdit>
 #include <DComboBox>
 #include <DSwitchButton>
+#include <QComboBox>
 /**
  * @class SettingsControlWidget
  * @brief 设置界面小控件类
@@ -54,6 +55,24 @@ private:
 signals:
     void TextChanged(const QString &text);
     void checkedChanged(bool arg);
+};
+
+
+class SettingsLineWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit SettingsLineWidget(QWidget *parent = nullptr);
+    // 初始化界面
+    bool initUI(QString text);
+
+    bool initUI(QString text, QStringList textList);
+private:
+    Dtk::Widget::DSwitchButton *m_SwitchBtn;
+    QComboBox *m_comboBox;
+signals:
+    void checkedChanged(bool arg);
+    void currentTextChanged(const QString & text);
 };
 
 #endif // SETTINGSWIDGET_H

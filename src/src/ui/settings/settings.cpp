@@ -153,11 +153,12 @@ void Settings::initWidget()
             int count = maxResource / threadTask;
             if (count <= 0) {
                 emit maxDownloadTaskNumberChanged(value.toInt(), true, false);
-            }
-            if (value.toInt() < count) {
-                emit maxDownloadTaskNumberChanged(value.toInt(), true, false);
             } else {
-                emit maxDownloadTaskNumberChanged(count, true, false);
+                if (value.toInt() < count) {
+                    emit maxDownloadTaskNumberChanged(value.toInt(), true, false);
+                } else {
+                    emit maxDownloadTaskNumberChanged(count, true, false);
+                }
             }
         }
     });
@@ -697,6 +698,7 @@ QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
         check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
+    pWidget->resize(QSize(pWidget->size().width() + 10, pWidget->size().height()));
     pWidget->initUI(tr("When total speed less than"), tr("KB/s, increase concurrent tasks"));
     pWidget->setSpeend(speed);
     pWidget->setSwitch(check);
@@ -832,6 +834,36 @@ QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
     connect(pWidget, &SettingsControlWidget::checkedChanged, pWidget, [=](bool stat) {
         QString value = QString("%1").arg(stat) + ":" + option->value().toString().mid(2);
         option->setValue(value);
+    });
+
+    return pWidget;
+}
+
+QWidget *Settings::createAddressThreadHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+    SettingsLineWidget *pWidget = new SettingsLineWidget();
+    QStringList strList;
+    strList << "1" << "3" << "5" << "7" << "10";
+    pWidget->initUI(tr("Original address threads"), strList);
+
+    connect(pWidget, &SettingsLineWidget::currentTextChanged, pWidget, [=](const QString & text) {
+        option->setValue(text);
+    });
+
+    return pWidget;
+}
+
+QWidget *Settings::createMaxDownloadTaskHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+    SettingsLineWidget *pWidget = new SettingsLineWidget();
+    QStringList strList;
+    strList << "3" << "5" << "10" << "20";
+    pWidget->initUI(tr("Max. concurrent downloads"), strList);
+
+    connect(pWidget, &SettingsLineWidget::currentTextChanged, pWidget, [=](const QString & text) {
+        option->setValue(text);
     });
 
     return pWidget;
