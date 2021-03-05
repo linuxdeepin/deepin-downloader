@@ -83,19 +83,19 @@
                         {
                             "key":"AutoOpen",
                             "name":"Open files when completed",
-                            "type":"switchbutton",
+                            "type":"autoopenplugin",
                             "default":false
                         },
                         {
                             "key":"AutoDelete",
                             "name":"Delete tasks without files",
-                            "type":"switchbutton",
+                            "type":"autodeleteplugin",
                             "default":false
                         },
                         {
                             "key":"AutoSortBySpeed",
                             "name":"Move slow downloads to the end",
-                            "type":"switchbutton",
+                            "type":"autosortbySpeedplugin",
                             "default":false
                         },
                         {

@@ -140,10 +140,28 @@ public:
     static QWidget *createAddressThreadHandle(QObject *obj);
 
     /**
-     * @brief 创建下载任务数数窗口
+     * @brief 创建下载任务数窗口
      * @param obj option对象
      */
     static QWidget *createMaxDownloadTaskHandle(QObject *obj);
+
+    /**
+     * @brief 创建自动打开下载完成的任务窗口
+     * @param obj option对象
+     */
+    static QWidget *createAutoOpenHandle(QObject *obj);
+
+    /**
+     * @brief 创建自动删除文件不存在的任务窗口
+     * @param obj option对象
+     */
+    static QWidget *createAutoDeleteHandle(QObject *obj);
+
+    /**
+     * @brief 创建自动讲低速任务移到队尾窗口
+     * @param obj option对象
+     */
+    static QWidget *createAutoSortBySpeedHandle(QObject *obj);
 
     /**
      * @brief 创建下载磁盘缓存文本提示窗口

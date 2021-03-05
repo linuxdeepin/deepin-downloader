@@ -714,8 +714,8 @@ void MainFrame::setPaletteType()
         //m_pdownloadingItem->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
         //m_pdownloadfinishItem->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
         //m_precycleItem->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
-        DPalette label_palette;
-        label_palette.setBrush(DPalette::Text,
+        DPalette labelPalette;
+        labelPalette.setBrush(DPalette::Text,
                                DGuiApplicationHelper::instance()->applicationPalette().placeholderText());
 
         m_NotaskTipLabel->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
@@ -796,6 +796,12 @@ void MainFrame::onSettingsMenuClicked()
                                                    Settings::createAddressThreadHandle);
     settingsDialog.widgetFactory()->registerWidget("maxdownloadtask",
                                                    Settings::createMaxDownloadTaskHandle);
+    settingsDialog.widgetFactory()->registerWidget("autoopenplugin",
+                                                   Settings::createAutoOpenHandle);
+    settingsDialog.widgetFactory()->registerWidget("autodeleteplugin",
+                                                   Settings::createAutoDeleteHandle);
+    settingsDialog.widgetFactory()->registerWidget("autosortbySpeedplugin",
+                                                   Settings::createAutoSortBySpeedHandle);
 
 
     settingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);

@@ -869,6 +869,45 @@ QWidget *Settings::createMaxDownloadTaskHandle(QObject *obj)
     return pWidget;
 }
 
+QWidget *Settings::createAutoOpenHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+    SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->initUI(tr("Open files when completed"));
+
+    connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
+        option->setValue(stat);
+    });
+
+    return pWidget;
+}
+
+QWidget *Settings::createAutoDeleteHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+    SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->initUI(tr("Delete tasks without files"));
+
+    connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
+        option->setValue(stat);
+    });
+
+    return pWidget;
+}
+
+QWidget *Settings::createAutoSortBySpeedHandle(QObject *obj)
+{
+    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
+    SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->initUI(tr("Move slow downloads to the end"));
+
+    connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
+        option->setValue(stat);
+    });
+
+    return pWidget;
+}
+
 QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
 {
     Q_UNUSED(obj);
