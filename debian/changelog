@@ -1,3 +1,9 @@
+downloadmanager (5.3.13) stable; urgency=low
+
+  * 修改界面设计
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 08 Mar 2021 10:28:55 +0800
+
 downloadmanager (5.3.12) stable; urgency=low
 
   * 修改bug
