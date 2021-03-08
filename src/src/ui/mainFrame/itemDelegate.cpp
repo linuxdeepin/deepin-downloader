@@ -82,7 +82,11 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     if (index.row() % 2 != 0) {
         painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
     } else {
-        painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150))); //
+        if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+            painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150)));
+        } else {
+            painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10)));
+        }
     }
     const QRect rect(option.rect);
     const int column(index.column());

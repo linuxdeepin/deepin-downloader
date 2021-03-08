@@ -138,7 +138,6 @@ void DiagnosticTool::startDiagnostic()
     QTimer::singleShot(qrand() % (800) + 1400, this, [=]() {
         m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
     });
-
     QTimer::singleShot(qrand() % (800) + 2000, this, [=]() {
         m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
     });
@@ -318,5 +317,5 @@ void baseWidget::paintEvent(QPaintEvent *e)
     path.arcTo(QRect(QPoint(paintRect.bottomRight() - QPoint(radius * 2, radius * 2)),
                      QSize(radius * 2, radius * 2)),
                270, 90);
-    painter.fillPath(path, QColor(255, 255, 255));
+    painter.fillPath(path, DGuiApplicationHelper::instance()->applicationPalette().base());
 }

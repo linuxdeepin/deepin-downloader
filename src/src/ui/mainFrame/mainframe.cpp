@@ -803,6 +803,8 @@ void MainFrame::onSettingsMenuClicked()
                                                    Settings::createAutoDeleteHandle);
     settingsDialog.widgetFactory()->registerWidget("autosortbySpeedplugin",
                                                    Settings::createAutoSortBySpeedHandle);
+    settingsDialog.widgetFactory()->registerWidget("customradiogroup",
+                                                   Settings::createCustomRadioGroupHandle);
 
 
     settingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);
