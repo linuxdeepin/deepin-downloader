@@ -140,10 +140,8 @@ void DownloadSettingWidget::initUI()
     speedLimitDownloadLayout->addLayout(timeLayout);
     speedLimitDownloadLayout->setContentsMargins(28, 0, 0, 0);
 
-    DHorizontalLine *pLine = new DHorizontalLine(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_fullSpeedDownloadButton);
-    mainLayout->addWidget(pLine);
     mainLayout->addWidget(m_speedLimitDownloadButton);
     mainLayout->addLayout(speedLimitDownloadLayout);
     mainLayout->setContentsMargins(0, 0, 0, 0);

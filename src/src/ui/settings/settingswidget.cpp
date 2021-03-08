@@ -28,13 +28,18 @@
 #include "settingswidget.h"
 
 #include <QHBoxLayout>
+#include <QRadioButton>
+#include <QPainter>
+#include <QPaintEvent>
 #include <DLabel>
 #include <DSwitchButton>
 #include <DLineEdit>
 #include <DAlertControl>
-
+#include <DBackgroundGroup>
+#include <DApplicationHelper>
+#include <DHorizontalLine>
 #include "settings.h"
-DWIDGET_USE_NAMESPACE
+
 SettingsControlWidget::SettingsControlWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -156,4 +161,55 @@ bool SettingsLineWidget::initUI(QString text, QStringList textList)
         emit currentTextChanged(text);
     });
     return true;
+}
+
+bool SettingsLineWidget::initUI()
+{
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+
+    QRadioButton *btn1 = new QRadioButton("128M", this);
+    QRadioButton *btn2 = new QRadioButton("256M", this);
+    QRadioButton *btn3 = new QRadioButton("512M", this);
+    layout->addWidget(btn1);
+    layout->addWidget(btn2);
+    layout->addWidget(btn3);
+    this->setLayout(layout);
+
+    connect(btn1, &QRadioButton::pressed, this, [=](){
+        emit radioChanged("128");
+    });
+
+    connect(btn2, &QRadioButton::pressed, this, [=](){
+        emit radioChanged("256");
+    });
+
+    connect(btn3, &QRadioButton::pressed, this, [=](){
+        emit radioChanged("512");
+    });
+
+    return true;
+}
+
+void SettingsLineWidget::initLine()
+{
+    DRadioButton *radio1 = new DRadioButton("128");
+    radio1->setFixedSize(422, 48);
+    DRadioButton *radio2 = new DRadioButton("256");
+    radio2->setFixedSize(422, 48);
+    DRadioButton *radio3 = new DRadioButton("512");
+    radio3->setFixedSize(422, 48);
+
+    QVBoxLayout *orientationlayout = new QVBoxLayout;
+    orientationlayout->setContentsMargins(0, 0, 0, 0);
+    orientationlayout->addWidget(radio1);
+    orientationlayout->addWidget(radio2);
+    orientationlayout->addWidget(radio3);
+    DBackgroundGroup *back = new DBackgroundGroup(orientationlayout);
+    back->setItemSpacing(2);
+    DPalette pa = DApplicationHelper::instance()->palette(back);
+    pa.setBrush(DPalette::Base, pa.itemBackground());
+    DApplicationHelper::instance()->setPalette(back, pa);
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(back);
 }
