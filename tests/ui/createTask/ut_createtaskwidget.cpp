@@ -1,10 +1,13 @@
 #include <iostream>
 #include <QTest>
 #include <QTimer>
+#include <QEvent>
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
 #include "mainframe.h"
 #include "btinfodialog.h"
+#include "btinfodelegate.h"
+#include "taskdelegate.h"
 #include "btinfotableview.h"
 #include "btheaderview.h"
 #include "urlthread.h"
@@ -39,6 +42,7 @@ TEST_F(ut_CreateTaskWidget, init)
     CreateTaskWidget *c = new CreateTaskWidget;
     c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
     c->setUrl("https://img.tukuppt.com/video_show/2475824/00/02/19/5b527330214a6_10s_big.mp4");
+    c->setUrl("https://img09/08/22/5dcb600673d11_10s_big.mp4");
 
     DCheckBox *all = c->findChild<DCheckBox *>("checkAll");
     DCheckBox *video = c->findChild<DCheckBox *>("checkVideo");
@@ -177,6 +181,21 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     delete c;
 }
 
+TEST_F(ut_CreateTaskWidget, formatSpeed)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    c->formatSpeed("100KB");
+    c->formatSpeed("100MB");
+    c->formatSpeed("100GB");
+    c->formatSpeed("100B");
+}
+
+TEST_F(ut_CreateTaskWidget, isVideo)
+{
+    CreateTaskWidget *c = new CreateTaskWidget;
+    c->isVideo("11.mp4");
+}
+
 //TEST_F(ut_CreateTaskWidget, okBtnSizeError)
 //{
 //    CreateTaskWidget *c = new CreateTaskWidget;
@@ -237,6 +256,8 @@ TEST_F(ut_CreateTaskWidget, headerViewInit)
     headerView *v = new headerView(Qt::Orientation::Vertical);
     QRect r;
     v->checkBoxRect(r);
+    QPainter *painter = new QPainter;
+    v->paintSection(painter, r, 0);
 }
 
 TEST_F(ut_CreateTaskWidget, headerViewPalettetype)
@@ -270,12 +291,17 @@ TEST_F(ut_CreateTaskWidget, tableView2)
     table->leaveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
 }
 
-//TEST_F(ut_CreateTaskWidget, TaskDelegate)
-//{
-//    TaskDelegate *table = new TaskDelegate();
+TEST_F(ut_CreateTaskWidget, TaskDelegateInit)
+{
+//    DDialog *dialog = new DDialog;
+//    TaskDelegate *dlg = new TaskDelegate(dialog);
 //    const QModelIndex model;
-//    table->onDoubleClicked(model);
-//}
+//    dlg->onDoubleClicked(model);
+//    QPainter *painter = new QPainter;
+//    QStyleOptionViewItem option;
+//    const QModelIndex index;
+//    dlg->paint(painter, option, index);
+}
 
 TEST_F(ut_CreateTaskWidget, tableView3)
 {
@@ -289,4 +315,33 @@ TEST_F(ut_CreateTaskWidget, tableView4)
     const QModelIndex model;
     table->onDoubleClicked(model);
 }
+
+TEST_F(ut_CreateTaskWidget, BtInfoDelegateInit)
+{
+    DDialog *dialog = new DDialog;
+    BtInfoDelegate * dlg = new BtInfoDelegate(dialog);
+    QPainter *painter = new QPainter;
+    QStyleOptionViewItem option;
+    const QModelIndex index;
+    dlg->paint(painter, option, index);
+    dlg->onhoverChanged(index);
+}
+
+TEST_F(ut_CreateTaskWidget, getSaveto)
+{
+    BtInfoDialog btDiag(" ", " ");
+    btDiag.getSaveto();
+    btDiag.onBtnOK();
+}
+
+TEST_F(ut_CreateTaskWidget, BtInfoDialogonAllCheck)
+{
+    BtInfoDialog btDiag(" ", " ");
+    btDiag.onAllCheck();
+    btDiag.m_checkAll->setCheckState(Qt::Checked);
+    btDiag.onAllCheck();
+    btDiag.m_checkAll->setCheckState(Qt::Unchecked);
+    btDiag.onAllCheck();
+}
+
 

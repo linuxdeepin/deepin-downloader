@@ -48,6 +48,12 @@ public:
     static bool isHTTPConnect();
 
     /**
+     * @brief http是否联通
+     * @return true为不通 false为通
+     */
+    static bool isIPV6Connect();
+
+    /**
      * @brief 设置Mimeapps文件中的值，如果key不存在，新建key。
      * @param key 配置中的key，如果key不存在新建key
      * @param value key对应值。

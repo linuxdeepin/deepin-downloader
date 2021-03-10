@@ -29,6 +29,21 @@ bool Func::isHTTPConnect()
     //    }
     return isNetConnect();
 }
+
+bool Func::isIPV6Connect()
+{
+    QProcess process;
+    process.start("ifconfig");
+    process.waitForFinished(-1);
+    QString str = process.readAllStandardOutput();
+    QStringList strList = str.split("\n");
+    for(int i = 0 ;i < strList.size(); i++){
+        if(strList[i].contains("inet6 fe80::")){
+            return true;
+        }
+    }
+    return false;
+}
         
 
 bool Func::setMimeappsValue(QString key, QString value)
