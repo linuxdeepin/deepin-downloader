@@ -412,7 +412,7 @@ i no implica la privadesa de l’usuari.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="246"/>
         <source>Resources:</source>
-        <translation type="unfinished"/>
+        <translation>Recursos:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
@@ -1069,17 +1069,17 @@ S&apos;interrompran les tasques de baixada.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>Fils d’adreces originals</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Download Management</source>
-        <translation type="unfinished"/>
+        <translation>Gestió de baixades</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Speed Settings</source>
-        <translation type="unfinished"/>
+        <translation>Configuració de la velocitat</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="466"/>

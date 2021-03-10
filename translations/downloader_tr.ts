@@ -412,7 +412,7 @@ ve kullanıcı gizliliğini içermez. </translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="246"/>
         <source>Resources:</source>
-        <translation type="unfinished"/>
+        <translation>Kaynaklar:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
@@ -1069,17 +1069,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>Esas adres iş parçacıkları</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Download Management</source>
-        <translation type="unfinished"/>
+        <translation>İndirme Yönetimi</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Speed Settings</source>
-        <translation type="unfinished"/>
+        <translation>Hız Ayarları</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="466"/>

@@ -407,12 +407,12 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
         <source>Waiting</source>
-        <translation>Упозорење</translation>
+        <translation>Чека се</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="246"/>
         <source>Resources:</source>
-        <translation type="unfinished"/>
+        <translation>Ресурси:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
@@ -1069,17 +1069,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>Изворне везе адресе</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Download Management</source>
-        <translation type="unfinished"/>
+        <translation>Управљање преузимањем</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Speed Settings</source>
-        <translation type="unfinished"/>
+        <translation>Подешавање брзине</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="466"/>

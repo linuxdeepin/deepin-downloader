@@ -412,7 +412,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="246"/>
         <source>Resources:</source>
-        <translation type="unfinished"/>
+        <translation>مەنبە سانى:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
@@ -1068,17 +1068,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>ئەسلى ئادرېس لىنىيە سانى</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Download Management</source>
-        <translation type="unfinished"/>
+        <translation>چۈشۈرۈشنى باشقۇرۇش</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Speed Settings</source>
-        <translation type="unfinished"/>
+        <translation>سۈرئەت تەڭشەش</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="466"/>

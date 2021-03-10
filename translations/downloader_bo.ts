@@ -412,7 +412,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="246"/>
         <source>Resources:</source>
-        <translation type="unfinished"/>
+        <translation>ཐོན་ཁུངས།</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
