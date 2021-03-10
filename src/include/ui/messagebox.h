@@ -110,6 +110,7 @@ private:
      * @param text label内容
     */
     void addRadioGroup(QString quitText, QString minText);
+
     /**
      * @brief Checkbox
      * @param text Checkbox内容

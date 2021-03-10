@@ -17,6 +17,7 @@ public:
     ~CTimeEdit();
     void setTime(QTime time);
     QTime getTime();
+    DLineEdit* dLineEdit();
 private:
     void initUI();
     void initConnection();

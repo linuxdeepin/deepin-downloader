@@ -131,11 +131,12 @@ SettingsLineWidget::SettingsLineWidget(QWidget *parent)
 {
 }
 
-bool SettingsLineWidget::initUI(QString text)
+bool SettingsLineWidget::initUI(QString text, bool currentStat)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
     DLabel *pLabel = new DLabel(text,this);
     m_SwitchBtn = new DSwitchButton();
+    m_SwitchBtn->setChecked(currentStat);
     layout->addWidget(pLabel);
     layout->addStretch();
     layout->addWidget(m_SwitchBtn, 0, Qt::AlignRight);
@@ -146,13 +147,14 @@ bool SettingsLineWidget::initUI(QString text)
     return true;
 }
 
-bool SettingsLineWidget::initUI(QString text, QStringList textList)
+bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QString currenttext)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
     DLabel *pLabel = new DLabel(text,this);
     m_comboBox = new QComboBox(this);
     m_comboBox->setFixedWidth(150);
     m_comboBox->addItems(textList);
+    m_comboBox->setCurrentText(currenttext);
     layout->addWidget(pLabel);
     layout->addStretch();
     layout->addWidget(m_comboBox, 0, Qt::AlignRight);

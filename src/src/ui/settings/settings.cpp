@@ -845,7 +845,8 @@ QWidget *Settings::createAddressThreadHandle(QObject *obj)
     SettingsLineWidget *pWidget = new SettingsLineWidget();
     QStringList strList;
     strList << "1" << "3" << "5" << "7" << "10";
-    pWidget->initUI(tr("Original address threads"), strList);
+    QString currentValue = option->value().toString();
+    pWidget->initUI(tr("Original address threads"), strList, currentValue);
 
     connect(pWidget, &SettingsLineWidget::currentTextChanged, pWidget, [=](const QString & text) {
         option->setValue(text);
@@ -860,7 +861,8 @@ QWidget *Settings::createMaxDownloadTaskHandle(QObject *obj)
     SettingsLineWidget *pWidget = new SettingsLineWidget();
     QStringList strList;
     strList << "3" << "5" << "10" << "20";
-    pWidget->initUI(tr("Max. concurrent downloads"), strList);
+    QString currentValue = option->value().toString();
+    pWidget->initUI(tr("Max. concurrent downloads"), strList, currentValue);
 
     connect(pWidget, &SettingsLineWidget::currentTextChanged, pWidget, [=](const QString & text) {
         option->setValue(text);
@@ -873,7 +875,7 @@ QWidget *Settings::createAutoOpenHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
-    pWidget->initUI(tr("Open files when completed"));
+    pWidget->initUI(tr("Open files when completed"), option->value().toBool());
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
         option->setValue(stat);
@@ -886,7 +888,7 @@ QWidget *Settings::createAutoDeleteHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
-    pWidget->initUI(tr("Delete tasks without files"));
+    pWidget->initUI(tr("Delete tasks without files"), option->value().toBool());
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
         option->setValue(stat);
@@ -899,7 +901,7 @@ QWidget *Settings::createAutoSortBySpeedHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
-    pWidget->initUI(tr("Move slow downloads to the end"));
+    pWidget->initUI(tr("Move slow downloads to the end"), option->value().toBool());
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
         option->setValue(stat);

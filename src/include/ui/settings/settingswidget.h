@@ -66,9 +66,9 @@ class SettingsLineWidget : public QWidget
 public:
     explicit SettingsLineWidget(QWidget *parent = nullptr);
     // 初始化界面
-    bool initUI(QString text);
+    bool initUI(QString text, bool currentStat);
     // 初始化界面
-    bool initUI(QString text, QStringList textList);
+    bool initUI(QString text, const QStringList& textList, QString currenttext);
     // 初始化界面
     bool initUI();
 

@@ -231,7 +231,7 @@ signals:
     /**
      * @brief http任务源文件被删除异常下载的信号
      */
-    void DownloadUnusuaHttpJob(QString urlList, QString savePath, QString filename = "", QString type = "");
+    void DownloadUnusuaHttpJob(QString urlList, QString savePath, QString filename = "", QString type = "", QString leng = "");
 
     /**
      * @brief bt任务源文件被删除异常下载的信号

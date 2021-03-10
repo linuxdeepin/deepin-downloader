@@ -49,8 +49,6 @@
 #include <QSharedMemory>
 #include <QMimeDatabase>
 #include <QUuid>
-#include <QWebChannel>
-#include <QWebSocketServer>
 #include <QTableWidgetItem>
 
 #include <unistd.h>
@@ -72,9 +70,7 @@
 #include "settings.h"
 #include "func.h"
 #include "headerView.h"
-#include "websocketclientwrapper.h"
-#include "websockettransport.h"
-#include "websockethandle.h"
+
 #include "searchresoultwidget.h"
 
 #define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH "/usr/share/applications/"
@@ -523,14 +519,6 @@ void MainFrame::paintEvent(QPaintEvent *event)
     setPaletteType();
 }
 
-bool MainFrame::eventFilter(QObject *o, QEvent *e)
-{
-    qDebug() << e->type();
-    if (e->type() == QEvent::FontChange) {
-        return false;
-    }
-    return QMainWindow::eventFilter(o, e);
-}
 
 void MainFrame::createNewTask(QString url)
 {
@@ -624,22 +612,37 @@ void MainFrame::initDbus()
 void MainFrame::initWebsocket()
 {
 
-    QSharedPointer<QWebSocketServer> server = QSharedPointer<QWebSocketServer>(new QWebSocketServer(QStringLiteral("QWebChannel Server"),
-                                                                                                 QWebSocketServer::NonSecureMode), &QObject::deleteLater);
-    if (!server->listen(QHostAddress("127.0.0.1"), 12345)) {
+//    QSharedPointer<QWebSocketServer> server = QSharedPointer<QWebSocketServer>(new QWebSocketServer(QStringLiteral("QWebChannel Server"),
+//                                                                                                 QWebSocketServer::NonSecureMode), &QObject::deleteLater);
+//    if (!server->listen(QHostAddress("127.0.0.1"), 12345)) {
+//        qFatal("Failed to open web socket server.");
+//    }
+//    QSharedPointer<WebSocketClientWrapper> clientWrapper =
+//            QSharedPointer<WebSocketClientWrapper>(new WebSocketClientWrapper(server.data()), &QObject::deleteLater);
+
+//    QSharedPointer<QWebChannel> channel =
+//            QSharedPointer<QWebChannel>(new QWebChannel(), &QObject::deleteLater);
+//    QObject::connect(clientWrapper.data(), &WebSocketClientWrapper::clientConnected,
+//                     channel.data(), &QWebChannel::connectTo);
+
+//    QSharedPointer<Websockethandle> core = QSharedPointer<Websockethandle>(new Websockethandle(), &QObject::deleteLater);
+//    channel->registerObject(QStringLiteral("core"), core.data());
+//    connect(core.data(), &Websockethandle::sendWebText, this, [&](QString text) {
+//        createNewTask(text);
+//    });
+
+
+    m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
+    if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
         qFatal("Failed to open web socket server.");
     }
-    QSharedPointer<WebSocketClientWrapper> clientWrapper =
-            QSharedPointer<WebSocketClientWrapper>(new WebSocketClientWrapper(server.data()), &QObject::deleteLater);
-
-    QSharedPointer<QWebChannel> channel =
-            QSharedPointer<QWebChannel>(new QWebChannel(), &QObject::deleteLater);
-    QObject::connect(clientWrapper.data(), &WebSocketClientWrapper::clientConnected,
-                     channel.data(), &QWebChannel::connectTo);
-
-    QSharedPointer<Websockethandle> core = QSharedPointer<Websockethandle>(new Websockethandle(), &QObject::deleteLater);
-    channel->registerObject(QStringLiteral("core"), core.data());
-    connect(core.data(), &Websockethandle::sendWebText, this, [&](QString text) {
+    m_clientWrapper = new WebSocketClientWrapper(m_server);
+    m_channel = new QWebChannel;
+    QObject::connect(m_clientWrapper, &WebSocketClientWrapper::clientConnected,
+                     m_channel, &QWebChannel::connectTo);
+    m_core = new Websockethandle;
+    m_channel->registerObject(QStringLiteral("core"), m_core);
+    connect(m_core, &Websockethandle::sendWebText, this, [&](QString text) {
         createNewTask(text);
     });
 }
@@ -773,10 +776,6 @@ void MainFrame::setPaletteType()
 void MainFrame::onSettingsMenuClicked()
 {
     DSettingsDialog settingsDialog;
-    QFont font;
-    font.setFamily("Source Han Sans");
-    font.setPixelSize(14);
-    settingsDialog.setFont(font);
 
     settingsDialog.widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
     settingsDialog.widgetFactory()->registerWidget("httpdownload", Settings::createHttpDownloadEditHandle);
@@ -1013,13 +1012,13 @@ void MainFrame::onHeaderStatechanged(bool isChecked)
     }
 }
 
-void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type)
+void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type, QString leng)
 {
     // 将url加入数据库和aria
     TaskInfo task;
     QMap<QString, QVariant> opt;
     opt.insert("dir", savePath);
-    getNameFromUrl(task, url, savePath, fileName, type);
+    getNameFromUrl(task, url, savePath, fileName, leng, type);
     DBInstance::addTask(task);
     qDebug() << task.gid << "   " << task.url;
     Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
@@ -1135,7 +1134,7 @@ bool MainFrame::onDownloadNewMetalink(QString linkPath, QMap<QString, QVariant> 
     return true;
 }
 
-void MainFrame::getNameFromUrl(TaskInfo &task, QString url, QString savePath, QString name, QString type)
+void MainFrame::getNameFromUrl(TaskInfo &task, QString url, QString savePath, QString name, QString fileLength, QString type)
 {
     // 获取url文件名
     QString fileName;
@@ -1182,6 +1181,7 @@ void MainFrame::getNameFromUrl(TaskInfo &task, QString url, QString savePath, QS
     task.gid = "";
     task.gidIndex = 0;
     task.url = url;
+    task.fileLength = fileLength;
     QString urlDecode = QUrl::fromPercentEncoding(fileName.toUtf8());
     task.downloadPath = savePath + "/" + urlDecode;
     task.downloadFilename = urlDecode;
@@ -2106,7 +2106,7 @@ void MainFrame::onRedownloadActionTriggered()
         opt.insert("dir", savePath);
         QString filePath = QString(savePath).left(savePath.lastIndexOf('/'));
         deleteTaskByUrl(url);
-        getNameFromUrl(task, url, filePath, fileName, "");
+        getNameFromUrl(task, url, filePath, fileName, m_CheckItem->totalLength, "");
 
         DBInstance::addTask(task);
         qDebug() << task.gid << "   " << task.url;
@@ -2486,7 +2486,7 @@ bool MainFrame::checkIfInPeriod(QTime *currentTime, QTime *periodStartTime, QTim
     return false;
 }
 
-int MainFrame::checkTime(QTime *startTime, QTime *endTime)
+int MainFrame::checkTime(const QTime *startTime, const QTime *endTime)
 {
     if (startTime->hour() == endTime->hour()) {
         if (startTime->minute() == endTime->minute()) {
@@ -2716,7 +2716,7 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
             continue;
         }
 
-        onDownloadNewUrl(url, path, info.urlName, info.type);
+        onDownloadNewUrl(url, path, info.urlName, info.type, info.urlSize);
         QTime time;
         time.start();
         while (time.elapsed() < 500) {
@@ -2727,7 +2727,7 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
         if (sameUrlList.size() == 1) {
             if (showRedownloadMsgbox(sameUrlList.at(0).url)) {
                 deleteTaskByUrl(sameUrlList.at(0).url);
-                onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type);
+                onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type, sameUrlList.at(0).urlSize);
             }
         } else {
             QString urls;

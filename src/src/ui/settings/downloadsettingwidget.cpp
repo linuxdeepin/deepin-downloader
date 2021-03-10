@@ -117,6 +117,8 @@ void DownloadSettingWidget::initUI()
     m_startTimeEdit->setTime(QTime(7,00,00));
     m_endTimeEdit = new CTimeEdit(this);
     m_endTimeEdit->setTime(QTime(18,00,00));
+    m_startTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_startTimeEdit->dLineEdit(), m_startTimeEdit->dLineEdit());
+    m_endTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_endTimeEdit->dLineEdit(), m_endTimeEdit->dLineEdit());
     //m_startTimeEdit->setDisplayFormat("h:mm");
     m_startTimeEdit->setMinimumWidth(160);
     //m_endTimeEdit->setDisplayFormat("h:mm");
@@ -207,22 +209,37 @@ void DownloadSettingWidget::onTimeChanged(const QString &time)
         return;
     }
 
-    if (m_startTimeEdit == timeEdit) {
-        QString text = QString("speedlimit;%1;%2;%3;%4")
-                           .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
-                           .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
-                           .arg(time)
-                           .arg(m_endTimeEdit->getTime().toString("hh:mm"));
+    if (m_startTimeEdit == timeEdit ) {
+        if(time < m_endTimeEdit->currentText()) {
+            QString text = QString("speedlimit;%1;%2;%3;%4")
+                               .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
+                               .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
+                               .arg(time)
+                               .arg(m_endTimeEdit->getTime().toString("hh:mm"));
 
-        emit speedLimitInfoChanged(text);
+            emit speedLimitInfoChanged(text);
+        } else {
+            qDebug() << "m_startTimeAlertControl";
+            m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
+                                                     m_startTimeEdit->dLineEdit()->parentWidget()->parentWidget(), 2000);
+            m_startTimeEdit->dLineEdit()->setAlert(true);
+            m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
+        }
     } else if (m_endTimeEdit == timeEdit) {
-        QString text = QString("speedlimit;%1;%2;%3;%4")
-                           .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
-                           .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
-                           .arg(m_startTimeEdit->getTime().toString("hh:mm"))
-                           .arg(time);
-
-        emit speedLimitInfoChanged(text);
+        if(time > m_startTimeEdit->currentText()) {
+            QString text = QString("speedlimit;%1;%2;%3;%4")
+                               .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
+                               .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
+                               .arg(m_startTimeEdit->getTime().toString("hh:mm"))
+                               .arg(time);
+            emit speedLimitInfoChanged(text);
+        } else {
+            qDebug() << "m_endTimeAlertControl";
+            m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
+                                                     m_startTimeEdit->dLineEdit()->parentWidget()->parentWidget(), 2000);
+            m_startTimeEdit->dLineEdit()->setAlert(true);
+            m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
+        }
     }
 }
 

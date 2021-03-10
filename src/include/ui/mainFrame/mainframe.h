@@ -41,8 +41,14 @@
 #include <QUuid>
 #include <QNetworkReply>
 #include <QProcess>
+#include <QWebChannel>
+#include <QWebSocketServer>
 
 #include "global.h"
+#include "websocketclientwrapper.h"
+#include "websockettransport.h"
+#include "websockethandle.h"
+
 
 using namespace Global;
 
@@ -206,7 +212,7 @@ private slots:
      * @param savePath 保存路径
      * @param url类型
     */
-    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "");
+    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "", QString leng = "");
 
     /**
      * @brief 收到新建bt任务
@@ -444,7 +450,7 @@ private:
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    void getNameFromUrl(TaskInfo &task, QString url, QString savePaht, QString name, QString type = "");
+    void getNameFromUrl(TaskInfo &task, QString url, QString savePaht, QString name,QString fileLength, QString type = "");
 
     /**
      * @brief 开始或者继续下载任务
@@ -495,7 +501,7 @@ private:
     /**
      * @brief 比较时间
      */
-    int checkTime(QTime *startTime, QTime *endTime);
+    int checkTime(const QTime *startTime, const QTime *endTime);
 
     /**
      * @brief 初始化DataItem
@@ -612,8 +618,6 @@ protected:
      */
     void paintEvent(QPaintEvent *event) override;
 
-    bool eventFilter(QObject *o, QEvent *e) override;
-
 private:
     enum tableviewFlag {
         downloading,
@@ -666,6 +670,11 @@ private:
     QAction *m_QuitProcessAct;
 
     int m_timeInterval = 2000;
+
+    QWebSocketServer *m_server;
+    WebSocketClientWrapper *m_clientWrapper;
+    QWebChannel *m_channel;
+    Websockethandle *m_core;
 signals:
     void isHeaderChecked(bool checked);
     void tableChanged(int index);

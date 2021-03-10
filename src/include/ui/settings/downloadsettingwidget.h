@@ -127,6 +127,8 @@ private:
     CTimeEdit *m_endTimeEdit; // 结束时间
     DAlertControl *m_downloadAlertControl; // 最大下载限速输入错误提示
     DAlertControl *m_uploadAlertControl; // 最大上传限速输入错误提示
+    DAlertControl *m_startTimeAlertControl; // 开始时间输入错误提示
+    DAlertControl *m_endTimeAlertControl; // 结束时间输入错误提示
     int m_DownloadSpeedLimitValue;
     int m_UploadSpeedLimitValue;
 };

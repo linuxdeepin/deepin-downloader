@@ -29,11 +29,17 @@ QTime CTimeEdit::getTime()
     return m_time;
 }
 
+DLineEdit *CTimeEdit::dLineEdit()
+{
+    return m_timeEdit;
+}
+
 void CTimeEdit::initUI()
 {
     m_timeEdit = new DLineEdit(this);
     //m_timeEdit->lineEdit()->setInputMask("00:00;0");
     m_timeEdit->setClearButtonEnabled(false);
+    m_timeEdit->setMinimumHeight(22);
     QRegExpValidator *validator = nullptr;
     QRegExp rx("0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]");
     validator = new QRegExpValidator(rx, this);

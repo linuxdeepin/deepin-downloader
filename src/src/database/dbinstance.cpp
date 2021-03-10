@@ -8,7 +8,7 @@ bool DBInstance::addTask(TaskInfo &task)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("insert into download_task values (?,?,?,?,?,?,?);");
+    sql.prepare("insert into download_task values (?,?,?,?,?,?,?,?);");
     sql.addBindValue(task.taskId);
     sql.addBindValue(task.gid);
     sql.addBindValue(task.gidIndex);
@@ -16,6 +16,7 @@ bool DBInstance::addTask(TaskInfo &task)
     sql.addBindValue(task.downloadPath);
     sql.addBindValue(task.downloadFilename);
     sql.addBindValue(task.createTime);
+    sql.addBindValue(task.fileLength);
     if (!sql.exec()) {
       //  qWarning() << "Insert download_task table failed : " << sql.lastError();
         return false;
@@ -93,7 +94,7 @@ bool DBInstance::updateTaskInfoByID(TaskInfo &task)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? where task_id= ?");
+    sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? ,file_length=? where task_id= ?");
     sql.addBindValue(task.gid);
     sql.addBindValue(task.gidIndex);
     sql.addBindValue(task.url);
@@ -101,6 +102,7 @@ bool DBInstance::updateTaskInfoByID(TaskInfo &task)
     sql.addBindValue(task.downloadFilename);
     sql.addBindValue(task.createTime);
     sql.addBindValue(task.taskId);
+    sql.addBindValue(task.fileLength);
 
     if (!sql.exec()) {
 //        qWarning() << "Update download_task table failed : " << sql.lastError();
@@ -118,7 +120,7 @@ bool DBInstance::updateAllTaskInfo(QList<TaskInfo> &taskList)
     }
     for (TaskInfo task : taskList) {
         QSqlQuery sql;
-        sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? where task_id= ?");
+        sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? ,file_length=? where task_id= ?");
         sql.addBindValue(task.gid);
         sql.addBindValue(task.gidIndex);
         sql.addBindValue(task.url);
@@ -126,6 +128,7 @@ bool DBInstance::updateAllTaskInfo(QList<TaskInfo> &taskList)
         sql.addBindValue(task.downloadFilename);
         sql.addBindValue(task.createTime);
         sql.addBindValue(task.taskId);
+        sql.addBindValue(task.fileLength);
 
         if (!sql.exec()) {
 //            qWarning() << "Update download_task table failed : " << sql.lastError();
@@ -157,6 +160,7 @@ bool DBInstance::getTaskByID(QString taskId, TaskInfo &task)
         task.downloadPath = sql.value(4).toString(); //下载全路径包括文件名
         task.downloadFilename = sql.value(5).toString(); //下载文件名
         task.createTime = sql.value(6).toDateTime(); //任务创建时间
+        task.fileLength = sql.value(7).toString(); //任务大小
     }
     return true;
 }
@@ -185,6 +189,7 @@ bool DBInstance::getAllTask(QList<TaskInfo> &taskList)
         task.downloadPath = sql.value(4).toString(); //下载全路径包括文件名
         task.downloadFilename = sql.value(5).toString(); //下载文件名
         task.createTime = sql.value(6).toDateTime(); //任务创建时间
+        task.fileLength = sql.value(7).toString(); //任务大小
         taskList.push_back(task);
     }
     return true;

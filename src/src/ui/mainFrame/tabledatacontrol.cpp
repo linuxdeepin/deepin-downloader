@@ -181,32 +181,33 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         data->completedLength = "0KB";
         QDateTime time = QDateTime::currentDateTime();
         data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
-        TaskInfo getTaskInfo;
-        DBInstance::getTaskByID(id, getTaskInfo);
+        TaskInfo taskInfo;
+        DBInstance::getTaskByID(id, taskInfo);
         TaskInfo task;
-        if (!getTaskInfo.taskId.isEmpty()) {
-            task = TaskInfo(getTaskInfo.taskId,
+        if (!taskInfo.taskId.isEmpty()) {
+            task = TaskInfo(taskInfo.taskId,
                             gId,
                             0,
-                            getTaskInfo.url,
-                            getTaskInfo.downloadPath,
-                            getTaskInfo.downloadFilename,
+                            taskInfo.url,
+                            taskInfo.downloadPath,
+                            taskInfo.downloadFilename,
                             time);
             DBInstance::updateTaskInfoByID(task);
-            data->fileName = getTaskInfo.downloadFilename;
+            data->fileName = taskInfo.downloadFilename;
         } else {
             task = TaskInfo(id, gId, 0, "", "", "Unknown", time);
             DBInstance::addTask(task);
         }
-        data->savePath = getTaskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
-        data->url = getTaskInfo.url;
+        data->savePath = taskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
+        data->url = taskInfo.url;
+        data->totalLength = taskInfo.fileLength;
         m_DownloadTableView->getTableModel()->append(data);
         m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
         if ((!searchContent.isEmpty()) && !data->fileName.contains(searchContent)) {
             TableModel *dtModel = m_DownloadTableView->getTableModel();
             m_DownloadTableView->setRowHidden(dtModel->rowCount(), true);
         }
-        qDebug() << "aria2MethodAdd: " << getTaskInfo.url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+        qDebug() << "aria2MethodAdd: " << taskInfo.url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     }
     return true;
 }
@@ -720,7 +721,7 @@ void TableDataControl::onUnusualConfirm(int index, const QString &taskIds)
                 QString mime = db.suffixForFileName(pItem->fileName);
                 QString fileName = pItem->fileName.mid(0, pItem->fileName.lastIndexOf(mime) - 1);
                 removeDownloadListJob(pItem, false, false);
-                emit DownloadUnusuaHttpJob(url, savepath, fileName, mime);
+                emit DownloadUnusuaHttpJob(url, savepath, fileName, mime, pItem->totalLength);
             }
         } else {
             removeDownloadListJob(pItem);
