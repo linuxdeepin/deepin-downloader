@@ -45,7 +45,7 @@ DiagnosticTool::DiagnosticTool(DDialog *parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
 {
-    setFixedSize(453, 391);
+    setFixedSize(453, 431);
     initUI();
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
 }
@@ -56,9 +56,9 @@ void DiagnosticTool::initUI()
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
     QLabel *mainLabel = new QLabel(this);
-    mainLabel->setFixedSize(440, 330);
+    mainLabel->setFixedSize(440, 360);
     baseWidget *pWidget = new baseWidget("");
-    pWidget->setFixedSize(420, 260);
+    pWidget->setFixedSize(420, 290);
 //    QPalette p;
 //    p.setColor(QPalette::Background, QColor(255, 255, 255));
 //    pWidget->setPalette(p);
@@ -104,7 +104,7 @@ void DiagnosticTool::initUI()
     m_Tableview->horizontalHeader()->hide();
     m_Tableview->verticalHeader()->hide();
     m_Tableview->verticalHeader()->setDefaultSectionSize(40);
-    m_Tableview->setFixedSize(404, 205);
+    m_Tableview->setFixedSize(404, 245);
     m_Tableview->setShowGrid(false);
     m_Tableview->setColumnWidth(0, 42);
     m_Tableview->setColumnWidth(1, 310);
@@ -127,6 +127,10 @@ void DiagnosticTool::startDiagnostic()
     m_Button->setEnabled(false);
     //m_Model->appendData(Func::isIpv6Connect());
     m_Tableview->update();
+    QTimer::singleShot(200, this, [=]() {
+        m_Model->appendData(Func::isIPV6Connect());
+    });
+
     QTimer::singleShot(qrand() % (800) + 200, this, [=]() {
         m_Model->appendData(m_IsHasDHT & Func::isNetConnect());
     });
@@ -189,7 +193,7 @@ bool DiagnosticModel::setData(const QModelIndex &index, const QVariant &value, i
 int DiagnosticModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 5;
+    return 6;
 }
 
 int DiagnosticModel::columnCount(const QModelIndex &parent) const
@@ -209,17 +213,17 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
             return m_DiagnosticStatusList.at(index.row()) ? (":icons/icon/normal.svg") : (":icons/icon/defeat.svg");
         } else if (index.column() == 1) {
             switch (index.row()) {
-                //            case 0:
-                //                return tr("IPv6 support");
             case 0:
-                return tr("DHT status");
+                return tr("IPv6 support");
             case 1:
-                return tr("HTTP task");
+                return tr("DHT status");
             case 2:
-                return tr("BT task");
+                return tr("HTTP task");
             case 3:
-                return tr("Magnet task");
+                return tr("BT task");
             case 4:
+                return tr("Magnet task");
+            case 5:
                 return tr("Network detection");
             default:
                 break;
