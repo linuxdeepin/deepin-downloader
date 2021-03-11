@@ -534,6 +534,7 @@ bool DBInstance::getTaskForUrl(QString url, TaskInfo &task)
         task.downloadPath = sql.value(4).toString(); //下载全路径包括文件名
         task.downloadFilename = sql.value(5).toString(); //下载文件名
         task.createTime = sql.value(6).toDateTime(); //任务创建时间
+        task.fileLength = sql.value(7).toString();
     }
     return true;
 }

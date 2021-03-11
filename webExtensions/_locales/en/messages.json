@@ -1,8 +1,8 @@
 {"extName": {
-   "message": "Download Manager Button",
+   "message": "下载器下载支持",
    "description": "Extension name"},
  "extDesc": {
-   "message": "Browser Action Download Manager User Interface for Google Chrome",
+   "message": "下载器下载支持",
    "description": "Extension description"},
  "badChromeVersion": {
    "message": "The downloads API is only available on the canary, dev, and beta channels.",
