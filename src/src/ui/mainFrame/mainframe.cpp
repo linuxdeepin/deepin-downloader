@@ -477,24 +477,6 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
             showNormal();
         }
     }
-
-    //    if(reason == QSystemTrayIcon::ActivationReason::Trigger) {
-    //        //if(m_TrayClickTimer->isActive()){
-    //            if(isHidden()) {
-    //                // 恢复窗口显示
-    //                show();
-    //                setWindowState(Qt::WindowActive);
-    //                activateWindow();
-    //                setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-    //            } else {
-    //                hide();
-    //            }
-    //        //} else {
-    //            //m_TrayClickTimer->start(200);
-    //            //m_TrayClickTimer->setSingleShot(true);
-    //        //}
-    //        return;
-    //    }
 }
 
 void MainFrame::closeEvent(QCloseEvent *event)
@@ -2105,11 +2087,11 @@ void MainFrame::onRedownloadActionTriggered()
         QMap<QString, QVariant> opt;
         opt.insert("dir", savePath);
         QString filePath = QString(savePath).left(savePath.lastIndexOf('/'));
+        QString totalLength = m_CheckItem->totalLength;
         deleteTaskByUrl(url);
-        getNameFromUrl(task, url, filePath, fileName, m_CheckItem->totalLength, "");
+        getNameFromUrl(task, url, filePath, fileName, totalLength, "");
 
         DBInstance::addTask(task);
-        qDebug() << task.gid << "   " << task.url;
         Aria2RPCInterface::instance()->addNewUri(task.url, filePath, task.downloadFilename, task.taskId);
     }
     emit isHeaderChecked(false);
@@ -2418,7 +2400,13 @@ void MainFrame::onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask,
             if (item->status == Global::DownloadTaskStatus::Active) {
                 activeCount++;
                 if (activeCount > maxDownloadTaskCount) {
-                    Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
+                    TaskInfoHash info;
+                    DBInstance::getBtTaskById(item->taskId, info);
+                    if (info.downloadType == "torrent" || item->savePath.contains("[METADATA]")) {
+                        Aria2RPCInterface::instance()->forcePause(item->gid, item->taskId);
+                    } else {
+                        Aria2RPCInterface::instance()->pause(item->gid, item->taskId);
+                    }
                     QTimer::singleShot(500, this, [=]() {
                         Aria2RPCInterface::instance()->unpause(item->gid, item->taskId);
                     });
