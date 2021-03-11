@@ -344,9 +344,7 @@ bool Func::isLanConnect()
             lanProcess->kill();
             lanProcess->close();
             lanProcess->deleteLater();
-            if(lanProcess != nullptr){
-                delete lanProcess;
-            }
+            delete lanProcess;
             QStringList lanPingInfo = str.split("\n");
             if(lanPingInfo[lanPingInfo.size() -3].contains("0% packet loss")){
                 return true;
