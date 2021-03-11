@@ -64,20 +64,6 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 {
     painter->save();
 
-//    QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
-//    if (index.row() == m_hoverRow && !size.isEmpty()) {
-//        if (index.row() % 2 == 1) {
-//            painter->fillRect(option.rect, QColor(231, 231, 231));
-//        } else {
-//            painter->fillRect(option.rect, QColor(214, 214, 214));
-//        }
-//    } else {
-//        if (index.row() % 2 == 1) {
-//            painter->fillRect(option.rect, QColor(238, 238, 238));
-//        } else {
-//            painter->fillRect(option.rect, QColor(225, 225, 225));
-//        }
-//    }
     QString size = index.model()->data(index.model()->index(index.row(), 3)).toString();
     if (index.row() == m_hoverRow && !size.isEmpty()) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder()); //
@@ -114,24 +100,20 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         QString tempFilePath = QDir::tempPath() + QDir::separator() + QCoreApplication::applicationName() + "_temp.";
         QFileInfo fi(tempFilePath + ext);
         QIcon icon = prov.icon(fi);
+        QStringList a = icon.themeSearchPaths();
+        QString b = icon.themeName();
+        QStringList c =icon.fallbackSearchPaths();
 
         if (icon.isNull()) {
             icon = prov.icon(QFileIconProvider::File);
         }
         QPixmap pic = icon.pixmap(20, 20);
 
-        painter->drawPixmap(option.rect.x() + 32, option.rect.y() + 13, pic);
-
-
         if(size.isEmpty()){
-            if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType){
-                QPixmap shadowPic = QIcon(":icons/icon/DarkTypeIcon.png").pixmap(20, 20);
-                painter->drawPixmap(option.rect.x() + 33, option.rect.y() + 13, shadowPic);
-            }else {
-                QPixmap shadowPic = QIcon(":icons/icon/shadow.png").pixmap(20, 20);
-                painter->drawPixmap(option.rect.x() + 33, option.rect.y() + 13, shadowPic);
-            }
+            painter->setOpacity(0.4);
         }
+        painter->drawPixmap(option.rect.x() + 32, option.rect.y() + 13, pic);
+        painter->setOpacity(1.0);
 
         painter->setPen(Qt::darkGray);
 
@@ -140,8 +122,6 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
          }else {
             painter->setPen(size.isEmpty() ? QColor(65, 77, 104, 70) : QColor(65,77,104));
         }
-
-
 
         QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideRight, option.rect.width() - 55);
         painter->drawText(option.rect.x() + 55, option.rect.y() + 28, text);

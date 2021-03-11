@@ -354,7 +354,7 @@ void CreateTaskWidget::onFileDialogOpen()
 {
     QString btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if (btFile != "") {
-        //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+        hide();
         BtInfoDialog dialog(btFile, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
         if (dialog.exec() == QDialog::Accepted) {
             QMap<QString, QVariant> opt;
@@ -363,8 +363,8 @@ void CreateTaskWidget::onFileDialogOpen()
             QString infoHash;
             dialog.getBtInfo(opt, infoName, infoHash);
             emit downLoadTorrentCreate(btFile, opt, infoName, infoHash);
-            close();
         }
+        close();
     }
 }
 
@@ -372,7 +372,7 @@ void CreateTaskWidget::onMLFileDialogOpen()
 {
     QString mlFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.metalink");
     if (mlFile != "") {
-        //QString _savePath =  Settings::getInstance()->getDownloadSavePath();
+        hide();
         BtInfoDialog dialog(mlFile, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
         if (dialog.exec() == QDialog::Accepted) {
             QMap<QString, QVariant> opt;
@@ -381,8 +381,8 @@ void CreateTaskWidget::onMLFileDialogOpen()
             QString infoHash;
             dialog.getBtInfo(opt, infoName, infoHash);
             emit downLoadMetaLinkCreate(mlFile, opt, infoName);
-            close();
         }
+        close();
     }
 }
 
@@ -476,6 +476,7 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
         if (!fileName.isEmpty()) { //若文件路径不为空
             if (fileName.startsWith("file:") && (fileName.endsWith(".torrent") || fileName.endsWith(".metalink"))) {
                 fileName = fileName.right(fileName.length() - 7);
+                hide();
                 BtInfoDialog dialog(fileName, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
                 int ret = dialog.exec();
                 if (ret == QDialog::Accepted) {
@@ -488,8 +489,8 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
                     } else {
                         emit downLoadMetaLinkCreate(fileName, opt, infoName);
                     }
-                    close();
                 }
+                close();
             }
         }
     }
