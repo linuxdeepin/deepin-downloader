@@ -317,6 +317,8 @@ signals:
     */
     void downLoadMetaLinkCreate(QString MetaLinkPath, QMap<QString, QVariant> &opt, QString infoName);
 
+    void startTaskWdiget(QString url);
+
 private:
     DTextEdit *m_texturl; //url文本框
     DSuggestButton *m_sureButton; //确认按钮

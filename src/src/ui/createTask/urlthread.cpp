@@ -80,10 +80,8 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             QStringList urlList;
             urlList.append(proc->arguments().at(1));
             proc->deleteLater();
-            if(proc != nullptr){
-                delete proc;
-                proc = nullptr;
-            }
+            delete proc;
+            proc = nullptr;
             m_linkInfo.urlSize = getUrlSize(str);
             if(m_linkInfo.urlSize.isEmpty()){
                 m_linkInfo.urlSize = "1kb";
@@ -132,7 +130,14 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             QStringList strList = strUrl.split("/");
             QStringList strUrlName = strList[strList.size() - 1].split(".");
             //需要转两次
-            QString encodingUrlName = strUrlName[0]; //QUrl::fromPercentEncoding(strUrlName[0].toUtf8());
+            QString encodingUrlName;
+            QMimeDatabase db;
+            QString type = db.suffixForFileName(strList[strList.size() - 1]);
+            if (!type.isNull()) {
+                encodingUrlName = strList[strList.size() - 1].mid(0, strList[strList.size() - 1].size() - type.size() - 1);
+            }else {
+                encodingUrlName = strUrlName[0]; //QUrl::fromPercentEncoding(strUrlName[0].toUtf8());
+            }
             m_linkInfo.urlName = encodingUrlName;
             QStringList urlStrList = QStringList(strUrl);
             m_linkInfo.type = getUrlType(strUrl);
@@ -144,10 +149,8 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             proc->kill();
             proc->close();
             proc->deleteLater();
-            if(proc != nullptr){
-                delete proc;
-                proc = nullptr;
-            }
+            delete proc;
+            proc = nullptr;
             mutex.unlock();
             begin();
         });
@@ -171,10 +174,8 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             proc->close();
             QString str = proc->readAllStandardOutput();
             proc->deleteLater();
-            if(proc != nullptr){
-                delete proc;
-                proc = nullptr;
-            }
+            delete proc;
+            proc = nullptr;
             QStringList urlInfoList = str.split("\r\n");
             for (int i = 0; i < urlInfoList.size(); i++) {
                 if (urlInfoList[i].startsWith("Content-Disposition:")) //为405链接
@@ -209,10 +210,8 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             process->kill();
             process->close();
           //  process->deleteLater();
-            if(process != nullptr){
-                delete process;
-                process = nullptr;
-            }
+            delete process;
+            process = nullptr;
             m_linkInfo.urlSize = getUrlSize(str);
             emit sendFinishedUrl(m_linkInfo);
             mutex.unlock();
@@ -232,19 +231,19 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
 QString UrlThread::getUrlType(QString url)
 {
     QMimeDatabase db;
-    QString type = db.suffixForFileName(m_linkInfo.url);
-    if (!type.isNull()) {
-        return type;
-    }
+    QString type;
     QStringList urlInfoList = url.split("\r\n");
     for (int i = 0; i < urlInfoList.size(); i++) {
         if (urlInfoList[i].startsWith("content-type:", Qt::CaseInsensitive)) {
             QString contentType = urlInfoList[i].split(" ")[1];
-            return  getType(contentType);
-
+            type = getType(contentType);
+            break;
         }
     }
-    return "";
+    if(type.isNull()){
+        type = db.suffixForFileName(m_linkInfo.url);
+    }
+    return type;
 }
 
 QString UrlThread::getUrlSize(QString url)

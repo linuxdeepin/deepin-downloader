@@ -458,6 +458,10 @@ void MainFrame::initConnection()
     connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadTorrentCreate, this, &MainFrame::onDownloadNewTorrent, Qt::UniqueConnection);
     connect(m_TaskWidget, &CreateTaskWidget::downLoadMetaLinkCreate, this, &MainFrame::onDownloadNewMetalink, Qt::UniqueConnection);
+    connect(m_TaskWidget, &CreateTaskWidget::startTaskWdiget, [=](QString url){
+        QThread::usleep(1000);
+       createNewTask(url);
+    });
 }
 
 void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
@@ -541,6 +545,14 @@ void MainFrame::createNewTask(QString url)
         m_TaskWidget->move(pos().x() + this->width() / 2 - m_TaskWidget->width() / 2,
                            pos().y() + this->height() / 2 - 575 / 2);
     }
+    else {
+         m_TaskWidget->setWindowState(Qt::WindowActive);
+         m_TaskWidget->activateWindow();
+        m_TaskWidget->showNormal();
+        return;
+    }
+    m_TaskWidget->setWindowState(Qt::WindowActive);
+    m_TaskWidget->activateWindow();
     m_TaskWidget->exec();
 }
 
