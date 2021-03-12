@@ -1010,7 +1010,9 @@ void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName
     Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
     //clearTableItemCheckStatus();
     emit isHeaderChecked(false);
-    m_NotaskWidget->hide();
+    if(m_CurrentTab == CurrentTab::downloadingTab) {
+        m_NotaskWidget->hide();
+    }
     m_UpdateTimer->start(m_timeInterval);
 }
 
