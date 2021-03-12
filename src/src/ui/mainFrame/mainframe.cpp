@@ -2091,7 +2091,13 @@ void MainFrame::onRedownloadActionTriggered()
         QMap<QString, QVariant> opt;
         opt.insert("dir", savePath);
         QString filePath = QString(savePath).left(savePath.lastIndexOf('/'));
-        QString totalLength = m_CheckItem->totalLength;
+        QString totalLength;
+        if(m_CurrentTab == CurrentTab::downloadingTab || m_CurrentTab == CurrentTab::finishTab) {
+            totalLength = m_CheckItem->totalLength;
+        } else {
+            totalLength = m_DelCheckItem->totalLength;
+        }
+
         deleteTaskByUrl(url);
         getNameFromUrl(task, url, filePath, fileName, totalLength, "");
 

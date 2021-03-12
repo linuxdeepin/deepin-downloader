@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="en_US" version="2.1">
 <context>
     <name>BtInfoDialog</name>
     <message>
@@ -236,7 +234,7 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="217"/>
         <source>IPv6 support</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv6 support</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="219"/>
@@ -338,7 +336,7 @@ and it does not involve user privacy.</translation>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="223"/>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="238"/>
         <source>The end time must be greater than the start time</source>
-        <translation type="unfinished"></translation>
+        <translation>The end time must be greater than the start time</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="257"/>
