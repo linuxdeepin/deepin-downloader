@@ -49,6 +49,7 @@ SettingsControlWidget::SettingsControlWidget(QWidget *parent)
 bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(label);
     DLabel *pTextLabel = new DLabel(text);
 
@@ -134,6 +135,7 @@ SettingsLineWidget::SettingsLineWidget(QWidget *parent)
 bool SettingsLineWidget::initUI(QString text, bool currentStat)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(text,this);
     m_SwitchBtn = new DSwitchButton();
     m_SwitchBtn->setChecked(currentStat);
@@ -150,6 +152,7 @@ bool SettingsLineWidget::initUI(QString text, bool currentStat)
 bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QString currenttext)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(text,this);
     m_comboBox = new QComboBox(this);
     m_comboBox->setFixedWidth(150);
