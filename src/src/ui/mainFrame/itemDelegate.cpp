@@ -197,9 +197,15 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 m_BgImage->load(":/icons/icon/progressbar_bg.png");
                 m_Front->load(":/icons/icon/progressbar_fg.png");
             } else {
-                m_BgImage->load(":/icons/icon/bar-bg.png");
-                m_Front->load(":/icons/icon/bar-front.png");
+                if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+                    m_BgImage->load(":/icons/icon/bar-bg.png");
+                    m_Front->load(":/icons/icon/bar-front.png");
+                } else {
+                    m_BgImage->load(":/icons/icon/progressbar_bg_dark.png");
+                    m_Front->load(":/icons/icon/progressbar_fg_dark.png");
+                }
             }
+
             painter->setFont(font);
             QRect sizeRect = textRect;
             sizeRect.setTop(sizeRect.top() + 10);

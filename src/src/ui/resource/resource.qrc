@@ -60,6 +60,8 @@
         <file>icon/shadow.png</file>
         <file>icon/progressbar_bg.png</file>
         <file>icon/progressbar_fg.png</file>
+        <file>icon/progressbar_fg_dark.png</file>
+        <file>icon/progressbar_bg_dark.png</file>
         <file>icon/DarkTypeIcon.png</file>
     </qresource>
     <qresource prefix="/json">

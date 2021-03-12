@@ -269,10 +269,14 @@ void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 
 
     painter->setPen(QColor(index.data(Qt::TextColorRole).toString()));
-    if (index.row() % 2 == 0) {
-        painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().toolTipBase().color());
+    if (index.row() % 2 != 0) {
+        painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
     } else {
-        painter->fillRect(option.rect, QColor(245, 245, 245, 80));
+        if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+            painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150)));
+        } else {
+            painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10)));
+        }
     }
 
     switch (index.column()) {
