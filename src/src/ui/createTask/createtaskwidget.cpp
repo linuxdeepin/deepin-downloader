@@ -515,8 +515,7 @@ void CreateTaskWidget::setUrl(QString url)
     m_defaultDownloadDir = savePath;
 
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
-    QString avai = m_labelCapacityFree->text().split(':')[0];
-    m_labelCapacityFree->setText(avai + ":" + freeSize);
+    m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
@@ -577,11 +576,11 @@ void CreateTaskWidget::onTextChanged()
             continue;
         }
         if (isFtp(urlList[i])) {
-            //            double ftpSize = getFtpFileSize(urlList[i]);
-            //            QString strSize = "";
-            //            if(ftpSize > 0){
-            //                strSize = Aria2RPCInterface::instance()->bytesFormat(ftpSize);
-            //            }
+//                        double ftpSize = getFtpFileSize(urlList[i]);
+//                        QString strSize = "";
+//                        if(ftpSize > 0){
+//                            strSize = Aria2RPCInterface::instance()->bytesFormat(ftpSize);
+//                        }
             QStringList nameList = urlList[i].split("/");
             nameList.removeAll(QString(""));
             name = nameList[nameList.size() - 1];
