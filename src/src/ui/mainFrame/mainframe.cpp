@@ -31,6 +31,7 @@
 #include <DFontSizeManager>
 #include <DTitlebar>
 #include <DApplicationHelper>
+#include <DFontSizeManager>
 
 #include <QDir>
 #include <QLayout>
@@ -187,9 +188,10 @@ void MainFrame::init()
     pNotaskWidgetlayout->setContentsMargins(10, 0, 0, 0);
 
     QFont lableFont;
-    lableFont.setPointSize(15);
-    //lableFont.setBold(QFont::Normal);
-    lableFont.setFamily("T5");
+    lableFont.setPixelSize(17);
+    lableFont.setWeight(QFont::DemiBold);
+
+
     m_NotaskLabel = new Dtk::Widget::DLabel();
     m_NotaskLabel->setFont(lableFont);
     m_NotaskLabel->setWindowOpacity(0.9);
@@ -198,10 +200,12 @@ void MainFrame::init()
     m_NotaskLabel->setForegroundRole(DPalette::PlaceholderText);
     pNotaskWidgetlayout->addWidget(m_NotaskLabel);
 
+    //DFontSizeManager::instance()->bind(m_NotaskLabel, DFontSizeManager::T8, QFont::DemiBold);
+
+
     m_NotaskTipLabel = new DLabel();
     QFont notaskTipLabelFont;
-    notaskTipLabelFont.setPointSize(13);
-    notaskTipLabelFont.setFamily("T6");
+    notaskTipLabelFont.setPixelSize(14);
     m_NotaskTipLabel->setFont(notaskTipLabelFont);
     m_NotaskTipLabel->setText(tr("Click + to create new task"));
     m_NotaskTipLabel->setAlignment(Qt::AlignHCenter);
