@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12d35f87_bde9bbc2",
+        "filename": "src/src/ui/settings/httpadvancedsettingwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-15T06:43:05Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 9; 注释率: 0.0%",
+      "revId": "a987b0e34043b34c35947512b2023aa74d661531",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5cc4e89_eeeaa2b4",
+        "filename": "tests/stubAll.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-15T06:43:05Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "a987b0e34043b34c35947512b2023aa74d661531",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a053f7e5_e5b31071",
+        "filename": "tests/stubAll.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-15T06:43:05Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "a987b0e34043b34c35947512b2023aa74d661531",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de99bf0f_28df1218",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-15T06:43:05Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 14; 注释率: 7.1%",
+      "revId": "a987b0e34043b34c35947512b2023aa74d661531",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
