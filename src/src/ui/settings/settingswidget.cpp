@@ -48,10 +48,14 @@ SettingsControlWidget::SettingsControlWidget(QWidget *parent)
 // 初始化界面
 bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
+    QFont font;
+    font.setPixelSize(15);
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(label);
+    pLabel->setFont(font);
     DLabel *pTextLabel = new DLabel(text);
+    pTextLabel->setFont(font);
 
     m_SwitchBtn = new DSwitchButton();
     layout->addWidget(pLabel);
