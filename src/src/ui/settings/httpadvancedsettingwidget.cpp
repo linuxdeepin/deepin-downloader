@@ -33,10 +33,15 @@ void HttpAdvancedSettingWidget::initUI()
 {
     m_btnBox = new DButtonBox(this);
     QList<DButtonBoxButton*> list;
+    QFont font;
+    font.setFamily("Source Han Sans");
+    font.setPixelSize(13);
     DButtonBoxButton *suffixBtn =new DButtonBoxButton(tr("Edit File Extensions"));  //编辑下载文件扩展名
+    suffixBtn->setFont(font);
     connect(suffixBtn,&DButtonBoxButton::clicked, this, &HttpAdvancedSettingWidget::onSuffixBtnClicked);
     m_btnBox->setId(suffixBtn, 0);
     DButtonBoxButton *webBtn =new DButtonBoxButton(tr("Edit Unmonitored Sites"));       //辑不接管的网站
+    webBtn->setFont(font);
     connect(webBtn,&DButtonBoxButton::clicked, this, &HttpAdvancedSettingWidget::onWebBtnClicked);
     m_btnBox->setId(webBtn, 1);
     list<<suffixBtn<< webBtn;
@@ -47,11 +52,13 @@ void HttpAdvancedSettingWidget::initUI()
 
     m_textEdit = new DTextEdit(this);
     m_textEdit->setFixedSize(454,168);
+    m_textEdit->setFont(font);
     addContent(m_textEdit, Qt::AlignHCenter);
     addSpacing(8);
 
     m_defaultBtn = new DCommandLinkButton(tr("Restore"), this);
     connect(m_defaultBtn,&DCommandLinkButton::clicked, this, &HttpAdvancedSettingWidget::onRstoreDefaultClicked);
+    m_defaultBtn->setFont(font);
     m_defaultBtn->setGeometry(418,272,56,20);
    // addContent(m_defaultBtn,  Qt::AlignRight);
     addSpacing(20);
@@ -60,11 +67,13 @@ void HttpAdvancedSettingWidget::initUI()
     DPushButton * cancel = new DPushButton(this);
     connect(cancel,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onCancelClicked);
     cancel->setText(tr("Cancel"));
+    cancel->setFont(font);
     cancel->setFixedSize(216,36);
     DPushButton * sure = new DPushButton(this);
     connect(sure,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onSureClicked);
     sure->setFixedSize(216,36);
     sure->setText(tr("Confirm"));
+    sure->setFont(font);
     QHBoxLayout * hblyt = new QHBoxLayout(w);
     hblyt->setContentsMargins(0,0,0,0);
     w->setFixedSize(454, 44);
