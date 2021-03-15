@@ -490,6 +490,12 @@ private:
      */
     bool checkAria2cFile();
 
+    /**
+     * @brief getUUID 获取thken
+     * @return token
+     */
+    QString getToken();
+
 signals:
     void RPCSuccess(QString method, QJsonObject json); //rpc 正确返回处理信号
     void RPCError(QString method, QString id, int errCode, QJsonObject obj); //rpc错误返回处理信号

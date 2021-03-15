@@ -37,6 +37,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QCryptographicHash>
 #include <QtMath>
+#include <QUuid>
 
 Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 
@@ -87,6 +88,7 @@ bool Aria2RPCInterface::startUp()
 
     QStringList opt;
     opt << "--enable-rpc=true"; //启动RPC
+    opt << "--rpc-secret=" + getToken();
     opt << "--rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
     opt << "--check-certificate=false"; //停用rpc身份验证
     opt << "--rpc-allow-origin-all=true"; // 允许所有来源
@@ -372,6 +374,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
 bool Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
 {
     QJsonObject json;
+    params.prepend("token:" + getToken());
     json.insert("jsonrpc", "2.0");
     if (id.isEmpty()) {
         json.insert("id", method);
@@ -380,6 +383,7 @@ bool Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
     }
     json.insert("method", method);
     if (!params.isEmpty()) {
+
         json.insert("params", params);
     }
     json.insert("", 0);
@@ -827,6 +831,12 @@ bool Aria2RPCInterface::shutdown(QString id)
 bool Aria2RPCInterface::forceShutdown(QString id)
 {
     return callRPC(ARIA2C_METHOD_FORCE_SHUTDOWN, id);
+}
+
+QString Aria2RPCInterface::getToken()
+{
+    static QString uuid = QUuid::createUuid().toString(QUuid::WithoutBraces);
+    return uuid;
 }
 
 bool Aria2RPCInterface::setupConfig()
