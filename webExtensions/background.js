@@ -536,7 +536,7 @@ function onTimeout(info) {
     var soc  = new WebSocket("ws://localhost:12345");
     soc.onopen = function() {
         new QWebChannel(soc, function(chan) {
-            chan.objects.core.receiveText(info.linkUrl + ",true");  
+            chan.objects.core.receiveText(info.linkUrl);  
             //soc.close()
         })
     }
