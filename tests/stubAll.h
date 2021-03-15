@@ -37,4 +37,6 @@ void MainFrameInitWebsocket();
 
 void BtinfodialogSetwindowtitle(QString &str);
 
+QString BtGetSelectedNull();
+
 #endif // STUBALLTHREAD_H

@@ -2,6 +2,7 @@
 #include <QTest>
 #include <QTimer>
 #include <QEvent>
+#include <QFont>
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
 #include "mainframe.h"
@@ -156,6 +157,12 @@ TEST_F(ut_CreateTaskWidget, trueUrlBtnStatus)
     c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
     QTest::qWait(1000);
     EXPECT_TRUE(true /*c->m_sureButton->isEnabled()*/) << "输入正确链接，按钮可被选择";
+
+    BtInfoTableView *view = c->findChild<BtInfoTableView *>();
+    QRect rect = view->visualRect(view->currentIndex());
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    //QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    QTest::mouseDClick(view->viewport(), Qt::LeftButton , Qt::KeyboardModifiers(), rect.center());
     c = nullptr;
     delete c;
 }
@@ -327,10 +334,20 @@ TEST_F(ut_CreateTaskWidget, BtInfoDelegateInit)
     dlg->onhoverChanged(index);
 }
 
+
 TEST_F(ut_CreateTaskWidget, getSaveto)
 {
     BtInfoDialog btDiag(" ", " ");
+    btDiag.m_editDir->setText("1111");
     btDiag.getSaveto();
+    btDiag.onBtnOK();
+}
+
+TEST_F(ut_CreateTaskWidget, BtonBtnOK)
+{
+    BtInfoDialog btDiag(" ", " ");
+    Stub stub;
+    stub.set(ADDR(BtInfoDialog, getSelected), BtGetSelectedNull);
     btDiag.onBtnOK();
 }
 

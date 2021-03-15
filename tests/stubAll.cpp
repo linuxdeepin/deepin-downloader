@@ -63,3 +63,8 @@ void ClipboardtimerCheckclipboardhasurl()
 {
     return;
 }
+
+QString BtGetSelectedNull()
+{
+    return "";
+}
