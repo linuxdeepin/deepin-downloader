@@ -355,15 +355,15 @@ TEST_F(ut_MainFreme, onCopyUrlActionTriggered)
     }
 }
 
-//TEST_F(ut_MainFreme, OpenFile)
-//{
-//    typedef int (*fptr)(BtInfoDialog *);
-//    fptr foo = (fptr)(&BtInfoDialog::exec);
-//    Stub stub;
-//    stub.set(foo, MessageboxExec);
+TEST_F(ut_MainFreme, OpenFile)
+{
+    typedef int (*fptr)(BtInfoDialog *);
+    fptr foo = (fptr)(&BtInfoDialog::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
 
-//    MainFrame::instance()->OpenFile("/home/sanhei/Desktop/seed/123.torrent");
-//}
+    //MainFrame::instance()->OpenFile("/home/sanhei/Desktop/seed/123.torrent");
+}
 
 TEST_F(ut_MainFreme, onOpenFileActionTriggered)
 {
@@ -393,12 +393,23 @@ TEST_F(ut_MainFreme, checkIfInPeriod)
     MainFrame::instance()->checkIfInPeriod(&currentTime, &periodStartTime, &periodEndTime);
 }
 
+TEST_F(ut_MainFreme, addHttpTask2)
+{
+    MainFrame::instance()->onDownloadNewUrl("http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz",
+                                            Settings::getInstance()->getDownloadSavePath(), "qt-x11-opensource-src-4.1.4", "tar.gz");
+
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qWait(500);
+    EXPECT_TRUE(true);
+}
+
 TEST_F(ut_MainFreme, removeDownloadListJob)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     Global::DownloadDataItem *data = model->renderList().at(0);
-    //table->getTableControl()->removeDownloadListJob(data, true, true);
+    table->getTableControl()->removeDownloadListJob(data, true, true);
 }
 
 TEST_F(ut_MainFreme, initDataItem)
@@ -498,7 +509,7 @@ TEST_F(ut_MainFreme, onUnusualConfirm)
     }
 }
 
-TEST_F(ut_MainFreme, addHttpTask2)
+TEST_F(ut_MainFreme, addHttpTask3)
 {
     Stub stub;
     stub.set(ADDR(MainFrame, showRedownloadMsgbox), MainframeShowredownloadmsgbox);
@@ -516,7 +527,7 @@ TEST_F(ut_MainFreme, onSettingsMenuClicked)
     fptr foo = (fptr)(&DSettingsDialog::exec);
     Stub stub;
     stub.set(foo, DsettingsdialogExec);
-    //MainFrame::instance()->onSettingsMenuClicked();
+    MainFrame::instance()->onSettingsMenuClicked();
 }
 
 TEST_F(ut_MainFreme, showDiagnosticTool)
@@ -534,8 +545,8 @@ TEST_F(ut_MainFreme, onDownloadFirstBtnClicked)
     fptr foo = (fptr)(&MessageBox::exec);
     Stub stub;
     stub.set(foo, MessageboxExec);
-
-    //MainFrame::instance()->onDownloadFirstBtnClicked();
+    MainFrame::instance()->m_CheckItem = MainFrame::instance()->m_DownLoadingTableView->getTableModel()->renderList().first();
+    MainFrame::instance()->onDownloadFirstBtnClicked();
 }
 
 TEST_F(ut_MainFreme, onRemoveFinished)
@@ -549,7 +560,7 @@ TEST_F(ut_MainFreme, showWarningMsgbox)
     fptr foo = (fptr)(&DSettingsDialog::exec);
     Stub stub;
     stub.set(foo, DsettingsdialogExec);
-    //MainFrame::instance()->showWarningMsgbox("");
+    MainFrame::instance()->showWarningMsgbox("");
 }
 
 TEST_F(ut_MainFreme, showClearMsgbox)
@@ -676,4 +687,11 @@ TEST_F(ut_MainFreme, SearchResoultWidgetsetData)
     widget->setData(taskIDList, taskStatusList, tasknameList);
     EXPECT_TRUE(true);
     delete widget;
+}
+
+TEST_F(ut_MainFreme, dealNotificaitonSettings)
+{
+    TableView *table = new TableView(1);
+    table->getTableControl()->dealNotificaitonSettings("status", "test.txt", "-1");
+
 }
