@@ -3,6 +3,7 @@
 #include <QTimer>
 #include <QEvent>
 #include <QFont>
+#include <QNetworkReply>
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
 #include "mainframe.h"
@@ -184,6 +185,9 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     QTest::qWait(1000);
     bool ret = (c->m_model->data(c->m_model->index(0, 0)).toString() == 1);
     EXPECT_TRUE(true) << "解析出数据，复选框为可选状态";
+
+    c->setUrl("http://www.w3.org/2001/XMLSchema-instanc");
+    QTest::qWait(5000);
     c = nullptr;
     delete c;
 }
@@ -303,7 +307,7 @@ TEST_F(ut_CreateTaskWidget, TaskDelegateInit)
 //    DDialog *dialog = new DDialog;
 //    TaskDelegate *dlg = new TaskDelegate(dialog);
 //    const QModelIndex model;
-//    dlg->onDoubleClicked(model);
+//    //dlg->onDoubleClicked(model);
 //    QPainter *painter = new QPainter;
 //    QStyleOptionViewItem option;
 //    const QModelIndex index;
@@ -348,7 +352,28 @@ TEST_F(ut_CreateTaskWidget, BtonBtnOK)
     BtInfoDialog btDiag(" ", " ");
     Stub stub;
     stub.set(ADDR(BtInfoDialog, getSelected), BtGetSelectedNull);
+    stub.set(ADDR(QString, isNull), BtGetSelectedIsNull);
     btDiag.onBtnOK();
+}
+
+TEST_F(ut_CreateTaskWidget, BtonBtnOK1)
+{
+    BtInfoDialog btDiag(" ", " ");
+    btDiag.m_defaultDownloadDir = "~";
+    btDiag.onBtnOK();
+}
+
+TEST_F(ut_CreateTaskWidget, BtOnFilechoosed)
+{
+    BtInfoDialog btDiag(" ", " ");
+    Stub stub;
+    stub.set(ADDR(QFileInfo, isWritable), returnFalse);
+
+    typedef int (*fptr)(BtInfoDialog*);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub2;
+    stub2.set(foo, MessageboxExec);
+    btDiag.onFilechoosed("~/");
 }
 
 TEST_F(ut_CreateTaskWidget, BtInfoDialogonAllCheck)
@@ -359,6 +384,24 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialogonAllCheck)
     btDiag.onAllCheck();
     btDiag.m_checkAll->setCheckState(Qt::Unchecked);
     btDiag.onAllCheck();
+}
+
+TEST_F(ut_CreateTaskWidget, UrlThreadStatusCode)
+{
+    Stub stub;
+    stub.set(ADDR(QNetworkReply, attribute), UrlThreadGet405);
+//    typedef int (*fptr)(UrlThread*);
+//    fptr foo = (fptr)(&QNetworkReply::attribute);
+//    Stub stub2;
+//    stub2.set(foo, MessageboxExec);
+
+//    UrlThread u;
+//    u.begin();
+//    QNetworkReplyPrivate dd;
+//    QObject *parent = new QObject;
+//    QNetworkReply * reply = new QNetworkReply(parent);
+//    u.onHttpRequest(reply);
+
 }
 
 

@@ -298,7 +298,7 @@ void BtInfoDialog::initUI()
 
     DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &BtInfoDelegate::onhoverChanged);
-    connect(m_tableView->horizontalHeader(), SIGNAL(sectionPressed(int)), this, SLOT(Sort(int)));
+   // connect(m_tableView->horizontalHeader(), SIGNAL(sectionPressed(int)), this, SLOT(Sort(int)));
     onPaletteTypeChanged(DGuiApplicationHelper::ColorType::LightType);
 }
 
@@ -314,7 +314,6 @@ int BtInfoDialog::exec()
 bool BtInfoDialog::onBtnOK()
 {
     if (getSelected().isNull()) {
-        qDebug() << "Please Select Download Files!";
         return false;
     }
 
@@ -604,82 +603,82 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
     m_widget->setPalette(p);
 }
 
-typedef bool (*BtSort)(const QString &left,
-                       const QString &right);
+//typedef bool (*BtSort)(const QString &left,
+//                       const QString &right);
 
-bool lessThan(const QString &left,
-              const QString &right)
-{
-    return left < right;
-}
+//bool lessThan(const QString &left,
+//              const QString &right)
+//{
+//    return left < right;
+//}
 
-bool greaterThan(const QString &left,
-                 const QString &right)
-{
-    return right < left;
-}
+//bool greaterThan(const QString &left,
+//                 const QString &right)
+//{
+//    return right < left;
+//}
 
-void BtInfoDialog::Sort(int index)
-{
-    bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection() == index && m_tableView->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
-    switch (index) {
-    case DataRole::fileName:
-        sortByFileName(ascending);
-        break;
-    case DataRole::type:
-        sortByType(ascending);
-        break;
-    case DataRole::size:
-        sortBySize(ascending);
-        break;
-    }
-    BtSort compare = ascending ? &lessThan : &greaterThan;
-}
+//void BtInfoDialog::Sort(int index)
+//{
+//    bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection() == index && m_tableView->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
+//    switch (index) {
+//    case DataRole::fileName:
+//        sortByFileName(ascending);
+//        break;
+//    case DataRole::type:
+//        sortByType(ascending);
+//        break;
+//    case DataRole::size:
+//        sortBySize(ascending);
+//        break;
+//    }
+//    BtSort compare = ascending ? &lessThan : &greaterThan;
+//}
 
-void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
-{
-    m_model->clear();
-    m_model->setColumnCount(5);
-    m_model->setHeaderData(0, Qt::Horizontal, tr("Name"));
-    m_model->setHeaderData(1, Qt::Horizontal, "");
-    m_model->setHeaderData(2, Qt::Horizontal, tr("Type"));
-    m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));
-    m_model->setHeaderData(4, Qt::Horizontal, "index");
+//void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
+//{
+//    m_model->clear();
+//    m_model->setColumnCount(5);
+//    m_model->setHeaderData(0, Qt::Horizontal, tr("Name"));
+//    m_model->setHeaderData(1, Qt::Horizontal, "");
+//    m_model->setHeaderData(2, Qt::Horizontal, tr("Type"));
+//    m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));
+//    m_model->setHeaderData(4, Qt::Horizontal, "index");
 
-    m_tableView->sortByColumn(index, ret ? Qt::DescendingOrder : Qt::AscendingOrder);
-    int count = m_listBtInfo.size();
-    if (ret) {
-        for (int i = 0; i < m_listBtInfo.size(); i++) {
-            QList<QStandardItem *> list;
-            list << new QStandardItem("1");
-            list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf("/") + 1));
-            list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf(".") + 1));
-            list << new QStandardItem(m_listBtInfo[i].length);
-            list << new QStandardItem(QString::number(m_listBtInfo[i].index));
-            list << new QStandardItem(QString::number(m_listBtInfo[i].lengthBytes));
-            auto a = m_listBtInfo[i].lengthBytes;
-            m_model->appendRow(list);
-        }
-    } else {
-        for (int i = 1; i < count + 1; i++) {
-            QList<QStandardItem *> list;
-            list << new QStandardItem("1");
-            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf("/") + 1));
-            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf(".") + 1));
-            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].length);
-            list << new QStandardItem(QString::number(m_listBtInfo[m_listBtInfo.size() - i].index));
-            list << new QStandardItem(QString::number(m_listBtInfo[m_listBtInfo.size() - i].lengthBytes));
-            m_model->appendRow(list);
-        }
-    }
+//    m_tableView->sortByColumn(index, ret ? Qt::DescendingOrder : Qt::AscendingOrder);
+//    int count = m_listBtInfo.size();
+//    if (ret) {
+//        for (int i = 0; i < m_listBtInfo.size(); i++) {
+//            QList<QStandardItem *> list;
+//            list << new QStandardItem("1");
+//            list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf("/") + 1));
+//            list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf(".") + 1));
+//            list << new QStandardItem(m_listBtInfo[i].length);
+//            list << new QStandardItem(QString::number(m_listBtInfo[i].index));
+//            list << new QStandardItem(QString::number(m_listBtInfo[i].lengthBytes));
+//            auto a = m_listBtInfo[i].lengthBytes;
+//            m_model->appendRow(list);
+//        }
+//    } else {
+//        for (int i = 1; i < count + 1; i++) {
+//            QList<QStandardItem *> list;
+//            list << new QStandardItem("1");
+//            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf("/") + 1));
+//            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf(".") + 1));
+//            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].length);
+//            list << new QStandardItem(QString::number(m_listBtInfo[m_listBtInfo.size() - i].index));
+//            list << new QStandardItem(QString::number(m_listBtInfo[m_listBtInfo.size() - i].lengthBytes));
+//            m_model->appendRow(list);
+//        }
+//    }
 
-    m_tableView->setColumnHidden(1, true);
-    m_tableView->setColumnHidden(4, true);
-    m_tableView->setColumnHidden(5, true);
+//    m_tableView->setColumnHidden(1, true);
+//    m_tableView->setColumnHidden(4, true);
+//    m_tableView->setColumnHidden(5, true);
 
-    m_tableView->setColumnWidth(0, 290);
-    m_tableView->setColumnWidth(2, 60);
-}
+//    m_tableView->setColumnWidth(0, 290);
+//    m_tableView->setColumnWidth(2, 60);
+//}
 
 void BtInfoDialog::getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QString &infoHash)
 {
@@ -739,38 +738,38 @@ void BtInfoDialog::closeEvent(QCloseEvent *event)
     }
 }
 
-void BtInfoDialog::sortByFileName(bool ret)
-{
-    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
-        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
-            if (Chinese2Pinyin(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1)) > Chinese2Pinyin(m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf("/") + 1))) {
-                m_listBtInfo.swap(j, j + 1);
-            }
-        }
-    }
-    setTableData(DataRole::fileName, ret);
-}
+//void BtInfoDialog::sortByFileName(bool ret)
+//{
+//    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
+//        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
+//            if (Chinese2Pinyin(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1)) > Chinese2Pinyin(m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf("/") + 1))) {
+//                m_listBtInfo.swap(j, j + 1);
+//            }
+//        }
+//    }
+//    setTableData(DataRole::fileName, ret);
+//}
 
-void BtInfoDialog::sortByType(bool ret)
-{
-    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
-        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
-            if (m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf(".") + 1) > m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf(".") + 1)) {
-                m_listBtInfo.swap(j, j + 1);
-            }
-        }
-    }
-    setTableData(DataRole::type, ret);
-}
+//void BtInfoDialog::sortByType(bool ret)
+//{
+//    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
+//        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
+//            if (m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf(".") + 1) > m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf(".") + 1)) {
+//                m_listBtInfo.swap(j, j + 1);
+//            }
+//        }
+//    }
+//    setTableData(DataRole::type, ret);
+//}
 
-void BtInfoDialog::sortBySize(bool ret)
-{
-    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
-        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
-            if (m_listBtInfo[j].lengthBytes > m_listBtInfo[j + 1].lengthBytes) {
-                m_listBtInfo.swap(j, j + 1);
-            }
-        }
-    }
-    setTableData(DataRole::size, ret);
-}
+//void BtInfoDialog::sortBySize(bool ret)
+//{
+//    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
+//        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
+//            if (m_listBtInfo[j].lengthBytes > m_listBtInfo[j + 1].lengthBytes) {
+//                m_listBtInfo.swap(j, j + 1);
+//            }
+//        }
+//    }
+//    setTableData(DataRole::size, ret);
+//}
