@@ -68,3 +68,29 @@ QString BtGetSelectedNull()
 {
     return "";
 }
+
+bool BtGetSelectedIsNull()
+{
+    return true;
+}
+
+bool returnFalse()
+{
+    return false;
+}
+
+bool returnTrue()
+{
+    return true;
+}
+
+int UrlThreadGet405()
+{
+    return 405;
+}
+
+
+//QString BtOnFileDialogOpen(QWidget *parent, const QString &caption, const QString &dir, const QString &filter, QString *selectedFilter, QFileDialog::Options options)
+//{
+//    return "1.torrent";
+//}

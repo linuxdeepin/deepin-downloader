@@ -8,6 +8,7 @@
 #include <QMenu>
 #include <QCursor>
 #include <QAction>
+#include <QFileDialog>
 
 void QthreadpoolStart(QRunnable *runnable, int priority = 0);
 
@@ -38,5 +39,22 @@ void MainFrameInitWebsocket();
 void BtinfodialogSetwindowtitle(QString &str);
 
 QString BtGetSelectedNull();
+
+bool BtGetSelectedIsNull();
+
+bool returnFalse();
+
+bool returnTrue();
+
+int UrlThreadGet405();
+
+static QString BtOnFileDialogOpen(QWidget *parent = nullptr,
+                           const QString &caption = QString(),
+                           const QString &dir = QString(),
+                           const QString &filter = QString(),
+                           QString *selectedFilter = nullptr,
+                                  QFileDialog::Options options = QFileDialog::Options()){return "1.torrent";}
+
+
 
 #endif // STUBALLTHREAD_H

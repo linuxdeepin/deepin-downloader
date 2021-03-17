@@ -11,7 +11,13 @@ int main(int argc, char *argv[])
     q.open();
 
     Settings::getInstance()->setupCOnfigFile();
-    Settings::getInstance()->m_configPath = QDir::current().absolutePath() + "/../docs/config.conf";
+    QString configPath = QDir::current().absolutePath() + "/../docs/config.conf";
+    Settings::getInstance()->m_configPath = configPath;
+    QString iniConfigPath = QString("%1/%3/usrConfig.conf")
+            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+            .arg("downloader_test");
+    QFile::remove(iniConfigPath);
+    QFile::remove(configPath);
     Settings::getInstance()->initWidget();
 
     qputenv("QT_QPA_PLATFORM", "offscreen");
