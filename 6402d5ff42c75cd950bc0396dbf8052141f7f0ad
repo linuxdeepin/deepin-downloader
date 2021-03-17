@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa9b65a_f46b9b12",
+        "filename": "src/include/ui/createTask/btinfodialog.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-17T02:37:45Z",
+      "side": 1,
+      "message": "注释行数: 11; 改动行数(修改和新增): 11; 注释率: 100.0%",
+      "revId": "6402d5ff42c75cd950bc0396dbf8052141f7f0ad",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8db69d_ea9cd825",
+        "filename": "src/src/ui/createTask/btinfodialog.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-17T02:37:45Z",
+      "side": 1,
+      "message": "注释行数: 103; 改动行数(修改和新增): 103; 注释率: 100.0%",
+      "revId": "6402d5ff42c75cd950bc0396dbf8052141f7f0ad",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a9be587_cc2b6ad2",
+        "filename": "tests/main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-17T02:37:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 7; 注释率: 0.0%",
+      "revId": "6402d5ff42c75cd950bc0396dbf8052141f7f0ad",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59afa42_bd654f4e",
+        "filename": "tests/stubAll.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-17T02:37:45Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 20; 注释率: 20.0%",
+      "revId": "6402d5ff42c75cd950bc0396dbf8052141f7f0ad",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f138443d_d5d76188",
+        "filename": "tests/stubAll.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-17T02:37:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 11; 注释率: 0.0%",
+      "revId": "6402d5ff42c75cd950bc0396dbf8052141f7f0ad",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6a2c2f7_5eb985a2",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-17T02:37:45Z",
+      "side": 1,
+      "message": "注释行数: 12; 改动行数(修改和新增): 37; 注释率: 32.4%",
+      "revId": "6402d5ff42c75cd950bc0396dbf8052141f7f0ad",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
