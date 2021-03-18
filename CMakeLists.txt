@@ -1,7 +1,6 @@
 #cmake 最小版本要求
 cmake_minimum_required(VERSION 3.1.0)
 
-
 #工程名
 project(downloader)
 set(PROJECT_VERSION "5.3.14")
@@ -15,9 +14,6 @@ set(CMAKE_CXX_STANDARD 11)
 
 #在debug下库名后面加d
 set(CMAKE_DEBUG_POSTFIX "d")
-
-#设置Debug  Release
-set(CMAKE_BUILD_TYPE "Release")
 
 #设置安装路径
 set(CMAKE_INSTALL_PREFIX /usr)
