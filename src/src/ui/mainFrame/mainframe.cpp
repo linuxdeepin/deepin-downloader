@@ -788,9 +788,6 @@ void MainFrame::onSettingsMenuClicked()
                                                    Settings::createAutoDeleteHandle);
     settingsDialog.widgetFactory()->registerWidget("autosortbySpeedplugin",
                                                    Settings::createAutoSortBySpeedHandle);
-    settingsDialog.widgetFactory()->registerWidget("customradiogroup",
-                                                   Settings::createCustomRadioGroupHandle);
-
 
     settingsDialog.updateSettings("Settings", Settings::getInstance()->m_settings);
 
@@ -1803,6 +1800,9 @@ void MainFrame::onDownloadFirstBtnClicked()
             lowSpeedItem = item;
         }
     }
+    if(m_CheckItem == nullptr) {
+        return;
+    }
     if (m_CheckItem->status == Global::DownloadTaskStatus::Paused) {
         Aria2RPCInterface::instance()->unpause(m_CheckItem->gid, m_CheckItem->taskId);
     }
@@ -1956,6 +1956,7 @@ void MainFrame::onTableItemSelected(const QModelIndex &selected)
         }
     }
 }
+
 
 void MainFrame::onUpdateMainUI()
 {
