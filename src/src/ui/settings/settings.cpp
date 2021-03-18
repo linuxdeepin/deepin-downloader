@@ -910,19 +910,6 @@ QWidget *Settings::createAutoSortBySpeedHandle(QObject *obj)
     return pWidget;
 }
 
-QWidget *Settings::createCustomRadioGroupHandle(QObject *obj)
-{
-    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-    SettingsLineWidget *pWidget = new SettingsLineWidget();
-    pWidget->initLine();
-
-    connect(pWidget, &SettingsLineWidget::radioChanged, pWidget, [=](const QString & text) {
-        option->setValue(text);
-    });
-
-    return pWidget;
-}
-
 QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
 {
     Q_UNUSED(obj);
