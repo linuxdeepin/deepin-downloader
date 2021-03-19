@@ -403,5 +403,3 @@ TEST_F(ut_CreateTaskWidget, UrlThreadStatusCode)
 //    u.onHttpRequest(reply);
 
 }
-
-
