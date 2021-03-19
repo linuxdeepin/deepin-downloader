@@ -41,7 +41,7 @@ class UrlThread : public QObject
 
 public:
     explicit UrlThread(QObject *parent = nullptr);
-    ~UrlThread();
+    ~UrlThread(){}
 
     /**
      * @brief start 获取任务
