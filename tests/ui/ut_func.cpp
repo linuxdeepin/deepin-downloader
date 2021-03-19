@@ -28,11 +28,11 @@ TEST_F(ut_func, isNetConnect)
     EXPECT_TRUE(true);
 }
 
-//TEST_F(ut_func, isHTTPConnect)
-//{
-//    Func::isNetConnect();
-//    EXPECT_TRUE(true);
-//}
+TEST_F(ut_func, isHTTPConnect)
+{
+    Func::isHTTPConnect();
+    EXPECT_TRUE(true);
+}
 
 TEST_F(ut_func, setMimeappsValue)
 {
@@ -106,4 +106,15 @@ TEST_F(ut_func, chineseToPinyin)
 TEST_F(ut_func, chineseToPinyin2)
 {
     EXPECT_EQ("a1b2c3", Func::chineseToPinyin("a1b2c3"));
+}
+
+TEST_F(ut_func, isLanConnect)
+{
+    Func::isLanConnect();
+   // EXPECT_EQ("a1b2c3",);
+}
+
+TEST_F(ut_func, isIPV6Connect)
+{
+    Func::isIPV6Connect();
 }

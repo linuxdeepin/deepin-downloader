@@ -39,6 +39,14 @@ protected:
     // CreateTaskWidget *m_createTaskWidget;
 };
 
+extern int isDigitStr(QString str);
+
+TEST_F(ut_Settings, isDigitStr)
+{
+    isDigitStr("1232");
+    isDigitStr("dsfs");
+}
+
 //开机自启
 TEST_F(ut_Settings, autoStart)
 {
