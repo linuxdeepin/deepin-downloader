@@ -4,18 +4,19 @@
 #include <QEvent>
 #include <QFont>
 #include <QNetworkReply>
+#include "taskdelegate.h"
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
 #include "mainframe.h"
 #include "btinfodialog.h"
 #include "btinfodelegate.h"
-#include "taskdelegate.h"
 #include "btinfotableview.h"
 #include "btheaderview.h"
 #include "urlthread.h"
 #include "stub.h"
 #include "stubAll.h"
 #include "messagebox.h"
+#include "aria2cbtinfo.h"
 
 class ut_CreateTaskWidget : public ::testing::Test
     , public QObject
@@ -96,6 +97,10 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
     Stub stub;
     stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
     BtInfoDialog btDiag(" ", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
+    btDiag.show();
+
+
+
     btDiag.onAllCheck();
     btDiag.onVideoCheck();
     btDiag.onAudioCheck();
@@ -112,6 +117,7 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
     DCheckBox *other = btDiag.findChild<DCheckBox *>("checkOther");
     DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
     DPushButton *checkAll = btDiag.findChild<DPushButton *>("checkAll");
+
 //    QTest::mouseClick(checkAll, Qt::LeftButton);
 //    QTest::qWait(50);
 //    QTest::mouseClick(video, Qt::LeftButton);
@@ -164,6 +170,7 @@ TEST_F(ut_CreateTaskWidget, trueUrlBtnStatus)
     QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
     //QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
     QTest::mouseDClick(view->viewport(), Qt::LeftButton , Qt::KeyboardModifiers(), rect.center());
+    QTest::mouseMove(view->viewport(), QPoint(30, 20));
     c = nullptr;
     delete c;
 }
@@ -171,7 +178,7 @@ TEST_F(ut_CreateTaskWidget, trueUrlBtnStatus)
 TEST_F(ut_CreateTaskWidget, falseUrltableStatus)
 {
     CreateTaskWidget *c = new CreateTaskWidget;
-    c->setUrl("https://img.tukuppt.com/video_show/09big.mp4");
+    c->setUrl("http://www.liuliangshua.cn/jingyanjiaol.html");
     QTest::qWait(1000);
     EXPECT_STREQ(c->m_model->data(c->m_model->index(0, 0)).toString().toStdString().c_str(), std::string("0").c_str()) << "未能解析出数据，复选框为不可选状态";
     c = nullptr;
@@ -181,12 +188,22 @@ TEST_F(ut_CreateTaskWidget, falseUrltableStatus)
 TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
 {
     CreateTaskWidget *c = new CreateTaskWidget;
+    c->show();
     c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
     QTest::qWait(1000);
     bool ret = (c->m_model->data(c->m_model->index(0, 0)).toString() == 1);
     EXPECT_TRUE(true) << "解析出数据，复选框为可选状态";
 
     c->setUrl("http://www.w3.org/2001/XMLSchema-instanc");
+    BtInfoTableView *view = c->findChild<BtInfoTableView *>("tableView");
+    QRect rect = view->visualRect(view->currentIndex());
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    rect = view->visualRect(view->currentIndex());
+    TaskDelegate *dlg = c->findChild<TaskDelegate *>("taskDelegate");
+
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    view->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+
     QTest::qWait(5000);
     c = nullptr;
     delete c;
@@ -267,8 +284,11 @@ TEST_F(ut_CreateTaskWidget, headerViewInit)
     headerView *v = new headerView(Qt::Orientation::Vertical);
     QRect r;
     v->checkBoxRect(r);
+    r.setWidth(1000);
+    v->checkBoxRect(r);
     QPainter *painter = new QPainter;
     v->paintSection(painter, r, 0);
+
 }
 
 TEST_F(ut_CreateTaskWidget, headerViewPalettetype)
@@ -276,6 +296,11 @@ TEST_F(ut_CreateTaskWidget, headerViewPalettetype)
     headerView *v = new headerView(Qt::Orientation::Vertical);
     v->onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     v->onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
+
+    Stub stub;
+    stub.set(ADDR(DGuiApplicationHelper, themeType), ApplicationHelperThemeType2);
+    v->onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
+
 }
 
 TEST_F(ut_CreateTaskWidget, getFtpFileSize)
@@ -330,12 +355,12 @@ TEST_F(ut_CreateTaskWidget, tableView4)
 TEST_F(ut_CreateTaskWidget, BtInfoDelegateInit)
 {
     DDialog *dialog = new DDialog;
-    BtInfoDelegate * dlg = new BtInfoDelegate(dialog);
-    QPainter *painter = new QPainter;
-    QStyleOptionViewItem option;
-    const QModelIndex index;
-    dlg->paint(painter, option, index);
-    dlg->onhoverChanged(index);
+//    BtInfoDelegate * dlg = new BtInfoDelegate(dialog);
+//    QPainter *painter = new QPainter;
+//    QStyleOptionViewItem option;
+//    const QModelIndex index;
+//    dlg->paint(painter, option, index);
+//    dlg->onhoverChanged(index);
 }
 
 

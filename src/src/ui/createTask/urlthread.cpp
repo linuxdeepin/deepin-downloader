@@ -39,14 +39,6 @@ void UrlThread::start(LinkInfo &urlInfo)
     m_linkInfo = urlInfo;
 }
 
-UrlThread::~UrlThread()
-{
-//    if(m_linkInfo != nullptr){
-//        delete m_linkInfo;
-//        m_linkInfo = nullptr;
-//    }
-}
-
 void UrlThread::begin()
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
