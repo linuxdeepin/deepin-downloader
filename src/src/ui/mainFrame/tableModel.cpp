@@ -130,7 +130,6 @@ DeleteDataItem *TableModel::find(const QString &gid, int flag)
     if (m_Deletemap.contains(gid)) {
         return m_Deletemap.value(gid);
     }
-
     return nullptr;
 }
 
