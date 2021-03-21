@@ -6,21 +6,21 @@
 #include "settings.h"
 int main(int argc, char *argv[])
 {
-    QSqlDatabase q = DataBase::Instance().getDB();
-    q.setDatabaseName(QDir::current().absolutePath() + "/../data/downloader.db");
-    q.open();
+//    QSqlDatabase q = DataBase::Instance().getDB();
+//    q.setDatabaseName(QDir::current().absolutePath() + "/../data/downloader.db");
+//    q.open();
 
-    Settings::getInstance()->setupCOnfigFile();
-    QString configPath = QDir::current().absolutePath() + "/../docs/config.conf";
-    Settings::getInstance()->m_configPath = configPath;
-    QString iniConfigPath = QString("%1/%3/usrConfig.conf")
-            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-            .arg("downloader_test");
-    QFile::remove(iniConfigPath);
+//    Settings::getInstance()->setupCOnfigFile();
+//    QString configPath = QDir::current().absolutePath() + "/../docs/config.conf";
+//    Settings::getInstance()->m_configPath = configPath;
+//    QString iniConfigPath = QString("%1/%3/usrConfig.conf")
+//            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+//            .arg("downloader_test");
+//    QFile::remove(iniConfigPath);
     //QFile::remove(configPath);
     Settings::getInstance()->initWidget();
 
-    qputenv("QT_QPA_PLATFORM", "offscreen");
+    //qputenv("QT_QPA_PLATFORM", "offscreen");
     QApplication a(argc, argv);
     testing::InitGoogleTest(&argc, argv);
     int ret = RUN_ALL_TESTS();
