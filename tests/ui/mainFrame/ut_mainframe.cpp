@@ -426,11 +426,10 @@ TEST_F(ut_MainFreme, OpenFile)
     Stub stub;
     stub.set(foo, MessageboxExec);
 
-    MainFrame::instance()->OpenFile("/home/sanhei/Desktop/seed/123.torrent");
+    MainFrame::instance()->OpenFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent");
 }
 
 TEST_F(ut_MainFreme, onOpenFileActionTriggered)
-{
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     if (model->renderList().count() > 0) {
