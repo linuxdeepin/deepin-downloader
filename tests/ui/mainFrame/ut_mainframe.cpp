@@ -426,7 +426,7 @@ TEST_F(ut_MainFreme, OpenFile)
     Stub stub;
     stub.set(foo, MessageboxExec);
 
-    MainFrame::instance()->OpenFile("/home/sanhei/Desktop/seed/123.torrent");
+    MainFrame::instance()->OpenFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent");
 }
 
 TEST_F(ut_MainFreme, onOpenFileActionTriggered)
