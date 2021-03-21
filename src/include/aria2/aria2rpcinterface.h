@@ -33,6 +33,7 @@
 
 #include <QObject>
 #include <QJsonObject>
+#include <QProcess>
 
 class QNetworkReply;
 class Aria2RPCInterface : public QObject
@@ -508,6 +509,7 @@ private:
     QString m_configPath = ""; //配置文件路径
     const QString m_aria2cCmd; //aria2c程序路径
     const QString m_basePath; //下载器安装目录
+    QProcess m_proc;
 };
 
 #endif // ARIA2RPCINTERFACE_H

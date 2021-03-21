@@ -32,6 +32,7 @@
 MessageBox::MessageBox(DDialog *parent)
     : DDialog(parent)
 {
+    setObjectName("messageBox");
     setMaximumWidth(600);
 }
 

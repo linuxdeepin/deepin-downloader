@@ -30,6 +30,7 @@
 #include "websockethandle.h"
 #include "searchresoultwidget.h"
 #include "btinfodialog.h"
+#include "dbinstance.h"
 
 class ut_MainFreme : public ::testing::Test
     , public QObject
@@ -82,6 +83,68 @@ TEST_F(ut_MainFreme, addHttpTask)
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
+
+TEST_F(ut_MainFreme, changeList)
+{
+    MainFrame *m = MainFrame::instance();
+    DListView *list = m->findChild<DListView *>("leftList");
+    QStandardItemModel *model = static_cast<QStandardItemModel *>(list->model());
+    QTest::qWait(200);
+    QRect rect = list->visualRect(model->index(1, 0));
+    QTest::mouseClick(list->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    EXPECT_TRUE(list->currentIndex().row() == 1);
+    QTest::qWait(2000);
+}
+
+TEST_F(ut_MainFreme, rename)
+{
+    MainFrame *m = MainFrame::instance();
+    m->show();
+    TableView *table = m->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qWait(200);
+    QRect rect = table->visualRect(model->index(0, 2));
+    QTimer::singleShot(500, this, [=]() {
+        QWidgetList w = QApplication::topLevelWidgets();
+//        MainFrame *mm = MainFrame::instance();
+//        QMenu *menu = mm->findChild<QMenu *>("tableMenu");
+//        QPoint point = menu->rect().center();
+        for (int i = 0; i < w.count(); i++) {
+            // qDebug() << "w: " << w.at(i)->objectName();
+            if (w.at(i)->objectName() == "tableMenu") {
+                //QAction *a = w.at(i)->findChild<QAction *>("rename");
+                QPoint point = w.at(i)->rect().center();
+                QTest::mouseClick(w.at(i), Qt::LeftButton, Qt::KeyboardModifiers(),
+                                  QPoint(point.x(), point.y() - 30));
+                QTest::qWait(500);
+                DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
+                w->lineEdit()->setText("");
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 't');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 'e');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 's');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 't');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 'O');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 'K');
+                QTest::qWait(500);
+                EXPECT_TRUE(w->lineEdit()->text() == "testOK");
+                return;
+            }
+        }
+    });
+    QTest::mouseClick(table->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    QTest::qWait(100);
+    //QTest::mouseClick(table->viewport(), Qt::RightButton, Qt::KeyboardModifiers(), rect.center());
+    m->onContextMenu(rect.center());
+    QTest::qWait(2000);
+}
+
 
 TEST_F(ut_MainFreme, createNewTask)
 {
@@ -148,7 +211,7 @@ TEST_F(ut_MainFreme, onContextMenu)
     EXPECT_TRUE(true);
 }
 
-TEST_F(ut_MainFreme, changeList)
+TEST_F(ut_MainFreme, changeListt)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(0, 0));
@@ -616,10 +679,10 @@ TEST_F(ut_MainFreme, initConnection)
     MainFrame::instance()->initConnection();
 }
 
-TEST_F(ut_MainFreme, initAria2)
-{
-    MainFrame::instance()->initAria2();
-}
+//TEST_F(ut_MainFreme, initAria2)
+//{
+//    MainFrame::instance()->initAria2();
+//}
 
 TEST_F(ut_MainFreme, initTabledata)
 {
@@ -629,11 +692,6 @@ TEST_F(ut_MainFreme, initTabledata)
 TEST_F(ut_MainFreme, updateDHTFile)
 {
     MainFrame::instance()->updateDHTFile();
-}
-
-TEST_F(ut_MainFreme, onTrayQuitClick)
-{
-    MainFrame::instance()->onTrayQuitClick();
 }
 
 TEST_F(ut_MainFreme, tableView)
@@ -745,6 +803,10 @@ TEST_F(ut_MainFreme, dealNotificaitonSettings)
 
 TEST_F(ut_MainFreme, onClipboardDataChanged)
 {
+    typedef int (*fptr)(CreateTaskWidget *);
+    fptr foo = (fptr)(&CreateTaskWidget::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
      MainFrame::instance()->onClipboardDataChanged("status");
 }
 
@@ -760,6 +822,10 @@ TEST_F(ut_MainFreme, onCheckChanged)
 
 TEST_F(ut_MainFreme, onClearRecyleActionTriggered)
 {
+    typedef int (*fptr)(DSettingsDialog *);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
      MainFrame::instance()->onClearRecyleActionTriggered();
 }
 
@@ -795,4 +861,12 @@ TEST_F(ut_MainFreme, deleteDirectory)
 TEST_F(ut_MainFreme, deleteTaskByUrl)
 {
     MainFrame::instance()->deleteTaskByUrl("url");
+}
+
+
+TEST_F(ut_MainFreme, clearAllTask)
+{
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->m_DataList.clear();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->m_RecyleList.clear();
+    DBInstance::delAllTask();
 }
