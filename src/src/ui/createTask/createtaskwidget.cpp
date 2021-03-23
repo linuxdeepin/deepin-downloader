@@ -971,13 +971,16 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 //            }
 //        }
   //  }
+    static QMutex mutex;
+    mutex.lock();
     for(int i = 0; i < m_model->columnCount(); i++){
-         auto item = m_model->item(index, i);
+        auto item = m_model->item(index, i);
         if(name.isNull() && i == 1){
             if(item != nullptr){
                 continue;
             }
         }
+
         if(item != nullptr){
             delete item;
             item = nullptr;
@@ -1017,6 +1020,7 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
     m_labelFileSize->setText(QString(tr("Total ") + totalSize));
 
     updateSelectedInfo();
+    mutex.unlock();
 }
 
 void CreateTaskWidget::updateSelectedInfo()
