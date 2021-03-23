@@ -16,6 +16,7 @@
 #include "messagebox.h"
 #include "stub.h"
 #include "stubAll.h"
+#include "dbinstance.h"
 
 class ut_Settings : public ::testing::Test
     , public QObject
@@ -516,4 +517,9 @@ TEST_F(ut_Settings, OpenDownloadMetaLinkPanelFalse)
     option->setValue(true);
     QTest::qWait(100);
     EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
+}
+
+TEST_F(ut_Settings, clearAllTask)
+{
+    DBInstance::delAllTask();
 }

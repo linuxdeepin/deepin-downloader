@@ -50,6 +50,12 @@ DiagnosticTool::DiagnosticTool(DDialog *parent)
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
 }
 
+DiagnosticTool::~DiagnosticTool()
+{
+    delete m_Model;
+    delete m_Tableview;
+}
+
 void DiagnosticTool::initUI()
 {
     QIcon tryIcon = QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
@@ -91,7 +97,7 @@ void DiagnosticTool::initUI()
     pLayout->addStretch();
     //pLayout->addLayout(pHLayout);
     pWidget->setLayout(pLayout);
-    QVBoxLayout *mainLayout = new QVBoxLayout();
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(pWidget);
     mainLayout->addStretch();
     mainLayout->addLayout(pHLayout);

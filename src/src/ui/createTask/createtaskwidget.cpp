@@ -74,6 +74,15 @@ CreateTaskWidget::CreateTaskWidget(DDialog *parent)
 
 CreateTaskWidget::~CreateTaskWidget()
 {
+    while (m_model->rowCount()) {
+        auto itemList = m_model->takeRow(m_model->rowCount() -1);
+        for(auto item : itemList){
+            if(item != nullptr){
+                delete item;
+                item = nullptr;
+            }
+        }
+    }
     m_model->clear();
 }
 

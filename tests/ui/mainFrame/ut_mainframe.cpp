@@ -797,9 +797,7 @@ TEST_F(ut_MainFreme, dealNotificaitonSettings)
 {
     TableView *table = new TableView(1);
     table->getTableControl()->dealNotificaitonSettings("status", "test.txt", "-1");
-
 }
-
 
 TEST_F(ut_MainFreme, onClipboardDataChanged)
 {
@@ -826,7 +824,7 @@ TEST_F(ut_MainFreme, onClearRecyleActionTriggered)
     fptr foo = (fptr)(&MessageBox::exec);
     Stub stub;
     stub.set(foo, MessageboxExec);
-     MainFrame::instance()->onClearRecyleActionTriggered();
+    MainFrame::instance()->onClearRecyleActionTriggered();
 }
 
 TEST_F(ut_MainFreme, onDownloadLimitChanged)
@@ -843,9 +841,9 @@ TEST_F(ut_MainFreme, initDelDataItem2)
 {
     Global::DownloadDataItem *data = new Global::DownloadDataItem;
     Global::DeleteDataItem *delData = new Global::DeleteDataItem;
-     MainFrame::instance()->initDelDataItem(data, delData);
-     delete data;
-     delete delData;
+    MainFrame::instance()->initDelDataItem(data, delData);
+    delete data;
+    delete delData;
 }
 
 TEST_F(ut_MainFreme, deleteDirectory)
@@ -863,10 +861,18 @@ TEST_F(ut_MainFreme, deleteTaskByUrl)
     MainFrame::instance()->deleteTaskByUrl("url");
 }
 
+TEST_F(ut_MainFreme, close)
+{
+    MainFrame::instance()->close();
+}
+
+TEST_F(ut_MainFreme, onTrayQuitClick)
+{
+    MainFrame::instance()->onTrayQuitClick(true);
+}
 
 TEST_F(ut_MainFreme, clearAllTask)
 {
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->m_DataList.clear();
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->m_RecyleList.clear();
     DBInstance::delAllTask();
 }
+

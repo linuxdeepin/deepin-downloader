@@ -112,6 +112,10 @@ MainFrame *MainFrame::instance()
 MainFrame::~MainFrame()
 {
     delete (m_Clipboard);
+    delete (m_server);
+    delete (m_clientWrapper);
+    delete (m_channel);
+    delete (m_core);
     DataBase::Instance().destory();
 }
 
@@ -762,6 +766,7 @@ void MainFrame::setPaletteType()
 void MainFrame::onSettingsMenuClicked()
 {
     DSettingsDialog settingsDialog;
+    settingsDialog.setAccessibleName("DSettingsDialog");
 
     settingsDialog.widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
     settingsDialog.widgetFactory()->registerWidget("httpdownload", Settings::createHttpDownloadEditHandle);
@@ -820,9 +825,9 @@ void MainFrame::OpenFile(const QString &url)
         return;
     }
     QString savePath = Settings::getInstance()->getDownloadSavePath();
-    qDebug() << "url: " << url << "exists:  " << QFile::exists(url);
-
-    qDebug() << "savePath: " << savePath;
+    if(!QFile::exists(url)){
+        return;
+    }
     BtInfoDialog btDiag(url, savePath); // torrent文件路径
     QMap<QString, QVariant> opt;
     QString infoName;
