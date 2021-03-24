@@ -180,13 +180,6 @@ private:
     QString formatDownloadSpeed(long size);
 
     /**
-     * @brief 检查文件是否存在
-     */
-    bool checkFileExist(QString &filePath);
-
-
-
-    /**
      * @brief 检查任务状态
      * @return true: 有激活的任务  false：没有激活的任务
      */

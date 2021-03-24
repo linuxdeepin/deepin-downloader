@@ -402,11 +402,14 @@ var socketIsOpen = false;
 
 function main() {
     chrome.downloads.setShelfEnabled(false);
-    chrome.downloads.onCreated.addListener(function(item) {
+//    chrome.downloads.onCreated.addListener(function(item) {
+//        onItemCreated(item);
+//      });
+    chrome.downloads.onDeterminingFilename.addListener(function(item) {
         onItemCreated(item);
-      });
+      })
     chrome.downloads.onChanged.addListener(onChanged);
-    
+
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 
     socket  = new WebSocket("ws://localhost:12345");
