@@ -530,16 +530,6 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
         }
         break;
     }
-    case TableModel::IsHide: {
-        if (m_TableviewtabFlag == 0) {
-            data->isHide = value.toBool();
-            m_RenderList.replace(index.row(), data);
-        } else {
-            deldata->isHide = value.toBool();
-            m_RecyleList.replace(index.row(), deldata);
-        }
-        break;
-    }
 
     default:
         return false;
