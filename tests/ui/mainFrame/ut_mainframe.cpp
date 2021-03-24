@@ -13,6 +13,9 @@
 #include <QMenu>
 #include <QWebSocket>
 #include <QFocusEvent>
+#include <DSettings>
+#include <DSettingsOption>
+#include <DGuiApplicationHelper>
 
 #include "mainframe.h"
 #include "createtaskwidget.h"
@@ -31,6 +34,7 @@
 #include "searchresoultwidget.h"
 #include "btinfodialog.h"
 #include "dbinstance.h"
+#include "settings.h"
 
 class ut_MainFreme : public ::testing::Test
     , public QObject
@@ -52,6 +56,27 @@ protected:
     }
 };
 
+//metalink任务
+TEST_F(ut_MainFreme, addMetalinkTask)
+{
+    Stub stub;
+    stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
+
+    Stub stub2;
+    stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
+
+    Stub stub3;
+    stub3.set(ADDR(MainFrame, initWebsocket), MainFrameInitWebsocket);
+
+    auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
+    option->setValue(2);
+
+    MainFrame::instance()->onDownloadNewUrl("magnet:?xt=urn:btih:081C0AF2B872414061813F0B8CC18A1A79C5ED1D",
+                                            Settings::getInstance()->getDownloadSavePath(), "8A1A79C5ED1D", "torrent");
+    QTest::qWait(15000);
+    EXPECT_TRUE(true);
+}
+
 //小任务，可以快速下载完，方便测试已完成列表。
 TEST_F(ut_MainFreme, addHttpFastTask)
 {
@@ -63,6 +88,9 @@ TEST_F(ut_MainFreme, addHttpFastTask)
 
     Stub stub3;
     stub3.set(ADDR(MainFrame, initWebsocket), MainFrameInitWebsocket);
+
+    auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
+    option->setValue(2);
 
     MainFrame::instance()->onDownloadNewUrl("https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4",
                                             Settings::getInstance()->getDownloadSavePath(), "5f06cfe424c38_10s_big", "mp4");
@@ -77,6 +105,28 @@ TEST_F(ut_MainFreme, addHttpTask)
 {
     MainFrame::instance()->onDownloadNewUrl("http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz",
                                             Settings::getInstance()->getDownloadSavePath(), "qt-x11-opensource-src-4.1.4", "tar.gz");
+
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qWait(500);
+    EXPECT_TRUE(true);
+}
+
+TEST_F(ut_MainFreme, addHttpTaskk)
+{
+    MainFrame::instance()->onDownloadNewUrl("http://svip.bocai-zuida.com/2008/凡人修仙传-06.mp4",
+                                            Settings::getInstance()->getDownloadSavePath(), "凡人修仙传-06", "mp4");
+
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qWait(500);
+    EXPECT_TRUE(true);
+}
+
+TEST_F(ut_MainFreme, addHttpTaskkk)
+{
+    MainFrame::instance()->onDownloadNewUrl("http://vipxz.bocai-zuida.com/2008/凡人修仙传-07.mp4",
+                                            Settings::getInstance()->getDownloadSavePath(), "凡人修仙传-07", "mp4");
 
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
@@ -145,6 +195,58 @@ TEST_F(ut_MainFreme, rename)
     QTest::qWait(2000);
 }
 
+TEST_F(ut_MainFreme, rename2)
+{
+    MainFrame *m = MainFrame::instance();
+    m->show();
+    TableView *table = m->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qWait(200);
+    QRect rect = table->visualRect(model->index(0, 2));
+    QTimer::singleShot(500, this, [=]() {
+        QWidgetList w = QApplication::topLevelWidgets();
+//        MainFrame *mm = MainFrame::instance();
+//        QMenu *menu = mm->findChild<QMenu *>("tableMenu");
+//        QPoint point = menu->rect().center();
+        for (int i = 0; i < w.count(); i++) {
+            // qDebug() << "w: " << w.at(i)->objectName();
+            if (w.at(i)->objectName() == "tableMenu") {
+                //QAction *a = w.at(i)->findChild<QAction *>("rename");
+                QPoint point = w.at(i)->rect().center();
+                QTest::mouseClick(w.at(i), Qt::LeftButton, Qt::KeyboardModifiers(),
+                                  QPoint(point.x(), point.y() - 30));
+                QTest::qWait(500);
+                DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
+                w->lineEdit()->setText("");
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 't');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 'e');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 's');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 't');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 'O');
+                QTest::qWait(100);
+                QTest::keyClick(w->lineEdit(), 'K');
+                QTest::qWait(500);
+                QTest::keyClick(w->lineEdit(), 'l');
+                QTest::qWait(500);
+                QTest::keyClick(w->lineEdit(), 'e');
+                QTest::qWait(500);
+                EXPECT_TRUE(w->lineEdit()->text() == "testOKle");
+                return;
+            }
+        }
+    });
+    QTest::mouseClick(table->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    QTest::qWait(100);
+    //QTest::mouseClick(table->viewport(), Qt::RightButton, Qt::KeyboardModifiers(), rect.center());
+    m->onContextMenu(rect.center());
+    QTest::qWait(2000);
+}
+
 
 TEST_F(ut_MainFreme, createNewTask)
 {
@@ -167,7 +269,7 @@ TEST_F(ut_MainFreme, addBtTask)
     //QTest::qWait(5000);
 }
 
-TEST_F(ut_MainFreme, addMetalinkTask)
+TEST_F(ut_MainFreme, addMetalinkTask2)
 {
     QMap<QString, QVariant> opt;
     MainFrame::instance()->onDownloadNewMetalink("/home/sanhei/Documents/123@.metalink",
@@ -877,6 +979,21 @@ TEST_F(ut_MainFreme, onHeaderStatechanged)
     MainFrame::instance()->m_CurrentTab = CurrentTab::recycleTab;
     MainFrame::instance()->onHeaderStatechanged(true);
     MainFrame::instance()->onHeaderStatechanged(false);
+}
+
+TEST_F(ut_MainFreme, modelList)
+{
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTablemodelMode();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->renderList();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->recyleList();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTableModelMap();
+}
+
+TEST_F(ut_MainFreme, setThemeType)
+{
+    DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::DarkType);
+    DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::LightType);
 }
 
 
