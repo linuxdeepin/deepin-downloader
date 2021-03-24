@@ -58,5 +58,5 @@ static QString BtOnFileDialogOpen(QWidget *parent = nullptr,
                                   QFileDialog::Options options = QFileDialog::Options()){return "1.torrent";}
 
 
-
+void TableDataControlAutoDownloadBt(QString btFilePath);
 #endif // STUBALLTHREAD_H

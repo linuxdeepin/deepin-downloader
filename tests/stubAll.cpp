@@ -93,3 +93,8 @@ int ApplicationHelperThemeType2()
 {
     return 2;
 }
+
+void TableDataControlAutoDownloadBt(QString btFilePath)
+{
+    return;
+}
