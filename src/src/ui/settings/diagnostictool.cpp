@@ -241,7 +241,6 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
     case Qt::TextColorRole:
         return m_DiagnosticStatusList.at(index.row()) ? ("#00c77d") : ("#ff5736");
     }
-
     return QVariant();
 }
 

@@ -219,6 +219,17 @@ TEST_F(ut_MainFreme, changeListt)
     MainFrame::instance()->onListClicked(list->model()->index(1, 0));
 }
 
+TEST_F(ut_MainFreme, searchEditTextChanged)
+{
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    QString text;
+    QList<QString> taskIDList;
+    QList<int> taskStatusList;
+    QList<QString> tasknameList;
+    table->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
+    EXPECT_TRUE(true);
+}
+
 TEST_F(ut_MainFreme, deleteTask)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -229,17 +240,6 @@ TEST_F(ut_MainFreme, deleteTask)
     MainFrame::instance()->onDeleteConfirm(false, false);
     TableView *table2 = MainFrame::instance()->findChild<TableView *>("recycleTableView");
     TableModel *model2 = static_cast<TableModel *>(table2->model());
-    EXPECT_TRUE(true);
-}
-
-TEST_F(ut_MainFreme, searchEditTextChanged)
-{
-    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-    QString text;
-    QList<QString> taskIDList;
-    QList<int> taskStatusList;
-    QList<QString> tasknameList;
-    table->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
     EXPECT_TRUE(true);
 }
 
@@ -861,14 +861,38 @@ TEST_F(ut_MainFreme, deleteTaskByUrl)
     MainFrame::instance()->deleteTaskByUrl("url");
 }
 
-TEST_F(ut_MainFreme, close)
+TEST_F(ut_MainFreme, onHeaderStatechanged)
 {
-    MainFrame::instance()->close();
+    QJsonObject json;
+    json.insert("id","1234");
+    QString searchContent;
+    MainFrame::instance()->m_CurrentTab = CurrentTab::downloadingTab;
+    MainFrame::instance()->onHeaderStatechanged(true);
+    MainFrame::instance()->onHeaderStatechanged(false);
+
+    MainFrame::instance()->m_CurrentTab = CurrentTab::finishTab;
+    MainFrame::instance()->onHeaderStatechanged(true);
+    MainFrame::instance()->onHeaderStatechanged(false);
+
+    MainFrame::instance()->m_CurrentTab = CurrentTab::recycleTab;
+    MainFrame::instance()->onHeaderStatechanged(true);
+    MainFrame::instance()->onHeaderStatechanged(false);
 }
+
+
+//TEST_F(ut_MainFreme, close)
+//{
+//    MainFrame::instance()->close();
+//}
 
 TEST_F(ut_MainFreme, onTrayQuitClick)
 {
     MainFrame::instance()->onTrayQuitClick(true);
+}
+
+TEST_F(ut_MainFreme, onTrayQuitClick2)
+{
+    MainFrame::instance()->onTrayQuitClick(false);
 }
 
 TEST_F(ut_MainFreme, clearAllTask)
