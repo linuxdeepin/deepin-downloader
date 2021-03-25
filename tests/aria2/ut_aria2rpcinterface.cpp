@@ -3,6 +3,8 @@
 #include "aria2rpcinterface.h"
 #include <qtest.h>
 #include <QDir>
+#include "stub.h"
+#include "stubAll.h"
 class ut_aria2Test : public ::testing::Test
 {
 protected:
@@ -216,6 +218,71 @@ TEST_F(ut_aria2Test, getCapacityFreeByte)
 {
     QString path;
     long size = Aria2RPCInterface::instance()->getCapacityFreeByte(path);
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, setDefaultDownLoadDir)
+{
+    Aria2RPCInterface::instance()->setDefaultDownLoadDir(Aria2RPCInterface::instance()->m_defaultDownloadPath);
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, getConfigFilePath)
+{
+    Aria2RPCInterface::instance()->getConfigFilePath();
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, purgeDownloadResult)
+{
+    Aria2RPCInterface::instance()->purgeDownloadResult("");
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, setMaxDownloadNum)
+{
+    Aria2RPCInterface::instance()->setMaxDownloadNum("3");
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, SetDisckCacheNum)
+{
+    Aria2RPCInterface::instance()->SetDisckCacheNum("3");
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, setDownloadLimitSpeed)
+{
+    Aria2RPCInterface::instance()->setDownloadLimitSpeed("3");
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, setUploadLimitSpeed)
+{
+    Aria2RPCInterface::instance()->setUploadLimitSpeed("3");
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, getBtToMetalink)
+{
+    Aria2RPCInterface::instance()->getBtToMetalink("3");
+    EXPECT_TRUE(true);
+    QTest::qSleep(300);
+}
+
+TEST_F(ut_aria2Test, forceShutdown)
+{
+    Stub stub;
+    stub.set(ADDR(Aria2RPCInterface, forceShutdown), Aria2RPCInterfaceForceShutdown);
+    Aria2RPCInterface::instance()->forceShutdown("3");
     EXPECT_TRUE(true);
     QTest::qSleep(300);
 }

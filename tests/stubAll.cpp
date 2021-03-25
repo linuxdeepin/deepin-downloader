@@ -103,3 +103,8 @@ void SearchResoultWidgetHide()
 {
     return;
 }
+
+bool Aria2RPCInterfaceForceShutdown(QString id)
+{
+    return true;
+}

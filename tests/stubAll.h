@@ -61,4 +61,6 @@ static QString BtOnFileDialogOpen(QWidget *parent = nullptr,
 void TableDataControlAutoDownloadBt(QString btFilePath);
 
 void SearchResoultWidgetHide();
+
+bool Aria2RPCInterfaceForceShutdown(QString id = "");
 #endif // STUBALLTHREAD_H
