@@ -2705,15 +2705,6 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
     QVector<LinkInfo> sameUrlList;
     for (LinkInfo info : urlList) {
         QString url = info.urlTrueLink.isEmpty() ? info.url : info.urlTrueLink;
-
-        //        if (url.startsWith("magnet")) {
-        //            QString left = url.split('&').at(0);
-        //            QString infoHash = left.right(left.length() - left.lastIndexOf(':') - 1);
-        //            if (!checkIsHasSameTask(infoHash.toLower())) {
-        //                sameUrlList << info;
-        //                continue;
-        //            }
-        //        }
         bool isExitsUrl = false;
         // 判断url是否在数据中已存在
         DBInstance::isExistUrl(url, isExitsUrl);

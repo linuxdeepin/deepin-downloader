@@ -59,4 +59,6 @@ static QString BtOnFileDialogOpen(QWidget *parent = nullptr,
 
 
 void TableDataControlAutoDownloadBt(QString btFilePath);
+
+void SearchResoultWidgetHide();
 #endif // STUBALLTHREAD_H

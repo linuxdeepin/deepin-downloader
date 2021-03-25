@@ -98,3 +98,8 @@ void TableDataControlAutoDownloadBt(QString btFilePath)
 {
     return;
 }
+
+void SearchResoultWidgetHide()
+{
+    return;
+}

@@ -56,6 +56,53 @@ protected:
     }
 };
 
+TEST_F(ut_MainFreme, onSearchItemClicked1)
+{
+    Stub stub;
+    stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
+    DownloadDataItem *pItem1 = new DownloadDataItem;
+    pItem1->taskId = "1";
+    pItem1->status = 0;
+
+
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
+    QListWidgetItem *item = new QListWidgetItem;
+    item->setData(Qt::WhatsThisRole, "1");
+    item->setData(Qt::UserRole, "Downloading");
+    MainFrame::instance()->onSearchItemClicked(item);
+}
+
+TEST_F(ut_MainFreme, onSearchItemClicked2)
+{
+    Stub stub;
+    stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
+    DownloadDataItem *pItem1 = new DownloadDataItem;
+    pItem1->taskId = "2";
+    pItem1->status = 3;
+
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
+    QListWidgetItem *item = new QListWidgetItem;
+    item->setData(Qt::WhatsThisRole, "2");
+    item->setData(Qt::UserRole, "Completed");
+    MainFrame::instance()->onSearchItemClicked(item);
+}
+
+TEST_F(ut_MainFreme, onSearchItemClicked3)
+{
+    Stub stub;
+    stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
+    DeleteDataItem *pItem3 = new DeleteDataItem;
+    pItem3->taskId = "2";
+    pItem3->status = 4;
+
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
+    QListWidgetItem *item = new QListWidgetItem;
+    item->setData(Qt::WhatsThisRole, "3");
+    item->setData(Qt::UserRole, "Trash");
+    MainFrame::instance()->onSearchItemClicked(item);
+}
+
+
 //metalink任务
 TEST_F(ut_MainFreme, addMetalinkTask)
 {
@@ -963,6 +1010,20 @@ TEST_F(ut_MainFreme, deleteTaskByUrl)
     MainFrame::instance()->deleteTaskByUrl("url");
 }
 
+TEST_F(ut_MainFreme, deleteRecycleTask)
+{
+    DeleteDataItem *pItem = new DeleteDataItem;
+    pItem->savePath = "aaaaaa";
+    MainFrame::instance()->deleteTask(pItem);
+}
+
+TEST_F(ut_MainFreme, deleteDownloadTask)
+{
+    DownloadDataItem *pItem = new DownloadDataItem;
+    pItem->savePath = "aaaaaa";
+    MainFrame::instance()->deleteTask(pItem);
+}
+
 TEST_F(ut_MainFreme, onHeaderStatechanged)
 {
     QJsonObject json;
@@ -995,6 +1056,18 @@ TEST_F(ut_MainFreme, setThemeType)
     DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::DarkType);
     DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::LightType);
 }
+
+
+TEST_F(ut_MainFreme, onIsMetalinkDownload)
+{
+    MainFrame::instance()->onIsMetalinkDownload(true);
+}
+
+TEST_F(ut_MainFreme, Raise)
+{
+    MainFrame::instance()->Raise();
+}
+
 
 
 //TEST_F(ut_MainFreme, close)
