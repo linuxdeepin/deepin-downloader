@@ -122,7 +122,7 @@ void MessageBox::setUnusual(const QString &taskId, QString taskList)
     //if(taskList.split("\n").count() <= 1) {
     addButton(tr("Download Again"));
     //}
-    addButton(tr("Delete Task"));
+    addButton(tr("Delete All"));
     connect(this, &MessageBox::buttonClicked, this,
             [=](int index) {
                 emit unusualConfirm(index, taskId);
