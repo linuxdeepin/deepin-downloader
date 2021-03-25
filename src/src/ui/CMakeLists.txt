@@ -34,6 +34,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/analysisurl.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/taskdelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/btheaderview.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/taskModel.h
 
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/notificationssettiingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settingswidget.h
@@ -103,6 +104,7 @@ add_library(dlmcontrolui SHARED
        createTask/urlthread.cpp
        createTask/analysisurl.cpp
        createTask/taskdelegate.cpp
+       createTask/taskModel.cpp
        settings/notificationssettiingwidget.cpp
        settings/settingswidget.cpp
        settings/downloadsettingwidget.cpp

@@ -190,6 +190,7 @@ QStringList ClipboardTimer::getTypeList()
     QFile file(configPath);
     if(!file.open(QIODevice::ReadWrite)) {
         qDebug() << "File open failed!";
+        return QStringList();
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
@@ -220,6 +221,7 @@ QStringList ClipboardTimer::getWebList()
     QFile file(configPath);
     if(!file.open(QIODevice::ReadWrite)) {
         qDebug() << "File open failed!";
+        return QStringList();
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
