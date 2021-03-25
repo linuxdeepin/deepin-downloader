@@ -4,6 +4,8 @@
 #include <QEvent>
 #include <QFont>
 #include <QNetworkReply>
+#include <QApplication>
+#include <QStandardPaths>
 #include "taskdelegate.h"
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
@@ -82,10 +84,8 @@ TEST_F(ut_CreateTaskWidget, init)
     DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
     //QTest::keyClicks(w->lineEdit(), "111");
     QTest::qWait(1000);
-
+    c->onAllCheck();
     // QTest::keyClick(w->lineEdit(), Qt::Key_Enter);
-
-    QTest::qWait(2000);
 
     QTest::mouseClick(cancel, Qt::LeftButton);
     delete c;
@@ -189,6 +189,8 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
 {
     CreateTaskWidget *c = new CreateTaskWidget;
     c->show();
+    c->hideTableWidget();
+    c->showTableWidget();
     c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
     QTest::qWait(1000);
    // bool ret = (c->m_model->data(c->m_model->index(0, 0)).toString() == 1);
@@ -204,7 +206,8 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
     view->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
 
-    QTest::qWait(5000);
+    QTest::qWait(1000);
+    c->close();
     c = nullptr;
     delete c;
 }
@@ -411,20 +414,44 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialogonAllCheck)
     btDiag.onAllCheck();
 }
 
-TEST_F(ut_CreateTaskWidget, UrlThreadStatusCode)
+TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
 {
-    Stub stub;
-    stub.set(ADDR(QNetworkReply, attribute), UrlThreadGet405);
-//    typedef int (*fptr)(UrlThread*);
-//    fptr foo = (fptr)(&QNetworkReply::attribute);
-//    Stub stub2;
-//    stub2.set(foo, MessageboxExec);
+    CreateTaskWidget *c = new CreateTaskWidget;
+    typedef int (*fptr)(CreateTaskWidget*);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub2;
+    stub2.set(foo, MessageboxExec);
+    c->m_analysisUrl = new AnalysisUrl;
+    c->onCancelBtnClicked();
+    c->onSureBtnClicked();
+    void * v;
+    c->ftpSize(v,1,1,v);
+    QString name;
+    QString type;
+    c->getUrlToName("http://www.metalinker.org/samples/boinc_5.8.16_windows_intelx86.exe.metalink",name,type);
+    c->getUrlToName("magnet:?xt=urn:btih:0FC4D73CCC9E6AC29A1B10DDCC3696E81D6CACAF",name,type);
+    c->getUrlToName("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4.metalink.torrent",name,type);
+    LinkInfo * linkInfo = new LinkInfo;
+    c->updataTabel(linkInfo);
 
-//    UrlThread u;
-//    u.begin();
-//    QNetworkReplyPrivate dd;
-//    QObject *parent = new QObject;
-//    QNetworkReply * reply = new QNetworkReply(parent);
-//    u.onHttpRequest(reply);
+    c->onFilechoosed(QString(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/)"));
+
+
+    c->setUrl("http://www.metalinker.org/samples/boinc_5.8.16_windows_intelx86.exe.metalink");
+    c->setUrl("http://www.metalinker.org/samples/boinc_5.8.16_windows_intelx86");
+    c->setUrl("magnet:?xt=urn:btih:0FC4D73CCC9E6AC29A1B10DDCC3696E81D6CACAF");
+    c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4.metalink.torrent");
+
+
+    c->isFtp("ftp://11.txt");
+
+
+
+//    QDragEnterEvent(const QPoint &pos, Qt::DropActions actions, const QMimeData *data,
+//                    Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers);
+ //   QPoint p(10,10);
+ //   QClipboard a = QApplication::clipboard();//->mimeData();
+ //   QDragEnterEvent * e = new QDragEnterEvent(p,Qt::DropActions,QMimeData(),Qt::Mou );
+//    c.dragEnterEvent();
 
 }

@@ -50,14 +50,6 @@ int UrlThreadGet405();
 
 int ApplicationHelperThemeType2();
 
-static QString BtOnFileDialogOpen(QWidget *parent = nullptr,
-                           const QString &caption = QString(),
-                           const QString &dir = QString(),
-                           const QString &filter = QString(),
-                           QString *selectedFilter = nullptr,
-                                  QFileDialog::Options options = QFileDialog::Options()){return "1.torrent";}
-
-
 void TableDataControlAutoDownloadBt(QString btFilePath);
 
 void SearchResoultWidgetHide();
