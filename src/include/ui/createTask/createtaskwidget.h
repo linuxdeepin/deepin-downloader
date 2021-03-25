@@ -50,6 +50,7 @@ class BtInfoTableView;
 class AnalysisUrl;
 class TaskDelegate;
 class QStandardItemModel;
+class TaskModel;
 
 DWIDGET_USE_NAMESPACE
 
@@ -323,7 +324,8 @@ private:
     DFileChooserEdit *m_editDir; //选择下载路径窗口
     QString m_defaultDownloadDir; //默认文件路径
 
-    QStandardItemModel *m_model; //tableview中的模型，数据交流
+    //QStandardItemModel *m_model; //tableview中的模型，数据交流
+    TaskModel *m_model; //tableview中的模型，数据交流
     TaskDelegate *m_delegate; //tableview中选中表格item
     BtInfoTableView *m_tableView; //列表
     DWidget *m_widget; //包裹view

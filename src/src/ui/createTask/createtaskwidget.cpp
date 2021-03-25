@@ -51,6 +51,7 @@
 #include "func.h"
 #include "../database/dbinstance.h"
 #include "aria2rpcinterface.h"
+#include "taskModel.h"
 
 CreateTaskWidget::CreateTaskWidget(DDialog *parent)
     : DDialog(parent)
@@ -74,16 +75,6 @@ CreateTaskWidget::CreateTaskWidget(DDialog *parent)
 
 CreateTaskWidget::~CreateTaskWidget()
 {
-    while (m_model->rowCount()) {
-        auto itemList = m_model->takeRow(m_model->rowCount() -1);
-        for(auto item : itemList){
-            if(item != nullptr){
-                delete item;
-                item = nullptr;
-            }
-        }
-    }
-    m_model->clear();
 }
 
 void CreateTaskWidget::initUi()
@@ -163,17 +154,8 @@ void CreateTaskWidget::initUi()
     m_delegate = new TaskDelegate(this);
     m_delegate->setObjectName("taskDelegate");
     m_tableView->setItemDelegate(m_delegate);
-   // m_model = QSharedPointer<QStandardItemModel>(new QStandardItemModel(this), &QObject::deleteLater);
-    m_model = new QStandardItemModel(this);
+    m_model = new TaskModel(this);
     m_tableView->setModel(m_model);
-
-    m_model->setColumnCount(5);
-    m_model->setHeaderData(0, Qt::Horizontal, tr("Name"));
-    m_model->setHeaderData(1, Qt::Horizontal, "");
-    m_model->setHeaderData(2, Qt::Horizontal, tr("Type"));
-    m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));
-    m_model->setHeaderData(4, Qt::Horizontal, "long");
-    m_model->setHeaderData(5, Qt::Horizontal, "url");
 
     m_tableView->setColumnHidden(1, true);
     m_tableView->setColumnHidden(4, true);
@@ -186,7 +168,6 @@ void CreateTaskWidget::initUi()
     m_tableView->horizontalHeader()->setFont(font);
     DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &TaskDelegate::onhoverChanged);
-    //connect(m_delegate, &TaskDelegate::editChange, m_tableView, &BtInfoTableView::onEditChange);
     addContent(m_tableView);
 
     QWidget *labelWidget = new QWidget(this);
@@ -428,14 +409,14 @@ void CreateTaskWidget::onSureBtnClicked()
 
     QVector<LinkInfo> urlList;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
             LinkInfo linkInfo;
-            linkInfo.urlName = m_model->data(m_model->index(i, 1)).toString();
-            linkInfo.type = m_model->data(m_model->index(i, 2)).toString();
-            linkInfo.urlSize = m_model->data(m_model->index(i, 3)).toString();
-            linkInfo.length = m_model->data(m_model->index(i, 4)).toLongLong();
-            linkInfo.url = m_model->data(m_model->index(i, 5)).toString();
-            linkInfo.urlTrueLink = m_model->data(m_model->index(i, 6)).toString();
+            linkInfo.urlName = m_model->data(m_model->index(i, 1),1).toString();
+            linkInfo.type = m_model->data(m_model->index(i, 2),2).toString();
+            linkInfo.urlSize = m_model->data(m_model->index(i, 3),3).toString();
+            linkInfo.length = m_model->data(m_model->index(i, 4),4).toLongLong();
+            linkInfo.url = m_model->data(m_model->index(i, 5),5).toString();
+            linkInfo.urlTrueLink = m_model->data(m_model->index(i, 6),6).toString();
             urlList.append(linkInfo);
         }
     }
@@ -443,15 +424,7 @@ void CreateTaskWidget::onSureBtnClicked()
     hide();
     emit downloadWidgetCreate(urlList, m_defaultDownloadDir);
 
-    while (m_model->rowCount()) {
-        auto itemList = m_model->takeRow(m_model->rowCount() -1);
-        for(auto item : itemList){
-            if(item != nullptr){
-                delete item;
-                item = nullptr;
-            }
-        }
-    }
+
     m_texturl->clear();
     if (m_analysisUrl != nullptr) {
         delete m_analysisUrl;
@@ -559,7 +532,7 @@ void CreateTaskWidget::onTextChanged()
     for (int i = 0; i < urlList.size(); i++) {
         if (urlList[i].isEmpty()) {
             if (i <= m_model->rowCount()) {
-                m_model->takeRow(i);
+                m_model->removeRow(i);
             }
         }
     }
@@ -616,7 +589,7 @@ void CreateTaskWidget::onTextChanged()
     m_analysisUrl->setUrlList(urlInfoMap);
 
     while (urlList.size() < m_model->rowCount()) {
-        m_model->takeRow(m_model->rowCount() - 1);
+        m_model->removeRow(m_model->rowCount() - 1);
     }
 }
 
@@ -653,13 +626,7 @@ void CreateTaskWidget::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event);
     while (m_model->rowCount()) {
-        auto itemList = m_model->takeRow(m_model->rowCount() -1);
-        for(auto item : itemList){
-            if(item != nullptr){
-                delete item;
-                item = nullptr;
-            }
-        }
+        m_model->removeRow(m_model->rowCount() -1);
     }
     m_texturl->clear();
 
@@ -683,7 +650,7 @@ void CreateTaskWidget::onAllCheck()
 {
     int state = m_checkAll->checkState();
     for (int i = 0; i < m_model->rowCount(); i++) {
-        if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+        if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
             m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
         }
     }
@@ -698,14 +665,14 @@ void CreateTaskWidget::onAllCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        QString ext = m_model->data(m_model->index(i, 2),2).toString();
         if (isVideo(ext)) {
-            if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
                 m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;
         }
     }
@@ -732,14 +699,14 @@ void CreateTaskWidget::onVideoCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        QString ext = m_model->data(m_model->index(i, 2),2).toString();
         if (isVideo(ext)) {
-            if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
                 m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;
         }
     }
@@ -765,14 +732,14 @@ void CreateTaskWidget::onAudioCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        QString ext = m_model->data(m_model->index(i, 2),2).toString();
         if (isAudio(ext)) {
-            if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
                 m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;
         }
     }
@@ -798,14 +765,14 @@ void CreateTaskWidget::onPictureCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        QString ext = m_model->data(m_model->index(i, 2),2).toString();
         if (isPicture(ext)) {
-            if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
                 m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;
         }
     }
@@ -831,14 +798,14 @@ void CreateTaskWidget::onZipCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        QString ext = m_model->data(m_model->index(i, 2),2).toString();
         if (isZip(ext)) {
-            if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
                 m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;
         }
     }
@@ -864,14 +831,14 @@ void CreateTaskWidget::onDocCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        QString ext = m_model->data(m_model->index(i, 2),2).toString();
         if (isDoc(ext)) {
-            if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
                 m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;
         }
     }
@@ -896,14 +863,14 @@ void CreateTaskWidget::onOtherCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2)).toString();
+        QString ext = m_model->data(m_model->index(i, 2),2).toString();
         if (!isVideo(ext) && !isAudio(ext) && !isPicture(ext) && !isDoc(ext) && !isZip(ext)) {
-            if (m_model->data(m_model->index(i, 4)).toString().toLong() > 0) {
+            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
                 m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
             }
         }
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;
         }
     }
@@ -962,48 +929,23 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
 
 void CreateTaskWidget::setData(int index, QString name, QString type, QString size, QString url, long length, QString trueUrl)
 {
-    //if(m_model->rowCount()+1  > index){
-//        auto itemList = m_model->takeRow(index);
-//        for(auto item : itemList){
-//            if(item != nullptr){
-//                delete item;
-//                item = nullptr;
-//            }
-//        }
-  //  }
-    static QMutex mutex;
-    mutex.lock();
-    for(int i = 0; i < m_model->columnCount(); i++){
-        auto item = m_model->item(index, i);
-        if(name.isNull() && i == 1){
-            if(item != nullptr){
-                continue;
-            }
-        }
-
-        if(item != nullptr){
-            delete item;
-            item = nullptr;
-        }
-    }
-
-
-    m_model->setItem(index, 0, new QStandardItem(size == "" ? "0" : "1"));
+    m_model->insertRows(index, 0, QModelIndex());
+    m_model->setData(m_model->index(index, 0, QModelIndex()),size == "" ? "0" : "1");
     if (!name.isNull())
-        m_model->setItem(index, 1, new QStandardItem(name));
+         m_model->setData(m_model->index(index, 1, QModelIndex()),name);
 
-    m_model->setItem(index, 2, new QStandardItem(type));
-
+    m_model->setData(m_model->index(index, 2, QModelIndex()),type);
     if (type == "html" && size.isNull()) {
-        m_model->setItem(index, 3, new QStandardItem("1KB"));
-        m_model->setItem(index, 4, new QStandardItem(QString::number(1024)));
+        m_model->setData(m_model->index(index, 3, QModelIndex()),"1KB");
+        m_model->setData(m_model->index(index, 4, QModelIndex()), QString::number(1024));
     } else {
-        m_model->setItem(index, 3, new QStandardItem(size));
-        m_model->setItem(index, 4, new QStandardItem(QString::number(length)));
+        m_model->setData(m_model->index(index, 3, QModelIndex()), size);
+        m_model->setData(m_model->index(index, 4, QModelIndex()), QString::number(length));
     }
 
-    m_model->setItem(index, 5, new QStandardItem(url));
-    m_model->setItem(index, 6, new QStandardItem(trueUrl));
+    m_model->setData(m_model->index(index, 5, QModelIndex()), url);
+    m_model->setData(m_model->index(index, 6, QModelIndex()), trueUrl);
+
     m_tableView->setColumnWidth(0, 290);
     m_tableView->setColumnWidth(2, 60);
     m_tableView->setColumnHidden(1, true);
@@ -1014,13 +956,13 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 
     long total = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        total += m_model->data(m_model->index(i, 4),4).toString().toLong();
     }
     QString totalSize = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelFileSize->setText(QString(tr("Total ") + totalSize));
 
     updateSelectedInfo();
-    mutex.unlock();
+
 }
 
 void CreateTaskWidget::updateSelectedInfo()
@@ -1040,10 +982,10 @@ void CreateTaskWidget::updateSelectedInfo()
     int allZip = 0;
     int allDoc = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString v = m_model->data(m_model->index(i, 0)).toString();
-        QString type = m_model->data(m_model->index(i, 2)).toString();
+        QString v = m_model->data(m_model->index(i, 0),0).toString();
+        QString type = m_model->data(m_model->index(i, 2),2).toString();
         if (v == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             if (isVideo(type)) {
                 selectVideoCount++;
             } else if (isAudio(type)) {
@@ -1089,22 +1031,22 @@ void CreateTaskWidget::updateSelectedInfo()
 
 void CreateTaskWidget::setUrlName(int index, QString name)
 {
-    //    QList<TaskInfo> taskList;
-    //    DBInstance::getAllTask(taskList);
-    //    QString curName = name + "." + m_model->data(m_model->index(index, 2)).toString();
-    //    for (int i = 0; i < taskList.size(); i++) {
-    //        if (taskList[i].downloadFilename == curName) {
-    //            return;
-    //        }
-    //    }
-    //    for (int j = 0; j < m_model->rowCount(); j++) {
-    //        if (j == index)
-    //            continue;
-    //        if (name == m_model->data(m_model->index(index, 2)).toString())
-    //            return;
-    //    }
+        QList<TaskInfo> taskList;
+        DBInstance::getAllTask(taskList);
+        QString curName = name + "." + m_model->data(m_model->index(index, 2),2).toString();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList[i].downloadFilename == curName) {
+                return;
+            }
+        }
+        for (int j = 0; j < m_model->rowCount(); j++) {
+            if (j == index)
+                continue;
+            if (name == m_model->data(m_model->index(index, 2),2).toString())
+                return;
+        }
 
-    m_model->setItem(index, 1, new QStandardItem(name));
+    m_model->setData(m_model->index(index,1),name);
     m_tableView->setColumnHidden(1, true);
 }
 
@@ -1210,8 +1152,8 @@ double CreateTaskWidget::getSelectSize()
 {
     long total = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        if (m_model->data(m_model->index(i, 0)).toString() == "1") {
-            total += m_model->data(m_model->index(i, 4)).toString().toLong();
+        if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
+            total += m_model->data(m_model->index(i, 4),4).toString().toLong();
         }
     }
     return total;
