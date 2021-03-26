@@ -27,6 +27,30 @@ Homepage: https://www.deepin.org/
 
 Package: org.deepin.downloader
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, sqlite3, aria2, curl, nmap
+Depends: ${shlibs:Depends}, ${misc:Depends}, dlmaria2, dlmcontrolui, dlmdatabase, dlmlog
 Description: it's a user-friendly download manager, supporting URLs and torrent files.
+ downloader for deepin desktop environment.
+
+Package: libdlmaria2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, aria2, curl
+Description: download manager dlmaria2 lib.
+ downloader for deepin desktop environment.
+
+Package: libdlmcontrolui
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, curl, nmap
+Description: download manager dlmcontrolui lib.
+ downloader for deepin desktop environment.
+
+Package: libdlmdatabase
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, sqlite3
+Description: download manager dlmdatabase lib.
+ downloader for deepin desktop environment.
+
+Package: libdlmlog
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: download manager dlmlog lib.
  downloader for deepin desktop environment.
