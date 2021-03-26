@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f134ee5_88e5c9ae",
+        "filename": "tests/ui/ut_messagebox.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-26T08:55:12Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 43; 注释率: 0.0%",
+      "revId": "7a8a4e7d1184f04a6b6f4dd7b72c86dcb44120a4",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
