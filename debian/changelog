@@ -1,3 +1,10 @@
+downloadmanager (5.3.15) stable; urgency=low
+
+  * 修改集成测试测出的bug
+  * 添加帮助手册
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 26 Mar 2021 15:47:03 +0800
+
 downloadmanager (5.3.14) stable; urgency=low
 
   * 修改bug
