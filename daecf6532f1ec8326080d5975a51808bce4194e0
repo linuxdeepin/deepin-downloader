@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8a00eba_83dfd2fe",
+        "filename": "src/src/ui/createTask/taskModel.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-26T02:59:40Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "daecf6532f1ec8326080d5975a51808bce4194e0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f0fe2d8_23c7dd17",
+        "filename": "tests/database/ut_dbinstance.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-26T02:59:40Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 34; 注释率: 不计算",
+      "revId": "daecf6532f1ec8326080d5975a51808bce4194e0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe9d3bb_d4e6d548",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-26T02:59:40Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 41; 注释率: 7.3%",
+      "revId": "daecf6532f1ec8326080d5975a51808bce4194e0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c44578_6fdb0605",
+        "filename": "tests/ui/websocket/ut_websocket.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-26T02:59:40Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 36; 注释率: 0.0%",
+      "revId": "daecf6532f1ec8326080d5975a51808bce4194e0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
