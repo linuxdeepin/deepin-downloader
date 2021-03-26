@@ -1,3 +1,4 @@
+/usr/bin/downloader
 translations/*.qm /usr/share/downloader/translations
 desktop/downloader.desktop /usr/share/applications
 data/downloader.db /usr/share/downloader/database
