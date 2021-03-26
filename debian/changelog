@@ -1,3 +1,9 @@
+downloadmanager (5.3.17) stable; urgency=low
+
+  * 包里添加下载器的可执行程序
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 26 Mar 2021 18:34:17 +0800
+
 downloadmanager (5.3.16) stable; urgency=low
 
   * 修改下载器的依赖包
