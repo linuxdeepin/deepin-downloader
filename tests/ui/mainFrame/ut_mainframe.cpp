@@ -61,7 +61,7 @@ TEST_F(ut_MainFreme, onSearchItemClicked1)
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
     DownloadDataItem *pItem1 = new DownloadDataItem;
-    pItem1->taskId = "1";
+    pItem1->taskId = "111";
     pItem1->status = 0;
 
 
@@ -77,7 +77,7 @@ TEST_F(ut_MainFreme, onSearchItemClicked2)
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
     DownloadDataItem *pItem1 = new DownloadDataItem;
-    pItem1->taskId = "2";
+    pItem1->taskId = "123";
     pItem1->status = 3;
 
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
@@ -92,7 +92,7 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
     DeleteDataItem *pItem3 = new DeleteDataItem;
-    pItem3->taskId = "2";
+    pItem3->taskId = "1234";
     pItem3->status = 4;
 
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
@@ -102,6 +102,10 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
     MainFrame::instance()->onSearchItemClicked(item);
 }
 
+TEST_F(ut_MainFreme, onSearchEditTextChanged)
+{
+    MainFrame::instance()->onSearchEditTextChanged("1");
+}
 
 //metalink任务
 TEST_F(ut_MainFreme, addMetalinkTask)
@@ -518,14 +522,6 @@ TEST_F(ut_MainFreme, changeToTrashList4)
     EXPECT_TRUE(true);
 }
 
-TEST_F(ut_MainFreme, clrearTrashTask)
-{
-    MainFrame::instance()->onClearRecycle(true);
-    TableView *table = MainFrame::instance()->findChild<TableView *>("recycleTableView");
-    TableModel *model = static_cast<TableModel *>(table->model());
-    EXPECT_TRUE(model->recyleList().isEmpty());
-}
-
 TEST_F(ut_MainFreme, clipboard)
 {
     QProcess p;
@@ -550,9 +546,35 @@ TEST_F(ut_MainFreme, onRedownloadActionTriggered)
     MainFrame::instance()->onListClicked(list->model()->index(0, 0));
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
+    MainFrame::instance()->m_CurrentTab = CurrentTab::finishTab;
     if (model->renderList().count() > 0) {
         MainFrame::instance()->onRedownloadActionTriggered();
     }
+}
+
+TEST_F(ut_MainFreme, onRedownloadActionTriggered2)
+{
+    typedef int (*fptr)(DSettingsDialog *);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
+
+    DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
+    MainFrame::instance()->onListClicked(list->model()->index(2, 0));
+    TableModel *model = MainFrame::instance()->m_RecycleTableView->getTableModel();
+    MainFrame::instance()->m_DelCheckItem = MainFrame::instance()->m_RecycleTableView->getTableModel()->m_RecyleList.first();
+    MainFrame::instance()->m_CurrentTab = CurrentTab::recycleTab;
+    if (model->m_RecyleList.count() > 0 && MainFrame::instance()->m_DelCheckItem != nullptr) {
+        MainFrame::instance()->onRedownloadActionTriggered();
+    }
+}
+
+TEST_F(ut_MainFreme, clrearTrashTask)
+{
+    MainFrame::instance()->onClearRecycle(true);
+    TableView *table = MainFrame::instance()->findChild<TableView *>("recycleTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    EXPECT_TRUE(model->recyleList().isEmpty());
 }
 
 TEST_F(ut_MainFreme, onCopyUrlActionTriggered)
@@ -750,6 +772,9 @@ TEST_F(ut_MainFreme, showDiagnosticTool)
     Stub stub;
     stub.set(foo, DiagnostictoolExec);
     MainFrame::instance()->showDiagnosticTool();
+//    DiagnosticTool *tool = new DiagnosticTool();
+    //QTest::qWait(15000);
+//    delete tool;
 }
 
 TEST_F(ut_MainFreme, addHttpTask4)
@@ -1067,6 +1092,16 @@ TEST_F(ut_MainFreme, Raise)
 {
     MainFrame::instance()->Raise();
 }
+
+TEST_F(ut_MainFreme, onNewBtnClicked)
+{
+    typedef int (*fptr)(CreateTaskWidget *);
+    fptr foo = (fptr)(&CreateTaskWidget::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
+    MainFrame::instance()->onNewBtnClicked();
+}
+
 
 
 
