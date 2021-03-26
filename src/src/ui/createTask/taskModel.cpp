@@ -121,9 +121,9 @@ QVariant TaskModel::headerData(int section, Qt::Orientation orientation, int rol
     case 3:
         return tr("Size");
     case 4:
-        return tr("long");
+        return "long";
     case 5:
-        return tr("url");
+        return "url";
     }
 
     return QVariant();
