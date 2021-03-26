@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e2b3be4_bb2eedf9",
+        "filename": "tests/ui/ut_clipboardTimer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-26T02:59:23Z",
+      "side": 1,
+      "message": "注释行数: 25; 改动行数(修改和新增): 61; 注释率: 41.0%",
+      "revId": "eb4679006bac210961f19f7e6acb08c85fb88632",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
