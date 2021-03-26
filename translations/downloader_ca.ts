@@ -13,13 +13,13 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="144"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="350"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="359"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="412"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="441"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="470"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="498"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="548"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="349"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="358"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="411"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="440"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="469"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="497"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="547"/>
         <source>%1 files selected, %2</source>
         <translation>%1 fitxers seleccionats, %2</translation>
     </message>
@@ -50,8 +50,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="217"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="574"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="694"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="573"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="693"/>
         <source>Available:</source>
         <translation>Disponible:</translation>
     </message>
@@ -67,29 +67,26 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="269"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="643"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="271"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="645"/>
         <source>Type</source>
         <translation>Tipus</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="272"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="646"/>
         <source>Size</source>
         <translation>Mida</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="331"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="330"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Espai de disc insuficient. Si us plau, canvieu la carpeta de baixada.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="331"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="330"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
@@ -112,119 +109,105 @@
         <translation>Introduïu els enllaços de baixada o arrossegueu aquí un fitxer torrent.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="162"/>
-        <source>Name</source>
-        <translation>Nom</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="164"/>
-        <source>Type</source>
-        <translation>Tipus</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="165"/>
-        <source>Size</source>
-        <translation>Mida</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1008"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="182"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="962"/>
         <source>Total </source>
         <translation>Total </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="198"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="704"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="738"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="771"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="804"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="837"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="870"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="902"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1073"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="188"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="680"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="714"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="747"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="780"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="813"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="846"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="878"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1028"/>
         <source>%1 files selected, %2</source>
         <translation>%1 fitxers seleccionats, %2</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="211"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="201"/>
         <source>All</source>
         <translation>Tot</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
         <source>Videos</source>
         <translation>Vídeos</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="223"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="213"/>
         <source>Pictures</source>
         <translation>Imatges</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="229"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="219"/>
         <source>Music</source>
         <translation>Música</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="235"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="225"/>
         <source>Others</source>
         <translation>Altres</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="241"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="231"/>
         <source>Documents</source>
         <translation>Documents</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="247"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="237"/>
         <source>Archives</source>
         <translation>Arxius</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="276"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="638"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="266"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="500"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="620"/>
         <source>Available:</source>
         <translation>Disponible:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="291"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="281"/>
         <source>Change download folder</source>
         <translation>Canvia la carpeta de baixada</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="306"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="315"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="305"/>
         <source>Select file</source>
         <translation>Selecciona el fitxer</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="328"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="318"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="335"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="325"/>
         <source>Confirm</source>
         <translation>Confirmeu-ho</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="355"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="373"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="345"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="363"/>
         <source>Choose Torrent File</source>
         <translation>Trieu un fitxer torrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="410"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="400"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Espai de disc insuficient. Si us plau, canvieu la carpeta de baixada.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="410"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="400"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1163"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1118"/>
         <source>Network error, check your network and try later</source>
         <translation>Error de xarxa. Comproveu-la i torneu-ho a provar.</translation>
     </message>
@@ -232,42 +215,42 @@
 <context>
     <name>DiagnosticModel</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="217"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="223"/>
         <source>IPv6 support</source>
-        <translation type="unfinished"/>
+        <translation>Suport d&apos;IPv6</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="219"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="225"/>
         <source>DHT status</source>
         <translation>Estat de DHT</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="221"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="227"/>
         <source>HTTP task</source>
         <translation>Tasca d&apos;HTTP</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="223"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="229"/>
         <source>BT task</source>
         <translation>Tasca de BT</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="225"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="231"/>
         <source>Magnet task</source>
         <translation>Tasca magnètica</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="227"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="233"/>
         <source>Network detection</source>
         <translation>Detecció de la xarxa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="232"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="238"/>
         <source>Pass</source>
         <translation>Pas</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="232"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="238"/>
         <source>Failed</source>
         <translation>Ha fallat</translation>
     </message>
@@ -275,12 +258,12 @@
 <context>
     <name>DiagnosticTool</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="71"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="77"/>
         <source>Result:</source>
         <translation>Resultat:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="74"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="80"/>
         <source>Diagnose Again</source>
         <translation>Torna a diagnosticar</translation>
     </message>
@@ -336,7 +319,7 @@ i no implica la privadesa de l’usuari.</translation>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="223"/>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="238"/>
         <source>The end time must be greater than the start time</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;hora d&apos;acabament ha de ser posterior a l&apos;hora d&apos;inici.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="257"/>
@@ -365,39 +348,39 @@ i no implica la privadesa de l’usuari.</translation>
 <context>
     <name>HttpAdvancedSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="36"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
         <source>Edit File Extensions</source>
         <translation>Edita les extensions dels fitxers</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="43"/>
         <source>Edit Unmonitored Sites</source>
         <translation>Edita els llocs no monitorats</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="53"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="59"/>
         <source>Restore</source>
         <translation>Restaura</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="62"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="69"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="67"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="75"/>
         <source>Confirm</source>
         <translation>Confirmeu-ho</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="95"/>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="99"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="104"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="108"/>
         <source>Separate file extensions by semicolons (;)</source>
         <translation>Separeu les extensions de fitxers amb punt i coma (;).</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="105"/>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="109"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="114"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="118"/>
         <source>Please enter one URL per line</source>
         <translation>Si us plau, escriviu un URL per línia.</translation>
     </message>
@@ -446,228 +429,228 @@ i no implica la privadesa de l’usuari.</translation>
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="127"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
         <source>Settings</source>
         <translation>Configuració</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="132"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="310"/>
         <source>When completed</source>
         <translation>Quan s&apos;acabi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
         <source>Shut down</source>
         <translation>Atura&apos;t</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
         <source>Hibernate</source>
         <translation>Hiberna</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="310"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="543"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="314"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="547"/>
         <source>Exit</source>
         <translation>Surt</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="146"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
         <source>Diagnostic tool</source>
         <translation>Eina de diagnosi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="198"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="202"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="903"/>
         <source>No download tasks</source>
         <translation>No hi ha tasques de baixada.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="210"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="214"/>
         <source>Click + to create new task</source>
         <translation>Cliqueu a + per crear una tasca nova.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="226"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="230"/>
         <source>0 tasks</source>
         <translation>0 tasques</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="258"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="846"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="873"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="262"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="848"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="875"/>
         <source>Downloading</source>
         <translation>Es baixa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="260"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="264"/>
         <source>Completed</source>
         <translation>Completat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="262"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="266"/>
         <source>Trash</source>
         <translation>Paperera</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
         <source>Downloader</source>
         <translation>Descarregador</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
         <source>Show main window</source>
         <translation>Mostra la finestra principal</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="307"/>
         <source>New task</source>
         <translation>Tasca nova</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="308"/>
         <source>Resume all</source>
         <translation>Reprèn-ho tot</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="309"/>
         <source>Pause all</source>
         <translation>Interromp-ho tot</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="542"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="546"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>Segur que en voleu sortir?
 S&apos;interrompran les tasques de baixada.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="543"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="547"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="690"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="694"/>
         <source> files</source>
         <translation>fitxers</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="846"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="873"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="848"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="875"/>
         <source>Downloading %1...</source>
         <translation>Es baixa %1...</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="898"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="900"/>
         <source>No finished tasks</source>
         <translation>No hi ha tasques acabades.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="911"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="913"/>
         <source>No deleted tasks</source>
         <translation>No hi ha tasques eliminades.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1271"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1275"/>
         <source>Resume</source>
         <translation>Reprèn</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1277"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1281"/>
         <source>Pause</source>
         <translation>Interromp</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1283"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1296"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1287"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1300"/>
         <source>Download first</source>
         <translation>Baixa primer</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1303"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1318"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1307"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1322"/>
         <source>Download again</source>
         <translation>Torna a baixar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1312"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1316"/>
         <source>Restore</source>
         <translation>Restaura</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1323"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1327"/>
         <source>Open</source>
         <translation>Obre</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1331"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1406"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1410"/>
         <source>Open folder</source>
         <translation>Obre una carpeta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1354"/>
         <source>Rename</source>
         <translation>Canvia&apos;n el nom</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1361"/>
         <source>Move to</source>
         <translation>Mou a</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1366"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1387"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1398"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1370"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1391"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Copy download link</source>
         <translation>Copia l&apos;enllaç de baixada</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1376"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1380"/>
         <source>Delete</source>
         <translation>Elimina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1381"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1385"/>
         <source>Permanently delete</source>
         <translation>Elimina permanentment</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1413"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1417"/>
         <source>Delete all</source>
         <translation>Elimina-ho tot</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1572"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1899"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1576"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1906"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1794"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1798"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>S&apos;ha assolit el nombre màxim de tasques concurrents. La resta es posarà a la cua.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1899"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1906"/>
         <source>Unable to parse the URL, please check</source>
         <translation>No s&apos;ha pogut analitzar l&apos;URL. Comproveu-ho.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2296"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2310"/>
         <source>Copied to clipboard</source>
         <translation>S&apos;ha copiat al porta-retalls.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2610"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2624"/>
         <source>View</source>
         <translation>Vista</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2634"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2648"/>
         <source>Torrent file not exist or broken</source>
         <translation>El fitxer torrent no existeix o està malmès.</translation>
     </message>
@@ -675,138 +658,138 @@ S&apos;interrompran les tasques de baixada.</translation>
 <context>
     <name>MessageBox</name>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="42"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="112"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="43"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Warning</source>
         <translation>Avís</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="80"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="103"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="122"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="81"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="104"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Download Again</source>
         <translation>Torna a baixar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="81"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="82"/>
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation>Voleu eliminar els fitxers baixats i tornar a començar la baixada?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="83"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>The task already exists.</source>
         <translation>La tasca ja existeix.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="85"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="86"/>
         <source>Delete the downloaded files and download again?</source>
         <translation>Voleu eliminar els fitxers baixats i tornar a començar la baixada?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="98"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="253"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="311"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="327"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="99"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="254"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="312"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="328"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="101"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="155"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="173"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="189"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="102"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="156"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="190"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="114"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
         <source>Download error</source>
         <translation>Error de baixada</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="124"/>
-        <source>Delete Task</source>
-        <translation>Elimina la tasca</translation>
+        <location filename="../src/src/ui/messagebox.cpp" line="125"/>
+        <source>Delete All</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="138"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="139"/>
         <source>Are you sure you want to delete this download task permanently?</source>
         <translation>Segur que voleu eliminar aquesta tasca de baixada permanentment?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="141"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="142"/>
         <source>Local files will be deleted at the same time.</source>
         <translation>Els fitxers locals s&apos;eliminaran alhora.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
         <translation>Segur que voleu eliminar aquesta tasca de baixada?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="148"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="150"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="172"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="149"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="151"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="173"/>
         <source>Delete local files</source>
         <translation>Elimina els fitxers locals</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="158"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Permanently Delete</source>
         <translation>Elimina permanentment</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="161"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="162"/>
         <source>Delete</source>
         <translation>Elimina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="169"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
         <translation>Segur que voleu eliminar totes les tasques de la paperera?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="175"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="176"/>
         <source>Empty</source>
         <translation>Buida</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="184"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="185"/>
         <source>Please choose your action</source>
         <translation>Si us plau, trieu l&apos;acció.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Exit</source>
         <translation>Surt</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Minimize to system tray</source>
         <translation>Minimitza a la safata del sistema</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="188"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="189"/>
         <source>Do not ask again</source>
         <translation>No ho tornis a preguntar.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="190"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="191"/>
         <source>Confirm</source>
         <translation>Confirmeu-ho</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="253"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="254"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
         <translation>El nom del fitxer no pot contenir una barra invertida (\) ni una barra inclinada (/).</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="307"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="308"/>
         <source>Permission denied</source>
         <translation>Permís denegat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="309"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="310"/>
         <source>Please try another folder</source>
         <translation>Proveu una altra carpeta.</translation>
     </message>
@@ -1144,7 +1127,7 @@ S&apos;interrompran les tasques de baixada.</translation>
         <translation>Limit del nombre màxim de recursos de baixada concurrents</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="931"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="918"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
         <translation>Una memòria cau de disc més gran donarà lloc a una velocitat de baixada més alta i a un consum major de recursos.</translation>
@@ -1153,37 +1136,37 @@ and more resource consumption.</source>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="420"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="400"/>
         <source> &gt; 1 day</source>
         <translation> &gt; 1 dia</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="643"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="619"/>
         <source>Download failed</source>
         <translation>Ha fallat la baixada.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="620"/>
         <source>%1 download failed. Network error.</source>
         <translation>Ha fallat la baixada: %1. Error de xarxa.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="621"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="621"/>
         <source>View</source>
         <translation>Vista</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="625"/>
         <source>Download completed</source>
         <translation>Baixada completa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="626"/>
         <source>%1 download finished</source>
         <translation>Baixada acabada: %1</translation>
     </message>
@@ -1191,30 +1174,30 @@ and more resource consumption.</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="431"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="430"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="433"/>
         <source>Size</source>
         <translation>Mida</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="438"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="447"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="437"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="446"/>
         <source>Status</source>
         <translation>Estat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="440"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="449"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="439"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="448"/>
         <source>Time finished</source>
         <translation>Hora d&apos;acabament</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="442"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="451"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="441"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="450"/>
         <source>Time deleted</source>
         <translation>Hora d&apos;eliminació</translation>
     </message>
@@ -1222,9 +1205,37 @@ and more resource consumption.</source>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="222"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="205"/>
         <source>Duplicate name</source>
         <translation>Duplicació del nom</translation>
+    </message>
+</context>
+<context>
+    <name>TaskModel</name>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="116"/>
+        <source>Name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="120"/>
+        <source>Type</source>
+        <translation>Tipus</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="122"/>
+        <source>Size</source>
+        <translation>Mida</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="124"/>
+        <source>long</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="126"/>
+        <source>url</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
