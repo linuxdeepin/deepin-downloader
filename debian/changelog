@@ -1,3 +1,9 @@
+downloadmanager (5.3.18) stable; urgency=low
+
+  * 添加帮助手册的安装
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 29 Mar 2021 11:30:41 +0800
+
 downloadmanager (5.3.17) stable; urgency=low
 
   * 包里添加下载器的可执行程序
