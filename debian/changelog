@@ -1,3 +1,9 @@
+downloadmanager (5.3.19) stable; urgency=low
+
+  * 修改帮助手册安装脚本
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 29 Mar 2021 14:09:50 +0800
+
 downloadmanager (5.3.18) stable; urgency=low
 
   * 添加帮助手册的安装

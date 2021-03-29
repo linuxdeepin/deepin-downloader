@@ -1,6 +1,6 @@
 /usr/bin/downloader
 translations/*.qm /usr/share/downloader/translations
-assets/downloader/* /usr/share/deepin-manual/manual-assets/application/
+assets/* /usr/share/deepin-manual/manual-assets/application/
 desktop/downloader.desktop /usr/share/applications
 data/downloader.db /usr/share/downloader/database
 data/downloader.svg /usr/share/icons/hicolor/scalable/apps
