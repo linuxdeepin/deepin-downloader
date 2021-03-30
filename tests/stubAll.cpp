@@ -1,4 +1,5 @@
 #include "stubAll.h"
+#include "DRadioButton"
 
 QAction *QmenuExec(const QPoint &pos)
 {
@@ -107,4 +108,9 @@ void SearchResoultWidgetHide()
 bool Aria2RPCInterfaceForceShutdown(QString id)
 {
     return true;
+}
+
+QObject *mockSender()
+{
+    return new DRadioButton();
 }

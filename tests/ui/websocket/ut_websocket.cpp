@@ -54,6 +54,44 @@ TEST_F(ut_websocket, WebSocketClientWrapper)
     delete soc;
 }
 
+TEST_F(ut_websocket, erroOpenDb)
+{
+    TaskInfo task;
+    TaskStatus taskStatus;
+    TaskInfoHash taskInfoHash;
+    QList<TaskInfo> taskList;
+    QList<TaskStatus> taskStatusList;
+    QList<TaskInfoHash> taskInfoHashList;
+    bool ret = true;
+    DataBase::Instance().m_db = QSqlDatabase::addDatabase("QSQ23LITE");
+    DBInstance::addTask(task);
+    DBInstance::delTask(task.taskId);
+    DBInstance::delAllTask();
+    DBInstance::updateTaskInfoByID(task);
+    DBInstance::updateAllTaskInfo(taskList);
+    DBInstance::getTaskByID("11", task);
+    DBInstance::getAllTask(taskList);
+    DBInstance::isExistUrl("11",ret);
+    DBInstance::addTaskStatus(taskStatus);
+    DBInstance::updateTaskStatusById(taskStatus);
+    DBInstance::updateAllTaskStatus(taskStatusList);
+    DBInstance::getTaskStatusById("11", taskStatus);
+    DBInstance::getAllTaskStatus(taskStatusList);
+    DBInstance::addBtTask(taskInfoHash);
+    DBInstance::updateBtTaskById(taskInfoHash);
+    DBInstance::getBtTaskById("11", taskInfoHash);
+    DBInstance::getAllBtTask(taskInfoHashList);
+    DBInstance::getSameNameCount("11","11");
+    DBInstance::isExistBtInHash("11", ret);
+    DBInstance::getTaskForUrl("11", task);
+
+    DataBase::Instance().m_db = QSqlDatabase::addDatabase("QSQLITE");
+    DBInstance::addTask(task);
+
+    DataBase::Instance().destory();
+}
+
+
 TEST_F(ut_websocket, notOpenDb)
 {
     TaskInfo task;

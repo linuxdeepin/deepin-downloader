@@ -51,6 +51,11 @@ TEST_F(ut_Log, CheckLogTime)
 {
     CheckLogTime();
     EXPECT_TRUE(true);
+
+    Stub stub;
+    stub.set(ADDR(QDateTime, daysTo), UrlThreadGet405);
+
+    CheckLogTime();
 }
 
 TEST_F(ut_Log, CreateNewLog)
@@ -65,6 +70,11 @@ TEST_F(ut_Log, CheckRotateSize)
 {
     CheckRotateSize();
     EXPECT_TRUE(true);
+
+    Stub stub;
+    stub.set(ADDR(QDateTime, daysTo), UrlThreadGet405);
+
+    CheckLogTime();
 }
 
 TEST_F(ut_Log, setLogLevel)
@@ -79,54 +89,55 @@ TEST_F(ut_Log, CheckFreeDisk)
     EXPECT_TRUE(true);
 }
 
-/**
- *@brief 设置日志目录
- *@param dir 目录地址
- *@return
- */
-void setLogDir(const QString &dir);
 
-/**
- *@brief 检查磁盘空间是否大于10MB
- *@param
- *@return
- */
-void CheckFreeDisk();
+///**
+// *@brief 设置日志目录
+// *@param dir 目录地址
+// *@return
+// */
+//void setLogDir(const QString &dir);
 
-/**
- *@brief 检查日志时间是否大于7天
- *@param
- *@return
- */
-void CheckLogTime();
+///**
+// *@brief 检查磁盘空间是否大于10MB
+// *@param
+// *@return
+// */
+//void CheckFreeDisk();
 
-/**
- *@brief 创建新的日志
- *@param
- *@return
- */
-void CreateNewLog();
+///**
+// *@brief 检查日志时间是否大于7天
+// *@param
+// *@return
+// */
+//void CheckLogTime();
 
-/**
- *@brief 检查磁盘大小
- *@param
- *@return
- */
-bool CheckRotateSize();
+///**
+// *@brief 创建新的日志
+// *@param
+// *@return
+// */
+//void CreateNewLog();
 
-/**
- *@brief 设置日志路径
- *@param path 路径地址
- *@return
- */
-void setLogPath(const QString &path);
+///**
+// *@brief 检查磁盘大小
+// *@param
+// *@return
+// */
+//bool CheckRotateSize();
 
-/**
- *@brief 设置日志级别
- *@param level QtDebugMsg;QtWarningMsg;QtCriticalMsg;QtFatalMsg;
- *@return
- */
-void setLogLevel(int level);
+///**
+// *@brief 设置日志路径
+// *@param path 路径地址
+// *@return
+// */
+//void setLogPath(const QString &path);
+
+///**
+// *@brief 设置日志级别
+// *@param level QtDebugMsg;QtWarningMsg;QtCriticalMsg;QtFatalMsg;
+// *@return
+// */
+//void setLogLevel(int level);
 
 /**
  *@brief 用户日志信息
