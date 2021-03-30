@@ -368,7 +368,7 @@ function QObject(name, data, webChannel)
 
     }
 
-    
+
 
     data.methods.forEach(addMethod);
 
@@ -398,21 +398,13 @@ var downloadFlag = false;
 var downloadItem;
 var downloadId;
 var socketIsOpen = false;
-//var core;
+var downloadTable;
+var isSelfCreate = false;
 
 function main() {
-    chrome.downloads.setShelfEnabled(false);
-//    chrome.downloads.onCreated.addListener(function(item) {
-//        onItemCreated(item);
-//      });
-    chrome.downloads.onDeterminingFilename.addListener(function(item) {
-        onItemCreated(item);
-      })
-    chrome.downloads.onChanged.addListener(onChanged);
-
-    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 
     socket  = new WebSocket("ws://localhost:12345");
+
     socket.onopen = function() {
         socketIsOpen = true;
         onSocketOpen();
@@ -424,15 +416,58 @@ function main() {
         socketIsOpen = false;
         console.log("websocket close")
     }
+
     addContextMenu ("downloader", "使用下载器下载");
+
+
+    chrome.tabs.onCreated.addListener(function(item) {
+        console.log("chrome.tabs.onCreated")
+        console.log(item)
+    })
+
+    chrome.downloads.setShelfEnabled(false);
+    chrome.downloads.onCreated.addListener(function(item) {
+        if(!isSelfCreate) {
+             
+            console.log("button Created")
+            chrome.downloads.cancel(item.id),
+            chrome.downloads.erase({
+                id: item.id
+            }, function(item) {}),
+            item.url !== item.referrer && ("about:blank" === item.url ? chrome.tabs.getSelected(null, function(tab) {
+                downloadTable = tab
+                console.log("tab:")
+                console.log(tab)
+                tab && "" === tab.url && chrome.tabs.remove(tab.id)
+                console.log("chrome.tabs.remove")
+            }) : "" !== item.referrer && chrome.tabs.query({
+                url: item.url
+            }, function(item) {
+                console.log("tab:")
+                console.log(item)
+                item && item[0] && chrome.tabs.remove(item[0].id)
+            }))
+            downloadFlag = false;
+            setTimeout(()=>{
+                onItemCreated(item);
+            }, 0);
+            
+        } else {
+            isSelfCreate = false
+            console.log("self Created")
+        }
+      });
+
+    chrome.downloads.onChanged.addListener(onChanged);
+
+    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 }
 
 function onItemCreated(item) {
     if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
         return;
     }
-    console.log("onItemCreated : " + item.url + "           referrer: " + item.referrer)
-
+    console.log("onItemCreated")
     downloadItem = item;
     if(downloadFlag == true){
         console.log("downloadFlag true")
@@ -465,14 +500,15 @@ function reConnect() {
         console.log("reConnect send text to client")
         webChanel.objects.core.receiveText(downloadItem.url);
     }, 100);
-    
+
     socket.onerror = function() {
         console.log("websocket error")
         downloadFlag = true;
+        chrome.downloads.setShelfEnabled(true);
         chrome.downloads.download({
             url: downloadItem.url
         }, onDownload);
-        chrome.downloads.setShelfEnabled(true);
+        isSelfCreate = true
     }
     socket.onclose = function(){
         socketIsOpen = false;
@@ -489,14 +525,17 @@ function onSocketOpen() {
         channel.objects.core.sendText.connect(function(message) {
             console.log("message :" + message)
             if(message == "0"){
+                chrome.downloads.setShelfEnabled(true);
                 downloadFlag = true;
                 chrome.downloads.download({
                     url: downloadItem.url
                 }, onDownload);
-                chrome.downloads.setShelfEnabled(true);
-            } else{
-                chrome.downloads.cancel(downloadItem.id, function () {})
-                chrome.downloads.erase({ id: downloadItem.id })
+                isSelfCreate = true
+                console.log("self download")
+                if(downloadTable) {
+                    chrome.tab.create(downloadTable)
+                }
+            } else {
                 chrome.downloads.setShelfEnabled(false);
             }
         })
@@ -507,7 +546,7 @@ function onSocketOpen() {
 
 function onChanged(downloadDelta) {
     console.log("onChanged :  " + downloadDelta.url)
-    if(downloadId == downloadDelta.id) {
+    if(downloadId != downloadDelta.id) {
         chrome.downloads.setShelfEnabled(true);
         chrome.downloads.cancel(downloadDelta.id);
         chrome.downloads.erase({id: downloadDelta.id});
@@ -534,12 +573,12 @@ function onContextMenuClicked(info, tab) {
 }
 
 function onTimeout(info) {
-    
+
     console.log("setTimeout")
     var soc  = new WebSocket("ws://localhost:12345");
     soc.onopen = function() {
         new QWebChannel(soc, function(chan) {
-            chan.objects.core.receiveText(info.linkUrl);  
+            chan.objects.core.receiveText(info.linkUrl);
             //soc.close()
         })
     }
