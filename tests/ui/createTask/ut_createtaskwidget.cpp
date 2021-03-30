@@ -6,6 +6,8 @@
 #include <QNetworkReply>
 #include <QApplication>
 #include <QStandardPaths>
+#include <QPalette>
+#include <QFileInfo>
 #include "taskdelegate.h"
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
@@ -59,33 +61,66 @@ TEST_F(ut_CreateTaskWidget, init)
     DPushButton *cancel = c->findChild<DPushButton *>("cancelButton");
     BtInfoTableView *tableView = c->findChild<BtInfoTableView *>("tableView");
 
-    QTest::mouseClick(all, Qt::LeftButton);
-    QTest::qWait(50);
-    QTest::mouseClick(video, Qt::LeftButton);
-    QTest::qWait(50);
-    QTest::mouseClick(picture, Qt::LeftButton);
-    QTest::qWait(50);
-    QTest::mouseClick(audio, Qt::LeftButton);
-    QTest::qWait(50);
-    QTest::mouseClick(other, Qt::LeftButton);
-    QTest::qWait(50);
-    QTest::mouseClick(doc, Qt::LeftButton);
-    QTest::qWait(50);
-    QTest::mouseClick(zip, Qt::LeftButton);
-    QTest::qWait(50);
-    QTest::mouseClick(all, Qt::LeftButton);
-
-    QTest::qWait(1000);
-
     QTest::mouseDClick(tableView->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100, 40));
     QTest::mouseDClick(tableView->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100, 40));
     QTest::qWait(500);
     tableView->edit(tableView->model()->index(0, 1));
     DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
     //QTest::keyClicks(w->lineEdit(), "111");
-    QTest::qWait(1000);
+    c->m_sureButton = new DSuggestButton;// = new
+    c->m_checkAll = new DCheckBox;// = new
+    c->m_checkVideo = new DCheckBox;
+    c->m_checkAudio = new DCheckBox;
+    c->m_checkPicture = new DCheckBox;
+    c->m_checkOther = new DCheckBox;
+    c->m_checkDoc = new DCheckBox;
+    c->m_checkZip = new DCheckBox;
+    QTest::qWait(10);
+    c->onVideoCheck();
+    QTest::qWait(10);
+    c->onVideoCheck();
+    QTest::qWait(10);
+    c->onAudioCheck();
+    QTest::qWait(10);
+    c->onAudioCheck();
+    QTest::qWait(10);
+    c->onPictureCheck();
+    QTest::qWait(10);
+    c->onPictureCheck();
+    QTest::qWait(10);
+    c->onZipCheck();
+    QTest::qWait(10);
+    c->onZipCheck();
+    QTest::qWait(10);
+    c->onDocCheck();
+    QTest::qWait(10);
+    c->onDocCheck();
+    QTest::qWait(10);
+    c->onOtherCheck();
+    QTest::qWait(10);
+    c->onOtherCheck();
+    QTest::qWait(10);
     c->onAllCheck();
+    QTest::qWait(10);
+    c->onAllCheck();
+    QTest::qWait(10);
     // QTest::keyClick(w->lineEdit(), Qt::Key_Enter);
+
+    c->m_checkAudio->setCheckState(Qt::CheckState::Checked);
+    c->m_checkVideo->setCheckState(Qt::CheckState::Checked);
+    c->m_checkPicture->setCheckState(Qt::CheckState::Checked);
+    c->m_checkOther->setCheckState(Qt::CheckState::Checked);
+    c->m_checkDoc->setCheckState(Qt::CheckState::Checked);
+    c->m_checkZip->setCheckState(Qt::CheckState::Checked);
+    c->onAudioCheck();
+    c->onVideoCheck();
+    c->onPictureCheck();
+    c->onZipCheck();
+    c->onDocCheck();
+    c->onOtherCheck();
+    c->onAllCheck();
+
+
 
     QTest::mouseClick(cancel, Qt::LeftButton);
     delete c;
@@ -96,9 +131,8 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
 {
     Stub stub;
     stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
-    BtInfoDialog btDiag(" ", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
-    btDiag.show();
 
+    BtInfoDialog btDiag(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
 
 
     btDiag.onAllCheck();
@@ -129,6 +163,26 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
 //    QTest::mouseClick(other, Qt::LeftButton);
 //    QTest::qWait(50);
 //    QTest::mouseClick(checkAll, Qt::LeftButton);
+  //  btDiag.exec();
+    btDiag.onBtnOK();
+    EXPECT_TRUE(true);
+}
+
+TEST_F(ut_CreateTaskWidget, BtInfoDialogShow)
+{
+    Stub stub;
+    stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
+    BtInfoDialog * btDig = new BtInfoDialog(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent", " ");
+
+
+    QTimer::singleShot(1000, this, [=]() {
+       // QWidgetList w = QApplication::topLevelWidgets();
+        btDig->accept();
+    });
+
+    btDig->exec();
+    delete btDig;
+    btDig = nullptr;
     EXPECT_TRUE(true);
 }
 
@@ -206,6 +260,9 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
     view->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
 
+//    QBrush b;
+//    dlg->setHoverColor(b);
+
     QTest::qWait(1000);
     c->close();
     c = nullptr;
@@ -227,24 +284,6 @@ TEST_F(ut_CreateTaskWidget, isVideo)
     c->isVideo("11.mp4");
 }
 
-//TEST_F(ut_CreateTaskWidget, okBtnSizeError)
-//{
-//    CreateTaskWidget *c = new CreateTaskWidget;
-//    c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
-//    QTest::qWait(1000);
-
-//    Stub stub;
-//    stub.set(ADDR(CreateTaskWidget, formatSpeed), CreatetaskwidgetFormatspeed);
-
-//    typedef int (*fptr)(CreateTaskWidget*);
-//    fptr foo = (fptr)(&MessageBox::exec);
-//    stub.set(foo, MessageboxExec);
-//    //stub.set((int(MessageBox::*)())ADDR(MessageBox, exec), MessageBox_exec);
-//    c->onSureBtnClicked();
-//    //EXPECT_STREQ(c->m_model->data(c->m_model->index(0, 0)).toString().toStdString().c_str() , std::string("1").c_str()) << "解析出数据，复选框为可选状态";
-//    c = nullptr;
-//    delete c;
-//}
 
 TEST_F(ut_CreateTaskWidget, UrlThreadStart)
 {
@@ -330,17 +369,6 @@ TEST_F(ut_CreateTaskWidget, tableView2)
     table->leaveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
 }
 
-TEST_F(ut_CreateTaskWidget, TaskDelegateInit)
-{
-//    DDialog *dialog = new DDialog;
-//    TaskDelegate *dlg = new TaskDelegate(dialog);
-//    const QModelIndex model;
-//    //dlg->onDoubleClicked(model);
-//    QPainter *painter = new QPainter;
-//    QStyleOptionViewItem option;
-//    const QModelIndex index;
-//    dlg->paint(painter, option, index);
-}
 
 TEST_F(ut_CreateTaskWidget, tableView3)
 {
@@ -353,17 +381,6 @@ TEST_F(ut_CreateTaskWidget, tableView4)
     BtInfoTableView *table = new BtInfoTableView();
     const QModelIndex model;
     table->onDoubleClicked(model);
-}
-
-TEST_F(ut_CreateTaskWidget, BtInfoDelegateInit)
-{
-    DDialog *dialog = new DDialog;
-//    BtInfoDelegate * dlg = new BtInfoDelegate(dialog);
-//    QPainter *painter = new QPainter;
-//    QStyleOptionViewItem option;
-//    const QModelIndex index;
-//    dlg->paint(painter, option, index);
-//    dlg->onhoverChanged(index);
 }
 
 
@@ -427,7 +444,7 @@ TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
     void * v;
     c->ftpSize(v,1,1,v);
     QString name;
-    QString type;
+    QString type = "";
     c->getUrlToName("http://www.metalinker.org/samples/boinc_5.8.16_windows_intelx86.exe.metalink",name,type);
     c->getUrlToName("magnet:?xt=urn:btih:0FC4D73CCC9E6AC29A1B10DDCC3696E81D6CACAF",name,type);
     c->getUrlToName("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4.metalink.torrent",name,type);
@@ -442,16 +459,25 @@ TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
     c->setUrl("magnet:?xt=urn:btih:0FC4D73CCC9E6AC29A1B10DDCC3696E81D6CACAF");
     c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4.metalink.torrent");
 
+   c->isFtp("ftp://11.txt");
+   c->isFtp("222");
+   c->isHttp("1111");
 
-    c->isFtp("ftp://11.txt");
+}
 
-
-
-//    QDragEnterEvent(const QPoint &pos, Qt::DropActions actions, const QMimeData *data,
-//                    Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers);
- //   QPoint p(10,10);
- //   QClipboard a = QApplication::clipboard();//->mimeData();
- //   QDragEnterEvent * e = new QDragEnterEvent(p,Qt::DropActions,QMimeData(),Qt::Mou );
-//    c.dragEnterEvent();
+TEST_F(ut_CreateTaskWidget, AnalysisUrl)
+{
+    AnalysisUrl *a = new AnalysisUrl;    QMap<QString, LinkInfo> list;
+    LinkInfo l;
+    list.insert("http://www.metalinker.org/samples/boinc_5.8.16_windows_intelx86.exe.metalink",l);
+    a->m_curAllUrl.insert("http://www.metalin", l);
+    a->setUrlList(list);
+    a->getTrueLinkInfo(l);
+    QThread *t = new QThread;
+    UrlThread *u = new UrlThread;
+    a->m_workThread.insert(1,t);
+    a->m_urlThread.insert(1,u);
+    delete a;
+    a = nullptr;
 
 }

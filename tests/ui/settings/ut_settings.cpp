@@ -17,6 +17,7 @@
 #include "stub.h"
 #include "stubAll.h"
 #include "dbinstance.h"
+#include "settinginfoinputwidget.h"
 
 class ut_Settings : public ::testing::Test
     , public QObject
@@ -378,6 +379,23 @@ TEST_F(ut_Settings, DownloadSettingWidget)
 {
     DownloadSettingWidget *pWidget = new DownloadSettingWidget;
     pWidget->onRadioButtonClicked();
+
+
+    pWidget->m_fullSpeedDownloadButton = new DRadioButton;
+   // pWidget->m_speedLimitDownloadButton = new DRadioButton;
+    pWidget->m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
+    pWidget->m_maxUploadSpeedLimit = new SettingInfoInputWidget;
+    pWidget->m_startTimeEdit = new CTimeEdit;
+    pWidget->m_endTimeEdit = new CTimeEdit;
+    pWidget->onRadioButtonClicked();
+
+    //pWidget->m_fullSpeedDownloadButton = new DRadioButton;
+    pWidget->m_speedLimitDownloadButton = new DRadioButton;
+    pWidget->m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
+    pWidget->m_maxUploadSpeedLimit = new SettingInfoInputWidget;
+    pWidget->m_startTimeEdit = new CTimeEdit;
+    pWidget->m_endTimeEdit = new CTimeEdit;
+    pWidget->onRadioButtonClicked();
 }
 
 TEST_F(ut_Settings, DownloadSettingWidget1)
@@ -523,3 +541,27 @@ TEST_F(ut_Settings, clearAllTask)
 {
     DBInstance::delAllTask();
 }
+
+TEST_F(ut_Settings, DiagnosticTool)
+{
+    DiagnosticTool *d = new DiagnosticTool;
+
+
+    d->startDiagnostic();
+    DiagnosticModel model;
+    model.m_DiagnosticStatusList.clear();
+    model.rowCount();
+    model.columnCount();
+    QModelIndex index;
+    index.r = 2;
+    model.data(index, Qt::TextColorRole);
+    model.data(index, 123);
+    QTimer::singleShot(40000, this, [=]() {
+       // QWidgetList w = QApplication::topLevelWidgets();
+        d->accept();
+    });
+    d->exec();
+
+
+}
+

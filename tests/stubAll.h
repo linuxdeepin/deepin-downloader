@@ -9,6 +9,8 @@
 #include <QCursor>
 #include <QAction>
 #include <QFileDialog>
+#include <dtkwidget_global.h>
+DWIDGET_USE_NAMESPACE
 
 void QthreadpoolStart(QRunnable *runnable, int priority = 0);
 
@@ -55,4 +57,8 @@ void TableDataControlAutoDownloadBt(QString btFilePath);
 void SearchResoultWidgetHide();
 
 bool Aria2RPCInterfaceForceShutdown(QString id = "");
+
+QObject *mockSender();
+
+
 #endif // STUBALLTHREAD_H
