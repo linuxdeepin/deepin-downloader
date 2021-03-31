@@ -765,8 +765,9 @@ void MainFrame::setPaletteType()
 
 void MainFrame::onSettingsMenuClicked()
 {
-    DSettingsDialog settingsDialog;
+    DSettingsDialog settingsDialog(this);
     settingsDialog.setAccessibleName("DSettingsDialog");
+    settingsDialog.setObjectName("DSettingsDialog");
 
     settingsDialog.widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
     settingsDialog.widgetFactory()->registerWidget("httpdownload", Settings::createHttpDownloadEditHandle);

@@ -1,5 +1,4 @@
 #include "stubAll.h"
-#include "DRadioButton"
 
 QAction *QmenuExec(const QPoint &pos)
 {
@@ -110,7 +109,20 @@ bool Aria2RPCInterfaceForceShutdown(QString id)
     return true;
 }
 
-QObject *mockSender()
+
+DRadioButton *mockSender()
 {
-    return new DRadioButton();
+    static DRadioButton *rad = new DRadioButton;
+    return rad;
+}
+
+CTimeEdit *mockSenderTime()
+{
+    static CTimeEdit *time = new CTimeEdit;
+    return time;
+}
+
+void mockShowAlertMessage(const QString &text, QWidget *follower, int duration)
+{
+
 }

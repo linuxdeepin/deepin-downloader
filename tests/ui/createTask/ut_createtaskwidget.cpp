@@ -63,7 +63,7 @@ TEST_F(ut_CreateTaskWidget, init)
 
     QTest::mouseDClick(tableView->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100, 40));
     QTest::mouseDClick(tableView->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(100, 40));
-    QTest::qWait(500);
+    QTest::qWait(100);
     tableView->edit(tableView->model()->index(0, 1));
     DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
     //QTest::keyClicks(w->lineEdit(), "111");
@@ -75,36 +75,20 @@ TEST_F(ut_CreateTaskWidget, init)
     c->m_checkOther = new DCheckBox;
     c->m_checkDoc = new DCheckBox;
     c->m_checkZip = new DCheckBox;
-    QTest::qWait(10);
     c->onVideoCheck();
-    QTest::qWait(10);
     c->onVideoCheck();
-    QTest::qWait(10);
     c->onAudioCheck();
-    QTest::qWait(10);
     c->onAudioCheck();
-    QTest::qWait(10);
     c->onPictureCheck();
-    QTest::qWait(10);
     c->onPictureCheck();
-    QTest::qWait(10);
     c->onZipCheck();
-    QTest::qWait(10);
     c->onZipCheck();
-    QTest::qWait(10);
     c->onDocCheck();
-    QTest::qWait(10);
     c->onDocCheck();
-    QTest::qWait(10);
     c->onOtherCheck();
-    QTest::qWait(10);
     c->onOtherCheck();
-    QTest::qWait(10);
     c->onAllCheck();
-    QTest::qWait(10);
     c->onAllCheck();
-    QTest::qWait(10);
-    // QTest::keyClick(w->lineEdit(), Qt::Key_Enter);
 
     c->m_checkAudio->setCheckState(Qt::CheckState::Checked);
     c->m_checkVideo->setCheckState(Qt::CheckState::Checked);
@@ -152,18 +136,6 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
     DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
     DPushButton *checkAll = btDiag.findChild<DPushButton *>("checkAll");
 
-//    QTest::mouseClick(checkAll, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(video, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(picture, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(audio, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(other, Qt::LeftButton);
-//    QTest::qWait(50);
-//    QTest::mouseClick(checkAll, Qt::LeftButton);
-  //  btDiag.exec();
     btDiag.onBtnOK();
     EXPECT_TRUE(true);
 }
@@ -206,7 +178,7 @@ TEST_F(ut_CreateTaskWidget, falseUrlBtnStatus)
 {
     CreateTaskWidget *c = new CreateTaskWidget;
     c->setUrl("https://img.tukuppt.com/video_show/09big.mp4");
-    QTest::qWait(1000);
+    QTest::qWait(100);
     EXPECT_FALSE(c->m_sureButton->isEnabled()) << "输入错误链接，按钮设不可选";
     c = nullptr;
     delete c;
@@ -233,7 +205,7 @@ TEST_F(ut_CreateTaskWidget, falseUrltableStatus)
 {
     CreateTaskWidget *c = new CreateTaskWidget;
     c->setUrl("http://www.liuliangshua.cn/jingyanjiaol.html");
-    QTest::qWait(1000);
+    QTest::qWait(100);
     //EXPECT_STREQ(c->m_model->data(c->m_model->index(0, 0)).toString().toStdString().c_str(), std::string("0").c_str()) << "未能解析出数据，复选框为不可选状态";
     c = nullptr;
     delete c;
@@ -246,7 +218,7 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     c->hideTableWidget();
     c->showTableWidget();
     c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
-    QTest::qWait(1000);
+    QTest::qWait(500);
    // bool ret = (c->m_model->data(c->m_model->index(0, 0)).toString() == 1);
     EXPECT_TRUE(true) << "解析出数据，复选框为可选状态";
 
@@ -263,7 +235,7 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
 //    QBrush b;
 //    dlg->setHoverColor(b);
 
-    QTest::qWait(1000);
+    QTest::qWait(100);
     c->close();
     c = nullptr;
     delete c;

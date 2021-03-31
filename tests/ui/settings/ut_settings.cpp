@@ -18,6 +18,7 @@
 #include "stubAll.h"
 #include "dbinstance.h"
 #include "settinginfoinputwidget.h"
+#include "dalertcontrol.h"
 
 class ut_Settings : public ::testing::Test
     , public QObject
@@ -274,7 +275,8 @@ TEST_F(ut_Settings, getCustomFilePath)
 
 TEST_F(ut_Settings, getIsShowTip)
 {
-    EXPECT_TRUE(Settings::getInstance()->getIsShowTip());
+    Settings::getInstance()->getIsShowTip();
+    EXPECT_TRUE(true);
     QTest::qWait(50);
 }
 
@@ -378,25 +380,74 @@ TEST_F(ut_Settings, DiagnosticModel4)
 TEST_F(ut_Settings, DownloadSettingWidget)
 {
     DownloadSettingWidget *pWidget = new DownloadSettingWidget;
+
+    typedef int (*fptr)(DownloadSettingWidget *);
+    fptr foo = (fptr)(&QObject::sender);
+    Stub stub;
+    stub.set(foo, mockSender);
+
+
     pWidget->onRadioButtonClicked();
 
+
+   // pWidget->m_fullSpeedDownloadButton  = new DRadioButton;
+    delete pWidget->m_fullSpeedDownloadButton;
+    pWidget->m_fullSpeedDownloadButton = nullptr;
+    pWidget->m_fullSpeedDownloadButton = mockSender();
+    pWidget->onRadioButtonClicked();
 
     pWidget->m_fullSpeedDownloadButton = new DRadioButton;
-   // pWidget->m_speedLimitDownloadButton = new DRadioButton;
-    pWidget->m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
-    pWidget->m_maxUploadSpeedLimit = new SettingInfoInputWidget;
-    pWidget->m_startTimeEdit = new CTimeEdit;
-    pWidget->m_endTimeEdit = new CTimeEdit;
+    delete pWidget->m_speedLimitDownloadButton;
+    pWidget->m_speedLimitDownloadButton = nullptr;
+    pWidget->m_speedLimitDownloadButton = mockSender();
     pWidget->onRadioButtonClicked();
 
-    //pWidget->m_fullSpeedDownloadButton = new DRadioButton;
-    pWidget->m_speedLimitDownloadButton = new DRadioButton;
-    pWidget->m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
-    pWidget->m_maxUploadSpeedLimit = new SettingInfoInputWidget;
-    pWidget->m_startTimeEdit = new CTimeEdit;
-    pWidget->m_endTimeEdit = new CTimeEdit;
-    pWidget->onRadioButtonClicked();
+    pWidget->m_speedLimitDownloadButton->setCheckable(false);
+    pWidget->onTimeChanged("22");
 }
+
+TEST_F(ut_Settings, DownloadSettingWidget5)
+{
+    DownloadSettingWidget *pWidget = new DownloadSettingWidget;
+
+    typedef int (*fptr)(DownloadSettingWidget *);
+    fptr foo = (fptr)(&QObject::sender);
+    Stub stub;
+    stub.set(foo, mockSenderTime);
+    delete pWidget->m_startTimeEdit;
+    pWidget->m_startTimeEdit = nullptr;
+
+    pWidget->m_startTimeEdit = mockSenderTime() ;
+    pWidget->m_startTimeEdit->dLineEdit()->parentWidget()->parentWidget();
+    pWidget->onTimeChanged("1");
+   // pWidget->onTimeChanged("9999999999999999999999999999");
+
+    pWidget->m_startTimeEdit = new CTimeEdit;
+    delete pWidget->m_endTimeEdit;
+    pWidget->m_endTimeEdit = nullptr;
+    pWidget->m_endTimeEdit = mockSenderTime();
+    pWidget->onTimeChanged("1");
+  //  pWidget->onTimeChanged("9999999999999999999999999999");
+}
+
+TEST_F(ut_Settings, DiagnosticTool)
+{
+    DiagnosticTool *d = new DiagnosticTool;
+    d->startDiagnostic();
+    DiagnosticModel model;
+    model.m_DiagnosticStatusList.clear();
+    model.rowCount();
+    model.columnCount();
+    QModelIndex index;
+    index.r = 2;
+    model.data(index, Qt::TextColorRole);
+    model.data(index, 123);
+    QTimer::singleShot(7000, this, [=]() {
+        d->close();
+    });
+    d->exec();
+}
+
 
 TEST_F(ut_Settings, DownloadSettingWidget1)
 {
@@ -542,26 +593,4 @@ TEST_F(ut_Settings, clearAllTask)
     DBInstance::delAllTask();
 }
 
-TEST_F(ut_Settings, DiagnosticTool)
-{
-    DiagnosticTool *d = new DiagnosticTool;
-
-
-    d->startDiagnostic();
-    DiagnosticModel model;
-    model.m_DiagnosticStatusList.clear();
-    model.rowCount();
-    model.columnCount();
-    QModelIndex index;
-    index.r = 2;
-    model.data(index, Qt::TextColorRole);
-    model.data(index, 123);
-    QTimer::singleShot(40000, this, [=]() {
-       // QWidgetList w = QApplication::topLevelWidgets();
-        d->accept();
-    });
-    d->exec();
-
-
-}
 

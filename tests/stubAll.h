@@ -10,7 +10,10 @@
 #include <QAction>
 #include <QFileDialog>
 #include <dtkwidget_global.h>
+#include "DRadioButton"
+#include "timeEdit.h"
 DWIDGET_USE_NAMESPACE
+
 
 void QthreadpoolStart(QRunnable *runnable, int priority = 0);
 
@@ -58,7 +61,11 @@ void SearchResoultWidgetHide();
 
 bool Aria2RPCInterfaceForceShutdown(QString id = "");
 
-QObject *mockSender();
+DRadioButton *mockSender();
+
+CTimeEdit *mockSenderTime();
+
+void mockShowAlertMessage(const QString &text, QWidget *follower, int duration = 3000);
 
 
 #endif // STUBALLTHREAD_H
