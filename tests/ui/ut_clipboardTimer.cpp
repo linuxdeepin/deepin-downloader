@@ -25,6 +25,7 @@ TEST_F(ut_clipboardTimer, checkClipboardHasUrl)
     clipboard->setText("111111111");
     c->checkClipboardHasUrl();
     c->isMagnetFormat("111");
+    c->isMagnetFormat("magnet:?xt=urn:btih:111");
     c->isHttpFormat("111");
     c->isHttpFormat("http://111.txt");
     c->isHttpFormat("http://111.tx");

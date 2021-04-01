@@ -3,6 +3,9 @@
 #include "gtest/gtest.h"
 #include "func.h"
 #include "messagebox.h"
+#include "settings.h"
+#include "stub.h"
+#include "stubAll.h"
 #include <QObject>
 #include <QPushButton>
 class ut_messageBox : public ::testing::Test
@@ -102,6 +105,7 @@ TEST_F(ut_messageBox, setDelete)
     MessageBox msg;
     msg.setDelete(true);
     msg.setDelete(false);
+    msg.setDelete(true, true);
 }
 TEST_F(ut_messageBox, onRenamelineeditChanged)
 {
@@ -128,4 +132,25 @@ TEST_F(ut_messageBox, setNetWorkError)
     MessageBox msg;
     msg.setNetWorkError("11");
 }
+
+TEST_F(ut_messageBox, addRadioGroup)
+{
+    typedef int (*fptr)(MessageBox *);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub1;
+    stub1.set(foo, MessageboxExec);
+
+
+
+    MessageBox msg;
+    Settings::getInstance()->setCloseMainWindowSelected(1);
+    msg.addRadioGroup("11","11");
+    Settings::getInstance()->setCloseMainWindowSelected(0);
+    msg.addRadioGroup("11","11");
+
+    msg.m_NewnameLineedit = new DLineEdit;
+    msg.m_NewnameLineedit->setText("ff\\ffff/ff");
+    msg.onRenameSureBtnClicked();
+}
+
 

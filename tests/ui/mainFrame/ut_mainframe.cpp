@@ -295,6 +295,10 @@ TEST_F(ut_MainFreme, rename2)
     QTest::qWait(100);
     //QTest::mouseClick(table->viewport(), Qt::RightButton, Qt::KeyboardModifiers(), rect.center());
     m->onContextMenu(rect.center());
+    auto temp = m->m_CurrentTab;
+    m->m_CurrentTab = recycleTab;
+    m->onContextMenu(rect.center());
+    m->m_CurrentTab = temp;
     QTest::qWait(2000);
 }
 
@@ -340,17 +344,35 @@ TEST_F(ut_MainFreme, pauseTask)
     model->setData(model->index(0, 0), true, TableModel::Ischecked);
     MainFrame::instance()->onPauseDownloadBtnClicked();
     QTest::qWait(100);
+
+    auto temp = MainFrame::instance()->m_CurrentTab;
+    MainFrame::instance()->m_CurrentTab = CurrentTab::downloadingTab;
+    MainFrame::instance()->onStartDownloadBtnClicked();
+    MainFrame::instance()->m_CurrentTab = temp;
+
     EXPECT_TRUE(true);
 }
 
 TEST_F(ut_MainFreme, unpauseTask)
 {
-  Stub stub;
+    Stub stub;
     stub.set(ADDR(CreateTaskWidget, showNetErrorMsg), QsystemtrayiconShow);
+
+    typedef int (*fptr)(MainFrame *);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub1;
+    stub1.set(foo, MessageboxExec);
+
+
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     MainFrame::instance()->onStartDownloadBtnClicked();
     QTest::qWait(100);
+    auto temp = MainFrame::instance()->m_CurrentTab;
+    MainFrame::instance()->m_CurrentTab = recycleTab;
+    MainFrame::instance()->onStartDownloadBtnClicked();
+    MainFrame::instance()->m_CurrentTab = temp;
+
     EXPECT_TRUE(true);
 }
 
@@ -1119,6 +1141,51 @@ TEST_F(ut_MainFreme, onTrayQuitClick2)
 {
     MainFrame::instance()->onTrayQuitClick(false);
 }
+
+TEST_F(ut_MainFreme, onMessageBoxConfirmClick)
+{
+    MainFrame::instance()->onMessageBoxConfirmClick(1);
+    MainFrame::instance()->onMessageBoxConfirmClick(0);
+}
+
+TEST_F(ut_MainFreme, onRpcError)
+{
+    QJsonObject obj;
+    MainFrame::instance()->onRpcError("", "" ,1 ,obj);
+    MainFrame::instance()->onMessageBoxConfirmClick(0);
+    MainFrame::instance()->m_CurrentTab = CurrentTab::finishTab;
+    MainFrame::instance()->onDeleteActionTriggered();
+    MainFrame::instance()->onMoveToActionTriggered();
+
+    MainFrame::instance()->m_CurrentTab = CurrentTab::recycleTab;
+    MainFrame::instance()->onDeletePermanentActionTriggered();
+    MainFrame::instance()->m_CurrentTab = CurrentTab::finishTab;
+    MainFrame::instance()->onDeletePermanentActionTriggered();
+    MainFrame::instance()->onPowerOnChanged(true);
+    MainFrame::instance()->onPowerOnChanged(false);
+
+    QTime *s = new QTime;
+    QTime *e = new QTime;
+    s->setHMS(0,0,0);
+    e->setHMS(1,1,1);
+    MainFrame::instance()->checkTime(s,s);
+    MainFrame::instance()->checkTime(s,e);
+
+    MainFrame::instance()->onIsMetalinkDownload(true);
+    MainFrame::instance()->Raise();
+    MainFrame::instance()->deleteTaskByUrl("");
+    DeleteDataItem *pItem = nullptr;
+    MainFrame::instance()->deleteTask(pItem);
+    DeleteDataItem *pItem1 = new DeleteDataItem;
+    pItem1->savePath = "~";
+    MainFrame::instance()->deleteTask(pItem1);
+    DownloadDataItem *pItem2 = new DownloadDataItem;
+    pItem2->savePath = "~";
+    MainFrame::instance()->deleteTask(pItem1);
+    MainFrame::instance()->checkIsHasSameTask("");
+
+}
+
 
 TEST_F(ut_MainFreme, clearAllTask)
 {

@@ -8,6 +8,7 @@
 #include <QStandardPaths>
 #include <QPalette>
 #include <QFileInfo>
+#include <QMimeData>
 #include "taskdelegate.h"
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
@@ -451,5 +452,21 @@ TEST_F(ut_CreateTaskWidget, AnalysisUrl)
     a->m_urlThread.insert(1,u);
     delete a;
     a = nullptr;
+}
+
+TEST_F(ut_CreateTaskWidget, AnalysisUrl1)
+{
+    CreateTaskWidget * c = new CreateTaskWidget;
+    c->m_analysisUrl = new AnalysisUrl;
+    c->onCancelBtnClicked();
+
+    QPoint p;
+    const QMimeData *d = new QMimeData;
+    QDragEnterEvent *event = new QDragEnterEvent(p,Qt::LinkAction,d,Qt::MouseButton::LeftButton,Qt::KeyboardModifier::NoModifier);
+//    QTest::mouseEvent(MouseAction)
+    c->dropEvent(event);
+
 
 }
+
+

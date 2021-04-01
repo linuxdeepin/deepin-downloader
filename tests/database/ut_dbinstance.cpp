@@ -73,7 +73,7 @@ TEST_F(ut_dbinstance, delTask)
     EXPECT_TRUE(true) << "空数据删除";
 
     ret = DBInstance::delTask(m_taskInfo.taskId);
-    EXPECT_TRUE(true) << "有数据插入";
+    EXPECT_TRUE(true) << "有数据删除";
 }
 
 TEST_F(ut_dbinstance, updateTaskInfoByID)
@@ -109,6 +109,7 @@ TEST_F(ut_dbinstance, getTaskByID)
     TaskInfo taskInfo;
     bool ret = DBInstance::getTaskByID("78d8db55-10c2-4200-b097-253120d7", taskInfo);
     EXPECT_TRUE(true) << "获取一条ID不存在任务信息";
+    DBInstance::addTask(m_taskInfo);
     ret = DBInstance::getTaskByID("78d8db55-10c2-4200-b097-253120d71269", taskInfo);
     EXPECT_TRUE(true) << "获取一条ID存在任务信息";
 }
