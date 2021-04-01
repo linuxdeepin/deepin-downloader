@@ -1,5 +1,5 @@
 {"name": "__MSG_extName__",
- "version": "1.0.4",
+ "version": "1.0.6",
  "manifest_version": 2,
  "description": "__MSG_extDesc__",
  "icons": {"128": "icon128.png"},
@@ -8,7 +8,7 @@
      "19": "icon19.png",
      "38": "icon38.png"},
    "default_title": "__MSG_extName__"},
- "background": {"persistent": false, "scripts": ["background.js"]},
+ "background": {"persistent": true, "scripts": ["background.js"]},
  "default_locale": "en",
  "optional_permissions": ["management"],
  "permissions": [

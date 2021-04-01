@@ -390,8 +390,6 @@ if (typeof module === 'object') {
 
 // ----------------------------------------------------------------------
 
-main();
-
 var socket;
 var webChanel;
 var downloadFlag = false;
@@ -402,17 +400,18 @@ var downloadTable;
 var isSelfCreate = false;
 
 function main() {
-
+    console.log("main")
+    var date = new Date();
+    console.log(date);
     socket  = new WebSocket("ws://localhost:12345");
 
     socket.onopen = function() {
-        socketIsOpen = true;
         onSocketOpen();
     }
-    socket.onerror = function(){
+    socket.onerror = function() {
         console.log("websocket error")
     }
-    socket.onclose = function(){
+    socket.onclose = function() {
         socketIsOpen = false;
         console.log("websocket close")
     }
@@ -426,9 +425,13 @@ function main() {
     })
 
     chrome.downloads.setShelfEnabled(false);
+
+    chrome.downloads.onDeterminingFilename.addListener(function(item) {
+        console.log("onDeterminingFilename")
+    })
+
     chrome.downloads.onCreated.addListener(function(item) {
         if(!isSelfCreate) {
-             
             console.log("button Created")
             chrome.downloads.cancel(item.id),
             chrome.downloads.erase({
@@ -458,10 +461,12 @@ function main() {
         }
       });
 
-    chrome.downloads.onChanged.addListener(onChanged);
+    //chrome.downloads.onChanged.addListener(onChanged);
 
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 }
+
+main();
 
 function onItemCreated(item) {
     if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
@@ -522,6 +527,7 @@ function onSocketOpen() {
     new QWebChannel(socket, function(channel) {
         console.log("QWebChannel new")
         webChanel = channel;
+        socketIsOpen = true;
         channel.objects.core.sendText.connect(function(message) {
             console.log("message :" + message)
             if(message == "0"){
@@ -546,10 +552,16 @@ function onSocketOpen() {
 
 function onChanged(downloadDelta) {
     console.log("onChanged :  " + downloadDelta.url)
-    if(downloadId != downloadDelta.id) {
+    if("undefined" !=  downloadDelta.id && downloadId != downloadDelta.id) {
+        console.log("cancle and erase");
+        console.log("downloadDelta.state: ");
+        console.log(downloadDelta.state);
+        console.log("downloadDelta.id: ");
+        console.log(downloadDelta.id);
         chrome.downloads.setShelfEnabled(true);
         chrome.downloads.cancel(downloadDelta.id);
         chrome.downloads.erase({id: downloadDelta.id});
+        console.log("cancle and erase finish");
     }
 }
 
