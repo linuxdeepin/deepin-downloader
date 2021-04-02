@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fe06c7b_46495387",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-02T00:58:26Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 2; 注释率: 50.0%",
+      "revId": "5d93839529a2b03c86880214a578d8e2d2790180",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
