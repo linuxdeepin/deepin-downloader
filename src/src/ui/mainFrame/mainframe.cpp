@@ -624,7 +624,7 @@ void MainFrame::initWebsocket()
 
     m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
     if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
-        qFatal("Failed to open web socket server.");
+      //  qFatal("Failed to open web socket server.");
     }
     m_clientWrapper = new WebSocketClientWrapper(m_server);
     m_channel = new QWebChannel;
