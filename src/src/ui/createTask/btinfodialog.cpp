@@ -239,6 +239,7 @@ void BtInfoDialog::initUI()
     m_btnOK->setGeometry(160, 480, 191, 35);
     m_btnOK->setText(tr("Download Now"));
     m_btnOK->setFont(font);
+    m_btnOK->setAccessibleName("downloadNow");
     connect(m_btnOK, SIGNAL(clicked()), this, SLOT(onBtnOK()));
     //文件列表配置
     m_tableView->setShowGrid(false);

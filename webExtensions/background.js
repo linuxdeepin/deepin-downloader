@@ -471,11 +471,6 @@ function main() {
     }, {
         urls: ["<all_urls>"]
     }, ["blocking", "responseHeaders"])
-    chrome.webRequest.onBeforeSendHeaders.addListener(function(t) {
-        return onBeforeSendHeaders(t)
-    }, {
-        urls: ["<all_urls>"]
-    }, ["blocking", "requestHeaders"])
 
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 }
@@ -521,13 +516,7 @@ function reConnect() {
     }, 100);
 
     socket.onerror = function() {
-        console.log("websocket error")
-        downloadFlag = true;
-        chrome.downloads.setShelfEnabled(true);
-        chrome.downloads.download({
-            url: downloadItem.url
-        }, onDownload);
-        isSelfCreate = true
+        downloadData(downloadItem.url)
     }
     socket.onclose = function(){
         socketIsOpen = false;
@@ -545,16 +534,7 @@ function onSocketOpen() {
         channel.objects.core.sendText.connect(function(message) {
             console.log("message :" + message)
             if(message == "0"){
-                chrome.downloads.setShelfEnabled(true);
-                downloadFlag = true;
-                chrome.downloads.download({
-                    url: downloadItem.url
-                }, onDownload);
-                isSelfCreate = true
-                console.log("self download")
-                if(downloadTable) {
-                    chrome.tab.create(downloadTable)
-                }
+                downloadData(downloadItem.url)
             } else {
                 chrome.downloads.setShelfEnabled(false);
             }
@@ -562,6 +542,24 @@ function onSocketOpen() {
     })
 }
 
+function downloadData(u) {
+    console.log("redownload: " + u)
+    var c = getFileNameExt(downloadItem.fileName);
+    if (0 === c.length) {
+        var u = getUrlFileName(downloadItem.url);
+        c = getFileNameExt(u)
+    }
+    if(isSupportMediaExt(c)) {
+        console.log("FileNameExt : " + c)
+        chrome.downloads.setShelfEnabled(true);
+        downloadFlag = true;
+        chrome.downloads.download({
+            url: u
+        }, onDownload);
+        isSelfCreate = true
+        return;
+    }
+}
 
 
 function onChanged(downloadDelta) {
@@ -610,132 +608,113 @@ function onTimeout(info) {
     }
 }
 
-function onHeadersReceived(e) {
-    console.log("onHeadersReceived")
-    console.log(e.url)
+
+var MIME_TYPE_ARRAY = ["text/html", "application/vnd.lotus-1-2-3", "image/x-3ds", "video/3gpp", "video/3gpp", "video/3gpp", "video/3gpp", "application/x-t602", "audio/x-mod", "application/x-7z-compressed", "application/x-archive", "audio/mp4", "application/x-abiword", "application/x-abiword", "application/x-abiword", "audio/ac3", "application/x-ace", "text/x-adasrc", "text/x-adasrc", "application/x-font-afm", "image/x-applix-graphics", "application/illustrator", "audio/x-aiff", "audio/x-aiff", "audio/x-aiff", "application/x-perl", "application/x-alz", "audio/amr", "application/x-navi-animation", "video/x-anim", "application/annodex", "audio/x-ape", "application/x-arj", "image/x-sony-arw", "application/x-applix-spreadsheet", "text/plain", "video/x-ms-asf", "application/x-asp", "text/x-ssa", "audio/x-ms-asx", "application/atom+xml", "audio/basic", "video/x-msvideo", "application/x-applix-word", "audio/amr-wb", "application/x-awk", "audio/annodex", "video/annodex", "application/x-trash", "application/x-bcpio", "application/x-font-bdf", "text/x-bibtex", "application/x-blender", "application/x-blender", "image/bmp", "application/x-bzip", "application/x-bzip", "text/x-csrc", "text/x-c++src", "application/vnd.ms-cab-compressed", "application/x-cb7", "application/x-cbr", "application/x-cbt", "application/x-cbz", "text/x-c++src", "application/x-netcdf", "application/vnd.corel-draw", "application/x-x509-ca-cert", "application/x-x509-ca-cert", "image/cgm", "application/x-chm", "application/x-kchart", "application/x-java", "text/x-tex", "text/x-cmake", "application/x-cpio", "application/x-cpio-compressed", "text/x-c++src", "image/x-canon-cr2", "application/x-x509-ca-cert", "image/x-canon-crw", "text/x-csharp", "application/x-csh", "text/css", "text/css", "text/csv", "application/x-cue", "image/x-win-bitmap", "text/x-c++src", "text/x-dsrc", "application/x-dar", "application/x-dbf", "application/x-dc-rom", "text/x-dcl", "application/dicom", "image/x-kodak-dcr", "image/x-dds", "application/x-deb", "application/x-x509-ca-cert", "application/x-desktop", "application/x-dia-diagram", "text/x-patch", "video/x-msvideo", "image/vnd.djvu", "image/vnd.djvu", "image/x-adobe-dng", "application/msword", "application/docbook+xml", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/vnd.graphviz", "text/x-dsl", "application/xml-dtd", "text/x-tex", "video/dv", "application/x-dvi", "application/x-bzdvi", "application/x-gzdvi", "image/vnd.dwg", "image/vnd.dxf", "text/x-eiffel", "application/x-egon", "text/x-eiffel", "text/x-emacs-lisp", "image/x-emf", "application/vnd.emusic-emusic_package", "application/xml-external-parsed-entity", "image/x-eps", "image/x-bzeps", "image/x-gzeps", "image/x-eps", "image/x-bzeps", "image/x-gzeps", "image/x-eps", "image/x-bzeps", "image/x-gzeps", "application/epub+zip", "text/x-erlang", "application/ecmascript", "application/x-e-theme", "text/x-setext", "application/x-ms-dos-executable", "image/x-exr", "application/andrew-inset", "text/x-fortran", "text/x-fortran", "text/x-fortran", "application/x-fictionbook+xml", "image/x-xfig", "image/fits", "application/x-fluid", "audio/x-flac", "video/x-flic", "video/x-flic", "video/x-flv", "application/x-kivio", "text/x-xslfo", "text/x-fortran", "image/fax-g3", "application/x-gameboy-rom", "application/x-gba-rom", "text/directory", "application/x-gedcom", "application/x-gedcom", "application/x-genesis-rom", "application/x-tex-gf", "application/x-sms-rom", "image/gif", "application/x-glade", "application/x-gettext-translation", "application/x-gnucash", "application/gnunet-directory", "application/x-gnucash", "application/x-gnumeric", "application/x-gnuplot", "application/x-gnuplot", "application/pgp-encrypted", "application/x-gnuplot", "application/x-graphite", "application/x-font-type1", "audio/x-gsm", "application/x-tar", "text/vnd.graphviz", "text/x-google-video-pointer", "application/x-gzip", "text/x-chdr", "text/x-c++hdr", "application/x-hdf", "text/x-c++hdr", "text/x-c++hdr", "application/vnd.hp-hpgl", "text/x-c++hdr", "text/x-haskell", "text/html", "text/html", "application/x-hwp", "application/x-hwt", "text/x-c++hdr", "application/x-ica", "image/x-tga", "image/x-icns", "image/vnd.microsoft.icon", "text/calendar", "text/x-idl", "image/ief", "image/x-iff", "image/x-ilbm", "text/x-imelody", "text/x-imelody", "text/x-tex", "text/x-iptables", "application/x-cd-image", "application/x-cd-image", "audio/x-it", "image/jp2", "text/vnd.sun.j2me.app-descriptor", "application/x-java-archive", "text/x-java", "image/x-jng", "application/x-java-jnlp-file", "image/jp2", "image/jp2", "image/jp2", "image/jpeg", "application/x-jbuilder-project", "image/jp2", "application/javascript", "application/json", "application/jsonp", "image/x-kodak-k25", "audio/midi", "application/x-karbon", "image/x-kodak-kdc", "application/x-desktop", "application/x-kexiproject-sqlite3", "application/x-kexi-connectiondata", "application/x-kexiproject-shortcut", "application/x-kformula", "application/x-killustrator", "application/smil", "application/vnd.google-earth.kml+xml", "application/vnd.google-earth.kmz", "application/x-kontour", "application/x-kpovmodeler", "application/x-kpresenter", "application/x-kpresenter", "application/x-krita", "application/x-kspread", "application/x-kugar", "application/x-kword", "application/x-kword", "application/x-shared-library-la", "text/x-tex", "text/x-ldif", "application/x-lha", "text/x-literate-haskell", "application/x-lhz", "text/x-log", "text/x-tex", "text/x-lua", "image/x-lwo", "image/x-lwo", "image/x-lws", "text/x-lilypond", "application/x-lyx", "application/x-lzip", "application/x-lha", "application/x-lzma", "application/x-lzop", "text/x-matlab", "audio/x-mod", "video/mpeg", "audio/x-mpegurl", "audio/x-mpegurl", "application/x-m4", "audio/mp4", "audio/x-m4b", "video/mp4", "application/x-markaby", "application/x-troff-man", "application/mbox", "application/x-genesis-rom", "application/vnd.ms-access", "image/vnd.ms-modi", "text/x-troff-me", "audio/x-mod", "application/metalink+xml", "application/x-magicpoint", "audio/midi", "audio/midi", "application/x-mif", "audio/x-minipsf", "audio/x-matroska", "video/x-matroska", "text/x-ocaml", "text/x-ocaml", "text/x-troff-mm", "application/x-smaf", "text/mathml", "video/x-mng", "application/x-gettext-translation", "audio/x-mo3", "text/x-moc", "audio/x-mod", "text/x-mof", "video/quicktime", "video/quicktime", "video/x-sgi-movie", "audio/x-musepack", "video/mpeg", "audio/mpeg", "video/mp4", "audio/x-musepack", "video/mpeg", "video/mpeg", "video/mpeg", "audio/mpeg", "audio/x-musepack", "text/x-mrml", "text/x-mrml", "image/x-minolta-mrw", "text/x-troff-ms", "application/x-msi", "image/x-msod", "application/x-msx-rom", "audio/x-mod", "text/x-mup", "application/mxf", "application/x-n64-rom", "application/mathematica", "application/x-netcdf", "application/x-nintendo-ds-rom", "image/x-nikon-nef", "application/x-nes-rom", "text/x-nfo", "text/x-mup", "application/x-netshow-channel", "video/x-nsv", "application/x-object", "application/x-tgif", "text/x-ocl", "application/oda", "application/vnd.oasis.opendocument.database", "application/vnd.oasis.opendocument.chart", "application/vnd.oasis.opendocument.formula", "application/vnd.oasis.opendocument.graphics", "application/vnd.oasis.opendocument.image", "application/vnd.oasis.opendocument.text-master", "application/vnd.oasis.opendocument.presentation", "application/vnd.oasis.opendocument.spreadsheet", "application/vnd.oasis.opendocument.text", "audio/ogg", "video/x-theora+ogg", "video/x-ogm+ogg", "video/ogg", "application/ogg", "application/x-trash", "application/x-oleo", "text/x-opml+xml", "image/openraster", "image/x-olympus-orf", "application/vnd.oasis.opendocument.chart-template", "application/x-font-otf", "application/vnd.oasis.opendocument.graphics-template", "application/vnd.oasis.opendocument.text-web", "application/vnd.oasis.opendocument.presentation-template", "application/vnd.oasis.opendocument.spreadsheet-template", "application/vnd.oasis.opendocument.text-template", "application/rdf+xml", "application/vnd.openofficeorg.extension", "text/x-pascal", "application/pkcs10", "application/x-pkcs12", "application/x-pkcs7-certificates", "application/pkcs7-signature", "application/x-java-pack200", "application/x-pak", "application/x-par2", "text/x-pascal", "text/x-patch", "image/x-portable-bitmap", "image/x-photo-cd", "application/x-cisco-vpn-settings", "application/x-font-pcf", "application/x-font-pcf", "application/vnd.hp-pcl", "image/x-pcx", "chemical/x-pdb", "application/x-aportisdoc", "application/pdf", "application/x-bzpdf", "application/x-gzpdf", "image/x-pentax-pef", "application/x-x509-ca-cert", "application/x-perl", "application/x-font-type1", "application/x-font-type1", "application/x-pkcs12", "image/x-portable-graymap", "application/x-chess-pgn", "application/pgp-encrypted", "application/x-php", "application/x-php", "application/x-php", "image/x-pict", "image/x-pict", "image/x-pict", "application/python-pickle", "application/x-tex-pk", "application/pkix-pkipath", "application/pgp-keys", "application/x-perl", "audio/x-iriver-pla", "application/x-planperfect", "audio/x-scpls", "application/x-perl", "image/png", "image/x-portable-anymap", "image/x-macpaint", "text/x-gettext-translation", "application/x-spss-por", "text/x-gettext-translation-template", "image/x-portable-pixmap", "application/vnd.ms-powerpoint", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.ms-powerpoint", "application/x-palm-database", "application/postscript", "application/x-bzpostscript", "application/x-gzpostscript", "image/vnd.adobe.photoshop", "audio/x-psf", "application/x-gz-font-linux-psf", 
+                       "audio/x-psflib", "audio/prs.sid", "application/x-pocket-word", "application/x-pw", "text/x-python", "application/x-python-bytecode", "application/x-python-bytecode", "image/x-quicktime", "video/quicktime", "image/x-quicktime", "application/x-quicktime-media-link", "video/quicktime", "audio/vnd.rn-realaudio", "image/x-fuji-raf", "application/ram", "application/x-rar", "image/x-cmu-raster", "image/x-panasonic-raw", "audio/vnd.rn-realaudio", "application/x-ruby", "application/rdf+xml", "application/rdf+xml", "text/x-ms-regedit", "application/x-reject", "image/x-rgb", "image/rle", "application/vnd.rn-realmedia", "application/vnd.rn-realmedia", "application/vnd.rn-realmedia", "application/vnd.rn-realmedia", "application/vnd.rn-realmedia", "application/vnd.rn-realmedia", "text/troff", "image/vnd.rn-realpix", "application/x-rpm", "application/rss+xml", "text/vnd.rn-realtext", "application/rtf", "text/richtext", "video/vnd.rn-realvideo", "video/vnd.rn-realvideo", "audio/x-s3m", "application/x-amipro", "application/x-sami", "application/x-spss-sav", "text/x-scheme", "application/vnd.stardivision.draw", "application/vnd.stardivision.calc", "application/vnd.stardivision.impress", "application/sdp", "application/vnd.stardivision.chart", "application/vnd.stardivision.writer", "application/x-go-sgf", "image/x-sgi", "application/vnd.stardivision.writer", "text/sgml", "text/sgml", "application/x-shellscript", "application/x-shar", "application/x-shorten", "application/x-siag", "audio/prs.sid", "application/x-trash", "application/vnd.symbian.install", "x-epoc/x-sisx-app", "application/x-stuffit", "application/sieve", "image/x-skencil", "image/x-skencil", "application/pgp-keys", "text/spreadsheet", "application/x-smaf", "application/x-snes-rom", "application/vnd.stardivision.mail", "application/vnd.stardivision.math", "application/x-sami", "application/smil", "application/smil", "application/x-sms-rom", "audio/basic", "application/x-sharedlib", "application/x-pkcs7-certificates", "application/x-font-speedo", "text/x-rpm-spec", "application/x-shockwave-flash", "audio/x-speex", "text/x-sql", "image/x-sony-sr2", "application/x-wais-source", "image/x-sony-srf", "application/x-subrip", "text/x-ssa", "application/vnd.sun.xml.calc.template", "application/vnd.sun.xml.draw.template", "application/vnd.sun.xml.impress.template", "audio/x-stm", "application/vnd.sun.xml.writer.template", "text/x-tex", "text/x-subviewer", "image/x-sun-raster", "application/x-sv4cpio", "application/x-sv4crc", "image/svg+xml", "image/svg+xml-compressed", "application/x-shockwave-flash", "application/vnd.sun.xml.calc", "application/vnd.sun.xml.draw", "application/vnd.sun.xml.writer.global", "application/vnd.sun.xml.impress", "application/vnd.sun.xml.math", "application/vnd.sun.xml.writer", "text/spreadsheet", "text/troff", "text/x-txt2tags", "application/x-tar", "application/x-bzip-compressed-tar", "application/x-bzip-compressed-tar", "application/x-compressed-tar", "application/x-lzma-compressed-tar", "application/x-tzo", "application/x-xz-compressed-tar", "application/x-tarz", "application/x-bzip-compressed-tar", "application/x-bzip-compressed-tar", "text/x-tcl", "text/x-tex", "text/x-texinfo", "text/x-texinfo", "image/x-tga", "application/x-compressed-tar", "application/x-theme", "application/x-windows-themepack", "image/tiff", "image/tiff", "text/x-tcl", "application/x-lzma-compressed-tar", "application/vnd.ms-tnef", "application/vnd.ms-tnef", "application/x-cdrdao-toc", "application/x-bittorrent", "image/x-tga", "text/troff", "application/x-linguist", "text/tab-separated-values", "audio/x-tta", "application/x-font-ttf", "application/x-font-ttf", "application/x-font-ttx", "text/plain", "application/x-xz-compressed-tar", "application/x-tzo", "application/x-ufraw", "application/x-designer", "text/x-uil", "audio/x-mod", "audio/x-mod", "text/x-uri", "text/x-uri", "application/x-ustar", "text/x-vala", "text/x-vala", "text/directory", "text/calendar", "text/directory", "image/x-tga", "text/x-vhdl", "text/x-vhdl", "video/vivo", "video/vivo", "audio/x-mpegurl", "video/mpeg", "audio/x-voc", "application/vnd.stardivision.writer", "image/x-tga", "audio/x-wav", "audio/x-ms-asx", "application/x-quattropro", "application/x-quattropro", "application/x-quattropro", "image/vnd.wap.wbmp", "application/vnd.ms-works", "application/vnd.ms-works", "video/webm", "application/vnd.lotus-1-2-3", "application/vnd.lotus-1-2-3", "application/vnd.lotus-1-2-3", "application/vnd.ms-works", "audio/x-ms-wma", "image/x-wmf", "text/vnd.wap.wml", "text/vnd.wap.wmlscript", "video/x-ms-wmv", "audio/x-ms-asx", "application/vnd.wordperfect", "application/vnd.wordperfect", "application/vnd.wordperfect", "application/vnd.wordperfect", "application/vnd.wordperfect", "application/x-wpg", "application/vnd.ms-wpl", "application/vnd.wordperfect", "application/vnd.ms-works", "application/x-mswrite", "model/vrml", "audio/x-wavpack", "audio/x-wavpack-correction", "audio/x-wavpack", "audio/x-ms-asx", "image/x-sigma-x3f", "application/x-gnucash", "application/x-xbel", "application/xml", "image/x-xbitmap", "image/x-xcf", "image/x-compressed-xcf", "image/x-compressed-xcf", "application/xhtml+xml", "audio/x-xi", "application/vnd.ms-excel", "application/vnd.ms-excel", "application/vnd.ms-excel", "application/x-xliff", "application/x-xliff", "application/vnd.ms-excel", "application/vnd.ms-excel", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel", "application/vnd.ms-excel", "audio/x-xm", "audio/x-xmf", "text/x-xmi", "application/xml", "image/x-xpixmap", "application/vnd.ms-xpsdocument", "application/xml", "text/x-xslfo", "application/xml", "application/xspf+xml", "application/vnd.mozilla.xul+xml", "image/x-xwindowdump", "chemical/x-pdb", "application/x-xz", "application/w2p", "application/x-compress", "application/x-abiword", "application/zip", "application/x-zoo"]
+var SUPPORT_MEDIA_EXT_ARRAY = [".asf", ".avi", ".exe", ".iso", ".mp3", ".mpeg", ".mpg", ".mpga", ".ra", ".rar", ".rm", ".rmvb", ".tar", ".wma", ".wmp", ".wmv", ".mov", ".zip", ".3gp", ".chm", ".mdf", ".torrent", ".jar", ".msi", ".arj", ".bin", ".dll", ".psd", ".hqx", ".sit", ".lzh", ".gz", ".tgz", ".xlsx", ".xls", ".doc", ".docx", ".ppt", ".pptx", ".flv", ".swf", ".mkv", ".tp", ".ts", ".flac", ".ape", ".wav", ".aac", ".txt", ".dat", ".7z", ".ttf", ".bat", ".xv", ".xvx", ".pdf", ".mp4", ".apk", ".ipa", ".epub", ".mobi", ".deb", ".sisx", ".cab", ".pxl"]
+var SUPPORT_REQUEST_TYPE_ARRAY = ["main_frame", "sub_frame", "object", "xmlhttprequest", "other", "media"]
+var requestItems = {}
+
+function urlInfo() {
+    this.headers = {},
+    this.headers["user-agent"] = "",
+    this.headers.referer = "",
+    this.headers.cookie = "",
+    this.headers["content-type"] = "",
+    this.headers["content-disposition"] = "",
+    this.headers.host = "",
+    this.headers["content-length"] = 0,
+    this.headers["access-control-allow-origin"] = "",
+    this.url = "",
+    this.fileName = "",
+    this.ext = "",
+    this.postData = "",
+    this.tabId = void 0
+}
+
+function onHeadersReceived(details) {
+    console.log("onHeadersReceived : " + details.url)
     do {
-        var t = e.statusCode;
-        if (t >= 300 && t < 400 && 304 !== t)
+        var code = details.statusCode;
+        if (code >= 300 && code < 400 && 304 !== code)
             break;
-        if (0 === e.statusLine.indexOf("HTTP/1.1 204 Intercepted by the Xunlei Advanced Integration"))
+        if (0 === details.statusLine.indexOf("HTTP/1.1 204 Intercepted by the Xunlei Advanced Integration"))
             break;
-        var i = e.type;
-        if (!this.isSupportRequestType(i))
+        var type = details.type;
+        if (!isSupportRequestType(type))
             break;
-        var n = e.url
-          , o = this.requestItems[e.requestId];
-        o ? delete this.requestItems[e.requestId] : (o = new l).tabId = e.tabId;
-        for (var r = 0; r < e.responseHeaders.length; ++r) {
-            var s = e.responseHeaders[r].name.toLowerCase()
-              , a = e.responseHeaders[r].value;
-            switch (s) {
+        var url = details.url
+        var o = requestItems[details.requestId];
+        o ? delete requestItems[details.requestId] : (o = new urlInfo).tabId = details.tabId;
+        for (var r = 0; r < details.responseHeaders.length; ++r) {
+            var name = details.responseHeaders[r].name.toLowerCase()
+              , value = details.responseHeaders[r].value;
+            switch (name) {
             case "referer":
-                o.headers.referer = a;
+                o.headers.referer = value;
                 break;
             case "set-cookie":
-                0 === o.headers.cookie.length ? o.headers.cookie = a : o.headers.cookie = o.headers.cookie + "; " + a;
+                0 === o.headers.cookie.length ? o.headers.cookie = value : o.headers.cookie = o.headers.cookie + "; " + value;
                 break;
             case "access-control-allow-origin":
-                originHender = "Origin: " + a;
+                originHender = "Origin: " + value;
                 break;
             case "host":
-                o.headers.host = a;
+                o.headers.host = value;
                 break;
             case "content-disposition":
-                o.headers["content-disposition"] = a;
+                o.headers["content-disposition"] = value;
                 break;
             case "content-length":
-                o.headers["content-length"] = a;
+                o.headers["content-length"] = value;
                 break;
             case "content-type":
-                o.headers["content-type"] = a
+                o.headers["content-type"] = value
             }
         }
-        if (0 === n.length && (n = host),
-        o.url = n,
-        !isFrameRequestType(i)) {
-            0 === o.fileName.length && (o.fileName = getUrlFileName(o.url));
-            var c = getFileNameExt(o.fileName);
-            if (0 === c.length) {
-                var u = getUrlFileName(o.url);
-                c = getFileNameExt(u)
-            }
-            var h = o.headers["content-type"];
-            if (0 === h.length && !isSupportMediaExt(c))
-                break;
-            if (parseInt(o.headers["content-length"]) < 2052 || "swf" === c)
-                break;
-            if (isSupportContentType(h))
-                break;
-            break
-        }
-        if (!isValidDownload(o))
-            break;
-        if (2 !== Math.round(e.statusCode / 100) && "other" === i)
-            break;
-        this.blockDownload = !0,
-        o.headers.referer && o.headers.cookie ? downloadByThunder(e.tabId, o) : chrome.tabs.get(e.tabId, t=>{
-            var i = t.openerTabId;
-            o.headers.cookie ? downloadByThunder(e.tabId, o, i) : chrome.cookies.getAll({
-                url: o.url
-            }, t=>{
-                var n = "";
-                if (t)
-                    for (var r in t)
-                        n = n.concat(t[r].name, "=", t[r].value, "; ");
-                o.headers.cookie = n,
-                downloadByThunder(e.tabId, o, i)
-            }
-            )
-        }
-        )
-    } while (0);return {}
-}
 
-function onBeforeSendHeaders(e) {
-    console.log("onHeadersReceived")
-    console.log(e.url)
-    do {
-        if (!isSupportRequestType(e.type))
-            break;
-        var t = this.requestItems[e.requestId];
-        t || (t = new l,
-        this.requestItems[e.requestId] = t),
-        t.tabId = e.tabId;
-        var i = e.url;
-        t.url && 0 !== t.url.length || (t.url = i);
-        for (var n = 0; n < e.requestHeaders.length; ++n) {
-            var o = e.requestHeaders[n].name.toLowerCase()
-              , r = e.requestHeaders[n].value;
-            switch (o) {
-            case "user-agent":
-                t.headers["user-agent"] = r;
-                break;
-            case "referer":
-                t.headers.referer = r;
-                break;
-            case "cookie":
-                t.headers.cookie = r;
-                break;
-            case "content-type":
-                t.headers["content-type"] = r
-            }
-        }
-    } while (0);return {}
-}
 
-function isFrameRequestType(e) {
-    return "main_frame" === e || "sub_frame" === e
+        var c = getFileNameExt(o.fileName);
+        if (0 === c.length) {
+            var u = getUrlFileName(o.url);
+            c = getFileNameExt(u)
+        }
+
+        if(isSupportMediaExt(c)) {
+            console.log("FileNameExt : " + c)
+            chrome.downloads.setShelfEnabled(true);
+            downloadFlag = true;
+            chrome.downloads.download({
+                url: u
+            }, onDownload);
+            isSelfCreate = true
+            return;
+        }
+
+        var h = o.headers["content-type"];
+        console.log("type: " + h)
+        if (isSupportContentType(h)) {
+            console.log("FileNameExt : " + c)
+            chrome.downloads.setShelfEnabled(true);
+            downloadFlag = true;
+            chrome.downloads.download({
+                url: u
+            }, onDownload);
+            isSelfCreate = true
+            return;
+        }
+
+    } while (0);return {}
 }
 
 function getUrlFileName(e) {
     var t = e.replace(/\?.*$/, "").replace(/.*\//, "");
     return decodeURIComponent(t)
 }
-
+``
 function getFileNameExt(e) {
     var t = "";
-    if (e.length > 0) {
+    if (e && e.length > 0) {
         var i = e.lastIndexOf(".");
         -1 !== i && (t = (t = e.substr(i)).toLowerCase())
     }
@@ -744,55 +723,24 @@ function getFileNameExt(e) {
 
 function isSupportMediaExt(e) {
     for (var t in e = e.toLowerCase(),
-    this.SUPPORT_MEDIA_EXT_ARRAY)
-        if (e.toLowerCase() === this.SUPPORT_MEDIA_EXT_ARRAY[t])
+    SUPPORT_MEDIA_EXT_ARRAY)
+        if (e.toLowerCase() === SUPPORT_MEDIA_EXT_ARRAY[t])
             return !0;
     return !1
 }
 
 function isSupportContentType(e) {
     for (var t in e = e.toLowerCase(),
-    this.MIME_TYPE_ARRAY)
-        if (e.toLowerCase() === this.MIME_TYPE_ARRAY[t])
+    MIME_TYPE_ARRAY)
+        if (e.toLowerCase().indexOf(MIME_TYPE_ARRAY[t]) != -1)
             return !0;
     return !1
 }
 
-function isValidDownload(e) {
-    var t = ""
-      , i = e.headers["content-disposition"];
-    if (i.length > 0 && (t = this.getDispositionFileName(i)),
-    0 === t.length && (t = this.getUrlFileName(e.url)),
-    0 === t.length)
-        return !1;
-    e.fileName = t;
-    var n = e.headers["content-type"];
-    if (-1 !== n.indexOf("text/") && (-1 === n.indexOf("text/multipart") || 0 === t.length))
-        return !1;
-    var o = this.getFileNameExt(t);
-    return e.ext = o,
-    !!this.canDownload(e) && this.isMonitorFileExt(o)
-}
-
-function downloadByThunder(e, t, i) {
-    if (t.headers.referer && 0 !== t.headers.referer.length)
-        this.invokeThunder(t);
-    else if (void 0 === e || e < 0)
-        this.invokeThunder(t);
-    else {
-        var n = this;
-        this.getHrefById(e, e=>{
-            t.headers.referer = e,
-            n.invokeThunder(t)
-        }
-        , i)
-    }
-}
-
 function isSupportRequestType(e) {
     for (var t in e = e.toLowerCase(),
-    this.SUPPORT_REQUEST_TYPE_ARRAY)
-        if (e === this.SUPPORT_REQUEST_TYPE_ARRAY[t])
+    SUPPORT_REQUEST_TYPE_ARRAY)
+        if (e === SUPPORT_REQUEST_TYPE_ARRAY[t])
             return !0;
     return !1
 }
