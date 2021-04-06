@@ -295,15 +295,17 @@ bool Func::isLanConnect()
         netStatProcess.deleteLater();
         QStringList netstatInfo = str.split('\n');
         QStringList geteWayList;
-        QStringList::iterator it;
+//        QStringList::iterator it;
         for(int i = 2; i < netstatInfo.size()-1; i++){
             geteWayList = netstatInfo[i].split(' ');
-            for (it = geteWayList.begin() ; it != geteWayList.end(); it++) {
-                QString a = *it;
-                if(it->isEmpty()){
-                    geteWayList.erase(it);
-                }
-            }
+            geteWayList.removeAll(QString(""));
+//            it = geteWayList.begin();
+//            for ( ; it != geteWayList.end(); it++) {
+//                QString a = *it;
+//                if(it->isEmpty()){
+//                    geteWayList.erase(it);
+//                }
+//            }
             if(geteWayList[1] != "0.0.0.0")
             {
                 geteWay = geteWayList[1];
