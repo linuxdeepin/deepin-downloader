@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e45aa91_91770e4e",
+        "filename": "src/src/ui/func.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-06T08:56:58Z",
+      "side": 1,
+      "message": "注释行数: 8; 改动行数(修改和新增): 9; 注释率: 88.9%",
+      "revId": "9a612da2fe15971ee799913ddfe0e626f750aee6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
