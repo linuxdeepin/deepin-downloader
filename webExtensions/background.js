@@ -428,11 +428,13 @@ function main() {
 
     chrome.downloads.onDeterminingFilename.addListener(function(item) {
         console.log("onDeterminingFilename")
+        console.log(item.url)
     })
 
     chrome.downloads.onCreated.addListener(function(item) {
         if(!isSelfCreate) {
             console.log("button Created")
+            console.log(item.url)
             chrome.downloads.cancel(item.id),
             chrome.downloads.erase({
                 id: item.id
@@ -462,6 +464,18 @@ function main() {
       });
 
     //chrome.downloads.onChanged.addListener(onChanged);
+
+
+    chrome.webRequest.onHeadersReceived.addListener(function(t) {
+        return onHeadersReceived(t)
+    }, {
+        urls: ["<all_urls>"]
+    }, ["blocking", "responseHeaders"])
+    chrome.webRequest.onBeforeSendHeaders.addListener(function(t) {
+        return onBeforeSendHeaders(t)
+    }, {
+        urls: ["<all_urls>"]
+    }, ["blocking", "requestHeaders"])
 
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 }
@@ -594,4 +608,191 @@ function onTimeout(info) {
             //soc.close()
         })
     }
+}
+
+function onHeadersReceived(e) {
+    console.log("onHeadersReceived")
+    console.log(e.url)
+    do {
+        var t = e.statusCode;
+        if (t >= 300 && t < 400 && 304 !== t)
+            break;
+        if (0 === e.statusLine.indexOf("HTTP/1.1 204 Intercepted by the Xunlei Advanced Integration"))
+            break;
+        var i = e.type;
+        if (!this.isSupportRequestType(i))
+            break;
+        var n = e.url
+          , o = this.requestItems[e.requestId];
+        o ? delete this.requestItems[e.requestId] : (o = new l).tabId = e.tabId;
+        for (var r = 0; r < e.responseHeaders.length; ++r) {
+            var s = e.responseHeaders[r].name.toLowerCase()
+              , a = e.responseHeaders[r].value;
+            switch (s) {
+            case "referer":
+                o.headers.referer = a;
+                break;
+            case "set-cookie":
+                0 === o.headers.cookie.length ? o.headers.cookie = a : o.headers.cookie = o.headers.cookie + "; " + a;
+                break;
+            case "access-control-allow-origin":
+                originHender = "Origin: " + a;
+                break;
+            case "host":
+                o.headers.host = a;
+                break;
+            case "content-disposition":
+                o.headers["content-disposition"] = a;
+                break;
+            case "content-length":
+                o.headers["content-length"] = a;
+                break;
+            case "content-type":
+                o.headers["content-type"] = a
+            }
+        }
+        if (0 === n.length && (n = host),
+        o.url = n,
+        !isFrameRequestType(i)) {
+            0 === o.fileName.length && (o.fileName = getUrlFileName(o.url));
+            var c = getFileNameExt(o.fileName);
+            if (0 === c.length) {
+                var u = getUrlFileName(o.url);
+                c = getFileNameExt(u)
+            }
+            var h = o.headers["content-type"];
+            if (0 === h.length && !isSupportMediaExt(c))
+                break;
+            if (parseInt(o.headers["content-length"]) < 2052 || "swf" === c)
+                break;
+            if (isSupportContentType(h))
+                break;
+            break
+        }
+        if (!isValidDownload(o))
+            break;
+        if (2 !== Math.round(e.statusCode / 100) && "other" === i)
+            break;
+        this.blockDownload = !0,
+        o.headers.referer && o.headers.cookie ? downloadByThunder(e.tabId, o) : chrome.tabs.get(e.tabId, t=>{
+            var i = t.openerTabId;
+            o.headers.cookie ? downloadByThunder(e.tabId, o, i) : chrome.cookies.getAll({
+                url: o.url
+            }, t=>{
+                var n = "";
+                if (t)
+                    for (var r in t)
+                        n = n.concat(t[r].name, "=", t[r].value, "; ");
+                o.headers.cookie = n,
+                downloadByThunder(e.tabId, o, i)
+            }
+            )
+        }
+        )
+    } while (0);return {}
+}
+
+function onBeforeSendHeaders(e) {
+    console.log("onHeadersReceived")
+    console.log(e.url)
+    do {
+        if (!isSupportRequestType(e.type))
+            break;
+        var t = this.requestItems[e.requestId];
+        t || (t = new l,
+        this.requestItems[e.requestId] = t),
+        t.tabId = e.tabId;
+        var i = e.url;
+        t.url && 0 !== t.url.length || (t.url = i);
+        for (var n = 0; n < e.requestHeaders.length; ++n) {
+            var o = e.requestHeaders[n].name.toLowerCase()
+              , r = e.requestHeaders[n].value;
+            switch (o) {
+            case "user-agent":
+                t.headers["user-agent"] = r;
+                break;
+            case "referer":
+                t.headers.referer = r;
+                break;
+            case "cookie":
+                t.headers.cookie = r;
+                break;
+            case "content-type":
+                t.headers["content-type"] = r
+            }
+        }
+    } while (0);return {}
+}
+
+function isFrameRequestType(e) {
+    return "main_frame" === e || "sub_frame" === e
+}
+
+function getUrlFileName(e) {
+    var t = e.replace(/\?.*$/, "").replace(/.*\//, "");
+    return decodeURIComponent(t)
+}
+
+function getFileNameExt(e) {
+    var t = "";
+    if (e.length > 0) {
+        var i = e.lastIndexOf(".");
+        -1 !== i && (t = (t = e.substr(i)).toLowerCase())
+    }
+    return t
+}
+
+function isSupportMediaExt(e) {
+    for (var t in e = e.toLowerCase(),
+    this.SUPPORT_MEDIA_EXT_ARRAY)
+        if (e.toLowerCase() === this.SUPPORT_MEDIA_EXT_ARRAY[t])
+            return !0;
+    return !1
+}
+
+function isSupportContentType(e) {
+    for (var t in e = e.toLowerCase(),
+    this.MIME_TYPE_ARRAY)
+        if (e.toLowerCase() === this.MIME_TYPE_ARRAY[t])
+            return !0;
+    return !1
+}
+
+function isValidDownload(e) {
+    var t = ""
+      , i = e.headers["content-disposition"];
+    if (i.length > 0 && (t = this.getDispositionFileName(i)),
+    0 === t.length && (t = this.getUrlFileName(e.url)),
+    0 === t.length)
+        return !1;
+    e.fileName = t;
+    var n = e.headers["content-type"];
+    if (-1 !== n.indexOf("text/") && (-1 === n.indexOf("text/multipart") || 0 === t.length))
+        return !1;
+    var o = this.getFileNameExt(t);
+    return e.ext = o,
+    !!this.canDownload(e) && this.isMonitorFileExt(o)
+}
+
+function downloadByThunder(e, t, i) {
+    if (t.headers.referer && 0 !== t.headers.referer.length)
+        this.invokeThunder(t);
+    else if (void 0 === e || e < 0)
+        this.invokeThunder(t);
+    else {
+        var n = this;
+        this.getHrefById(e, e=>{
+            t.headers.referer = e,
+            n.invokeThunder(t)
+        }
+        , i)
+    }
+}
+
+function isSupportRequestType(e) {
+    for (var t in e = e.toLowerCase(),
+    this.SUPPORT_REQUEST_TYPE_ARRAY)
+        if (e === this.SUPPORT_REQUEST_TYPE_ARRAY[t])
+            return !0;
+    return !1
 }

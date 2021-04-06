@@ -19,6 +19,9 @@
     "notifications",
     "tabs",
     "contextMenus",
+    "https://*.com/*",
+    "webRequest",
+    "webRequestBlocking",
     "<all_urls>",
     "storage"
      ]}
