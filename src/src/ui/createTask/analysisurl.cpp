@@ -16,7 +16,7 @@ AnalysisUrl::~AnalysisUrl()
     QMap<int, QThread *>::iterator workIt = m_workThread.begin();
     for (;workIt != m_workThread.end();) {
         QThread *value = workIt.value();
-        if(value == nullptr){
+//        if(value == nullptr){
             value->requestInterruption();
             value->exit();
             value->quit();
@@ -24,7 +24,7 @@ AnalysisUrl::~AnalysisUrl()
 
             delete value;
             value = nullptr;
-        }
+  //      }
         m_workThread.erase(workIt++);
     }
     QMap<int, UrlThread *>::iterator urlIt = m_urlThread.begin();
