@@ -36,6 +36,7 @@
 #include <QTimer>
 #include <QScrollBar>
 #include <QPaintEvent>
+#include <QPainterPath>
 
 #include "func.h"
 #include "aria2rpcinterface.h"
