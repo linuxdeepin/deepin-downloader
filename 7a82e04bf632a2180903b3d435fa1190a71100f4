@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b797cf4e_f1b27c40",
+        "filename": "src/src/ui/mainFrame/tabledatacontrol.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-08T01:56:16Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 63; 注释率: 7.9%",
+      "revId": "7a82e04bf632a2180903b3d435fa1190a71100f4",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f36a83f4_0a885668",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-08T01:56:16Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 10; 注释率: 10.0%",
+      "revId": "7a82e04bf632a2180903b3d435fa1190a71100f4",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
