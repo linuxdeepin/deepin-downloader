@@ -20,6 +20,7 @@
 #include "dbinstance.h"
 #include "settinginfoinputwidget.h"
 #include "dalertcontrol.h"
+#include "itemselectionwidget.h"
 
 class ut_Settings : public ::testing::Test
     , public QObject
@@ -700,6 +701,40 @@ TEST_F(ut_Settings, initWdiget)
     option->setValue(true);
     QTest::qWait(100);
     EXPECT_FALSE(Settings::getInstance()->getWebBrowserState());
+}
+
+TEST_F(ut_Settings, ItemSelectionWidget)
+{
+    ItemSelectionWidget item;
+    item.onCheckBoxStateChanged(Qt::Unchecked);
+    item.onCheckBoxStateChanged(Qt::Checked);
+    item.setCheckboxState(Qt::Unchecked);
+    item.setBlockSignals(true);
+}
+
+TEST_F(ut_Settings, CTimeEditOnIndexChanged)
+{
+    CTimeEdit c;
+    c.m_timeEdit->editingFinished();
+    c.onIndexChanged("11");
+}
+
+TEST_F(ut_Settings, FileSavePathChooserInit)
+{
+    typedef int (*fptr)(DownloadSettingWidget *);
+    fptr foo = (fptr)(&QObject::sender);
+    Stub stub;
+    stub.set(foo, mockSender);
+
+    FileSavePathChooser f(1, "~/Downloader/");
+    f.m_currentSelect= 0;
+    f.initUI();
+    f.m_customsPathRadioButton = mockSender();
+    f.onRadioButtonClicked();
+    f.m_autoLastPathRadioButton = mockSender();
+    f.onRadioButtonClicked();
+    f.setCurrentSelectRadioButton(1);
+//    f.onLineEditTextChanged("13123");
 }
 
 TEST_F(ut_Settings, clearAllTask)

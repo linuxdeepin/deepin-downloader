@@ -1030,6 +1030,14 @@ TEST_F(ut_MainFreme, onRpcError)
     pItem2->savePath = "~";
     MainFrame::instance()->deleteTask(pItem1);
     MainFrame::instance()->checkIsHasSameTask("");
+    MainFrame::instance()->m_SleepAct->trigger();
+    MainFrame::instance()->m_QuitProcessAct->triggered(true);
+    MainFrame::instance()->isAutoStart();
+    MainFrame::instance()->m_CurrentTab = recycleTab;
+    MainFrame::instance()->onContextMenu(QPoint(0,0));
+    MainFrame::instance()->onCheckChanged(true,0);
+    MainFrame::instance()->onIsMetalinkDownload(true);
+    MainFrame::instance()->Raise();
 
 }
 
