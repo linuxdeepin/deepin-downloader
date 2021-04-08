@@ -136,6 +136,7 @@ TEST_F(ut_MainFreme, addHttpTask)
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, addHttpTaskk)
 {
     MainFrame::instance()->onDownloadNewUrl("http://svip.bocai-zuida.com/2008/凡人修仙传-06.mp4",
@@ -145,6 +146,7 @@ TEST_F(ut_MainFreme, addHttpTaskk)
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, addHttpTaskkk)
 {
     MainFrame::instance()->onDownloadNewUrl("http://vipxz.bocai-zuida.com/2008/凡人修仙传-07.mp4",
@@ -154,6 +156,7 @@ TEST_F(ut_MainFreme, addHttpTaskkk)
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, changeList)
 {
     MainFrame *m = MainFrame::instance();
@@ -165,23 +168,18 @@ TEST_F(ut_MainFreme, changeList)
     EXPECT_TRUE(list->currentIndex().row() == 1);
     QTest::qWait(2000);
 }
+
 TEST_F(ut_MainFreme, rename)
 {
-    MainFrame *m = MainFrame::instance();
-    m->show();
-    TableView *table = m->findChild<TableView *>("downloadTableView");
+    MainFrame::instance()->show();
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     QTest::qWait(200);
     QRect rect = table->visualRect(model->index(0, 2));
     QTimer::singleShot(500, this, [=]() {
         QWidgetList w = QApplication::topLevelWidgets();
-        MainFrame *mm = MainFrame::instance();
-        QMenu *menu = mm->findChild<QMenu *>("tableMenu");
-        QPoint point = menu->rect().center();
         for (int i = 0; i < w.count(); i++) {
-            // qDebug() << "w: " << w.at(i)->objectName();
             if (w.at(i)->objectName() == "tableMenu") {
-                //QAction *a = w.at(i)->findChild<QAction *>("rename");
                 QPoint point = w.at(i)->rect().center();
                 QTest::mouseClick(w.at(i), Qt::LeftButton, Qt::KeyboardModifiers(),
                                   QPoint(point.x(), point.y() - 30));
@@ -211,10 +209,10 @@ TEST_F(ut_MainFreme, rename)
     });
     QTest::mouseClick(table->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
     QTest::qWait(100);
-    //QTest::mouseClick(table->viewport(), Qt::RightButton, Qt::KeyboardModifiers(), rect.center());
-    m->onContextMenu(rect.center());
+    MainFrame::instance()->onContextMenu(rect.center());
     QTest::qWait(2000);
 }
+
 TEST_F(ut_MainFreme, rename2)
 {
     MainFrame *m = MainFrame::instance();
@@ -482,6 +480,10 @@ TEST_F(ut_MainFreme, onTableItemSelected)
 }
 TEST_F(ut_MainFreme, onRedownloadActionTriggered)
 {
+    typedef int (*fptr)(DSettingsDialog *);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(0, 0));
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -850,11 +852,13 @@ TEST_F(ut_MainFreme, SearchResoultWidgetkeyPressEvent)
     EXPECT_TRUE(true);
     delete widget;
 }
+
 TEST_F(ut_MainFreme, dealNotificaitonSettings)
 {
     TableView *table = new TableView(1);
     table->getTableControl()->dealNotificaitonSettings("status", "test.txt", "-1");
 }
+
 TEST_F(ut_MainFreme, onClipboardDataChanged)
 {
     typedef int (*fptr)(CreateTaskWidget *);
@@ -863,14 +867,17 @@ TEST_F(ut_MainFreme, onClipboardDataChanged)
     stub.set(foo, MessageboxExec);
      MainFrame::instance()->onClipboardDataChanged("status");
 }
+
 TEST_F(ut_MainFreme, onPalettetypechanged)
 {
      MainFrame::instance()->onPalettetypechanged(DGuiApplicationHelper::DarkType);
 }
+
 TEST_F(ut_MainFreme, onCheckChanged)
 {
      MainFrame::instance()->onCheckChanged(true, 1);
 }
+
 TEST_F(ut_MainFreme, onClearRecyleActionTriggered)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -878,15 +885,19 @@ TEST_F(ut_MainFreme, onClearRecyleActionTriggered)
     Stub stub;
     stub.set(foo, MessageboxExec);
     MainFrame::instance()->onClearRecyleActionTriggered();
+    //EXPECT_TRUE(MainFrame::instance()->m_RecycleTableView->m_TableModel->m_RecyleList.isEmpty());
 }
+
 TEST_F(ut_MainFreme, onDownloadLimitChanged)
 {
      MainFrame::instance()->onDownloadLimitChanged();
 }
+
 TEST_F(ut_MainFreme, onDisckCacheChanged)
 {
      MainFrame::instance()->onDisckCacheChanged(256);
 }
+
 TEST_F(ut_MainFreme, initDelDataItem2)
 {
     Global::DownloadDataItem *data = new Global::DownloadDataItem;
@@ -895,6 +906,7 @@ TEST_F(ut_MainFreme, initDelDataItem2)
     delete data;
     delete delData;
 }
+
 TEST_F(ut_MainFreme, deleteDirectory)
 {
     QDir dir = QDir::current().absolutePath();
@@ -968,11 +980,11 @@ TEST_F(ut_MainFreme, onNewBtnClicked)
 //{
 //    MainFrame::instance()->close();
 //}
-TEST_F(ut_MainFreme, onTrayQuitClick)
+TEST_F(ut_MainFreme, onTrayQuitClick_true)
 {
     MainFrame::instance()->onTrayQuitClick(true);
 }
-TEST_F(ut_MainFreme, onTrayQuitClick2)
+TEST_F(ut_MainFreme, onTrayQuitClick_false)
 {
     MainFrame::instance()->onTrayQuitClick(false);
 }

@@ -150,45 +150,69 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
         gId = json.value("result").toArray().at(0).toString();
     }
     DownloadDataItem *findData = m_DownloadTableView->getTableModel()->find(id);
-    // 获取下载信息
-    // aria2c->tellStatus(gId, gId);
-    Aria2RPCInterface::instance()->getFiles(gId, id);
-    //std::shared_ptr<DownloadDataItem> data(new DownloadDataItem);
-    //QSharedPointer<DownloadDataItem> data = QSharedPointer<DownloadDataItem>(new DownloadDataItem);
-    DownloadDataItem* data = new DownloadDataItem;
-    data->taskId = id;
-    data->gid = gId;
-    data->isChecked = false;
-    data->completedLength = "0KB";
-    QDateTime time = QDateTime::currentDateTime();
-    data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
-    TaskInfo taskInfo;
-    DBInstance::getTaskByID(id, taskInfo);
-    TaskInfo task;
-    if (!taskInfo.taskId.isEmpty()) {
-        task = TaskInfo(taskInfo.taskId,
-                        gId,
-                        0,
-                        taskInfo.url,
-                        taskInfo.downloadPath,
-                        taskInfo.downloadFilename,
-                        time);
-        DBInstance::updateTaskInfoByID(task);
-        data->fileName = taskInfo.downloadFilename;
-    } else {
-        task = TaskInfo(id, gId, 0, "", "", "Unknown", time);
-        DBInstance::addTask(task);
-    }
-    data->savePath = taskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
-    data->url = taskInfo.url;
-    data->totalLength = taskInfo.fileLength;
-    m_DownloadTableView->getTableModel()->append(data);
-    m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
-    if ((!searchContent.isEmpty()) && !data->fileName.contains(searchContent)) {
-        TableModel *dtModel = m_DownloadTableView->getTableModel();
-        m_DownloadTableView->setRowHidden(dtModel->rowCount(), true);
-    }
-    return true;
+        if (findData != nullptr) {
+            findData->gid = gId;
+            findData->taskId = id;
+            QDateTime finishTime = QDateTime::fromString("", "yyyy-MM-dd hh:mm:ss");
+            TaskStatus downloadStatus(findData->taskId,
+                                      Global::DownloadTaskStatus::Active,
+                                      QDateTime::currentDateTime(),
+                                      findData->completedLength,
+                                      findData->speed,
+                                      findData->totalLength,
+                                      findData->percent,
+                                      findData->total,
+                                      finishTime);
+            TaskStatus task;
+            DBInstance::getTaskStatusById(findData->taskId, task);
+            if (!task.taskId.isEmpty()) {
+                DBInstance::updateTaskStatusById(downloadStatus);
+            } else {
+                DBInstance::addTaskStatus(downloadStatus);
+            }
+            findData->status = Global::DownloadTaskStatus::Active;
+        } else {
+            // 获取下载信息
+            // aria2c->tellStatus(gId, gId);
+            Aria2RPCInterface::instance()->getFiles(gId, id);
+            //std::shared_ptr<DownloadDataItem> data(new DownloadDataItem);
+            //QSharedPointer<DownloadDataItem> data = QSharedPointer<DownloadDataItem>(new DownloadDataItem);
+            DownloadDataItem* data = new DownloadDataItem;
+            data->taskId = id;
+            data->gid = gId;
+            data->isChecked = false;
+            data->completedLength = "0KB";
+            QDateTime time = QDateTime::currentDateTime();
+            data->createTime = time.toString("yyyy-MM-dd hh:mm:ss");
+            TaskInfo taskInfo;
+            DBInstance::getTaskByID(id, taskInfo);
+            TaskInfo task;
+            if (!taskInfo.taskId.isEmpty()) {
+                task = TaskInfo(taskInfo.taskId,
+                                gId,
+                                0,
+                                taskInfo.url,
+                                taskInfo.downloadPath,
+                                taskInfo.downloadFilename,
+                                time);
+                DBInstance::updateTaskInfoByID(task);
+                data->fileName = taskInfo.downloadFilename;
+            } else {
+                task = TaskInfo(id, gId, 0, "", "", "Unknown", time);
+                DBInstance::addTask(task);
+            }
+            data->savePath = taskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
+            data->url = taskInfo.url;
+            data->totalLength = taskInfo.fileLength;
+            m_DownloadTableView->getTableModel()->append(data);
+            m_DownloadTableView->getTableHeader()->onHeaderChecked(false);
+            if ((!searchContent.isEmpty()) && !data->fileName.contains(searchContent)) {
+                TableModel *dtModel = m_DownloadTableView->getTableModel();
+                m_DownloadTableView->setRowHidden(dtModel->rowCount(), true);
+            }
+            qDebug() << "aria2MethodAdd: " << taskInfo.url << "    " << QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+        }
+        return true;
 }
 
 bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent)
