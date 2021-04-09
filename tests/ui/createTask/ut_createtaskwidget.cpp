@@ -435,6 +435,7 @@ TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
    c->isFtp("ftp://11.txt");
    c->isFtp("222");
    c->isHttp("1111");
+ //  c->onMLFileDialogOpen();
 
 }
 
@@ -454,8 +455,16 @@ TEST_F(ut_CreateTaskWidget, AnalysisUrl)
     a = nullptr;
 }
 
-TEST_F(ut_CreateTaskWidget, AnalysisUrl1)
+TEST_F(ut_CreateTaskWidget, dropEvent)
 {
+    typedef int (*fptr)(CreateTaskWidget*);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub2;
+    stub2.set(foo, MessageboxExec);
+
+    Stub stub;
+    stub.set(ADDR(QMimeData, urls), torrentLink);
+
     CreateTaskWidget * c = new CreateTaskWidget;
     c->m_analysisUrl = new AnalysisUrl;
     c->onCancelBtnClicked();
@@ -466,6 +475,23 @@ TEST_F(ut_CreateTaskWidget, AnalysisUrl1)
 //    QTest::mouseEvent(MouseAction)
     c->dropEvent(event);
 
+}
+
+TEST_F(ut_CreateTaskWidget, dropEvent1)
+{
+    Stub stub;
+    stub.set(ADDR(QMimeData, hasUrls), returnFalse);
+
+    CreateTaskWidget * c = new CreateTaskWidget;
+    c->m_analysisUrl = new AnalysisUrl;
+    c->onCancelBtnClicked();
+
+    QPoint p;
+    const QMimeData *d = new QMimeData;
+    QDragEnterEvent *event = new QDragEnterEvent(p,Qt::LinkAction,d,Qt::MouseButton::LeftButton,Qt::KeyboardModifier::NoModifier);
+//    QTest::mouseEvent(MouseAction)
+    event->mimeData()->hasUrls();
+    c->dropEvent(event);
 
 }
 

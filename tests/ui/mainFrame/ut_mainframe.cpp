@@ -84,6 +84,9 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
     pItem3->taskId = "1234";
     pItem3->status = 4;
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTablemodelMode();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->recyleList();
     QListWidgetItem *item = new QListWidgetItem;
     item->setData(Qt::WhatsThisRole, "3");
     item->setData(Qt::UserRole, "Trash");
@@ -1040,6 +1043,7 @@ TEST_F(ut_MainFreme, onRpcError)
     MainFrame::instance()->Raise();
 
 }
+
 
 TEST_F(ut_MainFreme, clearAllTask)
 {

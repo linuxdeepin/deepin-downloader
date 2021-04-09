@@ -357,6 +357,13 @@ TEST_F(ut_Settings, getNewTaskShowMainWindowState)
 TEST_F(ut_Settings, getDisckcacheNum)
 {
     EXPECT_TRUE(Settings::getInstance()->getDisckcacheNum());
+    auto option = Settings::getInstance()->m_settings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
+    option->setValue(0);
+    Settings::getInstance()->getDisckcacheNum();
+    option->setValue(1);
+    Settings::getInstance()->getDisckcacheNum();
+    option->setValue(2);
+    Settings::getInstance()->getDisckcacheNum();
     QTest::qWait(50);
 }
 
@@ -734,7 +741,16 @@ TEST_F(ut_Settings, FileSavePathChooserInit)
     f.m_autoLastPathRadioButton = mockSender();
     f.onRadioButtonClicked();
     f.setCurrentSelectRadioButton(1);
-//    f.onLineEditTextChanged("13123");
+}
+
+TEST_F(ut_Settings, getMaxDownloadSpeedLimit1)
+{
+     auto option = Settings::getInstance()->m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
+     option->setValue(";;;;;;");
+     Settings::getInstance()->getMaxDownloadSpeedLimit();
+     Settings::getInstance()->getMaxUploadSpeedLimit();
+     Settings::getInstance()->getSpeedLimitStartTime();
+     Settings::getInstance()->getSpeedLimitEndTime();
 }
 
 TEST_F(ut_Settings, clearAllTask)

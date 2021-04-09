@@ -65,6 +65,7 @@ DRadioButton *mockSender();
 
 CTimeEdit *mockSenderTime();
 
+QList<QUrl> torrentLink();
 void mockShowAlertMessage(const QString &text, QWidget *follower, int duration = 3000);
 
 

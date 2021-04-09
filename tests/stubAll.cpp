@@ -1,4 +1,7 @@
 #include "stubAll.h"
+#include <QStandardPaths>
+#include <QList>
+
 
 QAction *QmenuExec(const QPoint &pos)
 {
@@ -126,3 +129,14 @@ void mockShowAlertMessage(const QString &text, QWidget *follower, int duration)
 {
 
 }
+
+
+
+QList<QUrl> torrentLink()
+{
+    QUrl u = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent";
+    QList<QUrl> l;
+    l << u;
+    return l;
+}
+
