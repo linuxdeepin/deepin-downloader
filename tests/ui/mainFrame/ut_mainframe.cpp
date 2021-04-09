@@ -97,21 +97,21 @@ TEST_F(ut_MainFreme, onSearchEditTextChanged)
     MainFrame::instance()->onSearchEditTextChanged("1");
 }
 //metalink任务
-TEST_F(ut_MainFreme, addMetalinkTask)
-{
-    Stub stub;
-    stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
-    Stub stub2;
-    stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
-    Stub stub3;
-    stub3.set(ADDR(MainFrame, initWebsocket), MainFrameInitWebsocket);
-    auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
-    option->setValue(2);
-    MainFrame::instance()->onDownloadNewUrl("magnet:?xt=urn:btih:081C0AF2B872414061813F0B8CC18A1A79C5ED1D",
-                                            Settings::getInstance()->getDownloadSavePath(), "8A1A79C5ED1D", "torrent");
-    QTest::qWait(15000);
-    EXPECT_TRUE(true);
-}
+//TEST_F(ut_MainFreme, addMetalinkTask)
+//{
+//    Stub stub;
+//    stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
+//    Stub stub2;
+//    stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
+//    Stub stub3;
+//    stub3.set(ADDR(MainFrame, initWebsocket), MainFrameInitWebsocket);
+//    auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
+//    option->setValue(2);
+//    MainFrame::instance()->onDownloadNewUrl("magnet:?xt=urn:btih:081C0AF2B872414061813F0B8CC18A1A79C5ED1D",
+//                                            Settings::getInstance()->getDownloadSavePath(), "8A1A79C5ED1D", "torrent");
+//    QTest::qWait(15000);
+//    EXPECT_TRUE(true);
+//}
 //小任务，可以快速下载完，方便测试已完成列表。
 TEST_F(ut_MainFreme, addHttpFastTask)
 {
