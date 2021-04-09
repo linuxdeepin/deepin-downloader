@@ -77,6 +77,8 @@ TEST_F(ut_messageBox, onExitBtnClicked)
     msg.m_CheckBox->setCheckState(Qt::CheckState::Checked);
     msg.m_ButtonMin->setChecked(false);
     msg.onExitBtnClicked(1);
+    msg.m_ButtonQuit->click();
+    msg.m_ButtonMin->click();
 }
 
 TEST_F(ut_messageBox, setWarings)
@@ -106,6 +108,7 @@ TEST_F(ut_messageBox, setDelete)
     msg.setDelete(true);
     msg.setDelete(false);
     msg.setDelete(true, true);
+    msg.setDelete(false, true);
 }
 TEST_F(ut_messageBox, onRenamelineeditChanged)
 {
@@ -113,6 +116,7 @@ TEST_F(ut_messageBox, onRenamelineeditChanged)
     msg.m_RenameSureButton = new QPushButton();
     msg.onRenamelineeditChanged("text.ddd");
     msg.onRenamelineeditChanged("text");
+    msg.onRenamelineeditChanged("");
 }
 
 TEST_F(ut_messageBox, setClear)

@@ -84,6 +84,9 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
     pItem3->taskId = "1234";
     pItem3->status = 4;
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTablemodelMode();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->recyleList();
     QListWidgetItem *item = new QListWidgetItem;
     item->setData(Qt::WhatsThisRole, "3");
     item->setData(Qt::UserRole, "Trash");
@@ -1030,8 +1033,17 @@ TEST_F(ut_MainFreme, onRpcError)
     pItem2->savePath = "~";
     MainFrame::instance()->deleteTask(pItem1);
     MainFrame::instance()->checkIsHasSameTask("");
+    MainFrame::instance()->m_SleepAct->trigger();
+    MainFrame::instance()->m_QuitProcessAct->triggered(true);
+    MainFrame::instance()->isAutoStart();
+    MainFrame::instance()->m_CurrentTab = recycleTab;
+    MainFrame::instance()->onContextMenu(QPoint(0,0));
+    MainFrame::instance()->onCheckChanged(true,0);
+    MainFrame::instance()->onIsMetalinkDownload(true);
+    MainFrame::instance()->Raise();
 
 }
+
 
 TEST_F(ut_MainFreme, clearAllTask)
 {

@@ -65,19 +65,12 @@ void ClipboardTimer::getDataChanged()
         return;
     }
     m_timeStamp = mimeData->data("TIMESTAMP");
-    const QMimeData *data = m_clipboard->mimeData();
-    if (data->hasText()) {
-        QString text = data->text();
-    }
-    for (int i = 0; i < data->formats().size(); i++) {
-        QString format = data->formats()[i];
-        QString formatData = data->data(data->formats()[i]);
+    for (int i = 0; i < mimeData->formats().size(); i++) {
+        QString format = mimeData->formats()[i];
+        QString formatData = mimeData->data(mimeData->formats()[i]);
         if (format == "FROM_DEEPIN_CLIPBOARD_MANAGER") {
-            //qDebug() << "ClipboardTimer <getDataChanged> : FROM_DEEPIN_CLIPBOARD_MANAGER";
             return;
         }
-        //qDebug() << "ClipboardTimer <getDataChanged> format:: " << format;
-        //qDebug() << "ClipboardTimer <getDataChanged> formatData:: " << formatData;
     }
 
     QStringList urlList = m_clipboard->text().split("\n");
@@ -85,7 +78,6 @@ void ClipboardTimer::getDataChanged()
         urlList[i] = urlList[i].simplified();
     }
     QString url;
-    ////qDebug()<< "class::ClipboardTimer getDataChanged() url <<  "<< urlList;
     Settings *setting = Settings::getInstance();
     bool bIsHttp = setting->getHttpDownloadState();
     bool bIsMagnet = setting->getMagneticDownloadState();
