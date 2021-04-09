@@ -10,6 +10,7 @@
 #include <QPoint>
 #include <QClipboard>
 #include <QMenu>
+#include <QKeyEvent>
 #include <QWebSocket>
 #include <QFocusEvent>
 #include <DSettings>
@@ -1003,14 +1004,17 @@ TEST_F(ut_MainFreme, onRpcError)
     QJsonObject obj;
     MainFrame::instance()->onRpcError("", "" ,1 ,obj);
     MainFrame::instance()->onMessageBoxConfirmClick(0);
-    MainFrame::instance()->m_CurrentTab = CurrentTab::finishTab;
-    MainFrame::instance()->onDeleteActionTriggered();
-    MainFrame::instance()->onMoveToActionTriggered();
+
 
     MainFrame::instance()->m_CurrentTab = CurrentTab::recycleTab;
     MainFrame::instance()->onDeletePermanentActionTriggered();
+    MainFrame::instance()->onDeleteActionTriggered();
+    MainFrame::instance()->onMoveToActionTriggered();
     MainFrame::instance()->m_CurrentTab = CurrentTab::finishTab;
+    MainFrame::instance()->onDeleteActionTriggered();
+    MainFrame::instance()->onMoveToActionTriggered();
     MainFrame::instance()->onDeletePermanentActionTriggered();
+
     MainFrame::instance()->onPowerOnChanged(true);
     MainFrame::instance()->onPowerOnChanged(false);
 
@@ -1021,7 +1025,6 @@ TEST_F(ut_MainFreme, onRpcError)
     MainFrame::instance()->checkTime(s,s);
     MainFrame::instance()->checkTime(s,e);
 
-    MainFrame::instance()->onIsMetalinkDownload(true);
     MainFrame::instance()->Raise();
     MainFrame::instance()->deleteTaskByUrl("");
     DeleteDataItem *pItem = nullptr;
@@ -1040,6 +1043,7 @@ TEST_F(ut_MainFreme, onRpcError)
     MainFrame::instance()->onContextMenu(QPoint(0,0));
     MainFrame::instance()->onCheckChanged(true,0);
     MainFrame::instance()->onIsMetalinkDownload(true);
+    MainFrame::instance()->onIsMetalinkDownload(false);
     MainFrame::instance()->Raise();
 
 }

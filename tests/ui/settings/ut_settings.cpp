@@ -753,6 +753,14 @@ TEST_F(ut_Settings, getMaxDownloadSpeedLimit1)
      Settings::getInstance()->getSpeedLimitEndTime();
 }
 
+TEST_F(ut_Settings, createWindows)
+{
+     auto option = Settings::getInstance()->m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
+     option->setValue(QVariant());
+     Settings::getInstance()->createDownloadSpeedLimitSettiingHandle(option);
+}
+
+
 TEST_F(ut_Settings, clearAllTask)
 {
     DBInstance::delAllTask();
