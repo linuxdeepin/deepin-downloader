@@ -489,7 +489,7 @@ function onItemCreated(item) {
         //socketIsOpen = true;
         console.log("socket not ready")
         window.open("downloader:");
-        setTimeout(reConnect, 2500);
+        setTimeout(reConnect, 3000);
         return;
     }
     console.log("onItemCreated send text to client")
