@@ -441,15 +441,11 @@ function main() {
             }, function(item) {}),
             item.url !== item.referrer && ("about:blank" === item.url ? chrome.tabs.getSelected(null, function(tab) {
                 downloadTable = tab
-                console.log("tab:")
-                console.log(tab)
                 tab && "" === tab.url && chrome.tabs.remove(tab.id)
                 console.log("chrome.tabs.remove")
             }) : "" !== item.referrer && chrome.tabs.query({
                 url: item.url
             }, function(item) {
-                console.log("tab:")
-                console.log(item)
                 item && item[0] && chrome.tabs.remove(item[0].id)
             }))
             downloadFlag = false;
@@ -493,7 +489,7 @@ function onItemCreated(item) {
         //socketIsOpen = true;
         console.log("socket not ready")
         window.open("downloader:");
-        setTimeout(reConnect, 1500);
+        setTimeout(reConnect, 2500);
         return;
     }
     console.log("onItemCreated send text to client")
@@ -773,26 +769,23 @@ function onHeadersReceived(details) {
         }
 
         if(isSupportMediaExt(c)) {
-            console.log("FileNameExt : " + c)
+            console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
             downloadFlag = true;
             chrome.downloads.download({
                 url: u
             }, onDownload);
-            isSelfCreate = true
             return;
         }
 
         var h = o.headers["content-type"];
-        console.log("type: " + h)
         if (isSupportContentType(h)) {
-            console.log("FileNameExt : " + c)
+            console.log("SupportContentType : " + h)
             chrome.downloads.setShelfEnabled(true);
             downloadFlag = true;
             chrome.downloads.download({
                 url: u
             }, onDownload);
-            isSelfCreate = true
             return;
         }
 
