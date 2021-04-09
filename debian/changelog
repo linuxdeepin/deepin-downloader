@@ -1,4 +1,4 @@
-downloadmanager (5.3.21) stable; urgency=low
+downloadmanager (5.3.22) stable; urgency=low
 
   * 修改重启之后正在下载列表显示异常的bug
 
