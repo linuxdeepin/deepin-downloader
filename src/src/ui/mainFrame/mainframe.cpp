@@ -391,9 +391,10 @@ void MainFrame::updateDHTFile()
     QString dhtpah = QDir::homePath() + "/.config/uos/downloader/";
     QProcess p;
     p.startDetached("curl https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -o" + dhtpah + "dht6.dat -O");
-
+    p.setStandardOutputFile("/dev/null");
     QProcess p2;
     p2.startDetached("curl https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -o" + dhtpah + "dht.dat -O");
+    p2.setStandardOutputFile("/dev/null");
 }
 
 void MainFrame::initConnection()
@@ -601,27 +602,6 @@ void MainFrame::initDbus()
 
 void MainFrame::initWebsocket()
 {
-
-//    QSharedPointer<QWebSocketServer> server = QSharedPointer<QWebSocketServer>(new QWebSocketServer(QStringLiteral("QWebChannel Server"),
-//                                                                                                 QWebSocketServer::NonSecureMode), &QObject::deleteLater);
-//    if (!server->listen(QHostAddress("127.0.0.1"), 12345)) {
-//        qFatal("Failed to open web socket server.");
-//    }
-//    QSharedPointer<WebSocketClientWrapper> clientWrapper =
-//            QSharedPointer<WebSocketClientWrapper>(new WebSocketClientWrapper(server.data()), &QObject::deleteLater);
-
-//    QSharedPointer<QWebChannel> channel =
-//            QSharedPointer<QWebChannel>(new QWebChannel(), &QObject::deleteLater);
-//    QObject::connect(clientWrapper.data(), &WebSocketClientWrapper::clientConnected,
-//                     channel.data(), &QWebChannel::connectTo);
-
-//    QSharedPointer<Websockethandle> core = QSharedPointer<Websockethandle>(new Websockethandle(), &QObject::deleteLater);
-//    channel->registerObject(QStringLiteral("core"), core.data());
-//    connect(core.data(), &Websockethandle::sendWebText, this, [&](QString text) {
-//        createNewTask(text);
-//    });
-
-
     m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
     if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
       //  qFatal("Failed to open web socket server.");
@@ -633,7 +613,9 @@ void MainFrame::initWebsocket()
     m_core = new Websockethandle;
     m_channel->registerObject(QStringLiteral("core"), m_core);
     connect(m_core, &Websockethandle::sendWebText, this, [&](QString text) {
-        createNewTask(text);
+         QTimer::singleShot(50, this, [=](){
+             createNewTask(text);
+         });
     });
 }
 
