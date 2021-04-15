@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14bc4f5e_04dcb408",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-15T02:28:24Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "a6f005c12dd6f05bacbcd9a1ab8ba3d71f4e36e7",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
