@@ -394,15 +394,11 @@ var socket;
 var webChanel;
 var downloadFlag = false;
 var downloadItem;
-var downloadId;
 var socketIsOpen = false;
-var downloadTable;
 var isSelfCreate = false;
 
+
 function main() {
-    console.log("main")
-    var date = new Date();
-    console.log(date);
     socket  = new WebSocket("ws://localhost:12345");
 
     socket.onopen = function() {
@@ -432,22 +428,27 @@ function main() {
     })
 
     chrome.downloads.onCreated.addListener(function(item) {
+        if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
+            return;
+        }
+        if(item.mime == "text/html") {  //是网页，就返回
+            chrome.downloads.setShelfEnabled(true);
+            return;
+        }
+        if(item.finalUrl.indexOf("file://") != -1) {  //是file://类型，就返回
+            console.log(item.finalUrl)
+            chrome.downloads.setShelfEnabled(true);
+            return;
+        }
+        
         if(!isSelfCreate) {
             console.log("button Created")
-            console.log(item.url)
+            console.log(item.finalUrl)
+            console.log(item)
             chrome.downloads.cancel(item.id),
             chrome.downloads.erase({
                 id: item.id
-            }, function(item) {}),
-            item.url !== item.referrer && ("about:blank" === item.url ? chrome.tabs.getSelected(null, function(tab) {
-                downloadTable = tab
-                tab && "" === tab.url && chrome.tabs.remove(tab.id)
-                console.log("chrome.tabs.remove")
-            }) : "" !== item.referrer && chrome.tabs.query({
-                url: item.url
-            }, function(item) {
-                item && item[0] && chrome.tabs.remove(item[0].id)
-            }))
+            })
             downloadFlag = false;
             setTimeout(()=>{
                 onItemCreated(item);
@@ -461,7 +462,6 @@ function main() {
 
     //chrome.downloads.onChanged.addListener(onChanged);
 
-
     chrome.webRequest.onHeadersReceived.addListener(function(t) {
         return onHeadersReceived(t)
     }, {
@@ -469,6 +469,16 @@ function main() {
     }, ["blocking", "responseHeaders"])
 
     chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
+    // chrome.notifications.getPermissionLevel(function(level){
+    //     chrome.notifications.create(
+    //         'notify_alert1', // notifyId
+    //         {type: "basic", iconUrl: "icon19.png", title: "正在启动下载器", message: "请等待下载器启动完成"}, 
+    //         function(notifyId){
+    //             //不用移除该消息，否者不会显示
+    //             // chrome.notifications.clear(notifyId, function(){ });
+    //         }
+    //     )
+    // })
 }
 
 main();
@@ -477,7 +487,9 @@ function onItemCreated(item) {
     if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
         return;
     }
+
     console.log("onItemCreated")
+    console.log(item)
     downloadItem = item;
     if(downloadFlag == true){
         console.log("downloadFlag true")
@@ -485,15 +497,15 @@ function onItemCreated(item) {
         //chrome.downloads.setShelfEnabled(false);
         return;
     }
-    if(!socketIsOpen){
+    if(!socketIsOpen) {
         //socketIsOpen = true;
         console.log("socket not ready")
-        window.open("downloader:");
-        setTimeout(reConnect, 3000);
+        window.open("downloader:")
+        setTimeout(reConnect, 5000)  //多次尝试
         return;
     }
     console.log("onItemCreated send text to client")
-    webChanel.objects.core.receiveText(item.url);
+    webChanel.objects.core.receiveText(item.finalUrl);
 }
 
 function reConnect() {
@@ -503,12 +515,13 @@ function reConnect() {
     console.log("reConnect")
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = function() {
-        socketIsOpen = true;
         onSocketOpen();
     }
     setTimeout(()=>{
-        console.log("reConnect send text to client")
-        webChanel.objects.core.receiveText(downloadItem.url);
+        if(socketIsOpen) {
+            console.log("reConnect send text to client")
+            webChanel.objects.core.receiveText(downloadItem.finalUrl);
+        }
     }, 100);
 
     socket.onerror = function() {
@@ -521,7 +534,6 @@ function reConnect() {
 }
 
 function onSocketOpen() {
-    socketIsOpen = true;
     console.log("websocket Open")
     new QWebChannel(socket, function(channel) {
         console.log("QWebChannel new")
@@ -530,7 +542,7 @@ function onSocketOpen() {
         channel.objects.core.sendText.connect(function(message) {
             console.log("message :" + message)
             if(message == "0"){
-                downloadData(downloadItem.url)
+                downloadData(downloadItem.finalUrl)
             } else {
                 chrome.downloads.setShelfEnabled(false);
             }
@@ -538,45 +550,20 @@ function onSocketOpen() {
     })
 }
 
-function downloadData(u) {
-    console.log("redownload: " + u)
-    var c = getFileNameExt(downloadItem.fileName);
-    if (0 === c.length) {
-        var u = getUrlFileName(downloadItem.url);
-        c = getFileNameExt(u)
-    }
-    if(isSupportMediaExt(c)) {
-        console.log("FileNameExt : " + c)
-        chrome.downloads.setShelfEnabled(true);
-        downloadFlag = true;
-        chrome.downloads.download({
-            url: u
-        }, onDownload);
-        isSelfCreate = true
-        return;
-    }
+function downloadData(url) {
+    console.log("redownload: " + url)
+
+    chrome.downloads.setShelfEnabled(true);
+    downloadFlag = true;
+    isSelfCreate = true
+    chrome.downloads.download({
+        url: url
+    });
 }
 
-
-function onChanged(downloadDelta) {
-    console.log("onChanged :  " + downloadDelta.url)
-    if("undefined" !=  downloadDelta.id && downloadId != downloadDelta.id) {
-        console.log("cancle and erase");
-        console.log("downloadDelta.state: ");
-        console.log(downloadDelta.state);
-        console.log("downloadDelta.id: ");
-        console.log(downloadDelta.id);
-        chrome.downloads.setShelfEnabled(true);
-        chrome.downloads.cancel(downloadDelta.id);
-        chrome.downloads.erase({id: downloadDelta.id});
-        console.log("cancle and erase finish");
-    }
-}
-
-function onDownload(id) {
-    console.log("onDownload")
-    downloadId = id;
-}
+// function onDownload(id) {
+//     console.log("onDownload")
+// }
 
 function addContextMenu (id, title) {
     chrome.contextMenus.create({
@@ -589,7 +576,7 @@ function addContextMenu (id, title) {
 function onContextMenuClicked(info, tab) {
     console.log("onContextMenuClicked")
     window.open("downloader:");
-    setTimeout(()=>{onTimeout(info)}, 1500);
+    setTimeout(()=>{onTimeout(info)}, 5000);
 }
 
 function onTimeout(info) {
@@ -605,7 +592,7 @@ function onTimeout(info) {
 }
 
 
-var MIME_TYPE_ARRAY = ["text/html", "application/vnd.lotus-1-2-3", "image/x-3ds", "video/3gpp", "video/3gpp", "video/3gpp", "video/3gpp", "application/x-t602", "audio/x-mod", "application/x-7z-compressed",
+var MIME_TYPE_ARRAY = ["application/vnd.lotus-1-2-3", "image/x-3ds", "video/3gpp", "video/3gpp", "video/3gpp", "video/3gpp", "application/x-t602", "audio/x-mod", "application/x-7z-compressed",
                        "application/x-archive", "audio/mp4", "application/x-abiword", "application/x-abiword", "application/x-abiword", "audio/ac3", "application/x-ace", "text/x-adasrc", "text/x-adasrc",
                        "application/x-font-afm", "image/x-applix-graphics", "application/illustrator", "audio/x-aiff", "audio/x-aiff", "audio/x-aiff", "application/x-perl", "application/x-alz", "audio/amr",
                        "application/x-navi-animation", "video/x-anim", "application/annodex", "audio/x-ape", "application/x-arj", "image/x-sony-arw", "application/x-applix-spreadsheet", "text/plain",
@@ -627,11 +614,11 @@ var MIME_TYPE_ARRAY = ["text/html", "application/vnd.lotus-1-2-3", "image/x-3ds"
                        "application/x-genesis-rom", "application/x-tex-gf", "application/x-sms-rom", "image/gif", "application/x-glade", "application/x-gettext-translation", "application/x-gnucash",
                        "application/gnunet-directory", "application/x-gnucash", "application/x-gnumeric", "application/x-gnuplot", "application/x-gnuplot", "application/pgp-encrypted", "application/x-gnuplot",
                        "application/x-graphite", "application/x-font-type1", "audio/x-gsm", "application/x-tar", "text/vnd.graphviz", "text/x-google-video-pointer", "application/x-gzip", "text/x-chdr", "text/x-c++hdr",
-                       "application/x-hdf", "text/x-c++hdr", "text/x-c++hdr", "application/vnd.hp-hpgl", "text/x-c++hdr", "text/x-haskell", "text/html", "text/html", "application/x-hwp", "application/x-hwt",
+                       "application/x-hdf", "text/x-c++hdr", "text/x-c++hdr", "application/vnd.hp-hpgl", "text/x-c++hdr", "text/x-haskell", "application/x-hwp", "application/x-hwt",
                        "text/x-c++hdr", "application/x-ica", "image/x-tga", "image/x-icns", "image/vnd.microsoft.icon", "text/calendar", "text/x-idl", "image/ief", "image/x-iff", "image/x-ilbm", "text/x-imelody",
                        "text/x-imelody", "text/x-tex", "text/x-iptables", "application/x-cd-image", "application/x-cd-image", "audio/x-it", "image/jp2", "text/vnd.sun.j2me.app-descriptor", "application/x-java-archive",
                        "text/x-java", "image/x-jng", "application/x-java-jnlp-file", "image/jp2", "image/jp2", "image/jp2", "image/jpeg", "application/x-jbuilder-project", "image/jp2", "application/javascript",
-                       "application/json", "application/jsonp", "image/x-kodak-k25", "audio/midi", "application/x-karbon", "image/x-kodak-kdc", "application/x-desktop", "application/x-kexiproject-sqlite3",
+                       "application/jsonp", "image/x-kodak-k25", "audio/midi", "application/x-karbon", "image/x-kodak-kdc", "application/x-desktop", "application/x-kexiproject-sqlite3",
                        "application/x-kexi-connectiondata", "application/x-kexiproject-shortcut", "application/x-kformula", "application/x-killustrator", "application/smil", "application/vnd.google-earth.kml+xml",
                        "application/vnd.google-earth.kmz", "application/x-kontour", "application/x-kpovmodeler", "application/x-kpresenter", "application/x-kpresenter", "application/x-krita", "application/x-kspread",
                        "application/x-kugar", "application/x-kword", "application/x-kword", "application/x-shared-library-la", "text/x-tex", "text/x-ldif", "application/x-lha", "text/x-literate-haskell",
@@ -687,17 +674,17 @@ var MIME_TYPE_ARRAY = ["text/html", "application/vnd.lotus-1-2-3", "image/x-3ds"
                        "image/x-wmf", "text/vnd.wap.wml", "text/vnd.wap.wmlscript", "video/x-ms-wmv", "audio/x-ms-asx", "application/vnd.wordperfect", "application/vnd.wordperfect", "application/vnd.wordperfect", 
                        "application/vnd.wordperfect", "application/vnd.wordperfect", "application/x-wpg", "application/vnd.ms-wpl", "application/vnd.wordperfect", "application/vnd.ms-works", 
                        "application/x-mswrite", "model/vrml", "audio/x-wavpack", "audio/x-wavpack-correction", "audio/x-wavpack", "audio/x-ms-asx", "image/x-sigma-x3f", "application/x-gnucash", 
-                       "application/x-xbel", "application/xml", "image/x-xbitmap", "image/x-xcf", "image/x-compressed-xcf", "image/x-compressed-xcf", "application/xhtml+xml", "audio/x-xi", 
+                       "application/x-xbel", "image/x-xbitmap", "image/x-xcf", "image/x-compressed-xcf", "image/x-compressed-xcf", "application/xhtml+xml", "audio/x-xi", 
                        "application/vnd.ms-excel", "application/vnd.ms-excel", "application/vnd.ms-excel", "application/x-xliff", "application/x-xliff", "application/vnd.ms-excel", "application/vnd.ms-excel", 
                        "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
-                       "application/vnd.ms-excel", "application/vnd.ms-excel", "audio/x-xm", "audio/x-xmf", "text/x-xmi", "application/xml", "image/x-xpixmap", "application/vnd.ms-xpsdocument",
-                       "application/xml", "text/x-xslfo", "application/xml", "application/xspf+xml", "application/vnd.mozilla.xul+xml", "image/x-xwindowdump", "chemical/x-pdb", "application/x-xz", 
+                       "application/vnd.ms-excel", "application/vnd.ms-excel", "audio/x-xm", "audio/x-xmf", "text/x-xmi", "image/x-xpixmap", "application/vnd.ms-xpsdocument",
+                        "text/x-xslfo", "application/xspf+xml", "application/vnd.mozilla.xul+xml", "image/x-xwindowdump", "chemical/x-pdb", "application/x-xz", 
                        "application/w2p", "application/x-compress", "application/x-abiword", "application/zip", "application/x-zoo"]
 
 
 var SUPPORT_MEDIA_EXT_ARRAY = [".asf", ".avi", ".exe", ".iso", ".mp3", ".mpeg", ".mpg", ".mpga", ".ra", ".rar", ".rm", ".rmvb", ".tar", ".wma", ".wmp", ".wmv", ".mov", ".zip", ".3gp", ".chm", ".mdf", 
                                ".torrent", ".jar", ".msi", ".arj", ".bin", ".dll", ".psd", ".hqx", ".sit", ".lzh", ".gz", ".tgz", ".xlsx", ".xls", ".doc", ".docx", ".ppt", ".pptx", ".flv", ".swf", 
-                               ".mkv", ".tp", ".ts", ".flac", ".ape", ".wav", ".aac", ".txt", ".dat", ".7z", ".ttf", ".bat", ".xv", ".xvx", ".pdf", ".mp4", ".apk", ".ipa", ".epub", ".mobi", ".deb", 
+                               ".mkv", ".tp", ".ts", ".flac", ".ape", ".wav", ".aac", ".txt", ".crx", ".dat", ".7z", ".ttf", ".bat", ".xv", ".xvx", ".pdf", ".mp4", ".apk", ".ipa", ".epub", ".mobi", ".deb", 
                                ".sisx", ".cab", ".pxl"]
 
 var SUPPORT_REQUEST_TYPE_ARRAY = ["main_frame", "sub_frame", "object", "xmlhttprequest", "other", "media"]
@@ -721,6 +708,9 @@ function urlInfo() {
 }
 
 function onHeadersReceived(details) {
+    if(isSelfCreate) {
+        return
+    }
     console.log("onHeadersReceived : " + details.url)
     do {
         var code = details.statusCode;
@@ -772,9 +762,10 @@ function onHeadersReceived(details) {
             console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
             downloadFlag = true;
+            isSelfCreate = false
             chrome.downloads.download({
                 url: u
-            }, onDownload);
+            });
             return;
         }
 
@@ -783,9 +774,10 @@ function onHeadersReceived(details) {
             console.log("SupportContentType : " + h)
             chrome.downloads.setShelfEnabled(true);
             downloadFlag = true;
+            isSelfCreate = false
             chrome.downloads.download({
                 url: u
-            }, onDownload);
+            });
             return;
         }
 
