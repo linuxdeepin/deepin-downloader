@@ -726,22 +726,22 @@ TEST_F(ut_Settings, CTimeEditOnIndexChanged)
     c.onIndexChanged("11");
 }
 
-TEST_F(ut_Settings, FileSavePathChooserInit)
-{
-    typedef int (*fptr)(DownloadSettingWidget *);
-    fptr foo = (fptr)(&QObject::sender);
-    Stub stub;
-    stub.set(foo, mockSender);
+//TEST_F(ut_Settings, FileSavePathChooserInit)
+//{
+//    typedef int (*fptr)(DownloadSettingWidget *);
+//    fptr foo = (fptr)(&QObject::sender);
+//    Stub stub;
+//    stub.set(foo, mockSender);
 
-    FileSavePathChooser f(1, "~/Downloader/");
-    f.m_currentSelect= 0;
-    f.initUI();
-    f.m_customsPathRadioButton = mockSender();
-    f.onRadioButtonClicked();
-    f.m_autoLastPathRadioButton = mockSender();
-    f.onRadioButtonClicked();
-    f.setCurrentSelectRadioButton(1);
-}
+//    FileSavePathChooser f(1, "~/Downloader/");
+//    f.m_currentSelect= 0;
+//    f.initUI();
+//    f.m_customsPathRadioButton = mockSender();
+//    f.onRadioButtonClicked();
+//    f.m_autoLastPathRadioButton = mockSender();
+//    f.onRadioButtonClicked();
+//    f.setCurrentSelectRadioButton(1);
+//}
 
 TEST_F(ut_Settings, getMaxDownloadSpeedLimit1)
 {
