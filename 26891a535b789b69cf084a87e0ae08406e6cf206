@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fa20890_cc1dedf8",
+        "filename": "tests/ui/settings/ut_settings.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-16T01:43:32Z",
+      "side": 1,
+      "message": "注释行数: 15; 改动行数(修改和新增): 15; 注释率: 100.0%",
+      "revId": "26891a535b789b69cf084a87e0ae08406e6cf206",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
