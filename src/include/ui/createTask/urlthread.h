@@ -79,6 +79,8 @@ private:
 
     QString getType(QString contentType);
 
+    QString getNoContentType();
+
 signals:
     /**
      * @brief sendFinishedUrl 发送解析后的数据

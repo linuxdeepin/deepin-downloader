@@ -146,6 +146,18 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         });
         break;
     }
+    case 400: {
+        if(m_linkInfo.url.startsWith("https://www.gmssl.cn/")){
+            m_linkInfo.urlSize = "1kb";
+            m_linkInfo.length = 1024;
+            m_linkInfo.type = getUrlType(m_linkInfo.url);
+            if(m_linkInfo.type.isEmpty()){
+                m_linkInfo.type = "html";
+            }
+            emit sendFinishedUrl(m_linkInfo);
+        }
+        break;
+    }
     case 404: {
         emit sendFinishedUrl(m_linkInfo);
         break;
@@ -231,6 +243,9 @@ QString UrlThread::getUrlType(QString url)
     if(type.isNull()){
         type = db.suffixForFileName(m_linkInfo.url);
     }
+    if(type.isNull()){
+        type = getNoContentType();
+    }
     return type;
 }
 
@@ -252,4 +267,22 @@ QString UrlThread::getType(QString contentType)
     contentType.remove(";");
     QString str3 = m_iniFile->value("1").toString();
     return  m_iniFile->value(contentType).toString();
+}
+
+QString UrlThread::getNoContentType()
+{
+    QString jsonType = ".asf;.avi;.exe;.iso;.mp3;.mpeg;.mpg;.mpga;"
+                   ".ra;.rar;.rm;.rmvb;.tar;.wma;.wmp;.wmv;.mov;"
+                   ".zip;.3gp;.chm;.mdf;.torrent;.jar;.msi;.arj;."
+                   "bin;.dll;.psd;.hqx;.sit;.lzh;.gz;.tgz;.xlsx;"
+                   ".xls;.doc;.docx;.ppt;.pptx;.flv;.swf;.mkv;.tp;"
+                   ".ts;.flac;.ape;.wav;.aac;.txt;.dat;.7z;.ttf;.bat;"
+                   ".xv;.xvx;.pdf;.mp4;.apk;.ipa;.epub;.mobi;.deb;.sisx;.cab;.pxl;";
+    QString url = m_linkInfo.url.split('?')[0].toLower();
+    QStringList surlList = url.split('.');
+    QString type = surlList[surlList.size()-1];
+    if(jsonType.contains(type)){
+        return type;
+    }
+    return "";
 }
