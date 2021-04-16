@@ -1,3 +1,9 @@
+downloadmanager (5.3.24) stable; urgency=low
+
+  * 修改带参数的http链接的解析方式
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 16 Apr 2021 17:04:52 +0800
+
 downloadmanager (5.3.23) stable; urgency=low
 
   * 修改新建下载任务时，关闭浏览器扩展开关，下载器崩溃的bug

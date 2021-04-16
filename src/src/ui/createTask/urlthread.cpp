@@ -146,18 +146,18 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         });
         break;
     }
-    case 400: {
-        if(m_linkInfo.url.startsWith("https://www.gmssl.cn/")){
-            m_linkInfo.urlSize = "1kb";
-            m_linkInfo.length = 1024;
-            m_linkInfo.type = getUrlType(m_linkInfo.url);
-            if(m_linkInfo.type.isEmpty()){
-                m_linkInfo.type = "html";
-            }
-            emit sendFinishedUrl(m_linkInfo);
-        }
-        break;
-    }
+//    case 400: {
+//        if(m_linkInfo.url.startsWith("https://www.gmssl.cn/")){
+//            m_linkInfo.urlSize = "1kb";
+//            m_linkInfo.length = 1024;
+//            m_linkInfo.type = getUrlType(m_linkInfo.url);
+//            if(m_linkInfo.type.isEmpty()){
+//                m_linkInfo.type = "html";
+//            }
+//            emit sendFinishedUrl(m_linkInfo);
+//        }
+//        break;
+//    }
     case 404: {
         emit sendFinishedUrl(m_linkInfo);
         break;
