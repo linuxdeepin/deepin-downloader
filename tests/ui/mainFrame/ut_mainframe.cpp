@@ -175,9 +175,9 @@ TEST_F(ut_MainFreme, changeList)
 
 TEST_F(ut_MainFreme, rename)
 {
-    MainFrame::instance()->show();
+    //MainFrame::instance()->show();
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-    TableModel *model = static_cast<TableModel *>(table->model());
+    TableModel *model = table->getTableModel();
     QTest::qWait(200);
     QRect rect = table->visualRect(model->index(0, 2));
     QTimer::singleShot(500, this, [=]() {

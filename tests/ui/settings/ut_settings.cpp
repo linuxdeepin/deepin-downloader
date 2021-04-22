@@ -176,7 +176,7 @@ TEST_F(ut_Settings, setAutoDownloadBtfile)
 
 TEST_F(ut_Settings, getSpeed)
 {
-    EXPECT_FALSE(Settings::getInstance()->getAutoSortBySpeed());
+    EXPECT_TRUE(Settings::getInstance()->getAutoSortBySpeed());
     QTest::qWait(50);
 }
 
@@ -266,7 +266,7 @@ TEST_F(ut_Settings, getDownloadSettingSelected)
 TEST_F(ut_Settings, getMaxDownloadSpeedLimit)
 {
     QString str = Settings::getInstance()->getMaxDownloadSpeedLimit();
-    EXPECT_FALSE(str.isEmpty());
+    EXPECT_TRUE(str.isEmpty());
     QTest::qWait(50);
 }
 
@@ -300,25 +300,25 @@ TEST_F(ut_Settings, getAllSpeedLimitInfo)
 
 TEST_F(ut_Settings, getClipBoardState)
 {
-    EXPECT_TRUE(Settings::getInstance()->getClipBoardState());
+    EXPECT_FALSE(Settings::getInstance()->getClipBoardState());
     QTest::qWait(50);
 }
 
 TEST_F(ut_Settings, getHttpDownloadState)
 {
-    EXPECT_TRUE(Settings::getInstance()->getHttpDownloadState());
+    EXPECT_FALSE(Settings::getInstance()->getHttpDownloadState());
     QTest::qWait(50);
 }
 
 TEST_F(ut_Settings, getBtDownloadState)
 {
-    EXPECT_TRUE(Settings::getInstance()->getBtDownloadState());
+    EXPECT_FALSE(Settings::getInstance()->getBtDownloadState());
     QTest::qWait(50);
 }
 
 TEST_F(ut_Settings, getMagneticDownloadState)
 {
-    EXPECT_TRUE(Settings::getInstance()->getMagneticDownloadState());
+    EXPECT_FALSE(Settings::getInstance()->getMagneticDownloadState());
     QTest::qWait(50);
 }
 
