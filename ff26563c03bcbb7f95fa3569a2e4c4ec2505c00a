@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfba7282_f0d934cf",
+        "filename": "src/include/ui/mainFrame/itemDelegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-23T07:32:13Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 6; 注释率: 0.0%",
+      "revId": "ff26563c03bcbb7f95fa3569a2e4c4ec2505c00a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b9f133_b825056b",
+        "filename": "src/src/database/dbinstance.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-23T07:32:13Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 4; 注释率: 0.0%",
+      "revId": "ff26563c03bcbb7f95fa3569a2e4c4ec2505c00a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b294617_92224db4",
+        "filename": "src/src/ui/mainFrame/itemDelegate.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-23T07:32:13Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 67; 注释率: 0.0%",
+      "revId": "ff26563c03bcbb7f95fa3569a2e4c4ec2505c00a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
