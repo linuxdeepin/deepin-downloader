@@ -396,6 +396,9 @@ var downloadFlag = false;
 var downloadItem;
 var socketIsOpen = false;
 var isSelfCreate = false;
+var isContextMenuSend = false;
+var isContainCookie = false;
+var windowIncognito = false;
 
 
 function main() {
@@ -412,55 +415,73 @@ function main() {
         console.log("websocket close")
     }
 
-    addContextMenu ("downloader", "使用下载器下载");
+    var title = chrome.i18n.getMessage("downlaodby");
+    addContextMenu ("downloader", title);
 
-
-    chrome.tabs.onCreated.addListener(function(item) {
-        console.log("chrome.tabs.onCreated")
-        console.log(item)
-    })
-
-    chrome.downloads.setShelfEnabled(false);
-
-    chrome.downloads.onDeterminingFilename.addListener(function(item) {
+    chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
         console.log("onDeterminingFilename")
-        console.log(item.url)
-    })
+        console.log(item)
+        // suggest({
+        //      filename: item.filename,
+        //      conflict_action: 'overwrite',
+        //      conflictAction: 'overwrite'
+        //     });
+      });
+
+      
 
     chrome.downloads.onCreated.addListener(function(item) {
-        if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
+        console.log("chrome.downloads.onCreated")
+        console.log(item)
+
+        if(windowIncognito) { //隐私模式，返回
+            console.log("隐私模式")
             return;
         }
-        if(item.mime == "text/html") {  //是网页，就返回
-            chrome.downloads.setShelfEnabled(true);
+        if(item.state != "in_progress") {  //判断状态不是刚创建的任务，返回
+            console.log("不是刚创建的任务")
             return;
         }
-        if(item.finalUrl.indexOf("file://") != -1) {  //是file://类型，就返回
-            console.log(item.finalUrl)
-            chrome.downloads.setShelfEnabled(true);
+        if(item.filename != "" && item.mime == "text/html") {  //判断文件名不为空，即右键另存为的html，返回
+            console.log("文件名不为空")
             return;
+        }
+        if(item.finalUrl.indexOf("chrome://") != -1 ) {  //是chrome内置网页，返回
+            console.log("是chrome内置网页")
+            return;
+        }
+        if(item.finalUrl.indexOf("file://") != -1) {  //是file://类型，返回
+            console.log("是file://类型")
+            return;
+        }
+        if(isContainCookie) {  //包含cookie，返回
+            isContainCookie = false
+            console.log("包含cookie")
+            return
         }
         
         if(!isSelfCreate) {
             console.log("button Created")
-            console.log(item.finalUrl)
-            console.log(item)
             chrome.downloads.cancel(item.id),
             chrome.downloads.erase({
                 id: item.id
             })
-            downloadFlag = false;
             setTimeout(()=>{
-                onItemCreated(item);
+                downloadItem = item;
+                if(item.finalUrl.indexOf("ftp://")!= -1 ){
+                    isSelfCreate = false
+                    downloadFlag = false;
+                    onItemCreated(downloadItem);
+                } else {
+                    loadXMLDoc(item.finalUrl)
+                }
             }, 0);
             
         } else {
             isSelfCreate = false
             console.log("self Created")
         }
-      });
-
-    //chrome.downloads.onChanged.addListener(onChanged);
+    });
 
     chrome.webRequest.onHeadersReceived.addListener(function(t) {
         return onHeadersReceived(t)
@@ -468,29 +489,75 @@ function main() {
         urls: ["<all_urls>"]
     }, ["blocking", "responseHeaders"])
 
-    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
-    // chrome.notifications.getPermissionLevel(function(level){
-    //     chrome.notifications.create(
-    //         'notify_alert1', // notifyId
-    //         {type: "basic", iconUrl: "icon19.png", title: "正在启动下载器", message: "请等待下载器启动完成"}, 
-    //         function(notifyId){
-    //             //不用移除该消息，否者不会显示
-    //             // chrome.notifications.clear(notifyId, function(){ });
-    //         }
-    //     )
-    // })
+    chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
+        if(details.method == "HEAD") {
+            return
+        }
+        console.log("chrome.webRequest.onBeforeSendHeaders")
+        console.log(details)
+        details.requestHeaders.some(function(header) {
+            if( header.name == 'Cookie' ) {
+                isContainCookie = true
+                console.log("isContainCookie = true")
+                return;
+            }
+            isContainCookie = false
+        })
+    }, {
+        urls: ["<all_urls>"]
+    }, ["blocking", "requestHeaders", "extraHeaders"])
+
+   
+
+    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)    
 }
 
 main();
 
-function onItemCreated(item) {
-    if(item.state != "in_progress") {  //判断状态不是刚创建的任务，就返回
-        return;
-    }
+chrome.windows.onFocusChanged.addListener(function(windowId) {
+    getWindowStat()
+  });
 
+function getWindowStat() {
+    chrome.windows.getCurrent({populate: true}, function (currentWindow) {
+        if(currentWindow.incognito) {
+            windowIncognito = true
+        } else {
+            windowIncognito = false
+        }
+      });
+}
+
+function loadXMLDoc(url)
+{
+    xmlhttp=new XMLHttpRequest();
+    if (xmlhttp!=null) {
+        xmlhttp.onreadystatechange=onStateChange;
+        isSelfCreate = true
+        xmlhttp.open("HEAD",url,true);
+        xmlhttp.send(null);
+    } else {
+        console.log("Your browser does not support XMLHTTP.");
+    }
+}
+
+function onStateChange()
+{
+    isSelfCreate = false
+    downloadFlag = false;
+    if (xmlhttp.readyState==4){// 4 = "loaded"
+        if (xmlhttp.status==200){// 200 = OK
+            console.log("xmlhttp.status==200")
+            onItemCreated(downloadItem);
+        } else {
+            console.log("Purse url failed");
+            downloadData(downloadItem.finalUrl)
+        }
+    }
+}
+
+function onItemCreated(item) {
     console.log("onItemCreated")
-    console.log(item)
-    downloadItem = item;
     if(downloadFlag == true){
         console.log("downloadFlag true")
         downloadFlag = false;
@@ -501,10 +568,11 @@ function onItemCreated(item) {
         //socketIsOpen = true;
         console.log("socket not ready")
         window.open("downloader:")
-        setTimeout(reConnect, 5000)  //多次尝试
+        setTimeout(reConnect, 1500)  //多次尝试
         return;
     }
     console.log("onItemCreated send text to client")
+    isContextMenuSend = false;
     webChanel.objects.core.receiveText(item.finalUrl);
 }
 
@@ -520,6 +588,7 @@ function reConnect() {
     setTimeout(()=>{
         if(socketIsOpen) {
             console.log("reConnect send text to client")
+            isContextMenuSend = false;
             webChanel.objects.core.receiveText(downloadItem.finalUrl);
         }
     }, 100);
@@ -541,10 +610,10 @@ function onSocketOpen() {
         socketIsOpen = true;
         channel.objects.core.sendText.connect(function(message) {
             console.log("message :" + message)
-            if(message == "0"){
+            if(message == "0" && !isContextMenuSend){
                 downloadData(downloadItem.finalUrl)
             } else {
-                chrome.downloads.setShelfEnabled(false);
+               // chrome.downloads.setShelfEnabled(false);
             }
         })
     })
@@ -554,16 +623,17 @@ function downloadData(url) {
     console.log("redownload: " + url)
 
     chrome.downloads.setShelfEnabled(true);
-    downloadFlag = true;
+    downloadFlag = true
     isSelfCreate = true
     chrome.downloads.download({
-        url: url
-    });
+        url : url,
+        //saveAs : true
+    }, onDownload);
 }
 
-// function onDownload(id) {
-//     console.log("onDownload")
-// }
+function onDownload(id) {
+    console.log("onDownload")
+}
 
 function addContextMenu (id, title) {
     chrome.contextMenus.create({
@@ -576,7 +646,7 @@ function addContextMenu (id, title) {
 function onContextMenuClicked(info, tab) {
     console.log("onContextMenuClicked")
     window.open("downloader:");
-    setTimeout(()=>{onTimeout(info)}, 5000);
+    setTimeout(()=>{onTimeout(info)}, 1500);
 }
 
 function onTimeout(info) {
@@ -585,10 +655,94 @@ function onTimeout(info) {
     var soc  = new WebSocket("ws://localhost:12345");
     soc.onopen = function() {
         new QWebChannel(soc, function(chan) {
+            isContextMenuSend = true;
             chan.objects.core.receiveText(info.linkUrl);
             //soc.close()
         })
     }
+}       
+
+function onHeadersReceived(details) {
+    if(isSelfCreate) {
+        return
+    }
+    console.log("onHeadersReceived : " + details.url)
+    do {
+        var code = details.statusCode;
+        if (code >= 300 && code < 400 && 304 !== code)
+            break;
+        if (0 === details.statusLine.indexOf("HTTP/1.1 204 Intercepted by the Xunlei Advanced Integration"))
+            break;
+        var type = details.type;
+        if (!isSupportRequestType(type))
+            break;
+        var url = details.url
+        var o = requestItems[details.requestId];
+        o ? delete requestItems[details.requestId] : (o = new urlInfo).tabId = details.tabId;
+        for (var r = 0; r < details.responseHeaders.length; ++r) {
+            var name = details.responseHeaders[r].name.toLowerCase()
+              , value = details.responseHeaders[r].value;
+            switch (name) {
+            case "referer":
+                o.headers.referer = value;
+                break;
+            case "set-cookie":
+                0 === o.headers.cookie.length ? o.headers.cookie = value : o.headers.cookie = o.headers.cookie + "; " + value;
+                break;
+            case "access-control-allow-origin":
+                originHender = "Origin: " + value;
+                break;
+            case "host":
+                o.headers.host = value;
+                break;
+            case "content-disposition":
+                o.headers["content-disposition"] = value;
+                break;
+            case "content-length":
+                o.headers["content-length"] = value;
+                break;
+            case "content-type":
+                o.headers["content-type"] = value
+            }
+        }
+
+
+        var c = getFileNameExt(o.fileName);
+        if (0 === c.length) {
+            var u = getUrlFileName(o.url);
+            c = getFileNameExt(u)
+        }
+
+        if(isSupportMediaExt(c)) {
+            if(windowIncognito) {
+                return;
+            }
+            console.log("SupportMediaExt : " + c)
+            chrome.downloads.setShelfEnabled(true);
+            downloadFlag = true;
+            isSelfCreate = false
+            chrome.downloads.download({
+                url: u
+            });
+            return;
+        }
+
+        var h = o.headers["content-type"];
+        if (isSupportContentType(h)) {
+            if(windowIncognito) {
+                return;
+            }
+            console.log("SupportMediaExt : " + c)
+            chrome.downloads.setShelfEnabled(true);
+            downloadFlag = true;
+            isSelfCreate = false
+            chrome.downloads.download({
+                url: u
+            });
+            return;
+        }
+
+    } while (0);return {}
 }
 
 
@@ -707,88 +861,13 @@ function urlInfo() {
     this.tabId = void 0
 }
 
-function onHeadersReceived(details) {
-    if(isSelfCreate) {
-        return
-    }
-    console.log("onHeadersReceived : " + details.url)
-    do {
-        var code = details.statusCode;
-        if (code >= 300 && code < 400 && 304 !== code)
-            break;
-        if (0 === details.statusLine.indexOf("HTTP/1.1 204 Intercepted by the Xunlei Advanced Integration"))
-            break;
-        var type = details.type;
-        if (!isSupportRequestType(type))
-            break;
-        var url = details.url
-        var o = requestItems[details.requestId];
-        o ? delete requestItems[details.requestId] : (o = new urlInfo).tabId = details.tabId;
-        for (var r = 0; r < details.responseHeaders.length; ++r) {
-            var name = details.responseHeaders[r].name.toLowerCase()
-              , value = details.responseHeaders[r].value;
-            switch (name) {
-            case "referer":
-                o.headers.referer = value;
-                break;
-            case "set-cookie":
-                0 === o.headers.cookie.length ? o.headers.cookie = value : o.headers.cookie = o.headers.cookie + "; " + value;
-                break;
-            case "access-control-allow-origin":
-                originHender = "Origin: " + value;
-                break;
-            case "host":
-                o.headers.host = value;
-                break;
-            case "content-disposition":
-                o.headers["content-disposition"] = value;
-                break;
-            case "content-length":
-                o.headers["content-length"] = value;
-                break;
-            case "content-type":
-                o.headers["content-type"] = value
-            }
-        }
 
-
-        var c = getFileNameExt(o.fileName);
-        if (0 === c.length) {
-            var u = getUrlFileName(o.url);
-            c = getFileNameExt(u)
-        }
-
-        if(isSupportMediaExt(c)) {
-            console.log("SupportMediaExt : " + c)
-            chrome.downloads.setShelfEnabled(true);
-            downloadFlag = true;
-            isSelfCreate = false
-            chrome.downloads.download({
-                url: u
-            });
-            return;
-        }
-
-        var h = o.headers["content-type"];
-        if (isSupportContentType(h)) {
-            console.log("SupportContentType : " + h)
-            chrome.downloads.setShelfEnabled(true);
-            downloadFlag = true;
-            isSelfCreate = false
-            chrome.downloads.download({
-                url: u
-            });
-            return;
-        }
-
-    } while (0);return {}
-}
 
 function getUrlFileName(e) {
     var t = e.replace(/\?.*$/, "").replace(/.*\//, "");
     return decodeURIComponent(t)
 }
-``
+
 function getFileNameExt(e) {
     var t = "";
     if (e && e.length > 0) {
@@ -821,3 +900,4 @@ function isSupportRequestType(e) {
             return !0;
     return !1
 }
+
