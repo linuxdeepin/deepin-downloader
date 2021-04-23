@@ -94,18 +94,19 @@ bool DBInstance::updateTaskInfoByID(TaskInfo &task)
         return false;
     }
     QSqlQuery sql;
-    sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? , download_filename=? ,create_time=? ,file_length=? where task_id= ?");
+    sql.prepare("update  download_task set  gid=? , gid_index=? , url=? ,download_path=? ,"
+                " download_filename=? ,create_time=? ,file_length=? where task_id= ?");
     sql.addBindValue(task.gid);
     sql.addBindValue(task.gidIndex);
     sql.addBindValue(task.url);
     sql.addBindValue(task.downloadPath);
     sql.addBindValue(task.downloadFilename);
     sql.addBindValue(task.createTime);
-    sql.addBindValue(task.taskId);
     sql.addBindValue(task.fileLength);
+    sql.addBindValue(task.taskId);
 
     if (!sql.exec()) {
-//        qWarning() << "Update download_task table failed : " << sql.lastError();
+        qWarning() << "Update download_task table failed : " << sql.lastError();
         return false;
     }
     return true;

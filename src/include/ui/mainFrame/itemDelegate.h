@@ -82,13 +82,13 @@ private slots:
     void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
 
 private:
-    int m_TableFlag;
+    int m_tableFlag;
     //QProgressBar *progressbar;
-    int m_HoverRow;
-    QPixmap *m_BgImage;
-    QPixmap *m_Front;
-    bool m_IsFirstInside;
-    QString m_FilePath;
+    int m_hoverRow;
+    QPixmap *m_bgImage;
+    QPixmap *m_frontImage;
+    bool m_isFirstInside;
+    QString m_filePath;
 };
 
 #endif
