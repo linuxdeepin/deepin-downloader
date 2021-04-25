@@ -57,6 +57,7 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_datadir}/icons/hicolor/scalable/apps/downloader.svg
 %{_datadir}/deepin-manual/manual-assets/application/assets/downloader/*
 %{_datadir}/downloader/config/aria2.conf
+%{_datadir}/downloader/config/httpAdvanced.json
 %{_datadir}/downloader/config/config.conf
 %{_datadir}/downloader/config/content-type.conf
 %{_datadir}/downloader/database/downloader.db
