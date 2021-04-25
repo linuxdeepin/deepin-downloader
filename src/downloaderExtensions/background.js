@@ -416,7 +416,7 @@ function main() {
     }
 
     var title = chrome.i18n.getMessage("downlaodby");
-    addContextMenu ("downloader", title);
+ //   addContextMenu ("downloader", title);
 
     chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
         console.log("onDeterminingFilename")
@@ -434,7 +434,7 @@ function main() {
         console.log("chrome.downloads.onCreated")
         console.log(item)
 
-        if(windowIncognito) { //隐私模式，返回
+        if(item.incognito) { //隐私模式，返回
             console.log("隐私模式")
             return;
         }
@@ -454,11 +454,11 @@ function main() {
             console.log("是file://类型")
             return;
         }
-        if(isContainCookie) {  //包含cookie，返回
-            isContainCookie = false
-            console.log("包含cookie")
-            return
-        }
+        // if(isContainCookie) {  //包含cookie，返回
+        //     isContainCookie = false
+        //     console.log("包含cookie")
+        //     return
+        // }
         
         if(!isSelfCreate) {
             console.log("button Created")
@@ -491,14 +491,15 @@ function main() {
 
     chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
         if(details.method == "HEAD") {
-            return
+            removeMatchingHeaders(details.requestHeaders, /Cookie/i);
+            return { requestHeaders: details.requestHeaders };
         }
-        console.log("chrome.webRequest.onBeforeSendHeaders")
-        console.log(details)
+        // console.log("chrome.webRequest.onBeforeSendHeaders")
+        // console.log(details)
         details.requestHeaders.some(function(header) {
             if( header.name == 'Cookie' ) {
                 isContainCookie = true
-                console.log("isContainCookie = true")
+                //console.log("isContainCookie = true")
                 return;
             }
             isContainCookie = false
@@ -509,14 +510,23 @@ function main() {
 
    
 
-    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)    
+    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
 }
 
 main();
 
+function removeMatchingHeaders(headers, regex) {
+    for (var i = 0, header; (header = headers[i]); i++) {
+      if (header.name.match(regex)) {
+        headers.splice(i, 1);
+        return;
+      }
+    }
+}
+
 chrome.windows.onFocusChanged.addListener(function(windowId) {
     getWindowStat()
-  });
+});
 
 function getWindowStat() {
     chrome.windows.getCurrent({populate: true}, function (currentWindow) {
@@ -666,7 +676,7 @@ function onHeadersReceived(details) {
     if(isSelfCreate) {
         return
     }
-    console.log("onHeadersReceived : " + details.url)
+    //console.log("onHeadersReceived : " + details.url)
     do {
         var code = details.statusCode;
         if (code >= 300 && code < 400 && 304 !== code)
