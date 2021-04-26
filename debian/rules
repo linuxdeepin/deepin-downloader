@@ -2,6 +2,11 @@
 
 export QT_SELECT=qt5
 
+override_dh_auto_configure:
+	dh_auto_configure -- \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SAFETYTEST_ARG="CMAKE_SAFETYTEST_ARG_OFF" 
+
 %:
 	dh $@
 
