@@ -6,12 +6,13 @@
 #include "settings.h"
 #include "dlmapplication.h"
 
-#if defined(CMAKE_SAFETYTEST)
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
 #include <sanitizer/asan_interface.h>
 #endif
 
 int main(int argc, char *argv[])
 {
+
     Settings::getInstance()->initWidget();
 
     //qputenv("QT_QPA_PLATFORM", "offscreen");
@@ -19,7 +20,8 @@ int main(int argc, char *argv[])
     testing::InitGoogleTest(&argc, argv);
     int ret = RUN_ALL_TESTS();
 
-#if defined(CMAKE_SAFETYTEST)
+    //CMAKE_SAFETYTEST
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
     __sanitizer_set_report_path("asan.log");
 #endif
 
