@@ -48,6 +48,7 @@ TEST_F(ut_messageBox, setFolderDenied)
 TEST_F(ut_messageBox, onClearBtnClicked)
 {
     MessageBox msg;
+    msg.m_CheckBox = new DCheckBox;
     msg.onClearBtnClicked(0);
     msg.onClearBtnClicked(1);
 }
@@ -55,6 +56,7 @@ TEST_F(ut_messageBox, onClearBtnClicked)
 TEST_F(ut_messageBox, onDeleteBtnClicked)
 {
     MessageBox msg;
+    msg.m_CheckBox = new DCheckBox;
     msg.onDeleteBtnClicked(0);
     msg.setDelete(true);
     msg.m_DeleteFlag = true;
@@ -66,6 +68,8 @@ TEST_F(ut_messageBox, onDeleteBtnClicked)
 TEST_F(ut_messageBox, onExitBtnClicked)
 {
     MessageBox msg;
+    msg.m_ButtonMin = new DRadioButton;
+    msg.m_ButtonQuit = new DRadioButton;
     msg.onExitBtnClicked(0);
     msg.addCheckbox("11");
     msg.addRadioGroup("11", "22");
