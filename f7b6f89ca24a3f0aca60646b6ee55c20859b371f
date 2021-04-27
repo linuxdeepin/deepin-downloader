@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32ec4e35_618ab66c",
+        "filename": "tests/main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-27T01:30:41Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "f7b6f89ca24a3f0aca60646b6ee55c20859b371f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a03279a4_44ccb93e",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-27T01:30:41Z",
+      "side": 1,
+      "message": "注释行数: 424; 改动行数(修改和新增): 424; 注释率: 100.0%",
+      "revId": "f7b6f89ca24a3f0aca60646b6ee55c20859b371f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "422fca6f_4dfef995",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-27T01:30:41Z",
+      "side": 1,
+      "message": "注释行数: 1016; 改动行数(修改和新增): 1016; 注释率: 100.0%",
+      "revId": "f7b6f89ca24a3f0aca60646b6ee55c20859b371f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41bead6f_16631c35",
+        "filename": "tests/ui/settings/ut_settings.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-27T01:30:41Z",
+      "side": 1,
+      "message": "注释行数: 654; 改动行数(修改和新增): 654; 注释率: 100.0%",
+      "revId": "f7b6f89ca24a3f0aca60646b6ee55c20859b371f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c37b127_7dd8bac6",
+        "filename": "tests/ui/ut_messagebox.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-27T01:30:41Z",
+      "side": 1,
+      "message": "注释行数: 137; 改动行数(修改和新增): 137; 注释率: 100.0%",
+      "revId": "f7b6f89ca24a3f0aca60646b6ee55c20859b371f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
