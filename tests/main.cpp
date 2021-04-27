@@ -12,6 +12,8 @@
 
 int main(int argc, char *argv[])
 {
+
+    std::cout<<"hello"<<CMAKE_SAFETYTEST<<std::endl;
     Settings::getInstance()->initWidget();
 
     //qputenv("QT_QPA_PLATFORM", "offscreen");
