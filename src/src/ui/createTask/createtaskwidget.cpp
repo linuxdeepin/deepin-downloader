@@ -378,6 +378,7 @@ void CreateTaskWidget::onMLFileDialogOpen()
 
 void CreateTaskWidget::onCancelBtnClicked()
 {
+    m_texturl->clear();
     if (m_analysisUrl != nullptr) {
         delete m_analysisUrl;
         m_analysisUrl = nullptr;
