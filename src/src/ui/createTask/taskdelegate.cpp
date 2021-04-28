@@ -28,6 +28,7 @@
 #include "taskdelegate.h"
 #include "createtaskwidget.h"
 #include "taskModel.h"
+#include "../database/dbinstance.h"
 #include <QMouseEvent>
 #include <QPainter>
 #include <QApplication>
@@ -199,15 +200,30 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         QString curName;
         DAlertControl *alertControl = new DAlertControl(pEdit, pEdit);
         QString typeName = filename + "." + index.data(TaskModel::Type).toString();
-        for (int i = 0; i < index.model()->rowCount(); i++) {
-            curName = index.model()->data(index.model()->index(i, 1),1).toString() + "." + index.model()->data(index.model()->index(i, 2),2).toString();
-            if (curName == typeName && i != index.row()) {
+
+        QList<TaskInfo> taskList;
+        bool ret = false;
+        DBInstance::getAllTask(taskList);
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList[i].downloadFilename == typeName) {
                 pEdit->showAlertMessage(tr("Duplicate name"),
                                         pEdit->parentWidget()->parentWidget(), -1);
                 alertControl->setMessageAlignment(Qt::AlignLeft);
-                break;
-            } else {
-                pEdit->hideAlertMessage();
+                ret = true;
+            }
+        }
+
+        if (!ret) {
+            for (int i = 0; i < index.model()->rowCount(); i++) {
+                curName = index.model()->data(index.model()->index(i, 1),1).toString() + "." + index.model()->data(index.model()->index(i, 2),2).toString();
+                if (curName == typeName && i != index.row()) {
+                    pEdit->showAlertMessage(tr("Duplicate name"),
+                                            pEdit->parentWidget()->parentWidget(), -1);
+                    alertControl->setMessageAlignment(Qt::AlignLeft);
+                    break;
+                } else {
+                    pEdit->hideAlertMessage();
+                }
             }
         }
     });
@@ -218,9 +234,6 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         }
         setModelData(pEdit, nullptr, index);
     });
-
-
-
     pEdit->setGeometry(150, 10, 50, 10);
     pEdit->setGeometry(0, 0, 0, 0);
 

@@ -1036,7 +1036,8 @@ void CreateTaskWidget::setUrlName(int index, QString name)
         QString curName = name + "." + m_model->data(m_model->index(index, 2),2).toString();
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList[i].downloadFilename == curName) {
-                return;
+                name = m_delegate->getCurName();
+               // return;
             }
         }
         for (int j = 0; j < m_model->rowCount(); j++) {

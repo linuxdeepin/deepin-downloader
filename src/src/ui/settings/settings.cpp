@@ -272,6 +272,7 @@ void Settings::initWidget()
                 key = "downloader.desktop";
             }
             Func::setMimeappsValue("application/metalink+xml", key);
+            Func::setMimeappsValue("application/metalink4+xml", key);
         }
     });
 

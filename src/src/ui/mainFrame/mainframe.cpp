@@ -2566,6 +2566,7 @@ void MainFrame::onIsMetalinkDownload(bool status)
 {
     if (status) {
         Func::setMimeappsValue("application/metalink+xml", "downloader.desktop");
+        Func::setMimeappsValue("application/metalink4+xml", "downloader.desktop");
     }
 }
 
