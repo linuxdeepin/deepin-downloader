@@ -1,3 +1,9 @@
+downloadmanager (5.3.26) stable; urgency=low
+
+  * 修改desktop文件名
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 30 Apr 2021 14:39:30 +0800
+
 downloadmanager (5.3.25) stable; urgency=low
 
   * 重构浏览器扩展部分，添加新的进程dlmextensionservice

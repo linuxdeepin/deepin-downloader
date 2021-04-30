@@ -72,7 +72,7 @@ void extensionService::checkConnection()
 {
     QProcess p;
     QStringList options;
-    options << "-c" << "netstat -apn | grep dlmExtensionS";
+    options << "-c" << "netstat -apn | grep dlmextensions";
     p.start("/bin/bash", options);
     p.waitForFinished();
     QList<QByteArray> strList = p.readAllStandardOutput().split('\n');
