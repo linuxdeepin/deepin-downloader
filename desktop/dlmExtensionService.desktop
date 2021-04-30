@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=dlmextensionservice;Network;
+Exec=dlmextensionservice %F
+GenericName=dlmextensionservice
+Name=dlmextensionservice.desktop
+StartupNotify=false
+Type=Application
+X-Deepin-Vendor=user-custom

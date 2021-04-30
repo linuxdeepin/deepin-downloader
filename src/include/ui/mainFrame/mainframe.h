@@ -41,13 +41,8 @@
 #include <QUuid>
 #include <QNetworkReply>
 #include <QProcess>
-#include <QWebChannel>
-#include <QWebSocketServer>
 
 #include "global.h"
-#include "websocketclientwrapper.h"
-#include "websockettransport.h"
-#include "websockethandle.h"
 
 
 using namespace Global;
@@ -136,10 +131,10 @@ private:
     void initDbus();
 
     /**
-     * @brief 初始化websocket
-     * @return
+     * @brief 新建下载任务
+     * @param url 下载地址
      */
-    void initWebsocket();
+    void createNewTask(QString url);
 
 public slots:
     /**
@@ -158,6 +153,13 @@ public slots:
      * @param event 事件类型
      */
     void onTrayQuitClick(bool force = false);
+
+    /**
+     * @brief 收到浏览器扩展发送过来的数据
+     * @param url 下载地址
+     */
+    void onReceiveExtentionUrl(QString url);
+
 private slots:
     /**
      * @brief 点击托盘图表的槽函数
@@ -440,12 +442,6 @@ private:
     void setPaletteType();
 
     /**
-     * @brief 新建下载任务
-     * @param url 下载地址
-     */
-    void createNewTask(QString url);
-
-    /**
      * @brief 解析url，得到url名字
      * @param url 下载地址
      * @return 解析后Task结构体
@@ -670,11 +666,6 @@ private:
     QAction *m_QuitProcessAct;
 
     int m_timeInterval = 2000;
-
-    QWebSocketServer *m_server;
-    WebSocketClientWrapper *m_clientWrapper;
-    QWebChannel *m_channel;
-    Websockethandle *m_core;
 signals:
     void isHeaderChecked(bool checked);
     void tableChanged(int index);

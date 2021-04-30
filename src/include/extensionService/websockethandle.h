@@ -52,30 +52,26 @@
 #define WEBSOCKETHANDLE_H
 
 #include <QObject>
-#include "messagebox.h"
-#include "settings.h"
 
 class Websockethandle : public QObject
 {
     Q_OBJECT
 
 public:
-    Websockethandle(QObject *parent = nullptr)
-        : QObject(parent)
-    {}
+    Websockethandle(QObject *parent = nullptr);
+    ~Websockethandle();
+
+public slots:
+    void sendTextToClient(bool b);
+private:
+    bool isControlBrowser();
+    void freeSharedMem();
 
 signals:
     void sendText(const QString &text);
     void sendWebText(const QString &text);
 public slots:
-    void receiveText(const QString &text)
-    {
-        bool b = Settings::getInstance()->getWebBrowserState();
-        sendText(QString().number(b));
-        if(b){
-            sendWebText(text);
-        }
-    }
+    void receiveText(const QString &text);
 };
 
 #endif // WEBSOCKETHANDLE_H

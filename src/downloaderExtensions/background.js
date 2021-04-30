@@ -365,7 +365,6 @@ function QObject(name, data, webChannel)
                 });
             }
         });
-
     }
 
 
@@ -392,16 +391,13 @@ if (typeof module === 'object') {
 
 var socket;
 var webChanel;
-var downloadFlag = false;
 var downloadItem;
-var socketIsOpen = false;
 var isSelfCreate = false;
-var isContextMenuSend = false;
-var isContainCookie = false;
-var windowIncognito = false;
-
+var isTakeOver = false;
 
 function main() {
+    window.open("downloader:")
+    setTimeout(()=>{
     socket  = new WebSocket("ws://localhost:12345");
 
     socket.onopen = function() {
@@ -411,131 +407,109 @@ function main() {
         console.log("websocket error")
     }
     socket.onclose = function() {
-        socketIsOpen = false;
         console.log("websocket close")
     }
-
+    }, 2000);
     var title = chrome.i18n.getMessage("downlaodby");
- //   addContextMenu ("downloader", title);
-
-    chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
-        console.log("onDeterminingFilename")
-        console.log(item)
-        // suggest({
-        //      filename: item.filename,
-        //      conflict_action: 'overwrite',
-        //      conflictAction: 'overwrite'
-        //     });
-      });
-
-      
-
-    chrome.downloads.onCreated.addListener(function(item) {
-        console.log("chrome.downloads.onCreated")
-        console.log(item)
-
-        if(item.incognito) { //隐私模式，返回
-            console.log("隐私模式")
-            return;
-        }
-        if(item.state != "in_progress") {  //判断状态不是刚创建的任务，返回
-            console.log("不是刚创建的任务")
-            return;
-        }
-        if(item.filename != "" && item.mime == "text/html") {  //判断文件名不为空，即右键另存为的html，返回
-            console.log("文件名不为空")
-            return;
-        }
-        if(item.finalUrl.indexOf("chrome://") != -1 ) {  //是chrome内置网页，返回
-            console.log("是chrome内置网页")
-            return;
-        }
-        if(item.finalUrl.indexOf("file://") != -1) {  //是file://类型，返回
-            console.log("是file://类型")
-            return;
-        }
-        // if(isContainCookie) {  //包含cookie，返回
-        //     isContainCookie = false
-        //     console.log("包含cookie")
-        //     return
-        // }
-        
-        if(!isSelfCreate) {
-            console.log("button Created")
-            chrome.downloads.cancel(item.id),
-            chrome.downloads.erase({
-                id: item.id
-            })
-            setTimeout(()=>{
-                downloadItem = item;
-                if(item.finalUrl.indexOf("ftp://")!= -1 ){
-                    isSelfCreate = false
-                    downloadFlag = false;
-                    onItemCreated(downloadItem);
-                } else {
-                    loadXMLDoc(item.finalUrl)
-                }
-            }, 0);
-            
-        } else {
-            isSelfCreate = false
-            console.log("self Created")
-        }
-    });
-
-    chrome.webRequest.onHeadersReceived.addListener(function(t) {
-        return onHeadersReceived(t)
-    }, {
-        urls: ["<all_urls>"]
-    }, ["blocking", "responseHeaders"])
-
-    chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-        if(details.method == "HEAD") {
-            removeMatchingHeaders(details.requestHeaders, /Cookie/i);
-            return { requestHeaders: details.requestHeaders };
-        }
-        // console.log("chrome.webRequest.onBeforeSendHeaders")
-        // console.log(details)
-        details.requestHeaders.some(function(header) {
-            if( header.name == 'Cookie' ) {
-                isContainCookie = true
-                //console.log("isContainCookie = true")
-                return;
-            }
-            isContainCookie = false
-        })
-    }, {
-        urls: ["<all_urls>"]
-    }, ["blocking", "requestHeaders", "extraHeaders"])
-
-   
-
-    chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
+    addContextMenu("downloader", title);
 }
 
 main();
 
-function removeMatchingHeaders(headers, regex) {
+chrome.downloads.onCreated.addListener(function(item) {
+    console.log("chrome.downloads.onCreated")
+    console.log(item)
+
+    if(item.state != "in_progress") {  //判断状态不是刚创建的任务，返回
+        //console.log("不是刚创建的任务")
+        return;
+    }
+    if(!isTakeOver) { //下载器不接管
+        console.log("下载器不接管")
+        return;
+    }
+    if(item.filename != "" && item.mime == "text/html") {  //判断文件名不为空，即右键另存为的html，返回
+        console.log("文件名不为空")
+        return;
+    }
+    if(item.finalUrl.indexOf("chrome://") != -1 ) {  //是chrome内置网页，返回
+        console.log("是chrome内置网页")
+        return;
+    }
+    if(item.finalUrl.indexOf("file://") != -1) {  //是file://类型，返回
+        console.log("是file://类型")
+        return;
+    }
+    
+    if(!isSelfCreate) {
+        console.log("button Created")
+        chrome.downloads.cancel(item.id),
+        chrome.downloads.erase({
+            id: item.id
+        })
+        setTimeout(()=>{
+            downloadItem = item;
+            if(item.finalUrl.indexOf("ftp://")!= -1 ){
+                isSelfCreate = false
+                sendUrlToDownloader(downloadItem);
+            } else {
+                loadXMLDoc(item.finalUrl)
+            }
+        }, 0);
+        
+    } else {
+        isSelfCreate = false
+        console.log("self Created")
+    }
+})
+
+chrome.webRequest.onHeadersReceived.addListener(function(t) {
+    return onHeadersReceived(t)
+}, {
+    urls: ["<all_urls>"]
+}, ["blocking", "responseHeaders"])
+
+chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
+    if(details.method == "HEAD") {
+        removeBrowserHeaders(details.requestHeaders, /Cookie/i);
+        return { requestHeaders: details.requestHeaders };
+    }
+    // console.log("chrome.webRequest.onBeforeSendHeaders")
+    // console.log(details)
+    details.requestHeaders.some(function(header) {
+        if( header.name == 'Cookie' ) {
+            isContainCookie = true
+            //console.log("isContainCookie = true")
+            return;
+        }
+        isContainCookie = false
+    })
+}, {
+    urls: ["<all_urls>"]
+}, ["blocking", "requestHeaders", "extraHeaders"])
+
+chrome.contextMenus.onClicked.addListener(onContextMenuClicked)
+
+chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
+    // suggest({
+    //      filename: item.filename,
+    //      conflict_action: 'overwrite',
+    //      conflictAction: 'overwrite'
+    //     });
+});
+
+window.onunload = function() {
+    console.log("windows.onunload")
+    webChanel.objects.core.receiveText("close");
+}
+
+function removeBrowserHeaders(headers, regex) {
     for (var i = 0, header; (header = headers[i]); i++) {
       if (header.name.match(regex)) {
         headers.splice(i, 1);
         return;
-      }
-    }
-}
-
-chrome.windows.onFocusChanged.addListener(function(windowId) {
-    getWindowStat()
-});
-
-function getWindowStat() {
-    chrome.windows.getCurrent({populate: true}, function (currentWindow) {
-        if(currentWindow.incognito) {
-            windowIncognito = true
-        } else {
-            windowIncognito = false
         }
-      });
+    }
 }
 
 function loadXMLDoc(url)
@@ -554,11 +528,10 @@ function loadXMLDoc(url)
 function onStateChange()
 {
     isSelfCreate = false
-    downloadFlag = false;
     if (xmlhttp.readyState==4){// 4 = "loaded"
         if (xmlhttp.status==200){// 200 = OK
             console.log("xmlhttp.status==200")
-            onItemCreated(downloadItem);
+            sendUrlToDownloader(downloadItem);
         } else {
             console.log("Purse url failed");
             downloadData(downloadItem.finalUrl)
@@ -566,50 +539,8 @@ function onStateChange()
     }
 }
 
-function onItemCreated(item) {
-    console.log("onItemCreated")
-    if(downloadFlag == true){
-        console.log("downloadFlag true")
-        downloadFlag = false;
-        //chrome.downloads.setShelfEnabled(false);
-        return;
-    }
-    if(!socketIsOpen) {
-        //socketIsOpen = true;
-        console.log("socket not ready")
-        window.open("downloader:")
-        setTimeout(reConnect, 1500)  //多次尝试
-        return;
-    }
-    console.log("onItemCreated send text to client")
-    isContextMenuSend = false;
+function sendUrlToDownloader(item) {
     webChanel.objects.core.receiveText(item.finalUrl);
-}
-
-function reConnect() {
-    if(socketIsOpen) {
-        return
-    }
-    console.log("reConnect")
-    socket  = new WebSocket("ws://localhost:12345");
-    socket.onopen = function() {
-        onSocketOpen();
-    }
-    setTimeout(()=>{
-        if(socketIsOpen) {
-            console.log("reConnect send text to client")
-            isContextMenuSend = false;
-            webChanel.objects.core.receiveText(downloadItem.finalUrl);
-        }
-    }, 100);
-
-    socket.onerror = function() {
-        downloadData(downloadItem.url)
-    }
-    socket.onclose = function(){
-        socketIsOpen = false;
-        console.log("websocket close")
-    }
 }
 
 function onSocketOpen() {
@@ -617,13 +548,17 @@ function onSocketOpen() {
     new QWebChannel(socket, function(channel) {
         console.log("QWebChannel new")
         webChanel = channel;
-        socketIsOpen = true;
-        channel.objects.core.sendText.connect(function(message) {
+        setTimeout(()=>{
+            webChanel.objects.core.receiveText("init");
+            }, 200);
+        
+        webChanel.objects.core.sendText.connect(function(message) {
             console.log("message :" + message)
-            if(message == "0" && !isContextMenuSend){
-                downloadData(downloadItem.finalUrl)
+            
+            if(message == "0"){
+                isTakeOver = false;
             } else {
-               // chrome.downloads.setShelfEnabled(false);
+                isTakeOver = true;
             }
         })
     })
@@ -633,16 +568,10 @@ function downloadData(url) {
     console.log("redownload: " + url)
 
     chrome.downloads.setShelfEnabled(true);
-    downloadFlag = true
     isSelfCreate = true
     chrome.downloads.download({
         url : url,
-        //saveAs : true
-    }, onDownload);
-}
-
-function onDownload(id) {
-    console.log("onDownload")
+    });
 }
 
 function addContextMenu (id, title) {
@@ -653,24 +582,29 @@ function addContextMenu (id, title) {
     })
 }
 
+
 function onContextMenuClicked(info, tab) {
     console.log("onContextMenuClicked")
-    window.open("downloader:");
-    setTimeout(()=>{onTimeout(info)}, 1500);
-}
-
-function onTimeout(info) {
-
-    console.log("setTimeout")
-    var soc  = new WebSocket("ws://localhost:12345");
-    soc.onopen = function() {
-        new QWebChannel(soc, function(chan) {
-            isContextMenuSend = true;
-            chan.objects.core.receiveText(info.linkUrl);
-            //soc.close()
-        })
+    if(isTakeOver) {
+        webChanel.objects.core.receiveText(info.linkUrl);
+        return
     }
-}       
+    chrome.notifications.create(
+        Math.random()+'',
+        {       
+          type: 'basic',
+          iconUrl: 'icon128.png',
+          title: chrome.i18n.getMessage("notifyTitle"),
+          message: "",
+          contextMessage: chrome.i18n.getMessage("notifyMessage"),
+          eventTime: Date.now() + 200,
+          //buttons: [{title:'setting'}]
+        },
+        (id)=>{
+          console.log(id);
+        }
+    )
+}
 
 function onHeadersReceived(details) {
     if(isSelfCreate) {
@@ -724,12 +658,8 @@ function onHeadersReceived(details) {
         }
 
         if(isSupportMediaExt(c)) {
-            if(windowIncognito) {
-                return;
-            }
             console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
-            downloadFlag = true;
             isSelfCreate = false
             chrome.downloads.download({
                 url: u
@@ -739,12 +669,8 @@ function onHeadersReceived(details) {
 
         var h = o.headers["content-type"];
         if (isSupportContentType(h)) {
-            if(windowIncognito) {
-                return;
-            }
             console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
-            downloadFlag = true;
             isSelfCreate = false
             chrome.downloads.download({
                 url: u

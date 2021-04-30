@@ -100,7 +100,11 @@ int main(int argc, char *argv[])
                                          "/downloader/path",
                                          "local.downloader.MainFrame",
                                          QDBusConnection::sessionBus());
-                    iface.asyncCall("OpenFile", comList[0]);
+                    if(comList[0].contains("http://") || comList[0].contains("https://") || comList[0].contains("ftp://")) {
+                        iface.asyncCall("createNewTask", comList[0]);
+                    } else {
+                        iface.asyncCall("OpenFile", comList[0]);
+                    }
                 }
             }
             return 0;
@@ -114,14 +118,14 @@ int main(int argc, char *argv[])
     DApplicationSettings as;
     Q_UNUSED(as)
     QDir dirCheck;
-    QString Log_path = QString("%1/%2/%3/Log/")
+    QString LogPath = QString("%1/%2/%3/Log/")
                            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                            .arg(qApp->organizationName())
                            .arg(qApp->applicationName());
 
-    setLogDir(Log_path);
-    if (!dirCheck.exists(Log_path)) {
-        dirCheck.mkpath(Log_path);
+    setLogDir(LogPath);
+    if (!dirCheck.exists(LogPath)) {
+        dirCheck.mkpath(LogPath);
     }
     //检查日志是否过期
     CheckLogTime();
@@ -131,7 +135,7 @@ int main(int argc, char *argv[])
     CreateNewLog();
     qInstallMessageHandler(customLogMessageHandler);
 
-    qDebug() << Log_path; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
+    qDebug() << LogPath; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
     w.show();
     for (int i = 0; i < comList.size(); i++) {

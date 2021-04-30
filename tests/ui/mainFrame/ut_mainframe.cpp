@@ -29,7 +29,6 @@
 #include "diagnostictool.h"
 #include "messagebox.h"
 #include "clipboardtimer.h"
-#include "websockethandle.h"
 #include "searchresoultwidget.h"
 #include "btinfodialog.h"
 #include "dbinstance.h"
@@ -120,8 +119,6 @@ TEST_F(ut_MainFreme, addHttpFastTask)
     stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
     Stub stub2;
     stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
-    Stub stub3;
-    stub3.set(ADDR(MainFrame, initWebsocket), MainFrameInitWebsocket);
     auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
     option->setValue(2);
     MainFrame::instance()->onDownloadNewUrl("https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4",
@@ -805,12 +802,6 @@ TEST_F(ut_MainFreme, Websockethandle)
     QString data = "http://test.html";
     qint64 num = socket.sendTextMessage(data);
     EXPECT_TRUE(num >= 0);
-}
-TEST_F(ut_MainFreme, Websocketconnect)
-{
-    Websockethandle *handle = new Websockethandle;
-    handle->receiveText("text");
-    EXPECT_NE(handle, nullptr);
 }
 TEST_F(ut_MainFreme, SearchResoultWidget)
 {
