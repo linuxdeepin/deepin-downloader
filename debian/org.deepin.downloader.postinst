@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo x-scheme-handler/downloader=dlmextensionservice.desktop >> /usr/share/applications/mimeapps.list

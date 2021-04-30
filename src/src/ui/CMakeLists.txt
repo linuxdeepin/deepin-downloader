@@ -48,10 +48,6 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/httpadvancedsettingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/timeEdit.h
 
-    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websocketclientwrapper.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockettransport.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockethandle.h
-
     ${PROJECT_SOURCE_DIR}/src/include/ui/global.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/clipboardtimer.h
@@ -116,8 +112,6 @@ add_library(dlmcontrolui SHARED
        settings/diagnostictool.cpp
        settings/httpadvancedsettingwidget.cpp
        settings/timeEdit.cpp
-       websocket/websocketclientwrapper.cpp
-       websocket/websockettransport.cpp
        clipboardtimer.cpp
        messagebox.cpp
        dlmapplication.cpp
@@ -128,7 +122,7 @@ add_library(dlmcontrolui SHARED
 )
 
 target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget curl
-    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::WebChannel Qt5::WebSockets)
+    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus)
 
 #install(TARGETS dlmcontrolui DESTINATION lib)
 

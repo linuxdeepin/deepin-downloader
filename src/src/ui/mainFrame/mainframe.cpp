@@ -86,7 +86,6 @@ MainFrame::MainFrame(QWidget *parent)
     initTab();
     initSetting();
     m_TaskWidget = new CreateTaskWidget();
-    initWebsocket();
     initTray();
     initDbus();
     initAria2();
@@ -112,10 +111,6 @@ MainFrame *MainFrame::instance()
 MainFrame::~MainFrame()
 {
     delete (m_Clipboard);
-    delete (m_server);
-    delete (m_clientWrapper);
-    delete (m_channel);
-    delete (m_core);
     DataBase::Instance().destory();
 }
 
@@ -537,6 +532,13 @@ void MainFrame::createNewTask(QString url)
     m_TaskWidget->exec();
 }
 
+void MainFrame::onReceiveExtentionUrl(QString url)
+{
+    QTimer::singleShot(50, this, [=](){
+        createNewTask(url);
+    });
+}
+
 void MainFrame::onTrayQuitClick(bool force)
 {
     if (!m_ShutdownOk && !force) {
@@ -600,25 +602,6 @@ void MainFrame::initDbus()
     QDBusConnection::sessionBus().unregisterService("com.downloader.service");
     QDBusConnection::sessionBus().registerService("com.downloader.service");
     QDBusConnection::sessionBus().registerObject("/downloader/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
-}
-
-void MainFrame::initWebsocket()
-{
-    m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
-    if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
-      //  qFatal("Failed to open web socket server.");
-    }
-    m_clientWrapper = new WebSocketClientWrapper(m_server);
-    m_channel = new QWebChannel;
-    QObject::connect(m_clientWrapper, &WebSocketClientWrapper::clientConnected,
-                     m_channel, &QWebChannel::connectTo);
-    m_core = new Websockethandle;
-    m_channel->registerObject(QStringLiteral("core"), m_core);
-    connect(m_core, &Websockethandle::sendWebText, this, [&](QString text) {
-         QTimer::singleShot(50, this, [=](){
-             createNewTask(text);
-         });
-    });
 }
 
 void MainFrame::initTabledata()
@@ -2555,11 +2538,16 @@ void MainFrame::onIsStartAssociatedBTFile(bool status)
 
 void MainFrame::onIsControlBrowser(bool status)
 {
-    if (status) {
-        Func::setMimeappsValue("x-scheme-handler/downloader", "downloader.desktop");
-    } else {
-        Func::setMimeappsValue("x-scheme-handler/downloader", " ");
-    }
+//    if (status) {
+//        Func::setMimeappsValue("x-scheme-handler/downloader", "dlmExtensionService.desktop");
+//    } else {
+//        Func::setMimeappsValue("x-scheme-handler/downloader", " ");
+//    }
+    QDBusInterface iface("com.dlmExtensionService.service",
+                         "/dlmExtensionService/path",
+                         "local.dlmExtensionService.Websockethandle",
+                         QDBusConnection::sessionBus());
+   QDBusMessage m = iface.call("sendTextToClient", status);
 }
 
 void MainFrame::onIsMetalinkDownload(bool status)
