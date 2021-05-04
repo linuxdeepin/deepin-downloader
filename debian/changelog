@@ -1,3 +1,9 @@
+downloadmanager (5.3.27) stable; urgency=low
+
+  * 修改dbus接口名称
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 04 May 2021 11:02:50 +0800
+
 downloadmanager (5.3.26) stable; urgency=low
 
   * 修改desktop文件名

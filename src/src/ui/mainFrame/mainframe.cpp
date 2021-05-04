@@ -2545,9 +2545,11 @@ void MainFrame::onIsControlBrowser(bool status)
 //    }
     QDBusInterface iface("com.dlmExtensionService.service",
                          "/dlmExtensionService/path",
-                         "local.dlmExtensionService.Websockethandle",
+                         "local.dlmextensionservice.Websockethandle",
                          QDBusConnection::sessionBus());
    QDBusMessage m = iface.call("sendTextToClient", status);
+   QString msg = m.errorMessage();
+   qDebug() << m;
 }
 
 void MainFrame::onIsMetalinkDownload(bool status)
