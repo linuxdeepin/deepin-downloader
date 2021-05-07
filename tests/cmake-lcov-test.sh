@@ -1,25 +1,26 @@
 #!/bin/bash
-workspace=$1
-cd $workspace
-export DISPLAY=:0.0
-dpkg-buildpackage -b -d -uc -us
-#make test
-project_path=$(cd `dirname $0`; pwd)
-#获取工程名
-project_name="${project_path##*/}"
-echo $project_name
-#获取打包生成文件夹路径
-pathname=$(find . -name obj*)
-echo $pathname
-cd $pathname
-make test
-cd ./tests
-mkdir -p coverage
-lcov -d ../ -c -o ./coverage/coverage.info
+utdir=build-ut
+rm -r $utdir
+rm -r ../$utdir
+mkdir ../$utdir
+cd ../$utdir
 
-lcov --extract ./coverage/coverage.info '*/src/*' -o ./coverage/coverage.info
-lcov --remove ./coverage/coverage.info '*/tests/*' -o ./coverage/coverage.info
+cmake -DCMAKE_SAFETYTEST_ARG="CMAKE_SAFETYTEST_ARG_ON" ..
+make -j4
 
-mkdir ../report
-genhtml -o ../report ./coverage/coverage.info
+touch ./bin/utcase.log
+./bin/downloader_test --gtest_output=xml:./report/report.xml | tee ./bin/utcase.log
+
+workdir=$(cd ../$(dirname $0)/$utdir; pwd)
+
+mkdir -p report
+
+lcov -d $workdir -c -o ./report/coverage.info
+
+lcov --extract ./report/coverage.info '*/src/*' -o ./report/coverage.info
+
+lcov --remove ./report/coverage.info '*/tests/*' -o ./report/coverage.info
+
+genhtml -o ./report ./report/coverage.info
+
 exit 0
