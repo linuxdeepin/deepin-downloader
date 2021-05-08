@@ -401,18 +401,18 @@ TEST_F(ut_MainFreme, changeToFinishList2)
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(1, 0));
 }
-TEST_F(ut_MainFreme, deleteTask3)
-{
-    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-    TableModel *model = static_cast<TableModel *>(table->model());
-    model->setData(model->index(0, 0), true, TableModel::Ischecked);
-    table->getTableControl()->onDelAction(1);
-    MainFrame::instance()->onDeleteConfirm(false, false);
-    TableView *table2 = MainFrame::instance()->findChild<TableView *>("recycleTableView");
-    TableModel *model2 = static_cast<TableModel *>(table2->model());
-    EXPECT_TRUE(true);
-    QTest::qWait(1000);
-}
+//TEST_F(ut_MainFreme, deleteTask3)
+//{
+//    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+//    TableModel *model = static_cast<TableModel *>(table->model());
+//    model->setData(model->index(0, 0), true, TableModel::Ischecked);
+//    table->getTableControl()->onDelAction(1);
+//    MainFrame::instance()->onDeleteConfirm(false, false);
+//    TableView *table2 = MainFrame::instance()->findChild<TableView *>("recycleTableView");
+//    TableModel *model2 = static_cast<TableModel *>(table2->model());
+//    EXPECT_TRUE(true);
+//    QTest::qWait(1000);
+//}
 TEST_F(ut_MainFreme, changeToTrashList3)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
