@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" sourcelanguage="en_US" version="2.1">
 <context>
     <name>BtInfoDialog</name>
     <message>
@@ -679,7 +677,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>These tasks already exist</source>
-        <translation type="unfinished"></translation>
+        <translation>以下任务已存在</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="86"/>
@@ -710,7 +708,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Delete All</source>
-        <translation>删除全部</translation>
+        <translation>全部删除</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="139"/>

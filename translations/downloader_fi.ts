@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="fi" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fi" sourcelanguage="en_US" version="2.1">
 <context>
     <name>BtInfoDialog</name>
     <message>
@@ -13,13 +13,13 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="144"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="349"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="358"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="411"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="440"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="469"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="497"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="547"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="350"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="359"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="412"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="441"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="470"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="498"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="548"/>
         <source>%1 files selected, %2</source>
         <translation>%1 tiedostoa valittu, %2</translation>
     </message>
@@ -50,8 +50,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="217"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="573"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="693"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="574"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="663"/>
         <source>Available:</source>
         <translation>Saatavilla:</translation>
     </message>
@@ -66,27 +66,27 @@
         <translation>Lataa nyt</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="269"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="270"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="271"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="272"/>
         <source>Type</source>
         <translation>Tyyppi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="272"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="273"/>
         <source>Size</source>
         <translation>Koko</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="330"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="331"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Levytilaa ei ole riittävästi, vaihda latauskansio</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="330"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="331"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -110,20 +110,20 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="182"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="962"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="963"/>
         <source>Total </source>
         <translation>Yhteensä</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="188"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="680"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="714"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="747"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="780"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="813"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="846"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="878"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1028"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="681"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="715"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="748"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="781"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="814"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="847"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="879"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1029"/>
         <source>%1 files selected, %2</source>
         <translation>%1 tiedostoa valittu, %2</translation>
     </message>
@@ -164,8 +164,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="266"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="500"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="620"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="501"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="621"/>
         <source>Available:</source>
         <translation>Saatavilla:</translation>
     </message>
@@ -197,17 +197,17 @@
         <translation>Valitse Torrent-tiedosto</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="400"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="401"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Levytilaa ei ole riittävästi, vaihda latauskansio</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="400"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="401"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1118"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1120"/>
         <source>Network error, check your network and try later</source>
         <translation>Verkkovirhe, tarkista verkkoyhteys ja yritä myöhemmin</translation>
     </message>
@@ -215,42 +215,42 @@
 <context>
     <name>DiagnosticModel</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="223"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="224"/>
         <source>IPv6 support</source>
         <translation>IPv6 tuki</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="225"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="226"/>
         <source>DHT status</source>
         <translation>DHT-tila</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="227"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="228"/>
         <source>HTTP task</source>
         <translation>HTTP-tehtävä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="229"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="230"/>
         <source>BT task</source>
         <translation>BT-tehtävä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="231"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="232"/>
         <source>Magnet task</source>
         <translation>Magnet-tehtävä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="233"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="234"/>
         <source>Network detection</source>
         <translation>Verkon tunnistus</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="238"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="239"/>
         <source>Pass</source>
         <translation>Ohita</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="238"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="239"/>
         <source>Failed</source>
         <translation>Epäonnistui</translation>
     </message>
@@ -258,12 +258,12 @@
 <context>
     <name>DiagnosticTool</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="77"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="78"/>
         <source>Result:</source>
         <translation>Tulos:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="80"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="81"/>
         <source>Diagnose Again</source>
         <translation>Tutki uudelleen</translation>
     </message>
@@ -388,32 +388,32 @@ tämä ei vaaranna käyttäjän yksityisyyttä.</translation>
 <context>
     <name>ItemDelegate</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="206"/>
         <source>Paused</source>
         <translation>Pysäytetty</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="232"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="216"/>
         <source>Failed</source>
         <translation>Epäonnistui</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="244"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="227"/>
         <source>Waiting</source>
         <translation>Odottaa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="257"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="239"/>
         <source>Resources:</source>
         <translation>Resurssit:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="259"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="243"/>
         <source>Time left </source>
         <translation>Aikaa jäljellä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="405"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="383"/>
         <source>Duplicate name</source>
         <translation>Nimen kaksoiskappale</translation>
     </message>
@@ -429,228 +429,228 @@ tämä ei vaaranna käyttäjän yksityisyyttä.</translation>
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="126"/>
         <source>Settings</source>
         <translation>Asetukset</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="310"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="130"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
         <source>When completed</source>
         <translation>Valmiina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="132"/>
         <source>Shut down</source>
         <translation>Sammuta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="134"/>
         <source>Hibernate</source>
         <translation>Lepotila</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="314"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="547"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="309"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="552"/>
         <source>Exit</source>
         <translation>Poistu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="145"/>
         <source>Diagnostic tool</source>
         <translation>Työkalu diagnostiikka</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="202"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="903"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="197"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="871"/>
         <source>No download tasks</source>
         <translation>Ei lataustehtäviä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="214"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="209"/>
         <source>Click + to create new task</source>
         <translation>Klikkaa + luo uusi tehtävä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="230"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="225"/>
         <source>0 tasks</source>
         <translation>0 tehtävää</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="262"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="848"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="875"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="257"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="816"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="843"/>
         <source>Downloading</source>
         <translation>Ladataan</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="264"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="259"/>
         <source>Completed</source>
         <translation>Valmis</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="266"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="261"/>
         <source>Trash</source>
         <translation>Roskakori</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="299"/>
         <source>Downloader</source>
         <translation>Lataaja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="301"/>
         <source>Show main window</source>
         <translation>Näytä pääikkuna</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="307"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
         <source>New task</source>
         <translation>Uusi tehtävä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="308"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
         <source>Resume all</source>
         <translation>Jatka kaikkia</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="309"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
         <source>Pause all</source>
         <translation>Pysäytä kaikki</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="546"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="551"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>Oletko varma, että haluat poistua?
 Tehtävien lataaminen keskeytyy.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="547"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="552"/>
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="694"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="661"/>
         <source> files</source>
         <translation> tiedostoa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="848"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="875"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="816"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="843"/>
         <source>Downloading %1...</source>
         <translation>Ladataan %1...</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="900"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="868"/>
         <source>No finished tasks</source>
         <translation>Ei valmiita tehtäviä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="913"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="881"/>
         <source>No deleted tasks</source>
         <translation>Ei poistettuja tehtäviä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1275"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1243"/>
         <source>Resume</source>
         <translation>Jatka</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1281"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1249"/>
         <source>Pause</source>
         <translation>Pysäytä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1287"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1300"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1255"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1268"/>
         <source>Download first</source>
         <translation>Lataa ensin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1307"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1322"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1275"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1290"/>
         <source>Download again</source>
         <translation>Lataa uudestaan</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1316"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1284"/>
         <source>Restore</source>
         <translation>Palauta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1327"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1295"/>
         <source>Open</source>
         <translation>Avaa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1410"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1303"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1378"/>
         <source>Open folder</source>
         <translation>Avaa kansio</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1354"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1322"/>
         <source>Rename</source>
         <translation>Nimeä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1361"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
         <source>Move to</source>
         <translation>Siirrä kohteeseen</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1338"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1359"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1370"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1391"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Copy download link</source>
         <translation>Kopioi latauslinkki</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1380"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1348"/>
         <source>Delete</source>
         <translation>Poista</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1385"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1353"/>
         <source>Permanently delete</source>
         <translation>Poista lopullisesti</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1417"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1385"/>
         <source>Delete all</source>
         <translation>Poista kaikki</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1576"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1906"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1544"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1874"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1798"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1766"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>Maksimi samanaikaisia tehtäviä saavutettu. Muut tehtävät ovat jonossa.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1906"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1874"/>
         <source>Unable to parse the URL, please check</source>
         <translation>Verkko-osoitteen selvitys ei onnistu, tarkista</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2310"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2278"/>
         <source>Copied to clipboard</source>
         <translation>Kopioitu leikepöydälle</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2624"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2600"/>
         <source>View</source>
         <translation>Näytä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2648"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2624"/>
         <source>Torrent file not exist or broken</source>
         <translation>Torrent tiedostoa ei ole tai viallinen</translation>
     </message>
@@ -677,8 +677,8 @@ Tehtävien lataaminen keskeytyy.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
-        <source>The task already exists.</source>
-        <translation>Tehtävä on jo olemassa.</translation>
+        <source>These tasks already exist</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="86"/>
@@ -709,7 +709,7 @@ Tehtävien lataaminen keskeytyy.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Delete All</source>
-        <translation type="unfinished"/>
+        <translation>Poista kaikki</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="139"/>
@@ -882,252 +882,252 @@ Tehtävien lataaminen keskeytyy.</translation>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
         <source>Basic</source>
         <translation>Normaali</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
         <source>Startup</source>
         <translation>Käynnistys</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
         <source>Auto startup</source>
         <translation>Automaattinen käynnistys</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
         <source>Resume downloading on startup</source>
         <translation>Jatka lataamista käynnistettäessä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
         <source>Download Directory</source>
         <translation>Latauskansio</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
         <source>1-Click Download</source>
         <translation>1-klikki, lataa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
         <source>Create tasks directly</source>
         <translation>Luo tehtäviä suoraan</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
         <source>Close Main Window</source>
         <translation>Sulje pääikkuna</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
         <source>Minimize to system tray</source>
         <translation>Pienennä tehtäväpalkkiin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="383"/>
         <source>Ask me always</source>
         <translation>Kysy aina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="383"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="384"/>
         <source>Exit</source>
         <translation>Poistu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="384"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="385"/>
         <source>Tasks</source>
         <translation>Tehtävät</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="385"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="865"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="386"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="866"/>
         <source>Max. concurrent downloads</source>
         <translation>Maksimi samanaikaiset lataukset</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="386"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="878"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="387"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="879"/>
         <source>Open files when completed</source>
         <translation>Avaa tiedostot, kun valmiina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="387"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="891"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="388"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="892"/>
         <source>Delete tasks without files</source>
         <translation>Poista tehtäviä ilman tiedostoja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="388"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
         <source>Downloads</source>
         <translation>Lataukset</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
         <source>Monitoring</source>
         <translation>Valvonta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
         <source>Applications</source>
         <translation>Sovellukset</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
         <source>Clipboard</source>
         <translation>Leikepöytä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
         <source>Browser</source>
         <translation>Selain</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
         <source>Links Monitored</source>
         <translation>Linkkien valvonta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
         <source>BT Files</source>
         <translation>BT-tiedostot</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
         <source>Create new task when a torrent file downloaded</source>
         <translation>Luo uusi tehtävä, kun torrent-tiedosto on ladattu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
         <source>Create new task when opening a torrent file</source>
         <translation>Luo uusi tehtävä, kun avaat torrent-tiedoston</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
         <source>MetaLink Files</source>
         <translation>MetaLink-tiedostot</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
         <source>Create new task when a metalink file downloaded</source>
         <translation>Luo uusi tehtävä, kun metalink-tiedosto on ladattu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
         <source>Create new task when opening a metalink file</source>
         <translation>Luo uusi tehtävä, kun avaat metalink-tiedoston</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
         <source>Notifications</source>
         <translation>Ilmoitukset</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
         <source>Notify me when downloading finished or failed</source>
         <translation>Ilmoita minulle, kun lataus on valmis tai epäonnistui</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
         <source>Play a sound when downloading finished</source>
         <translation>Äänimerkki, kun lataus on valmis</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
         <source>Advanced</source>
         <translation>Lisäasetukset</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
         <source>Shortcuts</source>
         <translation>Pikanäppäimet</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
         <source>Show main window when creating new task</source>
         <translation>Näytä pääikkuna, kun luot uutta tehtävää</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
         <source>Cache</source>
         <translation>Välimuisti</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="904"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="905"/>
         <source>Move slow downloads to the end</source>
         <translation>Siirrä hitaat lataukset loppuun</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="849"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="850"/>
         <source>Original address threads</source>
         <translation>Alkuperäiset osoiteketjut</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
         <source>Download Management</source>
         <translation>Latausten hallinta </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="411"/>
         <source>Speed Settings</source>
         <translation>Nopeuden asetukset</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="502"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="503"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="523"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="524"/>
         <source>BitTorrent</source>
         <translation>BitTorrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="545"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="546"/>
         <source>MetaLink</source>
         <translation>MetaLink</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="567"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="568"/>
         <source>Magnet URI scheme</source>
         <translation>Magnet URI-järjestelmä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="702"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="703"/>
         <source>When total speed less than</source>
         <translation>Kun kokonaisnopeus on alle</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="702"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="703"/>
         <source>KB/s, increase concurrent tasks</source>
         <translation>KB/s, nosta samanaikaisia tehtäviä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="714"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="715"/>
         <source>Total speed should be less than max. download speed</source>
         <translation>Nopeuden on oltava pienempi kuin suurin latausnopeus</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="784"/>
         <source>Download files less than</source>
         <translation>Lataa tiedostot ensin alle</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="784"/>
         <source>MB first</source>
         <translation>MB ensin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="826"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="827"/>
         <source>Limit max. number of concurrent download resources</source>
         <translation>Rajoita samanaikaisten latausten enimmäismäärää</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="918"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="919"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
         <translation>Suurempi levyvälimuisti nopeuttaa latausta,
@@ -1137,37 +1137,37 @@ sekä lisää resurssien käyttöä.</translation>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="400"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="424"/>
         <source> &gt; 1 day</source>
         <translation> &gt; 1 päivä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="619"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="643"/>
         <source>Download failed</source>
         <translation>Lataaminen epäonnistui</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="620"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
         <source>%1 download failed. Network error.</source>
         <translation>%1 lataaminen epäonnistui. Syy verkkovirhe.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="621"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="621"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>View</source>
         <translation>Näytä</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="625"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download completed</source>
         <translation>Lataaminen valmis</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="626"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download finished</source>
         <translation>%1 latausta valmiina</translation>
     </message>
@@ -1206,7 +1206,8 @@ sekä lisää resurssien käyttöä.</translation>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="205"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="209"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="220"/>
         <source>Duplicate name</source>
         <translation>Nimen kaksoiskappale</translation>
     </message>
@@ -1227,16 +1228,6 @@ sekä lisää resurssien käyttöä.</translation>
         <location filename="../src/src/ui/createTask/taskModel.cpp" line="122"/>
         <source>Size</source>
         <translation>Koko</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="124"/>
-        <source>long</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="126"/>
-        <source>url</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

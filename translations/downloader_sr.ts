@@ -678,7 +678,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>These tasks already exist</source>
-        <translation type="unfinished"/>
+        <translation>Ови задаци већ постоје</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="86"/>
