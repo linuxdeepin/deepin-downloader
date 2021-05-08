@@ -75,7 +75,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             proc = nullptr;
             m_linkInfo.urlSize = getUrlSize(str);
             if(m_linkInfo.urlSize.isEmpty()){
-                m_linkInfo.urlSize = "1kb";
+                m_linkInfo.urlSize = "0KB";
             }
             m_linkInfo.type = getUrlType(str);
             if(m_linkInfo.type.isEmpty()){

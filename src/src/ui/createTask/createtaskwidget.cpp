@@ -555,7 +555,7 @@ void CreateTaskWidget::onTextChanged()
             } else {
                 name = urlList[i].right(40);
             }
-            setData(i, name.mid(0, name.size() - 8), "torrent", "1KB", urlList[i], 1024, urlList[i]);
+            setData(i, name.mid(0, name.size() - 8), "torrent", "0KB", urlList[i], 1024, urlList[i]);
             continue;
         }
         if (isFtp(urlList[i])) {
@@ -575,7 +575,7 @@ void CreateTaskWidget::onTextChanged()
                 int index = name.lastIndexOf('.');
                 name.truncate(index);
             }
-            setData(i, name, type, "1KB", urlList[i], 1024, urlList[i]);
+            setData(i, name, type, "0KB", urlList[i], 1024, urlList[i]);
             continue;
         }
 
@@ -937,7 +937,7 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 
     m_model->setData(m_model->index(index, 2, QModelIndex()),type);
     if (type == "html" && size.isNull()) {
-        m_model->setData(m_model->index(index, 3, QModelIndex()),"1KB");
+        m_model->setData(m_model->index(index, 3, QModelIndex()),"0KB");
         m_model->setData(m_model->index(index, 4, QModelIndex()), QString::number(1024));
     } else {
         m_model->setData(m_model->index(index, 3, QModelIndex()), size);

@@ -81,7 +81,7 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
         setTitle(tr("Download Again"));
         addLabel(tr("Do you want to delete the downloaded files and download again?"));
     } else {
-        setTitle(tr("The task already exists."));
+        setTitle(tr("These tasks already exist"));
         if (!isShowRedownload) {
             addLabel(tr("Delete the downloaded files and download again?"));
         }

@@ -471,6 +471,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(t) {
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
     if(details.method == "HEAD") {
+        console.log(details)
         removeBrowserHeaders(details.requestHeaders, /Cookie/i);
         return { requestHeaders: details.requestHeaders };
     }
