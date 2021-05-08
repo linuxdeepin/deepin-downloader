@@ -503,7 +503,7 @@ TEST_F(ut_MainFreme, onRedownloadActionTriggered2)
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(2, 0));
     TableModel *model = MainFrame::instance()->m_RecycleTableView->getTableModel();
-    MainFrame::instance()->m_DelCheckItem = MainFrame::instance()->m_RecycleTableView->getTableModel()->m_RecyleList.first();
+  //  MainFrame::instance()->m_DelCheckItem = MainFrame::instance()->m_RecycleTableView->getTableModel()->m_RecyleList.first();
     MainFrame::instance()->m_CurrentTab = CurrentTab::recycleTab;
     if (model->m_RecyleList.count() > 0 && MainFrame::instance()->m_DelCheckItem != nullptr) {
         MainFrame::instance()->onRedownloadActionTriggered();
