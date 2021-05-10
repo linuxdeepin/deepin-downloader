@@ -1,3 +1,9 @@
+downloadmanager (5.3.28) stable; urgency=low
+
+  * 修改浏览器扩展，修改下载器的安装脚本
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 10 May 2021 16:51:45 +0800
+
 downloadmanager (5.3.27) stable; urgency=low
 
   * 修改dbus接口名称

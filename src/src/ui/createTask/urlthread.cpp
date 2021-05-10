@@ -126,7 +126,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             QString type = db.suffixForFileName(strList[strList.size() - 1]);
             if (!type.isNull()) {
                 encodingUrlName = strList[strList.size() - 1].mid(0, strList[strList.size() - 1].size() - type.size() - 1);
-            }else {
+            } else {
                 encodingUrlName = strUrlName[0]; //QUrl::fromPercentEncoding(strUrlName[0].toUtf8());
             }
             m_linkInfo.urlName = encodingUrlName;
@@ -200,30 +200,35 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
     {
         QProcess *process = new QProcess;
         QStringList list;
-        list << "-I" << reply->url().toString();
+        list << "-I" << "-k" << reply->url().toString();
         QString str = reply->url().toString();
         process->start("curl", list);
-        connect(process, &QProcess::readyReadStandardOutput, this, [&]() {
-            qDebug()<<"11";
+        connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
+            qDebug()<<"readyReadStandardOutput";
             static QMutex mutex;
             mutex.lock();
             QString str =process->readAllStandardOutput();
             process->kill();
             process->close();
             delete process;
-            process = nullptr;
+            //process = nullptr;
             m_linkInfo.urlSize = getUrlSize(str);
             emit sendFinishedUrl(m_linkInfo);
             mutex.unlock();
 
         });
         connect(process, &QProcess::readyReadStandardError, this, [=]() {
-                            QProcess *proc = dynamic_cast<QProcess *>(sender());
-                            QString str = proc->readAllStandardOutput();
-                            proc->kill();
-                            proc->deleteLater();
-                            emit sendFinishedUrl(m_linkInfo);
-                });
+            QProcess *proc = dynamic_cast<QProcess *>(sender());
+            QString str = proc->readAllStandardError();
+
+            qDebug()<<"readyReadStandardError: " << str;
+            if(proc->exitCode() == 0 && (!str.contains("curl"))) {
+                return ;
+            }
+            proc->kill();
+            proc->deleteLater();
+            emit sendFinishedUrl(m_linkInfo);
+        });
     }
     }
 }

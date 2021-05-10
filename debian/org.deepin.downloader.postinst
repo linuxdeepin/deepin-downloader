@@ -1,3 +1,9 @@
 #!/bin/bash
 
-echo x-scheme-handler/downloader=dlmextensionservice.desktop >> /usr/share/applications/mimeapps.list
+str=`cat /usr/share/applications/mimeapps.list | grep x-scheme-handler`
+
+if [ -z "$str" ]; then
+ echo >> /usr/share/applications/mimeapps.list
+ sed -i '$d' /usr/share/applications/mimeapps.list
+ echo x-scheme-handler/downloader=dlmextensionservice.desktop >> /usr/share/applications/mimeapps.list
+fi

@@ -424,10 +424,15 @@ chrome.downloads.onCreated.addListener(function(item) {
         //console.log("不是刚创建的任务")
         return;
     }
+    if(item.incognito) { //下载器不接管
+        console.log("隐私模式")
+        return;
+    }
     if(!isTakeOver) { //下载器不接管
         console.log("下载器不接管")
         return;
     }
+    
     if(item.filename != "" && item.mime == "text/html") {  //判断文件名不为空，即右键另存为的html，返回
         console.log("文件名不为空")
         return;
@@ -439,6 +444,11 @@ chrome.downloads.onCreated.addListener(function(item) {
     if(item.finalUrl.indexOf("file://") != -1) {  //是file://类型，返回
         console.log("是file://类型")
         return;
+    }
+    if(isContainCookie) {  //包含cookie，返回
+        isContainCookie = false
+        console.log("包含cookie")
+        return
     }
     
     if(!isSelfCreate) {
@@ -475,8 +485,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
         removeBrowserHeaders(details.requestHeaders, /Cookie/i);
         return { requestHeaders: details.requestHeaders };
     }
-    // console.log("chrome.webRequest.onBeforeSendHeaders")
-    // console.log(details)
+    //console.log("chrome.webRequest.onBeforeSendHeaders")
+    //console.log(details)
     details.requestHeaders.some(function(header) {
         if( header.name == 'Cookie' ) {
             isContainCookie = true
@@ -484,7 +494,12 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
             return;
         }
         isContainCookie = false
+        //console.log("isContainCookie = false")
     })
+    if(details.requestHeaders.length == 0) {
+        isContainCookie = false
+    }
+    
 }, {
     urls: ["<all_urls>"]
 }, ["blocking", "requestHeaders", "extraHeaders"])
