@@ -385,13 +385,12 @@ void MainFrame::updateDHTFile()
 
     QString dhtpah = QDir::homePath() + "/.config/uos/downloader/";
     QProcess p;
-    p.setStandardOutputFile("/dev/null");
     p.startDetached("curl https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -o" + dhtpah + "dht6.dat -O");
+    p.setStandardOutputFile("/dev/null");
 
     QProcess p2;
-    p2.setStandardOutputFile("/dev/null");
     p2.startDetached("curl https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -o" + dhtpah + "dht.dat -O");
-
+    p2.setStandardOutputFile("/dev/null");
 }
 
 void MainFrame::initConnection()
