@@ -296,6 +296,19 @@ TEST_F(ut_MainFreme, addMetalinkTask2)
     EXPECT_TRUE(true);
     //QTest::qWait(5000);
 }
+
+TEST_F(ut_MainFreme, changeList1)
+{
+    MainFrame *m = MainFrame::instance();
+    DListView *list = m->findChild<DListView *>("leftList");
+    QStandardItemModel *model = static_cast<QStandardItemModel *>(list->model());
+    QTest::qWait(200);
+    QRect rect = list->visualRect(model->index(0, 0));
+    QTest::mouseClick(list->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    EXPECT_TRUE(list->currentIndex().row() == 0);
+    QTest::qWait(2000);
+}
+
 TEST_F(ut_MainFreme, pauseTask)
 {
     Stub stub;
@@ -541,7 +554,7 @@ TEST_F(ut_MainFreme, onOpenFileActionTriggered)
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     if (model->renderList().count() > 0) {
-     //   MainFrame::instance()->onOpenFileActionTriggered();
+        MainFrame::instance()->onOpenFileActionTriggered();
     }
 }
 TEST_F(ut_MainFreme, onOpenFolderActionTriggered)
