@@ -764,7 +764,7 @@ TEST_F(ut_MainFreme, initTabledata)
 }
 TEST_F(ut_MainFreme, updateDHTFile)
 {
-    MainFrame::instance()->updateDHTFile();
+  //  MainFrame::instance()->updateDHTFile();
 }
 TEST_F(ut_MainFreme, tableView)
 {
