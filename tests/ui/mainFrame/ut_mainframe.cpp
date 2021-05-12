@@ -541,7 +541,7 @@ TEST_F(ut_MainFreme, onOpenFileActionTriggered)
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     if (model->renderList().count() > 0) {
-        MainFrame::instance()->onOpenFileActionTriggered();
+     //   MainFrame::instance()->onOpenFileActionTriggered();
     }
 }
 TEST_F(ut_MainFreme, onOpenFolderActionTriggered)
@@ -764,7 +764,7 @@ TEST_F(ut_MainFreme, initTabledata)
 }
 TEST_F(ut_MainFreme, updateDHTFile)
 {
-  //  MainFrame::instance()->updateDHTFile();
+    MainFrame::instance()->updateDHTFile();
 }
 TEST_F(ut_MainFreme, tableView)
 {
