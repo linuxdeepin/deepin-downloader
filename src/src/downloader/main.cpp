@@ -39,20 +39,24 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
+#include <QAccessible>
 
 #include "mainframe.h"
 #include "log.h"
 #include "settings.h"
 #include "config.h"
 #include "dlmapplication.h"
+#include "accessiblewidget.h"
 DWIDGET_USE_NAMESPACE
 
 QString readShardMemary(QSharedMemory &sharedMemory);
 void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl);
 bool checkProcessExist();
+QAccessibleInterface *accessibleFactory(const QString &classname, QObject *object);
 
 int main(int argc, char *argv[])
 {
+
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
     if (XDG_SESSION_TYPE == QLatin1String("x11")) {
@@ -69,6 +73,9 @@ int main(int argc, char *argv[])
     a.setProductName(QObject::tr("Downloader")); //设置产品的名称
     a.setApplicationDescription(QObject::tr("Downloader is a user-friendly download tool, supporting URLs and torrent files")); //设置产品的描述信息
     //a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application")); //设置应用程序的显示信息
+
+    // 安装工厂
+    QAccessible::installFactory(accessibleFactory);
 
     //处理命令行类
     QCommandLineParser parser;
@@ -188,4 +195,19 @@ bool checkProcessExist()
         return false;
     }
     return true;
+}
+
+QAccessibleInterface *accessibleFactory(const QString &classname, QObject *object)
+{
+    QAccessibleInterface *interface = nullptr;
+
+    if (object && object->isWidgetType()) {
+        if (classname == "QLabel")
+            interface = new AccessibleLabel(qobject_cast<QLabel *>(object));
+
+//        if (classname == "QPushButton")
+//            interface = new AccessibleButton(qobject_cast<QPushButton *>(object));
+    }
+
+    return interface;
 }
