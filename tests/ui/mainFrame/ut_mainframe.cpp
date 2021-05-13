@@ -296,7 +296,6 @@ TEST_F(ut_MainFreme, addMetalinkTask2)
     EXPECT_TRUE(true);
     //QTest::qWait(5000);
 }
-
 TEST_F(ut_MainFreme, changeList1)
 {
     MainFrame *m = MainFrame::instance();
@@ -320,6 +319,7 @@ TEST_F(ut_MainFreme, pauseTask)
     QTest::qWait(100);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, unpauseTask)
 {
   Stub stub;
@@ -330,6 +330,7 @@ TEST_F(ut_MainFreme, unpauseTask)
     QTest::qWait(100);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, onContextMenu)
 {
     Stub stub;
@@ -339,6 +340,7 @@ TEST_F(ut_MainFreme, onContextMenu)
     MainFrame::instance()->onContextMenu(table->visualRect(model->index(0, 2)).center());
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, changeListt)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
@@ -346,6 +348,7 @@ TEST_F(ut_MainFreme, changeListt)
     MainFrame::instance()->onListClicked(list->model()->index(2, 0));
     MainFrame::instance()->onListClicked(list->model()->index(1, 0));
 }
+
 TEST_F(ut_MainFreme, searchEditTextChanged)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -356,6 +359,7 @@ TEST_F(ut_MainFreme, searchEditTextChanged)
     table->getTableControl()->searchEditTextChanged(text, taskIDList, taskStatusList, tasknameList);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, deleteTask)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -368,6 +372,7 @@ TEST_F(ut_MainFreme, deleteTask)
     TableModel *model2 = static_cast<TableModel *>(table2->model());
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, redownloadTrashTask)
 {
     DListView *list2 = MainFrame::instance()->findChild<DListView *>("leftList");
@@ -388,6 +393,7 @@ TEST_F(ut_MainFreme, redownloadTrashTask)
     }
     QTest::qWait(2000);
 }
+
 TEST_F(ut_MainFreme, deleteTask2)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -400,6 +406,7 @@ TEST_F(ut_MainFreme, deleteTask2)
     EXPECT_TRUE(true);
     QTest::qWait(1000);
 }
+
 TEST_F(ut_MainFreme, backTrashTask)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("recycleTableView");
@@ -409,6 +416,7 @@ TEST_F(ut_MainFreme, backTrashTask)
     EXPECT_TRUE(true);
     QTest::qWait(1000);
 }
+
 TEST_F(ut_MainFreme, changeToFinishList2)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
