@@ -56,7 +56,7 @@ void extensionService::sendUrlToDownloader(const QString &url)
     QTimer *t = new QTimer;
     t->start(50);
     connect(t, &QTimer::timeout, this, [=](){
-        QDBusInterface iface("com.downloader.service",
+       QDBusInterface iface("com.downloader.service",
                              "/downloader/path",
                              "local.downloader.MainFrame",
                              QDBusConnection::sessionBus());

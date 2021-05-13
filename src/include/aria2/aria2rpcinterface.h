@@ -302,6 +302,7 @@ public:
      *
      */
     bool setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed);
+
     /**
      * @brief SetDisckCacheNum 设置磁盘缓存大小
      * @param diskCacheNum 缓存大小
