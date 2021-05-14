@@ -1,3 +1,9 @@
+downloadmanager (5.3.31) stable; urgency=low
+
+  * 修改desktop文件
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 14 May 2021 15:42:38 +0800
+
 downloadmanager (5.3.30) stable; urgency=low
 
   * 修改单元测试
