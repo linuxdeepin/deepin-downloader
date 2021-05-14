@@ -6,7 +6,7 @@
 
 class QLabel;
 class QPushButton;
-
+class QCheckBox;
 class AccessibleWidget : public QAccessibleWidget
         , public QAccessibleTextInterface
 {
@@ -18,6 +18,7 @@ public:
     QString text(QAccessible::Text t) const Q_DECL_OVERRIDE;
 
     QString text(int startOffset, int endOffset) const Q_DECL_OVERRIDE;
+    Qt::CheckState checkState(int startOffset, int endOffset) const ;
     void selection(int selectionIndex, int *startOffset, int *endOffset) const Q_DECL_OVERRIDE;
     int selectionCount() const Q_DECL_OVERRIDE;
     void addSelection(int startOffset, int endOffset) Q_DECL_OVERRIDE;
@@ -59,6 +60,20 @@ public:
 
 private:
     QPushButton *m_button;
+};
+
+// 可访问的按钮
+class AccessibleCheckBox : public AccessibleWidget
+{
+public:
+    explicit AccessibleCheckBox(QCheckBox *checkbox);
+    ~AccessibleCheckBox();
+    QString text(int startOffset, int endOffset) const Q_DECL_OVERRIDE;
+    Qt::CheckState checkState(int startOffset, int endOffset) const;
+
+
+private:
+    QCheckBox *m_checkbox;
 };
 
 #endif // ACCESSIBLE_WIDGET_H

@@ -1,6 +1,7 @@
 #include "accessiblewidget.h"
 #include <QLabel>
 #include <QPushButton>
+#include <QCheckBox>
 
 AccessibleWidget::AccessibleWidget(QWidget *widget)
     : QAccessibleWidget(widget)
@@ -158,4 +159,30 @@ QString AccessibleButton::text(int startOffset, int endOffset) const
         return m_button->text();
 
     return AccessibleWidget::text(startOffset, endOffset);
+}
+
+AccessibleCheckBox::AccessibleCheckBox(QCheckBox *checkbox)
+    : AccessibleWidget(checkbox)
+    , m_checkbox(checkbox)
+{
+
+}
+
+AccessibleCheckBox::~AccessibleCheckBox()
+{
+
+}
+
+QString AccessibleCheckBox::text(int startOffset, int endOffset) const
+{
+    if (Q_NULLPTR != m_checkbox)
+        return m_checkbox->text();
+    return AccessibleWidget::text(startOffset, endOffset);
+}
+
+Qt::CheckState AccessibleCheckBox::checkState(int startOffset, int endOffset) const
+{
+    if (Q_NULLPTR != m_checkbox)
+        return m_checkbox->checkState();
+    return Qt::Unchecked;
 }

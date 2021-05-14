@@ -37,6 +37,7 @@
 #include <QDBusMessage>
 #include <QStringList>
 #include <QDBusConnection>
+#include <QPushButton>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
 #include <QAccessible>
@@ -205,8 +206,8 @@ QAccessibleInterface *accessibleFactory(const QString &classname, QObject *objec
         if (classname == "QLabel")
             interface = new AccessibleLabel(qobject_cast<QLabel *>(object));
 
-//        if (classname == "QPushButton")
-//            interface = new AccessibleButton(qobject_cast<QPushButton *>(object));
+        if (classname == "QPushButton")
+            interface = new AccessibleButton(qobject_cast<QPushButton *>(object));
     }
 
     return interface;

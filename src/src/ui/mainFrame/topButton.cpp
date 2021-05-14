@@ -67,12 +67,14 @@ void TopButton::Init()
     // searchEdit->setFixedSize(350,36);
     m_newDownloadBtn = new DIconButton(this);
     m_newDownloadBtn->setObjectName("newTaskBtn");
+    m_newDownloadBtn->setAccessibleName("newTaskBtn");
     m_newDownloadBtn->setFixedSize(36, 36);
     m_newDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
     m_newDownloadBtn->setToolTip(tr("New task"));
 
     m_pauseDownloadBtn = new DIconButton(this);
     m_pauseDownloadBtn->setObjectName("pauseDownloadBtn");
+    m_pauseDownloadBtn->setAccessibleName("pauseDownloadBtn");
     m_pauseDownloadBtn->setFixedSize(36, 36);
     m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pauseDownloadBtn->setEnabled(false);
@@ -80,6 +82,7 @@ void TopButton::Init()
 
     m_startDownloadBtn = new DIconButton(this);
     m_startDownloadBtn->setObjectName("startDownloadBtn");
+    m_startDownloadBtn->setAccessibleName("startDownloadBtn");
     m_startDownloadBtn->setFixedSize(36, 36);
     m_startDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_startDownloadBtn->setEnabled(false);
@@ -87,6 +90,7 @@ void TopButton::Init()
 
     m_deleteDownloadBtn = new DIconButton(this);
     m_deleteDownloadBtn->setObjectName("deleteBtn");
+    m_deleteDownloadBtn->setAccessibleName("deleteBtn");
     m_deleteDownloadBtn->setFixedSize(36, 36);
     m_deleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_deleteDownloadBtn->setEnabled(false);
