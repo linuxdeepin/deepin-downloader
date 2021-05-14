@@ -182,6 +182,9 @@ TEST_F(ut_Settings, getSpeed)
 
 TEST_F(ut_Settings, getPath)
 {
+    Settings::getInstance()->setCustomFilePath("/home/uos/Downloades");
+    auto option = Settings::getInstance()->m_settings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
+    option->setValue("/home/uos/Downloades");
     QString str = Settings::getInstance()->getCustomFilePath();
     QString str1 = Settings::getInstance()->getDownloadSavePath();
     EXPECT_FALSE(str.isEmpty() && str1.isEmpty());
@@ -209,14 +212,16 @@ TEST_F(ut_Settings, getAutostartUnfinishedTaskState)
 
 TEST_F(ut_Settings, getDownloadDirectorySelected)
 {
-    EXPECT_TRUE(Settings::getInstance()->getDownloadDirectorySelected());
+    EXPECT_FALSE(Settings::getInstance()->getDownloadDirectorySelected());
     QTest::qWait(50);
 }
 
 TEST_F(ut_Settings, getDownloadSavePath)
 {
+    auto option = Settings::getInstance()->m_settings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
+    option->setValue("/home/uos/Downloades");
     QString str = Settings::getInstance()->getDownloadSavePath();
-    EXPECT_FALSE(str.isEmpty());
+    EXPECT_TRUE(str.isEmpty());
     QTest::qWait(50);
 }
 

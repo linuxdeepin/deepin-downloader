@@ -727,7 +727,12 @@ TEST_F(ut_MainFreme, onDownloadFirstBtnClicked)
     stub.set(foo, MessageboxExec);
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(0, 0));
-    MainFrame::instance()->m_CheckItem = MainFrame::instance()->m_DownLoadingTableView->getTableModel()->renderList().first();
+    const QList<DownloadDataItem *> listItem = MainFrame::instance()->m_DownLoadingTableView->getTableModel()->renderList();
+    if(listItem.isEmpty()){
+        EXPECT_TRUE(true);
+        return;
+    }
+    MainFrame::instance()->m_CheckItem = listItem.first();
     MainFrame::instance()->onDownloadFirstBtnClicked();
 }
 TEST_F(ut_MainFreme, onRemoveFinished)

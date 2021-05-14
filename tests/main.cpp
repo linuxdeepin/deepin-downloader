@@ -18,7 +18,9 @@ int main(int argc, char *argv[])
     //qputenv("QT_QPA_PLATFORM", "offscreen");
     DlmApplication a(argc, argv);
     testing::InitGoogleTest(&argc, argv);
+    qDebug() << "start run test: " << QDateTime::currentDateTime();
     int ret = RUN_ALL_TESTS();
+    qDebug() << "end run test" << QDateTime::currentDateTime();
 
 #if defined(CMAKE_SAFETYTEST_ARG_ON)
     __sanitizer_set_report_path("asan.log");
