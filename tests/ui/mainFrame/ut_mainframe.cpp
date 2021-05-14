@@ -783,10 +783,10 @@ TEST_F(ut_MainFreme, initTabledata)
 {
     MainFrame::instance()->initTabledata();
 }
-TEST_F(ut_MainFreme, updateDHTFile)
-{
-    MainFrame::instance()->updateDHTFile();
-}
+//TEST_F(ut_MainFreme, updateDHTFile)
+//{
+//    MainFrame::instance()->updateDHTFile();
+//}
 TEST_F(ut_MainFreme, tableView)
 {
     TableView *table = new TableView(1);
