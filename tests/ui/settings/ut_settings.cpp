@@ -768,6 +768,9 @@ TEST_F(ut_Settings, createWindows)
 
 TEST_F(ut_Settings, clearAllTask)
 {
+    QProcess p;
+    p.start("pkill", QStringList()<<"dde-file-manage");
+    p.waitForFinished();
     DBInstance::delAllTask();
 }
 
