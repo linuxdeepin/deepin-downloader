@@ -4,4 +4,7 @@ Exec=dlmextensionservice %F
 GenericName=dlmextensionservice
 Name=dlmextensionservice.desktop
 OnlyShowIn=
+NoDisplay=true
+Type=Application
+StartupNotify=false
 X-Deepin-Vendor=user-custom
