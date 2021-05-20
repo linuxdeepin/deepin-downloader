@@ -6,11 +6,10 @@ rm -r ../$utdir
 mkdir ../$utdir
 cd ../$utdir
 
-cmake -DCMAKE_SAFETYTEST_ARG="CMAKE_SAFETYTEST_ARG_ON" ..
+cmake ..
 make -j4
 
-touch ./bin/utcase.log
-./bin/downloader_test --gtest_output=xml:./report/report.xml | tee ./bin/utcase.log
+./bin/downloader_test 
 
 workdir=$(cd ../$(dirname $0)/$utdir; pwd)
 
