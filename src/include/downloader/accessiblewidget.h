@@ -7,6 +7,8 @@
 class QLabel;
 class QPushButton;
 class QCheckBox;
+class QStandardItem;
+class DswitchButton;
 class AccessibleWidget : public QAccessibleWidget
         , public QAccessibleTextInterface
 {
@@ -62,7 +64,7 @@ private:
     QPushButton *m_button;
 };
 
-// 可访问的按钮
+// 可访问的复选框
 class AccessibleCheckBox : public AccessibleWidget
 {
 public:
@@ -74,6 +76,30 @@ public:
 
 private:
     QCheckBox *m_checkbox;
+};
+
+// 可访问的switchButton
+class AccessibleStandardSwitchButton : public AccessibleWidget
+{
+public:
+    explicit AccessibleStandardSwitchButton(QStandardItem *item);
+    ~AccessibleStandardSwitchButton();
+    QString text(int startOffset, int endOffset) const Q_DECL_OVERRIDE;
+
+private:
+    DswitchButton *m_button;
+};
+
+// 可访问的Item
+class AccessibleStandardItem : public AccessibleWidget
+{
+public:
+    explicit AccessibleStandardItem(QStandardItem *item);
+    ~AccessibleStandardItem();
+    QString text(int startOffset, int endOffset) const Q_DECL_OVERRIDE;
+
+private:
+    QStandardItem *m_item;
 };
 
 #endif // ACCESSIBLE_WIDGET_H

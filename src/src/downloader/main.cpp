@@ -28,6 +28,7 @@
 #include <DApplication>
 #include <DMainWindow>
 #include <DWidgetUtil>
+#include <DSwitchButton>
 #include <DApplicationSettings>
 #include <QTranslator>
 #include <QClipboard>
@@ -38,6 +39,7 @@
 #include <QStringList>
 #include <QDBusConnection>
 #include <QPushButton>
+#include <QCheckBox>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
 #include <QAccessible>
@@ -208,7 +210,9 @@ QAccessibleInterface *accessibleFactory(const QString &classname, QObject *objec
 
         if (classname == "QPushButton")
             interface = new AccessibleButton(qobject_cast<QPushButton *>(object));
-    }
 
+        if (classname == "QCheckBox")
+            interface = new AccessibleCheckBox(qobject_cast<QCheckBox *>(object));
+    }
     return interface;
 }

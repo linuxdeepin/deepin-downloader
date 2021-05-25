@@ -83,7 +83,6 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             }
             if (!str.contains("Content-Disposition: attachment;filename=")) // 为200的真实链接
             {
-
                 emit sendFinishedUrl(m_linkInfo);
                 mutex.unlock();
                 return;
@@ -92,8 +91,9 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             for (int i = 0; i < urlInfoList.size(); i++) {
                 if (urlInfoList[i].startsWith("Content-Disposition:")) //为405链接
                 {
-                    int start = urlInfoList[i].lastIndexOf("'");
-                    QString urlName = urlInfoList[i].mid(start);
+                   // int start = urlInfoList[i].indexOf("filename=");
+                    QString urlName = urlInfoList[i].split("filename=").last();
+                    urlName = urlName.remove('"');
                     QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
                     m_linkInfo.urlName = encodingUrlName;
                     emit sendFinishedUrl(m_linkInfo);
@@ -267,10 +267,11 @@ QString UrlThread::getUrlSize(QString url)
     }
     return "";
 }
+
 QString UrlThread::getType(QString contentType)
 {
     contentType.remove(";");
-    QString str3 = m_iniFile->value("1").toString();
+    QString str3 = m_iniFile->value(contentType).toString();
     return  m_iniFile->value(contentType).toString();
 }
 
