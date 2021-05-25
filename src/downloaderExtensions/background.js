@@ -394,10 +394,24 @@ var webChanel;
 var downloadItem;
 var isSelfCreate = false;
 var isTakeOver = false;
+var isOpen = false;
 
 function main() {
-    window.open("downloader:")
+    socket  = new WebSocket("ws://localhost:12345");
+
+    socket.onopen = function() {
+        onSocketOpen();
+        isOpen = true;
+    }
+    socket.onerror = function() {
+        console.log("websocket error")
+        window.open("downloader:")
+    }
+    //window.open("downloader:")
     setTimeout(()=>{
+        if(isOpen) {
+            return;
+        }
     socket  = new WebSocket("ws://localhost:12345");
 
     socket.onopen = function() {
