@@ -64,7 +64,7 @@ set(DTK Widget Core Gui)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
 #安装
-# qm files
+# qm files.
 file(GLOB QM_FILES "translations/*.qm")
 install(FILES ${QM_FILES} DESTINATION share/downloader/translations)
 
@@ -78,6 +78,8 @@ install(FILES data/downloader.db DESTINATION share/downloader/database)
 file(GLOB CF_FILES "docs/*.conf/*.json")
 install(FILES ${CF_FILES} DESTINATION share/downloader/config)
 
+file(GLOB JS_FILES "docs/*.json")
+install(FILES ${JS_FILES} DESTINATION share/downloader/config)
 
 #icon
 install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
