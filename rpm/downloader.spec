@@ -51,6 +51,7 @@ export PATH=%{_qt5_bindir}:$PATH
 %doc README.md
 %license LICENSE
 %{_bindir}/downloader
+%{_bindir}/dlmextensionservice
 %{_datadir}/downloader/translations/*.qm
 %{_datadir}/applications/downloader.desktop
 %{_datadir}/downloader/icons/logo/downloader.svg
