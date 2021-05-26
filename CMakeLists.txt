@@ -75,7 +75,7 @@ install(FILES desktop/downloader.desktop DESTINATION share/applications)
 install(FILES data/downloader.db DESTINATION share/downloader/database)
 
 # conf file
-file(GLOB CF_FILES "docs/*.conf")
+file(GLOB CF_FILES "docs/*.conf/*.json")
 install(FILES ${CF_FILES} DESTINATION share/downloader/config)
 
 
