@@ -7,13 +7,13 @@
 %define specrelease %{pkgrelease}%{?dist}
 %endif
 
-Name:           downloadmanager
-Version:        5.3.8test4
+Name:           org.deepin.downloader
+Version:        5.3.34
 Release:        1%{pkgrelease}
 Summary:        a user-friendly download tool, supporting URLs and torrent files
 License:        GPLv3+
 URL:            https://github.com/linuxdeepin/org.deepin.downloader
-Source0:        %{name}_%{version}.orig.tar.gz
+Source0:        downloadmanager_%{version}.orig.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
