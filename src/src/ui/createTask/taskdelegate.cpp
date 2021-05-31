@@ -264,13 +264,13 @@ void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
     QString curName;
     QString typeName = str + "." + index.data(TaskModel::Type).toString();
     for (int i = 0; i < index.model()->rowCount(); i++) {
-        curName = index.data(TaskModel::Name).toString() + "." + index.data(TaskModel::Type).toString();
+        curName = index.model()->data(index.model()->index(i, 1),1).toString() + "." + index.model()->data(index.model()->index(i, 2),2).toString();
         if (curName == typeName) {
             ((CreateTaskWidget *)m_dialog)->setUrlName(row, m_curName);
             return;
         }
     }
-
+    qDebug()<< "~~~~~~~~"<< str;
     ((CreateTaskWidget *)m_dialog)->setUrlName(row, str);
 }
 
