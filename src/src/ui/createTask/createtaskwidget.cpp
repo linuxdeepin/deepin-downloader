@@ -95,6 +95,7 @@ void CreateTaskWidget::initUi()
     QString titleMsg = tr("New Task");
 
     msgTitle->setText(titleMsg);
+    msgTitle->setAccessibleName("newTask");
     msgTitle->setFont(font);
     addContent(msgTitle, Qt::AlignHCenter);
     QString msg = tr("Please enter one URL per line");
@@ -311,6 +312,7 @@ void CreateTaskWidget::initUi()
     layout_right->setContentsMargins(0, 0, 0, 0);
 
     DPushButton *cancelButton = new DPushButton(boxBtn);
+    cancelButton->setAccessibleName("cancelButton");
     QSizePolicy policy;
     policy = cancelButton->sizePolicy();
     policy.setHorizontalPolicy(QSizePolicy::Expanding);

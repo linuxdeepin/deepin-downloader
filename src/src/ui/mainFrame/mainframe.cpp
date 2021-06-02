@@ -1777,6 +1777,11 @@ void MainFrame::onDownloadFirstBtnClicked()
     }
     if (m_CheckItem->status == Global::DownloadTaskStatus::Paused) {
         Aria2RPCInterface::instance()->unpause(m_CheckItem->gid, m_CheckItem->taskId);
+        QTime time;
+        time.start();
+        while (time.elapsed() < 200) {
+            QCoreApplication::processEvents();
+        }
     }
     Aria2RPCInterface::instance()->changePosition(m_CheckItem->gid, 0);
     if (lowSpeedItem == nullptr) {

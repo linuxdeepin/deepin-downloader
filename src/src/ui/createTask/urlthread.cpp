@@ -94,6 +94,9 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
                    // int start = urlInfoList[i].indexOf("filename=");
                     QString urlName = urlInfoList[i].split("filename=").last();
                     urlName = urlName.remove('"');
+                    QString type = urlName.split('.').last();
+                    urlName.remove(type);
+                    urlName = urlName.left(urlName.size() -1);
                     QString encodingUrlName = QUrl::fromPercentEncoding(urlName.toUtf8());
                     m_linkInfo.urlName = encodingUrlName;
                     emit sendFinishedUrl(m_linkInfo);

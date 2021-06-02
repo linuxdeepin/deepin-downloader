@@ -77,7 +77,6 @@ install(FILES data/downloader.db DESTINATION share/downloader/database)
 # conf file
 file(GLOB CF_FILES "docs/*.conf")
 install(FILES ${CF_FILES} DESTINATION share/downloader/config)
-
 file(GLOB JS_FILES "docs/*.json")
 install(FILES ${JS_FILES} DESTINATION share/downloader/config)
 

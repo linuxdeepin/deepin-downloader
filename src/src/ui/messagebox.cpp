@@ -196,6 +196,7 @@ void MessageBox::setExit()
 void MessageBox::addLabel(QString text)
 {
     DLabel *title = new DLabel(this);
+    title->setAccessibleName("messageBoxTittle");
     title->setText(text);
     addContent(title, Qt::AlignHCenter);
 }

@@ -211,8 +211,8 @@ QAccessibleInterface *accessibleFactory(const QString &classname, QObject *objec
         if (classname == "QPushButton")
             interface = new AccessibleButton(qobject_cast<QPushButton *>(object));
 
-        if (classname == "QCheckBox")
-            interface = new AccessibleCheckBox(qobject_cast<QCheckBox *>(object));
+//        if (classname == "QCheckBox")
+//            interface = new AccessibleCheckBox(qobject_cast<QCheckBox *>(object));
     }
     return interface;
 }
