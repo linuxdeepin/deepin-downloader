@@ -97,4 +97,4 @@ LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic
 )
 
-install(DIRECTORY ${APP_RES_DIR} DESTINATION /usr/share/deepin-manual/manual-assets/application/)
+install(DIRECTORY ${APP_RES_DIR}/downloader DESTINATION /usr/share/deepin-manual/manual-assets/application/)
