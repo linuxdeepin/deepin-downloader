@@ -3073,6 +3073,11 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
             }
         }
     }
-    QThread::usleep(200);
+    QTime time;
+    time.start();
+    while (time.elapsed() < 500) {
+        QCoreApplication::processEvents();
+    }
+
     return true;
 }

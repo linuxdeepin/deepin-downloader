@@ -38,6 +38,7 @@
 #include <DBackgroundGroup>
 #include <DApplicationHelper>
 #include <DHorizontalLine>
+#include <QTimer>
 #include "settings.h"
 
 SettingsControlWidget::SettingsControlWidget(QWidget *parent)
@@ -165,8 +166,11 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
     layout->addWidget(pLabel);
     layout->addStretch();
     layout->addWidget(m_comboBox, 0, Qt::AlignRight);
-
     connect(m_comboBox, &QComboBox::currentTextChanged, this, [=](const QString & text) {
+        m_comboBox->setEnabled(false);
+        QTimer::singleShot(1000, this, [=]() {
+            m_comboBox->setEnabled(true);
+        });
         emit currentTextChanged(text);
     });
     return true;
