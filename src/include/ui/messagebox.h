@@ -94,6 +94,11 @@ public:
     void setFolderDenied();
 
     /**
+     * @brief 设置文件不存在窗口
+    */
+    void setFolderNotExists();
+
+    /**
      * @brief 设置网络链接错误
     */
     void setNetWorkError(QString warningMsg);
