@@ -643,7 +643,7 @@ void TableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
         in3 = tr("Download failed");
         in4 = QString(tr("%1 download failed. Network error.")).arg(fileName);
         in5 << "_cancel" << tr("Cancel") << "_view" << tr("View");
-        in6["x-deepin-action-_view"] = "Downloader";
+        in6["x-deepin-action-_view"] = "downloader";
         qDebug() << in4 + ("    errorCode: ") + errorCode;
     } else {
         in3 = tr("Download completed");
