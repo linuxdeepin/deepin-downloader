@@ -60,6 +60,7 @@ public:
      * @return true 执行成功 false执行失败
      */
     static bool getAllTask(QList<TaskInfo> &taskList); //得到所有任务
+
     /**
      * @brief 判断Url是否存在
      * @param url 需要查询url
@@ -67,6 +68,13 @@ public:
      * @return true 执行成功 false执行失败
      */
     static bool isExistUrl(QString url, bool &ret);
+
+    /**
+     * @brief 根据磁力链接获取任务ID
+     * @param url 需要查询url
+     * @return 任务ID
+     */
+    static QString getTaskIdByMagnet(QString url);
 
     /**
      * @brief 根据url查询任务数据
