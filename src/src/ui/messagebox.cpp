@@ -314,7 +314,22 @@ void MessageBox::setFolderDenied()
     connect(this, &MessageBox::buttonClicked, this,
             [=]() {
                 close();
-            });
+    });
+}
+
+void MessageBox::setFolderNotExists()
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    setTitle(tr("路径异常"));
+
+    addLabel(tr("指定路径不存在，请检查后重试"));
+    addSpacing(10);
+    addButton(tr("OK"));
+    connect(this, &MessageBox::buttonClicked, this,
+            [=]() {
+                close();
+    });
 }
 
 void MessageBox::setNetWorkError(QString warningMsg)

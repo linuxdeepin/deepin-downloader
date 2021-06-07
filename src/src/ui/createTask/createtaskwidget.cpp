@@ -394,6 +394,13 @@ void CreateTaskWidget::onSureBtnClicked()
         showNetErrorMsg();
         return;
     }
+    QFile f(m_defaultDownloadDir);
+    if(!f.exists()){
+        MessageBox msg;
+        msg.setFolderNotExists();
+        msg.exec();
+        return;
+    }
     double dSelectSize = getSelectSize();
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
     double dCapacity = formatSpeed(freeSize);
