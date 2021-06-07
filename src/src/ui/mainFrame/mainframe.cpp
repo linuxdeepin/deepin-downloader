@@ -1767,7 +1767,9 @@ void MainFrame::onDownloadFirstBtnClicked()
     const DownloadDataItem *lowSpeedItem = nullptr;
     double speed = 99999;
     for (const DownloadDataItem *item : list) {
-        if (Func::formatSpeed(item->speed) > 0 && Func::formatSpeed(item->speed) < speed) {
+        if (item->status == Global::DownloadTaskStatus::Active
+                && Func::formatSpeed(item->speed) >= 0
+                && Func::formatSpeed(item->speed) < speed) {
             speed = Func::formatSpeed(item->speed);
             lowSpeedItem = item;
         }
@@ -1787,7 +1789,7 @@ void MainFrame::onDownloadFirstBtnClicked()
     if (lowSpeedItem == nullptr) {
         return;
     }
-    Aria2RPCInterface::instance()->pause(lowSpeedItem->gid, lowSpeedItem->taskId);
+    Aria2RPCInterface::instance()->forcePause(lowSpeedItem->gid, lowSpeedItem->taskId);
     QTimer::singleShot(500, this, [=]() {
         Aria2RPCInterface::instance()->unpause(lowSpeedItem->gid, lowSpeedItem->taskId);
     });
