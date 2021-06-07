@@ -206,10 +206,19 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     }
     QSqlQuery sql;
     QString selectAllSql = "select count(*)  from download_task where download_task.url like'" + url + "%' ;";
-//    qDebug() << selectAllSql;
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
-//        qWarning() << "select download_task,download_task_status failed : " << sql.lastError();
+        return false;
+    }
+    while (sql.next()) {
+        if (sql.value(0).toInt() >= 1) {
+            ret = true;
+        }
+    }
+    url = url.remove("magnet:?xt=urn:btih:");
+    selectAllSql = "select count(*)  from url_info where url_info.infoHash like'%" + url + "%' ;";
+    sql.prepare(selectAllSql);
+    if (!sql.exec()) {
         return false;
     }
     while (sql.next()) {
