@@ -2703,8 +2703,23 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
     if (!sameUrlList.isEmpty()) {
         if (sameUrlList.size() == 1) {
             if (showRedownloadMsgbox(sameUrlList.at(0).url)) {
-                deleteTaskByUrl(sameUrlList.at(0).url);
-                onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type, sameUrlList.at(0).urlSize);
+                QString taskID = DBInstance::getTaskIdByMagnet(sameUrlList.at(0).url);
+                if(sameUrlList.at(0).url.contains("magnet:?xt") && !taskID.isEmpty()) {
+
+                    deleteTaskByTaskID(taskID);
+                    QTimer::singleShot(500, this, [=]() {
+                        onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type, sameUrlList.at(0).urlSize);
+                    });
+                } else {
+                    deleteTaskByUrl(sameUrlList.at(0).url);
+                    if(sameUrlList.at(0).url.contains("magnet:?xt")) {
+                        QTimer::singleShot(500, this, [=]() {
+                            onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type, sameUrlList.at(0).urlSize);
+                        });
+                    } else {
+                        onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type, sameUrlList.at(0).urlSize);
+                    }
+                }
             }
         } else {
             QString urls;

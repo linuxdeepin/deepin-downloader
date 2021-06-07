@@ -220,6 +220,26 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     return true;
 }
 
+QString DBInstance::getTaskIdByMagnet(QString url)
+{
+    QSqlDatabase q = DataBase::Instance().getDB();
+    if (!q.isOpen()) {
+        qDebug() << q.lastError();
+        return "";
+    }
+    QSqlQuery sql;
+    url = url.remove("magnet:?xt=urn:btih:");
+    QString selectAllSql = "select task_id  from url_info where url_info.infoHash like'%" + url + "%' ;";
+    sql.prepare(selectAllSql);
+    if (!sql.exec()) {
+        return "";
+    }
+    while (sql.next()) {
+        return sql.value(0).toString();
+    }
+    return "";
+}
+
 bool DBInstance::addTaskStatus(TaskStatus &task)
 {
     QSqlDatabase q = DataBase::Instance().getDB();
