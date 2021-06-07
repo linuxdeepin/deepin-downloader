@@ -314,7 +314,22 @@ void MessageBox::setFolderDenied()
     connect(this, &MessageBox::buttonClicked, this,
             [=]() {
                 close();
-            });
+    });
+}
+
+void MessageBox::setFolderNotExists()
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    setTitle(tr("Path Error"));
+
+    addLabel(tr("The storage folder does not exist, please check and try again"));
+    addSpacing(10);
+    addButton(tr("OK"));
+    connect(this, &MessageBox::buttonClicked, this,
+            [=]() {
+                close();
+    });
 }
 
 void MessageBox::setNetWorkError(QString warningMsg)

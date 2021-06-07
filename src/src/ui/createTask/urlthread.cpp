@@ -211,11 +211,18 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             static QMutex mutex;
             mutex.lock();
             QString str =process->readAllStandardOutput();
+            QStringList list = str.split("\r\n");
+            if(!list[0].contains("200")){
+                mutex.unlock();
+                return ;
+            }
             process->kill();
             process->close();
             delete process;
             //process = nullptr;
+
             m_linkInfo.urlSize = getUrlSize(str);
+            m_linkInfo.type =getUrlType(str);
             emit sendFinishedUrl(m_linkInfo);
             mutex.unlock();
 
