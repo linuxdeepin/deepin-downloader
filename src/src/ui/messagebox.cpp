@@ -321,9 +321,9 @@ void MessageBox::setFolderNotExists()
 {
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
-    setTitle(tr("路径异常"));
+    setTitle(tr("Path Error"));
 
-    addLabel(tr("指定路径不存在，请检查后重试"));
+    addLabel(tr("The storage folder does not exist, please check and try again"));
     addSpacing(10);
     addButton(tr("OK"));
     connect(this, &MessageBox::buttonClicked, this,

@@ -169,7 +169,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
     {
         QProcess process;
         QStringList list;
-        list << "-i" << QString("\"" +reply->url().toString() + "\"");
+        list << "-i" << reply->url().toString();
         process.start("curl", list);
         connect(&process, &QProcess::readyReadStandardOutput, this, [=]() {
             static QMutex mutex;
@@ -206,7 +206,6 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         list << "-I" << "-k" << reply->url().toString();
         QString str = reply->url().toString();
         process->start("curl", list);
-        qDebug()<< list;
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
             qDebug()<<"readyReadStandardOutput";
             static QMutex mutex;
