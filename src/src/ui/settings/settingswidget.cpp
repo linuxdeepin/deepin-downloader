@@ -168,7 +168,7 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
     layout->addWidget(m_comboBox, 0, Qt::AlignRight);
     connect(m_comboBox, &QComboBox::currentTextChanged, this, [=](const QString & text) {
         m_comboBox->setEnabled(false);
-        QTimer::singleShot(1500, this, [=]() {
+        QTimer::singleShot(2000, this, [=]() {
             m_comboBox->setEnabled(true);
         });
         emit currentTextChanged(text);
