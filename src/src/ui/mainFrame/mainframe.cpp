@@ -1781,7 +1781,7 @@ void MainFrame::onDownloadFirstBtnClicked()
         Aria2RPCInterface::instance()->unpause(m_CheckItem->gid, m_CheckItem->taskId);
         QTime time;
         time.start();
-        while (time.elapsed() < 200) {
+        while (time.elapsed() < 400) {
             QCoreApplication::processEvents();
         }
     }
@@ -1790,7 +1790,7 @@ void MainFrame::onDownloadFirstBtnClicked()
         return;
     }
     Aria2RPCInterface::instance()->forcePause(lowSpeedItem->gid, lowSpeedItem->taskId);
-    QTimer::singleShot(500, this, [=]() {
+    QTimer::singleShot(800, this, [=]() {
         Aria2RPCInterface::instance()->unpause(lowSpeedItem->gid, lowSpeedItem->taskId);
     });
 }
