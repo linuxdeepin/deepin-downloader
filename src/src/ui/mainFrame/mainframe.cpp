@@ -136,8 +136,8 @@ void MainFrame::init()
     m_QuitProcessAct = new QAction(tr("Exit"), this);
     m_QuitProcessAct->setCheckable(true);
 
-    pFinishMenu->addAction(m_ShutdownAct);
-    pFinishMenu->addAction(m_SleepAct);
+    //pFinishMenu->addAction(m_ShutdownAct);
+    //pFinishMenu->addAction(m_SleepAct);
     pFinishMenu->addAction(m_QuitProcessAct);
     pFinishAction->setMenu(pFinishMenu);
     pSettingsMenu->addAction(pFinishAction);
@@ -303,8 +303,8 @@ void MainFrame::initTray()
     QAction *pStartAllAct = new QAction(tr("Resume all"), this);
     QAction *pPauseAllAct = new QAction(tr("Pause all"), this);
     QMenu *pFinishMenu = new QMenu(tr("When completed"), this);
-    pFinishMenu->addAction(m_ShutdownAct);
-    pFinishMenu->addAction(m_SleepAct);
+    //pFinishMenu->addAction(m_ShutdownAct);
+    //pFinishMenu->addAction(m_SleepAct);
     pFinishMenu->addAction(m_QuitProcessAct);
     QAction *pQuitAct = new QAction(tr("Exit"), this);
 
