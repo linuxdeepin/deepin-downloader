@@ -1,3 +1,9 @@
+downloadmanager (5.3.35) stable; urgency=low
+
+  * 修改部分bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 07 Jun 2021 19:09:03 +0800
+
 downloadmanager (5.3.34) stable; urgency=low
 
   * 修改rpm包的名称
