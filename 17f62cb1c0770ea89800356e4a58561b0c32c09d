@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5eea5a94_86427f28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-07T05:45:12Z",
+      "side": 1,
+      "message": "Log后面必须存在一个\u0027:\u0027",
+      "revId": "17f62cb1c0770ea89800356e4a58561b0c32c09d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87cb3f5a_0be076d0",
         "filename": "src/include/ui/messagebox.h",
         "patchSetId": 1
