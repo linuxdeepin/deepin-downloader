@@ -9,7 +9,7 @@ cd ../$utdir
 cmake ..
 make -j4
 
-./bin/downloader_test 
+./bin/downloader_test --gtest_output=xml:./ut-report.txt
 
 workdir=$(cd ../$(dirname $0)/$utdir; pwd)
 
