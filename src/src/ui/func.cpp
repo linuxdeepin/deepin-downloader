@@ -15,7 +15,7 @@ bool Func::isNetConnect()
     list << "-i"
          << "www.baidu.com";
     process.start("curl", list);
-    process.waitForFinished();
+    process.waitForFinished(3000);
     if(!process.exitCode()){
         return true;
     }
