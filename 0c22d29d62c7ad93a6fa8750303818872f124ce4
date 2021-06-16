@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f6263d49_b43dbeb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-16T03:48:13Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "0c22d29d62c7ad93a6fa8750303818872f124ce4",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa808772_289e7940",
         "filename": "src/include/ui/mainFrame/headerView.h",
         "patchSetId": 1
