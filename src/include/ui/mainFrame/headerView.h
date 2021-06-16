@@ -45,6 +45,7 @@ class DownloadHeaderView : public QHeaderView
 public:
     explicit DownloadHeaderView(Qt::Orientation orientation,
                         QWidget        *parent = 0);
+    ~DownloadHeaderView();
 
 protected:
     /**
