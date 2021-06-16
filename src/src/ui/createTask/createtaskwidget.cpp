@@ -107,6 +107,7 @@ void CreateTaskWidget::initUi()
     addSpacing(10);
     m_texturl = new DTextEdit(this);
     m_texturl->setObjectName("textUrl");
+    m_texturl->setAccessibleName("textUrl");
     m_texturl->setReadOnly(false);
     m_texturl->setAcceptDrops(false);
     m_texturl->setPlaceholderText(tr("Enter download links or drag a torrent file here"));
@@ -179,6 +180,7 @@ void CreateTaskWidget::initUi()
     QPalette pal2;
     pal2.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     m_labelFileSize = new DLabel(this);
+    m_labelFileSize->setAccessibleName("fileSizeLabel");
     m_labelFileSize->setAlignment(Qt::AlignRight);
     m_labelFileSize->setText(QString(tr("Total ") + "0"));
     m_labelFileSize->setFont(font2);
@@ -289,6 +291,7 @@ void CreateTaskWidget::initUi()
     layout->setMargin(0);
     layout->setContentsMargins(0, 0, 0, 0);
     DIconButton *iconBtn = new DIconButton(boxBtn);
+    iconBtn->setAccessibleName("bticonBtn");
     //  QIcon tryIcon1(QIcon::fromTheme("dcc_bt"));
     iconBtn->setIcon(QIcon::fromTheme("dcc_bt"));
     iconBtn->setIconSize(QSize(18, 15));
@@ -298,6 +301,7 @@ void CreateTaskWidget::initUi()
     layout->addWidget(iconBtn);
 
     DIconButton *mlBtn = new DIconButton(boxBtn);
+    iconBtn->setAccessibleName("mliconBtn");
     //  QIcon tryIcon1(QIcon::fromTheme("dcc_bt"));
     mlBtn->setIcon(QIcon::fromTheme("dcc_ml"));
     mlBtn->setIconSize(QSize(18, 15));
@@ -397,6 +401,7 @@ void CreateTaskWidget::onSureBtnClicked()
     QFile f(m_defaultDownloadDir);
     if(!f.exists()){
         MessageBox msg;
+        msg.setAccessibleName("FolderNotExists");
         msg.setFolderNotExists();
         msg.exec();
         return;
@@ -407,6 +412,7 @@ void CreateTaskWidget::onSureBtnClicked()
     if (dSelectSize > dCapacity) { //剩余空间比较 KB
         qDebug() << "Disk capacity is not enough!";
         MessageBox msg;
+        msg.setAccessibleName("FolderNotExists");
         msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg.exec();
         return;
@@ -610,6 +616,7 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
         MessageBox msg; //= new MessageBox();
+        msg.setAccessibleName("FolderDenied");
         msg.setFolderDenied();
         msg.exec();
         strPath = m_editDir->directoryUrl().toString();
@@ -647,6 +654,7 @@ void CreateTaskWidget::showNetErrorMsg()
     MessageBox msg; //= new MessageBox();
     //QString title = tr("Network error, check your network and try later");
    // msg.setWarings(getNetErrTip(), tr("OK"), ""); //网络连接失败
+    msg.setAccessibleName("Networkerror");
     msg.setNetWorkError(getNetErrTip());
     msg.exec();
 }

@@ -397,23 +397,9 @@ var isTakeOver = false;
 var isOpen = false;
 
 function main() {
-    socket  = new WebSocket("ws://localhost:12345");
-
-    socket.onopen = function() {
-        onSocketOpen();
-        isOpen = true;
-    }
-    socket.onerror = function() {
-        console.log("websocket error")
-        window.open("downloader:")
-    }
-    //window.open("downloader:")
+    window.open("downloader:")
     setTimeout(()=>{
-        if(isOpen) {
-            return;
-        }
     socket  = new WebSocket("ws://localhost:12345");
-
     socket.onopen = function() {
         onSocketOpen();
     }
@@ -477,7 +463,10 @@ chrome.downloads.onCreated.addListener(function(item) {
                 isSelfCreate = false
                 sendUrlToDownloader(downloadItem);
             } else {
-                loadXMLDoc(item.finalUrl)
+                console.log("item.finalUrl:" << item.finalUrl)
+                if(item.finalUrl.indexOf("javascript:void(0);")== -1 ){
+                    loadXMLDoc(item.finalUrl)
+                }
             }
         }, 0);
         
@@ -615,6 +604,9 @@ function addContextMenu (id, title) {
 
 function onContextMenuClicked(info, tab) {
     console.log("onContextMenuClicked")
+    if(info.linkUrl.indexOf("javascript:void(0);")!= -1 ){
+        return;
+    }
     if(isTakeOver) {
         webChanel.objects.core.receiveText(info.linkUrl);
         return
