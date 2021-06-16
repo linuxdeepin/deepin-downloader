@@ -249,12 +249,14 @@ TEST_F(ut_CreateTaskWidget, formatSpeed)
     c->formatSpeed("100MB");
     c->formatSpeed("100GB");
     c->formatSpeed("100B");
+    delete c;
 }
 
 TEST_F(ut_CreateTaskWidget, isVideo)
 {
     CreateTaskWidget *c = new CreateTaskWidget;
     c->isVideo("11.mp4");
+    delete c;
 }
 
 
@@ -285,6 +287,7 @@ TEST_F(ut_CreateTaskWidget, UrlGetUrlTypeNull)
     u->m_linkInfo.url = "http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-min";
     std::string type = u->getUrlType("").toStdString();
     EXPECT_STREQ(type.c_str(), "");
+    delete u;
 }
 
 TEST_F(ut_CreateTaskWidget, UrlGetUrlSize)
@@ -292,6 +295,7 @@ TEST_F(ut_CreateTaskWidget, UrlGetUrlSize)
     UrlThread *u = new UrlThread;
     std::string type = u->getUrlSize("content-length: 581144").toStdString();
     EXPECT_STREQ(type.c_str(), "568KB");
+    delete u;
 }
 
 TEST_F(ut_CreateTaskWidget, headerViewInit)
@@ -303,6 +307,7 @@ TEST_F(ut_CreateTaskWidget, headerViewInit)
     v->checkBoxRect(r);
     QPainter *painter = new QPainter;
     v->paintSection(painter, r, 0);
+    delete v;
 
 }
 
@@ -315,6 +320,7 @@ TEST_F(ut_CreateTaskWidget, headerViewPalettetype)
     Stub stub;
     stub.set(ADDR(DGuiApplicationHelper, themeType), ApplicationHelperThemeType2);
     v->onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
+    delete v;
 
 }
 
@@ -328,18 +334,21 @@ TEST_F(ut_CreateTaskWidget, getFtpFileSize)
     double falseSize = c->getFtpFileSize("ftp://10.10..txt");
     //EXPECT_DOUBLE_EQ(size, 0.0);
     EXPECT_TRUE(true);
+    delete c;
 }
 
 TEST_F(ut_CreateTaskWidget, tableView1)
 {
     BtInfoTableView *table = new BtInfoTableView();
     table->mouseMoveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    delete table;
 }
 
 TEST_F(ut_CreateTaskWidget, tableView2)
 {
     BtInfoTableView *table = new BtInfoTableView();
     table->leaveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    delete table;
 }
 
 
@@ -347,6 +356,7 @@ TEST_F(ut_CreateTaskWidget, tableView3)
 {
     BtInfoTableView *table = new BtInfoTableView();
     table->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    delete table;
 }
 
 TEST_F(ut_CreateTaskWidget, tableView4)
@@ -354,6 +364,7 @@ TEST_F(ut_CreateTaskWidget, tableView4)
     BtInfoTableView *table = new BtInfoTableView();
     const QModelIndex model;
     table->onDoubleClicked(model);
+    delete table;
 }
 
 
@@ -436,7 +447,8 @@ TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
    c->isFtp("222");
    c->isHttp("1111");
  //  c->onMLFileDialogOpen();
-
+   delete c->m_analysisUrl;
+   delete c;
 }
 
 TEST_F(ut_CreateTaskWidget, AnalysisUrl)
@@ -474,7 +486,8 @@ TEST_F(ut_CreateTaskWidget, dropEvent)
     QDragEnterEvent *event = new QDragEnterEvent(p,Qt::LinkAction,d,Qt::MouseButton::LeftButton,Qt::KeyboardModifier::NoModifier);
 //    QTest::mouseEvent(MouseAction)
     c->dropEvent(event);
-
+    delete c->m_analysisUrl;
+    delete c;
 }
 
 TEST_F(ut_CreateTaskWidget, dropEvent1)
@@ -492,7 +505,8 @@ TEST_F(ut_CreateTaskWidget, dropEvent1)
 //    QTest::mouseEvent(MouseAction)
     event->mimeData()->hasUrls();
     c->dropEvent(event);
-
+    delete c->m_analysisUrl;
+    delete c;
 }
 
 
