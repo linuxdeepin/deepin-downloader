@@ -489,6 +489,7 @@ void MainFrame::closeEvent(QCloseEvent *event)
     m_SystemTray->show();
     if (Settings::getInstance()->getIsShowTip() || (Settings::getInstance()->getCloseMainWindowSelected() == 2)) {
         MessageBox msg;
+        msg.setAccessibleName("closeMainwindow");
         connect(&msg, &MessageBox::closeConfirm, this, &MainFrame::onMessageBoxConfirmClick);
         msg.setExit();
         msg.exec();
@@ -1540,6 +1541,7 @@ void MainFrame::onRemoveFinished()
 void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList)
 {
     MessageBox msg;
+    msg.setAccessibleName(title);
     msg.setWarings(title, tr("OK"), "", sameUrlCount, sameUrlList);
     msg.exec();
 }
@@ -1547,6 +1549,7 @@ void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString
 void MainFrame::showClearMsgbox()
 {
     MessageBox msg;
+    msg.setAccessibleName("Clearrecycle");
     connect(&msg, &MessageBox::Clearrecycle, this, &MainFrame::onClearRecycle);
     msg.setClear();
     int rs = msg.exec();
@@ -1588,6 +1591,7 @@ void MainFrame::onClearRecycle(bool ischecked)
 void MainFrame::showDeleteMsgbox(bool permanently)
 {
     MessageBox msg;
+    msg.setAccessibleName("Deletedownload");
     connect(&msg, &MessageBox::Deletedownload, this, &MainFrame::onDeleteConfirm);
     if (m_CurrentTab == CurrentTab::downloadingTab) {
         msg.setDelete(permanently, true);
@@ -1610,7 +1614,7 @@ void MainFrame::showDeleteMsgbox(bool permanently)
 bool MainFrame::showRedownloadMsgbox(const QString sameUrl, bool ret, bool isShowRedownload)
 {
     MessageBox msg;
-
+    msg.setAccessibleName("Redownload");
     msg.setRedownload(sameUrl, ret, isShowRedownload);
     int rs = msg.exec();
     if (rs == DDialog::Accepted) {
@@ -1767,7 +1771,9 @@ void MainFrame::onDownloadFirstBtnClicked()
     const DownloadDataItem *lowSpeedItem = nullptr;
     double speed = 99999;
     for (const DownloadDataItem *item : list) {
-        if (Func::formatSpeed(item->speed) > 0 && Func::formatSpeed(item->speed) < speed) {
+        if (item->status == Global::DownloadTaskStatus::Active
+                && Func::formatSpeed(item->speed) >= 0
+                && Func::formatSpeed(item->speed) < speed) {
             speed = Func::formatSpeed(item->speed);
             lowSpeedItem = item;
         }
@@ -1779,7 +1785,7 @@ void MainFrame::onDownloadFirstBtnClicked()
         Aria2RPCInterface::instance()->unpause(m_CheckItem->gid, m_CheckItem->taskId);
         QTime time;
         time.start();
-        while (time.elapsed() < 200) {
+        while (time.elapsed() < 400) {
             QCoreApplication::processEvents();
         }
     }
@@ -1787,8 +1793,8 @@ void MainFrame::onDownloadFirstBtnClicked()
     if (lowSpeedItem == nullptr) {
         return;
     }
-    Aria2RPCInterface::instance()->pause(lowSpeedItem->gid, lowSpeedItem->taskId);
-    QTimer::singleShot(500, this, [=]() {
+    Aria2RPCInterface::instance()->forcePause(lowSpeedItem->gid, lowSpeedItem->taskId);
+    QTimer::singleShot(800, this, [=]() {
         Aria2RPCInterface::instance()->unpause(lowSpeedItem->gid, lowSpeedItem->taskId);
     });
 }
@@ -1995,6 +2001,7 @@ void MainFrame::onRedownloadActionTriggered()
     if (m_CurrentTab == CurrentTab::recycleTab) {
         if (QFileInfo::exists(m_DelCheckItem->savePath)) {
             MessageBox msg;
+            msg.setAccessibleName("Redownload");
             msg.setRedownload(m_DelCheckItem->fileName, true);
             int rs = msg.exec();
             if (rs != DDialog::Accepted) {
@@ -2004,6 +2011,7 @@ void MainFrame::onRedownloadActionTriggered()
     } else if (m_CurrentTab == CurrentTab::finishTab) {
         if (QFileInfo::exists(m_CheckItem->savePath)) {
             MessageBox msg;
+            msg.setAccessibleName("Redownload");
             msg.setRedownload(m_CheckItem->fileName, true);
             int rs = msg.exec();
             if (rs != DDialog::Accepted) {
@@ -2696,7 +2704,7 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
         onDownloadNewUrl(url, path, info.urlName, info.type, info.urlSize);
         QTime time;
         time.start();
-        while (time.elapsed() < 500) {
+        while (time.elapsed() < 1000) {
             QCoreApplication::processEvents();
         }
     }
@@ -2707,13 +2715,13 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
                 if(sameUrlList.at(0).url.contains("magnet:?xt") && !taskID.isEmpty()) {
 
                     deleteTaskByTaskID(taskID);
-                    QTimer::singleShot(500, this, [=]() {
+                    QTimer::singleShot(1000, this, [=]() {
                         onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type, sameUrlList.at(0).urlSize);
                     });
                 } else {
                     deleteTaskByUrl(sameUrlList.at(0).url);
                     if(sameUrlList.at(0).url.contains("magnet:?xt")) {
-                        QTimer::singleShot(500, this, [=]() {
+                        QTimer::singleShot(1000, this, [=]() {
                             onDownloadNewUrl(sameUrlList.at(0).url, path, sameUrlList.at(0).urlName, sameUrlList.at(0).type, sameUrlList.at(0).urlSize);
                         });
                     } else {

@@ -37,10 +37,12 @@ void HttpAdvancedSettingWidget::initUI()
     font.setFamily("Source Han Sans");
     font.setPixelSize(13);
     DButtonBoxButton *suffixBtn =new DButtonBoxButton(tr("Edit File Extensions"));  //编辑下载文件扩展名
+    suffixBtn->setAccessibleName("EditFileExtensions");
     suffixBtn->setFont(font);
     connect(suffixBtn,&DButtonBoxButton::clicked, this, &HttpAdvancedSettingWidget::onSuffixBtnClicked);
     m_btnBox->setId(suffixBtn, 0);
     DButtonBoxButton *webBtn =new DButtonBoxButton(tr("Edit Unmonitored Sites"));       //辑不接管的网站
+    webBtn->setAccessibleName("EditUnmonitoredSites");
     webBtn->setFont(font);
     connect(webBtn,&DButtonBoxButton::clicked, this, &HttpAdvancedSettingWidget::onWebBtnClicked);
     m_btnBox->setId(webBtn, 1);
@@ -57,6 +59,7 @@ void HttpAdvancedSettingWidget::initUI()
     addSpacing(8);
 
     m_defaultBtn = new DCommandLinkButton(tr("Restore"), this);
+    m_defaultBtn->setAccessibleName("httpadvanceRestore");
     connect(m_defaultBtn,&DCommandLinkButton::clicked, this, &HttpAdvancedSettingWidget::onRstoreDefaultClicked);
     m_defaultBtn->setFont(font);
     m_defaultBtn->setGeometry(418,272,56,20);
@@ -64,12 +67,15 @@ void HttpAdvancedSettingWidget::initUI()
     addSpacing(20);
 
     QWidget *w = new QWidget(this);
+    w->setAccessibleName("httpadvanceWidget");
     DPushButton * cancel = new DPushButton(this);
+    cancel->setAccessibleName("httpadvanceCancel");
     connect(cancel,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onCancelClicked);
     cancel->setText(tr("Cancel"));
     cancel->setFont(font);
     cancel->setFixedSize(216,36);
     DPushButton * sure = new DPushButton(this);
+    sure->setAccessibleName("httpadvanceSure");
     connect(sure,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onSureClicked);
     sure->setFixedSize(216,36);
     sure->setText(tr("Confirm"));
