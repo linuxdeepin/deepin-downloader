@@ -54,46 +54,51 @@ TEST_F(ut_MainFreme, onSearchItemClicked1)
 {
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
-    DownloadDataItem *pItem1 = new DownloadDataItem;
-    pItem1->taskId = "111";
-    pItem1->status = 0;
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
-    QListWidgetItem *item = new QListWidgetItem;
-    item->setData(Qt::WhatsThisRole, "1");
-    item->setData(Qt::UserRole, "Downloading");
-    MainFrame::instance()->onSearchItemClicked(item);
+    DownloadDataItem pItem1;
+    pItem1.taskId = "111";
+    pItem1.status = 0;
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem1);
+    QListWidgetItem item;
+    item.setData(Qt::WhatsThisRole, "1");
+    item.setData(Qt::UserRole, "Downloading");
+    MainFrame::instance()->onSearchItemClicked(&item);
 }
 TEST_F(ut_MainFreme, onSearchItemClicked2)
 {
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
-    DownloadDataItem *pItem1 = new DownloadDataItem;
-    pItem1->taskId = "123";
-    pItem1->status = 3;
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
-    QListWidgetItem *item = new QListWidgetItem;
-    item->setData(Qt::WhatsThisRole, "2");
-    item->setData(Qt::UserRole, "Completed");
-    MainFrame::instance()->onSearchItemClicked(item);
+    DownloadDataItem pItem1;
+    pItem1.taskId = "123";
+    pItem1.status = 3;
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem1);
+    QListWidgetItem item;
+    item.setData(Qt::WhatsThisRole, "2");
+    item.setData(Qt::UserRole, "Completed");
+    MainFrame::instance()->onSearchItemClicked(&item);
 }
 TEST_F(ut_MainFreme, onSearchItemClicked3)
 {
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
-    DeleteDataItem *pItem3 = new DeleteDataItem;
-    pItem3->taskId = "1234";
-    pItem3->status = 4;
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
+    DeleteDataItem pItem3;
+    pItem3.taskId = "1234";
+    pItem3.status = 4;
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem3);
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTablemodelMode();
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->recyleList();
-    QListWidgetItem *item = new QListWidgetItem;
-    item->setData(Qt::WhatsThisRole, "3");
-    item->setData(Qt::UserRole, "Trash");
-    MainFrame::instance()->onSearchItemClicked(item);
+    QListWidgetItem item;
+    item.setData(Qt::WhatsThisRole, "3");
+    item.setData(Qt::UserRole, "Trash");
+    MainFrame::instance()->onSearchItemClicked(&item);
 }
 TEST_F(ut_MainFreme, onSearchEditTextChanged)
 {
+    DownloadDataItem pItem1;
+    pItem1.taskId = "123";
+    pItem1.status = 3;
+    pItem1.fileName = "1";
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem1);
     MainFrame::instance()->onSearchEditTextChanged("1");
 }
 //metalink任务
@@ -160,14 +165,9 @@ TEST_F(ut_MainFreme, addHttpTaskkk)
 
 TEST_F(ut_MainFreme, changeList)
 {
-    MainFrame *m = MainFrame::instance();
-    DListView *list = m->findChild<DListView *>("leftList");
-    QStandardItemModel *model = static_cast<QStandardItemModel *>(list->model());
-    QTest::qWait(200);
-    QRect rect = list->visualRect(model->index(1, 0));
-    QTest::mouseClick(list->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
-    EXPECT_TRUE(list->currentIndex().row() == 1);
-    QTest::qWait(2000);
+    //MainFrame::instance()->m_DownLoadingTableView->m_TableModel->m_RenderList.clear();
+    DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
+    MainFrame::instance()->onListClicked(list->model()->index(0, 0));
 }
 
 TEST_F(ut_MainFreme, rename)
@@ -603,6 +603,7 @@ TEST_F(ut_MainFreme, initDataItem)
     Global::DownloadDataItem *data = new Global::DownloadDataItem;
     const TaskInfo tbTask;
     MainFrame::instance()->initDataItem(data, tbTask);
+    delete data;
 }
 TEST_F(ut_MainFreme, initDelDataItem)
 {
@@ -796,28 +797,33 @@ TEST_F(ut_MainFreme, tableView)
 {
     TableView *table = new TableView(1);
     table->mousePressEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    delete table;
 }
 TEST_F(ut_MainFreme, tableView2)
 {
     TableView *table = new TableView(1);
     table->mouseMoveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    delete table;
 }
 TEST_F(ut_MainFreme, tableView3)
 {
     TableView *table = new TableView(1);
     table->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    delete table;
 }
 TEST_F(ut_MainFreme, tableView4)
 {
     TableView *table = new TableView(1);
     QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::NoModifier);
     table->leaveEvent(keyEvent);
+    delete table;
 }
 TEST_F(ut_MainFreme, tableView5)
 {
     TableView *table = new TableView(1);
     QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::NoModifier);
     table->keyPressEvent(keyEvent);
+    delete table;
 }
 TEST_F(ut_MainFreme, Websockethandle)
 {
@@ -878,6 +884,7 @@ TEST_F(ut_MainFreme, dealNotificaitonSettings)
 {
     TableView *table = new TableView(1);
     table->getTableControl()->dealNotificaitonSettings("status", "test.txt", "-1");
+    delete table;
 }
 
 TEST_F(ut_MainFreme, onClipboardDataChanged)
@@ -952,6 +959,7 @@ TEST_F(ut_MainFreme, deleteDownloadTask)
     DownloadDataItem *pItem = new DownloadDataItem;
     pItem->savePath = "aaaaaa";
     MainFrame::instance()->deleteTask(pItem);
+    delete pItem;
 }
 TEST_F(ut_MainFreme, onHeaderStatechanged)
 {
@@ -1005,6 +1013,7 @@ TEST_F(ut_MainFreme, onTrayQuitClick_true)
 {
     MainFrame::instance()->onTrayQuitClick(true);
 }
+
 TEST_F(ut_MainFreme, onTrayQuitClick_false)
 {
     MainFrame::instance()->onTrayQuitClick(false);
@@ -1062,7 +1071,10 @@ TEST_F(ut_MainFreme, onRpcError)
     MainFrame::instance()->onIsMetalinkDownload(true);
     MainFrame::instance()->onIsMetalinkDownload(false);
     MainFrame::instance()->Raise();
-
+    delete s;
+    delete e;
+    delete pItem1;
+    delete pItem2;
 }
 
 
