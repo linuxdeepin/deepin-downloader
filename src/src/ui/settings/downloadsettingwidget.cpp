@@ -304,14 +304,14 @@ void DownloadSettingWidget::onFocusChanged(bool onFocus)
         if (!onFocus && m_maxDownloadSpeedLimit->getIsAlert()) {
             m_maxDownloadSpeedLimit->setLineEditAlert(false);
             m_downloadAlertControl->hideAlertMessage();
-            m_maxDownloadSpeedLimit->setLineEditText(QString::number(m_DownloadSpeedLimitValue));
+            m_maxDownloadSpeedLimit->setLineEditText(QString::number(100));
         }
 
     } else if (m_maxUploadSpeedLimit == settingInfoInputWidget) {
         if (!onFocus && m_maxUploadSpeedLimit->getIsAlert()) {
             m_maxUploadSpeedLimit->setLineEditAlert(false);
             m_uploadAlertControl->hideAlertMessage();
-            m_maxUploadSpeedLimit->setLineEditText(QString::number(m_UploadSpeedLimitValue));
+            m_maxUploadSpeedLimit->setLineEditText(QString::number(16));
         }
     }
 }

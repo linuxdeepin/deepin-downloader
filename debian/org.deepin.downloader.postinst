@@ -7,3 +7,8 @@ if [ -z "$str" ]; then
  sed -i '$d' /usr/share/applications/mimeapps.list
  echo x-scheme-handler/downloader=dlmextensionservice.desktop >> /usr/share/applications/mimeapps.list
 fi
+
+display=$DISPLAY
+user=$(who | grep '('$display')' | awk '{print $1}')
+echo $user
+cp /usr/share/downloader/config/browser.downloader.autostart.json  /home/$user/.config/browser/NativeMessagingHosts/
