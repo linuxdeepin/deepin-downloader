@@ -54,10 +54,10 @@ TEST_F(ut_MainFreme, onSearchItemClicked1)
 {
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
-    DownloadDataItem pItem1;
-    pItem1.taskId = "111";
-    pItem1.status = 0;
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem1);
+    DownloadDataItem *pItem1 = new DownloadDataItem;
+    pItem1->taskId = "111";
+    pItem1->status = 0;
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
     QListWidgetItem item;
     item.setData(Qt::WhatsThisRole, "1");
     item.setData(Qt::UserRole, "Downloading");
@@ -67,10 +67,10 @@ TEST_F(ut_MainFreme, onSearchItemClicked2)
 {
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
-    DownloadDataItem pItem1;
-    pItem1.taskId = "123";
-    pItem1.status = 3;
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem1);
+    DownloadDataItem *pItem1 = new DownloadDataItem;
+    pItem1->taskId = "123";
+    pItem1->status = 3;
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
     QListWidgetItem item;
     item.setData(Qt::WhatsThisRole, "2");
     item.setData(Qt::UserRole, "Completed");
@@ -80,10 +80,10 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
 {
     Stub stub;
     stub.set(ADDR(SearchResoultWidget, hide), SearchResoultWidgetHide);
-    DeleteDataItem pItem3;
-    pItem3.taskId = "1234";
-    pItem3.status = 4;
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem3);
+    DeleteDataItem *pItem3 = new DeleteDataItem;
+    pItem3->taskId = "1234";
+    pItem3->status = 4;
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTablemodelMode();
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->recyleList();
@@ -94,11 +94,11 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
 }
 TEST_F(ut_MainFreme, onSearchEditTextChanged)
 {
-    DownloadDataItem pItem1;
-    pItem1.taskId = "123";
-    pItem1.status = 3;
-    pItem1.fileName = "1";
-    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(&pItem1);
+    DownloadDataItem *pItem1 = new DownloadDataItem;
+    pItem1->taskId = "123";
+    pItem1->status = 3;
+    pItem1->fileName = "1";
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
     MainFrame::instance()->onSearchEditTextChanged("1");
 }
 //metalink任务
