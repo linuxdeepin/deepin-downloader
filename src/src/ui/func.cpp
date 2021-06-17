@@ -247,7 +247,7 @@ double Func::formatFileSize(QString str)
 
 QString Func::chineseToPinyin(QString input)
 {
-    if ("" == input) {
+    if (input.isEmpty()) {
         return "";
     }
     QString value = input;

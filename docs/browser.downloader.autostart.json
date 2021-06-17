@@ -1,0 +1,7 @@
+{
+  "name": "browser.downloader.autostart",
+  "description": "extension start local downloader progrem",
+  "path": "/usr/bin/dlmextensionservice",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://ojlicckikdkkaclkpdddijgehekpmmbg/"]
+}

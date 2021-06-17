@@ -396,8 +396,20 @@ var isSelfCreate = false;
 var isTakeOver = false;
 var isOpen = false;
 
+function runDownloader() {
+    var port = chrome.runtime.connectNative("browser.downloader.autostart");
+    port.onMessage.addListener(function (msg) {
+      console.log("Received" + msg);
+    });
+    port.onDisconnect.addListener(function () {
+      console.log("Disconnected");
+    });
+    port.postMessage({ type: "command", command: "deepin-app-store" });
+}
+
 function main() {
-    window.open("downloader:")
+    //window.open("downloader:")
+    runDownloader();
     setTimeout(()=>{
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = function() {
