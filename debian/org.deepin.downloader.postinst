@@ -12,3 +12,5 @@ display=$DISPLAY
 user=$(who | grep '('$display')' | awk '{print $1}')
 echo $user
 cp /usr/share/downloader/config/browser.downloader.autostart.json  /home/$user/.config/browser/NativeMessagingHosts/
+
+chmod 755 /usr/libexec/openconnect/startdlmservice.sh
