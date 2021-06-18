@@ -44,9 +44,9 @@ void extensionService::initWebsokcet()
              sendUrlToDownloader(text);
          });
     });
-    m_timer = new QTimer;
-    m_timer->start(5000);
-    connect(m_timer, &QTimer::timeout, this, &extensionService::checkConnection);
+//    m_timer = new QTimer;
+//    m_timer->start(5000);
+//    connect(m_timer, &QTimer::timeout, this, &extensionService::checkConnection);
 }
 
 void extensionService::sendUrlToDownloader(const QString &url)

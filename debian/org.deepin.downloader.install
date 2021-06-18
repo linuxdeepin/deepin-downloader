@@ -13,3 +13,4 @@ docs/content-type.conf /usr/share/downloader/config
 docs/httpAdvanced.json /usr/share/downloader/config
 docs/content-type.conf /usr/share/downloader/config
 docs/browser.downloader.autostart.json /usr/share/downloader/config
+docs/startdlmservice.sh /usr/libexec/openconnect/
