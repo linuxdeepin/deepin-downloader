@@ -255,10 +255,13 @@ void MainFrame::init()
     QStandardItemModel *pleftlistModel = new QStandardItemModel(this);
 
     m_DownloadingItem = new DStandardItem(QIcon::fromTheme("dcc_list_downloading"), tr("Downloading"));
+    m_DownloadingItem->setAccessibleText("Downloading");
     m_DownloadingItem->setFont(font);
     m_DownloadFinishItem = new DStandardItem(QIcon::fromTheme("dcc_print_done"), tr("Completed"));
+    m_DownloadFinishItem->setAccessibleText("Completed");
     m_DownloadFinishItem->setFont(font);
     m_RecycleItem = new DStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
+    m_RecycleItem->setAccessibleText("Trash");
     m_RecycleItem->setFont(font);
     m_DownloadingItem->setEditable(false);
     m_DownloadFinishItem->setEditable(false);
