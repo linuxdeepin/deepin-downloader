@@ -1,3 +1,9 @@
+downloadmanager (5.3.37) stable; urgency=low
+
+  * 修改bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 18 Jun 2021 14:33:20 +0800
+
 downloadmanager (5.3.36) stable; urgency=low
 
   * 修改新建任务延时
