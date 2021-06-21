@@ -9,6 +9,7 @@ Build-Depends:
  libqt5widgets5,
  qtbase5-dev,
  qttools5-dev,
+ libssl-dev,
  libqt5network5,
  libqt5webchannel5-dev,
  libqt5websockets5-dev,
