@@ -569,10 +569,10 @@ TEST_F(ut_Settings, DiagnosticTool)
         d->close();
     });
     d->exec();
-    if(d->m_pDelegate != nullptr){
-        delete d->m_pDelegate;
-        d->m_pDelegate = nullptr;
-    }
+//    if(d->m_pDelegate != nullptr){
+//        delete d->m_pDelegate;
+//        d->m_pDelegate = nullptr;
+//    }
     delete d;
 }
 
@@ -800,6 +800,8 @@ TEST_F(ut_Settings, clearAllTask)
     p.start("pkill", QStringList()<<"dde-file-manage");
     p.waitForFinished();
     DBInstance::delAllTask();
+    Settings *s = Settings::getInstance();
+    delete s;
 }
 
 

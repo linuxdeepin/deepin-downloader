@@ -108,7 +108,7 @@ void Settings::initWidget()
                                 .arg(qApp->organizationName())
                                 .arg(qApp->applicationName());
 
-    m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
+    m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat, this);
 
     if (!m_iniFile->contains("FilePath/Filename")) {
         m_iniFile->setValue("FilePath/Filename", "");

@@ -66,6 +66,7 @@ private:
     QPushButton *m_Button;
     bool m_IsHasTracks;
     bool m_IsHasDHT;
+    DiagnosticDelegate *m_delegate;
 };
 
 /**
