@@ -1174,6 +1174,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             QModelIndex realIndex = index.sibling(index.row(), 0);
             QString gid = m_RecycleTableView->getTableModel()->data(index, TableModel::taskId).toString();
             m_DelCheckItem = m_RecycleTableView->getTableModel()->find(gid, 0);
+            m_CheckItem = nullptr;
             if (!m_RecycleTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()) {
                 onHeaderStatechanged(false);
             }
@@ -1186,6 +1187,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             QString gid = m_DownLoadingTableView->getTableModel()->data(index, TableModel::taskId).toString();
             m_CheckItem = m_DownLoadingTableView->getTableModel()->find(gid);
             m_CheckIndex = index;
+            m_DelCheckItem = nullptr;
             if (!m_DownLoadingTableView->getTableModel()->data(index, TableModel::Ischecked).toBool()) {
                 onHeaderStatechanged(false);
             }
@@ -1407,6 +1409,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
         for (auto item : recyleList) {
             if (item->isChecked) {
                 m_DelCheckItem = item;
+                m_CheckItem = nullptr;
                 chkedCnt++;
                 if (QFileInfo::exists(item->savePath)) {
                     fileExistCnt++;
@@ -1418,6 +1421,7 @@ void MainFrame::onCheckChanged(bool checked, int flag)
         for (auto item : selectList) {
             if (item->isChecked) {
                 m_CheckItem = item;
+                m_DelCheckItem = nullptr;
                 chkedCnt++;
                 if (QFileInfo::exists(item->savePath)) {
                     fileExistCnt++;

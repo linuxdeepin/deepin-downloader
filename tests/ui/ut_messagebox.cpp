@@ -51,6 +51,7 @@ TEST_F(ut_messageBox, onClearBtnClicked)
     msg.m_CheckBox = new DCheckBox;
     msg.onClearBtnClicked(0);
     msg.onClearBtnClicked(1);
+    delete msg.m_CheckBox;
 }
 
 TEST_F(ut_messageBox, onDeleteBtnClicked)
@@ -63,6 +64,7 @@ TEST_F(ut_messageBox, onDeleteBtnClicked)
     msg.onDeleteBtnClicked(1);
     msg.m_DeleteFlag = false;
     msg.onDeleteBtnClicked(1);
+    delete msg.m_CheckBox;
 }
 
 TEST_F(ut_messageBox, onExitBtnClicked)
@@ -83,6 +85,8 @@ TEST_F(ut_messageBox, onExitBtnClicked)
     msg.onExitBtnClicked(1);
     msg.m_ButtonQuit->click();
     msg.m_ButtonMin->click();
+    delete msg.m_ButtonMin;
+    delete msg.m_ButtonQuit;
 }
 
 TEST_F(ut_messageBox, setWarings)
@@ -121,6 +125,7 @@ TEST_F(ut_messageBox, onRenamelineeditChanged)
     msg.onRenamelineeditChanged("text.ddd");
     msg.onRenamelineeditChanged("text");
     msg.onRenamelineeditChanged("");
+    delete msg.m_RenameSureButton;
 }
 
 TEST_F(ut_messageBox, setClear)
@@ -159,6 +164,7 @@ TEST_F(ut_messageBox, addRadioGroup)
     msg.m_NewnameLineedit = new DLineEdit;
     msg.m_NewnameLineedit->setText("ff\\ffff/ff");
     msg.onRenameSureBtnClicked();
+    delete msg.m_NewnameLineedit;
 }
 
 

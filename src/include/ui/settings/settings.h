@@ -56,7 +56,7 @@ class Settings : public QObject
     Q_OBJECT
 public:
     explicit Settings(QObject *parent = nullptr);
-
+    ~Settings();
     /**
      * @brief 获取单例对象
      * @return 返回单例对象

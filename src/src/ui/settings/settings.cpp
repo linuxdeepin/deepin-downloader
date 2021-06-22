@@ -85,6 +85,11 @@ Settings::Settings(QObject *parent)
 {
 }
 
+Settings::~Settings()
+{
+    delete m_iniFile;
+}
+
 void Settings::init()
 {
     setupCOnfigFile();

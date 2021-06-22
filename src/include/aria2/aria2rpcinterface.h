@@ -41,6 +41,7 @@ class Aria2RPCInterface : public QObject
     Q_OBJECT
 public:
     explicit Aria2RPCInterface(QObject *parent = nullptr);
+    ~Aria2RPCInterface();
     static Aria2RPCInterface *instance();
 
 public:
@@ -510,7 +511,7 @@ private:
     QString m_configPath = ""; //配置文件路径
     const QString m_aria2cCmd; //aria2c程序路径
     const QString m_basePath; //下载器安装目录
-    QProcess m_proc;
+    QProcess *m_proc;
 };
 
 #endif // ARIA2RPCINTERFACE_H

@@ -53,6 +53,11 @@ Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
 {
 }
 
+Aria2RPCInterface::~Aria2RPCInterface()
+{
+    delete m_proc;
+}
+
 bool Aria2RPCInterface::startUp()
 {
     /*
@@ -121,9 +126,9 @@ bool Aria2RPCInterface::startUp()
 
     qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
-    QProcess *proc = new QProcess;
-    proc->start(m_basePath + m_aria2cCmd, opt);
-    proc->waitForStarted();
+    m_proc = new QProcess;
+    m_proc->start(m_basePath + m_aria2cCmd, opt);
+    m_proc->waitForStarted();
 
 //    proc.start("ulimit -n 40");
 //    bool b = proc.waitForFinished();
@@ -137,7 +142,7 @@ bool Aria2RPCInterface::startUp()
 //    wwwww = proc.readAllStandardOutput();
 
     bCheck = checkAria2cProc();
-    qDebug() << "启动aria2c完成！ " << proc->state() << bCheck;
+    qDebug() << "启动aria2c完成！ " << m_proc->state() << bCheck;
     return bCheck;
 }
 

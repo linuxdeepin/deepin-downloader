@@ -105,7 +105,7 @@ void DiagnosticTool::initUI()
     mainLabel->setLayout(mainLayout);
     addContent(mainLabel, Qt::AlignHCenter |  Qt::AlignTop);
 
-    DiagnosticDelegate *pDelegate = new DiagnosticDelegate();
+    DiagnosticDelegate *pDelegate = new DiagnosticDelegate(this);
     m_Tableview->setModel(m_Model);
     m_Tableview->setItemDelegate(pDelegate);
     m_Tableview->horizontalHeader()->hide();

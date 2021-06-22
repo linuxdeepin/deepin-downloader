@@ -183,7 +183,7 @@ TEST_F(ut_MainFreme, rename)
             if (w.at(i)->objectName() == "tableMenu") {
                 QPoint point = w.at(i)->rect().center();
                 QTest::mouseClick(w.at(i), Qt::LeftButton, Qt::KeyboardModifiers(),
-                                  QPoint(point.x(), point.y() - 30));
+                                  QPoint(point.x(), point.y() - 80));
                 QTest::qWait(500);
                 DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
                 if(w == nullptr){
@@ -233,7 +233,7 @@ TEST_F(ut_MainFreme, rename2)
                 //QAction *a = w.at(i)->findChild<QAction *>("rename");
                 QPoint point = w.at(i)->rect().center();
                 QTest::mouseClick(w.at(i), Qt::LeftButton, Qt::KeyboardModifiers(),
-                                  QPoint(point.x(), point.y() - 30));
+                                  QPoint(point.x(), point.y() - 80));
                 QTest::qWait(500);
                 DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
                 if(w == nullptr){
@@ -281,8 +281,8 @@ TEST_F(ut_MainFreme, createNewTask)
 TEST_F(ut_MainFreme, addBtTask)
 {
     QMap<QString, QVariant> opt;
-    MainFrame::instance()->onDownloadNewTorrent("/home/sanhei/Documents/123@.torrent",
-                                                opt, "123@.torrent", "tar.gz");
+    MainFrame::instance()->onDownloadNewTorrent("/home/sanhei/Documents/123.torrent",
+                                                opt, "123.torrent", "tar.gz");
     QTest::qWait(500);
     EXPECT_TRUE(true);
     //QTest::qWait(5000);
@@ -290,8 +290,8 @@ TEST_F(ut_MainFreme, addBtTask)
 TEST_F(ut_MainFreme, addMetalinkTask2)
 {
     QMap<QString, QVariant> opt;
-    MainFrame::instance()->onDownloadNewMetalink("/home/sanhei/Documents/123@.metalink",
-                                                 opt, "123@.metalink");
+    MainFrame::instance()->onDownloadNewMetalink("/home/sanhei/Documents/asd.metalink",
+                                                 opt, "asd.metalink");
     QTest::qWait(500);
     EXPECT_TRUE(true);
     //QTest::qWait(5000);
@@ -610,6 +610,8 @@ TEST_F(ut_MainFreme, initDelDataItem)
     Global::DownloadDataItem *data = new Global::DownloadDataItem;
     Global::DeleteDataItem *delData = new Global::DeleteDataItem;
     MainFrame::instance()->initDelDataItem(data, delData);
+    delete data;
+    delete delData;
 }
 TEST_F(ut_MainFreme, startDownloadTask)
 {
@@ -796,20 +798,26 @@ TEST_F(ut_MainFreme, initTabledata)
 TEST_F(ut_MainFreme, tableView)
 {
     TableView *table = new TableView(1);
-    table->mousePressEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    table->mousePressEvent(event);
     delete table;
+    delete event;
 }
 TEST_F(ut_MainFreme, tableView2)
 {
     TableView *table = new TableView(1);
-    table->mouseMoveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    table->mouseMoveEvent(event);
     delete table;
+    delete event;
 }
 TEST_F(ut_MainFreme, tableView3)
 {
     TableView *table = new TableView(1);
-    table->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    table->mouseReleaseEvent(event);
     delete table;
+    delete event;
 }
 TEST_F(ut_MainFreme, tableView4)
 {
@@ -817,6 +825,7 @@ TEST_F(ut_MainFreme, tableView4)
     QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::NoModifier);
     table->leaveEvent(keyEvent);
     delete table;
+    delete keyEvent;
 }
 TEST_F(ut_MainFreme, tableView5)
 {
@@ -824,6 +833,7 @@ TEST_F(ut_MainFreme, tableView5)
     QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_C, Qt::NoModifier);
     table->keyPressEvent(keyEvent);
     delete table;
+    delete keyEvent;
 }
 TEST_F(ut_MainFreme, Websockethandle)
 {
@@ -870,6 +880,7 @@ TEST_F(ut_MainFreme, SearchResoultWidgetfocusOutEvent)
     widget->focusOutEvent(event);
     EXPECT_TRUE(true);
     delete widget;
+    delete event;
 }
 TEST_F(ut_MainFreme, SearchResoultWidgetkeyPressEvent)
 {
@@ -878,6 +889,7 @@ TEST_F(ut_MainFreme, SearchResoultWidgetkeyPressEvent)
     widget->keyPressEvent(keyEvent);
     EXPECT_TRUE(true);
     delete widget;
+    delete keyEvent;
 }
 
 TEST_F(ut_MainFreme, dealNotificaitonSettings)
@@ -953,6 +965,7 @@ TEST_F(ut_MainFreme, deleteRecycleTask)
     DeleteDataItem *pItem = new DeleteDataItem;
     pItem->savePath = "aaaaaa";
     MainFrame::instance()->deleteTask(pItem);
+    delete pItem;
 }
 TEST_F(ut_MainFreme, deleteDownloadTask)
 {

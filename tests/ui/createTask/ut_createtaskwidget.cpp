@@ -231,7 +231,8 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     TaskDelegate *dlg = c->findChild<TaskDelegate *>("taskDelegate");
 
     QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
-    view->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    view->mouseReleaseEvent(event);
 
 //    QBrush b;
 //    dlg->setHoverColor(b);
@@ -240,6 +241,7 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     c->close();
     c = nullptr;
     delete c;
+    delete event;
 }
 
 TEST_F(ut_CreateTaskWidget, formatSpeed)
@@ -267,8 +269,8 @@ TEST_F(ut_CreateTaskWidget, UrlThreadStart)
     l.index = 1;
     u->start(l);
     EXPECT_EQ(u->m_linkInfo.index, 1);
-    u = nullptr;
     delete u;
+    u = nullptr;
 }
 
 TEST_F(ut_CreateTaskWidget, UrlThreadGetUrlType)
@@ -277,8 +279,8 @@ TEST_F(ut_CreateTaskWidget, UrlThreadGetUrlType)
     u->m_linkInfo.url = "http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-mingw.exe";
     std::string type = u->getUrlType("http://download.qt.io/archive/qt/4.4/qt-win-opensource-4.4.3-mingw.exe").toStdString();
     //  EXPECT_STREQ(type.c_str(), "exe");
-    u = nullptr;
     delete u;
+    u = nullptr;
 }
 
 TEST_F(ut_CreateTaskWidget, UrlGetUrlTypeNull)
@@ -308,7 +310,7 @@ TEST_F(ut_CreateTaskWidget, headerViewInit)
     QPainter *painter = new QPainter;
     v->paintSection(painter, r, 0);
     delete v;
-
+    delete painter;
 }
 
 TEST_F(ut_CreateTaskWidget, headerViewPalettetype)
@@ -340,23 +342,29 @@ TEST_F(ut_CreateTaskWidget, getFtpFileSize)
 TEST_F(ut_CreateTaskWidget, tableView1)
 {
     BtInfoTableView *table = new BtInfoTableView();
-    table->mouseMoveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    table->mouseMoveEvent(event);
     delete table;
+    delete event;
 }
 
 TEST_F(ut_CreateTaskWidget, tableView2)
 {
     BtInfoTableView *table = new BtInfoTableView();
-    table->leaveEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    table->leaveEvent(event);
     delete table;
+    delete event;
 }
 
 
 TEST_F(ut_CreateTaskWidget, tableView3)
 {
     BtInfoTableView *table = new BtInfoTableView();
-    table->mouseReleaseEvent(new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier));
+    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    table->mouseReleaseEvent(event);
     delete table;
+    delete event;
 }
 
 TEST_F(ut_CreateTaskWidget, tableView4)
@@ -449,6 +457,7 @@ TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
  //  c->onMLFileDialogOpen();
    delete c->m_analysisUrl;
    delete c;
+   delete linkInfo;
 }
 
 TEST_F(ut_CreateTaskWidget, AnalysisUrl)
@@ -488,6 +497,8 @@ TEST_F(ut_CreateTaskWidget, dropEvent)
     c->dropEvent(event);
     delete c->m_analysisUrl;
     delete c;
+    delete event;
+    delete d;
 }
 
 TEST_F(ut_CreateTaskWidget, dropEvent1)
@@ -507,6 +518,8 @@ TEST_F(ut_CreateTaskWidget, dropEvent1)
     c->dropEvent(event);
     delete c->m_analysisUrl;
     delete c;
+    delete event;
+    delete d;
 }
 
 

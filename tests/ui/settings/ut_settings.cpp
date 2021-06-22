@@ -455,6 +455,7 @@ TEST_F(ut_Settings, DiagnosticModel)
     DiagnosticModel *model = new DiagnosticModel;
     model->appendData(true);
     EXPECT_TRUE(true);
+    delete model;
 }
 
 TEST_F(ut_Settings, DiagnosticModel1)
@@ -463,6 +464,7 @@ TEST_F(ut_Settings, DiagnosticModel1)
     model->appendData(true);
     model->setData(model->index(0, 0), true, Qt::DisplayRole);
     EXPECT_TRUE(true);
+    delete model;
 }
 
 TEST_F(ut_Settings, DiagnosticModel2)
@@ -476,6 +478,7 @@ TEST_F(ut_Settings, DiagnosticModel2)
     model->data(model->index(3, 1), Qt::DisplayRole);
     model->data(model->index(4, 1), Qt::DisplayRole);
     EXPECT_TRUE(true);
+    delete model;
 }
 
 TEST_F(ut_Settings, DiagnosticModel3)
@@ -483,12 +486,14 @@ TEST_F(ut_Settings, DiagnosticModel3)
     DiagnosticModel *model = new DiagnosticModel;
     model->clearData();
     EXPECT_TRUE(true);
+    delete model;
 }
 
 TEST_F(ut_Settings, DiagnosticModel4)
 {
     DiagnosticDelegate *pDelegate = new DiagnosticDelegate;
     EXPECT_TRUE(true);
+    delete pDelegate;
 }
 
 TEST_F(ut_Settings, DownloadSettingWidget)
@@ -518,6 +523,8 @@ TEST_F(ut_Settings, DownloadSettingWidget)
 
     pWidget->m_speedLimitDownloadButton->setCheckable(false);
     pWidget->onTimeChanged("22");
+    delete pWidget->m_fullSpeedDownloadButton;
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, DownloadSettingWidget5)
@@ -542,6 +549,8 @@ TEST_F(ut_Settings, DownloadSettingWidget5)
     pWidget->m_endTimeEdit = mockSenderTime();
     pWidget->onTimeChanged("1");
   //  pWidget->onTimeChanged("9999999999999999999999999999");
+    delete pWidget->m_startTimeEdit;
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, DiagnosticTool)
@@ -560,6 +569,7 @@ TEST_F(ut_Settings, DiagnosticTool)
         d->close();
     });
     d->exec();
+    delete d;
 }
 
 
@@ -567,24 +577,28 @@ TEST_F(ut_Settings, DownloadSettingWidget1)
 {
     DownloadSettingWidget *pWidget = new DownloadSettingWidget;
     pWidget->onTextChanged("str");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, DownloadSettingWidget2)
 {
     DownloadSettingWidget *pWidget = new DownloadSettingWidget;
     pWidget->onTextChanged("1234");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, DownloadSettingWidget3)
 {
     DownloadSettingWidget *pWidget = new DownloadSettingWidget;
     pWidget->onFocusChanged(true);
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, FileSavePathChooser)
 {
     FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->onRadioButtonClicked();
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, FileSavePathChooser1)
@@ -595,12 +609,14 @@ TEST_F(ut_Settings, FileSavePathChooser1)
     stub.set(foo, MessageboxExec);
     FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->onLineEditTextChanged("123");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, FileSavePathChooser2)
 {
     FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->setCurrentSelectRadioButton(0);
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, FileSavePathChooser3)
@@ -611,12 +627,14 @@ TEST_F(ut_Settings, FileSavePathChooser3)
     stub.set(foo, MessageboxExec);
     FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
     pWidget->setLineEditText("123456");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, SettingsControlWidget)
 {
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, SettingsControlWidget1)
@@ -624,6 +642,7 @@ TEST_F(ut_Settings, SettingsControlWidget1)
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->setSize("111");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, SettingsControlWidget2)
@@ -631,6 +650,7 @@ TEST_F(ut_Settings, SettingsControlWidget2)
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->setSpeend("111");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, SettingsControlWidget3)
@@ -638,6 +658,7 @@ TEST_F(ut_Settings, SettingsControlWidget3)
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->setSwitch(false);
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, SettingsControlWidget4)
@@ -645,6 +666,7 @@ TEST_F(ut_Settings, SettingsControlWidget4)
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->m_Edit->setText("4444");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, SettingsControlWidget5)
@@ -652,6 +674,7 @@ TEST_F(ut_Settings, SettingsControlWidget5)
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->m_Edit->setText("+11");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, SettingsControlWidget6)
@@ -659,6 +682,7 @@ TEST_F(ut_Settings, SettingsControlWidget6)
     SettingsControlWidget *pWidget = new SettingsControlWidget;
     pWidget->initUI(tr("When total speed is lower than"), tr("KB/S add active downloads"));
     pWidget->m_Edit->setText("001");
+    delete pWidget;
 }
 
 TEST_F(ut_Settings, controlbrowserOn)
