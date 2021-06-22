@@ -54,7 +54,11 @@ TaskDelegate::TaskDelegate(DDialog *dialog)
 
 TaskDelegate::~TaskDelegate()
 {
-    delete m_checkBtn;
+    if(m_checkBtn != nullptr){
+        delete m_checkBtn;
+        m_checkBtn =nullptr;
+    }
+
 }
 
 void TaskDelegate::setHoverColor(QBrush c)

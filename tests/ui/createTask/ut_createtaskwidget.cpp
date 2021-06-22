@@ -108,6 +108,15 @@ TEST_F(ut_CreateTaskWidget, init)
 
 
     QTest::mouseClick(cancel, Qt::LeftButton);
+    if(c->m_delegate->m_checkBtn != nullptr){
+        delete c->m_delegate->m_checkBtn;
+        c->m_delegate->m_checkBtn = nullptr;
+    }
+    if(c->m_delegate != nullptr){
+        delete c->m_delegate;
+        c->m_delegate = nullptr;
+    }
+
     delete c;
     EXPECT_TRUE(true);
 }
@@ -430,6 +439,10 @@ TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
     fptr foo = (fptr)(&MessageBox::exec);
     Stub stub2;
     stub2.set(foo, MessageboxExec);
+    if(c->m_analysisUrl != nullptr){
+         delete c->m_analysisUrl;
+         c->m_analysisUrl = nullptr;
+    }
     c->m_analysisUrl = new AnalysisUrl;
     c->onCancelBtnClicked();
     c->onSureBtnClicked();
@@ -455,7 +468,11 @@ TEST_F(ut_CreateTaskWidget, onFileDialogOpen)
    c->isFtp("222");
    c->isHttp("1111");
  //  c->onMLFileDialogOpen();
-   delete c->m_analysisUrl;
+   if(c->m_analysisUrl != nullptr){
+        delete c->m_analysisUrl;
+        c->m_analysisUrl = nullptr;
+   }
+
    delete c;
    delete linkInfo;
 }
@@ -487,6 +504,10 @@ TEST_F(ut_CreateTaskWidget, dropEvent)
     stub.set(ADDR(QMimeData, urls), torrentLink);
 
     CreateTaskWidget * c = new CreateTaskWidget;
+    if(c->m_analysisUrl != nullptr){
+         delete c->m_analysisUrl;
+         c->m_analysisUrl = nullptr;
+    }
     c->m_analysisUrl = new AnalysisUrl;
     c->onCancelBtnClicked();
 
@@ -507,6 +528,10 @@ TEST_F(ut_CreateTaskWidget, dropEvent1)
     stub.set(ADDR(QMimeData, hasUrls), returnFalse);
 
     CreateTaskWidget * c = new CreateTaskWidget;
+    if(c->m_analysisUrl != nullptr){
+        delete  c->m_analysisUrl;
+        c->m_analysisUrl = nullptr;
+    }
     c->m_analysisUrl = new AnalysisUrl;
     c->onCancelBtnClicked();
 

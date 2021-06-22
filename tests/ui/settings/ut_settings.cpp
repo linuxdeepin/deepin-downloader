@@ -569,6 +569,10 @@ TEST_F(ut_Settings, DiagnosticTool)
         d->close();
     });
     d->exec();
+    if(d->m_pDelegate != nullptr){
+        delete d->m_pDelegate;
+        d->m_pDelegate = nullptr;
+    }
     delete d;
 }
 

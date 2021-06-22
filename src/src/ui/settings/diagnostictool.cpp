@@ -105,9 +105,10 @@ void DiagnosticTool::initUI()
     mainLabel->setLayout(mainLayout);
     addContent(mainLabel, Qt::AlignHCenter |  Qt::AlignTop);
 
-    DiagnosticDelegate *pDelegate = new DiagnosticDelegate(this);
+    //DiagnosticDelegate *pDelegate = new DiagnosticDelegate(this);
+    m_pDelegate = new DiagnosticDelegate(this);
     m_Tableview->setModel(m_Model);
-    m_Tableview->setItemDelegate(pDelegate);
+    m_Tableview->setItemDelegate(m_pDelegate);
     m_Tableview->horizontalHeader()->hide();
     m_Tableview->verticalHeader()->hide();
     m_Tableview->verticalHeader()->setDefaultSectionSize(40);

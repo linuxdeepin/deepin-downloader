@@ -76,7 +76,15 @@ CreateTaskWidget::CreateTaskWidget(DDialog *parent)
 CreateTaskWidget::~CreateTaskWidget()
 {
 //    delete m_delegate;
-    //delete m_analysisUrl;
+    if(m_analysisUrl != nullptr){
+        delete m_analysisUrl;
+        m_analysisUrl = nullptr;
+    }
+    if(m_delegate != nullptr){
+        delete m_delegate;
+        m_delegate = nullptr;
+    }
+
 }
 
 void CreateTaskWidget::initUi()

@@ -62,8 +62,12 @@ TEST_F(ut_clipboardTimer, checkClipboardHasUrl)
 //    c->checkClipboardHasUrl();
 //    delete c;
 //    c = nullptr;
-      c->~ClipboardTimer();
-      //delete c;
+    //  c->~ClipboardTimer();
+    if(c != nullptr){
+        delete c;
+        c = nullptr;
+    }
+
 }
 
 TEST_F(ut_clipboardTimer, getDataChanged)

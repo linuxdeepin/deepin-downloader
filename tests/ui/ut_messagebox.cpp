@@ -69,24 +69,36 @@ TEST_F(ut_messageBox, onDeleteBtnClicked)
 
 TEST_F(ut_messageBox, onExitBtnClicked)
 {
-    MessageBox msg;
-    msg.m_ButtonMin = new DRadioButton;
-    msg.m_ButtonQuit = new DRadioButton;
-    msg.onExitBtnClicked(0);
-    msg.addCheckbox("11");
-    msg.addRadioGroup("11", "22");
-    msg.m_CheckBox->setCheckState(Qt::CheckState::Checked);
-    msg.m_ButtonMin->setChecked(true);
-    msg.onExitBtnClicked(1);
-    msg.m_CheckBox->setCheckState(Qt::CheckState::Unchecked);
-    msg.onExitBtnClicked(1);
-    msg.m_CheckBox->setCheckState(Qt::CheckState::Checked);
-    msg.m_ButtonMin->setChecked(false);
-    msg.onExitBtnClicked(1);
-    msg.m_ButtonQuit->click();
-    msg.m_ButtonMin->click();
-    delete msg.m_ButtonMin;
-    delete msg.m_ButtonQuit;
+    MessageBox *msg = new MessageBox;
+//    if(msg.m_ButtonMin != nullptr){
+//        delete msg.m_ButtonMin;
+//        msg.m_ButtonMin = nullptr;
+//    }
+//    if(msg.m_ButtonQuit != nullptr){
+//        delete msg.m_ButtonQuit;
+//        msg.m_ButtonQuit = nullptr;
+//    }
+    msg->m_ButtonMin = new DRadioButton(msg);
+    msg->m_ButtonQuit = new DRadioButton(msg);
+    msg->onExitBtnClicked(0);
+    msg->addCheckbox("11");
+    msg->addRadioGroup("11", "22");
+    msg->m_CheckBox->setCheckState(Qt::CheckState::Checked);
+    msg->m_ButtonMin->setChecked(true);
+    msg->onExitBtnClicked(1);
+    msg->m_CheckBox->setCheckState(Qt::CheckState::Unchecked);
+    msg->onExitBtnClicked(1);
+    msg->m_CheckBox->setCheckState(Qt::CheckState::Checked);
+    msg->m_ButtonMin->setChecked(false);
+    msg->onExitBtnClicked(1);
+    msg->m_ButtonQuit->click();
+    msg->m_ButtonMin->click();
+    delete msg->m_ButtonMin;
+    msg->m_ButtonMin = nullptr;
+    delete msg->m_ButtonQuit;
+    msg->m_ButtonQuit = nullptr;
+    delete msg;
+    msg = nullptr;
 }
 
 TEST_F(ut_messageBox, setWarings)
