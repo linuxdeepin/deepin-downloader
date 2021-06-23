@@ -28,7 +28,7 @@ Homepage: https://www.deepin.org/
 
 Package: org.deepin.downloader
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libdlmaria2, libdlmcontrolui, libdlmdatabase, libdlmlog
+Depends: ${shlibs:Depends}, ${misc:Depends}, libdlmaria2, libdlmcontrolui, libdlmdatabase, libdlmlog,libssl1.1
 Description: it's a user-friendly download manager, supporting URLs and torrent files.
  downloader for deepin desktop environment.
 
