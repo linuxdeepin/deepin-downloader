@@ -24,7 +24,6 @@ extensionService::extensionService()
 
 extensionService::~extensionService()
 {
-    delete m_timer;
 }
 
 void extensionService::initWebsokcet()

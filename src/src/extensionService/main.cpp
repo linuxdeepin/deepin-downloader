@@ -1,12 +1,16 @@
 #include <QCoreApplication>
 #include <QSharedMemory>
 #include <QProcess>
+#include <signal.h>
 #include "extensionservice.h"
 
 
 bool checkProcessExist();
+void signalHandlerFun(int signum);
 
 int main(int argc, char** argv) {
+
+    signal(SIGCHLD,signalHandlerFun);
 
     QSharedMemory sharedMemory;
     sharedMemory.setKey("dlmExtensionService");
@@ -42,4 +46,8 @@ bool checkProcessExist()
         return false;
     }
     return true;
+}
+
+void signalHandlerFun(int signum) {
+    printf("catch signal %d\n", signum);
 }

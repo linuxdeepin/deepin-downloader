@@ -398,30 +398,41 @@ var isOpen = false;
 
 function runDownloader() {
     var port = chrome.runtime.connectNative("browser.downloader.autostart");
-    port.onMessage.addListener(function (msg) {
-      console.log("Received" + msg);
-    });
-    port.onDisconnect.addListener(function () {
-      console.log("Disconnected");
-    });
-    port.postMessage({ type: "command", command: "deepin-app-store" });
+    // port.onMessage.addListener(function (msg) {
+    //   console.log("Received" + msg);
+    // });
+    // port.onDisconnect.addListener(function () {
+    //   console.log("Disconnected");
+    // });
+    // port.postMessage({ type: "command", command: "deepin-app-store" });
 }
 
 function main() {
     //window.open("downloader:")
-    runDownloader();
-    setTimeout(()=>{
     socket  = new WebSocket("ws://localhost:12345");
     socket.onopen = function() {
         onSocketOpen();
     }
     socket.onerror = function() {
         console.log("websocket error")
+        runDownloader();
+        setTimeout(()=>{
+            socket  = new WebSocket("ws://localhost:12345");
+            socket.onopen = function() {
+                onSocketOpen();
+            }
+            socket.onerror = function() {
+                console.log("websocket error")
+            }
+            socket.onclose = function() {
+                console.log("websocket close")
+            }
+            }, 2000);
     }
     socket.onclose = function() {
         console.log("websocket close")
     }
-    }, 2000);
+    
     var title = chrome.i18n.getMessage("downlaodby");
     addContextMenu("downloader", title);
 }
@@ -429,8 +440,8 @@ function main() {
 main();
 
 chrome.downloads.onCreated.addListener(function(item) {
-    console.log("chrome.downloads.onCreated")
-    console.log(item)
+    //console.log("chrome.downloads.onCreated")
+    //console.log(item)
 
     if(item.state != "in_progress") {  //判断状态不是刚创建的任务，返回
         //console.log("不是刚创建的任务")
@@ -495,13 +506,14 @@ chrome.webRequest.onHeadersReceived.addListener(function(t) {
 }, ["blocking", "responseHeaders"])
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
+    console.log("chrome.webRequest.onBeforeSendHeaders")
+    console.log(details)
     if(details.method == "HEAD") {
         console.log(details)
         removeBrowserHeaders(details.requestHeaders, /Cookie/i);
         return { requestHeaders: details.requestHeaders };
     }
-    //console.log("chrome.webRequest.onBeforeSendHeaders")
-    //console.log(details)
+    
     details.requestHeaders.some(function(header) {
         if( header.name == 'Cookie' ) {
             isContainCookie = true
@@ -529,10 +541,10 @@ chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
     //     });
 });
 
-window.onunload = function() {
-    console.log("windows.onunload")
-    webChanel.objects.core.receiveText("close");
-}
+// window.onunload = function() {
+//     console.log("windows.onunload")
+//     webChanel.objects.core.receiveText("close");
+// }
 
 function removeBrowserHeaders(headers, regex) {
     for (var i = 0, header; (header = headers[i]); i++) {
