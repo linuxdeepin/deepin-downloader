@@ -51,9 +51,9 @@ void Websockethandle::receiveText(const QString &text)
         bool b = isControlBrowser();
         sendText(QString().number(b));
         return;
-    } else if(text.contains("close")) { //初始化
+    } /*else if(text.contains("close")) { //初始化
         freeSharedMem();
         qApp->exit(0);
-    }
+    }*/
     sendWebText(text);  //发送链接到下载器
 }

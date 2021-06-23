@@ -24,13 +24,14 @@ extensionService::extensionService()
 
 extensionService::~extensionService()
 {
+    delete m_timer;
 }
 
 void extensionService::initWebsokcet()
 {
     m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
     if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
-      //  qFatal("Failed to open web socket server.");
+        qFatal("Failed to open web socket server.");
     }
     WebSocketClientWrapper* clientWrapper = new WebSocketClientWrapper(m_server);
     QWebChannel* channel = new QWebChannel;
@@ -43,9 +44,9 @@ void extensionService::initWebsokcet()
              sendUrlToDownloader(text);
          });
     });
-//    m_timer = new QTimer;
-//    m_timer->start(5000);
-//    connect(m_timer, &QTimer::timeout, this, &extensionService::checkConnection);
+    m_timer = new QTimer;
+    m_timer->start(60000);
+    connect(m_timer, &QTimer::timeout, this, &extensionService::checkConnection);
 }
 
 void extensionService::sendUrlToDownloader(const QString &url)
