@@ -61,9 +61,9 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         QProcess *process = new QProcess;
         QStringList list;
         list << "-I" << reply->url().toString();
-        if(list.size() > 1){
-            list[1] = QUrl::toPercentEncoding(list[1]);
-           // list[1].replace(" ", "%20");
+        if(list.size() > 2){
+         //   list[1] = QUrl::toPercentEncoding(list[1]);
+            list[1].replace(" ", "%20");
         }
         process->start("curl", list);
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
