@@ -1,3 +1,9 @@
+downloadmanager (5.3.38) stable; urgency=low
+
+  * 修改浏览器扩展的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 23 Jun 2021 19:19:46 +0800
+
 downloadmanager (5.3.37) stable; urgency=low
 
   * 修改bug

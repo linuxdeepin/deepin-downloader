@@ -395,6 +395,7 @@ var downloadItem;
 var isSelfCreate = false;
 var isTakeOver = false;
 var isOpen = false;
+var isContainCookie = false;
 
 function runDownloader() {
     var port = chrome.runtime.connectNative("browser.downloader.autostart");
