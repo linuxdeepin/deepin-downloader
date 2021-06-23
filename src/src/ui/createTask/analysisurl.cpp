@@ -99,7 +99,7 @@ void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
         }
         it.value().type = linkInfo.type;
         it.value().state = linkInfo.state;
-        it.value().length = linkInfo.length;
+       it.value().length = linkInfo.length;
         it.value().urlName = linkInfo.urlName;
         it.value().urlSize = linkInfo.urlSize;
         emit sendFinishedUrl(&linkInfo);
@@ -150,11 +150,16 @@ void AnalysisUrl::stopWork(int index)
 
 void AnalysisUrl::getTrueLinkInfo(LinkInfo linkInfo)
 {
+    static QMutex mutex;
+    mutex.lock();
     QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(linkInfo.url);
     if(it==m_curAllUrl.end()){
+        mutex.unlock();
         return;
     }
-    it->urlTrueLink = linkInfo.urlTrueLink;
+    m_curAllUrl.erase(it);
+    m_curAllUrl.insert(linkInfo.urlTrueLink, linkInfo);
+    mutex.unlock();
 }
 
 

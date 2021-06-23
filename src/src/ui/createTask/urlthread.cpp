@@ -62,7 +62,8 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         QStringList list;
         list << "-I" << reply->url().toString();
         if(list.size() > 1){
-            list[1].replace(" ", "%20");
+            list[1] = QUrl::toPercentEncoding(list[1]);
+           // list[1].replace(" ", "%20");
         }
         process->start("curl", list);
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
@@ -123,6 +124,11 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             QString str = proc->readAllStandardOutput();
 
             QString strUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString();
+            QString url = reply->url().toString();
+            QStringList l = url.split("/");
+            if(!strUrl.startsWith("http")){
+                strUrl = l[0] + "//" + l[2] + strUrl;
+            }
             m_linkInfo.urlTrueLink = strUrl;
             QStringList strList = strUrl.split("/");
             QStringList strUrlName = strList[strList.size() - 1].split(".");

@@ -965,7 +965,18 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 
     QString str = m_model->data(m_model->index(index, 1),1).toString();  //获取不到名称就加默认名称
     if(!str.size() && !size.isNull() && !type.isNull()){
-        m_model->setData(m_model->index(index, 1, QModelIndex()),"index");
+        QTime t;
+        t.start();
+        while(t.elapsed()<10);
+        QDateTime dateTime = QDateTime::currentDateTime();
+//        // 字符串格式化
+//        QString timestamp = dateTime.toString("yyyy-MM-dd hh:mm:ss.zzz");
+//        // 获取毫秒值
+//        int ms = dateTime.time().msec();
+        // 转换成时间戳
+        qint64 epochTime = dateTime.toMSecsSinceEpoch();
+        QString defaultName = "index" + QString::number(epochTime);
+        m_model->setData(m_model->index(index, 1, QModelIndex()),defaultName);
     }
     m_model->setData(m_model->index(index, 2, QModelIndex()),type);
     if (type == "html" && size.isNull()) {
