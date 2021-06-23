@@ -8,25 +8,8 @@
 bool checkProcessExist();
 void signalHandlerFun(int signum);
 
-int main(int argc, char** argv) {
-
-    signal(SIGCHLD,signalHandlerFun);
-
-    QSharedMemory sharedMemory;
-    sharedMemory.setKey("dlmExtensionService");
-    if (sharedMemory.attach()) //设置成单例程序
-    {
-        if (!checkProcessExist()) { //下载器任务不存在，退出
-            sharedMemory.detach();
-        } else{
-            return 0;
-        }
-    }
-    if (sharedMemory.create(99)) {
-        char *to = static_cast<char *>(sharedMemory.data());
-        memset(to, 0, 99);
-    }
-
+int main(int argc, char** argv)
+{
     QCoreApplication a(argc, argv);
     extensionService e;
     return a.exec();
