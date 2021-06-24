@@ -1,3 +1,5 @@
+set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
+
 #cmake 最小版本要求
 cmake_minimum_required(VERSION 3.1.0)
 
