@@ -120,19 +120,24 @@ TEST_F(ut_MainFreme, onSearchEditTextChanged)
 //小任务，可以快速下载完，方便测试已完成列表。
 TEST_F(ut_MainFreme, addHttpFastTask)
 {
+    auto optionn = Settings::getInstance()->m_settings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
+
+    optionn->setValue("custom;" + QDir::homePath() + "/Downloads");
     Stub stub;
     stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
     Stub stub2;
     stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
     auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
     option->setValue(2);
+    QString path = Settings::getInstance()->getDownloadSavePath();
     MainFrame::instance()->onDownloadNewUrl("https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4",
-                                            Settings::getInstance()->getDownloadSavePath(), "5f06cfe424c38_10s_big", "mp4");
+                                            path, "5f06cfe424c38_10s_big", "mp4");
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, addHttpTask)
 {
     MainFrame::instance()->onDownloadNewUrl("http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz",
@@ -268,6 +273,7 @@ TEST_F(ut_MainFreme, changeList)
 //    m->onContextMenu(rect.center());
 //    QTest::qWait(2000);
 //}
+
 TEST_F(ut_MainFreme, createNewTask)
 {
     typedef int (*fptr)(CreateTaskWidget *);
@@ -278,6 +284,7 @@ TEST_F(ut_MainFreme, createNewTask)
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, addBtTask)
 {
     QMap<QString, QVariant> opt;
@@ -287,6 +294,7 @@ TEST_F(ut_MainFreme, addBtTask)
     EXPECT_TRUE(true);
     //QTest::qWait(5000);
 }
+
 TEST_F(ut_MainFreme, addMetalinkTask2)
 {
     QMap<QString, QVariant> opt;
@@ -296,6 +304,7 @@ TEST_F(ut_MainFreme, addMetalinkTask2)
     EXPECT_TRUE(true);
     //QTest::qWait(5000);
 }
+
 TEST_F(ut_MainFreme, changeList1)
 {
     MainFrame *m = MainFrame::instance();
@@ -422,6 +431,7 @@ TEST_F(ut_MainFreme, changeToFinishList2)
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(1, 0));
 }
+
 //TEST_F(ut_MainFreme, deleteTask3)
 //{
 //    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -439,6 +449,7 @@ TEST_F(ut_MainFreme, changeToTrashList3)
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(2, 0));
 }
+
 TEST_F(ut_MainFreme, deleteTrashTask)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("recycleTableView");
@@ -448,6 +459,7 @@ TEST_F(ut_MainFreme, deleteTrashTask)
     MainFrame::instance()->onDeleteConfirm(true, true);
     QTest::qWait(1000);
 }
+
 TEST_F(ut_MainFreme, addHttpFastTask2)
 {
     Stub stub;
@@ -460,12 +472,14 @@ TEST_F(ut_MainFreme, addHttpFastTask2)
     EXPECT_TRUE(true);
     QTest::qWait(2000);
 }
+
 TEST_F(ut_MainFreme, changeToFinishList3)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(1, 0));
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, deleteFinishTask3)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -478,18 +492,21 @@ TEST_F(ut_MainFreme, deleteFinishTask3)
     EXPECT_TRUE(true);
     QTest::qWait(1000);
 }
+
 TEST_F(ut_MainFreme, changeToTrashList4)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
     MainFrame::instance()->onListClicked(list->model()->index(2, 0));
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, clipboard)
 {
     QProcess p;
     QString str = "echo \"https://img.tukuppt.com/video_show/7165162/00/19/39/5f06cfe424c38_10s_big.mp4\" | xclip";
     p.start();
 }
+
 TEST_F(ut_MainFreme, onTableItemSelected)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
@@ -500,6 +517,7 @@ TEST_F(ut_MainFreme, onTableItemSelected)
         MainFrame::instance()->onTableItemSelected(model->index(0, 0));
     }
 }
+
 TEST_F(ut_MainFreme, onRedownloadActionTriggered)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -515,6 +533,7 @@ TEST_F(ut_MainFreme, onRedownloadActionTriggered)
         MainFrame::instance()->onRedownloadActionTriggered();
     }
 }
+
 TEST_F(ut_MainFreme, onRedownloadActionTriggered2)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -530,6 +549,7 @@ TEST_F(ut_MainFreme, onRedownloadActionTriggered2)
         MainFrame::instance()->onRedownloadActionTriggered();
     }
 }
+
 TEST_F(ut_MainFreme, clrearTrashTask)
 {
     MainFrame::instance()->onClearRecycle(true);
@@ -537,6 +557,7 @@ TEST_F(ut_MainFreme, clrearTrashTask)
     TableModel *model = static_cast<TableModel *>(table->model());
     EXPECT_TRUE(model->recyleList().isEmpty());
 }
+
 TEST_F(ut_MainFreme, onCopyUrlActionTriggered)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
@@ -549,6 +570,7 @@ TEST_F(ut_MainFreme, onCopyUrlActionTriggered)
         MainFrame::instance()->onCopyUrlActionTriggered();
     }
 }
+
 TEST_F(ut_MainFreme, OpenFile)
 {
     typedef int (*fptr)(BtInfoDialog *);
@@ -557,6 +579,7 @@ TEST_F(ut_MainFreme, OpenFile)
     stub.set(foo, MessageboxExec);
     MainFrame::instance()->OpenFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent");
 }
+
 TEST_F(ut_MainFreme, onOpenFileActionTriggered)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -565,6 +588,7 @@ TEST_F(ut_MainFreme, onOpenFileActionTriggered)
         MainFrame::instance()->onOpenFileActionTriggered();
     }
 }
+
 TEST_F(ut_MainFreme, onOpenFolderActionTriggered)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -573,6 +597,7 @@ TEST_F(ut_MainFreme, onOpenFolderActionTriggered)
         MainFrame::instance()->onOpenFolderActionTriggered();
     }
 }
+
 TEST_F(ut_MainFreme, checkIfInPeriod)
 {
     QTime currentTime = QTime::currentTime();
@@ -582,6 +607,7 @@ TEST_F(ut_MainFreme, checkIfInPeriod)
     periodEndTime.setHMS(24, 59, 59);
     MainFrame::instance()->checkIfInPeriod(&currentTime, &periodStartTime, &periodEndTime);
 }
+
 TEST_F(ut_MainFreme, addHttpTask2)
 {
     MainFrame::instance()->onDownloadNewUrl("http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz",
@@ -591,6 +617,7 @@ TEST_F(ut_MainFreme, addHttpTask2)
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, removeDownloadListJob)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -598,6 +625,7 @@ TEST_F(ut_MainFreme, removeDownloadListJob)
     Global::DownloadDataItem *data = model->renderList().at(0);
     table->getTableControl()->removeDownloadListJob(data, true, true);
 }
+
 TEST_F(ut_MainFreme, initDataItem)
 {
     Global::DownloadDataItem *data = new Global::DownloadDataItem;
@@ -605,6 +633,7 @@ TEST_F(ut_MainFreme, initDataItem)
     MainFrame::instance()->initDataItem(data, tbTask);
     delete data;
 }
+
 TEST_F(ut_MainFreme, initDelDataItem)
 {
     Global::DownloadDataItem *data = new Global::DownloadDataItem;
@@ -613,6 +642,7 @@ TEST_F(ut_MainFreme, initDelDataItem)
     delete data;
     delete delData;
 }
+
 TEST_F(ut_MainFreme, startDownloadTask)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -622,6 +652,7 @@ TEST_F(ut_MainFreme, startDownloadTask)
         MainFrame::instance()->startDownloadTask(data);
     }
 }
+
 TEST_F(ut_MainFreme, onParseUrlList)
 {
     Stub stub;
@@ -635,22 +666,27 @@ TEST_F(ut_MainFreme, onParseUrlList)
     QString path = Settings::getInstance()->getDownloadSavePath();
     MainFrame::instance()->onParseUrlList(urlList, path);
 }
+
 TEST_F(ut_MainFreme, setAutoStart_true)
 {
     MainFrame::instance()->setAutoStart(true);
 }
+
 TEST_F(ut_MainFreme, onDownloadFinish)
 {
     MainFrame::instance()->onDownloadFinish();
 }
+
 TEST_F(ut_MainFreme, setAutoStart_false)
 {
     MainFrame::instance()->setAutoStart(false);
 }
+
 TEST_F(ut_MainFreme, initDbus)
 {
     MainFrame::instance()->initDbus();
 }
+
 TEST_F(ut_MainFreme, aria2MethodUnpauseAll)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -658,12 +694,14 @@ TEST_F(ut_MainFreme, aria2MethodUnpauseAll)
     int iCurrentRow = 0;
     table->getTableControl()->aria2MethodUnpauseAll(json, iCurrentRow);
 }
+
 TEST_F(ut_MainFreme, aria2MethodForceRemove)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     QJsonObject json;
     table->getTableControl()->aria2MethodForceRemove(json);
 }
+
 TEST_F(ut_MainFreme, downloadListRedownload)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
@@ -673,6 +711,7 @@ TEST_F(ut_MainFreme, downloadListRedownload)
         table->getTableControl()->downloadListRedownload(data->taskId);
     }
 }
+
 TEST_F(ut_MainFreme, onUnusualConfirm)
 {
     Stub stub;
@@ -684,6 +723,7 @@ TEST_F(ut_MainFreme, onUnusualConfirm)
         table->getTableControl()->onUnusualConfirm(0, data->taskId);
     }
 }
+
 TEST_F(ut_MainFreme, addHttpTask3)
 {
     Stub stub;
@@ -694,6 +734,7 @@ TEST_F(ut_MainFreme, addHttpTask3)
     TableModel *model = static_cast<TableModel *>(table->model());
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, onSettingsMenuClicked)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -701,7 +742,19 @@ TEST_F(ut_MainFreme, onSettingsMenuClicked)
     Stub stub;
     stub.set(foo, DsettingsdialogExec);
     MainFrame::instance()->onSettingsMenuClicked();
+    QTest::qWait(3000);
 }
+
+TEST_F(ut_MainFreme, onSettingsMenuClicked2)
+{
+    typedef int (*fptr)(DSettingsDialog *);
+    fptr foo = (fptr)(&DSettingsDialog::exec);
+    Stub stub;
+    stub.set(foo, DsettingsdialogExec);
+    MainFrame::instance()->onSettingsMenuClicked();
+    QTest::qWait(3000);
+}
+
 TEST_F(ut_MainFreme, showDiagnosticTool)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -713,6 +766,7 @@ TEST_F(ut_MainFreme, showDiagnosticTool)
     //QTest::qWait(15000);
 //    delete tool;
 }
+
 TEST_F(ut_MainFreme, addHttpTask4)
 {
     MainFrame::instance()->onDownloadNewUrl("http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz",
@@ -722,6 +776,7 @@ TEST_F(ut_MainFreme, addHttpTask4)
     QTest::qWait(500);
     EXPECT_TRUE(true);
 }
+
 TEST_F(ut_MainFreme, onDownloadFirstBtnClicked)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -738,10 +793,12 @@ TEST_F(ut_MainFreme, onDownloadFirstBtnClicked)
     MainFrame::instance()->m_CheckItem = listItem.first();
     MainFrame::instance()->onDownloadFirstBtnClicked();
 }
+
 TEST_F(ut_MainFreme, onRemoveFinished)
 {
     MainFrame::instance()->onRemoveFinished();
 }
+
 TEST_F(ut_MainFreme, showWarningMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -750,6 +807,7 @@ TEST_F(ut_MainFreme, showWarningMsgbox)
     stub.set(foo, DsettingsdialogExec);
     MainFrame::instance()->showWarningMsgbox("");
 }
+
 TEST_F(ut_MainFreme, showClearMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -758,6 +816,7 @@ TEST_F(ut_MainFreme, showClearMsgbox)
     stub.set(foo, MessageboxExec);
     MainFrame::instance()->showClearMsgbox();
 }
+
 TEST_F(ut_MainFreme, showDeleteMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -766,6 +825,7 @@ TEST_F(ut_MainFreme, showDeleteMsgbox)
     stub.set(foo, MessageboxExec);
     MainFrame::instance()->showDeleteMsgbox(true);
 }
+
 TEST_F(ut_MainFreme, showRedownloadMsgbox)
 {
     typedef int (*fptr)(DSettingsDialog *);
@@ -774,27 +834,33 @@ TEST_F(ut_MainFreme, showRedownloadMsgbox)
     stub.set(foo, MessageboxExec);
     MainFrame::instance()->showRedownloadMsgbox("");
 }
+
 TEST_F(ut_MainFreme, clearShardMemary)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     table->getTableControl()->clearShardMemary();
 }
+
 TEST_F(ut_MainFreme, initConnection)
 {
     MainFrame::instance()->initConnection();
 }
+
 //TEST_F(ut_MainFreme, initAria2)
 //{
 //    MainFrame::instance()->initAria2();
 //}
+
 TEST_F(ut_MainFreme, initTabledata)
 {
     MainFrame::instance()->initTabledata();
 }
+
 //TEST_F(ut_MainFreme, updateDHTFile)
 //{
 //    MainFrame::instance()->updateDHTFile();
 //}
+
 TEST_F(ut_MainFreme, tableView)
 {
     TableView *table = new TableView(1);
@@ -803,6 +869,7 @@ TEST_F(ut_MainFreme, tableView)
     delete table;
     delete event;
 }
+
 TEST_F(ut_MainFreme, tableView2)
 {
     TableView *table = new TableView(1);
@@ -811,6 +878,7 @@ TEST_F(ut_MainFreme, tableView2)
     delete table;
     delete event;
 }
+
 TEST_F(ut_MainFreme, tableView3)
 {
     TableView *table = new TableView(1);
@@ -819,6 +887,7 @@ TEST_F(ut_MainFreme, tableView3)
     delete table;
     delete event;
 }
+
 TEST_F(ut_MainFreme, tableView4)
 {
     TableView *table = new TableView(1);
@@ -827,6 +896,7 @@ TEST_F(ut_MainFreme, tableView4)
     delete table;
     delete keyEvent;
 }
+
 TEST_F(ut_MainFreme, tableView5)
 {
     TableView *table = new TableView(1);
@@ -835,6 +905,7 @@ TEST_F(ut_MainFreme, tableView5)
     delete table;
     delete keyEvent;
 }
+
 TEST_F(ut_MainFreme, Websockethandle)
 {
     QWebSocket socket;
@@ -845,12 +916,14 @@ TEST_F(ut_MainFreme, Websockethandle)
     qint64 num = socket.sendTextMessage(data);
     EXPECT_TRUE(num >= 0);
 }
+
 TEST_F(ut_MainFreme, SearchResoultWidget)
 {
     SearchResoultWidget *widget = new SearchResoultWidget;
     EXPECT_TRUE(true);
     delete widget;
 }
+
 TEST_F(ut_MainFreme, SearchResoultWidgetsetData)
 {
     SearchResoultWidget *widget = new SearchResoultWidget;
@@ -864,6 +937,7 @@ TEST_F(ut_MainFreme, SearchResoultWidgetsetData)
     EXPECT_TRUE(true);
     delete widget;
 }
+
 TEST_F(ut_MainFreme, SearchResoultWidgetonKeypressed)
 {
     SearchResoultWidget *widget = new SearchResoultWidget;
@@ -873,6 +947,7 @@ TEST_F(ut_MainFreme, SearchResoultWidgetonKeypressed)
     EXPECT_TRUE(true);
     delete widget;
 }
+
 TEST_F(ut_MainFreme, SearchResoultWidgetfocusOutEvent)
 {
     SearchResoultWidget *widget = new SearchResoultWidget;
@@ -882,6 +957,7 @@ TEST_F(ut_MainFreme, SearchResoultWidgetfocusOutEvent)
     delete widget;
     delete event;
 }
+
 TEST_F(ut_MainFreme, SearchResoultWidgetkeyPressEvent)
 {
     SearchResoultWidget *widget = new SearchResoultWidget;
@@ -1024,6 +1100,7 @@ TEST_F(ut_MainFreme, onNewBtnClicked)
 //}
 TEST_F(ut_MainFreme, onTrayQuitClick_true)
 {
+    MainFrame::instance()->m_ShutdownOk = true;
     MainFrame::instance()->onTrayQuitClick(true);
 }
 

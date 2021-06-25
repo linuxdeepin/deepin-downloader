@@ -469,7 +469,7 @@ chrome.downloads.onCreated.addListener(function(item) {
         console.log("是file://类型")
         return;
     }
-    if(isContainCookie) {  //包含cookie，返回
+    if(isContainCookie && (item.finalUrl.indexOf("ftp://") == -1)) {  //包含cookie，返回
         isContainCookie = false
         console.log("包含cookie")
         return
