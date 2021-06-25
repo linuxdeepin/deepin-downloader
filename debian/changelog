@@ -1,3 +1,9 @@
+downloadmanager (5.3.39) stable; urgency=low
+
+  * 添加libssl依赖包
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 25 Jun 2021 09:23:04 +0800
+
 downloadmanager (5.3.38) stable; urgency=low
 
   * 修改浏览器扩展的bug
