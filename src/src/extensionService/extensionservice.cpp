@@ -1,3 +1,31 @@
+/**
+ * @copyright 2021-2021 Uniontech Technology Co., Ltd.
+ *
+ * @file extensionservice.cpp
+ *
+ * @brief Websocket服务
+ *
+ * @date 2021-06-29 16:00
+ *
+ * Author: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * Maintainer: zhaoyue  <zhaoyue@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+**/
+
+
 #include "extensionservice.h"
 
 #include <QWebSocketServer>
@@ -51,11 +79,11 @@ void extensionService::initWebsokcet()
 
 void extensionService::sendUrlToDownloader(const QString &url)
 {
-    QProcess p;
-    p.startDetached("downloader " + url);
-    QTimer *t = new QTimer;
-    t->start(50);
-    connect(t, &QTimer::timeout, this, [=](){
+    QProcess proc;
+    proc.startDetached("downloader " + url);
+    QTimer *timer = new QTimer;
+    timer->start(50);
+    connect(timer, &QTimer::timeout, this, [=](){
        QDBusInterface iface("com.downloader.service",
                              "/downloader/path",
                              "local.downloader.MainFrame",
@@ -63,7 +91,7 @@ void extensionService::sendUrlToDownloader(const QString &url)
        QDBusMessage m = iface.call("onReceiveExtentionUrl", url);
        QString msg = m.errorMessage();
        if(msg.isEmpty()) {
-           t->stop();
+           timer->stop();
        }
     });
 }
@@ -77,19 +105,9 @@ void extensionService::checkConnection()
     p.waitForFinished();
     QList<QByteArray> strList = p.readAllStandardOutput().split('\n');
     for(QString str : strList) {
-        if(str.contains("ESTABLISHED")) {
+        if(str.contains("ESTABLISHED")) {  //存在websocket链接
             return;
         }
     }
     qApp->exit(0);
-}
-
-void extensionService::freeSharedMem()
-{
-    QSharedMemory sharedMemory("dlmExtensionService");
-    if (sharedMemory.attach()) {
-        if (sharedMemory.isAttached()) {
-            sharedMemory.detach();
-        }
-    }
 }
