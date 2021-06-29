@@ -119,7 +119,7 @@ void FileSavePathChooser::onLineEditTextChanged(const QString &text)
 
     fileInfo.setFile(text);
     if (!fileInfo.isWritable()) {
-        MessageBox messageBox;
+        MessageBox messageBox(this);
         messageBox.setFolderDenied();
         m_fileChooserEdit->setText(m_downloadPath);
 

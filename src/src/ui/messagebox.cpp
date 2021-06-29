@@ -29,7 +29,7 @@
 #include "settings.h"
 #include <QPushButton>
 
-MessageBox::MessageBox(DDialog *parent)
+MessageBox::MessageBox(QWidget *parent)
     : DDialog(parent)
 {
     setObjectName("messageBox");

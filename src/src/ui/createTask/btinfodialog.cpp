@@ -327,7 +327,7 @@ bool BtInfoDialog::onBtnOK()
     }
     if (free < (total / 1024)) { //剩余空间比较 KB
         qDebug() << "Disk capacity is not enough!";
-        MessageBox msg;
+        MessageBox msg(this);
         msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg.exec();
         return false;
@@ -556,7 +556,7 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     QString strPath;
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
-        MessageBox msg;
+        MessageBox msg(this);
         msg.setFolderDenied();
         msg.exec();
         strPath = m_editDir->directoryUrl().toString();
