@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68f4f656_e26eeb96",
+        "filename": "src/include/extensionService/extensionservice.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-29T09:27:36Z",
+      "side": 1,
+      "message": "注释行数: 41; 改动行数(修改和新增): 54; 注释率: 75.9%",
+      "revId": "516d3ff54369df5b2b10bb1760380e00e0b722f9",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cde50f7d_9422e303",
+        "filename": "src/include/extensionService/websockethandle.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-29T09:27:36Z",
+      "side": 1,
+      "message": "注释行数: 40; 改动行数(修改和新增): 40; 注释率: 100.0%",
+      "revId": "516d3ff54369df5b2b10bb1760380e00e0b722f9",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6473a37_391e0f21",
+        "filename": "src/src/extensionService/extensionservice.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-29T09:27:36Z",
+      "side": 1,
+      "message": "注释行数: 27; 改动行数(修改和新增): 34; 注释率: 79.4%",
+      "revId": "516d3ff54369df5b2b10bb1760380e00e0b722f9",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cded262_22a17e5a",
+        "filename": "src/src/extensionService/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-29T09:27:36Z",
+      "side": 1,
+      "message": "注释行数: 26; 改动行数(修改和新增): 26; 注释率: 100.0%",
+      "revId": "516d3ff54369df5b2b10bb1760380e00e0b722f9",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3cbbb5a_b3ee9687",
+        "filename": "src/src/extensionService/websockethandle.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-29T09:27:36Z",
+      "side": 1,
+      "message": "注释行数: 27; 改动行数(修改和新增): 28; 注释率: 96.4%",
+      "revId": "516d3ff54369df5b2b10bb1760380e00e0b722f9",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
