@@ -472,17 +472,33 @@ void MainFrame::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if (QSystemTrayIcon::Trigger == reason) {
         if (isVisible()) {
-            if (isMinimized()) {
-                setWindowState(Qt::WindowActive);
-                activateWindow();
-                showNormal();
-                //hide();
-                //show();
+            if (isMinimized() || !isActiveWindow()) {
+                if (isFullScreen()) {
+                    hide();
+                    showFullScreen();
+                } else {
+                    this->titlebar()->setFocus();
+
+                    auto e = QProcessEnvironment::systemEnvironment();
+                    QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+                    QString WAYLAND_DISPLAY = e.value(QStringLiteral("WAYLAND_DISPLAY"));
+
+                    if (XDG_SESSION_TYPE != QLatin1String("wayland") && !WAYLAND_DISPLAY.contains(QLatin1String("wayland"), Qt::CaseInsensitive)) {
+                        showNormal();
+                        activateWindow();
+                    } else {
+                        showNormal();
+                        activateWindow();
+                    }
+                }
             } else {
                 showMinimized();
+                hide();
             }
         } else {
+            this->titlebar()->setFocus();
             showNormal();
+            activateWindow();
         }
     }
 }
