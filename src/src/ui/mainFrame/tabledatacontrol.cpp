@@ -283,7 +283,7 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
 
             if (taskLsit.isEmpty()) {
                 QTimer::singleShot(500, this, [&]() {
-                    MessageBox msg;
+                    MessageBox msg(m_DownloadTableView);
                     msg.setUnusual(unusualId, taskLsit);
                     connect(&msg, &MessageBox::unusualConfirm, this, &TableDataControl::onUnusualConfirm);
                     msg.exec();

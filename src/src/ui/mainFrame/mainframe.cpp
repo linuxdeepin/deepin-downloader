@@ -85,7 +85,7 @@ MainFrame::MainFrame(QWidget *parent)
     init();
     initTab();
     initSetting();
-    m_TaskWidget = new CreateTaskWidget();
+    m_TaskWidget = new CreateTaskWidget(this);
     initTray();
     initDbus();
     initAria2();
@@ -491,7 +491,7 @@ void MainFrame::closeEvent(QCloseEvent *event)
 {
     m_SystemTray->show();
     if (Settings::getInstance()->getIsShowTip() || (Settings::getInstance()->getCloseMainWindowSelected() == 2)) {
-        MessageBox msg;
+        MessageBox msg(this);
         msg.setAccessibleName("closeMainwindow");
         connect(&msg, &MessageBox::closeConfirm, this, &MainFrame::onMessageBoxConfirmClick);
         msg.setExit();
@@ -546,7 +546,7 @@ void MainFrame::onTrayQuitClick(bool force)
 {
     if (!m_ShutdownOk && !force) {
         static bool msgBoxFlg = true;
-        static MessageBox msgBox;
+        static MessageBox msgBox(this);
         if (msgBox.isVisible()) {
             return;
         }
@@ -1547,7 +1547,7 @@ void MainFrame::onRemoveFinished()
 
 void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString> sameUrlList)
 {
-    MessageBox msg;
+    MessageBox msg(this);
     msg.setAccessibleName(title);
     msg.setWarings(title, tr("OK"), "", sameUrlCount, sameUrlList);
     msg.exec();
@@ -1555,7 +1555,7 @@ void MainFrame::showWarningMsgbox(QString title, int sameUrlCount, QList<QString
 
 void MainFrame::showClearMsgbox()
 {
-    MessageBox msg;
+    MessageBox msg(this);
     msg.setAccessibleName("Clearrecycle");
     connect(&msg, &MessageBox::Clearrecycle, this, &MainFrame::onClearRecycle);
     msg.setClear();
@@ -1597,7 +1597,7 @@ void MainFrame::onClearRecycle(bool ischecked)
 
 void MainFrame::showDeleteMsgbox(bool permanently)
 {
-    MessageBox msg;
+    MessageBox msg(this);
     msg.setAccessibleName("Deletedownload");
     connect(&msg, &MessageBox::Deletedownload, this, &MainFrame::onDeleteConfirm);
     if (m_CurrentTab == CurrentTab::downloadingTab) {
@@ -1620,7 +1620,7 @@ void MainFrame::showDeleteMsgbox(bool permanently)
 
 bool MainFrame::showRedownloadMsgbox(const QString sameUrl, bool ret, bool isShowRedownload)
 {
-    MessageBox msg;
+    MessageBox msg(this);
     msg.setAccessibleName("Redownload");
     msg.setRedownload(sameUrl, ret, isShowRedownload);
     int rs = msg.exec();
@@ -1883,7 +1883,7 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
         } else if (message.contains("No URI to download.")) { //url错误，弹窗提示
             DBInstance::delTask(id);
             static bool isMsg = true;
-            static MessageBox msg;
+            static MessageBox msg(this);
             if (msg.isVisible()) {
                 return;
             }
@@ -2007,7 +2007,7 @@ void MainFrame::onRedownloadActionTriggered()
     }
     if (m_CurrentTab == CurrentTab::recycleTab) {
         if (QFileInfo::exists(m_DelCheckItem->savePath)) {
-            MessageBox msg;
+            MessageBox msg(this);
             msg.setAccessibleName("Redownload");
             msg.setRedownload(m_DelCheckItem->fileName, true);
             int rs = msg.exec();
@@ -2017,7 +2017,7 @@ void MainFrame::onRedownloadActionTriggered()
         }
     } else if (m_CurrentTab == CurrentTab::finishTab) {
         if (QFileInfo::exists(m_CheckItem->savePath)) {
-            MessageBox msg;
+            MessageBox msg(this);
             msg.setAccessibleName("Redownload");
             msg.setRedownload(m_CheckItem->fileName, true);
             int rs = msg.exec();
@@ -3062,7 +3062,7 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
             pDeleteItem = m_RecycleTableView->getTableModel()->find(info.taskId, 0);
         }
         if (info.infoHash.toLower() == infoHash) {
-            MessageBox msg;
+            MessageBox msg(this);
             //msg.setWarings(tr("Task exist, Downloading again will delete the downloaded content!"), tr("View"), tr("Redownload"), 0, QList<QString>());
             msg.setRedownload(info.filePath);
             int ret = msg.exec();

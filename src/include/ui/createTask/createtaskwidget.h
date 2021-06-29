@@ -58,7 +58,7 @@ class CreateTaskWidget : public DDialog
 {
     Q_OBJECT
 public:
-    explicit CreateTaskWidget(DDialog *parent = 0);
+    explicit CreateTaskWidget(QWidget *parent = 0);
     ~CreateTaskWidget();
 
     /**

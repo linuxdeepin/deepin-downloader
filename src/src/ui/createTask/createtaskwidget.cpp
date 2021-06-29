@@ -53,7 +53,7 @@
 #include "aria2rpcinterface.h"
 #include "taskModel.h"
 
-CreateTaskWidget::CreateTaskWidget(DDialog *parent)
+CreateTaskWidget::CreateTaskWidget(QWidget *parent)
     : DDialog(parent)
     , m_analysisUrl(new AnalysisUrl)
 {
@@ -410,7 +410,7 @@ void CreateTaskWidget::onSureBtnClicked()
     }
     QFile f(m_defaultDownloadDir);
     if(!f.exists()){
-        MessageBox msg;
+        MessageBox msg(this);
         msg.setAccessibleName("FolderNotExists");
         msg.setFolderNotExists();
         msg.exec();
@@ -421,7 +421,7 @@ void CreateTaskWidget::onSureBtnClicked()
     double dCapacity = formatSpeed(freeSize);
     if (dSelectSize > dCapacity) { //剩余空间比较 KB
         qDebug() << "Disk capacity is not enough!";
-        MessageBox msg;
+        MessageBox msg(this);
         msg.setAccessibleName("FolderNotExists");
         msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg.exec();
@@ -625,7 +625,7 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
     QString strPath;
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
-        MessageBox msg; //= new MessageBox();
+        MessageBox msg(this); //= new MessageBox();
         msg.setAccessibleName("FolderDenied");
         msg.setFolderDenied();
         msg.exec();
@@ -661,7 +661,7 @@ void CreateTaskWidget::closeEvent(QCloseEvent *event)
 
 void CreateTaskWidget::showNetErrorMsg()
 {
-    MessageBox msg; //= new MessageBox();
+    MessageBox msg(this); //= new MessageBox();
     //QString title = tr("Network error, check your network and try later");
    // msg.setWarings(getNetErrTip(), tr("OK"), ""); //网络连接失败
     msg.setAccessibleName("Networkerror");
