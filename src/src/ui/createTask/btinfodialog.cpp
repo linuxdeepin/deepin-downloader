@@ -42,8 +42,8 @@
 #include <dpinyin.h>
 #include <QFont>
 
-BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath)
-    : DDialog()
+BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath,QWidget *parent)
+    : DDialog(parent)
     , m_torrentFile(torrentFile)
     , m_defaultDownloadDir(btLastSavePath)
 {

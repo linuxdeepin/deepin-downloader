@@ -137,6 +137,8 @@ signals:
 private:
     QClipboard *m_clipboard; //剪切板
     QByteArray m_timeStamp;  //记录上次剪切板时间
+    QString m_sessionType;  //当前窗管版本  x11 wayland
+    QString m_lastUrl;  //记录剪切板上次内容
 };
 
 #endif // CLIPBOARDTIMER_H

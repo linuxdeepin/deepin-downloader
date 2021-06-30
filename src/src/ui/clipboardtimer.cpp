@@ -33,11 +33,15 @@
 #include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QProcess>
 #include "func.h"
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
     : QObject(parent)
 {
+    auto e = QProcessEnvironment::systemEnvironment();
+    m_sessionType = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+
     m_clipboard = QApplication::clipboard(); //获取当前剪切板
     connect(m_clipboard, &QClipboard::dataChanged, this, &ClipboardTimer::getDataChanged);
 }
@@ -55,16 +59,21 @@ void ClipboardTimer::getDataChanged()
 {
     const QMimeData *mimeData = m_clipboard->mimeData();
     QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
-    if (mimeData->data("TIMESTAMP") == m_timeStamp) {
-        return;
-    }
-    if (isDeepinCilpboard == "1") {
-        return;
+    if(m_sessionType == QLatin1String("wayland")){
+        if(m_clipboard->text() == m_lastUrl || m_clipboard->text().isNull()){
+            return;
+        }
+        m_lastUrl = m_clipboard->text();
+    }else {
+        if (mimeData->data("TIMESTAMP") == m_timeStamp || isDeepinCilpboard == "1") {
+            return;
+        }
+        m_timeStamp = mimeData->data("TIMESTAMP");
     }
     if (m_clipboard->ownsClipboard()) {
         return;
     }
-    m_timeStamp = mimeData->data("TIMESTAMP");
+
     for (int i = 0; i < mimeData->formats().size(); i++) {
         QString format = mimeData->formats()[i];
         QString formatData = mimeData->data(mimeData->formats()[i]);

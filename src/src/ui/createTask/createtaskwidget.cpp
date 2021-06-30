@@ -361,7 +361,7 @@ void CreateTaskWidget::onFileDialogOpen()
     QString btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if (btFile != "") {
         hide();
-        BtInfoDialog dialog(btFile, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
+        BtInfoDialog dialog(btFile, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
         if (dialog.exec() == QDialog::Accepted) {
             QMap<QString, QVariant> opt;
             opt.clear();
@@ -379,7 +379,7 @@ void CreateTaskWidget::onMLFileDialogOpen()
     QString mlFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.metalink");
     if (mlFile != "") {
         hide();
-        BtInfoDialog dialog(mlFile, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
+        BtInfoDialog dialog(mlFile, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
         if (dialog.exec() == QDialog::Accepted) {
             QMap<QString, QVariant> opt;
             opt.clear();
@@ -485,7 +485,7 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
             if (fileName.startsWith("file:") && (fileName.endsWith(".torrent") || fileName.endsWith(".metalink"))) {
                 fileName = fileName.right(fileName.length() - 7);
                 hide();
-                BtInfoDialog dialog(fileName, m_defaultDownloadDir); //= new BtInfoDialog(); //torrent文件路径
+                BtInfoDialog dialog(fileName, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
                 int ret = dialog.exec();
                 if (ret == QDialog::Accepted) {
                     QMap<QString, QVariant> opt;

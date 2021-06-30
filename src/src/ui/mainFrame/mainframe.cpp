@@ -815,7 +815,7 @@ void MainFrame::OpenFile(const QString &url)
     if(!QFile::exists(url)){
         return;
     }
-    BtInfoDialog btDiag(url, savePath); // torrent文件路径
+    BtInfoDialog btDiag(url, savePath,this); // torrent文件路径
     QMap<QString, QVariant> opt;
     QString infoName;
     QString infoHash;
