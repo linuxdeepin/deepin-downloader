@@ -94,9 +94,12 @@ MainFrame::MainFrame(QWidget *parent)
     initTabledata();
     setPaletteType();
     QString clipboradStr = QApplication::clipboard()->text();
-    if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
-        m_Clipboard->checkClipboardHasUrl();
+    if(!clipboradStr.isNull()){
+        if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
+            m_Clipboard->checkClipboardHasUrl();
+        }
     }
+
 }
 
 MainFrame *MainFrame::instance()
