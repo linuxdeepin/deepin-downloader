@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac31d58e_a87e56bf",
+        "filename": "src/include/ui/clipboardtimer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-30T07:18:43Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 2; 注释率: 100.0%",
+      "revId": "3cdf2b1b1d625cb6f8de0105ba91d2bd2591c110",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecfcf342_a3601397",
+        "filename": "src/include/ui/createTask/btinfodialog.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-30T07:18:43Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "3cdf2b1b1d625cb6f8de0105ba91d2bd2591c110",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a2f76e8_8480cd8c",
+        "filename": "src/src/ui/clipboardtimer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-30T07:18:43Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 13; 注释率: 0.0%",
+      "revId": "3cdf2b1b1d625cb6f8de0105ba91d2bd2591c110",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e659c47_7b01dcab",
+        "filename": "src/src/ui/createTask/btinfodialog.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-30T07:18:43Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "3cdf2b1b1d625cb6f8de0105ba91d2bd2591c110",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a4c9cec_e5c47850",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-30T07:18:43Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 3; 注释率: 100.0%",
+      "revId": "3cdf2b1b1d625cb6f8de0105ba91d2bd2591c110",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "494f13cd_cd35b6cf",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-30T07:18:43Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 1; 注释率: 100.0%",
+      "revId": "3cdf2b1b1d625cb6f8de0105ba91d2bd2591c110",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
