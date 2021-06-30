@@ -16,7 +16,7 @@ class HttpAdvancedSettingWidget : public DDialog
     Q_OBJECT
 
 public:
-    explicit HttpAdvancedSettingWidget(DDialog *parent = nullptr);
+    explicit HttpAdvancedSettingWidget(QWidget *parent = nullptr);
 
 private:
     /**

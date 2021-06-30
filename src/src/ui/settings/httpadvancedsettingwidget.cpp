@@ -12,7 +12,7 @@
 #include "func.h"
 #include "config.h"
 
-HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(DDialog *parent)
+HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(QWidget *parent)
     : DDialog(parent)
 {
     setFixedSize(475, 345);
