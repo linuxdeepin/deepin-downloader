@@ -1,3 +1,9 @@
+downloadmanager (5.3.40) stable; urgency=medium
+
+  * 修改KLU的bug，删除掉主线的依赖
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 01 Jul 2021 10:36:29 +0800
+
 downloadmanager (5.3.39) stable; urgency=low
 
   * 添加libssl依赖包
