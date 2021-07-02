@@ -284,6 +284,43 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     QString url;
     QString deleteTime;
     switch (role) {
+
+    case Qt::AccessibleTextRole:
+    case Qt::AccessibleDescriptionRole: {
+        switch (index.column()) {
+        case 0:
+            if (m_TableviewtabFlag == 0) {
+                return data->isChecked ? "true" : "false";
+            } else {
+                return deldata->isChecked ? "true" : "false";
+            }
+        case 1:
+            if (m_TableviewtabFlag == 0) {
+                return data->fileName;
+            } else {
+                return deldata->fileName;
+            }
+        case 2:
+            if (m_TableviewtabFlag == 0) {
+                return data->totalLength;
+            } else {
+                return deldata->totalLength;
+            }
+        case 3:
+            if (m_TableviewtabFlag == 0) {
+                return data->status;
+            } else {
+                return deldata->status;
+            }
+        case 4:
+            if (m_TableviewtabFlag == 0) {
+                return data->time;
+            } else {
+                return deldata->deleteTime;
+            }
+        }
+    }
+
     case TableModel::Ischecked: {
         if (m_TableviewtabFlag == 0) {
             return data->isChecked ? Qt::Checked : Qt::Unchecked;
