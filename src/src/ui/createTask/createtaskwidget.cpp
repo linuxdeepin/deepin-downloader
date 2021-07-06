@@ -600,6 +600,7 @@ void CreateTaskWidget::onTextChanged()
                 if(!tempList.isEmpty()){
                     if(isExistType(tempList[tempList.size()-1])){
                         type = tempList[tempList.size()-1];
+                        name = name.left(name.size()- type.size() -1);
                     }else {
                         type = "html";
                     }
