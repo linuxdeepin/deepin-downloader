@@ -594,8 +594,18 @@ void CreateTaskWidget::onTextChanged()
             name = nameList[nameList.size() - 1];
             QMimeDatabase db;
             QString type = db.suffixForFileName(urlList[i]);
+
             if (type.isEmpty()) {
-                type = "html";
+                QStringList tempList = urlList[i].split('.');
+                if(!tempList.isEmpty()){
+                    if(isExistType(tempList[tempList.size()-1])){
+                        type = tempList[tempList.size()-1];
+                    }else {
+                        type = "html";
+                    }
+                }else {
+                    type = "html";
+                }
             } else {
                 int index = name.lastIndexOf('.');
                 name.truncate(index);
@@ -1209,6 +1219,19 @@ double CreateTaskWidget::getSelectSize()
 size_t CreateTaskWidget::ftpSize(void *curl, size_t size, size_t nmemb, void *data)
 {
     return (size_t)(size * nmemb);
+}
+
+bool CreateTaskWidget::isExistType(QString type)
+{
+    QStringList typeList;
+    typeList << "asf" << "avi" << "exe" << "iso" << "mp3" << "mpeg" << "mpg" << "mpga" << "ra" <<
+                "rar" << "rm" << "rmvb" << "tar" << "wma" << "wmp" << "wmv" << "mov" << "zip" <<
+                "3gp" << "chm" << "mdf" << "torrent" << "jar" << "msi" << "arj" << "bin" << "dll" <<
+                "psd" << "hqx" << "sit" << "lzh" << "gz" << "tgz" << "xlsx" << "xls" << "doc" << "docx" <<
+                "ppt" << "pptx" << "flv" << "swf" << "mkv" << "tp" << "ts" << "flac" << "ape" << "wav" <<
+                "aac" << "txt" << "crx" << "dat" << "7z" << "ttf" << "bat" << "xv" << "xvx" << "pdf" <<
+                "mp4" << "apk" << "ipa" << "epub" << "mobi" << "deb";
+    return typeList.contains(type , Qt::CaseSensitivity::CaseSensitive);
 }
 
 double CreateTaskWidget::getFtpFileSize(QString ftpPath)

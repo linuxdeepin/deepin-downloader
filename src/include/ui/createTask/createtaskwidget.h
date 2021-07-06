@@ -209,6 +209,14 @@ private:
      * @return 传出ftp大小
     */
     static size_t ftpSize(void *curl, size_t size, size_t nmemb, void *data);
+
+    /**
+     * @brief 判断是否存在该类型的后缀名
+     * @param 后缀名
+     * @return 是否存在
+    **/
+    bool isExistType(QString type);
+
 private slots:
     /**
      * @brief 打开选择文件窗口按钮
