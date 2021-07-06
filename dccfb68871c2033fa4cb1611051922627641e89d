@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38f14031_47785ea9",
+        "filename": "src/include/ui/createTask/createtaskwidget.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-06T08:44:32Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 6; 注释率: 83.3%",
+      "revId": "dccfb68871c2033fa4cb1611051922627641e89d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ad0d478_614ee322",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-06T08:44:32Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 22; 注释率: 0.0%",
+      "revId": "dccfb68871c2033fa4cb1611051922627641e89d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
