@@ -68,6 +68,8 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
 
         item->setText(text + "  -->  " + tasknameList.at(i));
         item->setData(Qt::WhatsThisRole, taskIDList.at(i));
+        item->setData(Qt::AccessibleTextRole, tasknameList.at(i));
+        item->setData(Qt::AccessibleDescriptionRole, tasknameList.at(i));
 
         addItem(item);
         if(first) {

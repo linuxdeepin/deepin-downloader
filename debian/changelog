@@ -1,3 +1,9 @@
+downloadmanager (5.3.41) stable; urgency=medium
+
+  * 修改解析url时的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 07 Jul 2021 10:24:17 +0800
+
 downloadmanager (5.3.40) stable; urgency=medium
 
   * 修改KLU的bug，删除掉主线的依赖
