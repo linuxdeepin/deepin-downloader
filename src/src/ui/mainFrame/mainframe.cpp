@@ -32,6 +32,7 @@
 #include <DTitlebar>
 #include <DApplicationHelper>
 #include <DFontSizeManager>
+#include <DWidgetUtil>
 
 #include <QDir>
 #include <QLayout>
@@ -537,8 +538,7 @@ void MainFrame::createNewTask(QString url)
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
 
         if (isHidden()) {
-            QDesktopWidget *desktop = QApplication::desktop();
-            move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
+            Dtk::Widget::moveToCenter(this);
             show();
         }
     }

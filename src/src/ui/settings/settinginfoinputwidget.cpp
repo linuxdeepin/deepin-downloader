@@ -45,6 +45,7 @@ void SettingInfoInputWidget::initUI()
     m_unitLabel = new DLabel;
     m_rangeLabel = new DLabel;
 
+    m_lineEdit->setMinimumWidth(150);
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_titleLabel);
     hLayout->addWidget(m_lineEdit);

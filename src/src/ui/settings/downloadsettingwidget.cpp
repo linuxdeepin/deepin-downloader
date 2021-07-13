@@ -68,8 +68,8 @@ void DownloadSettingWidget::initUI()
     m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
     m_maxUploadSpeedLimit = new SettingInfoInputWidget;
 
-    m_maxDownloadSpeedLimit->setWidgetWidth(290);
-    m_maxUploadSpeedLimit->setWidgetWidth(290);
+    m_maxDownloadSpeedLimit->setWidgetWidth(390);
+    m_maxUploadSpeedLimit->setWidgetWidth(390);
 
     QFont font;
     font.setPointSize(DFontSizeManager::T8);

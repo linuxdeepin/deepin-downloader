@@ -57,13 +57,14 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     pLabel->setFont(font);
     DLabel *pTextLabel = new DLabel(text);
     pTextLabel->setFont(font);
+    pTextLabel->setWordWrap(true);
 
     m_SwitchBtn = new DSwitchButton();
     layout->addWidget(pLabel);
     if (isLineEdit) {
         m_Edit = new DLineEdit();
         m_Edit->setEnabled(false);
-        m_Edit->setMinimumWidth(20);
+        m_Edit->setMinimumWidth(100);
         QSharedPointer<QIntValidator> validator =
                     QSharedPointer<QIntValidator>(new QIntValidator(1, 9999), &QObject::deleteLater);
         m_Edit->lineEdit()->setValidator(validator.data());
