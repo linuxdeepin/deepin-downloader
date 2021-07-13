@@ -134,11 +134,14 @@ void MainFrame::init()
     QAction *pFinishAction = new QAction(tr("When completed"), this);
     DMenu *pFinishMenu = new DMenu(tr("When completed"), this);
     m_ShutdownAct = new QAction(tr("Shut down"), this);
+    m_ShutdownAct->setObjectName("Shutdown");
     m_ShutdownAct->setCheckable(true);
     m_SleepAct = new QAction(tr("Hibernate"), this);
     m_SleepAct->setCheckable(true);
+    m_SleepAct->setObjectName("Hibernate");
     m_QuitProcessAct = new QAction(tr("Exit"), this);
     m_QuitProcessAct->setCheckable(true);
+    m_QuitProcessAct->setObjectName("Exit");
 
     pFinishMenu->addAction(m_ShutdownAct);
     pFinishMenu->addAction(m_SleepAct);

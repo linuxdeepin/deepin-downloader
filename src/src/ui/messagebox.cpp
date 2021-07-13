@@ -120,9 +120,13 @@ void MessageBox::setUnusual(const QString &taskId, QString taskList)
     urlText->setText(taskList);
     addContent(urlText);
     //if(taskList.split("\n").count() <= 1) {
-    addButton(tr("Download Again"));
+    QAbstractButton *btn = getButton(addButton(tr("Download Again")));
+    btn->setObjectName("DownloadAgain");
+    btn->setAccessibleName("DownloadAgain");
     //}
-    addButton(tr("Delete All"));
+    QAbstractButton *btn1 = getButton(addButton(tr("Delete All")));
+    btn1->setObjectName("DeleteAll");
+    btn1->setAccessibleName("DeleteAll");
     connect(this, &MessageBox::buttonClicked, this,
             [=](int index) {
                 emit unusualConfirm(index, taskId);

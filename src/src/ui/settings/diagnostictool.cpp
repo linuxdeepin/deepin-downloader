@@ -49,6 +49,8 @@ DiagnosticTool::DiagnosticTool(DDialog *parent)
     setFixedSize(453, 431);
     initUI();
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
+    setAccessibleName("DiagnosticTool");
+    m_Tableview->setAccessibleName("DiagnosticTableView");
 }
 
 DiagnosticTool::~DiagnosticTool()
@@ -242,6 +244,29 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
         break;
     case Qt::TextColorRole:
         return m_DiagnosticStatusList.at(index.row()) ? ("#00c77d") : ("#ff5736");
+    case Qt::AccessibleTextRole:
+    case Qt::AccessibleDescriptionRole: {
+        if (index.column() == 1) {
+            switch (index.row()) {
+            case 0:
+                return ("IPv6support");
+            case 1:
+                return ("DHTstatus");
+            case 2:
+                return ("HTTPtask");
+            case 3:
+                return ("BTtask");
+            case 4:
+                return ("Magnettask");
+            case 5:
+                return ("Networkdetection");
+            default:
+                break;
+            }
+        } else if (index.column() == 2) {
+            return m_DiagnosticStatusList.at(index.row()) ? "Pass" : "Failed";
+        }
+    }
     }
     return QVariant();
 }

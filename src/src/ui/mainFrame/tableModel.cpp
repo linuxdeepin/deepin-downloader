@@ -308,9 +308,39 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             }
         case 3:
             if (m_TableviewtabFlag == 0) {
-                return data->status;
+                switch (data->status) {
+                    case 0:
+                    return "Active";
+                    case 1:
+                    return "Waiting";
+                    case 2:
+                    return "Paused";
+                    case 3:
+                    return "Complete";
+                    case 4:
+                    return "Removed";
+                    case 5:
+                    return "Lastincomplete";
+                    case 6:
+                    return "Error";
+                }
             } else {
-                return deldata->status;
+                switch (data->status) {
+                    case 0:
+                    return "Active";
+                    case 1:
+                    return "Waiting";
+                    case 2:
+                    return "Paused";
+                    case 3:
+                    return "Complete";
+                    case 4:
+                    return "Removed";
+                    case 5:
+                    return "Lastincomplete";
+                    case 6:
+                    return "Error";
+                }
             }
         case 4:
             if (m_TableviewtabFlag == 0) {
