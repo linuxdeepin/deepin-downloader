@@ -1,3 +1,9 @@
+downloadmanager (5.3.43) stable; urgency=medium
+
+  * 添加libssl依赖包
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 20 Jul 2021 15:29:24 +0800
+
 downloadmanager (5.3.42) stable; urgency=medium
 
   * 修改bug
