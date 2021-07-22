@@ -1,3 +1,9 @@
+downloadmanager (5.3.44) stable; urgency=medium
+
+  * 修改浏览器扩展的安装逻辑
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 22 Jul 2021 15:13:01 +0800
+
 downloadmanager (5.3.43) stable; urgency=medium
 
   * 添加libssl依赖包

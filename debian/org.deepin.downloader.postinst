@@ -11,6 +11,10 @@ fi
 display=$DISPLAY
 user=$(who | grep '('$display')' | awk '{print $1}')
 echo $user
+mkdir -p /home/$user/.config/browser/NativeMessagingHosts/
+chown  $user /home/$user/.config/browser -R
 cp /usr/share/downloader/config/browser.downloader.autostart.json  /home/$user/.config/browser/NativeMessagingHosts/
 
 chmod 755 /usr/libexec/openconnect/startdlmservice.sh
+chown  $user /home/$user/.config/browser -R
+chgrp  $user /home/$user/.config/browser -R
