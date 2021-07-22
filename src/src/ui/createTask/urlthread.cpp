@@ -108,6 +108,13 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             }
             mutex.unlock();
         });
+        connect(process, &QProcess::readyReadStandardError, this, [=]() {
+            QProcess *proc = dynamic_cast<QProcess *>(sender());
+            proc->kill();
+            proc->close();
+            delete proc;
+            proc = nullptr;
+        });
         break;
     }
     case 301:
