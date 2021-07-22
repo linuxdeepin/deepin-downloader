@@ -71,12 +71,12 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             mutex.lock();
             QProcess *proc = dynamic_cast<QProcess *>(sender());
             QString str = proc->readAllStandardOutput();
-            proc->kill();
-            proc->close();
+            //proc->kill();
+            //proc->close();
             QStringList urlList;
             urlList.append(proc->arguments().at(1));
-            delete proc;
-            proc = nullptr;
+            //delete proc;
+            //proc = nullptr;
             m_linkInfo.urlSize = getUrlSize(str);
             if(m_linkInfo.urlSize.isEmpty()){
                 m_linkInfo.urlSize = "0KB";
@@ -108,12 +108,13 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             }
             mutex.unlock();
         });
-        connect(process, &QProcess::readyReadStandardError, this, [=]() {
+        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+             [=](int exitCode, QProcess::ExitStatus exitStatus){
             QProcess *proc = dynamic_cast<QProcess *>(sender());
-            proc->kill();
-            proc->close();
+            //proc->kill();
+            //proc->close();
             delete proc;
-            proc = nullptr;
+            //proc = nullptr;
         });
         break;
     }
