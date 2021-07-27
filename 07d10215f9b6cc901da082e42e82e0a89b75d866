@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75e2d4db_1413f211",
+        "filename": "debian/org.deepin.downloader.postinst",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2021-07-27T05:32:18Z",
+      "side": 1,
+      "message": "这个变量应该只能获取当前用户，如果切换用户或者新建用户配置将无法生效",
+      "range": {
+        "startLine": 6,
+        "startChar": 6,
+        "endLine": 6,
+        "endChar": 10
+      },
+      "revId": "07d10215f9b6cc901da082e42e82e0a89b75d866",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
