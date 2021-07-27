@@ -1,3 +1,30 @@
+/**
+ * @copyright 2020-2020 Uniontech Technology Co., Ltd.
+ *
+ * @file httpadvancedsettingwidget.cpp
+ *
+ * @brief http高级设置
+ *
+ *@date 2020-07-29 11:00
+ *
+ * Author: bulongwei  <bulongwei@uniontech.com>
+ *
+ * Maintainer: bulongwei  <bulongwei@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "httpadvancedsettingwidget.h"
 
 #include <DPushButton>
@@ -41,6 +68,7 @@ void HttpAdvancedSettingWidget::initUI()
     suffixBtn->setFont(font);
     connect(suffixBtn,&DButtonBoxButton::clicked, this, &HttpAdvancedSettingWidget::onSuffixBtnClicked);
     m_btnBox->setId(suffixBtn, 0);
+
     DButtonBoxButton *webBtn =new DButtonBoxButton(tr("Edit Unmonitored Sites"));       //辑不接管的网站
     webBtn->setAccessibleName("EditUnmonitoredSites");
     webBtn->setFont(font);
@@ -74,12 +102,14 @@ void HttpAdvancedSettingWidget::initUI()
     cancel->setText(tr("Cancel"));
     cancel->setFont(font);
     cancel->setFixedSize(216,36);
+
     DPushButton * sure = new DPushButton(this);
     sure->setAccessibleName("httpadvanceSure");
     connect(sure,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onSureClicked);
     sure->setFixedSize(216,36);
     sure->setText(tr("Confirm"));
     sure->setFont(font);
+
     QHBoxLayout * hblyt = new QHBoxLayout(w);
     hblyt->setContentsMargins(0,0,0,0);
     w->setFixedSize(454, 44);
@@ -94,8 +124,7 @@ void HttpAdvancedSettingWidget::initUI()
     if(!file.open(QIODevice::ReadWrite)) {
        m_curSuffixStr = "";
        m_curWebStr = "";
-    }
-    else {
+    } else {
         QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
         QJsonObject obj = jdc.object();
         m_curSuffixStr = obj.value("CurSuffix").toString();
@@ -108,7 +137,7 @@ void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 {
     QString curPlaceholderText = m_textEdit->placeholderText();
     if(!(curPlaceholderText == tr("Separate file extensions by semicolons (;)"))
-            && !curPlaceholderText.isEmpty()){
+            && !curPlaceholderText.isEmpty()) {
         m_curWebStr = m_textEdit->toPlainText();
     }
     m_textEdit->setPlaceholderText(tr("Separate file extensions by semicolons (;)"));   //请输入正确的文件扩展名，以;分隔
@@ -118,7 +147,7 @@ void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 void HttpAdvancedSettingWidget::onWebBtnClicked()
 {
     if(!(m_textEdit->placeholderText() == tr("Please enter one URL per line"))
-            && !m_textEdit->placeholderText().isEmpty()){
+            && !m_textEdit->placeholderText().isEmpty()) {
         m_curSuffixStr = m_textEdit->toPlainText();
     }
     m_textEdit->setPlaceholderText(tr("Please enter one URL per line"));        //添加多个网站链接时，请确保每行只有一个链接
@@ -172,28 +201,3 @@ void HttpAdvancedSettingWidget::onCancelClicked()
 {
     close();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
