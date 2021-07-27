@@ -1,20 +1,15 @@
 #!/bin/bash
 
-str=`cat /usr/share/applications/mimeapps.list | grep x-scheme-handler`
-
-if [ -z "$str" ]; then
- echo >> /usr/share/applications/mimeapps.list
- sed -i '$d' /usr/share/applications/mimeapps.list
- echo x-scheme-handler/downloader=dlmextensionservice.desktop >> /usr/share/applications/mimeapps.list
-fi
 
 display=$DISPLAY
 user=$(who | grep '('$display')' | awk '{print $1}')
 echo $user
-mkdir -p /home/$user/.config/browser/NativeMessagingHosts/
-chown  $user /home/$user/.config/browser -R
-cp /usr/share/downloader/config/browser.downloader.autostart.json  /home/$user/.config/browser/NativeMessagingHosts/
+if [ -d "/home/$user" ]; then
+    mkdir -p /home/$user/.config/browser/NativeMessagingHosts/
+    chown  $user /home/$user/.config/browser -R
+    cp /usr/share/downloader/config/browser.downloader.autostart.json  /home/$user/.config/browse   r/NativeMessagingHosts/
 
-chmod 755 /usr/libexec/openconnect/startdlmservice.sh
-chown  $user /home/$user/.config/browser -R
-chgrp  $user /home/$user/.config/browser -R
+    chmod 755 /usr/libexec/openconnect/startdlmservice.sh
+    chown  $user /home/$user/.config/browser -R
+    chgrp  $user /home/$user/.config/browser -R
+fi
