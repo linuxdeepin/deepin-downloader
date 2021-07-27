@@ -134,6 +134,7 @@ void CreateTaskWidget::initUi()
 
     m_tableView = new BtInfoTableView(this);
     m_tableView->setObjectName("tableView");
+    m_tableView->setAccessibleName("taskTableView");
     m_tableView->setMouseTracking(true);
     m_tableView->setShowGrid(false);
     m_tableView->setFrameShape(QAbstractItemView::NoFrame);

@@ -264,6 +264,7 @@ void BtInfoDialog::initUI()
 
     m_model = new QStandardItemModel();
     m_tableView->setModel(m_model);
+    m_tableView->setAccessibleName("btTableView");
     DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
 
     m_model->setColumnCount(5);
@@ -276,12 +277,33 @@ void BtInfoDialog::initUI()
     for (int i = 0; i < m_ariaInfo.files.length(); i++) {
         Aria2cBtFileInfo file = m_ariaInfo.files.at(i);
         QList<QStandardItem *> list;
-        list << new QStandardItem("1");
-        list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
-        list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
-        list << new QStandardItem(file.length);
-        list << new QStandardItem(QString::number(file.index));
-        list << new QStandardItem(QString::number(file.lengthBytes));
+
+        QStandardItem *item1 = new QStandardItem("1");
+        item1->setAccessibleText(QString("1_%1").arg(QString::number(i)));
+
+        QStandardItem *item2 = new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
+        item2->setAccessibleText(file.path.mid(file.path.lastIndexOf("/") + 1).append("_").append(QString::number(i)));
+
+        QStandardItem *item3 = new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
+        item3->setAccessibleText(file.path.mid(file.path.lastIndexOf(".") + 1).append("_").append(QString::number(i)));
+
+        QStandardItem *item4 = new QStandardItem(file.length);
+        item4->setAccessibleText(file.length.append("_").append(QString::number(i)));
+
+        QStandardItem *item5 = new QStandardItem(QString::number(file.index));
+        item5->setAccessibleText(QString::number(file.index).append("_").append(QString::number(i)));
+
+        QStandardItem *item6 = new QStandardItem(QString::number(file.lengthBytes));
+        item6->setAccessibleText(QString::number(file.lengthBytes).append("_").append(QString::number(i)));
+
+        list << item1 << item2 << item3 << item4 << item5 << item6;
+
+//        list << new QStandardItem("1");
+//        list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
+//        list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
+//        list << new QStandardItem(file.length);
+//        list << new QStandardItem(QString::number(file.index));
+//        list << new QStandardItem(QString::number(file.lengthBytes));
         m_model->appendRow(list);
         m_listBtInfo.append(file);
     }
