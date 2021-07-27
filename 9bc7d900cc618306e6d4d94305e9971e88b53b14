@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f376e30_af84f956",
+        "filename": "src/src/ui/createTask/btinfodialog.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-27T07:41:09Z",
+      "side": 1,
+      "message": "注释行数: 6; 改动行数(修改和新增): 20; 注释率: 30.0%",
+      "revId": "9bc7d900cc618306e6d4d94305e9971e88b53b14",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e08f008_55af4f73",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-27T07:41:09Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "9bc7d900cc618306e6d4d94305e9971e88b53b14",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbd45fa7_5bd8b625",
+        "filename": "src/src/ui/createTask/taskModel.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-27T07:41:09Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 27; 注释率: 0.0%",
+      "revId": "9bc7d900cc618306e6d4d94305e9971e88b53b14",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
