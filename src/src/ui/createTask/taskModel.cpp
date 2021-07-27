@@ -70,6 +70,32 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
 
     LinkInfo data = m_linkInfo.value(row);
 
+    if(role == Qt::AccessibleTextRole){
+        switch(index.column()) {
+        case TaskModel::Ischecked: {
+            return data.isChecked.append("_")+QString::number(row);
+        }
+        case TaskModel::Name: {
+            return data.urlName.append("_")+QString::number(row);
+        }
+        case TaskModel::Type: {
+            return data.type.append("_")+QString::number(row);
+        }
+        case TaskModel::Size: {
+            return data.urlSize.append("_")+QString::number(row);
+        }
+        case TaskModel::Length: {
+            return QString::number(data.length);
+        }
+        case TaskModel::Url: {
+            return data.url.append("_")+QString::number(row);
+        }
+        case TaskModel::TrueUrl: {
+            return data.urlTrueLink.append("_")+QString::number(row);
+        }
+    }
+    }
+
     switch (role) {
         case TaskModel::Ischecked: {
             return data.isChecked;
@@ -92,8 +118,8 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
         case TaskModel::TrueUrl: {
             return data.urlTrueLink;
         }
-    default:
-        break;
+        default:
+            break;
     }
     return QVariant();
 }
