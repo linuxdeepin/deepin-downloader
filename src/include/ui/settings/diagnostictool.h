@@ -149,11 +149,11 @@ public:
 };
 
 
-class baseWidget : public QLabel
+class BaseWidget : public QLabel
 {
     Q_OBJECT
 public:
-    baseWidget(const QString &text, QWidget *parent=nullptr, Qt::WindowFlags f=Qt::WindowFlags());
+    BaseWidget(const QString &text, QWidget *parent=nullptr, Qt::WindowFlags f=Qt::WindowFlags());
 protected:
     void paintEvent(QPaintEvent *e) override;
 };
