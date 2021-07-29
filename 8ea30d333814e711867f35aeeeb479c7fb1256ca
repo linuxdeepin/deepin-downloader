@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6583b46_e07a1510",
+        "filename": "src/src/ui/settings/httpadvancedsettingwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-29T08:23:29Z",
+      "side": 1,
+      "message": "注释行数: 26; 改动行数(修改和新增): 29; 注释率: 89.7%",
+      "revId": "8ea30d333814e711867f35aeeeb479c7fb1256ca",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
