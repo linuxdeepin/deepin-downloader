@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce778e45_8edc8787",
+        "filename": "src/include/ui/settings/diagnostictool.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-29T07:58:24Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "c1505e5fcc1852cd4249ef5137c9c1c213d142dd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ff2baa_3d89857c",
+        "filename": "src/src/ui/settings/diagnostictool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-07-29T07:58:24Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 19; 注释率: 0.0%",
+      "revId": "c1505e5fcc1852cd4249ef5137c9c1c213d142dd",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
