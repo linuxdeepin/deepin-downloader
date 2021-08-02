@@ -61,10 +61,13 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
     if (!cancelbtntext.isEmpty()) {
         QAbstractButton *btn1 = getButton(addButton(cancelbtntext));
         btn1->setObjectName("cancel");
+        btn1->setAccessibleName("cancel");
         QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
         btn2->setObjectName("Confirm");
+        btn2->setAccessibleName("Confirm");
     } else {
         QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
+        btn2->setObjectName("OK");
         btn2->setObjectName("OK");
     }
 
@@ -98,11 +101,14 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
     if (isShowRedownload) {
         QAbstractButton *btn1 = getButton(addButton(tr("OK")));
         btn1->setObjectName("OK");
+        btn1->setAccessibleName("OK");
     } else {
         QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
         btn1->setObjectName("cancel");
+        btn1->setAccessibleName("cancele");
         QAbstractButton *btn2 = getButton(addButton(tr("Download Again"), true, ButtonType::ButtonWarning));
         btn2->setObjectName("redownload");
+        btn2->setAccessibleName("redownload");
     }
 }
 
@@ -159,12 +165,15 @@ void MessageBox::setDelete(bool permanentl, bool checked)
 
     QAbstractButton *btn = getButton(addButton(tr("Cancel")));
     btn->setObjectName("cancel");
+    btn->setAccessibleName("cancel");
     if (permanentl) {
         QAbstractButton *btn = getButton(addButton(tr("Permanently Delete"), true, ButtonType::ButtonWarning));
         btn->setObjectName("delete");
+        btn->setAccessibleName("delete");
     } else {
         QAbstractButton *btn = getButton(addButton(tr("Delete"), true, ButtonType::ButtonWarning));
         btn->setObjectName("delete");
+        btn->setAccessibleName("delete");
     }
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onDeleteBtnClicked);
 }
@@ -177,8 +186,10 @@ void MessageBox::setClear()
     addCheckbox(tr("Delete local files"));
     QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
     btn1->setObjectName("cancel");
+    btn1->setAccessibleName("cancel");
     QAbstractButton *btn2 = getButton(addButton(tr("Empty"), true, ButtonType::ButtonWarning));
     btn2->setObjectName("empty");
+    btn2->setAccessibleName("empty");
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onClearBtnClicked);
 }
 
@@ -234,6 +245,7 @@ void MessageBox::addCheckbox(QString checkboxText, bool checked)
 {
     m_CheckBox = new DCheckBox(this);
     m_CheckBox->setText(checkboxText);
+    m_CheckBox->setAccessibleName("CheckBox");
     if (checked) {
         m_CheckBox->setCheckState(Qt::Checked);
     }

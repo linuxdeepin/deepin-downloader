@@ -259,6 +259,7 @@ void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
     if (pEdit == nullptr) {
         return;
     }
+    pEdit->setAccessibleName("editor");
     QString str = pEdit->text();
     int row = index.row();
     if (str.isEmpty()) {
