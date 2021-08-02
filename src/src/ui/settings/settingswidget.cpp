@@ -63,16 +63,22 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     layout->addWidget(pLabel);
     if (isLineEdit) {
         m_Edit = new DLineEdit();
+        //m_Edit->setAccessibleName(text.remove(QRegExp("\\s")));
         m_Edit->setEnabled(false);
         m_Edit->setMinimumWidth(100);
         QSharedPointer<QIntValidator> validator =
                     QSharedPointer<QIntValidator>(new QIntValidator(1, 9999), &QObject::deleteLater);
         m_Edit->lineEdit()->setValidator(validator.data());
         m_Edit->lineEdit()->setText("100");
+        m_Edit->setAccessibleName(m_Edit->text());
         layout->addWidget(m_Edit);
-        connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);
+        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString & text){
+            emit TextChanged(text);
+            m_Edit->setAccessibleName("text");
+        });
     } else {
         m_ComboBox = new DComboBox();
+        //m_ComboBox->setAccessibleName(text.remove(QRegExp("\\s")));
         m_ComboBox->setEnabled(false);
         m_ComboBox->setFixedWidth(80);
         QStringList strList;
@@ -84,7 +90,10 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
                 << "100";
         m_ComboBox->addItems(strList);
         layout->addWidget(m_ComboBox);
-        connect(m_ComboBox, &DComboBox::currentTextChanged, this, &SettingsControlWidget::TextChanged);
+        connect(m_ComboBox, &DComboBox::currentTextChanged, this,  [=](const QString & text){
+            emit TextChanged(text);
+            m_ComboBox->setAccessibleName("text");
+        });
     }
 
     layout->addWidget(pTextLabel);
@@ -164,6 +173,7 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
     m_comboBox->setFixedWidth(150);
     m_comboBox->addItems(textList);
     m_comboBox->setCurrentText(currenttext);
+    m_comboBox->setAccessibleName(text.remove(QRegExp("\\s")));
     layout->addWidget(pLabel);
     layout->addStretch();
     layout->addWidget(m_comboBox, 0, Qt::AlignRight);
@@ -173,6 +183,7 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
             m_comboBox->setEnabled(true);
         });
         emit currentTextChanged(text);
+        m_comboBox->setAccessibleName(text);
     });
     return true;
 }

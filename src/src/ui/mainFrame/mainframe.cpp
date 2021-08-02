@@ -309,14 +309,23 @@ void MainFrame::initTray()
     m_SystemTray->setToolTip(tr("Downloader"));
 
     QAction *pShowMainAct = new QAction(tr("Show main window"), this);
+    pShowMainAct->setObjectName("Showmainwindow");
     QAction *pNewDownloadAct = new QAction(tr("New task"), this);
+    pNewDownloadAct->setObjectName("Newtask");
     QAction *pStartAllAct = new QAction(tr("Resume all"), this);
+    pStartAllAct->setObjectName("Resumeall");
     QAction *pPauseAllAct = new QAction(tr("Pause all"), this);
+    pPauseAllAct->setObjectName("Pauseall");
     QMenu *pFinishMenu = new QMenu(tr("When completed"), this);
+    pFinishMenu->setObjectName("Whencompleted");
     pFinishMenu->addAction(m_ShutdownAct);
     pFinishMenu->addAction(m_SleepAct);
     pFinishMenu->addAction(m_QuitProcessAct);
+    m_ShutdownAct->setObjectName("ShutdownAction");
+    m_SleepAct->setObjectName("SleepAction");
+    m_QuitProcessAct->setObjectName("QuitProcessAction");
     QAction *pQuitAct = new QAction(tr("Exit"), this);
+    pQuitAct->setObjectName("QuitAction");
 
     QMenu *pTrayMenu = new QMenu(this);
     pTrayMenu->addAction(pShowMainAct);
@@ -760,6 +769,7 @@ void MainFrame::onSettingsMenuClicked()
     DSettingsDialog settingsDialog(this);
     settingsDialog.setAccessibleName("DSettingsDialog");
     settingsDialog.setObjectName("DSettingsDialog");
+
 
     settingsDialog.widgetFactory()->registerWidget("filechooseredit", Settings::createFileChooserEditHandle);
     settingsDialog.widgetFactory()->registerWidget("httpdownload", Settings::createHttpDownloadEditHandle);
@@ -1268,18 +1278,21 @@ void MainFrame::onContextMenu(const QPoint &pos)
         if (pauseCount > 0 || errorCount > 0) {
             QAction *pActionStart = new QAction(this);
             pActionStart->setText(tr("Resume"));
+            pActionStart->setObjectName("ContextResume");
             delmenlist->addAction(pActionStart);
             connect(pActionStart, &QAction::triggered, this, &MainFrame::onStartDownloadBtnClicked);
         }
         if (activeCount > 0) {
             QAction *pActionPause = new QAction(this);
             pActionPause->setText(tr("Pause"));
+            pActionPause->setObjectName("ContextPause");
             delmenlist->addAction(pActionPause);
             connect(pActionPause, &QAction::triggered, this, &MainFrame::onPauseDownloadBtnClicked);
         }
         if (chkedCnt == 1 && waitCount == 1) {
             QAction *pActionDownloadNow = new QAction(this);
             pActionDownloadNow->setText(tr("Download first"));
+            pActionDownloadNow->setObjectName("ContextDownloadFirst");
             delmenlist->addAction(pActionDownloadNow);
             connect(pActionDownloadNow, &QAction::triggered, this, &MainFrame::onDownloadFirstBtnClicked);
         } else if(chkedCnt == 1 && pauseCount == 1) {
@@ -1292,6 +1305,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
             }
             if(activec == Settings::getInstance()->getMaxDownloadTaskNumber()){
                 QAction *pActionDownloadNow = new QAction(this);
+                pActionDownloadNow->setObjectName("ContextDownloadFirst");
                 pActionDownloadNow->setText(tr("Download first"));
                 delmenlist->addAction(pActionDownloadNow);
                 connect(pActionDownloadNow, &QAction::triggered, this, &MainFrame::onDownloadFirstBtnClicked);
@@ -1300,6 +1314,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         if ((errorCount > 0) && (1 == chkedCnt)) {
             QAction *pActionredownload = new QAction(this);
             pActionredownload->setText(tr("Download again"));
+            pActionredownload->setObjectName("ContextDownloadAgain");
             delmenlist->addAction(pActionredownload);
             connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
         }
@@ -1309,17 +1324,20 @@ void MainFrame::onContextMenu(const QPoint &pos)
     if (m_CurrentTab == CurrentTab::recycleTab && existFileCount > 0) {
         QAction *returnedToOrigin = new QAction(this);
         returnedToOrigin->setText(tr("Restore"));
+        returnedToOrigin->setObjectName("ContextRestore");
         delmenlist->addAction(returnedToOrigin);
         connect(returnedToOrigin, &QAction::triggered, this, &MainFrame::onReturnOriginActionTriggered);
     }
     if ((m_CurrentTab == CurrentTab::recycleTab || m_CurrentTab == CurrentTab::finishTab) && (1 == chkedCnt)) {
         QAction *pActionredownload = new QAction(this);
         pActionredownload->setText(tr("Download again"));
+        pActionredownload->setObjectName("ContextDownloadAgain");
         delmenlist->addAction(pActionredownload);
         connect(pActionredownload, &QAction::triggered, this, &MainFrame::onRedownloadActionTriggered);
         if ((m_CurrentTab == CurrentTab::finishTab && QFileInfo(pDownloadItem->savePath).exists()) || (m_CurrentTab == CurrentTab::recycleTab && QFileInfo(pDeleteItem->savePath).exists())) {
             QAction *pActionopenFile = new QAction(this);
             pActionopenFile->setText(tr("Open"));
+            pActionopenFile->setObjectName("ContextOpen");
             delmenlist->addAction(pActionopenFile);
             connect(pActionopenFile, &QAction::triggered, this, &MainFrame::onOpenFileActionTriggered);
         }
@@ -1328,7 +1346,9 @@ void MainFrame::onContextMenu(const QPoint &pos)
         || (1 == chkedCnt && m_CurrentTab == CurrentTab::recycleTab && QFileInfo(pDeleteItem->savePath).exists())) {
         QAction *pActionopenFoler = new QAction(this);
         pActionopenFoler->setText(tr("Open folder"));
+        pActionopenFoler->setObjectName("ContextOpenFolder");
         delmenlist->addAction(pActionopenFoler);
+
         connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
     }
 
@@ -1345,7 +1365,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
 
         if (1 == chkedCnt && QFileInfo(pDownloadItem->savePath).exists()) {
             QAction *pactionRename = new QAction(this);
-            pactionRename->setObjectName("rename");
+            pactionRename->setObjectName("ContextRename");
             pactionRename->setText(tr("Rename"));
             delmenlist->addAction(pactionRename);
             delmenlist->addSeparator();
@@ -1354,6 +1374,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         if (!noFileCount) {
             QAction *pActionMove = new QAction(this);
             pActionMove->setText(tr("Move to"));
+            pActionMove->setObjectName("ContextMoveto");
             delmenlist->addAction(pActionMove);
             delmenlist->addSeparator();
             connect(pActionMove, &QAction::triggered, this, &MainFrame::onMoveToActionTriggered);
@@ -1363,6 +1384,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     if (1 == chkedCnt && m_CurrentTab == CurrentTab::recycleTab) {
         QAction *pactionCopyDownloadUrl = new QAction(this);
         pactionCopyDownloadUrl->setText(tr("Copy download link"));
+        pactionCopyDownloadUrl->setObjectName("ContextCopyDownloadLink");
         delmenlist->addAction(pactionCopyDownloadUrl);
         delmenlist->addSeparator();
         connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
@@ -1373,17 +1395,20 @@ void MainFrame::onContextMenu(const QPoint &pos)
 
     QAction *pactiondelDownloading = new QAction(this);
     pactiondelDownloading->setText(tr("Delete"));
+    pactiondelDownloading->setObjectName("ContextDelete");
     delmenlist->addAction(pactiondelDownloading);
     connect(pactiondelDownloading, &QAction::triggered, this, &MainFrame::onDeleteActionTriggered);
 
     QAction *pactionDeletePermanently = new QAction(this);
     pactionDeletePermanently->setText(tr("Permanently delete"));
+    pactionDeletePermanently->setObjectName("ContextPermanentlyDelete");
     delmenlist->addAction(pactionDeletePermanently);
     connect(pactionDeletePermanently, &QAction::triggered, this, &MainFrame::onDeletePermanentActionTriggered);
 
     if (1 == chkedCnt && m_CurrentTab == CurrentTab::finishTab) {
         QAction *pactionCopyDownloadUrl = new QAction(this);
         pactionCopyDownloadUrl->setText(tr("Copy download link"));
+        pactionCopyDownloadUrl->setObjectName("ContextCopyDownloadLink");
         delmenlist->addAction(pactionCopyDownloadUrl);
         delmenlist->addSeparator();
         connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
@@ -1395,6 +1420,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     if (1 == chkedCnt && m_CurrentTab == CurrentTab::downloadingTab) {
         QAction *pactionCopyDownloadUrl = new QAction(this);
         pactionCopyDownloadUrl->setText(tr("Copy download link"));
+        pactionCopyDownloadUrl->setObjectName("ContextCopyDownloadLink");
         delmenlist->addAction(pactionCopyDownloadUrl);
         delmenlist->addSeparator();
         connect(pactionCopyDownloadUrl, &QAction::triggered, this, &MainFrame::onCopyUrlActionTriggered);
@@ -1403,6 +1429,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
         }
         QAction *pActionopenFoler = new QAction(this);
         pActionopenFoler->setText(tr("Open folder"));
+        pActionopenFoler->setObjectName("ContextOpenFolder");
         delmenlist->addAction(pActionopenFoler);
         connect(pActionopenFoler, &QAction::triggered, this, &MainFrame::onOpenFolderActionTriggered);
     }
@@ -1410,6 +1437,7 @@ void MainFrame::onContextMenu(const QPoint &pos)
     if (m_CurrentTab == recycleTab && 1 < chkedCnt) {
         QAction *pActionClearRecycle = new QAction(this);
         pActionClearRecycle->setText(tr("Delete all"));
+        pActionClearRecycle->setObjectName("ContextDeleteAll");
         delmenlist->addAction(pActionClearRecycle);
         connect(pActionClearRecycle, &QAction::triggered, this, &MainFrame::onClearRecyleActionTriggered);
     }
