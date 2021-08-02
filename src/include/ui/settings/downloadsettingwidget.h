@@ -81,7 +81,7 @@ signals:
     void speedLimitInfoChanged(QString text);
 
 public slots:
-
+    void onValueChanged(QVariant var);
 private slots:
 
     /**

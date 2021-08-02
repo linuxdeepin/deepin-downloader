@@ -54,6 +54,7 @@ void DownloadSettingWidget::initUI()
 
     m_fullSpeedDownloadButton = new DRadioButton(tr("Full speed")); // 全速下载
     m_fullSpeedDownloadButton->setObjectName("fullSpeedBtn");
+    m_fullSpeedDownloadButton->setAccessibleName("fullSpeedBtn");
     m_fullSpeedDownloadButton->setToolTip(tr("Downloaded files will be uploaded through P2P, "
                                              "\nwhich could help other users speed up the downloading, "
                                              "\nand it does not involve user privacy."));
@@ -64,9 +65,12 @@ void DownloadSettingWidget::initUI()
     //    pFullSpeedLabel->setWordWrap(true);
     m_speedLimitDownloadButton = new DRadioButton(tr("Limited speed")); // 限速下载
     m_speedLimitDownloadButton->setObjectName("speedLimitBtn");
+    m_speedLimitDownloadButton->setAccessibleName("speedLimitBtn");
     m_speedLimitDownloadButton->setChecked(true);
     m_maxDownloadSpeedLimit = new SettingInfoInputWidget;
+    m_maxDownloadSpeedLimit->setAccessibleName("maxDownloadSpeed");
     m_maxUploadSpeedLimit = new SettingInfoInputWidget;
+    m_maxUploadSpeedLimit->setAccessibleName("maxUploadSpeed");
 
     m_maxDownloadSpeedLimit->setWidgetWidth(390);
     m_maxUploadSpeedLimit->setWidgetWidth(390);
@@ -115,7 +119,9 @@ void DownloadSettingWidget::initUI()
     DLabel *centerLabel = new DLabel(tr("to")); // 至
     m_startTimeEdit = new CTimeEdit(this);
     m_startTimeEdit->setTime(QTime(7,00,00));
+    m_startTimeEdit->setAccessibleName("startTimeEdit");
     m_endTimeEdit = new CTimeEdit(this);
+    m_endTimeEdit->setAccessibleName("endTTimeEdit");
     m_endTimeEdit->setTime(QTime(18,00,00));
     m_startTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_startTimeEdit->dLineEdit(), m_startTimeEdit->dLineEdit());
     m_endTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_endTimeEdit->dLineEdit(), m_endTimeEdit->dLineEdit());
@@ -198,6 +204,44 @@ void DownloadSettingWidget::onRadioButtonClicked()
                            .arg(m_endTimeEdit->getTime().toString("hh:mm"));
 
         emit speedLimitInfoChanged(text);
+    }
+}
+
+void DownloadSettingWidget::onValueChanged(QVariant var){
+    if (!var.toString().isEmpty()) {
+        QString currentValue = var.toString();
+        int currentSelect = 2;
+        QString maxDownloadSpeedLimit;
+        QString maxUploadSpeedLimit;
+        QString startTime;
+        QString endTime;
+
+        if (currentValue.isEmpty()) {
+            maxDownloadSpeedLimit = "10240";
+            maxUploadSpeedLimit = "32";
+            startTime = "08:00:00";
+            endTime = "17:00:00";
+        } else {
+            if (currentValue.contains("fullspeed;")) {
+                currentSelect = 1;
+            }
+
+            QStringList currentValueList = currentValue.split(';');
+
+            if (currentValueList.count() > 4) {
+                maxDownloadSpeedLimit = currentValueList.at(1);
+                maxUploadSpeedLimit = currentValueList.at(2);
+                startTime = currentValueList.at(3);
+                endTime = currentValueList.at(4);
+            }
+        }
+
+        setCurrentSelectRadioButton(currentSelect);
+        setMaxDownloadSpeedLimit(maxDownloadSpeedLimit);
+        setMaxUploadSpeedLimit(maxUploadSpeedLimit);
+        setStartTime(startTime);
+        setEndTime(endTime);
+        //   option->blockSignals(false);
     }
 }
 

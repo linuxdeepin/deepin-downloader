@@ -641,44 +641,7 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
         }
     });
 
-    connect(option, &DSettingsOption::valueChanged, downloadSettingWidget, [=](QVariant var) {
-        // option->blockSignals(true);
-        if (!var.toString().isEmpty()) {
-            QString currentValue = option->value().toString();
-            int currentSelect = 2;
-            QString maxDownloadSpeedLimit;
-            QString maxUploadSpeedLimit;
-            QString startTime;
-            QString endTime;
-
-            if (currentValue.isEmpty()) {
-                maxDownloadSpeedLimit = "10240";
-                maxUploadSpeedLimit = "32";
-                startTime = "08:00:00";
-                endTime = "17:00:00";
-            } else {
-                if (currentValue.contains("fullspeed;")) {
-                    currentSelect = 1;
-                }
-
-                QStringList currentValueList = currentValue.split(';');
-
-                if (currentValueList.count() > 4) {
-                    maxDownloadSpeedLimit = currentValueList.at(1);
-                    maxUploadSpeedLimit = currentValueList.at(2);
-                    startTime = currentValueList.at(3);
-                    endTime = currentValueList.at(4);
-                }
-            }
-
-            downloadSettingWidget->setCurrentSelectRadioButton(currentSelect);
-            downloadSettingWidget->setMaxDownloadSpeedLimit(maxDownloadSpeedLimit);
-            downloadSettingWidget->setMaxUploadSpeedLimit(maxUploadSpeedLimit);
-            downloadSettingWidget->setStartTime(startTime);
-            downloadSettingWidget->setEndTime(endTime);
-            //   option->blockSignals(false);
-        }
-    });
+    connect(option, &DSettingsOption::valueChanged, downloadSettingWidget, &DownloadSettingWidget::onValueChanged);
 
     return downloadSettingWidget;
 }
@@ -704,6 +667,7 @@ QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
         check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
+    pWidget->setAccessibleName("totalSpeedLessThan");
     pWidget->resize(QSize(pWidget->size().width() + 10, pWidget->size().height()));
     pWidget->initUI(tr("When total speed less than"), tr("KB/s, increase concurrent tasks"));
     pWidget->setSpeend(speed);
@@ -786,6 +750,7 @@ QWidget *Settings::createPriorityDownloadBySizeHandle(QObject *obj)
         check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
+    pWidget->setAccessibleName("DownloadFilesLessThan");
     pWidget->initUI(tr("Download files less than"), tr("MB first"), false);
     pWidget->setSize(size);
     pWidget->setSwitch(check);
@@ -829,6 +794,7 @@ QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
         check = option->value().toString().left(1).toInt();
     }
     SettingsControlWidget *pWidget = new SettingsControlWidget();
+    pWidget->setAccessibleName("concurrentDownloadResources");
     pWidget->initUI(tr("Limit max. number of concurrent download resources"), tr(""), true);
     pWidget->setSpeend(size);
     pWidget->setSwitch(check);
@@ -849,6 +815,7 @@ QWidget *Settings::createAddressThreadHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->setAccessibleName("Originaladdressthreads");
     QStringList strList;
     strList << "1" << "3" << "5" << "7" << "10";
     QString currentValue = option->value().toString();
@@ -865,6 +832,7 @@ QWidget *Settings::createMaxDownloadTaskHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->setAccessibleName("MaxConcurrentDownloads");
     QStringList strList;
     strList << "3" << "5" << "10" << "20";
     QString currentValue = option->value().toString();
@@ -881,6 +849,7 @@ QWidget *Settings::createAutoOpenHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->setAccessibleName("OpenFilesWhenCompleted");
     pWidget->initUI(tr("Open files when completed"), option->value().toBool());
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
@@ -894,6 +863,7 @@ QWidget *Settings::createAutoDeleteHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->setAccessibleName("DeleteTasksWithoutFiles");
     pWidget->initUI(tr("Delete tasks without files"), option->value().toBool());
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
@@ -907,6 +877,7 @@ QWidget *Settings::createAutoSortBySpeedHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
+    pWidget->setAccessibleName("MoveSlowDownloadsToTheEnd");
     pWidget->initUI(tr("Move slow downloads to the end"), option->value().toBool());
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
