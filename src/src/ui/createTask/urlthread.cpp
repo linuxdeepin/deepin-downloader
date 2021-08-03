@@ -58,25 +58,35 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
     switch (statusCode) {
     case 200: // redirect (Location: [URL])   真实链接
     {
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
+        QProcess process;
+#else
         QProcess *process = new QProcess;
+#endif
         QStringList list;
         list << "-I" << reply->url().toString();
         if(list.size() > 2){
          //   list[1] = QUrl::toPercentEncoding(list[1]);
             list[1].replace(" ", "%20");
         }
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
+        process.start("curl", list);
+        connect(&process, &QProcess::readyReadStandardOutput, this, [=]() {
+#else
         process->start("curl", list);
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
+#endif
             static QMutex mutex;
             mutex.lock();
             QProcess *proc = dynamic_cast<QProcess *>(sender());
             QString str = proc->readAllStandardOutput();
-            //proc->kill();
-            //proc->close();
+
             QStringList urlList;
             urlList.append(proc->arguments().at(1));
-            //delete proc;
-            //proc = nullptr;
+            proc->kill();
+            proc->close();
+            delete proc;
+            proc = nullptr;
             m_linkInfo.urlSize = getUrlSize(str);
             if(m_linkInfo.urlSize.isEmpty()){
                 m_linkInfo.urlSize = "0KB";
@@ -108,14 +118,16 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             }
             mutex.unlock();
         });
-        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-             [=](int exitCode, QProcess::ExitStatus exitStatus){
-            QProcess *proc = dynamic_cast<QProcess *>(sender());
-            //proc->kill();
-            //proc->close();
-            delete proc;
-            //proc = nullptr;
-        });
+
+//        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+//             [=](int exitCode, QProcess::ExitStatus exitStatus){
+//            QProcess *proc = dynamic_cast<QProcess *>(sender());
+//            if(proc == nullptr){
+//                return;
+//            }
+//            delete proc;
+//            proc = nullptr;
+//        });
         break;
     }
     case 301:
@@ -159,10 +171,19 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             //onDownloadNewUrl(strUrl, Settings::getInstance()->getCustomFilePath(), encodingUrlName, type);
             proc->kill();
             proc->close();
-            delete proc;
-            proc = nullptr;
+           // delete proc;
+          //  proc = nullptr;
             mutex.unlock();
             begin();
+        });
+        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+             [=](int exitCode, QProcess::ExitStatus exitStatus){
+            QProcess *proc = dynamic_cast<QProcess *>(sender());
+            if(proc == nullptr){
+                return;
+            }
+            delete proc;
+            proc = nullptr;
         });
         break;
     }
