@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90c63724_7de4709f",
+        "filename": "src/src/ui/createTask/urlthread.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-08-03T10:59:36Z",
+      "side": 1,
+      "message": "注释行数: 11; 改动行数(修改和新增): 33; 注释率: 33.3%",
+      "revId": "75f8096d89bf9441eb56f6dc4a9a830b70772717",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
