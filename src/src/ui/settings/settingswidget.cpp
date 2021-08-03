@@ -74,7 +74,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         layout->addWidget(m_Edit);
         connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString & text){
             emit TextChanged(text);
-            m_Edit->setAccessibleName("text");
+            m_Edit->setAccessibleName(text);
         });
     } else {
         m_ComboBox = new DComboBox();
@@ -92,7 +92,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         layout->addWidget(m_ComboBox);
         connect(m_ComboBox, &DComboBox::currentTextChanged, this,  [=](const QString & text){
             emit TextChanged(text);
-            m_ComboBox->setAccessibleName("text");
+            m_ComboBox->setAccessibleName(text);
         });
     }
 
