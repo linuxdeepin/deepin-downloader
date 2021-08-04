@@ -171,19 +171,10 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             //onDownloadNewUrl(strUrl, Settings::getInstance()->getCustomFilePath(), encodingUrlName, type);
             proc->kill();
             proc->close();
-           // delete proc;
-          //  proc = nullptr;
-            mutex.unlock();
-            begin();
-        });
-        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-             [=](int exitCode, QProcess::ExitStatus exitStatus){
-            QProcess *proc = dynamic_cast<QProcess *>(sender());
-            if(proc == nullptr){
-                return;
-            }
             delete proc;
             proc = nullptr;
+            mutex.unlock();
+            begin();
         });
         break;
     }
