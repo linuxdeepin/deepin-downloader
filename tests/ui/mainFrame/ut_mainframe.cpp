@@ -150,8 +150,8 @@ TEST_F(ut_MainFreme, addHttpTask)
 
 TEST_F(ut_MainFreme, addHttpTaskk)
 {
-    MainFrame::instance()->onDownloadNewUrl("http://svip.bocai-zuida.com/2008/凡人修仙传-06.mp4",
-                                            Settings::getInstance()->getDownloadSavePath(), "凡人修仙传-06", "mp4");
+    MainFrame::instance()->onDownloadNewUrl("http://10.10.77.84/download/video-2.7GB.mp4",
+                                            Settings::getInstance()->getDownloadSavePath(), "video", "mp4");
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     QTest::qWait(500);
@@ -160,8 +160,8 @@ TEST_F(ut_MainFreme, addHttpTaskk)
 
 TEST_F(ut_MainFreme, addHttpTaskkk)
 {
-    MainFrame::instance()->onDownloadNewUrl("http://vipxz.bocai-zuida.com/2008/凡人修仙传-07.mp4",
-                                            Settings::getInstance()->getDownloadSavePath(), "凡人修仙传-07", "mp4");
+    MainFrame::instance()->onDownloadNewUrl("http://10.10.77.84/download/kubuntu-18.04.5-desktop-amd64.iso",
+                                            Settings::getInstance()->getDownloadSavePath(), "kubuntu", "iso");
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     QTest::qWait(500);
@@ -172,107 +172,89 @@ TEST_F(ut_MainFreme, changeList)
 {
     //MainFrame::instance()->m_DownLoadingTableView->m_TableModel->m_RenderList.clear();
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
-    MainFrame::instance()->onListClicked(list->model()->index(0, 0));
+    MainFrame::instance()->onListClicked(list->model()->index(1, 0));
 }
 
-//TEST_F(ut_MainFreme, rename)
-//{
-//    //MainFrame::instance()->show();
-//    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-//    TableModel *model = table->getTableModel();
-//    QTest::qWait(200);
-//    QRect rect = table->visualRect(model->index(0, 2));
-//    QTimer::singleShot(500, this, [=]() {
-//        QWidgetList w = QApplication::topLevelWidgets();
-//        for (int i = 0; i < w.count(); i++) {
-//            if (w.at(i)->objectName() == "tableMenu") {
-//                QPoint point = w.at(i)->rect().center();
-//                QTest::mouseClick(w.at(i), Qt::LeftButton, Qt::KeyboardModifiers(),
-//                                  QPoint(point.x(), point.y() - 80));
-//                QTest::qWait(500);
-//                DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
-//                if(w == nullptr){
-//                    return ;
-//                }
-//                w->lineEdit()->setText("");
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 't');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 'e');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 's');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 't');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 'O');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 'K');
-//                QTest::qWait(500);
-//                EXPECT_TRUE(w->lineEdit()->text() == "testOK");
-//                return;
-//            }
-//        }
-//    });
-//    QTest::mouseClick(table->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
-//    QTest::qWait(100);
-//    MainFrame::instance()->onContextMenu(rect.center());
-//    QTest::qWait(2000);
-//}
+TEST_F(ut_MainFreme, rename)
+{
+    Stub stub;
+    stub.set((QAction * (QMenu::*)(const QPoint &pos, QAction *at)) ADDR(QMenu, exec), QmenuExec);
+    TableView *table = MainFrame::instance()->m_DownLoadingTableView;
+    TableModel *model = table->getTableModel();
+    QTest::qWait(200);
+    QRect rect = table->visualRect(model->index(0, 2));
+    QTimer::singleShot(500, this, [=]() {
+        MainFrame::instance()->onRenameActionTriggered();
 
-//TEST_F(ut_MainFreme, rename2)
-//{
-//    MainFrame *m = MainFrame::instance();
-//    m->show();
-//    TableView *table = m->findChild<TableView *>("downloadTableView");
-//    TableModel *model = static_cast<TableModel *>(table->model());
-//    QTest::qWait(200);
-//    QRect rect = table->visualRect(model->index(0, 2));
-//    QTimer::singleShot(500, this, [=]() {
-//        QWidgetList w = QApplication::topLevelWidgets();
-////        MainFrame *mm = MainFrame::instance();
-////        QMenu *menu = mm->findChild<QMenu *>("tableMenu");
-////        QPoint point = menu->rect().center();
-//        for (int i = 0; i < w.count(); i++) {
-//            // qDebug() << "w: " << w.at(i)->objectName();
-//            if (w.at(i)->objectName() == "tableMenu") {
-//                //QAction *a = w.at(i)->findChild<QAction *>("rename");
-//                QPoint point = w.at(i)->rect().center();
-//                QTest::mouseClick(w.at(i), Qt::LeftButton, Qt::KeyboardModifiers(),
-//                                  QPoint(point.x(), point.y() - 80));
-//                QTest::qWait(500);
-//                DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
-//                if(w == nullptr){
-//                    return ;
-//                }
-//                w->lineEdit()->setText("");
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 't');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 'e');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 's');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 't');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 'O');
-//                QTest::qWait(100);
-//                QTest::keyClick(w->lineEdit(), 'K');
-//                QTest::qWait(500);
-//                QTest::keyClick(w->lineEdit(), 'l');
-//                QTest::qWait(500);
-//                QTest::keyClick(w->lineEdit(), 'e');
-//                QTest::qWait(500);
-//                EXPECT_TRUE(w->lineEdit()->text() == "testOKle");
-//                return;
-//            }
-//        }
-//    });
-//    QTest::mouseClick(table->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
-//    QTest::qWait(100);
-//    //QTest::mouseClick(table->viewport(), Qt::RightButton, Qt::KeyboardModifiers(), rect.center());
-//    m->onContextMenu(rect.center());
-//    QTest::qWait(2000);
-//}
+        QTest::qWait(500);
+        DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
+        if(w == nullptr){
+            return ;
+        }
+        w->lineEdit()->setText("");
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 't');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 'e');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 's');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 't');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 'O');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 'K');
+        QTest::qWait(500);
+        EXPECT_TRUE(w->lineEdit()->text() == "testOK");
+        return;
+    });
+    QTest::mouseClick(table->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    QTest::qWait(100);
+    MainFrame::instance()->onContextMenu(rect.center());
+    QTest::qWait(2000);
+}
+
+TEST_F(ut_MainFreme, rename2)
+{
+    Stub stub;
+    stub.set((QAction * (QMenu::*)(const QPoint &pos, QAction *at)) ADDR(QMenu, exec), QmenuExec);
+    TableView *table = MainFrame::instance()->m_DownLoadingTableView;
+    TableModel *model = static_cast<TableModel *>(table->model());
+    QTest::qWait(200);
+    QRect rect = table->visualRect(model->index(0, 2));
+    QTimer::singleShot(500, this, [=]() {
+        MainFrame::instance()->onRenameActionTriggered();
+        QTest::qWait(500);
+        DLineEdit *w = qobject_cast<DLineEdit *>(QApplication::focusWidget());
+        if(w == nullptr){
+            return ;
+        }
+        w->lineEdit()->setText("");
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 't');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 'e');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 's');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 't');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 'O');
+        QTest::qWait(100);
+        QTest::keyClick(w->lineEdit(), 'K');
+        QTest::qWait(500);
+        QTest::keyClick(w->lineEdit(), 'l');
+        QTest::qWait(500);
+        QTest::keyClick(w->lineEdit(), 'e');
+        QTest::qWait(500);
+        EXPECT_TRUE(w->lineEdit()->text() == "testOKle");
+        return;
+    });
+    QTest::mouseClick(table->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
+    QTest::qWait(100);
+    MainFrame::instance()->onContextMenu(rect.center());
+    QTest::qWait(2000);
+}
 
 TEST_F(ut_MainFreme, createNewTask)
 {
@@ -432,18 +414,18 @@ TEST_F(ut_MainFreme, changeToFinishList2)
     MainFrame::instance()->onListClicked(list->model()->index(1, 0));
 }
 
-//TEST_F(ut_MainFreme, deleteTask3)
-//{
-//    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
-//    TableModel *model = static_cast<TableModel *>(table->model());
-//    model->setData(model->index(0, 0), true, TableModel::Ischecked);
-//    table->getTableControl()->onDelAction(1);
-//    MainFrame::instance()->onDeleteConfirm(false, false);
-//    TableView *table2 = MainFrame::instance()->findChild<TableView *>("recycleTableView");
-//    TableModel *model2 = static_cast<TableModel *>(table2->model());
-//    EXPECT_TRUE(true);
-//    QTest::qWait(1000);
-//}
+TEST_F(ut_MainFreme, deleteTask3)
+{
+    TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
+    TableModel *model = static_cast<TableModel *>(table->model());
+    model->setData(model->index(0, 0), true, TableModel::Ischecked);
+    table->getTableControl()->onDelAction(1);
+    MainFrame::instance()->onDeleteConfirm(false, false);
+    TableView *table2 = MainFrame::instance()->findChild<TableView *>("recycleTableView");
+    TableModel *model2 = static_cast<TableModel *>(table2->model());
+    EXPECT_TRUE(true);
+    QTest::qWait(1000);
+}
 TEST_F(ut_MainFreme, changeToTrashList3)
 {
     DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
@@ -762,9 +744,7 @@ TEST_F(ut_MainFreme, showDiagnosticTool)
     Stub stub;
     stub.set(foo, DiagnostictoolExec);
     MainFrame::instance()->showDiagnosticTool();
-//    DiagnosticTool *tool = new DiagnosticTool();
-    //QTest::qWait(15000);
-//    delete tool;
+    QTest::qWait(5000);
 }
 
 TEST_F(ut_MainFreme, addHttpTask4)
@@ -850,7 +830,6 @@ TEST_F(ut_MainFreme, initConnection)
 //{
 //    MainFrame::instance()->initAria2();
 //}
-
 TEST_F(ut_MainFreme, initTabledata)
 {
     MainFrame::instance()->initTabledata();
@@ -1104,10 +1083,15 @@ TEST_F(ut_MainFreme, onTrayQuitClick_true)
     MainFrame::instance()->onTrayQuitClick(true);
 }
 
-TEST_F(ut_MainFreme, onTrayQuitClick_false)
-{
-    MainFrame::instance()->onTrayQuitClick(false);
-}
+//TEST_F(ut_MainFreme, onTrayQuitClick_false)
+//{
+//    typedef int (*fptr)(MessageBox *);
+//    fptr foo = (fptr)(&MessageBox::exec);
+//    Stub stub;
+//    stub.set(foo, MessageboxExec);
+//    MainFrame::instance()->m_ShutdownOk = false;
+//    MainFrame::instance()->onTrayQuitClick(false);
+//}
 
 TEST_F(ut_MainFreme, onMessageBoxConfirmClick)
 {

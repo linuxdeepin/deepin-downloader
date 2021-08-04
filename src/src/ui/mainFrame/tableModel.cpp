@@ -325,7 +325,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
                     return "Error";
                 }
             } else {
-                switch (data->status) {
+                switch (deldata->status) {
                     case 0:
                     return "Active";
                     case 1:

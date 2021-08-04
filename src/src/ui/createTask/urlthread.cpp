@@ -118,16 +118,6 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             }
             mutex.unlock();
         });
-
-//        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-//             [=](int exitCode, QProcess::ExitStatus exitStatus){
-//            QProcess *proc = dynamic_cast<QProcess *>(sender());
-//            if(proc == nullptr){
-//                return;
-//            }
-//            delete proc;
-//            proc = nullptr;
-//        });
         break;
     }
     case 301:

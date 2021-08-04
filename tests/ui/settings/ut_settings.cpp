@@ -523,6 +523,9 @@ TEST_F(ut_Settings, DownloadSettingWidget)
 
     pWidget->m_speedLimitDownloadButton->setCheckable(false);
     pWidget->onTimeChanged("22");
+    pWidget->onValueChanged(QVariant());
+    QVariant v(QString("asda"));
+    pWidget->onValueChanged(v);
     delete pWidget->m_fullSpeedDownloadButton;
     delete pWidget;
 }
