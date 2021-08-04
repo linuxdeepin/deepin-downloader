@@ -127,6 +127,8 @@ bool Aria2RPCInterface::startUp()
     qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
     QProcess proc; // = new QProcess;
+    proc.setStandardOutputFile("/dev/null");
+    proc.setStandardErrorFile("/dev/null");
     bool b = proc.startDetached(m_basePath + m_aria2cCmd, opt);
     proc.waitForStarted();
 
