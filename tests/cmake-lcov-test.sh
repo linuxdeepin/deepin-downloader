@@ -6,7 +6,7 @@ rm -r ../$utdir
 mkdir ../$utdir
 cd ../$utdir
 
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 make -j4
 
 ./bin/downloader_test --gtest_output=xml:./ut-report.txt
