@@ -9,6 +9,7 @@ set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
 set(ARIA2_NAME "aria2c")
 
+
 # 设置C++标准为 C++ 11
 set(CMAKE_CXX_STANDARD 11)
 
@@ -33,7 +34,9 @@ if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
 endif ()
 
 set(APP_RES_DIR "assets")
-
+if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "mips64")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -z noexecstack")
+endif()
 #库 和 执行文件 的设置输出的路径
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
