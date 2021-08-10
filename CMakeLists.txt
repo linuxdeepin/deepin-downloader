@@ -9,6 +9,7 @@ set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
 set(ARIA2_NAME "aria2c")
 
+
 # 设置C++标准为 C++ 11
 set(CMAKE_CXX_STANDARD 11)
 
