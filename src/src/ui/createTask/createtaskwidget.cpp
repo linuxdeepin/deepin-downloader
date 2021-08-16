@@ -1144,32 +1144,39 @@ void CreateTaskWidget::showTableWidget()
 
 bool CreateTaskWidget::isVideo(QString ext)
 {
-    QString types = "avi,mp4,mkv,flv,f4v,wmv,rmvb,rm,mpeg,mpg,mov,ts,m4v,vob";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "avi" << "mp4" << "mkv" << "flv" << "f4v" << "wmv"
+          << "rmvb" << "rm" << "mpeg" << "mpg" << "mov" << "ts" << "m4v" << "vob";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 bool CreateTaskWidget::isAudio(QString ext)
 {
-    QString types = "mp3,ogg,wav,ape,flac,wma,midi,aac,cda";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "mp3" << "ogg" << "wav" << "ape" << "flac" << "wma" << "midi" << "aac" << "cda";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 bool CreateTaskWidget::isPicture(QString ext)
 {
-    QString types = "jpg,jpeg,gif,png,bmp,svg,psd,tif,ico";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "jpg" << "jpeg" << "gif" << "png" << "bmp" << "svg" << "psd" << "tif" << "ico";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 bool CreateTaskWidget::isZip(QString ext)
 {
-    QString types = "rar,zip,cab,iso,jar,ace,7z,tar,gz,arj,lzh,uue,bz2,z,tar.gz";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "rar" << "zip" << "cab" << "iso" << "jar" << "ace"
+          << "7z" << "tar" << "gz" << "arj" << "lzh" << "uue" << "bz2" << "z" << "tar.gz";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 bool CreateTaskWidget::isDoc(QString ext)
 {
-    QString types = "txt,doc,xls,ppt,docx,xlsx,pptx";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "txt" << "doc" << "xls" << "ppt" << "docx" << "xlsx" << "pptx";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 QString CreateTaskWidget::getNetErrTip()
