@@ -430,6 +430,11 @@ private slots:
      */
     void onSearchItemClicked(QListWidgetItem *item);
 
+    /**
+     * @brief 开始或者继续下载任务
+    */
+    void continueDownload(Global::DownloadDataItem *pItem);
+
 private:
     /**
      * @brief 设置任务数
@@ -447,11 +452,6 @@ private:
      * @return 解析后Task结构体
      */
     void getNameFromUrl(TaskInfo &task, QString url, QString savePaht, QString name,QString fileLength, QString type = "");
-
-    /**
-     * @brief 开始或者继续下载任务
-    */
-    void continueDownload(Global::DownloadDataItem *pItem);
 
     /**
      * @brief 清除item的选中状态

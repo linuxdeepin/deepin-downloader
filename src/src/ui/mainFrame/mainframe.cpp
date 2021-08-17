@@ -100,7 +100,6 @@ MainFrame::MainFrame(QWidget *parent)
             m_Clipboard->checkClipboardHasUrl();
         }
     }
-
 }
 
 MainFrame *MainFrame::instance()
@@ -400,12 +399,12 @@ void MainFrame::updateDHTFile()
     QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht6.dat");
 
     QString dhtpah = QDir::homePath() + "/.config/uos/downloader/";
-    QProcess p;
-    p.startDetached("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -o" + dhtpah + "dht6.dat -O");
+    static QProcess p;
+    p.start("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -o" + dhtpah + "dht6.dat -O");
     p.setStandardOutputFile("/dev/null");
 
-    QProcess p2;
-    p2.startDetached("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -o" + dhtpah + "dht.dat -O");
+    static QProcess p2;
+    p2.start("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -o" + dhtpah + "dht.dat -O");
     p2.setStandardOutputFile("/dev/null");
 }
 
@@ -416,6 +415,7 @@ void MainFrame::initConnection()
     connect(m_DownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::RedownloadJob, this, &MainFrame::onRedownload);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadBt, this, &MainFrame::OpenFile);
+    connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::unPauseTask, this, &MainFrame::continueDownload);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::AutoDownloadMetalink, this, &MainFrame::OpenFile);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_DownLoadingTableView->getTableControl(), &TableDataControl::whenDownloadFinish, this, &MainFrame::onDownloadFinish);
@@ -852,7 +852,8 @@ void MainFrame::OpenFile(const QString &url)
     if (Settings::getInstance()->getNewTaskShowMainWindowState()) {
         Raise();
         setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-        btDiag.move(pos().x() + this->width() / 2 - btDiag.width() / 2, pos().y() + this->height() / 2 - btDiag.height() / 2);
+        //btDiag.move(pos().x() + this->width() / 2 - btDiag.width() / 2, pos().y() + this->height() / 2 - btDiag.height() / 2);
+        Dtk::Widget::moveToCenter(this);
     } else {
         if (windowState() == Qt::WindowMinimized) {
             hide();
@@ -1054,6 +1055,12 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
     urlInfo.infoHash = infoHash;
     DBInstance::addBtTask(urlInfo);
 
+    //等待500毫秒，aria2删除bt任务有延时
+//    QTime time;
+//    time.start();
+//    while (time.elapsed() < 300) {
+//        QCoreApplication::processEvents();
+//    }
     //opt.insert("out", infoName);
     // 开始下载
     Aria2RPCInterface::instance()->addTorrent(btPath, opt, strId);
@@ -1877,6 +1884,7 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
     } else if (method == ARIA2C_METHOD_REMOVE) {
         if (m_CurrentTab == CurrentTab::recycleTab) {
             QString id = json.value("id").toString();
+
             DeleteDataItem *pItem = m_RecycleTableView->getTableModel()->find(id, 0);
             if (pItem != nullptr) {
                 QString ariaTempFile = pItem->savePath + ".aria2";
@@ -1887,6 +1895,7 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
             }
         } else {
             QString id = json.value("id").toString();
+            qDebug() << "ARIA2C_METHOD_REMOVE: " << id;
             DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(id);
             if (pItem != nullptr) {
                 QString ariaTempFile = pItem->savePath + ".aria2";
@@ -1949,6 +1958,14 @@ void MainFrame::onRpcError(QString method, QString id, int error, QJsonObject ob
             QString taskId = sp.at(2);
             int rd = sp.at(1).toInt();
             emit redownload(taskId, rd);
+        }
+        if (method == ARIA2C_METHOD_REMOVE) {
+            QString id = obj.value("id").toString();
+            qDebug() << "ARIA2C_METHOD_REMOVE" << obj << "******************" << id;
+            DownloadDataItem* item = m_DownLoadingTableView->getTableModel()->find(id);
+            if(item != nullptr) {
+                m_DownLoadingTableView->getTableModel()->removeItem(item);
+            }
         }
     }
 }
@@ -3091,10 +3108,11 @@ void MainFrame::deleteTask(DownloadDataItem *pItem)
         }
     }
     DBInstance::delTask(pItem->taskId);
-    if (pItem->status == DownloadTaskStatus::Active || pItem->status == DownloadTaskStatus::Waiting) { //正在下载的任务，等删除返回成功在删除任务记录
+    if (pItem->status == DownloadTaskStatus::Active || pItem->status == DownloadTaskStatus::Waiting) { //正在下载的任务，等返回删除成功在删除任务记录
         return;
     }
     m_DownLoadingTableView->getTableModel()->removeItem(pItem);
+
     return;
 }
 
