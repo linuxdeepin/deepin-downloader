@@ -196,11 +196,11 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
                                 taskInfo.downloadFilename,
                                 time);
                 DBInstance::updateTaskInfoByID(task);
-                data->fileName = taskInfo.downloadFilename;
             } else {
                 task = TaskInfo(id, gId, 0, "", "", "Unknown", time);
                 DBInstance::addTask(task);
             }
+            data->fileName = taskInfo.downloadFilename;
             data->savePath = taskInfo.downloadPath; // + "/" + getTaskInfo.m_downloadFilename;
             data->url = taskInfo.url;
             data->totalLength = taskInfo.fileLength;
@@ -303,11 +303,19 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         status = Global::DownloadTaskStatus::Paused;
         downloadSpeed = -2;
     } else if (statusStr == "error") {
-        //        if ("12" == errorCode) {
-        //        }
-        status = Global::DownloadTaskStatus::Error;
-        downloadSpeed = -3;
-        dealNotificaitonSettings(statusStr, fileName, errorCode);
+        if(errorCode == "12") {
+            status = Global::DownloadTaskStatus::Active;
+            downloadSpeed = 0;
+            QTimer::singleShot(1000, this, [=]() {
+                DownloadDataItem *dataItem = m_DownloadTableView->getTableModel()->find(taskId);
+                if(dataItem != nullptr && dataItem->taskId != nullptr && dataItem->fileName != nullptr && dataItem->savePath != nullptr)
+                    emit unPauseTask(dataItem);
+            });
+        } else {
+            status = Global::DownloadTaskStatus::Error;
+            downloadSpeed = -3;
+            dealNotificaitonSettings(statusStr, fileName, errorCode);
+        }
     } else if (statusStr == "complete") {
         data->status = Global::DownloadTaskStatus::Complete;
         status = Global::DownloadTaskStatus::Complete;
@@ -531,6 +539,7 @@ bool TableDataControl::aria2GetGlobalStatus(QJsonObject &json)
 bool TableDataControl::aria2MethodForceRemove(QJsonObject &json)
 {
     QString id = json.value("id").toString();
+    qDebug() << "aria2MethodForceRemove: " << id;
     if (id.startsWith("REDOWNLOAD_")) { // 重新下载前的移除完成后
         QStringList sp = id.split("_");
         if (sp.size() >= 3) {
