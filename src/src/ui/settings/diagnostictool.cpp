@@ -116,12 +116,14 @@ void DiagnosticTool::initUI()
     m_Tableview->verticalHeader()->setDefaultSectionSize(40);
     m_Tableview->setFixedSize(404, 245);
     m_Tableview->setShowGrid(false);
+    m_Tableview->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
     m_Tableview->setColumnWidth(0, 42);
-    m_Tableview->setColumnWidth(1, 310);
-    m_Tableview->setColumnWidth(2, 55);
+    m_Tableview->setColumnWidth(1, 290);
+    m_Tableview->setColumnWidth(2, 75);
     m_Tableview->setAlternatingRowColors(true);
     m_Tableview->setEnabled(false);
     m_Tableview->verticalScrollBar()->setHidden(true);
+
 }
 
 void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
@@ -240,6 +242,11 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
             }
         } else if (index.column() == 2) {
             return m_DiagnosticStatusList.at(index.row()) ? tr("Pass") : tr("Failed");
+        }
+        break;
+    case Qt::TextAlignmentRole:
+        if (index.column() == 2) {
+            return Qt::AlignLeft;
         }
         break;
     case Qt::TextColorRole:

@@ -251,6 +251,8 @@ signals:
     */
     void addMaxDownloadTask(int num);
 
+    void unPauseTask(Global::DownloadDataItem *pItem);
+
 private:
     TableView *m_DownloadTableView;
     TableView *m_RececleTableView;
