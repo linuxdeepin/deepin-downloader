@@ -336,7 +336,7 @@ int BtInfoDialog::exec()
 
 bool BtInfoDialog::onBtnOK()
 {
-    if (getSelected().isNull()) {
+    if (getSelected().isEmpty()) {
         return false;
     }
 

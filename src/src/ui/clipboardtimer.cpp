@@ -62,7 +62,7 @@ void ClipboardTimer::getDataChanged()
     const QMimeData *mimeData = m_clipboard->mimeData();
     QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
     if(m_sessionType == QLatin1String("wayland")){
-        if(m_clipboard->text() == m_lastUrl || m_clipboard->text().isNull()){
+        if(m_clipboard->text() == m_lastUrl || m_clipboard->text().isEmpty()){
             return;
         }
         if(isInitWayland){

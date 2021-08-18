@@ -951,7 +951,7 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
     }
     QMimeDatabase db;
     type = db.suffixForFileName(name);
-    if (!type.isNull()) {
+    if (!type.isEmpty()) {
         name = name.mid(0, name.size() - type.size() - 1);
     } else {
         QStringList splitStr = name.split("?");
@@ -960,7 +960,7 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
         {
             type = db.suffixForFileName(splitStr[0]);
         }
-        if (type.isNull()) {
+        if (type.isEmpty()) {
             type = "error";
         }
     }
@@ -971,12 +971,12 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 {
     m_model->insertRows(index, 0, QModelIndex());
     m_model->setData(m_model->index(index, 0, QModelIndex()),size == "" ? "0" : "1");
-    if (!name.isNull()) {
+    if (!name.isEmpty()) {
          m_model->setData(m_model->index(index, 1, QModelIndex()),name);
     }
 
     QString str = m_model->data(m_model->index(index, 1),1).toString();  //获取不到名称就加默认名称
-    if(!str.size() && !size.isNull() && !type.isNull()){
+    if(!str.size() && !size.isEmpty() && !type.isEmpty()){
         QTime t;
         t.start();
         while(t.elapsed()<10);
@@ -991,7 +991,7 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
         m_model->setData(m_model->index(index, 1, QModelIndex()),defaultName);
     }
     m_model->setData(m_model->index(index, 2, QModelIndex()),type);
-    if (type == "html" && size.isNull()) {
+    if (type == "html" && size.isEmpty()) {
         m_model->setData(m_model->index(index, 3, QModelIndex()),"0KB");
         m_model->setData(m_model->index(index, 4, QModelIndex()), QString::number(1024));
     } else {

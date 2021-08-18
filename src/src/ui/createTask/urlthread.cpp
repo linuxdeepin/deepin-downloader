@@ -146,7 +146,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             QString encodingUrlName;
             QMimeDatabase db;
             QString type = db.suffixForFileName(strList[strList.size() - 1]);
-            if (!type.isNull()) {
+            if (!type.isEmpty()) {
                 encodingUrlName = strList[strList.size() - 1].mid(0, strList[strList.size() - 1].size() - type.size() - 1);
             } else {
                 encodingUrlName = strUrlName[0]; //QUrl::fromPercentEncoding(strUrlName[0].toUtf8());
@@ -274,10 +274,10 @@ QString UrlThread::getUrlType(QString url)
             break;
         }
     }
-    if(type.isNull()){
+    if(type.isEmpty()){
         type = db.suffixForFileName(m_linkInfo.url);
     }
-    if(type.isNull()){
+    if(type.isEmpty()){
         type = getNoContentType();
     }
     return type;
