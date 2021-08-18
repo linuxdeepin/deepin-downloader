@@ -41,6 +41,7 @@
 #include <QSharedMemory>
 #include <dpinyin.h>
 #include <QFont>
+#include <QTimer>
 
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath,QWidget *parent)
     : DDialog(parent)
@@ -718,16 +719,18 @@ void BtInfoDialog::setOkBtnStatus(int count)
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)
 {
-    QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloader");
-    if (sharedMemory.attach()) //设置成单例程序
-    {
-        sharedMemory.lock();
-        char *to = static_cast<char *>(sharedMemory.data());
-        int num = sharedMemory.size();
-        memset(to, 0, num);
-        sharedMemory.unlock();
-    }
+    QTimer::singleShot(5000, this, [=](){
+        QSharedMemory sharedMemory;
+        sharedMemory.setKey("downloader");
+        if (sharedMemory.attach()) //设置成单例程序
+        {
+            sharedMemory.lock();
+            char *to = static_cast<char *>(sharedMemory.data());
+            int num = sharedMemory.size();
+            memset(to, 0, num);
+            sharedMemory.unlock();
+        }
+    });
 }
 
 //void BtInfoDialog::sortByFileName(bool ret)

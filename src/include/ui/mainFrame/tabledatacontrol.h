@@ -32,7 +32,6 @@
 #include <QThread>
 
 class TableView;
-class QSharedMemory;
 struct TaskInfo;
 namespace Global {
 struct DownloadDataItem;

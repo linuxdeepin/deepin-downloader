@@ -664,7 +664,6 @@ private:
     QAction *m_ShutdownAct;
     QAction *m_SleepAct;
     QAction *m_QuitProcessAct;
-
     int m_timeInterval = 2000;
 signals:
     void isHeaderChecked(bool checked);

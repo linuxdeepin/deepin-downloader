@@ -95,7 +95,7 @@ MainFrame::MainFrame(QWidget *parent)
     initTabledata();
     setPaletteType();
     QString clipboradStr = QApplication::clipboard()->text();
-    if(!clipboradStr.isNull()){
+    if(!clipboradStr.isEmpty()){
         if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
             m_Clipboard->checkClipboardHasUrl();
         }
@@ -1023,7 +1023,7 @@ bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &op
 {
     QString selectedNum = opt.value("select-file").toString();
 
-    if (selectedNum.isNull()) {
+    if (selectedNum.isEmpty()) {
         qDebug() << "select is null";
         return false;
     }
@@ -3134,6 +3134,10 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
             if (ret != DDialog::Accepted) {
                 return false;
             } else {
+                DownloadDataItem *pItemData = m_DownLoadingTableView->getTableModel()->find(info.taskId);
+                if(pItemData == nullptr) {
+                    return false;
+                }
                 if (pItem != nullptr) {
                     deleteTask(pItem);
                 } else {
