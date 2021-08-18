@@ -31,7 +31,6 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QCoreApplication>
-#include <QSharedMemory>
 #include <QDBusConnection>
 
 Websockethandle::Websockethandle(QObject *parent)

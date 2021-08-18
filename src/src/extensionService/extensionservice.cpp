@@ -31,7 +31,6 @@
 #include <QWebSocketServer>
 #include <QWebChannel>
 #include <QWebSocket>
-#include <QSharedMemory>
 #include <QProcess>
 #include <QTimer>
 #include <QDBusMessage>

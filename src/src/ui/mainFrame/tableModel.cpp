@@ -172,6 +172,7 @@ bool TableModel::removeItem(DownloadDataItem *data)
         m_DataList.removeOne(data);
         m_RenderList.removeOne(data);
         delete data;
+        data = nullptr;
         endRemoveRows();
     }
     return true;
@@ -187,6 +188,7 @@ bool TableModel::removeItem(DeleteDataItem *data)
         m_Deletemap.remove(data->taskId);
         m_RecyleList.removeOne(data);
         delete data;
+        data = nullptr;
         endRemoveRows();
     }
     return true;
