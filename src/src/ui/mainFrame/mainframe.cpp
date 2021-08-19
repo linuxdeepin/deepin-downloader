@@ -48,7 +48,6 @@
 #include <QDesktopServices>
 #include <QDebug>
 #include <QDBusInterface>
-#include <QSharedMemory>
 #include <QMimeDatabase>
 #include <QUuid>
 #include <QTableWidgetItem>
@@ -876,7 +875,6 @@ void MainFrame::OpenFile(const QString &url)
             btNotificaitonSettings(tr("Downloading"), QString(tr("Downloading %1...")).arg(infoName), true);
         }
     }
-    //clearSharedMemory();
 }
 
 void MainFrame::onListClicked(const QModelIndex &index)
@@ -2883,20 +2881,6 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
     onCheckChanged(0, 0);
     m_ToolBar->clearSearchText();
     pWidget->hide();
-}
-
-void MainFrame::clearSharedMemory()
-{
-    QSharedMemory sharedMemory("downloader");
-    if (sharedMemory.attach()) {
-        if (sharedMemory.isAttached()) {
-            sharedMemory.lock();
-            char *to = static_cast<char *>(sharedMemory.data());
-            size_t num = strlen(to);
-            memset(to, 0, num);
-            sharedMemory.unlock();
-        }
-    }
 }
 
 bool MainFrame::isAutoStart()

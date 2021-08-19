@@ -522,11 +522,6 @@ private:
     bool isMagnet(QString url);
 
     /**
-     * @brief 清空共享内存
-    */
-    void clearSharedMemory();
-
-    /**
      * @brief 开始下载任务
      */
     void startDownloadTask(Global::DownloadDataItem *pItem);

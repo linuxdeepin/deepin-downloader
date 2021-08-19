@@ -232,24 +232,27 @@ signals:
 
     /**
      * @brief 删除完成
-    */
+     */
     void removeFinished();
 
     /**
      * @brief 受到删除bt的回复，开始下载任务
-    */
+     */
     void startDownload();
 
     /**
      * @brief 进行下载完成后的操作
-    */
+     */
     void whenDownloadFinish();
 
     /**
      * @brief 增加一个最大下载任务数
-    */
+     */
     void addMaxDownloadTask(int num);
 
+    /**
+     * @brief 继续下载任务信号
+     */
     void unPauseTask(Global::DownloadDataItem *pItem);
 
 private:

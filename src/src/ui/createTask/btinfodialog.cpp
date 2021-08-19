@@ -719,7 +719,7 @@ void BtInfoDialog::setOkBtnStatus(int count)
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)
 {
-    QTimer::singleShot(5000, this, [=](){
+    QTimer::singleShot(5000, this->parent(), [=](){
         QSharedMemory sharedMemory;
         sharedMemory.setKey("downloader");
         if (sharedMemory.attach()) //设置成单例程序

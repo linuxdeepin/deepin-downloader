@@ -114,6 +114,7 @@ int main(int argc, char *argv[])
                         iface.asyncCall("createNewTask", comList[0]);
                     } else {
                         iface.asyncCall("OpenFile", comList[0]);
+                        qDebug() << "OpenFile :  " << comList[0];
                     }
                 }
             }
@@ -180,6 +181,7 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
     const char *from = buffer.data().constData();
     int size = strUrl.size();
     int num = qMin(size, sharedMemory.size());
+    memset(to, 0, 199);
     memcpy(to, from, static_cast<size_t>(num));
     sharedMemory.unlock();
 }
