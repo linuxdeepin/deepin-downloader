@@ -60,6 +60,10 @@ QAccessibleInterface *accessibleFactory(const QString &classname, QObject *objec
 int main(int argc, char *argv[])
 {
 
+    if (qEnvironmentVariableIsEmpty("XDG_CURRENT_DESKTOP")){
+            qputenv("XDG_CURRENT_DESKTOP", "Deepin");
+    }
+
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
     if (XDG_SESSION_TYPE == QLatin1String("x11")) {

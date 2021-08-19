@@ -1,3 +1,9 @@
+downloadmanager (5.3.47) stable; urgency=medium
+
+  * 修改root启动界面显示异常
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 19 Aug 2021 13:32:44 +0800
+
 downloadmanager (5.3.46) stable; urgency=medium
 
   * 修改2个bug
