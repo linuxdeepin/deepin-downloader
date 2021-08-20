@@ -197,6 +197,11 @@ private:
     bool reDownloadTask(QString taskId, QString filePath, QString fileName, QString url);
 
 
+    /**
+     * @brief 下载的任务，文件不存在时的处理逻辑
+     * @return true: 重新下载成功  false：失败
+     */
+    bool excuteFileNotExist(Global::DownloadDataItem *data, QString filename, QString taskId);
 public slots:
 
     /**
