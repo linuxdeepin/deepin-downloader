@@ -105,7 +105,7 @@ TEST_F(ut_CreateTaskWidget, init)
     c->onOtherCheck();
     c->onAllCheck();
 
-
+    QTest::qWait(2000);
 
     QTest::mouseClick(cancel, Qt::LeftButton);
     if(c->m_delegate->m_checkBtn != nullptr){
@@ -126,7 +126,12 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
     Stub stub;
     stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
 
-    BtInfoDialog btDiag(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
+    typedef int (*fptr)(DSettingsDialog *);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub1;
+    stub1.set(foo, MessageboxExec);
+
+    BtInfoDialog btDiag(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Documents/zimu.torrent", " "); // torrent文件路径//    DCheckBox *all = btDiag.findChild<DCheckBox *>("checkAll");
 
 
     btDiag.onAllCheck();
@@ -145,7 +150,7 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialog)
     DCheckBox *other = btDiag.findChild<DCheckBox *>("checkOther");
     DPushButton *cancel = btDiag.findChild<DPushButton *>("cancelButton");
     DPushButton *checkAll = btDiag.findChild<DPushButton *>("checkAll");
-
+    QTest::qWait(2000);
     btDiag.onBtnOK();
     EXPECT_TRUE(true);
 }
@@ -154,7 +159,7 @@ TEST_F(ut_CreateTaskWidget, BtInfoDialogShow)
 {
     Stub stub;
     stub.set(ADDR(BtInfoDialog, setWindowTitle), BtinfodialogSetwindowtitle);
-    BtInfoDialog * btDig = new BtInfoDialog(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent", " ");
+    BtInfoDialog * btDig = new BtInfoDialog(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Documents/zimu.torrent", " ");
 
 
     QTimer::singleShot(1000, this, [=]() {

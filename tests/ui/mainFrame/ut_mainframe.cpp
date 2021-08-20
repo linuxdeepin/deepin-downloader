@@ -58,11 +58,11 @@ TEST_F(ut_MainFreme, onSearchItemClicked1)
     pItem1->taskId = "111";
     pItem1->status = 0;
 
-    //MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
     QListWidgetItem item;
     item.setData(Qt::WhatsThisRole, "1");
     item.setData(Qt::UserRole, "Downloading");
-    //MainFrame::instance()->onSearchItemClicked(&item);
+    MainFrame::instance()->onSearchItemClicked(&item);
 }
 TEST_F(ut_MainFreme, onSearchItemClicked2)
 {
@@ -72,11 +72,11 @@ TEST_F(ut_MainFreme, onSearchItemClicked2)
     pItem1->taskId = "123";
     pItem1->status = 3;
     pItem1->fileName = "pItem1";
-    //MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
     QListWidgetItem item;
     item.setData(Qt::WhatsThisRole, "2");
     item.setData(Qt::UserRole, "Completed");
-    //MainFrame::instance()->onSearchItemClicked(&item);
+    MainFrame::instance()->onSearchItemClicked(&item);
 }
 TEST_F(ut_MainFreme, onSearchItemClicked3)
 {
@@ -86,14 +86,14 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
     pItem3->taskId = "1234";
     pItem3->status = 4;
     pItem3->fileName = "pItem3";
-    //MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem3);
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTablemodelMode();
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->recyleList();
     QListWidgetItem item;
     item.setData(Qt::WhatsThisRole, "3");
     item.setData(Qt::UserRole, "Trash");
-    //MainFrame::instance()->onSearchItemClicked(&item);
+    MainFrame::instance()->onSearchItemClicked(&item);
 }
 TEST_F(ut_MainFreme, onSearchEditTextChanged)
 {
@@ -101,26 +101,25 @@ TEST_F(ut_MainFreme, onSearchEditTextChanged)
     pItem1->taskId = "123";
     pItem1->status = 3;
     pItem1->fileName = "1pItem1";
-    //MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
-    //MainFrame::instance()->onSearchEditTextChanged("1");
+    MainFrame::instance()->m_DownLoadingTableView->getTableModel()->append(pItem1);
+    MainFrame::instance()->onSearchEditTextChanged("1");
 }
 
 //metalink任务
-//TEST_F(ut_MainFreme, addMetalinkTask)
-//{
-//    Stub stub;
-//    stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
-//    Stub stub2;
-//    stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
-//    Stub stub3;
-//    stub3.set(ADDR(MainFrame, initWebsocket), MainFrameInitWebsocket);
-//    auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
-//    option->setValue(2);
-//    MainFrame::instance()->onDownloadNewUrl("magnet:?xt=urn:btih:081C0AF2B872414061813F0B8CC18A1A79C5ED1D",
-//                                            Settings::getInstance()->getDownloadSavePath(), "8A1A79C5ED1D", "torrent");
-//    QTest::qWait(15000);
-//    EXPECT_TRUE(true);
-//}
+TEST_F(ut_MainFreme, addMetalinkTask)
+{
+    Stub stub;
+    stub.set(ADDR(QSystemTrayIcon, show), QsystemtrayiconShow);
+    Stub stub2;
+    stub2.set(ADDR(ClipboardTimer, checkClipboardHasUrl), ClipboardtimerCheckclipboardhasurl);
+    Stub stub3;
+    auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
+    option->setValue(2);
+    MainFrame::instance()->onDownloadNewUrl("magnet:?xt=urn:btih:0FC4D73CCC9E6AC29A1B10DDCC3696E81D6CACAF",
+                                            Settings::getInstance()->getDownloadSavePath(), "qweqwe", "torrent");
+    QTest::qWait(15000);
+    EXPECT_TRUE(true);
+}
 //小任务，可以快速下载完，方便测试已完成列表。
 TEST_F(ut_MainFreme, addHttpFastTask)
 {
@@ -164,8 +163,8 @@ TEST_F(ut_MainFreme, addHttpTaskk)
 
 TEST_F(ut_MainFreme, addHttpTaskkk)
 {
-    MainFrame::instance()->onDownloadNewUrl("http://10.10.77.84/download/kubuntu-18.04.5-desktop-amd64.iso",
-                                            Settings::getInstance()->getDownloadSavePath(), "kubuntu", "iso");
+    MainFrame::instance()->onDownloadNewUrl("http://10.10.77.84/download/image-1.png",
+                                            Settings::getInstance()->getDownloadSavePath(), "image", "png");
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
     QTest::qWait(500);
@@ -293,14 +292,8 @@ TEST_F(ut_MainFreme, addMetalinkTask2)
 
 TEST_F(ut_MainFreme, changeList1)
 {
-    MainFrame *m = MainFrame::instance();
-    DListView *list = m->findChild<DListView *>("leftList");
-    QStandardItemModel *model = static_cast<QStandardItemModel *>(list->model());
-    QTest::qWait(200);
-    QRect rect = list->visualRect(model->index(0, 0));
-    QTest::mouseClick(list->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
-    EXPECT_TRUE(list->currentIndex().row() == 0);
-    QTest::qWait(2000);
+    DListView *list = MainFrame::instance()->findChild<DListView *>("leftList");
+    MainFrame::instance()->onListClicked(list->model()->index(0, 0));
 }
 
 TEST_F(ut_MainFreme, pauseTask)
@@ -520,7 +513,35 @@ TEST_F(ut_MainFreme, onRedownloadActionTriggered)
     }
 }
 
-TEST_F(ut_MainFreme, onRedownloadActionTriggered2)
+TEST_F(ut_MainFreme, addBtTask_zimu)
+{
+    QMap<QString, QVariant> opt;
+    opt.insert("dir", "/home/san/Downloads");
+    opt.insert("select-file", "1,2,3,4");
+    MainFrame::instance()->onDownloadNewTorrent(QDir::homePath() + "/Documents/zimu.torrent",
+                                                opt, "8A1A79C5ED1D.torrent", "magnet:?xt=urn:btih:081c0af2b872414061813f0b8cc18a1a79c5ed1d");
+    QTest::qWait(500);
+    EXPECT_TRUE(true);
+    QTest::qWait(2000);
+}
+
+TEST_F(ut_MainFreme, removeBtTask)
+{
+    typedef int (*fptr)(DSettingsDialog *);
+    fptr foo = (fptr)(&MessageBox::exec);
+    Stub stub;
+    stub.set(foo, MessageboxExec);
+    MainFrame::instance()->m_CurrentTab = CurrentTab::downloadingTab;
+    const QList<DownloadDataItem *> &selectList = MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
+    for (auto item : selectList) {
+        if (item->fileName .contains("8A1A79C5ED1D.torrent")) {
+            item->isChecked = true;
+        }
+    }
+    MainFrame::instance()->onDeleteActionTriggered();
+}
+
+TEST_F(ut_MainFreme, onRedownloadActionTriggered_bt)
 {
     typedef int (*fptr)(DSettingsDialog *);
     fptr foo = (fptr)(&MessageBox::exec);
@@ -563,7 +584,7 @@ TEST_F(ut_MainFreme, OpenFile)
     fptr foo = (fptr)(&BtInfoDialog::exec);
     Stub stub;
     stub.set(foo, MessageboxExec);
-    MainFrame::instance()->OpenFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Desktop/seed/123.torrent");
+    MainFrame::instance()->OpenFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Documents/123.torrent");
 }
 
 TEST_F(ut_MainFreme, onOpenFileActionTriggered)
@@ -608,8 +629,10 @@ TEST_F(ut_MainFreme, removeDownloadListJob)
 {
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
-    Global::DownloadDataItem *data = model->renderList().at(0);
-    table->getTableControl()->removeDownloadListJob(data, true, true);
+    if(model->renderList().size() > 0) {
+        Global::DownloadDataItem *data = model->renderList().at(0);
+        table->getTableControl()->removeDownloadListJob(data, true, true);
+    }
 }
 
 TEST_F(ut_MainFreme, initDataItem)
@@ -743,12 +766,10 @@ TEST_F(ut_MainFreme, onSettingsMenuClicked2)
 
 TEST_F(ut_MainFreme, showDiagnosticTool)
 {
-    typedef int (*fptr)(DSettingsDialog *);
-    fptr foo = (fptr)(&DiagnosticTool::exec);
-    Stub stub;
-    stub.set(foo, DiagnostictoolExec);
-    MainFrame::instance()->showDiagnosticTool();
+    DiagnosticTool control;
+    control.show();
     QTest::qWait(5000);
+
 }
 
 TEST_F(ut_MainFreme, addHttpTask4)
@@ -1081,11 +1102,54 @@ TEST_F(ut_MainFreme, onNewBtnClicked)
 //{
 //    MainFrame::instance()->close();
 //}
+
+TEST_F(ut_MainFreme, key_press)
+{
+    QTest::keyClick(MainFrame::instance(), Qt::Key_Control);
+    QTest::keyClick(MainFrame::instance(), Qt::Key_A);
+}
+
+TEST_F(ut_MainFreme, excuteFileNotExist)
+{
+    Stub stub;
+    stub.set(ADDR(MainFrame, onDownloadNewUrl), MainframeOndownloadnewurl);
+    typedef int (*fptr)(DSettingsDialog *);
+    fptr foo = (fptr)(&MessageBox::exec);
+
+    const QList<DownloadDataItem *> list = MainFrame::instance()->m_DownLoadingTableView->getTableModel()->dataList();
+    if(list.length() > 10) {
+        MainFrame::instance()->m_DownLoadingTableView->m_TableDataControl->excuteFileNotExist(list.at(10), list.at(10)->fileName, list.at(10)->taskId);
+    }
+}
+
+TEST_F(ut_MainFreme, onActivated_true)
+{
+    MainFrame::instance()->onActivated(QSystemTrayIcon::Trigger);
+}
+
 TEST_F(ut_MainFreme, onTrayQuitClick_true)
 {
     MainFrame::instance()->m_ShutdownOk = true;
     MainFrame::instance()->onTrayQuitClick(true);
 }
+
+TEST_F(ut_MainFreme, model_data_AccessibleTextRole)
+{
+    TableModel *model = MainFrame::instance()->m_DownLoadingTableView->m_TableModel;
+    model->data(model->index(0,0), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,1), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,2), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,3), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,4), Qt::AccessibleDescriptionRole);
+
+    model->m_TableviewtabFlag = 1;
+    model->data(model->index(0,0), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,1), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,2), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,3), Qt::AccessibleDescriptionRole);
+    model->data(model->index(0,4), Qt::AccessibleDescriptionRole);
+}
+
 
 //TEST_F(ut_MainFreme, onTrayQuitClick_false)
 //{
@@ -1155,6 +1219,10 @@ TEST_F(ut_MainFreme, onRpcError)
     delete pItem2;
 }
 
+TEST_F(ut_MainFreme, close)
+{
+    MainFrame::instance()->close();
+}
 
 TEST_F(ut_MainFreme, clearAllTask)
 {

@@ -62,8 +62,6 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_datadir}/downloader/config/config.conf
 %{_datadir}/downloader/config/content-type.conf
 %{_datadir}/downloader/database/downloader.db
-%{_datadir}/downloader/extension/ojlicckikdkkaclkpdddijgehekpmmbg.crx
-%{_datadir}/downloader/extension/info.json
 /usr/lib/libdlmaria2.so
 /usr/lib/libdlmcontrolui.so
 /usr/lib/libdlmdatabase.so

@@ -272,29 +272,7 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         QDateTime currentTime = QDateTime::currentDateTime();
         if ((!QFileInfo::exists(data->savePath)) && (createTime < currentTime)
             && (!fileName.contains("[METADATA]")) && (!data->strartDownloadTime.isEmpty())) {
-            Aria2RPCInterface::instance()->remove(data->gid);
-            if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
-                removeDownloadListJob(data);
-                return true;
-            }
-            data->status = Global::DownloadTaskStatus::Error;
-            static QString taskLsit;
-            static QString unusualId;
-
-            if (taskLsit.isEmpty()) {
-                QTimer::singleShot(500, this, [&]() {
-                    MessageBox msg(m_DownloadTableView);
-                    msg.setAccessibleName("unusualMessageBox");
-                    msg.setUnusual(unusualId, taskLsit);
-                    connect(&msg, &MessageBox::unusualConfirm, this, &TableDataControl::onUnusualConfirm);
-                    msg.exec();
-                    taskLsit.clear();
-                    unusualId.clear();
-                });
-            }
-            taskLsit.append(fileName + "\n");
-            unusualId.append(taskId + "\n");
-            return true;
+            return excuteFileNotExist(data, fileName, taskId);
         }
     } else if (statusStr == "waiting") {
         status = Global::DownloadTaskStatus::Waiting;
@@ -994,5 +972,32 @@ bool TableDataControl::reDownloadTask(QString taskId, QString filePath, QString 
         TaskInfo addTask(strId, "", 0, url, filePath, filename, QDateTime::currentDateTime());
         DBInstance::addTask(addTask);
     }
+    return true;
+}
+
+bool TableDataControl::excuteFileNotExist(DownloadDataItem *data, QString filename, QString taskId)
+{
+    Aria2RPCInterface::instance()->remove(data->gid);
+    if (Settings::getInstance()->getAutoDeleteFileNoExistentTaskState()) { // 删除文件不存在的任务
+        removeDownloadListJob(data);
+        return true;
+    }
+    data->status = Global::DownloadTaskStatus::Error;
+    static QString taskLsit;
+    static QString unusualId;
+
+    if (taskLsit.isEmpty()) {
+        QTimer::singleShot(500, this, [&]() {
+            MessageBox msg(m_DownloadTableView);
+            msg.setAccessibleName("unusualMessageBox");
+            msg.setUnusual(unusualId, taskLsit);
+            connect(&msg, &MessageBox::unusualConfirm, this, &TableDataControl::onUnusualConfirm);
+            msg.exec();
+            taskLsit.clear();
+            unusualId.clear();
+        });
+    }
+    taskLsit.append(filename + "\n");
+    unusualId.append(taskId + "\n");
     return true;
 }
