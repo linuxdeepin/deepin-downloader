@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "396109d2_607854d8",
+        "filename": "src/include/ui/mainFrame/tabledatacontrol.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-08-23T01:29:53Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 5; 注释率: 80.0%",
+      "revId": "6ecd29b1a3c8ee7e5760fd841e8826b862cbe4f6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa035955_ba31c7a1",
+        "filename": "src/src/aria2/aria2rpcinterface.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-08-23T01:29:53Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 2; 注释率: 50.0%",
+      "revId": "6ecd29b1a3c8ee7e5760fd841e8826b862cbe4f6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeaa06c3_61a7afc7",
+        "filename": "src/src/ui/createTask/btinfodialog.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-08-23T01:29:53Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 69; 注释率: 不计算",
+      "revId": "6ecd29b1a3c8ee7e5760fd841e8826b862cbe4f6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef20bd65_355e30a4",
+        "filename": "src/src/ui/mainFrame/tabledatacontrol.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-08-23T01:29:53Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 26; 注释率: 3.8%",
+      "revId": "6ecd29b1a3c8ee7e5760fd841e8826b862cbe4f6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e7714f_64b4cc56",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-08-23T01:29:53Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 8; 注释率: 12.5%",
+      "revId": "6ecd29b1a3c8ee7e5760fd841e8826b862cbe4f6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b5ce756_9a07b564",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-08-23T01:29:53Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 99; 注释率: 1.0%",
+      "revId": "6ecd29b1a3c8ee7e5760fd841e8826b862cbe4f6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
