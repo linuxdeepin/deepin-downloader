@@ -62,10 +62,14 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_datadir}/downloader/config/config.conf
 %{_datadir}/downloader/config/content-type.conf
 %{_datadir}/downloader/database/downloader.db
+%{_datadir}/downloader/extension/info.json
+%{_datadir}/downloader/extension/ojlicckikdkkaclkpdddijgehekpmmbg.crx
 /usr/lib/libdlmaria2.so
 /usr/lib/libdlmcontrolui.so
 /usr/lib/libdlmdatabase.so
 /usr/lib/libdlmlog.so
+/etc/chromium/native-messaging-hosts/browser.downloader.autostart.json
+
 
 %changelog
 
