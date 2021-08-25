@@ -64,6 +64,7 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_datadir}/downloader/database/downloader.db
 %{_datadir}/downloader/extension/info.json
 %{_datadir}/downloader/extension/ojlicckikdkkaclkpdddijgehekpmmbg.crx
+/usr/libexec/openconnect/startdlmservice.sh
 /usr/lib/libdlmaria2.so
 /usr/lib/libdlmcontrolui.so
 /usr/lib/libdlmdatabase.so
