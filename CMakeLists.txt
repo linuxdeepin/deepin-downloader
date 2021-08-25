@@ -105,7 +105,7 @@ ARCHIVE DESTINATION libstatic
 install(DIRECTORY ${APP_RES_DIR}/downloader DESTINATION /usr/share/deepin-manual/manual-assets/application/)
 install(FILES docs/info.json DESTINATION share/downloader/extension/)
 install(FILES docs/ojlicckikdkkaclkpdddijgehekpmmbg.crx DESTINATION share/downloader/extension/)
-install(FILES docs/browser.downloader.autostart.json DESTINATION /etc/browsernative-messaging-hosts/)
+install(FILES docs/browser.downloader.autostart.json DESTINATION /etc/browser/native-messaging-hosts/)
 install(FILES docs/startdlmservice.sh DESTINATION /usr/libexec/openconnect/)
 
 

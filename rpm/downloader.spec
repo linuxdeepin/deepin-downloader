@@ -69,7 +69,7 @@ export PATH=%{_qt5_bindir}:$PATH
 /usr/lib/libdlmcontrolui.so
 /usr/lib/libdlmdatabase.so
 /usr/lib/libdlmlog.so
-/etc/chromium/native-messaging-hosts/browser.downloader.autostart.json
+/etc/browser/native-messaging-hosts/browser.downloader.autostart.json
 
 
 %changelog
