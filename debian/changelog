@@ -1,3 +1,9 @@
+downloadmanager (5.3.48) stable; urgency=medium
+
+  * 修改浏览器配置文件保存目录
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 26 Aug 2021 10:09:59 +0800
+
 downloadmanager (5.3.47) stable; urgency=medium
 
   * 修改root启动界面显示异常
