@@ -19,8 +19,6 @@ set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置安装路径
 set(CMAKE_INSTALL_PREFIX /usr)
-## Install settings
-#if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 #    set(CMAKE_INSTALL_PREFIX /usr)
 
 
