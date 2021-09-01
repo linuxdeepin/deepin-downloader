@@ -1,6 +1,7 @@
 #cmake 最小版本要求
 cmake_minimum_required(VERSION 3.1.0)
 
+
 #工程名
 project(downloader)
 set(PROJECT_VERSION "5.3.48")
@@ -23,7 +24,6 @@ set(CMAKE_INSTALL_PREFIX /usr)
 #    set(CMAKE_INSTALL_PREFIX /usr)
 #endif ()
 
-#option(DOTEST "option for test" OFF)
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
