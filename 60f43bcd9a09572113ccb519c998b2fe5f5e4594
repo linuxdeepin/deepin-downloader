@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b38c8ad_832a7129",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-01T12:36:36Z",
+      "side": 1,
+      "message": "缺少Log信息",
+      "revId": "60f43bcd9a09572113ccb519c998b2fe5f5e4594",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b558c608_c9047241",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-01T12:36:36Z",
+      "side": 1,
+      "message": "test1模块名称错误",
+      "revId": "60f43bcd9a09572113ccb519c998b2fe5f5e4594",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
