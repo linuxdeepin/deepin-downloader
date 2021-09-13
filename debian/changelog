@@ -1,3 +1,9 @@
+downloadmanager (5.3.49) stable; urgency=medium
+
+  * 去掉nmap依赖以及相关代码，删除无用的代码
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 13 Sep 2021 10:50:57 +0800
+
 downloadmanager (5.3.48) stable; urgency=medium
 
   * 修改浏览器配置文件保存目录

@@ -315,45 +315,47 @@ bool Func::isLanConnect()
     }
     if(geteWay.isEmpty()){
         return false;
+    } else {
+        return true;
     }
 
-    QStringList nmapInfo;
-    QStringList lanInfo;
-    {
-        QProcess nmapProcess;
-        QStringList nmapArgv;
-        nmapArgv << "-sP" << QString("%1\/24").arg(geteWay);
-        nmapProcess.start("nmap", nmapArgv);
-        nmapProcess.waitForFinished();
-        str = nmapProcess.readAllStandardOutput();
-        nmapProcess.kill();
-        nmapProcess.close();
-        nmapInfo = str.split('\n');
-        if(nmapInfo.size() < 4){
-            return false;
-        }
-        lanInfo = nmapInfo[nmapInfo.size()-4].split(" ");
-    }
+//    QStringList nmapInfo;
+//    QStringList lanInfo;
+//    {
+//        QProcess nmapProcess;
+//        QStringList nmapArgv;
+//        nmapArgv << "-sP" << QString("%1\/24").arg(geteWay);
+//        nmapProcess.start("nmap", nmapArgv);
+//        nmapProcess.waitForFinished();
+//        str = nmapProcess.readAllStandardOutput();
+//        nmapProcess.kill();
+//        nmapProcess.close();
+//        nmapInfo = str.split('\n');
+//        if(nmapInfo.size() < 4){
+//            return false;
+//        }
+//        lanInfo = nmapInfo[nmapInfo.size()-4].split(" ");
+//    }
 
-    {
-        if(lanInfo[lanInfo.size()-1] != geteWay){
-            QProcess *lanProcess = new QProcess();
-            QStringList pingArgv;
-            pingArgv<< "-W" <<  "1" << "-c" << "1" << lanInfo[lanInfo.size()-1];
-            lanProcess->start("ping", pingArgv);
-            lanProcess->waitForFinished();
-            str = lanProcess->readAllStandardOutput();
-            lanProcess->kill();
-            lanProcess->close();
-            lanProcess->deleteLater();
-            delete lanProcess;
-            QStringList lanPingInfo = str.split("\n");
-            if(lanPingInfo[lanPingInfo.size() -3].contains("0% packet loss")){
-                return true;
-            }
-        }
-    }
-    return false;
+//    {
+//        if(lanInfo[lanInfo.size()-1] != geteWay){
+//            QProcess *lanProcess = new QProcess();
+//            QStringList pingArgv;
+//            pingArgv<< "-W" <<  "1" << "-c" << "1" << lanInfo[lanInfo.size()-1];
+//            lanProcess->start("ping", pingArgv);
+//            lanProcess->waitForFinished();
+//            str = lanProcess->readAllStandardOutput();
+//            lanProcess->kill();
+//            lanProcess->close();
+//            lanProcess->deleteLater();
+//            delete lanProcess;
+//            QStringList lanPingInfo = str.split("\n");
+//            if(lanPingInfo[lanPingInfo.size() -3].contains("0% packet loss")){
+//                return true;
+//            }
+//        }
+//    }
+//    return false;
 }
 
 

@@ -234,7 +234,6 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     c->showTableWidget();
     c->setUrl("https://img.tukuppt.com/video_show/09/08/22/5dcb600673d11_10s_big.mp4");
     QTest::qWait(500);
-   // bool ret = (c->m_model->data(c->m_model->index(0, 0)).toString() == 1);
     EXPECT_TRUE(true) << "解析出数据，复选框为可选状态";
 
     c->setUrl("http://www.w3.org/2001/XMLSchema-instanc");
@@ -247,10 +246,6 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
     QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     view->mouseReleaseEvent(event);
-
-//    QBrush b;
-//    dlg->setHoverColor(b);
-
     QTest::qWait(100);
     c->close();
     c = nullptr;

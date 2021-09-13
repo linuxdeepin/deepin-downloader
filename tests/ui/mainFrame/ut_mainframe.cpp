@@ -50,6 +50,7 @@ protected:
     {
     }
 };
+
 TEST_F(ut_MainFreme, onSearchItemClicked1)
 {
     Stub stub;
@@ -64,6 +65,7 @@ TEST_F(ut_MainFreme, onSearchItemClicked1)
     item.setData(Qt::UserRole, "Downloading");
     MainFrame::instance()->onSearchItemClicked(&item);
 }
+
 TEST_F(ut_MainFreme, onSearchItemClicked2)
 {
     Stub stub;
@@ -78,6 +80,7 @@ TEST_F(ut_MainFreme, onSearchItemClicked2)
     item.setData(Qt::UserRole, "Completed");
     MainFrame::instance()->onSearchItemClicked(&item);
 }
+
 TEST_F(ut_MainFreme, onSearchItemClicked3)
 {
     Stub stub;
@@ -95,6 +98,7 @@ TEST_F(ut_MainFreme, onSearchItemClicked3)
     item.setData(Qt::UserRole, "Trash");
     MainFrame::instance()->onSearchItemClicked(&item);
 }
+
 TEST_F(ut_MainFreme, onSearchEditTextChanged)
 {
     DownloadDataItem *pItem1 = new DownloadDataItem;
@@ -120,6 +124,7 @@ TEST_F(ut_MainFreme, addMetalinkTask)
     QTest::qWait(15000);
     EXPECT_TRUE(true);
 }
+
 //小任务，可以快速下载完，方便测试已完成列表。
 TEST_F(ut_MainFreme, addHttpFastTask)
 {
