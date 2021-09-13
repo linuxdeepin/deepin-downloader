@@ -62,10 +62,12 @@ void BtInfoTableView::onDoubleClicked(const QModelIndex &index)
 
 void BtInfoTableView::mouseReleaseEvent(QMouseEvent *event)
 {
+#if !defined(CMAKE_SAFETYTEST_ARG_ON)
     Q_UNUSED(event);
     QModelIndex idx = indexAt(event->pos());
     if (idx.row() == m_curRow) {
         return;
     }
     reset();
+#endif
 }
