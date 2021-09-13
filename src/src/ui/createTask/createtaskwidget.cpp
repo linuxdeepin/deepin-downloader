@@ -553,6 +553,9 @@ bool CreateTaskWidget::isFtp(QString url)
 
 void CreateTaskWidget::onTextChanged()
 {
+    if(m_analysisUrl ==nullptr){
+        return;
+    }
     m_texturl->toPlainText().isEmpty() ? hideTableWidget() : showTableWidget();
 
     QStringList urlList = m_texturl->toPlainText().split("\n");
@@ -624,6 +627,7 @@ void CreateTaskWidget::onTextChanged()
         urlInfo.index = i;
         urlInfoMap.insert(urlList[i], urlInfo);
     }
+
     m_analysisUrl->setUrlList(urlInfoMap);
 
     while (urlList.size() < m_model->rowCount()) {

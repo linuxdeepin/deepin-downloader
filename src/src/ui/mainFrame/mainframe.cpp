@@ -2840,6 +2840,9 @@ void MainFrame::onDownloadFinish()
 
 void MainFrame::onSearchItemClicked(QListWidgetItem *item)
 {
+    if(sender() == nullptr){
+        return;
+    }
     SearchResoultWidget *pWidget = dynamic_cast<SearchResoultWidget *>(sender());
     QString taskId = item->data(Qt::WhatsThisRole).toString();
     QString tab = item->data(Qt::UserRole).toString();
