@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afedf259_42e1c451",
+        "filename": "src/src/ui/func.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-13T02:54:11Z",
+      "side": 1,
+      "message": "注释行数: 36; 改动行数(修改和新增): 38; 注释率: 94.7%",
+      "revId": "f72d39ea4b36be9c020d13aaed4309a3502795e0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bef1d8f_639a0441",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-13T02:54:11Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 3; 注释率: 不计算",
+      "revId": "f72d39ea4b36be9c020d13aaed4309a3502795e0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b9b6c7_a8364194",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-13T02:54:11Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 0; 注释率: 不计算",
+      "revId": "f72d39ea4b36be9c020d13aaed4309a3502795e0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
