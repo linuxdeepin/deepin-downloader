@@ -1,3 +1,9 @@
+downloadmanager (5.3.50) stable; urgency=medium
+
+  * 去掉运行依赖中的nmap依赖
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 14 Sep 2021 11:01:30 +0800
+
 downloadmanager (5.3.49) stable; urgency=medium
 
   * 去掉nmap依赖以及相关代码，删除无用的代码
