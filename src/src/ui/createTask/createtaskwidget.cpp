@@ -553,7 +553,7 @@ bool CreateTaskWidget::isFtp(QString url)
 
 void CreateTaskWidget::onTextChanged()
 {
-    if(m_analysisUrl ==nullptr){
+    if(nullptr == m_analysisUrl) {
         return;
     }
     m_texturl->toPlainText().isEmpty() ? hideTableWidget() : showTableWidget();

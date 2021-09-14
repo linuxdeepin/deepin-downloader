@@ -2840,7 +2840,7 @@ void MainFrame::onDownloadFinish()
 
 void MainFrame::onSearchItemClicked(QListWidgetItem *item)
 {
-    if(sender() == nullptr){
+    if(nullptr == sender()){
         return;
     }
     SearchResoultWidget *pWidget = dynamic_cast<SearchResoultWidget *>(sender());
