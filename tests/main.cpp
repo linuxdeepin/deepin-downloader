@@ -10,6 +10,9 @@
 #include <sanitizer/asan_interface.h>
 #endif
 
+#if defined(CMAKE_SAFETYTEST_ARG_INTERGER)
+#include <sanitizer/asan_interface.h>
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -23,6 +26,9 @@ int main(int argc, char *argv[])
     qDebug() << "end run test" << QDateTime::currentDateTime();
 
 #if defined(CMAKE_SAFETYTEST_ARG_ON)
+    __sanitizer_set_report_path("asan.log");
+#endif
+#if defined(CMAKE_SAFETYTEST_ARG_INTERGER)
     __sanitizer_set_report_path("asan.log");
 #endif
     return ret;
