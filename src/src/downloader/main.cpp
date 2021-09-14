@@ -153,6 +153,7 @@ int main(int argc, char *argv[])
     qDebug() << LogPath; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
     w.show();
+    Dtk::Widget::moveToCenter(&w);
     for (int i = 0; i < comList.size(); i++) {
         if (comList[i].endsWith(".torrent") || comList[i].endsWith(".metalink")) {
             if (Settings::getInstance()->getOneClickDownloadState()) {
@@ -163,7 +164,7 @@ int main(int argc, char *argv[])
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloader.svg"));
     QObject::connect(&a, &DlmApplication::applicatinQuit, &w, &MainFrame::onTrayQuitClick);
-    Dtk::Widget::moveToCenter(&w);
+
     return a.exec();
 }
 

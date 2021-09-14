@@ -47,7 +47,7 @@ Conflicts:
  org.deepin.downloader(<= 5.3.15)
 Replaces:
  org.deepin.downloader(<= 5.3.15)
-Depends: ${shlibs:Depends}, ${misc:Depends}, curl, nmap
+Depends: ${shlibs:Depends}, ${misc:Depends}, curl
 Description: download manager dlmcontrolui lib.
  downloader for deepin desktop environment.
 
