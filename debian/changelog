@@ -1,3 +1,9 @@
+downloadmanager (5.3.51) stable; urgency=medium
+
+  * klu中去掉libssl的显示依赖
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 15 Sep 2021 09:22:31 +0800
+
 downloadmanager (5.3.50) stable; urgency=medium
 
   * 去掉运行依赖中的nmap依赖
