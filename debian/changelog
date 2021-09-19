@@ -1,3 +1,9 @@
+downloadmanager (5.3.54) stable; urgency=medium
+
+  * 修改klu的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Sun, 19 Sep 2021 16:37:30 +0800
+
 downloadmanager (5.3.52) stable; urgency=medium
 
   * 修改测出的几个bug
