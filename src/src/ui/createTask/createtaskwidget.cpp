@@ -92,6 +92,7 @@ void CreateTaskWidget::initUi()
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
+
     QIcon tryIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
     setIcon(tryIcon);
     setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
@@ -120,6 +121,12 @@ void CreateTaskWidget::initUi()
     m_texturl->setAccessibleName("textUrl");
     m_texturl->setReadOnly(false);
     m_texturl->setAcceptDrops(false);
+    auto e = QProcessEnvironment::systemEnvironment();
+    QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+    if (XDG_SESSION_TYPE == QLatin1String("wayland")) {
+        m_texturl->setAcceptRichText(false);
+    }
+
     m_texturl->setPlaceholderText(tr("Enter download links or drag a torrent file here"));
     m_texturl->setFixedSize(QSize(500, 154));
     m_texturl->setFont(font);
@@ -1123,6 +1130,12 @@ void CreateTaskWidget::hideTableWidget()
     m_editDir->hide();
     setMaximumSize(521, 325);
     setMinimumSize(521, 325);
+    auto e = QProcessEnvironment::systemEnvironment();
+    QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+    if (XDG_SESSION_TYPE == QLatin1String("wayland")) {
+        hide();
+        show();
+    }
 
     m_sureButton->setEnabled(false);
 }
