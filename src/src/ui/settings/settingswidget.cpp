@@ -188,3 +188,26 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
     return true;
 }
 
+void SettingsLineWidget::setSwitch(QString arg)
+{
+    if(arg == "true"){
+        m_SwitchBtn->setChecked(true);
+    } else {
+        m_SwitchBtn->setChecked(false);
+    }
+
+}
+
+void SettingsLineWidget::setSize(QString size)
+{
+    if ("3" == size) {
+        m_comboBox->setCurrentIndex(0);
+    } else if ("5" == size) {
+        m_comboBox->setCurrentIndex(1);
+    } else if ("10" == size) {
+        m_comboBox->setCurrentIndex(2);
+    } else if ("20" == size) {
+        m_comboBox->setCurrentIndex(3);
+    }
+}
+

@@ -808,6 +808,14 @@ QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
         option->setValue(value);
     });
 
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=](QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSpeend(text.mid(2));
+            pWidget->setSwitch(text.left(1).toInt());
+        }
+    });
+
     return pWidget;
 }
 
@@ -823,6 +831,13 @@ QWidget *Settings::createAddressThreadHandle(QObject *obj)
 
     connect(pWidget, &SettingsLineWidget::currentTextChanged, pWidget, [=](const QString & text) {
         option->setValue(text);
+    });
+
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=](QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSize(text);
+        }
     });
 
     return pWidget;
@@ -841,6 +856,12 @@ QWidget *Settings::createMaxDownloadTaskHandle(QObject *obj)
     connect(pWidget, &SettingsLineWidget::currentTextChanged, pWidget, [=](const QString & text) {
         option->setValue(text);
     });
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=](QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSize(text);
+        }
+    });
 
     return pWidget;
 }
@@ -856,6 +877,13 @@ QWidget *Settings::createAutoOpenHandle(QObject *obj)
         option->setValue(stat);
     });
 
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=](QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSwitch(text);
+        }
+    });
+
     return pWidget;
 }
 
@@ -868,6 +896,12 @@ QWidget *Settings::createAutoDeleteHandle(QObject *obj)
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
         option->setValue(stat);
+    });
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=](QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSwitch(text);
+        }
     });
 
     return pWidget;
@@ -882,6 +916,12 @@ QWidget *Settings::createAutoSortBySpeedHandle(QObject *obj)
 
     connect(pWidget, &SettingsLineWidget::checkedChanged, pWidget, [=](bool stat) {
         option->setValue(stat);
+    });
+    connect(option, &DSettingsOption::valueChanged, pWidget, [=](QVariant var) {
+        if (!var.toString().isEmpty()) {
+            QString text = option->value().toString();
+            pWidget->setSwitch(text);
+        }
     });
 
     return pWidget;

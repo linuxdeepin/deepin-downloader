@@ -332,14 +332,14 @@ void CreateTaskWidget::initUi()
     policy = cancelButton->sizePolicy();
     policy.setHorizontalPolicy(QSizePolicy::Expanding);
     cancelButton->setSizePolicy(policy);
-    cancelButton->setText(tr("Cancel"));
+    cancelButton->setText(tr("Cancel", "button"));
     cancelButton->setObjectName("cancelButton");
     cancelButton->setFont(font);
     connect(cancelButton, &DPushButton::clicked, this, &CreateTaskWidget::onCancelBtnClicked);
     layout_right->addWidget(cancelButton);
 
     m_sureButton = new DSuggestButton(boxBtn);
-    m_sureButton->setText(tr("Confirm"));
+    m_sureButton->setText(tr("Confirm", "button"));
     m_sureButton->setObjectName("sureBtn");
     m_sureButton->setFont(font);
     policy = m_sureButton->sizePolicy();
@@ -424,7 +424,7 @@ void CreateTaskWidget::onSureBtnClicked()
         qDebug() << "Disk capacity is not enough!";
         MessageBox msg(this);
         msg.setAccessibleName("FolderNotExists");
-        msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
+        msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK", "button"), tr(""));
         msg.exec();
         return;
     }

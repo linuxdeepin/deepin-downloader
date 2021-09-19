@@ -69,6 +69,9 @@ public:
     bool initUI(QString text, bool currentStat);
     // 初始化界面
     bool initUI(QString text, const QStringList& textList, QString currenttext);
+
+    void setSwitch(QString arg);
+    void setSize(QString size);
 private:
     Dtk::Widget::DSwitchButton *m_SwitchBtn;
     QComboBox *m_comboBox;

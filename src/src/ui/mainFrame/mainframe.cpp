@@ -1019,6 +1019,13 @@ void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName
 
 bool MainFrame::onDownloadNewTorrent(QString btPath, QMap<QString, QVariant> &opt, QString infoName, QString infoHash)
 {
+    Aria2cBtInfo info = Aria2RPCInterface::instance()->getBtInfo(btPath);
+    if(info.infoHash.isEmpty()) {
+        MessageBox msg;
+        msg.setWarings(tr("Torrent file not exist or broken"), tr("OK"));
+        msg.exec();
+        return false;
+    }
     QString selectedNum = opt.value("select-file").toString();
 
     if (selectedNum.isEmpty()) {
@@ -1685,6 +1692,7 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl, bool ret, bool isSho
 void MainFrame::showDiagnosticTool()
 {
     DiagnosticTool control;
+    control.setParent(this);
     connect(this, &MainFrame::ariaOption, &control, &DiagnosticTool::onAriaOption);
     control.exec();
 }
