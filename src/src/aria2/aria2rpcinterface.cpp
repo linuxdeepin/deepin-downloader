@@ -91,45 +91,45 @@ bool Aria2RPCInterface::startUp()
     //QProcess::execute("/usr/bin/touch", QStringList() << dhtFile); //创建dht文件
     //QProcess::execute("/usr/bin/touch", QStringList() << dht6File); //创建dht6文件
 
-    QStringList opt;
-    opt << "--enable-rpc=true"; //启动RPC
-    opt << "--rpc-secret=" + getToken();
-    opt << "--rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
-    opt << "--check-certificate=false"; //停用rpc身份验证
-    opt << "--rpc-allow-origin-all=true"; // 允许所有来源
-    opt << "--rpc-max-request-size=99999999"; //设置rpc最大接收数
-    opt << "--rpc-save-upload-metadata=true"; //
+    QString opt;
+    opt += " --enable-rpc=true"; //启动RPC
+    opt += " --rpc-secret=" + getToken();
+    opt += " --rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
+    opt += " --check-certificate=false"; //停用rpc身份验证
+    opt += " --rpc-allow-origin-all=true"; // 允许所有来源
+    opt += " --rpc-max-request-size=99999999"; //设置rpc最大接收数
+    opt += " --rpc-save-upload-metadata=true"; //
 
-    //opt << "--not-conf=true";//不使用配置文件
+    //opt += " --not-conf=true";//不使用配置文件
     if (!this->m_configPath.isEmpty()) {
-        opt << "--conf-path=" + this->m_configPath; //加载指定的配置文件
+        opt += " --conf-path=" + this->m_configPath; //加载指定的配置文件
     }
     if (!this->m_defaultDownloadPath.isEmpty()) {
-        opt << "--dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
+        opt += " --dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
-    opt << "--continue=true"; //http续传配置
-    opt << "--disable-ipv6"; //禁用ipv6
-    //opt << "--seed-time=0";//bt完成不做种
-    opt << "--bt-metadata-only=true"; //仅下载bt metadata，不自动发起follow下载
-    opt << "--bt-save-metadata=true"; //保存magnet metadata到同目录下.torrent文件
-    opt << "--follow-torrent=false"; //当下载的文件是以.torrent结尾的，是否继续下载。true，是；false，否，只下载torrent文件；mem,不写文件保存在内存
-    //opt << "--follow-metalink=false";//类似torrent
-    opt << "--bt-remove-unselected-file=true";
-    //opt << "--input-file=" + inputFile;
-    opt << "--save-session=" + sessionCacheFile;
-    opt << "--save-session-interval=" + saveSessionInterval;
-    opt << "--enable-dht=true"; //启动dht文件
-    opt << "--enable-dht6=false"; //禁用dht6文件
-    opt << "--dht-file-path=" + dhtFile;
-    opt << "--dht-file-path6=" + dht6File;
-    opt << "--follow-metalink=false";
+    opt += " --continue=true"; //http续传配置
+    opt += " --disable-ipv6"; //禁用ipv6
+    //opt += " --seed-time=0";//bt完成不做种
+    opt += " --bt-metadata-only=true"; //仅下载bt metadata，不自动发起follow下载
+    opt += " --bt-save-metadata=true"; //保存magnet metadata到同目录下.torrent文件
+    opt += " --follow-torrent=false"; //当下载的文件是以.torrent结尾的，是否继续下载。true，是；false，否，只下载torrent文件；mem,不写文件保存在内存
+    //opt += " --follow-metalink=false";//类似torrent
+    opt += " --bt-remove-unselected-file=true";
+    //opt += " --input-file=" + inputFile;
+    opt += " --save-session=" + sessionCacheFile;
+    opt += " --save-session-interval=" + saveSessionInterval;
+    opt += " --enable-dht=true"; //启动dht文件
+    opt += " --enable-dht6=false"; //禁用dht6文件
+    opt += " --dht-file-path=" + dhtFile;
+    opt += " --dht-file-path6=" + dht6File;
+    opt += " --follow-metalink=false";
 
-    qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
+   // qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
     QProcess proc; // = new QProcess;
     proc.setStandardOutputFile("/dev/null");
     proc.setStandardErrorFile("/dev/null");
-    proc.startDetached(m_basePath + m_aria2cCmd, opt);
+    proc.start("sh -c \"" + m_basePath + m_aria2cCmd + " " + opt + "\"");
     proc.waitForStarted();
 
 //    proc.start("ulimit -n 40");

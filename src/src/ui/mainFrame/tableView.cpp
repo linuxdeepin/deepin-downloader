@@ -159,7 +159,7 @@ void TableView::mousePressEvent(QMouseEvent *event)
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
         QModelIndex index = indexAt(event->pos());
-
+        this->reset();
         if ((index.row() < 0) && (index.column() < 0)) {
             currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
             //return;

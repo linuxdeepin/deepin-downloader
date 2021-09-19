@@ -107,7 +107,7 @@ void HttpAdvancedSettingWidget::initUI()
     sure->setAccessibleName("httpadvanceSure");
     connect(sure,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onSureClicked);
     sure->setFixedSize(216,36);
-    sure->setText(tr("Confirm"));
+    sure->setText(tr("Confirm", "button"));
     sure->setFont(font);
 
     QHBoxLayout * hblyt = new QHBoxLayout(w);
