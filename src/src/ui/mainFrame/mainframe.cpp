@@ -1691,8 +1691,7 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl, bool ret, bool isSho
 
 void MainFrame::showDiagnosticTool()
 {
-    DiagnosticTool control;
-    control.setParent(this);
+    DiagnosticTool control(this);
     connect(this, &MainFrame::ariaOption, &control, &DiagnosticTool::onAriaOption);
     control.exec();
 }
