@@ -195,7 +195,6 @@ void SettingsLineWidget::setSwitch(QString arg)
     } else {
         m_SwitchBtn->setChecked(false);
     }
-
 }
 
 void SettingsLineWidget::setSize(QString size)
@@ -208,6 +207,21 @@ void SettingsLineWidget::setSize(QString size)
         m_comboBox->setCurrentIndex(2);
     } else if ("20" == size) {
         m_comboBox->setCurrentIndex(3);
+    }
+}
+
+void SettingsLineWidget::AddressThreadSize(QString size)
+{
+    if ("1" == size) {
+        m_comboBox->setCurrentIndex(0);
+    }else if ("3" == size) {
+        m_comboBox->setCurrentIndex(1);
+    } else if ("5" == size) {
+        m_comboBox->setCurrentIndex(2);
+    } else if ("7" == size) {
+        m_comboBox->setCurrentIndex(3);
+    } else if ("10" == size) {
+        m_comboBox->setCurrentIndex(4);
     }
 }
 

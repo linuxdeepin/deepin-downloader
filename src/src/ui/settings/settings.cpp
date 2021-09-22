@@ -836,7 +836,7 @@ QWidget *Settings::createAddressThreadHandle(QObject *obj)
     connect(option, &DSettingsOption::valueChanged, pWidget, [=](QVariant var) {
         if (!var.toString().isEmpty()) {
             QString text = option->value().toString();
-            pWidget->setSize(text);
+            pWidget->AddressThreadSize(text);
         }
     });
 
