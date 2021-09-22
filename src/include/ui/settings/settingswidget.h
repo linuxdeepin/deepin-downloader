@@ -72,6 +72,7 @@ public:
 
     void setSwitch(QString arg);
     void setSize(QString size);
+    void AddressThreadSize(QString size);
 private:
     Dtk::Widget::DSwitchButton *m_SwitchBtn;
     QComboBox *m_comboBox;
