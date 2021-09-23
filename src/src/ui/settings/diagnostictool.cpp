@@ -41,7 +41,7 @@
 #include "func.h"
 #include "aria2rpcinterface.h"
 
-DiagnosticTool::DiagnosticTool(DDialog *parent)
+DiagnosticTool::DiagnosticTool(QWidget *parent)
     : DDialog(parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
