@@ -96,123 +96,123 @@
 <context>
     <name>CreateTaskWidget</name>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="105"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="106"/>
         <source>New Task</source>
         <translation>New Task</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="111"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="112"/>
         <source>Please enter one URL per line</source>
         <translation>Please enter one URL per line</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="123"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="130"/>
         <source>Enter download links or drag a torrent file here</source>
         <translation>Enter download links or drag a torrent file here</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="196"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1022"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="203"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1029"/>
         <source>Total </source>
         <translation>Total </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="724"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="758"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="791"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="824"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="857"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="890"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="922"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1088"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="209"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="731"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="765"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="798"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="831"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="864"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="897"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="929"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1095"/>
         <source>%1 files selected, %2</source>
         <translation>%1 files selected, %2</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="215"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="222"/>
         <source>All</source>
         <translation>All</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="221"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="228"/>
         <source>Videos</source>
         <translation>Videos</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="227"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="234"/>
         <source>Pictures</source>
         <translation>Pictures</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="233"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="240"/>
         <source>Music</source>
         <translation>Music</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="239"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="246"/>
         <source>Others</source>
         <translation>Others</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="252"/>
         <source>Documents</source>
         <translation>Documents</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="251"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="258"/>
         <source>Archives</source>
         <translation>Archives</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="280"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="527"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="663"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="287"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="534"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="670"/>
         <source>Available:</source>
         <translation>Available:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="295"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
         <source>Change download folder</source>
         <translation>Change download folder</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="311"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="321"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="318"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="328"/>
         <source>Select file</source>
         <translation>Select file</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="335"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="342"/>
         <source>Cancel</source>
         <comment>button</comment>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="342"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="349"/>
         <source>Confirm</source>
         <comment>button</comment>
         <translation>Confirm</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="427"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="434"/>
         <source>OK</source>
         <comment>button</comment>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="362"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="380"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="369"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="387"/>
         <source>Choose Torrent File</source>
         <translation>Choose Torrent File</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="427"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="434"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Insufficient disk space, please change the download folder</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1188"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1201"/>
         <source>Network error, check your network and try later</source>
         <translation>Network error, check your network and try later</translation>
     </message>
@@ -632,33 +632,33 @@ Downloading tasks will be interrupted.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1025"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1611"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1953"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1952"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1836"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1835"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>The number of max. concurrent tasks reached. Other tasks will be queuing.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1953"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1952"/>
         <source>Unable to parse the URL, please check</source>
         <translation>Unable to parse the URL, please check</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2367"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2366"/>
         <source>Copied to clipboard</source>
         <translation>Copied to clipboard</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2689"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2688"/>
         <source>View</source>
         <translation>View</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1025"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2713"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2712"/>
         <source>Torrent file not exist or broken</source>
         <translation>Torrent file not exist or broken</translation>
     </message>
@@ -871,16 +871,17 @@ Downloading tasks will be interrupted.</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="77"/>
+        <location filename="../src/src/downloader/main.cpp" line="78"/>
         <source>downloader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="80"/>
+        <location filename="../src/src/downloader/main.cpp" line="81"/>
         <source>Downloader</source>
         <translation>Downloader</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="81"/>
+        <location filename="../src/src/downloader/main.cpp" line="82"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
         <translation>Downloader is a user-friendly download tool, supporting URLs and torrent files</translation>
     </message>
