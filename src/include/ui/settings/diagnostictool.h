@@ -47,7 +47,7 @@ class DiagnosticTool : public DDialog
 {
     Q_OBJECT
 public:
-    explicit DiagnosticTool(DDialog *parent = nullptr);
+    explicit DiagnosticTool(QWidget *parent = nullptr);
     ~DiagnosticTool();
 
 private:

@@ -419,7 +419,7 @@ bool Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
                 [=](QNetworkReply *reply) {
                     this->rpcRequestReply(reply, method, jsonObj.value("id").toString()); //调用出来函数
                     manager->deleteLater(); //删除
-                    manager->destroyed();
+                    //manager->destroyed();
                 });
 
         //        connect(networkReply,
@@ -458,7 +458,7 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     }
 
     reply->deleteLater();
-    reply->destroyed();
+    //reply->destroyed();
 }
 
 bool Aria2RPCInterface::tellStatus(QString gId, QString id)

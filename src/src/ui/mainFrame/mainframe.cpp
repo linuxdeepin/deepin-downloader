@@ -1691,8 +1691,8 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl, bool ret, bool isSho
 
 void MainFrame::showDiagnosticTool()
 {
-    DiagnosticTool control;
-    control.setParent(this);
+    DiagnosticTool control(this);
+    //control.setParent(this);
     connect(this, &MainFrame::ariaOption, &control, &DiagnosticTool::onAriaOption);
     control.exec();
 }
@@ -3130,13 +3130,12 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
                 return false;
             } else {
                 DownloadDataItem *pItemData = m_DownLoadingTableView->getTableModel()->find(info.taskId);
-                if(pItemData == nullptr) {
-                    return false;
-                }
                 if (pItem != nullptr) {
                     deleteTask(pItem);
-                } else {
+                } else if(pDeleteItem != nullptr){
                     deleteTask(pDeleteItem);
+                } else {
+                    return false;
                 }
             }
             break;
