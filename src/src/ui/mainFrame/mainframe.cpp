@@ -2742,8 +2742,7 @@ void MainFrame::startDownloadTask(DownloadDataItem *pItem)
 void MainFrame::Raise()
 {
     // 恢复窗口显示
-    QDesktopWidget *desktop = QApplication::desktop();
-    move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
+    Dtk::Widget::moveToCenter(this);
     show();
     setWindowState(Qt::WindowActive);
     activateWindow();
