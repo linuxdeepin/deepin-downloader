@@ -16,6 +16,176 @@
       "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fdefe95_4913251a",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) Consider using std::count_if algorithm instead of a raw loop",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad7c2180_1ab06177",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) Consider using std::count_if algorithm instead of a raw loop",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72d51dd3_ad8832c8",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2067,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) Variable \u0027selectedCount\u0027 is assigned a value that is never used",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea298116_ee3733b5",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2471,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027activeCount\u0027 can be reduced",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dfb5db6_fc6742e6",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2811,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) Consider using std::accumulate algorithm instead of a raw loop",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb3ad24_b8461847",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2994,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16328130304900.6704748314052443/changeCache/src/src/ui/mainFrame/mainframe.cpp:3003]: (style) Local variable dataList shadows outer variabl",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd9fcbc7_a7af3f96",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2996,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) Consider using std::find_if algorithm instead of a raw loop",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0241bb2_59e3237d",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) Consider using std::find_if algorithm instead of a raw loop",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca756105_1600ec30",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3018,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16328130304900.6704748314052443/changeCache/src/src/ui/mainFrame/mainframe.cpp:3027]: (style) Local variable dataList shadows outer variabl",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d270db6c_bbbf19b9",
+        "filename": "src/src/ui/mainFrame/mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3020,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-28T07:10:40Z",
+      "side": 1,
+      "message": "(style) Consider using std::find_if algorithm instead of a raw loop",
+      "revId": "91ab0ec2fea5e8e80f5d6608b18c45da8f125465",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
     }
   ]
 }
