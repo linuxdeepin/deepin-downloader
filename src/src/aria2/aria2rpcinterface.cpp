@@ -129,7 +129,7 @@ bool Aria2RPCInterface::startUp()
     QProcess proc; // = new QProcess;
     proc.setStandardOutputFile("/dev/null");
     proc.setStandardErrorFile("/dev/null");
-    proc.start("sh -c \"" + m_basePath + m_aria2cCmd + " " + opt + "\"");
+    proc.startDetached("sh -c \"" + m_basePath + m_aria2cCmd + " " + opt + "\"");
     proc.waitForStarted();
 
 //    proc.start("ulimit -n 40");
