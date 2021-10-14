@@ -123,11 +123,20 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
     case 301:
     case 302: // redirect (Location: [URL])  重定向链接
     {
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
+        QProcess process;
+#else
         QProcess *process = new QProcess;
+#endif
         QStringList list;
         list << "-i" << reply->url().toString();
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
+        process.start("curl", list);
+        connect(&process, &QProcess::readyReadStandardOutput, this, [=]() {
+#else
         process->start("curl", list);
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
+#endif
             static QMutex mutex;
             mutex.lock();
             QProcess *proc = dynamic_cast<QProcess *>(sender());
@@ -220,12 +229,21 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
     }
     default:
     {
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
+        QProcess process;
+#else
         QProcess *process = new QProcess;
+#endif
         QStringList list;
         list << "-I" << "-k" << reply->url().toString();
         QString str = reply->url().toString();
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
+        process.start("curl", list);
+        connect(&process, &QProcess::readyReadStandardOutput, this, [=]() {
+#else
         process->start("curl", list);
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
+#endif
             qDebug()<<"readyReadStandardOutput";
             static QMutex mutex;
             mutex.lock();
