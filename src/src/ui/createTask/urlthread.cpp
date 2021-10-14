@@ -247,15 +247,16 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             qDebug()<<"readyReadStandardOutput";
             static QMutex mutex;
             mutex.lock();
-            QString str =process->readAllStandardOutput();
+            QProcess *proc = dynamic_cast<QProcess *>(sender());
+            QString str =proc->readAllStandardOutput();
             QStringList list = str.split("\r\n");
             if(!list[0].contains("200")){
                 mutex.unlock();
                 return ;
             }
-            process->kill();
-            process->close();
-            delete process;
+            proc->kill();
+            proc->close();
+            delete proc;
             //process = nullptr;
 
             m_linkInfo.urlSize = getUrlSize(str);
@@ -264,7 +265,11 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             mutex.unlock();
 
         });
+#if defined(CMAKE_SAFETYTEST_ARG_ON)
+        connect(&process, &QProcess::readyReadStandardOutput, this, [=]() {
+#else
         connect(process, &QProcess::readyReadStandardError, this, [=]() {
+#endif
             QProcess *proc = dynamic_cast<QProcess *>(sender());
             QString str = proc->readAllStandardError();
 
