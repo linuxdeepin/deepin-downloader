@@ -16,6 +16,57 @@
       "revId": "094acbf1b8579f517fc29dfbc8642f5afea50fb0",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4945a155_2f02d8a9",
+        "filename": "src/src/ui/createTask/urlthread.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T01:56:11Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16341765619050.5741159618315889/changeCache/src/src/ui/createTask/urlthread.cpp:251]: (style) Local variable list shadows outer variabl",
+      "revId": "094acbf1b8579f517fc29dfbc8642f5afea50fb0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64235d79_f6db8b11",
+        "filename": "src/src/ui/createTask/urlthread.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T01:56:11Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16341765619050.5741159618315889/changeCache/src/src/ui/createTask/urlthread.cpp:250]: (style) Local variable str shadows outer variabl",
+      "revId": "094acbf1b8579f517fc29dfbc8642f5afea50fb0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "253e1cc4_1f6441ce",
+        "filename": "src/src/ui/createTask/urlthread.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T01:56:11Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16341765619050.5741159618315889/changeCache/src/src/ui/createTask/urlthread.cpp:269]: (style) Local variable str shadows outer variabl",
+      "revId": "094acbf1b8579f517fc29dfbc8642f5afea50fb0",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
     }
   ]
 }
