@@ -138,7 +138,7 @@ TEST_F(ut_MainFreme, addHttpFastTask)
     auto option = Settings::getInstance()->m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
     option->setValue(2);
     QString path = Settings::getInstance()->getDownloadSavePath();
-    MainFrame::instance()->onDownloadNewUrl("http://10.10.77.84/download/image-1.png",
+    MainFrame::instance()->onDownloadNewUrl("http://10.10.53.248/download/image-1.png",
                                             path, "image", "png");
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
@@ -158,7 +158,7 @@ TEST_F(ut_MainFreme, addHttpTask)
 
 TEST_F(ut_MainFreme, addHttpTaskk)
 {
-    MainFrame::instance()->onDownloadNewUrl("http://10.10.77.84/download/30MB.gz",
+    MainFrame::instance()->onDownloadNewUrl("http://10.10.53.248/download/30MB.gz",
                                             Settings::getInstance()->getDownloadSavePath(), "30MB", "gz");
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
@@ -168,7 +168,7 @@ TEST_F(ut_MainFreme, addHttpTaskk)
 
 TEST_F(ut_MainFreme, addHttpTaskkk)
 {
-    MainFrame::instance()->onDownloadNewUrl("http://10.10.77.84/download/image-1.png",
+    MainFrame::instance()->onDownloadNewUrl("http://10.10.53.248/download/image-1.png",
                                             Settings::getInstance()->getDownloadSavePath(), "image", "png");
     TableView *table = MainFrame::instance()->findChild<TableView *>("downloadTableView");
     TableModel *model = static_cast<TableModel *>(table->model());
