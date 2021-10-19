@@ -16,6 +16,261 @@
       "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6056e599_1a759caf",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e329d4bd_53ccf642",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3e64a65_7390af77",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea3b196b_4c78648e",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfecfb4e_7f816e49",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d1d0f4a_6a894ece",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model2\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86f55fa_a750bec7",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Consider using std::any_of algorithm instead of a raw loop",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b5e840c_0ccbcf25",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model2\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "466a9094_e5cb6992",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model2\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5526aa5a_652b49aa",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model2\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87b0a56a_646ebdfa",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b6284c3_14eb7887",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a57ad6c4_08ba4778",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027model\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53434682_4646c80e",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027b\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a10e5d9_6d5037c6",
+        "filename": "tests/ui/mainFrame/ut_mainframe.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-19T05:37:32Z",
+      "side": 1,
+      "message": "(style) Variable \u0027foo\u0027 is assigned a value that is never used",
+      "revId": "b618ef10071b3ad9dbfa65190e035978f93e6324",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
     }
   ]
 }
