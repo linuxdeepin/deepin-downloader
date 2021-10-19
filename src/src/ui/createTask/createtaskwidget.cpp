@@ -1051,6 +1051,9 @@ void CreateTaskWidget::updateSelectedInfo()
     for (int i = 0; i < m_model->rowCount(); i++) {
         QString v = m_model->data(m_model->index(i, 0),0).toString();
         QString type = m_model->data(m_model->index(i, 2),2).toString();
+        if(m_model->data(m_model->index(i, 3),3).toString().isEmpty()){
+            continue;
+        }
         if (v == "1") {
             total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             if (isVideo(type)) {
@@ -1133,8 +1136,7 @@ void CreateTaskWidget::hideTableWidget()
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
     if (XDG_SESSION_TYPE == QLatin1String("wayland")) {
-        hide();
-        show();
+        adjustSize();
     }
 
     m_sureButton->setEnabled(false);
