@@ -45,6 +45,11 @@ class HttpAdvancedSettingWidget : public DDialog
 public:
     explicit HttpAdvancedSettingWidget(QWidget *parent = nullptr);
 
+    /**
+     * @brief 恢复默认
+     */
+    void reset();
+
 private:
     /**
      * @brief 初始化ui

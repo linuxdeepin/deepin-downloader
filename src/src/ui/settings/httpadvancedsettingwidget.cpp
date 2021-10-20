@@ -133,6 +133,32 @@ void HttpAdvancedSettingWidget::initUI()
     suffixBtn->click();
 }
 
+void HttpAdvancedSettingWidget::reset()
+{
+    QString str = ".asf;.avi;.exe;.iso;.mp3;.mpeg;.mpg;.mpga;"
+                  ".ra;.rar;.rm;.rmvb;.tar;.wma;.wmp;.wmv;.mov;"
+                  ".zip;.3gp;.chm;.mdf;.torrent;.jar;.msi;.arj;."
+                  "bin;.dll;.psd;.hqx;.sit;.lzh;.gz;.tgz;.xlsx;"
+                  ".xls;.doc;.docx;.ppt;.pptx;.flv;.swf;.mkv;.tp;"
+                  ".ts;.flac;.ape;.wav;.aac;.txt;.dat;.7z;.ttf;.bat;"
+                  ".xv;.xvx;.pdf;.mp4;.apk;.ipa;.epub;.mobi;.deb;.sisx;.cab;.pxl;";
+
+    QFile file(m_configPath);
+    if(!file.open(QIODevice::ReadWrite)) {
+        return;
+    }
+    QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
+    QJsonObject obj = jdc.object();
+    obj["CurSuffix"] = str;
+    jdc.setObject(obj);
+    file.resize(0);
+    file.write(jdc.toJson());
+    file.close();
+    file.flush();
+    close();
+
+}
+
 void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 {
     QString curPlaceholderText = m_textEdit->placeholderText();

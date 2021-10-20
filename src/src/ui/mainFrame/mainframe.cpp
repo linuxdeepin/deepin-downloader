@@ -71,6 +71,7 @@
 #include "settings.h"
 #include "func.h"
 #include "headerView.h"
+#include "httpadvancedsettingwidget.h"
 
 #include "searchresoultwidget.h"
 
@@ -799,6 +800,18 @@ void MainFrame::onSettingsMenuClicked()
     onIsMetalinkDownload(Settings::getInstance()->getMLDownloadState());
     onIsBtDownload(Settings::getInstance()->getBtDownloadState());
 
+    for(int i = 0; i < settingsDialog.children().count(); i++)
+        {
+            for(int j = 0; j < settingsDialog.children().at(i)->children().count(); j++)
+            {
+                DPushButton * p =settingsDialog.children().at(i)->children().at(j)->findChild<DPushButton *>("SettingsContentReset");
+                connect(p, &QPushButton::released,
+                this, [ = ]() {
+                    HttpAdvancedSettingWidget h;
+                    h.reset();
+                });
+            }
+    }
     settingsDialog.exec();
     Settings::getInstance()->m_settings->sync();
 }
