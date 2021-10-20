@@ -224,4 +224,3 @@ void SettingsLineWidget::AddressThreadSize(QString size)
         m_comboBox->setCurrentIndex(4);
     }
 }
-

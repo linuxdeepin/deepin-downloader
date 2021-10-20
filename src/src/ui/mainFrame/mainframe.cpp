@@ -631,7 +631,7 @@ void MainFrame::initDbus()
 {
     QDBusConnection::sessionBus().unregisterService("com.downloader.service");
     QDBusConnection::sessionBus().registerService("com.downloader.service");
-    QDBusConnection::sessionBus().registerObject("/downloader/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
+    QDBusConnection::sessionBus().registerObject("/downloader/path", this, QDBusConnection ::ExportAllSlots);
 }
 
 void MainFrame::initTabledata()
@@ -1692,7 +1692,6 @@ bool MainFrame::showRedownloadMsgbox(const QString sameUrl, bool ret, bool isSho
 void MainFrame::showDiagnosticTool()
 {
     DiagnosticTool control(this);
-    //control.setParent(this);
     connect(this, &MainFrame::ariaOption, &control, &DiagnosticTool::onAriaOption);
     control.exec();
 }
