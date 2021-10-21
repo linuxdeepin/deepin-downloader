@@ -16,6 +16,23 @@
       "revId": "a1bb3d0025e515ac48d7f654d40c957f5a182e38",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87e844c1_34649745",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-21T09:13:11Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16348075860450.9266706585102852/changeCache/src/src/ui/createTask/createtaskwidget.cpp:609]: (style) Local variable type shadows outer variabl",
+      "revId": "a1bb3d0025e515ac48d7f654d40c957f5a182e38",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
     }
   ]
 }
