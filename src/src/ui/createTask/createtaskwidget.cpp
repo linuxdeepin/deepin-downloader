@@ -133,6 +133,7 @@ void CreateTaskWidget::initUi()
     m_texturl->setWordWrapMode(QTextOption::NoWrap);
     // m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
+   // connect(m_texturl, &D, this, &CreateTaskWidget::onTextChanged);
     QPalette pal;
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
     m_texturl->setPalette(pal);
@@ -560,6 +561,7 @@ bool CreateTaskWidget::isFtp(QString url)
 
 void CreateTaskWidget::onTextChanged()
 {
+
     if(nullptr == m_analysisUrl) {
         return;
     }
@@ -1217,10 +1219,11 @@ double CreateTaskWidget::formatSpeed(QString str)
         number.remove("MB");
     } else if (str.contains("GB")) {
         number.remove("GB");
+    } else if (str.contains("TB")) {
+        number.remove("TB");
     } else if (str.contains("B")) {
         number.remove("B");
     }
-
     double num = number.toDouble();
     if (str.contains("KB")) {
         num = num * 1024;
@@ -1228,6 +1231,8 @@ double CreateTaskWidget::formatSpeed(QString str)
         num = num * 1024 * 1024;
     } else if (str.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
+    } else if (str.contains("TB")) {
+        num = num * 1024 * 1024 * 1024 * 1024;
     }
 
     return num;
