@@ -150,6 +150,7 @@ void HttpAdvancedSettingWidget::reset()
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
     obj["CurSuffix"] = str;
+    obj["CurWeb"] = "";
     jdc.setObject(obj);
     file.resize(0);
     file.write(jdc.toJson());
