@@ -297,7 +297,27 @@ void CreateTaskWidget::initUi()
     m_editDir->setFont(font);
     m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
+
+    m_editDir->setDirectoryUrl(QUrl(m_defaultDownloadDir));
     m_editDir->setText(m_defaultDownloadDir);
+
+    for(int i = 0; i < m_editDir->children().count(); i++){
+        for (int j = 0; j < m_editDir->children().at(i)->children().count(); j++) {
+            DSuggestButton * dsbtn = qobject_cast<DSuggestButton*>(m_editDir->children().at(i)->children().at(j));
+            if(dsbtn != nullptr){
+                connect(dsbtn, &DSuggestButton::released, [=](){
+                    for(int k = 0; k < m_editDir->children().count(); k++){
+                        auto temp = qobject_cast<QFileDialog *>(m_editDir->children().at(k));
+                        if(temp != nullptr) {
+                           temp->setDirectory(m_defaultDownloadDir);
+                        }
+                    }
+                });
+                break;
+            }
+        }
+    }
+
     QList<DSuggestButton *> btnList = m_editDir->findChildren<DSuggestButton *>();
     for (int i = 0; i < btnList.size(); i++) {
         btnList[i]->setToolTip(tr("Change download folder"));
@@ -646,6 +666,7 @@ void CreateTaskWidget::onTextChanged()
 
 void CreateTaskWidget::onFilechoosed(const QString &filename)
 {
+ //   m_editDir->setFileDialog(m_defaultDownloadDir);
     QFileInfo fileinfo;
     QString strPath;
     fileinfo.setFile(filename);
@@ -658,6 +679,7 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
         // QString _text = this->getFileEditText(m_defaultDownloadDir);
         m_editDir->lineEdit()->setText(m_defaultDownloadDir);
         m_editDir->setDirectoryUrl(m_defaultDownloadDir);
+
         return;
     }
     m_editDir->lineEdit()->setText(filename);
