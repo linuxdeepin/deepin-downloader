@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "643feabd_c41f54bf",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-27T09:01:10Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16353252667310.3059121659052366/changeCache/src/src/ui/createTask/createtaskwidget.cpp:629]: (style) Local variable type shadows outer variabl",
+      "revId": "331ea1adba92d7a215f8648fcb278d895de43546",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8a15da8_eb613afb",
         "filename": "src/src/ui/settings/filesavepathchooser.cpp",
         "patchSetId": 1
