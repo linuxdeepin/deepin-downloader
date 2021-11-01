@@ -2848,7 +2848,7 @@ void MainFrame::onDownloadFinish()
         m_RecycleTableView->getTableControl()->saveDataBeforeClose();
         //Aria2RPCInterface::instance()->shutdown();
         QProcess p;
-        p.start("systemctl suspend");
+        p.start("systemctl hibernate");
         p.waitForFinished();
 
     } else if (m_QuitProcessAct->isChecked()) {
