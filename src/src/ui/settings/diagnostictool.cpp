@@ -51,6 +51,8 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
     setAccessibleName("DiagnosticTool");
     m_Tableview->setAccessibleName("DiagnosticTableView");
+    m_Tableview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_Tableview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 DiagnosticTool::~DiagnosticTool()
