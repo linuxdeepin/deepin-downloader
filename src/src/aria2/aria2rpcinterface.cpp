@@ -123,6 +123,9 @@ bool Aria2RPCInterface::startUp()
     opt += " --dht-file-path=" + dhtFile;
     opt += " --dht-file-path6=" + dht6File;
     opt += " --follow-metalink=false";
+    if(QSysInfo::currentCpuArchitecture() == "loongarch64"){
+        opt += " --async-dns=false";
+    }
 
    // qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
