@@ -1,3 +1,9 @@
+downloadmanager (5.3.59) stable; urgency=medium
+
+  * 修改部分bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 08 Nov 2021 11:22:40 +0800
+
 downloadmanager (5.3.58) stable; urgency=medium
 
   * 修改aria2后台进程会关闭的bug
