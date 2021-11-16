@@ -152,17 +152,17 @@ void CreateTaskWidget::initUi()
     m_tableView->setEditTriggers(QAbstractItemView::EditKeyPressed);
     m_tableView->setAlternatingRowColors(true);
 
-    DPalette tableviewPalette;
-    QBrush brush(QColor(0,0,0,1));
+//    DPalette tableviewPalette;
+//    QBrush brush(QColor(0,0,0,1));
 
-    tableviewPalette.setBrush(DPalette::Base, brush);
-    m_tableView->setPalette(tableviewPalette);
-    brush.setColor(QColor(0,0,0,2));
-    tableviewPalette.setBrush(DPalette::Base, brush);
-    m_tableView->horizontalHeader()->setPalette(tableviewPalette);
+//    tableviewPalette.setBrush(DPalette::Base, brush);
+//    m_tableView->setPalette(tableviewPalette);
+//    brush.setColor(QColor(0,0,0,2));
+//    tableviewPalette.setBrush(DPalette::Base, brush);
+//    m_tableView->horizontalHeader()->setPalette(tableviewPalette);
 
 
- //   QFont font;
+//    QFont font;
     font.setPixelSize(13);
     m_tableView->setFont(font);
     headerView *header = new headerView(Qt::Horizontal, m_tableView);

@@ -33,6 +33,9 @@ if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
                     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif ()
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-all -z now -z noexecstack -fpie -pie")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-all -z now -z noexecstack -fpie -pie")
+
 set(APP_RES_DIR "assets")
 if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "mips64")
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wl,-O1 -Wl,--as-needed -Wl,-E -fPIE -ffunction-sections -fdata-sections -Wl,--gc-sections -ftree-vectorize -march=loongson3a -mhard-float -mno-micromips -mno-mips16 -flax-vector-conversions -mloongson-ext2 -mloongson-mmi -z noexecstack")
