@@ -1020,7 +1020,7 @@ void MainFrame::onDownloadNewUrl(QString url, QString savePath, QString fileName
     opt.insert("dir", savePath);
     getNameFromUrl(task, url, savePath, fileName, leng, type);
     DBInstance::addTask(task);
-    qDebug() << task.gid << "   " << task.url;
+    qDebug() << task.gid << "   "; //<< task.url;
     Aria2RPCInterface::instance()->addNewUri(task.url, savePath, task.downloadFilename, task.taskId);
     //clearTableItemCheckStatus();
     emit isHeaderChecked(false);
