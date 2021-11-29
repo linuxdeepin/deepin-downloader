@@ -1,3 +1,9 @@
+downloadmanager (5.3.56.1) stable; urgency=medium
+
+  * 删除ｌｏｇ中的下载链接
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 29 Nov 2021 14:08:02 +0800
+
 downloadmanager (5.3.56) stable; urgency=medium
 
   * 修改klu的bug
