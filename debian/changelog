@@ -1,3 +1,9 @@
+downloadmanager (5.3.64) stable; urgency=medium
+
+  * 去掉日志中的下载链接
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 30 Nov 2021 18:26:14 +0800
+
 downloadmanager (5.3.62) stable; urgency=medium
 
   * 去掉日志中的下载链接
