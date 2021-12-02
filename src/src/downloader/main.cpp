@@ -148,6 +148,10 @@ int main(int argc, char *argv[])
     //磁盘剩余空间小于阈值，清除早期日志
     CheckFreeDisk();
     //创建新日志
+    setLogLevel(1);
+    if(comList.size() == 1 && comList.first() == "debug") {
+        setLogLevel(0);
+    }
     CreateNewLog();
     qInstallMessageHandler(customLogMessageHandler);
 
