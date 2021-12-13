@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "307bb633_37307a8e",
+        "filename": "src/src/ui/createTask/createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16393656736060.4278687604171518/changeCache/src/src/ui/createTask/createtaskwidget.cpp:627]: (style) Local variable type shadows outer variabl",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74e7a5ef_a7227c72",
         "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
         "patchSetId": 1
@@ -47,6 +64,142 @@
       "writtenOn": "2021-12-13T03:21:20Z",
       "side": 1,
       "message": "注释行数: 2; 改动行数(修改和新增): 2; 注释率: 100.0%",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7418ceba_a0aa7324",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027w\u0027 is assigned a value that is never used",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35feb05_55664cbc",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027video\u0027 is assigned a value that is never used",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77dbccf4_8b1ca560",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027picture\u0027 is assigned a value that is never used",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de5dc182_36922ceb",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027audio\u0027 is assigned a value that is never used",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35d9a84_2a7d3c0d",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027other\u0027 is assigned a value that is never used",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0d620b_7092fec8",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027cancel\u0027 is assigned a value that is never used",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cbbf615_ec171f46",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027checkAll\u0027 is assigned a value that is never used",
+      "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07ab94bd_fddb0aa7",
+        "filename": "tests/ui/createTask/ut_createtaskwidget.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-12-13T03:21:21Z",
+      "side": 1,
+      "message": "(style) Variable \u0027type\u0027 is assigned a value that is never used",
       "revId": "5fce95548990089369bb471b3f94b4a51b628f84",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
