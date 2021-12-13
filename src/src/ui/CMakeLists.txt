@@ -121,7 +121,7 @@ add_library(dlmcontrolui SHARED
        ${QM_FILES}
 )
 
-target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget curl
+target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget
     Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus)
 
 #install(TARGETS dlmcontrolui DESTINATION lib)

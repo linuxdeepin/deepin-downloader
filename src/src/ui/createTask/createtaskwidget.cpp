@@ -40,8 +40,6 @@
 #include <QMimeDatabase>
 #include <QDesktopWidget>
 #include <QFont>
-#include <curl/curl.h>
-//#include <curl/easy.h>
 #include "btinfodialog.h"
 #include "messagebox.h"
 #include "btinfotableview.h"
@@ -1271,10 +1269,6 @@ double CreateTaskWidget::getSelectSize()
     return total;
 }
 
-size_t CreateTaskWidget::ftpSize(void *curl, size_t size, size_t nmemb, void *data)
-{
-    return (size_t)(size * nmemb);
-}
 
 bool CreateTaskWidget::isExistType(QString type)
 {
@@ -1289,25 +1283,3 @@ bool CreateTaskWidget::isExistType(QString type)
     return typeList.contains(type , Qt::CaseSensitivity::CaseSensitive);
 }
 
-double CreateTaskWidget::getFtpFileSize(QString ftpPath)
-{
-    double len = 0.0;
-    CURL *curl = curl_easy_init();
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl_easy_setopt(curl, CURLOPT_URL, ftpPath.toStdString().c_str());
-    curl_easy_setopt(curl, CURLOPT_HEADER, 1);
-    curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
-    curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
-    //curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 1 );
-    curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, ftpSize);
-    if (curl_easy_perform(curl) == CURLE_OK) {
-        if (CURLE_OK == curl_easy_getinfo(curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &len)) {
-            return len;
-        }
-        // qDebug()<< "link error";
-    } else {
-        //qDebug()<< "link error";
-    }
-    curl_easy_cleanup(curl);
-    return 0;
-}
