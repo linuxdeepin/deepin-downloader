@@ -17,7 +17,6 @@ Build-Depends:
  libdframeworkdbus-dev,
  libgtest-dev,
  libgmock-dev,
- libcurl4-openssl-dev,
  sqlite3,
  aria2,
  curl
