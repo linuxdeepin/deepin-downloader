@@ -1,3 +1,9 @@
+downloadmanager (5.3.61.1) stable; urgency=medium
+
+  * 升级一位版本号，loongarch使用
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 22 Dec 2021 09:38:47 +0800
+
 downloadmanager (5.3.59) stable; urgency=medium
 
   * 修改部分bug
