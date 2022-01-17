@@ -1,3 +1,9 @@
+downloadmanager (5.3.66) stable; urgency=medium
+
+  * 去掉dlmextensionservice.desktop文件
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 17 Jan 2022 15:27:27 +0800
+
 downloadmanager (5.3.65) stable; urgency=medium
 
   * 添加log等级的判断
