@@ -3,7 +3,6 @@
 translations/*.qm /usr/share/downloader/translations
 assets/* /usr/share/deepin-manual/manual-assets/application/
 desktop/downloader.desktop /usr/share/applications
-desktop/dlmextensionservice.desktop /usr/share/applications
 data/downloader.db /usr/share/downloader/database
 data/downloader.svg /usr/share/icons/hicolor/scalable/apps
 data/downloader.svg /usr/share/downloader/icons/logo
