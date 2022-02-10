@@ -217,16 +217,6 @@ void TableView::currentChanged(const QModelIndex &current, const QModelIndex &pr
     QTableView::currentChanged(current, previous);
 }
 
-void TableView::paintEvent(QPaintEvent *e)
-{
-    DPalette pa;
-    pa = DApplicationHelper::instance()->palette(this);
-    pa.setBrush(DPalette::LightLively, pa.brush(DPalette::Base));
-    pa.setColor(QPalette::AlternateBase, QColor(255,0,0));
-    DApplicationHelper::instance()->setPalette(this, pa);
-    QTableView::paintEvent(e);
-}
-
 bool TableView::refreshTableView(const int &index)
 {
     if (index > 1) {
