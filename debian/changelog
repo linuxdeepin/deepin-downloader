@@ -1,3 +1,9 @@
+downloadmanager (5.3.67) stable; urgency=medium
+
+  * 修改下载内容的背景色
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 16 Feb 2022 11:13:29 +0800
+
 downloadmanager (5.3.66) stable; urgency=medium
 
   * 去掉dlmextensionservice.desktop文件
