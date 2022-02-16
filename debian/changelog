@@ -1,3 +1,9 @@
+downloadmanager (5.3.69) stable; urgency=medium
+
+  * 升级版本号
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 16 Feb 2022 14:42:58 +0800
+
 downloadmanager (5.3.67) stable; urgency=medium
 
   * 修改下载内容的背景色
