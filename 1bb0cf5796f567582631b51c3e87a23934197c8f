@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e50775b_7f255ee2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-03-01T06:41:40Z",
+      "side": 1,
+      "message": "标题不存在或者名称错误, 模块名推荐使用fix|feat|chore|docs|style|refactor|perf|test|abigail 例fix: xxxxx",
+      "revId": "1bb0cf5796f567582631b51c3e87a23934197c8f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
