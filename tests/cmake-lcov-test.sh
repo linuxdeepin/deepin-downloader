@@ -1,9 +1,9 @@
 #!/bin/bash
 export DISPLAY=:0.0
 utdir=build-ut
-rm -r $utdir
-rm -r ../$utdir
-mkdir ../$utdir
+#rm -r $utdir
+#rm -r ../$utdir
+#mkdir ../$utdir
 cd ../$utdir
 
 cmake -DCMAKE_BUILD_TYPE=Debug ..
