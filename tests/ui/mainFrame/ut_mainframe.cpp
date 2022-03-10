@@ -275,15 +275,42 @@ TEST_F(ut_MainFreme, createNewTask)
     EXPECT_TRUE(true);
 }
 
-TEST_F(ut_MainFreme, addBtTask)
-{
-    QMap<QString, QVariant> opt;
-    MainFrame::instance()->onDownloadNewTorrent(QDir::homePath() + "/Documents/123.torrent",
-                                                opt, "123.torrent", "tar.gz");
-    QTest::qWait(500);
-    EXPECT_TRUE(true);
-    //QTest::qWait(5000);
-}
+//TEST_F(ut_MainFreme, createNewTask_torrent1)
+//{
+//    typedef int (*fptr)(CreateTaskWidget *);
+//    fptr foo = (fptr)(&CreateTaskWidget::exec);
+//    Stub stub;
+//    stub.set(foo, MessageboxExec);
+//    auto option = Settings::getInstance()->m_settings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
+//    option->setValue(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Documents");
+//    MainFrame::instance()->createNewTask("http://10.10.53.248/download/123.torrent");
+
+//    QTest::qWait(500);
+//    EXPECT_TRUE(true);
+//}
+
+//TEST_F(ut_MainFreme, createNewTask_torrent2)
+//{
+//    typedef int (*fptr)(CreateTaskWidget *);
+//    fptr foo = (fptr)(&CreateTaskWidget::exec);
+//    Stub stub;
+//    stub.set(foo, MessageboxExec);
+//    auto option = Settings::getInstance()->m_settings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
+//    option->setValue(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Documents");
+//    MainFrame::instance()->createNewTask("http://10.10.53.248/download/zimu.torrent");
+//    QTest::qWait(500);
+//    EXPECT_TRUE(true);
+//}
+
+//TEST_F(ut_MainFreme, addBtTask)
+//{
+//    QMap<QString, QVariant> opt;
+//    MainFrame::instance()->onDownloadNewTorrent(QDir::homePath() + "/Documents/123.torrent",
+//                                                opt, "123.torrent", "tar.gz");
+//    QTest::qWait(500);
+//    EXPECT_TRUE(true);
+//    //QTest::qWait(5000);
+//}
 
 TEST_F(ut_MainFreme, addMetalinkTask2)
 {
@@ -518,17 +545,17 @@ TEST_F(ut_MainFreme, onRedownloadActionTriggered)
     }
 }
 
-TEST_F(ut_MainFreme, addBtTask_zimu)
-{
-    QMap<QString, QVariant> opt;
-    opt.insert("dir", "/home/san/Downloads");
-    opt.insert("select-file", "1,2,3,4");
-    MainFrame::instance()->onDownloadNewTorrent(QDir::homePath() + "/Documents/zimu.torrent",
-                                                opt, "8A1A79C5ED1D.torrent", "magnet:?xt=urn:btih:081c0af2b872414061813f0b8cc18a1a79c5ed1d");
-    QTest::qWait(500);
-    EXPECT_TRUE(true);
-    QTest::qWait(2000);
-}
+//TEST_F(ut_MainFreme, addBtTask_zimu)
+//{
+//    QMap<QString, QVariant> opt;
+//    opt.insert("dir", "/home/san/Downloads");
+//    opt.insert("select-file", "1,2,3,4");
+//    MainFrame::instance()->onDownloadNewTorrent(QDir::homePath() + "/Documents/zimu.torrent",
+//                                                opt, "8A1A79C5ED1D.torrent", "magnet:?xt=urn:btih:081c0af2b872414061813f0b8cc18a1a79c5ed1d");
+//    QTest::qWait(500);
+//    EXPECT_TRUE(true);
+//    QTest::qWait(2000);
+//}
 
 TEST_F(ut_MainFreme, removeBtTask)
 {
@@ -583,14 +610,14 @@ TEST_F(ut_MainFreme, onCopyUrlActionTriggered)
     }
 }
 
-TEST_F(ut_MainFreme, OpenFile)
-{
-    typedef int (*fptr)(BtInfoDialog *);
-    fptr foo = (fptr)(&BtInfoDialog::exec);
-    Stub stub;
-    stub.set(foo, MessageboxExec);
-    MainFrame::instance()->OpenFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Documents/123.torrent");
-}
+//TEST_F(ut_MainFreme, OpenFile)
+//{
+//    typedef int (*fptr)(BtInfoDialog *);
+//    fptr foo = (fptr)(&BtInfoDialog::exec);
+//    Stub stub;
+//    stub.set(foo, MessageboxExec);
+//    MainFrame::instance()->OpenFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Documents/123.torrent");
+//}
 
 TEST_F(ut_MainFreme, onOpenFileActionTriggered)
 {

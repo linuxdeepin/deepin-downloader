@@ -17,9 +17,9 @@ export QT_IM_MODULE=fcitx
 cmake -DCMAKE_SAFETYTEST_ARG="CMAKE_SAFETYTEST_ARG_ON" ..
 make -j4
 
-./bin/downloader_test > asan_downloadmanager.log 2>&1
+./bin/downloader_test > interlog_downloadmanager.log 2>&1
 cd -
-cp ./build/asan.log.* ./build-ut/asan_downloadmanager.log
+mv ./build/asan.log.* ./build-ut/asan_downloadmanager.log
 
 # UT for index.html and ut-report.txt
 cd tests
