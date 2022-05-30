@@ -37,6 +37,7 @@
 #include <QProcess>
 #include <QThread>
 #include <QDesktopServices>
+#include <DApplicationHelper>
 #include <QStandardItemModel>
 
 #include "../database/dbinstance.h"
@@ -62,6 +63,13 @@ TableView::TableView(int Flag)
 {
     initUI();
     initConnections();
+}
+
+TableView::~TableView()
+{
+    delete (m_TableModel);
+    delete (m_TableDataControl);
+    delete (m_HeaderView);
 }
 
 void TableView::initUI()
@@ -90,11 +98,16 @@ void TableView::initUI()
     m_HeaderView->setStretchLastSection(true);
     m_HeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     setColumnWidth(0, 20);
-    setColumnWidth(1, 320);
+    setColumnWidth(1, 248);
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     setColumnWidth(2, 110);
     setColumnWidth(3, QHeaderView::Interactive);
     setColumnWidth(4, QHeaderView::Interactive);
+    setTabKeyNavigation(true);
+    QFont font;
+    font.setFamily("Source Han Sans");
+    font.setPixelSize(14);
+    setFont(font);
 }
 
 void TableView::initConnections()
@@ -105,10 +118,6 @@ void TableView::initConnections()
     connect(this, &TableView::isCheckHeader, m_HeaderView, &DownloadHeaderView::onHeaderChecked);
     connect(this, &TableView::Hoverchanged, m_Itemdegegate, &ItemDelegate::onHoverchanged);
     connect(m_TableModel, &TableModel::layoutChanged, this, &TableView::onModellayoutChanged);
-}
-
-void TableView::initTableView()
-{
 }
 
 void TableView::onListchanged()
@@ -150,7 +159,7 @@ void TableView::mousePressEvent(QMouseEvent *event)
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
         QModelIndex index = indexAt(event->pos());
-
+        this->reset();
         if ((index.row() < 0) && (index.column() < 0)) {
             currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
             //return;
@@ -192,21 +201,20 @@ void TableView::keyPressEvent(QKeyEvent *event)
     if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_C)) {
         return;
     }
+    //    if(event->key() == Qt::Key_Down) {
+    //        currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row() + 1, 0), m_PreviousIndex);
+    //        setCurrentIndex(m_PreviousIndex.sibling(m_PreviousIndex.row() + 1, 0));
+    //    }
+    //    if(event->key() == Qt::Key_Up) {
+    //        currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row() - 1, 0), m_PreviousIndex);
+    //        setCurrentIndex(m_PreviousIndex.sibling(m_PreviousIndex.row() - 1, 0));
+    //    }
     QWidget::keyPressEvent(event);
 }
 
 void TableView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
     QTableView::currentChanged(current, previous);
-}
-
-void TableView::resizeEvent(QResizeEvent *event)
-{
-    if (event->oldSize().width() <= 0) {
-        return;
-    }
-    int leng = event->size().width() - event->oldSize().width();
-    setColumnWidth(1, columnWidth(1) + leng);
 }
 
 bool TableView::refreshTableView(const int &index)
@@ -242,7 +250,7 @@ void TableView::onModellayoutChanged()
     if (m_TableFlag == 0) {
         const QList<DownloadDataItem *> &selectList = getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); i++) {
-            if (selectList.at(i)->IsHide) {
+            if (selectList.at(i)->isHide) {
                 setRowHidden(i, true);
             } else {
                 setRowHidden(i, false);
@@ -251,11 +259,30 @@ void TableView::onModellayoutChanged()
     } else {
         const QList<DeleteDataItem *> &selectList = getTableModel()->recyleList();
         for (int i = 0; i < selectList.size(); i++) {
-            if (selectList.at(i)->IsHide) {
+            if (selectList.at(i)->isHide) {
                 setRowHidden(i, true);
             } else {
                 setRowHidden(i, false);
             }
         }
     }
+}
+
+LeftListView::LeftListView()
+{
+}
+
+void LeftListView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
+{
+    Q_UNUSED(previous);
+    emit currentIndexChanged(current);
+}
+
+void LeftListView::paintEvent(QPaintEvent *e)
+{
+    DPalette pa;
+    pa = DApplicationHelper::instance()->palette(this);
+    pa.setBrush(DPalette::ItemBackground, pa.brush(DPalette::Base));
+    DApplicationHelper::instance()->setPalette(this, pa);
+    DListView::paintEvent(e);
 }

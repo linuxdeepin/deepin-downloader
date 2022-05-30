@@ -1,23 +1,20 @@
 #cmake 最小版本要求
 cmake_minimum_required(VERSION 3.1.0)
 
-
 #工程名
 project(downloader)
-set(PROJECT_VERSION "5.3.0.4")
+set(PROJECT_VERSION "5.3.69")
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
 set(ARIA2_NAME "aria2c")
+
 
 # 设置C++标准为 C++ 11
 set(CMAKE_CXX_STANDARD 11)
 
 #在debug下库名后面加d
 set(CMAKE_DEBUG_POSTFIX "d")
-
-#设置Debug  Release
-set(CMAKE_BUILD_TYPE "Release")
 
 #设置安装路径
 set(CMAKE_INSTALL_PREFIX /usr)
@@ -36,6 +33,15 @@ if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
                     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif ()
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-all -z now -z noexecstack -fpie -pie")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-all -z now -z noexecstack -fpie -pie")
+
+set(APP_RES_DIR "assets")
+if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "mips64")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wl,-O1 -Wl,--as-needed -Wl,-E -fPIE -ffunction-sections -fdata-sections -Wl,--gc-sections -ftree-vectorize -march=loongson3a -mhard-float -mno-micromips -mno-mips16 -flax-vector-conversions -mloongson-ext2 -mloongson-mmi -z noexecstack")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wl,-O1 -Wl,--as-needed -Wl,-E -fPIE -ffunction-sections -fdata-sections -Wl,--gc-sections -ftree-vectorize -march=loongson3a -mhard-float -mno-micromips -mno-mips16 -flax-vector-conversions -mloongson-ext2 -mloongson-mmi -z noexecstack")
+    SET(CMAKE_EXE_LINKER_FLAGS  "-pie")
+endif()
 #库 和 执行文件 的设置输出的路径
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -45,7 +51,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib)
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin)
 
-#
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h )
 
 message(STATUS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -66,12 +71,8 @@ find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 set(DTK Widget Core Gui)
 find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 
-#find_package(CURL REQUIRED)
-
-
-
 #安装
-# qm files
+# qm files.
 file(GLOB QM_FILES "translations/*.qm")
 install(FILES ${QM_FILES} DESTINATION share/downloader/translations)
 
@@ -84,28 +85,32 @@ install(FILES data/downloader.db DESTINATION share/downloader/database)
 # conf file
 file(GLOB CF_FILES "docs/*.conf")
 install(FILES ${CF_FILES} DESTINATION share/downloader/config)
-
+file(GLOB JS_FILES "docs/httpAdvanced.json")
+install(FILES ${JS_FILES} DESTINATION share/downloader/config)
 
 #icon
 install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
 install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 
 # 开启单元测试
-#if(DOTEST)
-    # 添加gocv覆盖率文件的输出
-    set(CMAKE_CXX_FLAGS "-g -fprofile-arcs -ftest-coverage")
-    # 添加子模块test
-    add_subdirectory(test)
-    message("do test")
 
-#else()
-    message("DO Not TEST")
-    #加载子模块
-    add_subdirectory(src)
-    add_subdirectory(translations)
-    install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION libstatic
-    )
-#endif()
+# 添加子模块test
+add_subdirectory(src)
+add_subdirectory(translations)
+add_subdirectory(tests)
+
+install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
+RUNTIME DESTINATION bin
+LIBRARY DESTINATION lib
+ARCHIVE DESTINATION libstatic
+)
+
+install(DIRECTORY ${APP_RES_DIR}/downloader DESTINATION /usr/share/deepin-manual/manual-assets/application/)
+install(FILES docs/info.json DESTINATION share/downloader/extension/)
+install(FILES docs/ojlicckikdkkaclkpdddijgehekpmmbg.crx DESTINATION share/downloader/extension/)
+install(FILES docs/browser.downloader.autostart.json DESTINATION /etc/browser/native-messaging-hosts/)
+install(FILES docs/startdlmservice.sh DESTINATION /usr/libexec/openconnect/)
+
+
+
+

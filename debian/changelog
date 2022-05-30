@@ -1,3 +1,327 @@
+downloadmanager (5.3.69) stable; urgency=medium
+
+  * 升级版本号
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 16 Feb 2022 14:42:58 +0800
+
+downloadmanager (5.3.67) stable; urgency=medium
+
+  * 修改下载内容的背景色
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 16 Feb 2022 11:13:29 +0800
+
+downloadmanager (5.3.66) stable; urgency=medium
+
+  * 去掉dlmextensionservice.desktop文件
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 17 Jan 2022 15:27:27 +0800
+
+downloadmanager (5.3.65) stable; urgency=medium
+
+  * 添加log等级的判断
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 02 Dec 2021 15:46:38 +0800
+
+downloadmanager (5.3.64) stable; urgency=medium
+
+  * 去掉日志中的下载链接
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 30 Nov 2021 18:26:14 +0800
+
+downloadmanager (5.3.62) stable; urgency=medium
+
+  * 去掉日志中的下载链接
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 29 Nov 2021 15:17:40 +0800
+
+downloadmanager (5.3.59) stable; urgency=medium
+
+  * 修改部分bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 08 Nov 2021 11:22:40 +0800
+
+downloadmanager (5.3.58) stable; urgency=medium
+
+  * 修改aria2后台进程会关闭的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 11 Oct 2021 15:14:56 +0800
+
+downloadmanager (5.3.57) stable; urgency=medium
+
+  * 修改诊断工具显示的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 28 Sep 2021 16:43:04 +0800
+
+downloadmanager (5.3.55) stable; urgency=medium
+
+  * 修改KLU的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 22 Sep 2021 10:05:58 +0800
+
+downloadmanager (5.3.52) stable; urgency=medium
+
+  * 修改KLU的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Sun, 19 Sep 2021 15:17:43 +0800
+
+downloadmanager (5.3.50) stable; urgency=medium
+
+  * 去掉运行依赖中的nmap依赖
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 14 Sep 2021 11:01:30 +0800
+
+downloadmanager (5.3.49) stable; urgency=medium
+
+  * 去掉nmap依赖以及相关代码，删除无用的代码
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 13 Sep 2021 10:50:57 +0800
+
+downloadmanager (5.3.48) stable; urgency=medium
+
+  * 修改浏览器配置文件保存目录
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 26 Aug 2021 10:09:59 +0800
+
+downloadmanager (5.3.47) stable; urgency=medium
+
+  * 修改root启动界面显示异常
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 19 Aug 2021 13:32:44 +0800
+
+downloadmanager (5.3.46) stable; urgency=medium
+
+  * 修改2个bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 18 Aug 2021 21:28:20 +0800
+
+downloadmanager (5.3.45) stable; urgency=medium
+
+  * 修改debian的postinst，将浏览器扩展的配置文件拷贝到浏览器目录下
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 27 Jul 2021 09:55:28 +0800
+
+downloadmanager (5.3.44) stable; urgency=medium
+
+  * 修改浏览器扩展的安装逻辑
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 22 Jul 2021 15:13:01 +0800
+
+downloadmanager (5.3.43) stable; urgency=medium
+
+  * 添加libssl依赖包
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 20 Jul 2021 15:29:24 +0800
+
+downloadmanager (5.3.42) stable; urgency=medium
+
+  * 修改bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 15 Jul 2021 15:50:56 +0800
+
+downloadmanager (5.3.41) stable; urgency=medium
+
+  * 修改解析url时的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 07 Jul 2021 10:24:17 +0800
+
+downloadmanager (5.3.40) stable; urgency=medium
+
+  * 修改KLU的bug，删除掉主线的依赖
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 01 Jul 2021 10:36:29 +0800
+
+downloadmanager (5.3.39) stable; urgency=low
+
+  * 添加libssl依赖包
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 25 Jun 2021 09:23:04 +0800
+
+downloadmanager (5.3.38) stable; urgency=low
+
+  * 修改浏览器扩展的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 23 Jun 2021 19:19:46 +0800
+
+downloadmanager (5.3.37) stable; urgency=low
+
+  * 修改bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 18 Jun 2021 14:33:20 +0800
+
+downloadmanager (5.3.36) stable; urgency=low
+
+  * 修改新建任务延时
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 16 Jun 2021 13:20:35 +0800
+
+downloadmanager (5.3.35) stable; urgency=low
+
+  * 修改部分bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 07 Jun 2021 19:09:03 +0800
+
+downloadmanager (5.3.34) stable; urgency=low
+
+  * 修改rpm包的名称
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 27 May 2021 14:10:14 +0800
+
+downloadmanager (5.3.33) stable; urgency=low
+
+  * 修改获取链接信息的逻辑
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 25 May 2021 20:22:13 +0800
+
+downloadmanager (5.3.32) stable; urgency=low
+
+  * 修改desktop文件
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 18 May 2021 15:53:27 +0800
+
+downloadmanager (5.3.31) stable; urgency=low
+
+  * 修改desktop文件
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 14 May 2021 15:42:38 +0800
+
+downloadmanager (5.3.30) stable; urgency=low
+
+  * 修改单元测试
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 14 May 2021 13:49:30 +0800
+
+downloadmanager (5.3.29) stable; urgency=low
+
+  * 添加Accessible属性
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 13 May 2021 14:36:46 +0800
+
+downloadmanager (5.3.28) stable; urgency=low
+
+  * 修改浏览器扩展，修改下载器的安装脚本
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 10 May 2021 16:51:45 +0800
+
+downloadmanager (5.3.27) stable; urgency=low
+
+  * 修改dbus接口名称
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Tue, 04 May 2021 11:02:50 +0800
+
+downloadmanager (5.3.26) stable; urgency=low
+
+  * 修改desktop文件名
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 30 Apr 2021 14:39:30 +0800
+
+downloadmanager (5.3.25) stable; urgency=low
+
+  * 重构浏览器扩展部分，添加新的进程dlmextensionservice
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 30 Apr 2021 11:28:10 +0800
+
+downloadmanager (5.3.24) stable; urgency=low
+
+  * 修改带参数的http链接的解析方式
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 16 Apr 2021 17:04:52 +0800
+
+downloadmanager (5.3.23) stable; urgency=low
+
+  * 修改新建下载任务时，关闭浏览器扩展开关，下载器崩溃的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Wed, 14 Apr 2021 14:51:22 +0800
+
+downloadmanager (5.3.22) stable; urgency=low
+
+  * 修改重启之后正在下载列表显示异常的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 09 Apr 2021 13:54:45 +0800
+
+downloadmanager (5.3.19) stable; urgency=low
+
+  * 修改帮助手册安装脚本
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 29 Mar 2021 14:09:50 +0800
+
+downloadmanager (5.3.18) stable; urgency=low
+
+  * 添加帮助手册的安装
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 29 Mar 2021 11:30:41 +0800
+
+downloadmanager (5.3.17) stable; urgency=low
+
+  * 包里添加下载器的可执行程序
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 26 Mar 2021 18:34:17 +0800
+
+downloadmanager (5.3.16) stable; urgency=low
+
+  * 修改下载器的依赖包
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 26 Mar 2021 17:13:12 +0800
+
+downloadmanager (5.3.15) stable; urgency=low
+
+  * 修改集成测试测出的bug
+  * 添加帮助手册
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 26 Mar 2021 15:47:03 +0800
+
+downloadmanager (5.3.14) stable; urgency=low
+
+  * 修改bug
+  * 修改界面设计
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 12 Mar 2021 16:00:12 +0800
+
+downloadmanager (5.3.13) stable; urgency=low
+
+  * 修改界面设计
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 08 Mar 2021 10:28:55 +0800
+
+downloadmanager (5.3.12) stable; urgency=low
+
+  * 修改bug
+  * 修改界面设计
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 07 Mar 2021 17:54:55 +0800
+
+downloadmanager (5.3.11) stable; urgency=low
+
+  * 完成【三期任务】正在下载时，文件被删除的任务有多个时，错误提示合并
+  * 完成【三期任务】添加链接时，重复链接只生成一个任务。
+  * 完成内网下载功能
+  * 修改bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Sun, 07 Feb 2021 14:54:55 +0800
+
+downloadmanager (5.3.7) stable; urgency=low
+
+  *修改bug: 新建下载任务，下载器下载不了图片 
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Mon, 01 Feb 2021 18:48:42 +0800
+
+downloadmanager (5.3.6) stable; urgency=low
+
+  * 56268 兼容性需求—字体兼容—支持切换语言至简、英、繁、正、维、藏
+  * 50621【三期任务】限制全局最大同时下载资源数
+  * 修复上次测试产生的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Fri, 29 Jan 2021 14:36:09 +0800
+
+downloadmanager (5.3.5) stable; urgency=low
+
+  * 完成 【三期任务】原始地址线程数
+  * 完成 BT下载，显示种子活跃个数
+  * 完成 HTTP接管-增加后缀名可编辑
+  * 完成 接管下载类型—接管Metalink文件
+  * 修复上次测试产生的bug
+
+ -- zhaoyue <zhaoyue@uniontech.com>  Thu, 21 Jan 2021 20:59:24 +0800
+
 downloadmanager (5.3.0.4) stable; urgency=low
 
  * 完成metalink的所有下载流程

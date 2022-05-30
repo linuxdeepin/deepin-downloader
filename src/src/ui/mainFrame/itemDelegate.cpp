@@ -53,13 +53,13 @@
 
 ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     : QStyledItemDelegate(parent)
-    , m_HoverRow(-1)
+    , m_hoverRow(-1)
 {
-    m_TableFlag = Flag;
-    m_IsFirstInside = true;
+    m_tableFlag = Flag;
+    m_isFirstInside = true;
     // progressbar = new QProgressBar;
-    m_BgImage = new QPixmap(":/icons/icon/bar-bg.png");
-    m_Front = new QPixmap(":/icons/icon/bar-front.png");
+    m_bgImage = new QPixmap(":/icons/icon/bar-bg.png");
+    m_frontImage = new QPixmap(":/icons/icon/bar-front.png");
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::paletteTypeChanged,
             this, &ItemDelegate::onPalettetypechanged);
@@ -69,38 +69,40 @@ ItemDelegate::ItemDelegate(QObject *parent, int Flag)
 
 ItemDelegate::~ItemDelegate()
 {
+    delete (m_bgImage);
+    delete (m_frontImage);
 }
 
 void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if (index.row() == m_HoverRow) {
-        painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder()); //
+    if (index.row() == m_hoverRow) {
+        painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder());
             // QColor(0,0,0,13)QColor(255,255,255,26)
     }
     if (index.row() % 2 != 0) {
-        painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
-            // QColor(0,0,0,13)QColor(255,255,255,26)
+        painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8)));
     } else {
-        painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10))); //
+        if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+            painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150)));
+        } else {
+            painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10)));
+        }
     }
     const QRect rect(option.rect);
     const int column(index.column());
     const bool isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
 
     QFont font;
-    // font.setPointSize(11);
+    font.setPointSize(11);
     painter->setFont(font);
 
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(QColor("#414D68"));
-    //    if(isSelected) {
-    //        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
-    //        painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
-    //        painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().WindowText);
-    //    }
-    //    if(column == 0) {
-    //        painter->fillRect(rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().window());
-    //    }
+    if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
+        painter->setPen(QColor("#C0C6D4"));
+    } else if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        painter->setPen(QColor("#414D68"));
+    }
     const QRect textRect = rect.marginsRemoved(QMargins(10, 2, 0, 0));
     if (column == 0) {
         QStyleOptionButton checkBoxStyle;
@@ -109,14 +111,9 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         checkBoxStyle.rect = option.rect;
         checkBoxStyle.rect.setX(option.rect.x() + 5);
         checkBoxStyle.rect.setWidth(20);
-        DCheckBox *check_btn = new DCheckBox;
-        QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, check_btn);
+        QSharedPointer<DCheckBox> checkBtn = QSharedPointer<DCheckBox>(new DCheckBox, &QObject::deleteLater);
+        QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, checkBtn.data());
     } else if (column == 1) {
-        if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
-            painter->setPen(QColor("#C0C6D4"));
-        } else if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
-            painter->setPen(QColor("#414D68"));
-        }
         if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
@@ -151,7 +148,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         const QString path = index.data(TableModel::SavePath).toString();
         int status = index.data(TableModel::Status).toInt();
-        if ((!QFileInfo::exists(path)) && (status == Global::DownloadJobStatus::Complete || status == Global::DownloadJobStatus::Removed)) { //文件不存在的任务，添加提示
+        if ((!QFileInfo::exists(path)) && (status == Global::DownloadTaskStatus::Complete || status == Global::DownloadTaskStatus::Removed)) { //文件不存在的任务，添加提示
             QPixmap errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
             painter->drawPixmap(x + 10, y + 10, errorPic);
         }
@@ -162,11 +159,6 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                                                          textRect.width() - 20);
         painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, name);
     } else if (column == 2) {
-        if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
-            painter->setPen(QColor("#C0C6D4"));
-        } else if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
-            painter->setPen(QColor("#414D68"));
-        }
         if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
@@ -176,12 +168,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         const QString size = index.data(TableModel::Size).toString();
         painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
     } else if (column == 3) {
-        if (m_TableFlag == 0) {
-            QFont font;
-            font.setPointSize(10);
-            painter->setPen(Qt::red);
-            painter->setPen(QColor("#8AA1B4"));
-
+        if (m_tableFlag == 0) {
             if (isSelected) {
                 painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
                 painter->setBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight());
@@ -189,27 +176,35 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
                 painter->setPen(QColor("#FFFFFF"));
 
-                m_BgImage->load(":/icons/icon/progressbar_bg.png");
-                m_Front->load(":/icons/icon/progressbar_fg.png");
+                m_bgImage->load(":/icons/icon/progressbar_bg.png");
+                m_frontImage->load(":/icons/icon/progressbar_fg.png");
             } else {
-                m_BgImage->load(":/icons/icon/bar-bg.png");
-                m_Front->load(":/icons/icon/bar-front.png");
+                if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+                    m_bgImage->load(":/icons/icon/bar-bg.png");
+                    m_frontImage->load(":/icons/icon/bar-front.png");
+                } else {
+                    m_bgImage->load(":/icons/icon/progressbar_bg_dark.png");
+                    m_frontImage->load(":/icons/icon/progressbar_fg_dark.png");
+                }
             }
+
+            QFont font;
+            font.setPointSize(10);
             painter->setFont(font);
             QRect sizeRect = textRect;
             sizeRect.setTop(sizeRect.top() + 10);
             sizeRect.setHeight(sizeRect.height() / 4 - 2);
             QRect barRect = sizeRect;
-            barRect.setTop(sizeRect.bottom() + 10);
+            barRect.setTop(barRect.bottom() + 10);
             barRect.setWidth(barRect.width() - 10);
             barRect.setHeight(20);
 
             QStyleOptionViewItem viewOption(option);
             initStyleOption(&viewOption, index);
-            if ((index.data(TableModel::Status) == Global::Paused) || (index.data(TableModel::Status) == Global::Lastincomplete)) {
+            if ((index.data(TableModel::Status) == Global::Paused) ||
+                    (index.data(TableModel::Status) == Global::Lastincomplete)) {
                 const QString pauseText = painter->fontMetrics().elidedText(tr("Paused"),
-                                                                            Qt::ElideRight,
-                                                                            textRect.width() - 10);
+                                                                            Qt::ElideRight, textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, pauseText);
             } else if (index.data(TableModel::Status) == Global::Error) {
                 QFont font;
@@ -217,11 +212,10 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->setFont(font);
                 painter->setRenderHint(QPainter::Antialiasing);
                 painter->setPen(QColor("#9a2f2f"));
-                const QRect rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
+                const QRect rectText = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
                 const QString errorText = painter->fontMetrics().elidedText(tr("Failed"),
-                                                                            Qt::ElideRight,
-                                                                            rect_text.width() - 10);
-                painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, errorText);
+                                                                            Qt::ElideRight, rectText.width() - 10);
+                painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, errorText);
                 return;
             } else if (index.data(TableModel::Status) == Global::Waiting) {
                 QFont font;
@@ -229,11 +223,10 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->setFont(font);
                 painter->setRenderHint(QPainter::Antialiasing);
                 painter->setPen(QColor("#8AA1B4"));
-                const QRect rect_text = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
-                const QString wattingText = painter->fontMetrics().elidedText(tr("Wating"),
-                                                                              Qt::ElideRight,
-                                                                              rect_text.width() - 10);
-                painter->drawText(rect_text, Qt::AlignVCenter | Qt::AlignLeft, wattingText);
+                const QRect rectText = textRect.marginsRemoved(QMargins(5, 2, 0, 5));
+                const QString wattingText = painter->fontMetrics().elidedText(tr("Waiting"),
+                                                                              Qt::ElideRight, rectText.width() - 10);
+                painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, wattingText);
                 return;
             } else {
                 QString speed = index.data(TableModel::Speed).toString();
@@ -241,59 +234,58 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                     speed = "0KB/s";
                 }
                 QString str = " " + index.data(TableModel::Percent).toString()
-                              + "%    " + speed
-                              + "   " + tr("Time left ")
-                              + index.data(TableModel::Time).toString();
+                              + "%    " + speed;
+                if (index.data(TableModel::announceList).toInt()) {
+                    str += "  " + tr("Resources:") + " " + QString("%1/%2")
+                            .arg(index.data(TableModel::connection).toInt())
+                            .arg(index.data(TableModel::announceList).toInt());
+                }
+                str += "   " + tr("Time left ") + index.data(TableModel::Time).toString();
+
                 const QString sizeText = painter->fontMetrics().elidedText(str,
-                                                                           Qt::ElideRight,
-                                                                           textRect.width() - 10);
+                                                                           Qt::ElideRight, textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
             }
 
-            QRect s1(0, 0, 3, m_BgImage->height());
-            QRect t1(sizeRect.x(), sizeRect.y(), 3, m_BgImage->height());
-            painter->drawPixmap(t1, *m_BgImage, s1);
+            QRect s1(0, 0, 3, m_bgImage->height());
+            QRect t1(sizeRect.x(), sizeRect.y(), 3, m_bgImage->height());
+            painter->drawPixmap(t1, *m_bgImage, s1);
 
             // bg m
-            QRect s2(m_BgImage->width() - 3, 0, 3, m_BgImage->height());
-            QRect t2(sizeRect.x() + sizeRect.width() - 16, sizeRect.y(), 3, m_BgImage->height());
-            painter->drawPixmap(t2, *m_BgImage, s2);
+            QRect s2(m_bgImage->width() - 3, 0, 3, m_bgImage->height());
+            QRect t2(sizeRect.x() + sizeRect.width() - 16, sizeRect.y(), 3, m_bgImage->height());
+            painter->drawPixmap(t2, *m_bgImage, s2);
 
             // bg t
-            QRect s3(3, 0, m_BgImage->width() - 6, m_BgImage->height());
-            QRect t3(sizeRect.x() + 3, sizeRect.y(), sizeRect.width() - 19, m_BgImage->height());
-            painter->drawPixmap(t3, *m_BgImage, s3);
+            QRect s3(3, 0, m_bgImage->width() - 6, m_bgImage->height());
+            QRect t3(sizeRect.x() + 3, sizeRect.y(), sizeRect.width() - 19, m_bgImage->height());
+            painter->drawPixmap(t3, *m_bgImage, s3);
 
             float p = index.data(TableModel::Percent).toFloat() / 100.0f;
             int w = static_cast<int>((sizeRect.width() - 16) * p);
 
             if (w <= 3) {
-                QRect s(sizeRect.x(), sizeRect.y(), w, m_Front->height());
-                QRect f(0, 0, 3, m_Front->height());
-                painter->drawPixmap(s, *m_Front, f);
+                QRect s(sizeRect.x(), sizeRect.y(), w, m_frontImage->height());
+                QRect f(0, 0, 3, m_frontImage->height());
+                painter->drawPixmap(s, *m_frontImage, f);
             } else if ((w > 3) && (w <= sizeRect.width() - 10)) {
                 // front h
-                QRect s(sizeRect.x(), sizeRect.y(), 3, m_Front->height());
-                QRect f(0, 0, 3, m_Front->height());
-                painter->drawPixmap(s, *m_Front, f);
+                QRect s(sizeRect.x(), sizeRect.y(), 3, m_frontImage->height());
+                QRect f(0, 0, 3, m_frontImage->height());
+                painter->drawPixmap(s, *m_frontImage, f);
 
                 // front m
-                QRect fs3(sizeRect.x() + 3, sizeRect.y(), w - 3, m_Front->height());
-                QRect ft3(3, 0, m_Front->width() - 6, m_Front->height());
-                painter->drawPixmap(fs3, *m_Front, ft3);
+                QRect fs3(sizeRect.x() + 3, sizeRect.y(), w - 3, m_frontImage->height());
+                QRect ft3(3, 0, m_frontImage->width() - 6, m_frontImage->height());
+                painter->drawPixmap(fs3, *m_frontImage, ft3);
 
                 // front td
-                QRect s4(sizeRect.x() + w, sizeRect.y(), 3, m_Front->height());
-                QRect f4(m_Front->width() - 3, 0, 3, m_Front->height());
-                painter->drawPixmap(s4, *m_Front, f4);
+                QRect s4(sizeRect.x() + w, sizeRect.y(), 3, m_frontImage->height());
+                QRect f4(m_frontImage->width() - 3, 0, 3, m_frontImage->height());
+                painter->drawPixmap(s4, *m_frontImage, f4);
             }
         }
     } else if (column == 4) {
-        if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 2) {
-            painter->setPen(QColor("#C0C6D4"));
-        } else if (Dtk::Gui::DGuiApplicationHelper::instance()->themeType() == 1) {
-            painter->setPen(QColor("#414D68"));
-        }
         if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
@@ -359,9 +351,6 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
                                     const QModelIndex &index) const
 {
     Q_UNUSED(option);
-
-    static bool firstInside = true;
-    firstInside = true;
     DLineEdit *pEdit = new DLineEdit(parent);
     QRegExp regx("[^\\\\/\':\\*\\?\"<>|#%？]+"); //屏蔽特殊字符
     QValidator *validator = new QRegExpValidator(regx, pEdit);
@@ -369,6 +358,9 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
+        if(pEdit == nullptr) {
+            return ;
+        }
         QString str = index.data(TableModel::FileName).toString();
         QMimeDatabase db;
         QString mime = db.suffixForFileName(str);
@@ -392,14 +384,8 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         } else {
             pEdit->hideAlertMessage();
         }
-        firstInside = false;
-    });
-
-    connect(pEdit, &DLineEdit::destroyed, this, [=]() {
-        //setModelData(pEdit, index.model(), index);
     });
     pEdit->resize(parent->size());
-    QString FilePath = index.data(TableModel::SavePath).toString();
     return pEdit;
 }
 
@@ -448,16 +434,16 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 
 void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
-    m_HoverRow = index.row();
+    m_hoverRow = index.row();
 }
 
 void ItemDelegate::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
-        m_Front->load(":/icons/icon/bar-bg.png");
-        m_BgImage->load(":/icons/icon/bar-front.png");
+        m_frontImage->load(":/icons/icon/bar-bg.png");
+        m_bgImage->load(":/icons/icon/bar-front.png");
     } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
-        m_BgImage->load(":/icons/icon/bar-bg.png");
-        m_Front->load(":/icons/icon/bar-front.png");
+        m_bgImage->load(":/icons/icon/bar-bg.png");
+        m_frontImage->load(":/icons/icon/bar-front.png");
     }
 }

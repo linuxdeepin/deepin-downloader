@@ -39,6 +39,7 @@ DWIDGET_USE_NAMESPACE
 */
 class SearchResoultWidget : public QListWidget
 {
+    Q_OBJECT
 public:
     SearchResoultWidget(QWidget *parent = nullptr);
 
@@ -51,11 +52,15 @@ public:
     void setData(QList<QString> &taskIDList,
                  QList<int> &taskStatusList, QList<QString> &tasknameList);
 
+public slots:
+    void onKeypressed(Qt::Key k);
 protected:
 
     /**
      * @brief 焦点移出事件
     */
     void focusOutEvent(QFocusEvent *event);
+
+    void keyPressEvent(QKeyEvent *e);
 };
 #endif // SEARCHRESOULTWIDGET_H

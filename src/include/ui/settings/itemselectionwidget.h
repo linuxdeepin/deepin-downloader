@@ -68,6 +68,13 @@ public:
      */
     void setBlockSignals(bool lock);
 
+    /**
+     * @brief 设置AccessibleName
+     * @param name AccessibleName
+     */
+    void setAccessibleName(QString name);
+
+
 signals:
     void checkBoxIsChecked(bool isChecked);
 

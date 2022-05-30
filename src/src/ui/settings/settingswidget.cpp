@@ -28,13 +28,19 @@
 #include "settingswidget.h"
 
 #include <QHBoxLayout>
+#include <QRadioButton>
+#include <QPainter>
+#include <QPaintEvent>
 #include <DLabel>
 #include <DSwitchButton>
 #include <DLineEdit>
 #include <DAlertControl>
-
+#include <DBackgroundGroup>
+#include <DApplicationHelper>
+#include <DHorizontalLine>
+#include <QTimer>
 #include "settings.h"
-DWIDGET_USE_NAMESPACE
+
 SettingsControlWidget::SettingsControlWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -43,62 +49,36 @@ SettingsControlWidget::SettingsControlWidget(QWidget *parent)
 // 初始化界面
 bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
+    QFont font;
+    font.setPixelSize(15);
     QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(label);
+    pLabel->setFont(font);
     DLabel *pTextLabel = new DLabel(text);
+    pTextLabel->setFont(font);
+    pTextLabel->setWordWrap(true);
 
     m_SwitchBtn = new DSwitchButton();
     layout->addWidget(pLabel);
     if (isLineEdit) {
         m_Edit = new DLineEdit();
+        //m_Edit->setAccessibleName(text.remove(QRegExp("\\s")));
         m_Edit->setEnabled(false);
-        m_Edit->setMinimumWidth(200);
-        DAlertControl *alertControl = new DAlertControl(m_Edit, m_Edit);
-        QIntValidator *validator = new QIntValidator(1, 9999);
-        m_Edit->lineEdit()->setValidator(validator);
+        m_Edit->setMinimumWidth(100);
+        QSharedPointer<QIntValidator> validator =
+                    QSharedPointer<QIntValidator>(new QIntValidator(1, 9999), &QObject::deleteLater);
+        m_Edit->lineEdit()->setValidator(validator.data());
         m_Edit->lineEdit()->setText("100");
+        m_Edit->setAccessibleName(m_Edit->text());
         layout->addWidget(m_Edit);
-        connect(m_Edit, &DLineEdit::textChanged, this, &SettingsControlWidget::TextChanged);
-        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString &text) { //设置速度不能高于最大限速
-            if (Settings::getInstance()->getDownloadSettingSelected()
-                && text.toInt() > Settings::getInstance()->getMaxDownloadSpeedLimit().toLong()
-                && text.toInt() <= 0) {
-                alertControl->showAlertMessage(tr("Total speed should be less than max. download speed"),
-                                               m_Edit->parentWidget()->parentWidget(), -1);
-                alertControl->setMessageAlignment(Qt::AlignLeft);
-            } else {
-                alertControl->hideAlertMessage();
-            }
-            if (text.contains('+')) {
-                QString str = text;
-                int pos = m_Edit->lineEdit()->cursorPosition();
-                m_Edit->lineEdit()->setText(str.remove('+'));
-                m_Edit->lineEdit()->setCursorPosition(pos);
-            }
-            if (text.size() > 0 && text.at(0) == '0') {
-                QString str = text;
-                int pos = m_Edit->lineEdit()->cursorPosition();
-                m_Edit->lineEdit()->setText(str.remove(0, 1));
-                m_Edit->lineEdit()->setCursorPosition(pos);
-            }
-        });
-
-        connect(m_Edit, &DLineEdit::editingFinished, this, [=]() {
-            if (m_Edit->lineEdit()->text().toInt() <= 0) {
-                m_Edit->lineEdit()->setText("100");
-            }
-        });
-
-        connect(m_Edit, &DLineEdit::focusChanged, this, [=](bool onFocus) { //设置速度不能高于最大限速
-            if (!onFocus) {
-                alertControl->hideAlertMessage();
-            }
-            if (m_Edit->lineEdit()->text().toInt() <= 0) {
-                m_Edit->lineEdit()->setText("100");
-            }
+        connect(m_Edit, &DLineEdit::textChanged, this, [=](const QString & text){
+            emit TextChanged(text);
+            m_Edit->setAccessibleName(text);
         });
     } else {
         m_ComboBox = new DComboBox();
+        //m_ComboBox->setAccessibleName(text.remove(QRegExp("\\s")));
         m_ComboBox->setEnabled(false);
         m_ComboBox->setFixedWidth(80);
         QStringList strList;
@@ -110,7 +90,10 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
                 << "100";
         m_ComboBox->addItems(strList);
         layout->addWidget(m_ComboBox);
-        connect(m_ComboBox, &DComboBox::currentTextChanged, this, &SettingsControlWidget::TextChanged);
+        connect(m_ComboBox, &DComboBox::currentTextChanged, this,  [=](const QString & text){
+            emit TextChanged(text);
+            m_ComboBox->setAccessibleName(text);
+        });
     }
 
     layout->addWidget(pTextLabel);
@@ -152,4 +135,92 @@ void SettingsControlWidget::setSize(QString size)
 void SettingsControlWidget::setSwitch(bool arg)
 {
     m_SwitchBtn->setChecked(arg);
+}
+
+DLineEdit *SettingsControlWidget::lineEdit()
+{
+    return m_Edit;
+}
+
+SettingsLineWidget::SettingsLineWidget(QWidget *parent)
+    : QWidget(parent)
+{
+}
+
+bool SettingsLineWidget::initUI(QString text, bool currentStat)
+{
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    DLabel *pLabel = new DLabel(text,this);
+    m_SwitchBtn = new DSwitchButton();
+    m_SwitchBtn->setChecked(currentStat);
+    layout->addWidget(pLabel);
+    layout->addStretch();
+    layout->addWidget(m_SwitchBtn, 0, Qt::AlignRight);
+
+    connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat) {
+        emit checkedChanged(stat);
+    });
+    return true;
+}
+
+bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QString currenttext)
+{
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    DLabel *pLabel = new DLabel(text,this);
+    m_comboBox = new QComboBox(this);
+    m_comboBox->setFixedWidth(150);
+    m_comboBox->addItems(textList);
+    m_comboBox->setCurrentText(currenttext);
+    m_comboBox->setAccessibleName(text.remove(QRegExp("\\s")));
+    layout->addWidget(pLabel);
+    layout->addStretch();
+    layout->addWidget(m_comboBox, 0, Qt::AlignRight);
+    connect(m_comboBox, &QComboBox::currentTextChanged, this, [=](const QString & text) {
+        m_comboBox->setEnabled(false);
+        QTimer::singleShot(2000, this, [=]() {
+            m_comboBox->setEnabled(true);
+        });
+        emit currentTextChanged(text);
+        m_comboBox->setAccessibleName(text);
+    });
+    return true;
+}
+
+void SettingsLineWidget::setSwitch(QString arg)
+{
+    if(arg == "true"){
+        m_SwitchBtn->setChecked(true);
+    } else {
+        m_SwitchBtn->setChecked(false);
+    }
+}
+
+void SettingsLineWidget::setSize(QString size)
+{
+    if ("3" == size) {
+        m_comboBox->setCurrentIndex(0);
+    } else if ("5" == size) {
+        m_comboBox->setCurrentIndex(1);
+    } else if ("10" == size) {
+        m_comboBox->setCurrentIndex(2);
+    } else if ("20" == size) {
+        m_comboBox->setCurrentIndex(3);
+    }
+}
+
+void SettingsLineWidget::AddressThreadSize(QString size)
+{
+    if ("1" == size) {
+        m_comboBox->setCurrentIndex(0);
+    }else if ("3" == size) {
+        m_comboBox->setCurrentIndex(1);
+    } else if ("5" == size) {
+        m_comboBox->setCurrentIndex(2);
+    } else if ("7" == size) {
+        m_comboBox->setCurrentIndex(3);
+    } else if ("10" == size) {
+        m_comboBox->setCurrentIndex(4);
+    }
 }

@@ -50,6 +50,7 @@ class BtInfoTableView;
 class AnalysisUrl;
 class TaskDelegate;
 class QStandardItemModel;
+class TaskModel;
 
 DWIDGET_USE_NAMESPACE
 
@@ -57,7 +58,7 @@ class CreateTaskWidget : public DDialog
 {
     Q_OBJECT
 public:
-    explicit CreateTaskWidget(DDialog *parent = 0);
+    explicit CreateTaskWidget(QWidget *parent = 0);
     ~CreateTaskWidget();
 
     /**
@@ -193,26 +194,23 @@ private:
     double getSelectSize();
 
     /**
-     * @brief 获取ftp服务器文件大小
-     * @param 传入路径
-     * @return 传出double大小
-    */
-    double getFtpFileSize(QString ftpPath);
+     * @brief 判断是否存在该类型的后缀名
+     * @param 后缀名
+     * @return 是否存在
+    **/
+    bool isExistType(QString type);
 
-    /**
-     * @brief 获取ftp服务器文件大小的回调函数
-     * @param curl CURL信息
-     * @param size  空
-     * @param nmemb 获取到ftp文件大小
-     * @param data  空
-     * @return 传出ftp大小
-    */
-    static size_t ftpSize(void *curl, size_t size, size_t nmemb, void *data);
 private slots:
     /**
      * @brief 打开选择文件窗口按钮
      */
     void onFileDialogOpen();
+
+    /**
+     * @brief 打开metalink选择文件窗口按钮
+     */
+    void onMLFileDialogOpen();
+
     /**
      * @brief 关闭窗口按钮
      */
@@ -317,7 +315,8 @@ private:
     DFileChooserEdit *m_editDir; //选择下载路径窗口
     QString m_defaultDownloadDir; //默认文件路径
 
-    QStandardItemModel *m_model; //tableview中的模型，数据交流
+    //QStandardItemModel *m_model; //tableview中的模型，数据交流
+    TaskModel *m_model; //tableview中的模型，数据交流
     TaskDelegate *m_delegate; //tableview中选中表格item
     BtInfoTableView *m_tableView; //列表
     DWidget *m_widget; //包裹view

@@ -44,8 +44,8 @@ class DeleteItemThread : public QThread
     Q_OBJECT
 public:
     DeleteItemThread();
-    DeleteItemThread(QList<DeleteDataItem>, TableView *pRecycleTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
-    DeleteItemThread(QList<DownloadDataItem> deleteList, TableView *pDownloadingTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
+    DeleteItemThread(QList<DeleteDataItem *> &deleteList, TableView *pRecycleTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
+    DeleteItemThread(QList<DownloadDataItem *> &deleteList, TableView *pDownloadingTableview, bool m_IfDeleteLocal, QString m_StrDeleteType);
     void run();
 
 private:
@@ -77,11 +77,11 @@ signals:
     void removeFinished();
 
 private:
-    QList<DeleteDataItem> m_RecycleDeleteList;
+    QList<DeleteDataItem*> m_RecycleDeleteList;
     TableView *m_RecycleTableview;
     bool m_IfDeleteLocal;
     QString m_StrDeleteType;
-    QList<DownloadDataItem> m_DeleteList;
+    QList<DownloadDataItem*> m_DeleteList;
     TableView *m_DownloadingTableview;
 };
 

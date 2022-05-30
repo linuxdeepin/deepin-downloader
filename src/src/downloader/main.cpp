@@ -28,6 +28,7 @@
 #include <DApplication>
 #include <DMainWindow>
 #include <DWidgetUtil>
+#include <DSwitchButton>
 #include <DApplicationSettings>
 #include <QTranslator>
 #include <QClipboard>
@@ -37,34 +38,52 @@
 #include <QDBusMessage>
 #include <QStringList>
 #include <QDBusConnection>
+#include <QPushButton>
+#include <QCheckBox>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
+#include <QAccessible>
 
 #include "mainframe.h"
 #include "log.h"
 #include "settings.h"
 #include "config.h"
 #include "dlmapplication.h"
+#include "accessiblewidget.h"
 DWIDGET_USE_NAMESPACE
 
 QString readShardMemary(QSharedMemory &sharedMemory);
 void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl);
 bool checkProcessExist();
+QAccessibleInterface *accessibleFactory(const QString &classname, QObject *object);
 
 int main(int argc, char *argv[])
 {
-    DlmApplication::loadDXcbPlugin();
+
+    if (qEnvironmentVariableIsEmpty("XDG_CURRENT_DESKTOP")){
+            qputenv("XDG_CURRENT_DESKTOP", "Deepin");
+    }
+
+    auto e = QProcessEnvironment::systemEnvironment();
+    QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+    if (XDG_SESSION_TYPE == QLatin1String("x11")) {
+        DlmApplication::loadDXcbPlugin();
+    }
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     DlmApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);
     a.loadTranslator(); //加载程序的翻译文件
     a.setOrganizationName("uos"); //设置公司名
-    a.setApplicationName("downloader"); //设置应用程序名
+    a.setApplicationName(QObject::tr("downloader")); //设置应用程序名
+    a.setApplicationDisplayName(QObject::tr("Downloader"));
     a.setApplicationVersion(DLM_VERSION_STRING); //设置应用程序版本
     a.setProductIcon(QIcon(":/icons/icon/downloader.svg")); //从系统主题中获取图标并设置成产品图标
     a.setProductName(QObject::tr("Downloader")); //设置产品的名称
     a.setApplicationDescription(QObject::tr("Downloader is a user-friendly download tool, supporting URLs and torrent files")); //设置产品的描述信息
     //a.setApplicationDisplayName(QCoreApplication::translate("Main", "Uos Download Management Application")); //设置应用程序的显示信息
+
+    // 安装工厂
+    QAccessible::installFactory(accessibleFactory);
 
     //处理命令行类
     QCommandLineParser parser;
@@ -91,12 +110,17 @@ int main(int argc, char *argv[])
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
-                if(comList[0].contains(".torrent") || comList[0].contains(".metalink")){
+                if (comList[0].contains(".torrent") || comList[0].contains(".metalink")) {
                     QDBusInterface iface("com.downloader.service",
                                          "/downloader/path",
                                          "local.downloader.MainFrame",
                                          QDBusConnection::sessionBus());
-                    iface.asyncCall("OpenFile", comList[0]);
+                    if(comList[0].contains("http://") || comList[0].contains("https://") || comList[0].contains("ftp://")) {
+                        iface.asyncCall("createNewTask", comList[0]);
+                    } else {
+                        iface.asyncCall("OpenFile", comList[0]);
+                        qDebug() << "OpenFile :  " << comList[0];
+                    }
                 }
             }
             return 0;
@@ -110,26 +134,32 @@ int main(int argc, char *argv[])
     DApplicationSettings as;
     Q_UNUSED(as)
     QDir dirCheck;
-    QString Log_path = QString("%1/%2/%3/Log/")
+    QString LogPath = QString("%1/%2/%3/Log/")
                            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                            .arg(qApp->organizationName())
                            .arg(qApp->applicationName());
 
-    setLogDir(Log_path);
-    if (!dirCheck.exists(Log_path)) {
-        dirCheck.mkpath(Log_path);
+    setLogDir(LogPath);
+    if (!dirCheck.exists(LogPath)) {
+        dirCheck.mkpath(LogPath);
     }
     //检查日志是否过期
     CheckLogTime();
     //磁盘剩余空间小于阈值，清除早期日志
     CheckFreeDisk();
     //创建新日志
+    setLogLevel(1);
+    if(comList.size() == 1 && comList.first() == "debug") {
+        setLogLevel(0);
+    }
     CreateNewLog();
     qInstallMessageHandler(customLogMessageHandler);
 
-    qDebug() << Log_path; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
+    qDebug() << LogPath; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
+    Dtk::Widget::moveToCenter(&w);
     w.show();
+
     for (int i = 0; i < comList.size(); i++) {
         if (comList[i].endsWith(".torrent") || comList[i].endsWith(".metalink")) {
             if (Settings::getInstance()->getOneClickDownloadState()) {
@@ -140,7 +170,7 @@ int main(int argc, char *argv[])
     }
     w.setWindowIcon(QIcon(":/icons/icon/downloader.svg"));
     QObject::connect(&a, &DlmApplication::applicatinQuit, &w, &MainFrame::onTrayQuitClick);
-    Dtk::Widget::moveToCenter(&w);
+
     return a.exec();
 }
 
@@ -162,6 +192,7 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
     const char *from = buffer.data().constData();
     int size = strUrl.size();
     int num = qMin(size, sharedMemory.size());
+    memset(to, 0, 199);
     memcpy(to, from, static_cast<size_t>(num));
     sharedMemory.unlock();
 }
@@ -180,4 +211,21 @@ bool checkProcessExist()
         return false;
     }
     return true;
+}
+
+QAccessibleInterface *accessibleFactory(const QString &classname, QObject *object)
+{
+    QAccessibleInterface *interface = nullptr;
+
+    if (object && object->isWidgetType()) {
+        if (classname == "QLabel")
+            interface = new AccessibleLabel(qobject_cast<QLabel *>(object));
+
+        if (classname == "QPushButton")
+            interface = new AccessibleButton(qobject_cast<QPushButton *>(object));
+
+//        if (classname == "QCheckBox")
+//            interface = new AccessibleCheckBox(qobject_cast<QCheckBox *>(object));
+    }
+    return interface;
 }

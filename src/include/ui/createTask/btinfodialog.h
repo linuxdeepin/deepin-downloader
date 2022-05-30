@@ -57,7 +57,7 @@ class BtInfoDialog : public DDialog
     Q_OBJECT
 
 public:
-    explicit BtInfoDialog(QString torrentFile, QString btLastSavePath);
+    explicit BtInfoDialog(QString torrentFile, QString btLastSavePath,QWidget *parent = nullptr);
     ~BtInfoDialog() override;
 
     /**
@@ -140,18 +140,18 @@ private slots:
      */
     void onPaletteTypeChanged(DGuiApplicationHelper::ColorType type);
 
-    /**
-     * @brief 随dtk主题变化
-     * @param index 对应索引
-     */
-    void Sort(int index);
+//    /**
+//     * @brief 随dtk主题变化
+//     * @param index 对应索引
+//     */
+//    void Sort(int index);
 
-    /**
-     * @brief 随dtk主题变化
-     * @param DataRole 所在行
-     * @param bool
-     */
-    void setTableData(BtInfoDialog::DataRole, bool ret);
+//    /**
+//     * @brief 随dtk主题变化
+//     * @param DataRole 所在行
+//     * @param bool
+//     */
+//    void setTableData(BtInfoDialog::DataRole, bool ret);
 
 private:
     void initUI(); //初始化UI

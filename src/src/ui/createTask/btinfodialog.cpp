@@ -40,9 +40,11 @@
 #include <QStandardPaths>
 #include <QSharedMemory>
 #include <dpinyin.h>
+#include <QFont>
+#include <QTimer>
 
-BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath)
-    : DDialog()
+BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath,QWidget *parent)
+    : DDialog(parent)
     , m_torrentFile(torrentFile)
     , m_defaultDownloadDir(btLastSavePath)
 {
@@ -99,14 +101,19 @@ QString BtInfoDialog::getName()
 void BtInfoDialog::initUI()
 {
     m_ariaInfo = Aria2RPCInterface::instance()->getBtInfo(m_torrentFile);
-    setTitle(" ");
-    setWindowTitle(tr(""));
+//    setTitle(" ");
+//    setWindowTitle(tr(""));
+    QFont font;
+    font.setFamily("Source Han Sans");
+    font.setPixelSize(13);
+
 
     m_labelTitle = new DLabel(this);
     m_labelTitle->setFixedSize(width(), 30);
     m_labelTitle->setAlignment(Qt::AlignCenter);
     m_labelTitle->move(0, 48);
     m_labelTitle->setText(tr("New Task"));
+    m_labelTitle->setFont(font);
     m_folderIcon = new DLabel(this);
     m_folderIcon->setPixmap(QPixmap(":/icons/icon/folder.svg")); ///usr/share/icons/bloom/places/32/folder.svg
     m_folderIcon->move(45, 92);
@@ -118,6 +125,7 @@ void BtInfoDialog::initUI()
         m_ariaInfo.name = m_ariaInfo.files[0].path;
     }
     m_labelInfoName->setText(m_ariaInfo.name);
+    m_labelInfoName->setFont(font);
     m_labelInfoName->setWordWrap(true);
 
     //总大小标签
@@ -148,7 +156,7 @@ void BtInfoDialog::initUI()
     QVBoxLayout *vb = new QVBoxLayout(m_widget);
     vb->setContentsMargins(10, 0, 10, 5);
     vb->addWidget(m_tableView);
-    QHBoxLayout *hb = new QHBoxLayout();
+    QSharedPointer<QHBoxLayout> hb = QSharedPointer<QHBoxLayout>(new QHBoxLayout);
     hb->addWidget(m_labelSelectedFileNum, Qt::AlignLeft);
     hb->addStretch();
     hb->addWidget(m_labelFileSize, Qt::AlignRight);
@@ -159,6 +167,7 @@ void BtInfoDialog::initUI()
     m_checkAll->setObjectName("checkAll");
     m_checkAll->setGeometry(15, 401, 95, 29);
     m_checkAll->setText(tr("All"));
+    m_checkAll->setFont(font);
     m_checkAll->setChecked(true);
     connect(m_checkAll, SIGNAL(clicked()), this, SLOT(onAllCheck()));
 
@@ -166,6 +175,7 @@ void BtInfoDialog::initUI()
     m_checkVideo->setObjectName("checkVideo");
     m_checkVideo->setGeometry(100, 401, 95, 29);
     m_checkVideo->setText(tr("Videos"));
+    m_checkVideo->setFont(font);
     m_checkVideo->setChecked(true);
     connect(m_checkVideo, SIGNAL(clicked()), this, SLOT(onVideoCheck()));
 
@@ -173,6 +183,7 @@ void BtInfoDialog::initUI()
     m_checkPicture->setObjectName("checkPicture");
     m_checkPicture->setGeometry(185, 401, 95, 29);
     m_checkPicture->setText(tr("Pictures"));
+    m_checkPicture->setFont(font);
     m_checkPicture->setChecked(true);
     connect(m_checkPicture, SIGNAL(clicked()), this, SLOT(onPictureCheck()));
 
@@ -180,6 +191,7 @@ void BtInfoDialog::initUI()
     m_checkAudio->setObjectName("checkAudio");
     m_checkAudio->setGeometry(270, 401, 95, 29);
     m_checkAudio->setText(tr("Music"));
+    m_checkAudio->setFont(font);
     m_checkAudio->setChecked(true);
     connect(m_checkAudio, SIGNAL(clicked()), this, SLOT(onAudioCheck()));
 
@@ -187,11 +199,12 @@ void BtInfoDialog::initUI()
     m_checkOther->setObjectName("checkOther");
     m_checkOther->setGeometry(355, 401, 95, 29); //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
     m_checkOther->setText(tr("Others"));
+    m_checkOther->setFont(font);
     m_checkOther->setChecked(true);
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
 
     //下载路径所在分区剩余磁盘容量
-    m_labelCapacityFree = new DLabel();
+    m_labelCapacityFree = new DLabel(this);
     m_labelCapacityFree->setGeometry(350, 363, 86, 23);
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
     m_labelCapacityFree->setPalette(pal);
@@ -200,6 +213,7 @@ void BtInfoDialog::initUI()
     //
     m_editDir = new DFileChooserEdit(this);
     m_editDir->setGeometry(15, 435, 471, 36);
+    m_editDir->setFont(font);
     //   QString text = getFileEditText(m_defaultDownloadDir);
     QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
 
@@ -225,6 +239,8 @@ void BtInfoDialog::initUI()
     //this->btnOK->setFixedWidth(190);
     m_btnOK->setGeometry(160, 480, 191, 35);
     m_btnOK->setText(tr("Download Now"));
+    m_btnOK->setFont(font);
+    m_btnOK->setAccessibleName("downloadNow");
     connect(m_btnOK, SIGNAL(clicked()), this, SLOT(onBtnOK()));
     //文件列表配置
     m_tableView->setShowGrid(false);
@@ -234,11 +250,12 @@ void BtInfoDialog::initUI()
     m_tableView->setAlternatingRowColors(true);
     m_tableView->setFrameShape(QAbstractItemView::NoFrame);
 
-    QFont font;
+//    QFont font;
     font.setPixelSize(13);
     m_tableView->setFont(font);
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     m_tableView->horizontalHeader()->setHighlightSections(false);
+    m_tableView->horizontalHeader()->setFont(font);
 
     m_tableView->verticalHeader()->hide();
     m_tableView->verticalHeader()->setDefaultSectionSize(46);
@@ -248,6 +265,8 @@ void BtInfoDialog::initUI()
 
     m_model = new QStandardItemModel();
     m_tableView->setModel(m_model);
+    m_tableView->setAccessibleName("btTableView");
+    DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
 
     m_model->setColumnCount(5);
     m_model->setHeaderData(0, Qt::Horizontal, tr("Name"));
@@ -259,12 +278,33 @@ void BtInfoDialog::initUI()
     for (int i = 0; i < m_ariaInfo.files.length(); i++) {
         Aria2cBtFileInfo file = m_ariaInfo.files.at(i);
         QList<QStandardItem *> list;
-        list << new QStandardItem("1");
-        list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
-        list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
-        list << new QStandardItem(file.length);
-        list << new QStandardItem(QString::number(file.index));
-        list << new QStandardItem(QString::number(file.lengthBytes));
+
+        QStandardItem *item1 = new QStandardItem("1");
+        item1->setAccessibleText(QString("1_%1").arg(QString::number(i)));
+
+        QStandardItem *item2 = new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
+        item2->setAccessibleText(file.path.mid(file.path.lastIndexOf("/") + 1).append("_").append(QString::number(i)));
+
+        QStandardItem *item3 = new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
+        item3->setAccessibleText(file.path.mid(file.path.lastIndexOf(".") + 1).append("_").append(QString::number(i)));
+
+        QStandardItem *item4 = new QStandardItem(file.length);
+        item4->setAccessibleText(file.length.append("_").append(QString::number(i)));
+
+        QStandardItem *item5 = new QStandardItem(QString::number(file.index));
+        item5->setAccessibleText(QString::number(file.index).append("_").append(QString::number(i)));
+
+        QStandardItem *item6 = new QStandardItem(QString::number(file.lengthBytes));
+        item6->setAccessibleText(QString::number(file.lengthBytes).append("_").append(QString::number(i)));
+
+        list << item1 << item2 << item3 << item4 << item5 << item6;
+
+//        list << new QStandardItem("1");
+//        list << new QStandardItem(file.path.mid(file.path.lastIndexOf("/") + 1));
+//        list << new QStandardItem(file.path.mid(file.path.lastIndexOf(".") + 1));
+//        list << new QStandardItem(file.length);
+//        list << new QStandardItem(QString::number(file.index));
+//        list << new QStandardItem(QString::number(file.lengthBytes));
         m_model->appendRow(list);
         m_listBtInfo.append(file);
     }
@@ -282,7 +322,7 @@ void BtInfoDialog::initUI()
 
     DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &BtInfoDelegate::onhoverChanged);
-    connect(m_tableView->horizontalHeader(), SIGNAL(sectionPressed(int)), this, SLOT(Sort(int)));
+   // connect(m_tableView->horizontalHeader(), SIGNAL(sectionPressed(int)), this, SLOT(Sort(int)));
     onPaletteTypeChanged(DGuiApplicationHelper::ColorType::LightType);
 }
 
@@ -297,8 +337,7 @@ int BtInfoDialog::exec()
 
 bool BtInfoDialog::onBtnOK()
 {
-    if (getSelected().isNull()) {
-        qDebug() << "Please Select Download Files!";
+    if (getSelected().isEmpty()) {
         return false;
     }
 
@@ -311,7 +350,7 @@ bool BtInfoDialog::onBtnOK()
     }
     if (free < (total / 1024)) { //剩余空间比较 KB
         qDebug() << "Disk capacity is not enough!";
-        MessageBox msg;
+        MessageBox msg(this);
         msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg.exec();
         return false;
@@ -540,7 +579,7 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     QString strPath;
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
-        MessageBox msg;
+        MessageBox msg(this);
         msg.setFolderDenied();
         msg.exec();
         strPath = m_editDir->directoryUrl().toString();
@@ -586,83 +625,6 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
         m_labelSelectedFileNum->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
     }
     m_widget->setPalette(p);
-}
-
-typedef bool (*BtSort)(const QString &left,
-                       const QString &right);
-
-bool lessThan(const QString &left,
-              const QString &right)
-{
-    return left < right;
-}
-
-bool greaterThan(const QString &left,
-                 const QString &right)
-{
-    return right < left;
-}
-
-void BtInfoDialog::Sort(int index)
-{
-    bool ascending = (m_tableView->horizontalHeader()->sortIndicatorSection() == index && m_tableView->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
-    switch (index) {
-    case DataRole::fileName:
-        sortByFileName(ascending);
-        break;
-    case DataRole::type:
-        sortByType(ascending);
-        break;
-    case DataRole::size:
-        sortBySize(ascending);
-        break;
-    }
-    BtSort compare = ascending ? &lessThan : &greaterThan;
-}
-
-void BtInfoDialog::setTableData(BtInfoDialog::DataRole index, bool ret)
-{
-    m_model->clear();
-    m_model->setColumnCount(5);
-    m_model->setHeaderData(0, Qt::Horizontal, tr("Name"));
-    m_model->setHeaderData(1, Qt::Horizontal, "");
-    m_model->setHeaderData(2, Qt::Horizontal, tr("Type"));
-    m_model->setHeaderData(3, Qt::Horizontal, tr("Size"));
-    m_model->setHeaderData(4, Qt::Horizontal, "index");
-
-    m_tableView->sortByColumn(index, ret ? Qt::DescendingOrder : Qt::AscendingOrder);
-    int count = m_listBtInfo.size();
-    if (ret) {
-        for (int i = 0; i < m_listBtInfo.size(); i++) {
-            QList<QStandardItem *> list;
-            list << new QStandardItem("1");
-            list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf("/") + 1));
-            list << new QStandardItem(m_listBtInfo[i].path.mid(m_listBtInfo[i].path.lastIndexOf(".") + 1));
-            list << new QStandardItem(m_listBtInfo[i].length);
-            list << new QStandardItem(QString::number(m_listBtInfo[i].index));
-            list << new QStandardItem(QString::number(m_listBtInfo[i].lengthBytes));
-            auto a = m_listBtInfo[i].lengthBytes;
-            m_model->appendRow(list);
-        }
-    } else {
-        for (int i = 1; i < count + 1; i++) {
-            QList<QStandardItem *> list;
-            list << new QStandardItem("1");
-            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf("/") + 1));
-            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].path.mid(m_listBtInfo[m_listBtInfo.size() - i].path.lastIndexOf(".") + 1));
-            list << new QStandardItem(m_listBtInfo[m_listBtInfo.size() - i].length);
-            list << new QStandardItem(QString::number(m_listBtInfo[m_listBtInfo.size() - i].index));
-            list << new QStandardItem(QString::number(m_listBtInfo[m_listBtInfo.size() - i].lengthBytes));
-            m_model->appendRow(list);
-        }
-    }
-
-    m_tableView->setColumnHidden(1, true);
-    m_tableView->setColumnHidden(4, true);
-    m_tableView->setColumnHidden(5, true);
-
-    m_tableView->setColumnWidth(0, 290);
-    m_tableView->setColumnWidth(2, 60);
 }
 
 void BtInfoDialog::getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QString &infoHash)
@@ -711,50 +673,16 @@ void BtInfoDialog::setOkBtnStatus(int count)
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)
 {
-    QSharedMemory sharedMemory;
-    sharedMemory.setKey("downloader");
-    if (sharedMemory.attach()) //设置成单例程序
-    {
-        sharedMemory.lock();
-        char *to = static_cast<char *>(sharedMemory.data());
-        int num = sharedMemory.size();
-        memset(to, 0, num);
-        sharedMemory.unlock();
-    }
-}
-
-void BtInfoDialog::sortByFileName(bool ret)
-{
-    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
-        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
-            if (Chinese2Pinyin(m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf("/") + 1)) > Chinese2Pinyin(m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf("/") + 1))) {
-                m_listBtInfo.swap(j, j + 1);
-            }
+    QTimer::singleShot(5000, this->parent(), [=](){
+        QSharedMemory sharedMemory;
+        sharedMemory.setKey("downloader");
+        if (sharedMemory.attach()) //设置成单例程序
+        {
+            sharedMemory.lock();
+            char *to = static_cast<char *>(sharedMemory.data());
+            int num = sharedMemory.size();
+            memset(to, 0, num);
+            sharedMemory.unlock();
         }
-    }
-    setTableData(DataRole::fileName, ret);
-}
-
-void BtInfoDialog::sortByType(bool ret)
-{
-    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
-        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
-            if (m_listBtInfo[j].path.mid(m_listBtInfo[j].path.lastIndexOf(".") + 1) > m_listBtInfo[j + 1].path.mid(m_listBtInfo[j + 1].path.lastIndexOf(".") + 1)) {
-                m_listBtInfo.swap(j, j + 1);
-            }
-        }
-    }
-    setTableData(DataRole::type, ret);
-}
-
-void BtInfoDialog::sortBySize(bool ret)
-{
-    for (int i = 0; i < m_listBtInfo.size() - 1; i++) {
-        for (int j = 0; j < m_listBtInfo.size() - i - 1; j++) {
-            if (m_listBtInfo[j].lengthBytes > m_listBtInfo[j + 1].lengthBytes) {
-                m_listBtInfo.swap(j, j + 1);
-            }
-        }
-    }
-    setTableData(DataRole::size, ret);
+    });
 }

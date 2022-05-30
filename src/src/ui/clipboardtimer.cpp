@@ -33,11 +33,15 @@
 #include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QProcess>
 #include "func.h"
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
     : QObject(parent)
 {
+    auto e = QProcessEnvironment::systemEnvironment();
+    m_sessionType = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+
     m_clipboard = QApplication::clipboard(); //获取当前剪切板
     connect(m_clipboard, &QClipboard::dataChanged, this, &ClipboardTimer::getDataChanged);
 }
@@ -53,32 +57,36 @@ void ClipboardTimer::checkClipboardHasUrl()
 
 void ClipboardTimer::getDataChanged()
 {
-    //qDebug() << "ClipboardTimer::getDataChanged()";
+    static bool isInitWayland = true;
+
     const QMimeData *mimeData = m_clipboard->mimeData();
     QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
-    if (mimeData->data("TIMESTAMP") == m_timeStamp) {
-        return;
-    }
-    if (isDeepinCilpboard == "1") {
-        return;
+    if(m_sessionType == QLatin1String("wayland")){
+        if(m_clipboard->text() == m_lastUrl || m_clipboard->text().isEmpty()){
+            return;
+        }
+        if(isInitWayland){
+            if(!Settings::getInstance()->getIsClipboradStart(m_clipboard->text())){
+                return;
+            }
+        }
+        m_lastUrl = m_clipboard->text();
+    }else {
+        if (mimeData->data("TIMESTAMP") == m_timeStamp || isDeepinCilpboard == "1") {
+            return;
+        }
+        m_timeStamp = mimeData->data("TIMESTAMP");
     }
     if (m_clipboard->ownsClipboard()) {
         return;
     }
-    m_timeStamp = mimeData->data("TIMESTAMP");
-    const QMimeData *data = m_clipboard->mimeData();
-    if (data->hasText()) {
-        QString text = data->text();
-    }
-    for (int i = 0; i < data->formats().size(); i++) {
-        QString format = data->formats()[i];
-        QString formatData = data->data(data->formats()[i]);
+
+    for (int i = 0; i < mimeData->formats().size(); i++) {
+        QString format = mimeData->formats()[i];
+        QString formatData = mimeData->data(mimeData->formats()[i]);
         if (format == "FROM_DEEPIN_CLIPBOARD_MANAGER") {
-            //qDebug() << "ClipboardTimer <getDataChanged> : FROM_DEEPIN_CLIPBOARD_MANAGER";
             return;
         }
-        //qDebug() << "ClipboardTimer <getDataChanged> format:: " << format;
-        //qDebug() << "ClipboardTimer <getDataChanged> formatData:: " << formatData;
     }
 
     QStringList urlList = m_clipboard->text().split("\n");
@@ -86,14 +94,15 @@ void ClipboardTimer::getDataChanged()
         urlList[i] = urlList[i].simplified();
     }
     QString url;
-    ////qDebug()<< "class::ClipboardTimer getDataChanged() url <<  "<< urlList;
     Settings *setting = Settings::getInstance();
     bool bIsHttp = setting->getHttpDownloadState();
     bool bIsMagnet = setting->getMagneticDownloadState();
     bool bIsBt = setting->getBtDownloadState();
+    bool bIsMl = setting->getMLDownloadState();
     //将不符合规则链接剔除
     for (int i = 0; i < urlList.size(); i++) {
-        if ((isMagnetFormat(urlList[i]) && bIsMagnet) || (isHttpFormat(urlList[i]) && bIsHttp) || (isBtFormat(urlList[i]) && bIsBt)) {
+        if ((isMagnetFormat(urlList[i]) && bIsMagnet) || (isHttpFormat(urlList[i]) && bIsHttp)
+                || (isBtFormat(urlList[i]) && bIsBt) || (isMlFormat(urlList[i]) && bIsMl)) {
             url.append(urlList[i]).append("\n");
         }
     }
@@ -114,10 +123,13 @@ bool ClipboardTimer::isHttpFormat(QString url)
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
         return false;
     }
+
+    if(!isWebFormat(url)){
+        return false;
+    }
     QStringList list = url.split(".");
     QString suffix = list[list.size() - 1];
     QStringList typeList = getTypeList();
-
     if (typeList.contains(suffix)) {
         return true;
     }
@@ -127,15 +139,6 @@ bool ClipboardTimer::isHttpFormat(QString url)
         }
     }
 
-    QStringList webList =getWebList();
-    for (int i = 0; i < webList.size(); i++) {
-        if(url.contains(webList[i])){
-            return false;
-        }
-        if(i == webList.size()-1 && !url.contains(webList[i])){
-            return true;
-        }
-    }
     return false;
 }
 
@@ -144,10 +147,36 @@ bool ClipboardTimer::isBtFormat(QString url)
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
         return false;
     }
+    if(!isWebFormat(url)){
+        return false;
+    }
     QStringList list = url.split(".");
     QString suffix = list[list.size() - 1];
     QStringList type;
     type << "torrent";
+    if (type.contains(suffix)) {
+        return true;
+    }
+    for (int i = 0; i < type.size(); i++) {
+        if (type[i].toUpper() == suffix.toUpper()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool ClipboardTimer::isMlFormat(QString url)
+{
+    if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
+        return false;
+    }
+    if(!isWebFormat(url)){
+        return false;
+    }
+    QStringList list = url.split(".");
+    QString suffix = list[list.size() - 1];
+    QStringList type;
+    type << "metalink";
     if (type.contains(suffix)) {
         return true;
     }
@@ -169,16 +198,26 @@ QStringList ClipboardTimer::getTypeList()
     QFile file(configPath);
     if(!file.open(QIODevice::ReadWrite)) {
         qDebug() << "File open failed!";
+        return QStringList();
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
     QString defaultSuffix = obj.value("CurSuffix").toString();
     defaultSuffix.remove('.');
-    QStringList defaulList = defaultSuffix.split("\n");
-    for (int i = 0; i < defaulList.size(); i++) {
-        defaulList[i].remove(';');
-    }
-    return  defaulList;
+    QStringList defaulList = defaultSuffix.split(";");
+    QStringList::iterator it = defaulList.begin();
+//    for (;it != defaulList.end() ; it++) {
+//        QString str = *it;
+//        if(!it->endsWith(';')){
+//            it = defaulList.erase(it);
+//            it--;
+//            continue;
+//        }
+//        it->remove(";");
+//    }
+   defaulList.removeAll("metalink");
+   defaulList.removeAll("torrent");
+   return  defaulList;
 }
 
 QStringList ClipboardTimer::getWebList()
@@ -190,16 +229,46 @@ QStringList ClipboardTimer::getWebList()
     QFile file(configPath);
     if(!file.open(QIODevice::ReadWrite)) {
         qDebug() << "File open failed!";
+        return QStringList();
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
     QString curWeb = obj.value("CurWeb").toString();
 
 
-    return  curWeb.split("\n");
+    return  midWebList(curWeb.split("\n"));
 }
 
+bool ClipboardTimer::isWebFormat(QString url)
+{
 
+    url = url.mid(url.indexOf("//")+2);
+    url = url.mid(0,url.indexOf("/"));
+    QStringList webList =getWebList();
+    QString webUrl;
+    for (int i = 0; i < webList.size(); i++) {
+        if(webList[i].simplified().isEmpty()){
+            continue;
+        }
+        if(url == webList[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+QStringList ClipboardTimer::midWebList(QStringList webList)
+{
+    for (int i = 0; i < webList.size() ; ++i) {
+        if (!((-1 == webList[i].indexOf("ftp:")) && (-1 == webList[i].indexOf("http://")) && (-1 == webList[i].indexOf("https://")))) {
+            webList[i] = webList[i].mid(webList[i].indexOf("//")+2);
+        }
+        if(webList[i].contains("/")){
+            webList[i] = webList[i].mid(0,webList[i].indexOf("/"));
+        }
+    }
+    return webList;
+}
 
 
 

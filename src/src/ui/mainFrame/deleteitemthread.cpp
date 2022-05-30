@@ -38,7 +38,7 @@ DeleteItemThread::DeleteItemThread()
 {
 }
 
-DeleteItemThread::DeleteItemThread(QList<DeleteDataItem> recycleDeleteList,
+DeleteItemThread::DeleteItemThread(QList<DeleteDataItem*> &recycleDeleteList,
                                    TableView *recycleTableview,
                                    bool ifDeleteLocal,
                                    QString deleteType)
@@ -49,7 +49,7 @@ DeleteItemThread::DeleteItemThread(QList<DeleteDataItem> recycleDeleteList,
     m_StrDeleteType = deleteType;
 }
 
-DeleteItemThread::DeleteItemThread(QList<DownloadDataItem> deleteList,
+DeleteItemThread::DeleteItemThread(QList<DownloadDataItem*> &deleteList,
                                    TableView *downloadingTableview,
                                    bool ifDeleteLocal,
                                    QString deleteType)
@@ -64,14 +64,14 @@ void DeleteItemThread::deleteRecycleData()
 {
     if (m_IfDeleteLocal) {
         for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
-            QString savePath = m_RecycleDeleteList.at(i).savePath;
-            QString gid = m_RecycleDeleteList.at(i).gid;
-            QString taskId = m_RecycleDeleteList.at(i).taskId;
-            QString filename = m_RecycleDeleteList.at(i).fileName;
+            QString savePath = m_RecycleDeleteList.at(i)->savePath;
+            QString gid = m_RecycleDeleteList.at(i)->gid;
+            QString taskId = m_RecycleDeleteList.at(i)->taskId;
+            QString filename = m_RecycleDeleteList.at(i)->fileName;
             if (!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
-                    QDir tar(m_RecycleDeleteList.at(i).savePath);
+                    QDir tar(m_RecycleDeleteList.at(i)->savePath);
                     tar.removeRecursively();
                     if (QFile::exists(savePath + ".aria2")) {
                         QFile::remove(savePath + ".aria2");
@@ -82,17 +82,17 @@ void DeleteItemThread::deleteRecycleData()
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
-                        if (m_RecycleDeleteList.at(i).url.isEmpty()) { //bt任务
+                        if (m_RecycleDeleteList.at(i)->url.isEmpty()) { //bt任务
                             TaskInfoHash info;
-                            DBInstance::getBtTaskById(m_RecycleDeleteList.at(i).taskId, info);
+                            DBInstance::getBtTaskById(m_RecycleDeleteList.at(i)->taskId, info);
                             QString torrentPath = info.filePath;
                             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                             QString mode = btInfo.mode;
-                            if (m_RecycleDeleteList.at(i).savePath.contains(btInfo.name)) {
-                                deleteDirectory(m_RecycleDeleteList.at(i).savePath);
+                            if (m_RecycleDeleteList.at(i)->savePath.contains(btInfo.name)) {
+                                deleteDirectory(m_RecycleDeleteList.at(i)->savePath);
                             }
                         } else {
-                            deleteDirectory(m_RecycleDeleteList.at(i).savePath);
+                            deleteDirectory(m_RecycleDeleteList.at(i)->savePath);
                         }
                         if (QFile::exists(ariaTempFile)) {
                             QFile::remove(savePath + ".aria2");
@@ -111,28 +111,28 @@ void DeleteItemThread::deleteRecycleData()
 void DeleteItemThread::deleteDownloadData()
 {
     for (int i = 0; i < m_DeleteList.size(); ++i) {
-        QString gid = m_DeleteList.at(i).gid;
-        QString taskId = m_DeleteList.at(i).taskId;
-        QString savePath = m_DeleteList.at(i).savePath;
-        QString filename = m_DeleteList.at(i).fileName;
-        emit Aria2Remove(m_DeleteList.at(i).gid, "");
+        QString gid = m_DeleteList.at(i)->gid;
+        QString taskId = m_DeleteList.at(i)->taskId;
+        QString savePath = m_DeleteList.at(i)->savePath;
+        QString filename = m_DeleteList.at(i)->fileName;
+        emit Aria2Remove(m_DeleteList.at(i)->gid, "");
         if (m_IfDeleteLocal) {
             Aria2RPCInterface::instance()->pause(gid, taskId);
 
             if (!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
-                    if (m_DeleteList.at(i).url.isEmpty()) { //bt任务
+                    if (m_DeleteList.at(i)->url.isEmpty()) { //bt任务
                         TaskInfoHash info;
-                        DBInstance::getBtTaskById(m_DeleteList.at(i).taskId, info);
+                        DBInstance::getBtTaskById(m_DeleteList.at(i)->taskId, info);
                         QString torrentPath = info.filePath;
                         Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                         QString mode = btInfo.mode;
-                        if (m_DeleteList.at(i).savePath.contains(btInfo.name)) {
-                            deleteDirectory(m_DeleteList.at(i).savePath);
+                        if (m_DeleteList.at(i)->savePath.contains(btInfo.name)) {
+                            deleteDirectory(m_DeleteList.at(i)->savePath);
                         }
                     } else {
-                        deleteDirectory(m_DeleteList.at(i).savePath);
+                        deleteDirectory(m_DeleteList.at(i)->savePath);
                     }
                     if (QFile::exists(savePath + ".aria2")) {
                         QFile::remove(savePath + ".aria2");
@@ -146,17 +146,17 @@ void DeleteItemThread::deleteDownloadData()
                 } else {
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
-                        if (m_DeleteList.at(i).url.isEmpty()) { //bt任务
+                        if (m_DeleteList.at(i)->url.isEmpty()) { //bt任务
                             TaskInfoHash info;
-                            DBInstance::getBtTaskById(m_DeleteList.at(i).taskId, info);
+                            DBInstance::getBtTaskById(m_DeleteList.at(i)->taskId, info);
                             QString torrentPath = info.filePath;
                             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                             QString mode = btInfo.mode;
-                            if (m_DeleteList.at(i).savePath.contains(btInfo.name)) {
-                                deleteDirectory(m_DeleteList.at(i).savePath);
+                            if (m_DeleteList.at(i)->savePath.contains(btInfo.name)) {
+                                deleteDirectory(m_DeleteList.at(i)->savePath);
                             }
                         } else {
-                            deleteDirectory(m_DeleteList.at(i).savePath);
+                            deleteDirectory(m_DeleteList.at(i)->savePath);
                         }
                         if (QFile::exists(ariaTempFile)) {
                             QFile::remove(savePath + ".aria2");
@@ -203,7 +203,7 @@ bool DeleteItemThread::deleteDirectory(const QString &path)
 
     dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
     QFileInfoList fileList = dir.entryInfoList();
-    foreach (QFileInfo fi, fileList) {
+    for (QFileInfo fi : fileList) {
         if (fi.isFile()) {
             fi.dir().remove(fi.fileName());
         } else {

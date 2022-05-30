@@ -16,6 +16,7 @@
         <file>texts/dcc_finish_openfile_11px.svg</file>
         <file>texts/dcc_finish_openfolder_11px.svg</file>
         <file>texts/dcc_recycel_restore_11px.svg</file>
+        <file>texts/dcc_ml_11px.svg</file>
     </qresource>
     <qresource prefix="/icons/deepin/builtin/dark">
         <file>texts/dcc_list_icon_pause_11px.svg</file>
@@ -34,6 +35,7 @@
         <file>texts/dcc_finish_openfolder_11px.svg</file>
         <file>texts/dcc_finish_openfile_11px.svg</file>
         <file>texts/dcc_recycel_restore_11px.svg</file>
+        <file>texts/dcc_ml_11px.svg</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icon/downloader1.svg</file>
@@ -58,6 +60,9 @@
         <file>icon/shadow.png</file>
         <file>icon/progressbar_bg.png</file>
         <file>icon/progressbar_fg.png</file>
+        <file>icon/progressbar_fg_dark.png</file>
+        <file>icon/progressbar_bg_dark.png</file>
+        <file>icon/DarkTypeIcon.png</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>

@@ -25,18 +25,18 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  **/
 
-
 #ifndef DLMAPPLICATION_H
 #define DLMAPPLICATION_H
 
 #include <DApplication>
 DWIDGET_USE_NAMESPACE
 
-class DlmApplication: public DApplication
+class DlmApplication : public DApplication
 {
     Q_OBJECT
 public:
     DlmApplication(int &argc, char **argv);
+
 protected:
     virtual void handleQuitAction();
 signals:

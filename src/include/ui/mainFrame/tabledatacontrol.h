@@ -32,7 +32,6 @@
 #include <QThread>
 
 class TableView;
-class QSharedMemory;
 struct TaskInfo;
 namespace Global {
 struct DownloadDataItem;
@@ -121,12 +120,7 @@ public:
     /**
      * @brief 删除ACtion槽函数
     */
-    int onDelAction(int currentTab);
-
-    /**
-     * @brief 永久删除ACtion槽函数
-    */
-    int onDeletePermanentAction(int currentTab);
+    bool onDelAction(int currentTab);
 
     /**
      * @brief  获取删除正在下载和已完成列表窗口确定信号
@@ -185,29 +179,35 @@ private:
     QString formatDownloadSpeed(long size);
 
     /**
-     * @brief 检查文件是否存在
-     */
-    bool checkFileExist(QString &filePath);
-
-
-
-    /**
      * @brief 检查任务状态
      * @return true: 有激活的任务  false：没有激活的任务
      */
     bool checkTaskStatus();
 
+    /**
+     * @brief 删除任务
+     * @return true: 删除成功  false：删除失败
+     */
+    bool deleteTask(bool ifDeleteLocal, TableView *pRecycleTableView);
+
+    /**
+     * @brief 重新下载任务
+     * @return true: 重新下载成功  false：失败
+     */
+    bool reDownloadTask(QString taskId, QString filePath, QString fileName, QString url);
+
+
+    /**
+     * @brief 下载的任务，文件不存在时的处理逻辑
+     * @return true: 重新下载成功  false：失败
+     */
+    bool excuteFileNotExist(Global::DownloadDataItem *data, QString filename, QString taskId);
 public slots:
 
     /**
      * @brief 异常处理确认
      */
     void onUnusualConfirm(int index, const QString &taskIds);
-
-    /**
-    * @brief 通知aria2删除任务
-    */
-    void onAria2Remove(QString gId, QString id);
 
 signals:
     /**
@@ -228,7 +228,7 @@ signals:
     /**
      * @brief http任务源文件被删除异常下载的信号
      */
-    void DownloadUnusuaHttpJob(QString urlList, QString savePath, QString filename = "", QString type = "");
+    void DownloadUnusuaHttpJob(QString urlList, QString savePath, QString filename = "", QString type = "", QString leng = "");
 
     /**
      * @brief bt任务源文件被删除异常下载的信号
@@ -237,23 +237,28 @@ signals:
 
     /**
      * @brief 删除完成
-    */
+     */
     void removeFinished();
 
     /**
      * @brief 受到删除bt的回复，开始下载任务
-    */
+     */
     void startDownload();
 
     /**
      * @brief 进行下载完成后的操作
-    */
+     */
     void whenDownloadFinish();
 
     /**
      * @brief 增加一个最大下载任务数
-    */
+     */
     void addMaxDownloadTask(int num);
+
+    /**
+     * @brief 继续下载任务信号
+     */
+    void unPauseTask(Global::DownloadDataItem *pItem);
 
 private:
     TableView *m_DownloadTableView;

@@ -29,7 +29,7 @@
 
 #include "analysisurl.h"
 #include <QObject>
-class LinkInfo;
+//class LinkInfo;
 class QThread;
 class QSettings;
 class QNetworkReply;
@@ -41,7 +41,7 @@ class UrlThread : public QObject
 
 public:
     explicit UrlThread(QObject *parent = nullptr);
-    ~UrlThread();
+    ~UrlThread(){}
 
     /**
      * @brief start 获取任务
@@ -79,6 +79,8 @@ private:
 
     QString getType(QString contentType);
 
+    QString getNoContentType();
+
 signals:
     /**
      * @brief sendFinishedUrl 发送解析后的数据
@@ -89,7 +91,7 @@ signals:
     void sendTrueUrl(LinkInfo link);
 
 private:
-    LinkInfo *m_linkInfo; //当前url信息
+    LinkInfo m_linkInfo; //当前url信息
 };
 
 #endif // URLTHREAD_H

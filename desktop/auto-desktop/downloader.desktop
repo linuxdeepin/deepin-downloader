@@ -13,4 +13,4 @@ Name[zh_CN]=下载器
 Name[zh_TW]=下载器
 StartupNotify=false
 Type=Application
-X-Deepin-Vendor=user-custom
+X-Deepin-Vendor=deepin

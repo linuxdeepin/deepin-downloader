@@ -32,7 +32,7 @@
 
 #include <QWidget>
 #include <QTimeEdit>
-
+#include "timeEdit.h"
 DWIDGET_USE_NAMESPACE
 
 class SettingInfoInputWidget;
@@ -81,14 +81,14 @@ signals:
     void speedLimitInfoChanged(QString text);
 
 public slots:
-
+    void onValueChanged(QVariant var);
 private slots:
 
     /**
      * @brief 限速时间改变响应的槽函数
      * @param time 改变后的时间
      */
-    void onTimeChanged(const QTime &time);
+    void onTimeChanged(const QString &time);
 
     /**
      * @brief 限速值改变响应的槽函数
@@ -123,10 +123,12 @@ private:
     DRadioButton *m_speedLimitDownloadButton; // 限速下载按钮
     SettingInfoInputWidget *m_maxDownloadSpeedLimit; //最大下载限速输入框
     SettingInfoInputWidget *m_maxUploadSpeedLimit; // 最大上传限速输入框
-    QTimeEdit *m_startTimeEdit; // 开始时间
-    QTimeEdit *m_endTimeEdit; // 结束时间
+    CTimeEdit *m_startTimeEdit; // 开始时间
+    CTimeEdit *m_endTimeEdit; // 结束时间
     DAlertControl *m_downloadAlertControl; // 最大下载限速输入错误提示
     DAlertControl *m_uploadAlertControl; // 最大上传限速输入错误提示
+    DAlertControl *m_startTimeAlertControl; // 开始时间输入错误提示
+    DAlertControl *m_endTimeAlertControl; // 结束时间输入错误提示
     int m_DownloadSpeedLimitValue;
     int m_UploadSpeedLimitValue;
 };

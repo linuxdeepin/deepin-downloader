@@ -49,9 +49,11 @@ struct DownloadDataItem {
     int status = 0;
     int percent = 0;
     int total = 0;
+    int connection = 0;
+    int announceList = 0;
 
-    bool Ischecked;
-    bool IsHide = false;
+    bool isChecked;
+    bool isHide = false;
     QString taskId;
     //        QString fileName = Global::UNKNOWN;
     QString fileName = QObject::tr("Unknown");
@@ -71,8 +73,8 @@ struct DownloadDataItem {
      */
 struct DeleteDataItem {
     int status = 5;
-    bool Ischecked;
-    bool IsHide = false;
+    bool isChecked;
+    bool isHide = false;
     QString taskId;
     QString fileName;
     QString completedLength;
@@ -83,11 +85,18 @@ struct DeleteDataItem {
     QString deleteTime;
     QString finishTime;
 };
+
+enum CurrentTab {
+    downloadingTab = 0,
+    finishTab,
+    recycleTab
+};
+
 /**
      * @enum Status
      * @brief 列表项当前状态
      */
-enum DownloadJobStatus {
+enum DownloadTaskStatus {
     Active = 0,
     Waiting,
     Paused,
@@ -95,19 +104,6 @@ enum DownloadJobStatus {
     Removed,
     Lastincomplete,
     Error
-};
-/**
-     * @enum MsgboxType
-     * @brief 消息弹框类型
-     */
-enum MsgboxType {
-    NewDownloding = 0,
-    Warnings = 1,
-    Delete = 2,
-    ReDownload = 3,
-    ReName = 4,
-    Clear = 5,
-    RepeatDownload = 6
 };
 
 }; // namespace Global

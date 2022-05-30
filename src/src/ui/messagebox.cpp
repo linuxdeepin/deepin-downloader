@@ -29,9 +29,10 @@
 #include "settings.h"
 #include <QPushButton>
 
-MessageBox::MessageBox(DDialog *parent)
+MessageBox::MessageBox(QWidget *parent)
     : DDialog(parent)
 {
+    setObjectName("messageBox");
     setMaximumWidth(600);
 }
 
@@ -60,10 +61,13 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
     if (!cancelbtntext.isEmpty()) {
         QAbstractButton *btn1 = getButton(addButton(cancelbtntext));
         btn1->setObjectName("cancel");
+        btn1->setAccessibleName("cancel");
         QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
         btn2->setObjectName("Confirm");
+        btn2->setAccessibleName("Confirm");
     } else {
         QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
+        btn2->setObjectName("OK");
         btn2->setObjectName("OK");
     }
 
@@ -80,9 +84,8 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
         setTitle(tr("Download Again"));
         addLabel(tr("Do you want to delete the downloaded files and download again?"));
     } else {
-
-        setTitle(tr("The task already exists."));
-        if(!isShowRedownload) {
+        setTitle(tr("These tasks already exist"));
+        if (!isShowRedownload) {
             addLabel(tr("Delete the downloaded files and download again?"));
         }
     }
@@ -95,14 +98,17 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
     pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
     addContent(urlText);
 
-    if(isShowRedownload){
+    if (isShowRedownload) {
         QAbstractButton *btn1 = getButton(addButton(tr("OK")));
         btn1->setObjectName("OK");
+        btn1->setAccessibleName("OK");
     } else {
         QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
         btn1->setObjectName("cancel");
+        btn1->setAccessibleName("cancele");
         QAbstractButton *btn2 = getButton(addButton(tr("Download Again"), true, ButtonType::ButtonWarning));
         btn2->setObjectName("redownload");
+        btn2->setAccessibleName("redownload");
     }
 }
 
@@ -120,9 +126,13 @@ void MessageBox::setUnusual(const QString &taskId, QString taskList)
     urlText->setText(taskList);
     addContent(urlText);
     //if(taskList.split("\n").count() <= 1) {
-        addButton(tr("Download Again"));
+    QAbstractButton *btn = getButton(addButton(tr("Download Again")));
+    btn->setObjectName("DownloadAgain");
+    btn->setAccessibleName("DownloadAgain");
     //}
-    addButton(tr("Delete Task"));
+    QAbstractButton *btn1 = getButton(addButton(tr("Delete All")));
+    btn1->setObjectName("DeleteAll");
+    btn1->setAccessibleName("DeleteAll");
     connect(this, &MessageBox::buttonClicked, this,
             [=](int index) {
                 emit unusualConfirm(index, taskId);
@@ -155,12 +165,15 @@ void MessageBox::setDelete(bool permanentl, bool checked)
 
     QAbstractButton *btn = getButton(addButton(tr("Cancel")));
     btn->setObjectName("cancel");
+    btn->setAccessibleName("cancel");
     if (permanentl) {
         QAbstractButton *btn = getButton(addButton(tr("Permanently Delete"), true, ButtonType::ButtonWarning));
         btn->setObjectName("delete");
+        btn->setAccessibleName("delete");
     } else {
         QAbstractButton *btn = getButton(addButton(tr("Delete"), true, ButtonType::ButtonWarning));
         btn->setObjectName("delete");
+        btn->setAccessibleName("delete");
     }
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onDeleteBtnClicked);
 }
@@ -173,38 +186,11 @@ void MessageBox::setClear()
     addCheckbox(tr("Delete local files"));
     QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
     btn1->setObjectName("cancel");
+    btn1->setAccessibleName("cancel");
     QAbstractButton *btn2 = getButton(addButton(tr("Empty"), true, ButtonType::ButtonWarning));
     btn2->setObjectName("empty");
+    btn2->setAccessibleName("empty");
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onClearBtnClicked);
-}
-
-void MessageBox::setReName(QString title, QString surebtntext, QString cancelbtntext, QString oldname)
-{
-    Q_UNUSED(title);
-    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
-
-    setCloseButtonVisible(false);
-    setTitle(tr("Rename"));
-    m_NewnameLineedit = new DLineEdit();
-    m_NewnameLineedit->setText(oldname);
-    m_NewnameLineedit->setFixedWidth(400);
-    addContent(m_NewnameLineedit, Qt::AlignHCenter);
-    addSpacing(20);
-    QWidget *button_box = new QWidget(this);
-    QHBoxLayout *layout = new QHBoxLayout(button_box);
-    QPushButton *cancel_button = new QPushButton(button_box);
-    cancel_button->setText(cancelbtntext);
-    connect(cancel_button, &DPushButton::clicked, this,
-            [=]() {
-                close();
-            });
-    layout->addWidget(cancel_button);
-    m_RenameSureButton = new QPushButton(button_box);
-    m_RenameSureButton->setText(surebtntext);
-    connect(m_RenameSureButton, &DPushButton::clicked, this, &MessageBox::onRenameSureBtnClicked);
-    layout->addWidget(m_RenameSureButton);
-    addContent(button_box);
-    connect(m_NewnameLineedit, &DLineEdit::textChanged, this, &MessageBox::onRenamelineeditChanged);
 }
 
 void MessageBox::setExit()
@@ -225,6 +211,7 @@ void MessageBox::setExit()
 void MessageBox::addLabel(QString text)
 {
     DLabel *title = new DLabel(this);
+    title->setAccessibleName("messageBoxTittle");
     title->setText(text);
     addContent(title, Qt::AlignHCenter);
 }
@@ -258,10 +245,11 @@ void MessageBox::addCheckbox(QString checkboxText, bool checked)
 {
     m_CheckBox = new DCheckBox(this);
     m_CheckBox->setText(checkboxText);
+    m_CheckBox->setAccessibleName("CheckBox");
     if (checked) {
         m_CheckBox->setCheckState(Qt::Checked);
     }
-    addContent(m_CheckBox, Qt::AlignHCenter);
+    addContent(m_CheckBox, Qt::AlignLeft);
 }
 
 void MessageBox::onRenamelineeditChanged(const QString &text)
@@ -280,7 +268,7 @@ void MessageBox::onRenameSureBtnClicked()
     QString newname = m_NewnameLineedit->text();
     if (newname.contains("\\") || newname.contains("/")) {
         MessageBox *msg = new MessageBox();
-        msg->setWarings(tr("The file name cannot contain '\' or '/' "), tr("sure"));
+        msg->setWarings(tr("The file name cannot contain a backslash (\\) or slash (/)"), tr("OK"));
         msg->exec();
         return;
     }
@@ -339,6 +327,40 @@ void MessageBox::setFolderDenied()
     addLabel(tr("Please try another folder"));
     addSpacing(10);
     addButton(tr("OK"));
+    connect(this, &MessageBox::buttonClicked, this,
+            [=]() {
+                close();
+    });
+}
+
+void MessageBox::setFolderNotExists()
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+    setTitle(tr("Path Error"));
+
+    addLabel(tr("The storage folder does not exist, please check and try again"));
+    addSpacing(10);
+    addButton(tr("OK"));
+    connect(this, &MessageBox::buttonClicked, this,
+            [=]() {
+                close();
+    });
+}
+
+void MessageBox::setNetWorkError(QString warningMsg)
+{
+    setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
+
+   // setTitle(warningMsg);
+    setObjectName("messageBox");
+
+    addLabel(warningMsg);
+    addSpacing(10);
+    addButton(tr("OK"));
+//        QAbstractButton *btn2 = getButton(addButton(surebtntext, true, ButtonType::ButtonWarning));
+//        btn2->setObjectName("OK");
+
     connect(this, &MessageBox::buttonClicked, this,
             [=]() {
                 close();

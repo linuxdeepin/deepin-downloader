@@ -54,7 +54,7 @@ public:
      * @brief 数据角色
      */
     enum DataRole {
-        Ischecked = 0,
+        Ischecked = 1000,
         Speed,
         Size,
         FileName,
@@ -66,7 +66,9 @@ public:
         SavePath,
         taskId,
         createTime,
-        IsHide
+        IsHide,
+        connection,
+        announceList
     };
 
     /**

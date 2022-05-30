@@ -45,6 +45,7 @@ class TableView : public QTableView
     Q_OBJECT
 public:
     TableView(int Flag);
+    ~TableView();
     void reset(bool switched = false);
     /**
      * @brief 获取model
@@ -85,11 +86,6 @@ private:
      * @brief 信号槽连接初始化
     */
     void initConnections();
-
-    /**
-     * @brief 表格初始化
-    */
-    void initTableView();
 
 private slots:
     /**
@@ -148,8 +144,6 @@ protected:
 
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
 
-    void resizeEvent(QResizeEvent *event) override;
-
 private:
     int m_TableFlag;
     TableModel *m_TableModel;
@@ -159,6 +153,21 @@ private:
     Settings *m_Setting;
     TopButton *m_ToolBar;
     QModelIndex m_PreviousIndex;
+};
+
+#include <DListView>
+DWIDGET_USE_NAMESPACE
+class LeftListView : public DListView
+{
+    Q_OBJECT
+public:
+    explicit LeftListView();
+
+protected:
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
+    void paintEvent(QPaintEvent *e);
+signals:
+    void currentIndexChanged(const QModelIndex &current);
 };
 
 #endif // TABLEVIEW_H

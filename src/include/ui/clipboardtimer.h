@@ -92,6 +92,12 @@ private:
     bool isBtFormat(QString str);
 
     /**
+     * @brief isMl 是否是Ml后缀
+     * @param str url链接
+     */
+    bool isMlFormat(QString str);
+
+    /**
      * @brief getTypeList 获取配置文件中的type
      * @return 返回解析后的后缀名列表
      */
@@ -102,6 +108,20 @@ private:
      * @return 返回解析后的不接管网站列表
      */
     QStringList getWebList();
+
+    /**
+     * @brief isWebFormat 是否符合不接管网站
+     * @param str url链接
+     * @return bool 真假
+     */
+    bool isWebFormat(QString url);
+
+    /**
+     * @brief isWebFormat 是否符合不接管网站
+     * @param str url链接
+     * @return bool 真假
+     */
+    QStringList midWebList(QStringList url);
 
 private slots:
     /**
@@ -117,6 +137,8 @@ signals:
 private:
     QClipboard *m_clipboard; //剪切板
     QByteArray m_timeStamp;  //记录上次剪切板时间
+    QString m_sessionType;  //当前窗管版本  x11 wayland
+    QString m_lastUrl;  //记录剪切板上次内容
 };
 
 #endif // CLIPBOARDTIMER_H

@@ -37,6 +37,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QCryptographicHash>
 #include <QtMath>
+#include <QUuid>
 
 Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 
@@ -50,6 +51,11 @@ Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
     , m_aria2cCmd(ARIA2C_NAME)
     , m_basePath(ARIA2C_PATH)
 {
+}
+
+Aria2RPCInterface::~Aria2RPCInterface()
+{
+    delete m_proc;
 }
 
 bool Aria2RPCInterface::startUp()
@@ -85,45 +91,63 @@ bool Aria2RPCInterface::startUp()
     //QProcess::execute("/usr/bin/touch", QStringList() << dhtFile); //创建dht文件
     //QProcess::execute("/usr/bin/touch", QStringList() << dht6File); //创建dht6文件
 
-    QStringList opt;
-    opt << "--enable-rpc=true"; //启动RPC
-    opt << "--rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
-    opt << "--check-certificate=false"; //停用rpc身份验证
-    opt << "--rpc-allow-origin-all=true"; // 允许所有来源
-    opt << "--rpc-max-request-size=99999999"; //设置rpc最大接收数
-    opt << "--rpc-save-upload-metadata=true"; //
+    QString opt;
+    opt += " --enable-rpc=true"; //启动RPC
+    opt += " --rpc-secret=" + getToken();
+    opt += " --rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
+    opt += " --check-certificate=false"; //停用rpc身份验证
+    opt += " --rpc-allow-origin-all=true"; // 允许所有来源
+    opt += " --rpc-max-request-size=99999999"; //设置rpc最大接收数
+    opt += " --rpc-save-upload-metadata=true"; //
 
-    //opt << "--not-conf=true";//不使用配置文件
+    //opt += " --not-conf=true";//不使用配置文件
     if (!this->m_configPath.isEmpty()) {
-        opt << "--conf-path=" + this->m_configPath; //加载指定的配置文件
+        opt += " --conf-path=" + this->m_configPath; //加载指定的配置文件
     }
     if (!this->m_defaultDownloadPath.isEmpty()) {
-        opt << "--dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
+        opt += " --dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
-    opt << "--continue=true"; //http续传配置
-    opt << "--disable-ipv6"; //禁用ipv6
-    //opt << "--seed-time=0";//bt完成不做种
-    opt << "--bt-metadata-only=true"; //仅下载bt metadata，不自动发起follow下载
-    opt << "--bt-save-metadata=true"; //保存magnet metadata到同目录下.torrent文件
-    opt << "--follow-torrent=false"; //当下载的文件是以.torrent结尾的，是否继续下载。true，是；false，否，只下载torrent文件；mem,不写文件保存在内存
-    //opt << "--follow-metalink=false";//类似torrent
-    opt << "--bt-remove-unselected-file=true";
-    //opt << "--input-file=" + inputFile;
-    opt << "--save-session=" + sessionCacheFile;
-    opt << "--save-session-interval=" + saveSessionInterval;
-    opt << "--enable-dht=true"; //启动dht文件
-    opt << "--enable-dht6=false"; //禁用dht6文件
-    opt << "--dht-file-path=" + dhtFile;
-    opt << "--dht-file-path6=" + dht6File;
-    opt << "--follow-metalink=false";
+    opt += " --continue=true"; //http续传配置
+    opt += " --disable-ipv6"; //禁用ipv6
+    //opt += " --seed-time=0";//bt完成不做种
+    opt += " --bt-metadata-only=true"; //仅下载bt metadata，不自动发起follow下载
+    opt += " --bt-save-metadata=true"; //保存magnet metadata到同目录下.torrent文件
+    opt += " --follow-torrent=false"; //当下载的文件是以.torrent结尾的，是否继续下载。true，是；false，否，只下载torrent文件；mem,不写文件保存在内存
+    //opt += " --follow-metalink=false";//类似torrent
+    opt += " --bt-remove-unselected-file=true";
+    //opt += " --input-file=" + inputFile;
+    opt += " --save-session=" + sessionCacheFile;
+    opt += " --save-session-interval=" + saveSessionInterval;
+    opt += " --enable-dht=true"; //启动dht文件
+    opt += " --enable-dht6=false"; //禁用dht6文件
+    opt += " --dht-file-path=" + dhtFile;
+    opt += " --dht-file-path6=" + dht6File;
+    opt += " --follow-metalink=false";
+    if(QSysInfo::currentCpuArchitecture() == "loongarch64"){
+        opt += " --async-dns=false";
+    }
 
-    qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
+   // qDebug() << m_basePath + m_aria2cCmd << opt.join(' ');
 
-    QProcess *proc = new QProcess;
-    proc->start(m_basePath + m_aria2cCmd, opt);
-    proc->waitForStarted();
+    QProcess proc; // = new QProcess;
+    proc.setStandardOutputFile("/dev/null");
+    proc.setStandardErrorFile("/dev/null");
+    proc.startDetached("sh -c \"" + m_basePath + m_aria2cCmd + " " + opt + "\"");
+    proc.waitForStarted();
+
+//    proc.start("ulimit -n 40");
+//    bool b = proc.waitForFinished();
+//    QByteArray sssss = proc.readAllStandardError();
+//    QByteArray wwwww = proc.readAllStandardOutput();
+
+//    proc.start("ulimit -n");
+//    int r = proc.waitForFinished(-1);
+//    int r1 = proc.waitForReadyRead();
+//    sssss = proc.readAllStandardError();
+//    wwwww = proc.readAllStandardOutput();
+
     bCheck = checkAria2cProc();
-    qDebug() << "启动aria2c完成！ " << proc->state() << bCheck;
+    qDebug() << "启动aria2c完成！ " << proc.state() << bCheck;
     return bCheck;
 }
 
@@ -135,20 +159,7 @@ bool Aria2RPCInterface::checkAria2cFile()
 
 bool Aria2RPCInterface::Aria2RPCInterface::init()
 {
-    //定义配置文件路径
-    QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
-                                    .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                                    .arg(qApp->organizationName())
-                                    .arg(qApp->applicationName());
-
-    //判断文件是否存在,如果不存在复制配置文件内容到目录下
-    QFileInfo fileInfo(m_aria2configPath);
-    if (!fileInfo.exists()) {
-        QFile::copy(ARIA_CONFIG_PATH, m_aria2configPath);
-    }
-
-    //设置配置文件路径
-    setConfigFilePath(m_aria2configPath);
+    setupConfig();
     bool rs = startUp();
     qDebug() << "Startup aria2:" << QString::number(rs);
     return rs;
@@ -166,7 +177,7 @@ bool Aria2RPCInterface::checkAria2cProc()
     QString output = QString::fromLocal8Bit(proc.readAllStandardOutput());
     QStringList lineList = output.split("\n");
     int cnt = 0;
-    foreach (QString t, lineList) {
+    for (QString t : lineList) {
         if (t.isEmpty()) {
             continue;
         }
@@ -296,15 +307,15 @@ bool Aria2RPCInterface::purgeDownloadResult(QString id)
 
 Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
 {
-    QProcess *pProc = new QProcess; //进程调用指针
+    QProcess Proc; //进程调用指针
     QStringList opt;
     opt << "--show-files=true";
     opt << torrentPath;
-    pProc->start(m_basePath + m_aria2cCmd, opt); //启动aria2c进程
-    pProc->waitForFinished(); //等待执行完成
+    Proc.start(m_basePath + m_aria2cCmd, opt); //启动aria2c进程
+    Proc.waitForFinished(); //等待执行完成
 
-    QByteArray array = pProc->readAllStandardOutput(); //获取进程执行返回值
-    pProc->close(); //关闭进程
+    QByteArray array = Proc.readAllStandardOutput(); //获取进程执行返回值
+    Proc.close(); //关闭进程
 
     QStringList strList = QString(array).split("\n"); //将array内容分割开了
 
@@ -312,7 +323,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
     bool bFlag = false;
     QString temp = "";
 
-    foreach (QString line, strList) {
+    for (QString line : strList) {
         if (line.startsWith("Mode: ")) {
             btInfo.mode = line.mid(6);
         } else if (line.startsWith("Announce:")) {
@@ -362,9 +373,9 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
             temp += line.trimmed();
         }
     }
-    if(btInfo.totalLengthByets == 0){
+    if (btInfo.totalLengthByets == 0) {
         for (int i = 0; i < btInfo.files.size(); i++) {
-            btInfo.totalLengthByets +=  btInfo.files[i].lengthBytes;
+            btInfo.totalLengthByets += btInfo.files[i].lengthBytes;
         }
     }
     return btInfo;
@@ -373,6 +384,7 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
 bool Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
 {
     QJsonObject json;
+    params.prepend("token:" + getToken());
     json.insert("jsonrpc", "2.0");
     if (id.isEmpty()) {
         json.insert("id", method);
@@ -381,6 +393,7 @@ bool Aria2RPCInterface::callRPC(QString method, QJsonArray params, QString id)
     }
     json.insert("method", method);
     if (!params.isEmpty()) {
+
         json.insert("params", params);
     }
     json.insert("", 0);
@@ -409,7 +422,7 @@ bool Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
                 [=](QNetworkReply *reply) {
                     this->rpcRequestReply(reply, method, jsonObj.value("id").toString()); //调用出来函数
                     manager->deleteLater(); //删除
-                    manager->destroyed();
+                    //manager->destroyed();
                 });
 
         //        connect(networkReply,
@@ -448,7 +461,7 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     }
 
     reply->deleteLater();
-    reply->destroyed();
+    //reply->destroyed();
 }
 
 bool Aria2RPCInterface::tellStatus(QString gId, QString id)
@@ -463,7 +476,7 @@ bool Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
     QJsonArray ja;
     ja.append(gId);
     QJsonArray ka;
-    foreach (QString k, keys) {
+    for (QString k : keys) {
         ka.append(k);
     }
     ja.append(ka);
@@ -828,4 +841,29 @@ bool Aria2RPCInterface::shutdown(QString id)
 bool Aria2RPCInterface::forceShutdown(QString id)
 {
     return callRPC(ARIA2C_METHOD_FORCE_SHUTDOWN, id);
+}
+
+QString Aria2RPCInterface::getToken()
+{
+    static QString uuid = QUuid::createUuid().toString(QUuid::WithoutBraces);
+    return uuid;
+}
+
+bool Aria2RPCInterface::setupConfig()
+{
+    //定义配置文件路径
+    QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
+                                    .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                                    .arg(qApp->organizationName())
+                                    .arg(qApp->applicationName());
+
+    //判断文件是否存在,如果不存在复制配置文件内容到目录下
+    QFileInfo fileInfo(m_aria2configPath);
+    if (!fileInfo.exists()) {
+        QFile::copy(ARIA_CONFIG_PATH, m_aria2configPath);
+    }
+
+    //设置配置文件路径
+    setConfigFilePath(m_aria2configPath);
+    return true;
 }

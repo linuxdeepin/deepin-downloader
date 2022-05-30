@@ -59,7 +59,7 @@ void TopButton::Init()
     QIcon logo_icon = QIcon(":icons/icon/downloader5.svg");
     m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
     m_iconLable->setFixedSize(36, 36);
-    m_searchEdit = new DSearchEdit();
+    m_searchEdit = new SearchWidget();
     m_searchEdit->setMinimumWidth(350);
     m_searchEdit->setFixedHeight(36);
     m_searchEdit->lineEdit()->setMaxLength(256);
@@ -67,12 +67,14 @@ void TopButton::Init()
     // searchEdit->setFixedSize(350,36);
     m_newDownloadBtn = new DIconButton(this);
     m_newDownloadBtn->setObjectName("newTaskBtn");
+    m_newDownloadBtn->setAccessibleName("newTaskBtn");
     m_newDownloadBtn->setFixedSize(36, 36);
     m_newDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
     m_newDownloadBtn->setToolTip(tr("New task"));
 
     m_pauseDownloadBtn = new DIconButton(this);
     m_pauseDownloadBtn->setObjectName("pauseDownloadBtn");
+    m_pauseDownloadBtn->setAccessibleName("pauseDownloadBtn");
     m_pauseDownloadBtn->setFixedSize(36, 36);
     m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pauseDownloadBtn->setEnabled(false);
@@ -80,6 +82,7 @@ void TopButton::Init()
 
     m_startDownloadBtn = new DIconButton(this);
     m_startDownloadBtn->setObjectName("startDownloadBtn");
+    m_startDownloadBtn->setAccessibleName("startDownloadBtn");
     m_startDownloadBtn->setFixedSize(36, 36);
     m_startDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_startDownloadBtn->setEnabled(false);
@@ -87,6 +90,7 @@ void TopButton::Init()
 
     m_deleteDownloadBtn = new DIconButton(this);
     m_deleteDownloadBtn->setObjectName("deleteBtn");
+    m_deleteDownloadBtn->setAccessibleName("deleteBtn");
     m_deleteDownloadBtn->setFixedSize(36, 36);
     m_deleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_deleteDownloadBtn->setEnabled(false);
@@ -115,6 +119,7 @@ void TopButton::InitConnections()
     connect(m_deleteDownloadBtn, &DIconButton::clicked, this, &TopButton::deleteDownloadBtnClicked);
     connect(m_searchEdit, &DSearchEdit::focusChanged, this, &TopButton::SearchEditFocus);
     connect(m_searchEdit, &DSearchEdit::textChanged, this, &TopButton::SearchEditTextChange);
+    connect(m_searchEdit, &SearchWidget::keyPressed, this, &TopButton::SearchEditKeyPressed);
 }
 
 void TopButton::mousePressEvent(QMouseEvent *event)
@@ -156,4 +161,36 @@ void TopButton::onTableChanged(int index)
         m_pauseDownloadBtn->setEnabled(false);
         m_deleteDownloadBtn->setEnabled(false);
     }
+}
+
+SearchWidget::SearchWidget(QWidget *parent)
+     : DTK_WIDGET_NAMESPACE::DSearchEdit(parent)
+{
+    connect(lineEdit(), &QLineEdit::editingFinished, this, [&](){
+                emit keyPressed(Qt::Key_Enter);
+    });
+}
+
+bool SearchWidget::eventFilter(QObject *o, QEvent *e)
+{
+    if (e->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(e);
+        switch (ke->key()) {
+        case Qt::Key_Up: {
+            emit keyPressed(Qt::Key_Up);
+            return true;
+        }
+        case Qt::Key_Down: {
+            emit keyPressed(Qt::Key_Down);
+            return true;
+        }
+        case Qt::Key_Enter: {
+            emit keyPressed(Qt::Key_Enter);
+            return true;
+        }
+        default:
+            break;
+        }
+    }
+    return QWidget::eventFilter(o, e);
 }

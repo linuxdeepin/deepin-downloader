@@ -48,7 +48,7 @@ class MessageBox : public DDialog
 {
     Q_OBJECT
 public:
-    explicit MessageBox(DDialog *parent = nullptr);
+    explicit MessageBox(QWidget *parent = nullptr);
 
 public:
     /**
@@ -84,15 +84,6 @@ public:
     void setClear();
 
     /**
-     * @brief 设置重命名窗口
-     * @param title 设置标题
-     * @param surebtntext 设置确定按钮内容
-     * @param cancelbtn 设置取消按钮内容
-     * @param oldname 曾用名
-    */
-    void setReName(QString title, QString surebtntext, QString cancelbtn, QString oldname);
-
-    /**
      * @brief 设置退出窗口
     */
     void setExit();
@@ -101,6 +92,17 @@ public:
      * @brief 设置文件选择权限警告窗口
     */
     void setFolderDenied();
+
+    /**
+     * @brief 设置文件不存在窗口
+    */
+    void setFolderNotExists();
+
+    /**
+     * @brief 设置网络链接错误
+    */
+    void setNetWorkError(QString warningMsg);
+
 
 private:
     /**
@@ -113,6 +115,7 @@ private:
      * @param text label内容
     */
     void addRadioGroup(QString quitText, QString minText);
+
     /**
      * @brief Checkbox
      * @param text Checkbox内容
@@ -177,6 +180,7 @@ public slots:
      * @brief
     */
     void onExitBtnClicked(int index);
+
 private:
     bool m_DeleteFlag;
     DCheckBox *m_CheckBox;

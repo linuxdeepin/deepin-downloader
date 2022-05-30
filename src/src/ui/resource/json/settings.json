@@ -4,7 +4,7 @@
             "name":"Basic",
             "groups":[{
                     "key":"Start",
-                    "name":"Startp",
+                    "name":"Startup",
                     "options":[{
                             "key":"PowerOn",
                             "name":"Auto startup",
@@ -18,7 +18,6 @@
                             "type":"switchbutton",
                             "default":true
                         }
-
                     ]
                 },
                 {
@@ -72,7 +71,7 @@
                     "options":[{
                             "key":"MaxDownloadTask",
                             "name":"Max. concurrent downloads",
-                            "type":"combobox",
+                            "type":"maxdownloadtask",
                             "default":"5"
                         },
                         {
@@ -84,19 +83,19 @@
                         {
                             "key":"AutoOpen",
                             "name":"Open files when completed",
-                            "type":"switchbutton",
+                            "type":"autoopenplugin",
                             "default":false
                         },
                         {
                             "key":"AutoDelete",
                             "name":"Delete tasks without files",
-                            "type":"switchbutton",
+                            "type":"autodeleteplugin",
                             "default":false
                         },
                         {
                             "key":"AutoSortBySpeed",
                             "name":"Move slow downloads to the end",
-                            "type":"switchbutton",
+                            "type":"autosortbySpeedplugin",
                             "default":false
                         },
                         {
@@ -118,14 +117,14 @@
                     "options":[{
                             "key":"addressthread",
                             "name":"Original address threads",
-                            "type":"combobox",
+                            "type":"customcombobox",
                             "default":"5"
                         },
                         {
                             "key":"maxlimit",
                             "name":"Limit max. number of concurrent download resources",
                             "type":"limitmaxnumber",
-                            "default":"5"
+                            "default":"0:500"
                         }
                     ]
                 },
@@ -169,6 +168,12 @@
                             "key":"HttpDownload",
                             "name":"",
                             "type":"httpdownload",
+                            "default":true
+                        },
+                        {
+                            "key":"MetaLinkDownload",
+                            "name":"",
+                            "type":"metalinkdownload",
                             "default":true
                         },
                         {

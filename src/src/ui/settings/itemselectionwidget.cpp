@@ -55,8 +55,8 @@ void ItemSelectionWidget::initUI(bool isHttp)
     mainLayout->setContentsMargins(0, 0, 0, 0);
     if(isHttp){
         DCommandLinkButton * combtn = new DCommandLinkButton(tr("Advanced"));   //高级设置
-        connect(combtn,&DCommandLinkButton::clicked, [](){
-            HttpAdvancedSettingWidget h;
+        connect(combtn,&DCommandLinkButton::clicked, [=](){
+            HttpAdvancedSettingWidget h(this);
             h.exec();
         });
         mainLayout->addWidget(combtn);
@@ -98,5 +98,10 @@ void ItemSelectionWidget::setCheckboxState(Qt::CheckState state)
 void ItemSelectionWidget::setBlockSignals(bool lock)
 {
     m_checkBox->blockSignals(lock);
+}
+
+void ItemSelectionWidget::setAccessibleName(QString name)
+{
+    m_checkBox->setAccessibleName(name);
 }
 

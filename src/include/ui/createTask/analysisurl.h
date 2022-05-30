@@ -27,7 +27,7 @@
 #ifndef ANALYSISURL_H
 #define ANALYSISURL_H
 
-#include "urlthread.h"
+//#include "urlthread.h"
 #include <QObject>
 #include <QMap>
 class UrlThread;
@@ -37,6 +37,7 @@ struct LinkInfo {
         Analysising,
         Finished
     };
+    QString isChecked;
     int index; //url序号
     QString url; //url链接
     UrlState state; //url状态
@@ -47,6 +48,7 @@ struct LinkInfo {
     long length;
     LinkInfo()
     {
+        isChecked = "0";
         index = -1;
         length = 0;
         url.clear();
@@ -54,10 +56,10 @@ struct LinkInfo {
         urlName.clear();
         urlSize.clear();
         urlTrueLink.clear();
-        type= "";
     }
     LinkInfo &operator=(const LinkInfo &l)
     {
+        isChecked = l.isChecked;
         index = l.index;
         state = l.state;
         url = l.url;

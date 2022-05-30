@@ -61,6 +61,11 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
     setSectionsClickable(true);
 }
 
+DownloadHeaderView::~DownloadHeaderView()
+{
+    delete (m_headerCbx);
+}
+
 void DownloadHeaderView::updateGeometries()
 {
     m_headerCbx->move(sectionPosition(0) + 5, 5);

@@ -48,6 +48,12 @@ public:
     static bool isHTTPConnect();
 
     /**
+     * @brief http是否联通
+     * @return true为不通 false为通
+     */
+    static bool isIPV6Connect();
+
+    /**
      * @brief 设置Mimeapps文件中的值，如果key不存在，新建key。
      * @param key 配置中的key，如果key不存在新建key
      * @param value key对应值。
@@ -94,11 +100,29 @@ public:
     static double formatFileSize(QString str);
 
     /**
+     * @brief 将字符串中的中文转成拼音
+     * @param input 输入的字符串
+     */
+    static QString chineseToPinyin(QString input);
+
+//    /**
+//     * @brief 设置最大打开文件个数（全局最大同事下载资源数）
+//     * @param maxLen 个数
+//     */
+//    static bool setfdLimit(unsigned long maxLen);
+private:
+
+    /**
      * @brief 删除拼音中的数字
      * @param input 带数字的拼音
      */
     static QString removeDigital(QString input);
-private:
+
+    /**
+     * @brief 判断当前电脑是否连接局域网
+     * @retrun 是否连接, true为连接, false为未连接
+     */
+    static bool isLanConnect();
 };
 
 #endif // FUNC_H

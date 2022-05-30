@@ -33,6 +33,7 @@
 
 #include <QObject>
 #include <QJsonObject>
+#include <QProcess>
 
 class QNetworkReply;
 class Aria2RPCInterface : public QObject
@@ -40,6 +41,7 @@ class Aria2RPCInterface : public QObject
     Q_OBJECT
 public:
     explicit Aria2RPCInterface(QObject *parent = nullptr);
+    ~Aria2RPCInterface();
     static Aria2RPCInterface *instance();
 
 public:
@@ -301,6 +303,7 @@ public:
      *
      */
     bool setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed);
+
     /**
      * @brief SetDisckCacheNum 设置磁盘缓存大小
      * @param diskCacheNum 缓存大小
@@ -385,6 +388,12 @@ public:
     bool forceShutdown(QString id = "");
 
 private:
+    /**
+     *@brief 设置配置文件目录
+     *@return
+     */
+    bool setupConfig();
+
     /**
      *@brief startUp 启动aria2c进程
      *@return 启动成功true  启动失败 false
@@ -484,6 +493,12 @@ private:
      */
     bool checkAria2cFile();
 
+    /**
+     * @brief getUUID 获取thken
+     * @return token
+     */
+    QString getToken();
+
 signals:
     void RPCSuccess(QString method, QJsonObject json); //rpc 正确返回处理信号
     void RPCError(QString method, QString id, int errCode, QJsonObject obj); //rpc错误返回处理信号
@@ -496,6 +511,7 @@ private:
     QString m_configPath = ""; //配置文件路径
     const QString m_aria2cCmd; //aria2c程序路径
     const QString m_basePath; //下载器安装目录
+    QProcess *m_proc;
 };
 
 #endif // ARIA2RPCINTERFACE_H

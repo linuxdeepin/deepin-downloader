@@ -59,6 +59,7 @@ struct TaskInfo
     QString gid; //下载gid
     int gidIndex; //位置index
     QString url; //下载url地址
+    QString fileLength; //文件大小
     QString downloadPath; //下载全路径包括文件名
     QString downloadFilename; //下载文件名
     QDateTime createTime; //任务创建时间

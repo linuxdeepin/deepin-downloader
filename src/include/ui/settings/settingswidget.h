@@ -32,6 +32,9 @@
 #include <DLineEdit>
 #include <DComboBox>
 #include <DSwitchButton>
+#include <DBackgroundGroup>
+#include <QComboBox>
+DWIDGET_USE_NAMESPACE
 /**
  * @class SettingsControlWidget
  * @brief 设置界面小控件类
@@ -46,7 +49,7 @@ public:
     void setSpeend(QString speed);
     void setSize(QString size);
     void setSwitch(bool arg);
-
+    Dtk::Widget::DLineEdit *lineEdit();
 private:
     Dtk::Widget::DLineEdit *m_Edit;
     Dtk::Widget::DComboBox *m_ComboBox;
@@ -55,5 +58,29 @@ signals:
     void TextChanged(const QString &text);
     void checkedChanged(bool arg);
 };
+
+
+class SettingsLineWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit SettingsLineWidget(QWidget *parent = nullptr);
+    // 初始化界面
+    bool initUI(QString text, bool currentStat);
+    // 初始化界面
+    bool initUI(QString text, const QStringList& textList, QString currenttext);
+
+    void setSwitch(QString arg);
+    void setSize(QString size);
+    void AddressThreadSize(QString size);
+private:
+    Dtk::Widget::DSwitchButton *m_SwitchBtn;
+    QComboBox *m_comboBox;
+signals:
+    void checkedChanged(bool arg);
+    void currentTextChanged(const QString & text);
+    void radioChanged(const QString & text);
+};
+
 
 #endif // SETTINGSWIDGET_H

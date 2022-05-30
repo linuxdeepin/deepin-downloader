@@ -34,6 +34,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/analysisurl.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/taskdelegate.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/btheaderview.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/createTask/taskModel.h
 
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/notificationssettiingwidget.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settingswidget.h
@@ -45,10 +46,7 @@ set (UDLC_UI_HEADERS
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/settingslabel.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/diagnostictool.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/settings/httpadvancedsettingwidget.h
-
-    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websocketclientwrapper.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockettransport.h
-    ${PROJECT_SOURCE_DIR}/src/include/ui/websocket/websockethandle.h
+    ${PROJECT_SOURCE_DIR}/src/include/ui/settings/timeEdit.h
 
     ${PROJECT_SOURCE_DIR}/src/include/ui/global.h
     ${PROJECT_SOURCE_DIR}/src/include/ui/messagebox.h
@@ -60,20 +58,20 @@ set (UDLC_UI_HEADERS
 
 
 #发布的时候生成qm文件
-if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
-    #生成 ts qm文件
-    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_zh_CN.ts")
-    qt5_create_translation(QM_FILES
-        ${PROJECT_SOURCE_DIR}/translations
-        ${TS_FILES}
-        OPTIONS -source-language en_US -no-obsolete)
+#if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
+#    #生成 ts qm文件
+#    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_zh_CN.ts")
+#    qt5_create_translation(QM_FILES
+#        ${PROJECT_SOURCE_DIR}/translations
+#        ${TS_FILES}
+#        OPTIONS -source-language en_US -no-obsolete)
 
-    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader.ts")
-    qt5_create_translation(QM_FILES
-        ${PROJECT_SOURCE_DIR}/translations
-        ${TS_FILES}
-        OPTIONS -source-language en_US -no-obsolete)
-endif ()
+#    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_en_US.ts")
+#    qt5_create_translation(QM_FILES
+#        ${PROJECT_SOURCE_DIR}/translations
+#        ${TS_FILES}
+#        OPTIONS -source-language en_US -no-obsolete)
+#endif ()
 
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
@@ -102,6 +100,7 @@ add_library(dlmcontrolui SHARED
        createTask/urlthread.cpp
        createTask/analysisurl.cpp
        createTask/taskdelegate.cpp
+       createTask/taskModel.cpp
        settings/notificationssettiingwidget.cpp
        settings/settingswidget.cpp
        settings/downloadsettingwidget.cpp
@@ -112,8 +111,7 @@ add_library(dlmcontrolui SHARED
        settings/settingslabel.cpp
        settings/diagnostictool.cpp
        settings/httpadvancedsettingwidget.cpp
-       websocket/websocketclientwrapper.cpp
-       websocket/websockettransport.cpp
+       settings/timeEdit.cpp
        clipboardtimer.cpp
        messagebox.cpp
        dlmapplication.cpp
@@ -123,8 +121,8 @@ add_library(dlmcontrolui SHARED
        ${QM_FILES}
 )
 
-target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget curl
-    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::WebChannel Qt5::WebSockets)
+target_link_libraries(dlmcontrolui dlmlog dlmaria2 dlmdatabase dtkcore  dtkwidget
+    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus)
 
 #install(TARGETS dlmcontrolui DESTINATION lib)
 

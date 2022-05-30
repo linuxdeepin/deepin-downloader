@@ -56,12 +56,17 @@ class Settings : public QObject
     Q_OBJECT
 public:
     explicit Settings(QObject *parent = nullptr);
-
+    ~Settings();
     /**
      * @brief 获取单例对象
      * @return 返回单例对象
      */
     static Settings *getInstance();
+
+    /**
+     * @brief 初始化
+     */
+    void init();
 
     /**
      * @brief 创建下载目录窗口
@@ -129,6 +134,43 @@ public:
     static QWidget *createLimitMaxNumberHandle(QObject *obj);
 
     /**
+     * @brief 创建原始地址线程数窗口
+     * @param obj option对象
+     */
+    static QWidget *createAddressThreadHandle(QObject *obj);
+
+    /**
+     * @brief 创建下载任务数窗口
+     * @param obj option对象
+     */
+    static QWidget *createMaxDownloadTaskHandle(QObject *obj);
+
+    /**
+     * @brief 创建自动打开下载完成的任务窗口
+     * @param obj option对象
+     */
+    static QWidget *createAutoOpenHandle(QObject *obj);
+
+    /**
+     * @brief 创建自动删除文件不存在的任务窗口
+     * @param obj option对象
+     */
+    static QWidget *createAutoDeleteHandle(QObject *obj);
+
+    /**
+     * @brief 创建自动讲低速任务移到队尾窗口
+     * @param obj option对象
+     */
+    static QWidget *createAutoSortBySpeedHandle(QObject *obj);
+
+    /**
+     * @brief 创建缓存设置窗口
+     * @param obj option对象
+     */
+    static QWidget *createCustomRadioGroupHandle(QObject *obj);
+
+
+    /**
      * @brief 创建下载磁盘缓存文本提示窗口
      * @param obj option对象
      */
@@ -181,6 +223,18 @@ public:
      * @return 返回最大任务个数
      */
     int getMaxDownloadTaskNumber();
+
+    /**
+     * @brief 获取原始地址线程数
+     * @return 返回原始地址线程数
+     */
+    int getOriginalAddressThreadsNumber();
+
+    /**
+     * @brief 获取全局最大下载资源数
+     * @return 返回全局最大下载资源数,如果未开启，返回0
+     */
+    int getMaxDownloadResourcesNumber();
 
     /**
      * @brief 获取下载完成后自动打开状态值
@@ -254,13 +308,17 @@ public:
      */
     bool getBtDownloadState();
 
-
-
     /**
      * @brief 获取磁力链接下载状态值
      * @return 选中返回true，否则返回false
      */
     bool getMagneticDownloadState();
+
+    /**
+     * @brief 获取metalink下载状态值
+     * @return 选中返回true，否则返回false
+     */
+    bool getMLDownloadState();
 
     /**
      * @brief 获取下载种子文件后自动打开新建窗口状态值
@@ -279,6 +337,12 @@ public:
      * @return 开启返回true，否则返回false
      */
     bool getStartAssociatedBTFileState();
+
+    /**
+     * @brief 获取启动时关联metalink种子文件状态值
+     * @return 开启返回true，否则返回false
+     */
+    bool getStartAssociatedMetaLinkFileState();
 
     /**
      * @brief 获取下载完成/失败时系统通知提醒状态值
@@ -362,10 +426,20 @@ public:
 
     DSettings *m_settings;
 
+private:
+    /**
+     * @brief 设置配置文件路径
+     */
+    void setupCOnfigFile();
+
+    /**
+     * @brief 初始化
+     */
+    void initWidget();
 
 signals:
     void poweronChanged(bool state);
-    void maxDownloadTaskNumberChanged(int taskNumber);
+    void maxDownloadTaskNumberChanged(int taskNumber, bool isStopTask, bool isAddOne);
     void downloadSettingsChanged();
     void disckCacheChanged(int number);
     void startAssociatedBTFileChanged(bool state);

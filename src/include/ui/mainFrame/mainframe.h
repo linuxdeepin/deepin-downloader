@@ -42,6 +42,11 @@
 #include <QNetworkReply>
 #include <QProcess>
 
+#include "global.h"
+
+
+using namespace Global;
+
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
@@ -58,12 +63,8 @@ class BtInfoDialog;
 class TableDataControl;
 class CreateTaskWidget;
 class QListWidgetItem;
+class LeftListView;
 struct LinkInfo;
-
-namespace Global {
-class DownloadDataItem;
-class DeleteDataItem;
-} // namespace Global
 
 /**
  * @class MainFrame
@@ -84,12 +85,22 @@ public:
      * @brief 析构函数
      */
     ~MainFrame();
-private:
 
+private:
     /**
      * @brief 界面初始化
     */
     void init();
+
+    /**
+     * @brief 初始化tab顺序
+    */
+    void initTab();
+
+    /**
+     * @brief 初始化设置部分
+    */
+    void initSetting();
 
     /**
      * @brief 初始化aria2
@@ -120,16 +131,16 @@ private:
     void initDbus();
 
     /**
-     * @brief 初始化websocket
-     * @return
+     * @brief 新建下载任务
+     * @param url 下载地址
      */
-    void initWebsocket();
+    void createNewTask(QString url);
 
 public slots:
     /**
      * @brief 剪切板数据改变，受到托管文件url
     */
-    void OpenFile(QString url);
+    void OpenFile(const QString &url);
 
     /**
      * @brief 剪切板将
@@ -142,6 +153,13 @@ public slots:
      * @param event 事件类型
      */
     void onTrayQuitClick(bool force = false);
+
+    /**
+     * @brief 收到浏览器扩展发送过来的数据
+     * @param url 下载地址
+     */
+    void onReceiveExtentionUrl(QString url);
+
 private slots:
     /**
      * @brief 点击托盘图表的槽函数
@@ -196,7 +214,7 @@ private slots:
      * @param savePath 保存路径
      * @param url类型
     */
-    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "");
+    void onDownloadNewUrl(QString url, QString savePath, QString fileName, QString type = "", QString leng = "");
 
     /**
      * @brief 收到新建bt任务
@@ -368,11 +386,6 @@ private slots:
     void onAutoDownloadBySpeed(bool status);
 
     /**
-    * @brief 重新下载确认槽函数
-    */
-    void onRedownloadConfirmSlot(const QString sameUrl, QString fileName, QString type);
-
-    /**
     * @brief 列表项双击事件，打开文件
     */
     void onTableViewItemDoubleClicked(QModelIndex index);
@@ -390,7 +403,7 @@ private slots:
     /**
      * @brief 设置里最大任务数改变
      */
-    void onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask = true);
+    void onMaxDownloadTaskNumberChanged(int nTaskNumber, bool isStopTask = true, bool isAddOne = true);
 
     /**
      * @brief 设置里磁盘缓存改变
@@ -417,6 +430,11 @@ private slots:
      */
     void onSearchItemClicked(QListWidgetItem *item);
 
+    /**
+     * @brief 开始或者继续下载任务
+    */
+    void continueDownload(Global::DownloadDataItem *pItem);
+
 private:
     /**
      * @brief 设置任务数
@@ -429,22 +447,11 @@ private:
     void setPaletteType();
 
     /**
-     * @brief 新建下载任务
-     * @param url 下载地址
-     */
-    void createNewTask(QString url);
-
-    /**
      * @brief 解析url，得到url名字
      * @param url 下载地址
      * @return 解析后Task结构体
      */
-    void getUrlToName(TaskInfo &task, QString url, QString savePaht, QString name, QString type = "");
-
-    /**
-     * @brief 开始或者继续下载任务
-    */
-    void continueDownload(Global::DownloadDataItem *pItem);
+    void getNameFromUrl(TaskInfo &task, QString url, QString savePaht, QString name,QString fileLength, QString type = "");
 
     /**
      * @brief 清除item的选中状态
@@ -490,7 +497,7 @@ private:
     /**
      * @brief 比较时间
      */
-    int checkTime(QTime *startTime, QTime *endTime);
+    int checkTime(const QTime *startTime, const QTime *endTime);
 
     /**
      * @brief 初始化DataItem
@@ -515,20 +522,9 @@ private:
     bool isMagnet(QString url);
 
     /**
-     * @brief 清空共享内存
-    */
-    void clearSharedMemory();
-
-    /**
      * @brief 开始下载任务
      */
     void startDownloadTask(Global::DownloadDataItem *pItem);
-
-    /**
-     * @brief 网络是否联通
-     * @return true为不通 false为通
-     */
-    bool isNetConnect();
 
     /**
      * @brief 当前是否是自动开启
@@ -541,8 +537,6 @@ private:
      * @return true为是 false为否
      */
     void setAutoStart(bool ret);
-
-
 
     //    /**
     //     * @brief 解析url获取url 类型
@@ -578,6 +572,18 @@ private:
      */
     bool checkIsHasSameTask(QString infoHash);
 
+    /**
+    * @brief 是否开启metalink下载
+    * @param status true 为开启 false为关闭
+    */
+    void onIsMetalinkDownload(bool status);
+
+    /**
+    * @brief 是否开启bt下载
+    * @param status true 为开启 false为关闭
+    */
+    void onIsBtDownload(bool status);
+
 protected:
     /**
      * @brief 键盘按下事件
@@ -590,12 +596,6 @@ protected:
      * @param event 事件类型
      */
     void keyReleaseEvent(QKeyEvent *event) override;
-
-    /**
-     * @brief 主窗口大小变化事件
-     * @param event 事件类型
-     */
-    void resizeEvent(QResizeEvent *event) override;
 
     /**
      * @brief mainwidow关闭事件
@@ -614,23 +614,18 @@ private:
         downloading,
         recycle
     };
-    enum CurrentTab {
-        downloadingTab = 0,
-        finishTab,
-        recycleTab
-    };
+
     TopButton *m_ToolBar;
     TableView *m_DownLoadingTableView, *m_RecycleTableView;
     QWidget *m_LeftWidget;
     QWidget *m_RightWidget;
     QWidget *m_NotaskWidget;
     DLabel *m_NotaskLabel;
-    DLabel *m_NoResultlabel;
     DLabel *m_NotaskTipLabel;
     QStackedWidget *m_RightStackwidget;
     QWidget *m_TaskNumWidget;
     QLabel *m_TaskNum;
-    DListView *m_LeftList;
+    LeftListView *m_LeftList;
 
     DStandardItem *m_DownloadingItem;
     DStandardItem *m_DownloadFinishItem;
@@ -664,7 +659,6 @@ private:
     QAction *m_ShutdownAct;
     QAction *m_SleepAct;
     QAction *m_QuitProcessAct;
-
     int m_timeInterval = 2000;
 signals:
     void isHeaderChecked(bool checked);

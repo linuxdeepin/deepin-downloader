@@ -34,6 +34,7 @@
 #include <QLineEdit>
 #include <QDebug>
 #include <QStandardPaths>
+#include <DSuggestButton>
 
 FileSavePathChooser::FileSavePathChooser(const int &currentSelect, const QString &downloadPath)
 {
@@ -67,6 +68,23 @@ void FileSavePathChooser::initUI()
     }
 
     m_fileChooserEdit->setText(m_downloadPath);
+
+    for(int i = 0; i < m_fileChooserEdit->children().count(); i++){
+        for (int j = 0; j < m_fileChooserEdit->children().at(i)->children().count(); j++) {
+            DSuggestButton * dsbtn = qobject_cast<DSuggestButton*>(m_fileChooserEdit->children().at(i)->children().at(j));
+            if(dsbtn != nullptr){
+                connect(dsbtn, &DSuggestButton::released, [=](){
+                    for(int k = 0; k < m_fileChooserEdit->children().count(); k++){
+                        auto temp = qobject_cast<QFileDialog *>(m_fileChooserEdit->children().at(k));
+                        if(temp != nullptr) {
+                           temp->setDirectory(m_downloadPath);
+                        }
+                    }
+                });
+                break;
+            }
+        }
+    }
 
     QHBoxLayout *fileChooserLayout = new QHBoxLayout;
     fileChooserLayout->addWidget(m_fileChooserEdit);
@@ -119,7 +137,7 @@ void FileSavePathChooser::onLineEditTextChanged(const QString &text)
 
     fileInfo.setFile(text);
     if (!fileInfo.isWritable()) {
-        MessageBox messageBox;
+        MessageBox messageBox(this);
         messageBox.setFolderDenied();
         m_fileChooserEdit->setText(m_downloadPath);
 

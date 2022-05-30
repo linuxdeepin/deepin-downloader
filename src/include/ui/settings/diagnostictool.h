@@ -31,12 +31,14 @@
 #include <DDialog>
 #include <QAbstractTableModel>
 #include <QStyledItemDelegate>
+#include <QLabel>
 
 DWIDGET_USE_NAMESPACE
 
 class QTableView;
 class DiagnosticModel;
 class QPushButton;
+class DiagnosticDelegate;
 /**
  * @class DiagnosticTool
  * @brief 下载诊断工具
@@ -45,7 +47,8 @@ class DiagnosticTool : public DDialog
 {
     Q_OBJECT
 public:
-    explicit DiagnosticTool(DDialog *parent = nullptr);
+    explicit DiagnosticTool(QWidget *parent = nullptr);
+    ~DiagnosticTool();
 
 private:
     void initUI();
@@ -58,10 +61,12 @@ private slots:
 
 private:
     QTableView *m_Tableview;
+    DiagnosticDelegate *m_pDelegate;
     DiagnosticModel *m_Model;
     QPushButton *m_Button;
     bool m_IsHasTracks;
     bool m_IsHasDHT;
+    DiagnosticDelegate *m_delegate;
 };
 
 /**
@@ -141,6 +146,16 @@ public:
      * @brief 绘图事件
      */
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+};
+
+
+class BaseWidget : public QLabel
+{
+    Q_OBJECT
+public:
+    BaseWidget(const QString &text, QWidget *parent=nullptr, Qt::WindowFlags f=Qt::WindowFlags());
+protected:
+    void paintEvent(QPaintEvent *e) override;
 };
 
 #endif //DIAGNOSTICTOOL_H

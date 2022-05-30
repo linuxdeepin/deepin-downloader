@@ -54,6 +54,8 @@ public:
      */
     void setHoverColor(QBrush c);
 
+    QString getCurName(){ return m_curName; }
+
 signals:
     void onEditChange(QWidget *);
 

@@ -41,10 +41,12 @@ SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent)
 void SettingInfoInputWidget::initUI()
 {
     m_lineEdit = new DLineEdit;
+    m_lineEdit->setAccessibleName(m_lineEdit->text());
     m_titleLabel = new DLabel;
     m_unitLabel = new DLabel;
     m_rangeLabel = new DLabel;
 
+    m_lineEdit->setMinimumWidth(150);
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_titleLabel);
     hLayout->addWidget(m_lineEdit);
@@ -94,6 +96,7 @@ void SettingInfoInputWidget::setRangeLabelText(const QString &text)
 void SettingInfoInputWidget::setLineEditText(const QString &text)
 {
     m_lineEdit->setText(text);
+    m_lineEdit->setAccessibleName(text);
 }
 
 void SettingInfoInputWidget::setLineEditIsDisabled(bool isDisabled)
