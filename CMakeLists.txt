@@ -17,11 +17,10 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置安装路径
-set(CMAKE_INSTALL_PREFIX /usr)
-## Install settings
-#if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-#    set(CMAKE_INSTALL_PREFIX /usr)
-#endif ()
+include(GNUInstallDirs)
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+   set(CMAKE_INSTALL_PREFIX /usr)
+endif ()
 
 #option(DOTEST "option for test" OFF)
 
@@ -74,23 +73,23 @@ find_package(Dtk COMPONENTS ${DTK} REQUIRED)
 #安装
 # qm files.
 file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/downloader/translations)
+install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/downloader/translations)
 
 #desktop
-install(FILES desktop/downloader.desktop DESTINATION share/applications)
+install(FILES desktop/downloader.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 
 #datebases
-install(FILES data/downloader.db DESTINATION share/downloader/database)
+install(FILES data/downloader.db DESTINATION ${CMAKE_INSTALL_DATADIR}/downloader/database)
 
 # conf file
 file(GLOB CF_FILES "docs/*.conf")
-install(FILES ${CF_FILES} DESTINATION share/downloader/config)
+install(FILES ${CF_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/downloader/config)
 file(GLOB JS_FILES "docs/httpAdvanced.json")
-install(FILES ${JS_FILES} DESTINATION share/downloader/config)
+install(FILES ${JS_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/downloader/config)
 
 #icon
-install(FILES data/downloader.svg DESTINATION share/icons/hicolor/scalable/apps/)
-install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
+install(FILES data/downloader.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps/)
+install(FILES data/downloader.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/downloader/icons/logo/)
 
 # 开启单元测试
 
@@ -105,12 +104,8 @@ LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic
 )
 
-install(DIRECTORY ${APP_RES_DIR}/downloader DESTINATION /usr/share/deepin-manual/manual-assets/application/)
-install(FILES docs/info.json DESTINATION share/downloader/extension/)
-install(FILES docs/ojlicckikdkkaclkpdddijgehekpmmbg.crx DESTINATION share/downloader/extension/)
-install(FILES docs/browser.downloader.autostart.json DESTINATION /etc/browser/native-messaging-hosts/)
-install(FILES docs/startdlmservice.sh DESTINATION /usr/libexec/openconnect/)
-
-
-
-
+install(DIRECTORY ${APP_RES_DIR}/downloader DESTINATION ${CMAKE_INSTALL_DATADIR}/deepin-manual/manual-assets/application/)
+install(FILES docs/info.json DESTINATION ${CMAKE_INSTALL_DATADIR}/downloader/extension/)
+install(FILES docs/ojlicckikdkkaclkpdddijgehekpmmbg.crx DESTINATION ${CMAKE_INSTALL_DATADIR}/downloader/extension/)
+install(FILES docs/browser.downloader.autostart.json DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/browser/native-messaging-hosts/)
+install(FILES docs/startdlmservice.sh DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/openconnect/)
