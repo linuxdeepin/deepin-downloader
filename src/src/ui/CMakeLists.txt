@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 #设置包含目录
 include_directories( ${PROJECT_SOURCE_DIR}/src/include/ui
                      ${PROJECT_SOURCE_DIR}/src/include/aria2

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
 * @file %{CurrentDocument:dbinstance.h}
 * @brief 数据库接口库

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # 设置测试程序名字
 set(PROJECT_NAME_TEST
     ${PROJECT_NAME}_test)
