@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 include_directories(${PROJECT_SOURCE_DIR}/src/include/database
                     ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame)
 link_directories(${CMAKE_BINARY_DIR}/lib)
