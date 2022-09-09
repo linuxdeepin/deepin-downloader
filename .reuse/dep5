@@ -1,9 +1,7 @@
-# Sample paragraph, commented out:
-#
-# Files: src/*
-# Copyright: $YEAR $NAME <$CONTACT>
-# License: ...
-
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: deepin-downloader
+Upstream-Contact: UnionTech Software Technology Co., Ltd <>
+Source: https://github.com/linuxdeepin/deepin-downloader
 
 # README
 Files: README.md README.zh_CN.md
