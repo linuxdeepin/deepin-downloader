@@ -42,16 +42,11 @@ When install complete, the executable binary file is placed into `/usr/bin/deepi
 ## Getting help
 
 Any usage issues can ask for help via
-*
-* 
-* 
-* 
+* [WiKi](https://wiki.deepin.org)
+* [Forum](https://bbs.deepin.org)
+* [Developer Center](https://github.com/linuxdeepin/developer-center/issues)
+* [Matrix](https://matrix.to/#/#deepin-community:matrix.org)
 
-## Getting involved
-
-We encourage you to report issues and contribute changes
-
-* 
-* 
 
 ## License
+This project is licensed under GPL-3.0-or-later.
