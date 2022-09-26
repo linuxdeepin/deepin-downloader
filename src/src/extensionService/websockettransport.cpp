@@ -1,4 +1,3 @@
-// Copyright (C) 2016 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com, author Milian Wolff <milian.wolff@kdab.com>
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -24,8 +23,8 @@
     The socket is also set as the parent of the transport object.
 */
 WebSocketTransport::WebSocketTransport(QWebSocket *socket)
-: QWebChannelAbstractTransport(socket)
-, m_socket(socket)
+    : QWebChannelAbstractTransport(socket)
+    , m_socket(socket)
 {
     connect(socket, &QWebSocket::textMessageReceived,
             this, &WebSocketTransport::textMessageReceived);

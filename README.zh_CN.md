@@ -42,17 +42,11 @@ $ sudo make install
 ## 获得帮助
 
 任何使用问题都可以通过以下方式寻求帮助
-*
-* 
-* 
-* 
+* [WiKi](https://wiki.deepin.org)
+* [Forum](https://bbs.deepin.org)
+* [Developer Center](https://github.com/linuxdeepin/developer-center/issues)
+* [Matrix](https://matrix.to/#/#deepin-community:matrix.org)
 
-## 贡献指南
-
-我们鼓励您报告问题并做出更改
-
-* 
-* 
 
 ## 开源许可证
 该项目在GPL-3.0-or-later下发布。
