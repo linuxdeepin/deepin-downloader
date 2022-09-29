@@ -72,7 +72,7 @@ DownloadHeaderView::~DownloadHeaderView()
 
 void DownloadHeaderView::updateGeometries()
 {
-    m_headerCbx->move(sectionPosition(0) + 5, 5);
+    m_headerCbx->move(sectionPosition(0) + 5, (this->height() - 25) / 2 + 2);
     QHeaderView::updateGeometries();
 }
 

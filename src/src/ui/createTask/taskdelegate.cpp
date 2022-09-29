@@ -234,6 +234,11 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
                 }
             }
         }
+
+        if (pEdit != nullptr) {
+            pEdit->deleteLater();
+            pEdit = nullptr;
+        }
     });
     connect(pEdit, &DLineEdit::returnPressed, this, [=]() {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
