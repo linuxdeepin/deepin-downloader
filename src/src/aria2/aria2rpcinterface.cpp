@@ -443,6 +443,12 @@ bool Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
         //                });
         return networkReply->error() ? false : true;
     }
+
+    if (manager != nullptr) {
+        manager->deleteLater();
+        manager = nullptr;
+    }
+
     return false;
 }
 
