@@ -86,7 +86,7 @@ add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${
 
 #添加gtest库，Qt库，dtk库
 target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main pthread
-    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test dtkwidget dtkgui dtkcore Qt5::WebChannel Qt5::WebSockets)
+    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test Dtk::Widget Dtk::Gui Dtk::Core Qt5::WebChannel Qt5::WebSockets)
 
 # 添加 QTest 测试
 add_test(${PROJECT_NAME_TEST} COMMAND ${PROJECT_NAME_TEST})
