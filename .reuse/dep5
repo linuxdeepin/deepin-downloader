@@ -49,7 +49,7 @@ Copyright: None
 License: CC0-1.0
 
 # ci
-Files: .github/* .project.json .obs/*.yaml
+Files: .github/* .project.json .obs/*.yml
 Copyright: None
 License: CC0-1.0
 
