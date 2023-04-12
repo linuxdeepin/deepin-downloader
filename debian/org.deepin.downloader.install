@@ -12,6 +12,6 @@ docs/content-type.conf /usr/share/downloader/config
 docs/httpAdvanced.json /usr/share/downloader/config
 docs/content-type.conf /usr/share/downloader/config
 docs/browser.downloader.autostart.json /etc/browser/native-messaging-hosts
-docs/startdlmservice.sh /usr/libexec/openconnect/
+/usr/libexec/openconnect/startdlmservice.sh
 docs/ojlicckikdkkaclkpdddijgehekpmmbg.crx /usr/share/downloader/extension
 docs/info.json /usr/share/downloader/extension

@@ -105,12 +105,14 @@ LIBRARY DESTINATION lib
 ARCHIVE DESTINATION libstatic
 )
 
+if (USE_AM_DBUS)
+set(SERVICE_SCRIPT docs/dbus/startdlmservice.sh)
+else()
+set(SERVICE_SCRIPT docs/nodbus/startdlmservice.sh)
+endif()
+
 install(DIRECTORY ${APP_RES_DIR}/downloader DESTINATION /usr/share/deepin-manual/manual-assets/application/)
 install(FILES docs/info.json DESTINATION share/downloader/extension/)
 install(FILES docs/ojlicckikdkkaclkpdddijgehekpmmbg.crx DESTINATION share/downloader/extension/)
 install(FILES docs/browser.downloader.autostart.json DESTINATION /etc/browser/native-messaging-hosts/)
-install(FILES docs/startdlmservice.sh DESTINATION /usr/libexec/openconnect/)
-
-
-
-
+install(FILES ${SERVICE_SCRIPT} DESTINATION /usr/libexec/openconnect/)
