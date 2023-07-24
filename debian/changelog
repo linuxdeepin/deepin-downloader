@@ -1,3 +1,9 @@
+deepin-downloader (5.3.73) stable; urgency=medium
+
+  * merge gerrit dev.
+
+ -- muyuankai <muyuankai@uniontech.com>  Mon, 24 Jul 2023 16:00:01 +0800
+
 downloadmanager (5.3.70) stable; urgency=medium
 
   * 升级版本到5.3.70.

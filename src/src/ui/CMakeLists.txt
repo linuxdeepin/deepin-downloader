@@ -129,9 +129,9 @@ target_link_libraries(dlmcontrolui
     dlmlog
     dlmaria2
     dlmdatabase
-    Dtk::Core
-    Dtk::Widget
-    Dtk::Gui
+    ${DtkCore_LIBRARIES}
+    ${DtkWidget_LIBRARIES}
+    ${DtkGui_LIBRARIES}
     Qt5::Core
     Qt5::Network
     Qt5::Widgets
