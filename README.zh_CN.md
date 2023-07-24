@@ -25,7 +25,7 @@
 
 2. Build:
 ```
-$ cd downloadmanager
+$ cd deepin-downloader
 $ mkdir Build
 $ cd Build
 $ cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr ..

@@ -68,8 +68,9 @@ set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Test WebChannel WebSo
 find_package(Qt5 COMPONENTS ${QT} REQUIRED)
 
 #应用DTK库
-set(DTK Widget Core Gui)
-find_package(Dtk COMPONENTS ${DTK} REQUIRED)
+find_package(DtkWidget REQUIRED)
+find_package(DtkCore REQUIRED)
+find_package(DtkGui REQUIRED)
 
 #安装
 # qm files.
@@ -97,7 +98,9 @@ install(FILES data/downloader.svg DESTINATION share/downloader/icons/logo/)
 # 添加子模块test
 add_subdirectory(src)
 add_subdirectory(translations)
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 add_subdirectory(tests)
+endif()
 
 install(TARGETS downloader dlmlog dlmdatabase dlmaria2 dlmcontrolui
 RUNTIME DESTINATION bin
