@@ -3,7 +3,12 @@ cmake_minimum_required(VERSION 3.1.0)
 
 #工程名
 project(downloader)
-set(PROJECT_VERSION "5.3.70")
+if (CVERSION)
+  message("CVERSION: ${CVERSION}")
+  set(PROJECT_VERSION ${CVERSION})
+else ()
+  set(PROJECT_VERSION "5.3.70")
+endif ()
 set(PROJECT_VERSION_MAJOR 5)
 set(QT_MIN_VERSION "5.11.0")
 set(DLM_NAME "downloader")
