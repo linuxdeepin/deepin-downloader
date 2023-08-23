@@ -1,6 +1,8 @@
 #!/usr/bin/make -f
 
 export QT_SELECT=qt5
+include /usr/share/dpkg/default.mk
+
 
 %:
 	dh $@
@@ -13,4 +15,4 @@ override_dh_auto_configure:
 	  -DUSE_AM_DBUS=ON \
 	  -DCMAKE_BUILD_TYPE=Release \
 	  -DCMAKE_INSTALL_PREFIX=/usr \
-      -DAPP_VERSION=$(DEB_VERSION_UPSTREAM) -DVERSION=$(DEB_VERSION_UPSTREAM) LIB_INSTALL_DIR=/usr/lib
+      -DAPP_VERSION=$(DEB_VERSION_UPSTREAM) -DCVERSION=$(DEB_VERSION_UPSTREAM) LIB_INSTALL_DIR=/usr/lib
