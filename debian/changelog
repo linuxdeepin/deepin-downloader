@@ -1,3 +1,9 @@
+deepin-downloader (5.3.74) stable; urgency=medium
+
+  * update changelog 5.3.74.
+
+ -- wangcong <wangcong@uniontech.com>  Mon, 30 Aug 2023 16:39:01 +0800
+
 deepin-downloader (5.3.73) stable; urgency=medium
 
   * merge gerrit dev.
