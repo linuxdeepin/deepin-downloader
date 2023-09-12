@@ -66,7 +66,6 @@ void HttpAdvancedSettingWidget::initUI()
     QList<DButtonBoxButton*> list;
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPixelSize(13);
     DButtonBoxButton *suffixBtn =new DButtonBoxButton(tr("Edit File Extensions"));  //编辑下载文件扩展名
     suffixBtn->setAccessibleName("EditFileExtensions");
     suffixBtn->setFont(font);
@@ -80,22 +79,19 @@ void HttpAdvancedSettingWidget::initUI()
     m_btnBox->setId(webBtn, 1);
     list<<suffixBtn<< webBtn;
     m_btnBox->setButtonList(list,true);
-    m_btnBox->setFixedSize(280,36);
     addContent(m_btnBox, Qt::AlignHCenter);
     addSpacing(10);
 
     m_textEdit = new DTextEdit(this);
-    m_textEdit->setFixedSize(454,168);
     m_textEdit->setFont(font);
-    addContent(m_textEdit, Qt::AlignHCenter);
+    addContent(m_textEdit);
     addSpacing(8);
 
     m_defaultBtn = new DCommandLinkButton(tr("Restore"), this);
     m_defaultBtn->setAccessibleName("httpadvanceRestore");
     connect(m_defaultBtn,&DCommandLinkButton::clicked, this, &HttpAdvancedSettingWidget::onRstoreDefaultClicked);
     m_defaultBtn->setFont(font);
-    m_defaultBtn->setGeometry(418,272,56,20);
-   // addContent(m_defaultBtn,  Qt::AlignRight);
+    addContent(m_defaultBtn,  Qt::AlignRight);
     addSpacing(20);
 
     QWidget *w = new QWidget(this);
@@ -105,23 +101,20 @@ void HttpAdvancedSettingWidget::initUI()
     connect(cancel,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onCancelClicked);
     cancel->setText(tr("Cancel"));
     cancel->setFont(font);
-    cancel->setFixedSize(216,36);
 
     DPushButton * sure = new DPushButton(this);
     sure->setAccessibleName("httpadvanceSure");
     connect(sure,&DPushButton::clicked, this, &HttpAdvancedSettingWidget::onSureClicked);
-    sure->setFixedSize(216,36);
     sure->setText(tr("Confirm", "button"));
     sure->setFont(font);
 
     QHBoxLayout * hblyt = new QHBoxLayout(w);
     hblyt->setContentsMargins(0,0,0,0);
-    w->setFixedSize(454, 44);
     hblyt->addWidget(cancel);
     hblyt->addSpacing(20);
     hblyt->addWidget(sure);
     w->setLayout(hblyt);
-    addContent(w, Qt::AlignHCenter);
+    addContent(w);
 
 
     QFile file(m_configPath);

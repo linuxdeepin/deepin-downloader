@@ -41,7 +41,8 @@
 #include <QScrollBar>
 #include <QPaintEvent>
 #include <QPainterPath>
-
+#include <QScrollArea>
+#include "global.h"
 #include "func.h"
 #include "aria2rpcinterface.h"
 
@@ -50,7 +51,6 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
 {
-    setFixedSize(453, 431);
     initUI();
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
     setAccessibleName("DiagnosticTool");
@@ -72,9 +72,9 @@ void DiagnosticTool::initUI()
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
     QLabel *mainLabel = new QLabel(this);
-    mainLabel->setFixedSize(440, 360);
+    mainLabel->setMinimumSize(440, 380);
     BaseWidget *pWidget = new BaseWidget("");
-    pWidget->setFixedSize(420, 290);
+    pWidget->setMinimumSize(420, 380);
 //    QPalette p;
 //    p.setColor(QPalette::Background, QColor(255, 255, 255));
 //    pWidget->setPalette(p);
@@ -82,50 +82,77 @@ void DiagnosticTool::initUI()
     //setPalette(p);
 
     QFont f;
-    f.setPixelSize(17);
     f.setBold(true);
     QLabel *pLabel = new QLabel(tr("Result:"));
-    pLabel->setFixedSize(202, 25);
     pLabel->setFont(f);
     m_Button = new QPushButton(tr("Diagnose Again"), this);
     m_Button->setAccessibleName("diagnoseBtn");
-    m_Button->setFixedSize(202, 36);
+    m_Button->setFixedWidth(202);
     connect(m_Button, &QPushButton::clicked, this, [=]() {
         m_Model->clearData();
         QTimer::singleShot(500, this, [=]() {
             startDiagnostic();
         });
     });
-    QHBoxLayout *pHLayout = new QHBoxLayout();
-    pHLayout->addStretch();
-    pHLayout->addWidget(m_Button);
-    pHLayout->addStretch();
 
     QVBoxLayout *pLayout = new QVBoxLayout();
+    pLayout->setContentsMargins(10, 10, 10, 10);
+    pLayout->addSpacing(10);
     pLayout->addWidget(pLabel);
+    pLayout->addSpacing(10);
     pLayout->addWidget(m_Tableview);
     pLayout->addStretch();
-    //pLayout->addLayout(pHLayout);
     pWidget->setLayout(pLayout);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(pWidget);
     mainLayout->addStretch();
-    mainLayout->addLayout(pHLayout);
     mainLabel->setLayout(mainLayout);
     addContent(mainLabel, Qt::AlignHCenter |  Qt::AlignTop);
+    addSpacing(10);
+    addContent(m_Button, Qt::AlignHCenter);
 
     m_delegate = new DiagnosticDelegate(this);
     m_Tableview->setModel(m_Model);
     m_Tableview->setItemDelegate(m_delegate);
     m_Tableview->horizontalHeader()->hide();
     m_Tableview->verticalHeader()->hide();
-    m_Tableview->verticalHeader()->setDefaultSectionSize(40);
-    m_Tableview->setFixedSize(404, 245);
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    if (DGuiApplicationHelper::instance()->sizeMode() == DGuiApplicationHelper::NormalMode) {
+        m_Tableview->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+        m_Tableview->setMinimumHeight(Global::tableView_NormalMode_Width * 6);
+        pWidget->setMinimumHeight(Global::tableView_NormalMode_Width * 6 + 80);
+        mainLabel->setMinimumHeight(Global::tableView_NormalMode_Width * 6 + 100);
+    } else {
+        m_Tableview->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+        m_Tableview->setMinimumHeight(Global::tableView_CompactMode_Width * 6);
+        pWidget->setMinimumHeight(Global::tableView_CompactMode_Width * 6 + 80);
+        mainLabel->setMinimumHeight(Global::tableView_CompactMode_Width * 6 + 100);
+    }
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
+        if (sizeMode == DGuiApplicationHelper::NormalMode) {
+            m_Tableview->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+            m_Tableview->setMinimumHeight(Global::tableView_NormalMode_Width * 6);
+            pWidget->setMinimumHeight(Global::tableView_NormalMode_Width * 6 + 80);
+            mainLabel->setMinimumHeight(Global::tableView_NormalMode_Width * 6 + 100);
+        } else {
+            m_Tableview->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+            m_Tableview->setMinimumHeight(Global::tableView_CompactMode_Width * 6);
+            pWidget->setMinimumHeight(Global::tableView_CompactMode_Width * 6 + 80);
+            mainLabel->setMinimumHeight(Global::tableView_CompactMode_Width * 6 + 100);
+        }
+    });
+#else
+    m_Tableview->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+    m_Tableview->setMinimumHeight(Global::tableView_NormalMode_Width * 6);
+    pWidget->setMinimumHeight(Global::tableView_NormalMode_Width * 6 + 80);
+    mainLabel->setMinimumHeight(Global::tableView_NormalMode_Width * 6 + 100);
+#endif
+    m_Tableview->setFixedWidth(404);
     m_Tableview->setShowGrid(false);
     m_Tableview->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
     m_Tableview->setColumnWidth(0, 42);
     m_Tableview->setColumnWidth(1, 290);
-    m_Tableview->setColumnWidth(2, 75);
+    m_Tableview->setColumnWidth(2, 72);
     m_Tableview->setAlternatingRowColors(true);
     m_Tableview->setEnabled(false);
     m_Tableview->verticalScrollBar()->setHidden(true);
@@ -323,16 +350,16 @@ void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
     switch (index.column()) {
     case 0: {
         QPixmap pic = index.data(Qt::DisplayRole).toString();
-        QRect rect = QRect(option.rect.x() + 10, option.rect.y() + 10, 25, 25);
+        QRect rect = QRect(option.rect.x() + 10, option.rect.y() + 2 + (option.rect.height() - pic.height())/2.f, pic.width(), pic.height());
         painter->drawPixmap(rect, pic);
     } break;
     case 1: {
-        QRect rect = QRect(option.rect.x(), option.rect.y() + 10, option.rect.width(), option.rect.height());
-        painter->drawText(rect, index.data(Qt::DisplayRole).toString());
+        QRect rect = option.rect;
+        painter->drawText(rect, Qt::AlignVCenter | Qt::AlignLeft, index.data(Qt::DisplayRole).toString());
     } break;
     case 2: {
-        QRect rect = QRect(option.rect.x(), option.rect.y() + 10, option.rect.width(), option.rect.height());
-        painter->drawText(rect, index.data(Qt::DisplayRole).toString());
+        QRect rect = option.rect;
+        painter->drawText(rect, Qt::AlignVCenter | Qt::AlignLeft, index.data(Qt::DisplayRole).toString());
     } break;
     default:
         break;

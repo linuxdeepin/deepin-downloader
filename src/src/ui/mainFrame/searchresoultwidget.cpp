@@ -36,6 +36,7 @@
 #include <QKeyEvent>
 #include <dplatformwindowhandle.h>
 #include "global.h"
+#include <DGuiApplicationHelper>
 
 SearchResoultWidget::SearchResoultWidget(QWidget *parent)
     : QListWidget(parent)
@@ -44,7 +45,7 @@ SearchResoultWidget::SearchResoultWidget(QWidget *parent)
     setFixedHeight(280);
     DPlatformWindowHandle handle(this);
     handle.setWindowRadius(18);
-    setIconSize(QSize(16, 16));
+    setIconSize(QSize(12, 12));
     setSpacing(2);
 }
 
@@ -57,15 +58,27 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
         QListWidgetItem *item = new QListWidgetItem;
         QString text = "   ";
         if(taskStatusList.at(i) == Global::Complete) {
-            item->setIcon(QIcon::fromTheme("dcc_print_done"));
+            if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
+                item->setIcon(QIcon::fromTheme("dcc_print_done", QIcon(":/icons/deepin/builtin/dark/actions/dcc_print_done_dark_11px.svg")));
+            } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+                item->setIcon(QIcon::fromTheme("dcc_print_done", QIcon(":/icons/deepin/builtin/light/actions/dcc_print_done_11px.svg")));
+            }
             text += tr("Completed");
             item->setData(Qt::UserRole, "Completed");
         } else if(taskStatusList.at(i) == Global::Removed) {
-            item->setIcon(QIcon::fromTheme("dcc_list_delete"));
+            if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
+                item->setIcon(QIcon::fromTheme("dcc_list_delete", QIcon(":/icons/deepin/builtin/dark/actions/dcc_list_delete_dark_11px.svg")));
+            } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+                item->setIcon(QIcon::fromTheme("dcc_list_delete", QIcon(":/icons/deepin/builtin/light/actions/dcc_list_delete_11px.svg")));
+            }
             text += tr("Trash");
             item->setData(Qt::UserRole, "Trash");
         } else {
-            item->setIcon(QIcon::fromTheme("dcc_list_downloading"));
+            if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
+                item->setIcon(QIcon::fromTheme("dcc_list_downloading", QIcon(":/icons/deepin/builtin/dark/actions/dcc_list_downloading_dark_11px.svg")));
+            } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+                item->setIcon(QIcon::fromTheme("dcc_list_downloading", QIcon(":/icons/deepin/builtin/light/actions/dcc_list_downloading_11px.svg")));
+            }
             text += tr("Downloading");
             item->setData(Qt::UserRole, "Downloading");
         }

@@ -77,7 +77,6 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     painter->restore();
     painter->save();
     QFont font;
-    font.setPointSize(10);
     painter->setFont(font);
 
     if (index.column() == 0) {
@@ -99,15 +98,15 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
             icon = prov.icon(QFileIconProvider::File);
         }
         QPixmap pic = icon.pixmap(20, 20);
-        painter->drawPixmap(option.rect.x() + 32, option.rect.y() + 13, pic);
+        painter->drawPixmap(option.rect.x() + 32, option.rect.y() + (option.rect.height() - 20)/2, pic);
 
         painter->setPen(Qt::darkGray);
         QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideRight, option.rect.width() - 55);
-        painter->drawText(option.rect.x() + 55, option.rect.y() + 28, text);
+        painter->drawText(option.rect.marginsRemoved(QMargins(55, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, text);
     } else {
         painter->setPen(Qt::darkGray);
         QString text = painter->fontMetrics().elidedText(index.data().toString(), Qt::ElideRight, option.rect.width() - 25);
-        painter->drawText(option.rect.x() + 5, option.rect.y() + 28, text);
+        painter->drawText(option.rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, text);
     }
     painter->restore();
 }

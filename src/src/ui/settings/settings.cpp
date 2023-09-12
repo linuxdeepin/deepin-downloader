@@ -941,7 +941,6 @@ QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
     settingsLabel->setLabelText(diskCacheInfo);
 
     QFont font;
-    font.setPointSize(10); // 设置字号
     settingsLabel->setLabelFont(font);
 
     DPalette palette;

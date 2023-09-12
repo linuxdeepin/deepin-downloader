@@ -97,7 +97,6 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     const bool isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
 
     QFont font;
-    font.setPointSize(11);
     painter->setFont(font);
 
     painter->setRenderHint(QPainter::Antialiasing);
@@ -128,9 +127,6 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
 
         QRect localRect = textRect;
-
-        int x = localRect.x();
-        int y = localRect.y() + 12;
         QString filetype = index.data(TableModel::FileName).toString();
         QString fileSavePath = index.data(TableModel::SavePath).toString();
         QFileInfo fileInfo(fileSavePath);
@@ -148,13 +144,13 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             pic = icon.pixmap(20, 20);
         }
 
-        painter->drawPixmap(x, y, pic);
+        painter->drawPixmap(option.rect.x(), option.rect.y() + (option.rect.height() - 20)/2, pic);
 
         const QString path = index.data(TableModel::SavePath).toString();
         int status = index.data(TableModel::Status).toInt();
         if ((!QFileInfo::exists(path)) && (status == Global::DownloadTaskStatus::Complete || status == Global::DownloadTaskStatus::Removed)) { //文件不存在的任务，添加提示
             QPixmap errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
-            painter->drawPixmap(x + 10, y + 10, errorPic);
+            painter->drawPixmap(option.rect.x() + 10, option.rect.y() + (option.rect.height() - 20)/2 + 8, errorPic);
         }
 
         const QRect rectText = localRect.marginsRemoved(QMargins(25, 2, 0, 5));
@@ -193,15 +189,15 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             }
 
             QFont font;
-            font.setPointSize(10);
             painter->setFont(font);
-            QRect sizeRect = textRect;
-            sizeRect.setTop(sizeRect.top() + 10);
-            sizeRect.setHeight(sizeRect.height() / 4 - 2);
-            QRect barRect = sizeRect;
-            barRect.setTop(barRect.bottom() + 10);
+
+            QRect barRect = textRect;
+            barRect.setTop(textRect.top() + textRect.height() / 2);
             barRect.setWidth(barRect.width() - 10);
-            barRect.setHeight(20);
+            barRect.setHeight(textRect.height() / 2);
+            QRect sizeRect = barRect;
+            sizeRect.setTop(barRect.top() - 10);
+            sizeRect.setHeight(10);
 
             QStyleOptionViewItem viewOption(option);
             initStyleOption(&viewOption, index);
@@ -209,7 +205,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                     (index.data(TableModel::Status) == Global::Lastincomplete)) {
                 const QString pauseText = painter->fontMetrics().elidedText(tr("Paused"),
                                                                             Qt::ElideRight, textRect.width() - 10);
-                painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, pauseText);
+                painter->drawText(barRect, Qt::AlignVCenter | Qt::AlignLeft, pauseText);
             } else if (index.data(TableModel::Status) == Global::Error) {
                 QFont font;
                 font.setPointSize(10);
@@ -248,7 +244,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
                 const QString sizeText = painter->fontMetrics().elidedText(str,
                                                                            Qt::ElideRight, textRect.width() - 10);
-                painter->drawText(barRect, Qt::AlignBottom | Qt::AlignLeft, sizeText);
+                painter->drawText(barRect, Qt::AlignVCenter | Qt::AlignLeft, sizeText);
             }
 
             QRect s1(0, 0, 3, m_bgImage->height());

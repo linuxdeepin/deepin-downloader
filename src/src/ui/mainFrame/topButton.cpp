@@ -37,6 +37,8 @@
 #include <QMouseEvent>
 #include <QCompleter>
 #include <QAbstractItemView>
+#include <DGuiApplicationHelper>
+#include "global.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -50,36 +52,47 @@ TopButton::TopButton(QWidget *parent)
 
 QPoint TopButton::getSearchEditPosition()
 {
-    return mapFromParent(m_searchEdit->rect().bottomLeft());
+    return m_searchEdit->geometry().bottomLeft();
 }
 
 void TopButton::Init()
 {
     QHBoxLayout *mainHlayout = new QHBoxLayout(this);
 
-    mainHlayout->setContentsMargins(0, 6, 0, 10);
+    mainHlayout->setContentsMargins(0, 5, 0, 5);
     mainHlayout->setSpacing(10);
     m_iconLable = new DLabel;
     QIcon logo_icon = QIcon(":icons/icon/downloader5.svg");
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    if (DGuiApplicationHelper::instance()->sizeMode() == DGuiApplicationHelper::NormalMode) {
+        m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
+    } else {
+        m_iconLable->setPixmap(logo_icon.pixmap(32*Global::compactMode_ratio, 32*Global::compactMode_ratio));
+    }
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
+        if (sizeMode == DGuiApplicationHelper::NormalMode) {
+            m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
+        } else {
+            m_iconLable->setPixmap(logo_icon.pixmap(32*Global::compactMode_ratio, 32*Global::compactMode_ratio));
+        }
+    });
+#else
     m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
-    m_iconLable->setFixedSize(36, 36);
+#endif
     m_searchEdit = new SearchWidget();
-    m_searchEdit->setMinimumWidth(350);
-    m_searchEdit->setFixedHeight(36);
+    m_searchEdit->setMinimumWidth(380);
     m_searchEdit->lineEdit()->setMaxLength(256);
 
     // searchEdit->setFixedSize(350,36);
     m_newDownloadBtn = new DIconButton(this);
     m_newDownloadBtn->setObjectName("newTaskBtn");
     m_newDownloadBtn->setAccessibleName("newTaskBtn");
-    m_newDownloadBtn->setFixedSize(36, 36);
     m_newDownloadBtn->setIcon(QIcon::fromTheme("dcc_newdownload"));
     m_newDownloadBtn->setToolTip(tr("New task"));
 
     m_pauseDownloadBtn = new DIconButton(this);
     m_pauseDownloadBtn->setObjectName("pauseDownloadBtn");
     m_pauseDownloadBtn->setAccessibleName("pauseDownloadBtn");
-    m_pauseDownloadBtn->setFixedSize(36, 36);
     m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
     m_pauseDownloadBtn->setEnabled(false);
     m_pauseDownloadBtn->setToolTip(tr("Pause"));
@@ -87,7 +100,6 @@ void TopButton::Init()
     m_startDownloadBtn = new DIconButton(this);
     m_startDownloadBtn->setObjectName("startDownloadBtn");
     m_startDownloadBtn->setAccessibleName("startDownloadBtn");
-    m_startDownloadBtn->setFixedSize(36, 36);
     m_startDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
     m_startDownloadBtn->setEnabled(false);
     m_startDownloadBtn->setToolTip(tr("Resume"));
@@ -95,12 +107,11 @@ void TopButton::Init()
     m_deleteDownloadBtn = new DIconButton(this);
     m_deleteDownloadBtn->setObjectName("deleteBtn");
     m_deleteDownloadBtn->setAccessibleName("deleteBtn");
-    m_deleteDownloadBtn->setFixedSize(36, 36);
     m_deleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
     m_deleteDownloadBtn->setEnabled(false);
     m_deleteDownloadBtn->setToolTip(tr("Delete"));
 
-    mainHlayout->addSpacing(5);
+    mainHlayout->addSpacing(10);
     mainHlayout->addWidget(m_iconLable);
     mainHlayout->addSpacing(7);
     mainHlayout->addWidget(m_pauseDownloadBtn);
@@ -108,8 +119,9 @@ void TopButton::Init()
 
     mainHlayout->addWidget(m_deleteDownloadBtn);
     mainHlayout->addWidget(m_newDownloadBtn);
-
+    mainHlayout->addStretch();
     mainHlayout->addWidget(m_searchEdit);
+    mainHlayout->addStretch();
 
     // mainHlayout->addStretch();
     qDebug() << "asdwasdw";

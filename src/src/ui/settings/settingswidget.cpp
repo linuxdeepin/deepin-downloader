@@ -54,7 +54,6 @@ SettingsControlWidget::SettingsControlWidget(QWidget *parent)
 bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
     QFont font;
-    font.setPixelSize(15);
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(label);
@@ -69,7 +68,6 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         m_Edit = new DLineEdit();
         //m_Edit->setAccessibleName(text.remove(QRegExp("\\s")));
         m_Edit->setEnabled(false);
-        m_Edit->setMinimumWidth(100);
         QSharedPointer<QIntValidator> validator =
                     QSharedPointer<QIntValidator>(new QIntValidator(1, 9999), &QObject::deleteLater);
         m_Edit->lineEdit()->setValidator(validator.data());
@@ -84,7 +82,6 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
         m_ComboBox = new DComboBox();
         //m_ComboBox->setAccessibleName(text.remove(QRegExp("\\s")));
         m_ComboBox->setEnabled(false);
-        m_ComboBox->setFixedWidth(80);
         QStringList strList;
         strList << "5"
                 << "10"

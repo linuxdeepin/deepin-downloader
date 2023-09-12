@@ -109,32 +109,35 @@ void BtInfoDialog::initUI()
 //    setWindowTitle(tr(""));
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPixelSize(13);
 
 
     m_labelTitle = new DLabel(this);
-    m_labelTitle->setFixedSize(width(), 30);
     m_labelTitle->setAlignment(Qt::AlignCenter);
-    m_labelTitle->move(0, 48);
     m_labelTitle->setText(tr("New Task"));
     m_labelTitle->setFont(font);
+    addContent(m_labelTitle, Qt::AlignHCenter);
+    addSpacing(20);
+    QHBoxLayout *hlinfo = new QHBoxLayout();
     m_folderIcon = new DLabel(this);
     m_folderIcon->setPixmap(QPixmap(":/icons/icon/folder.svg")); ///usr/share/icons/bloom/places/32/folder.svg
-    m_folderIcon->move(45, 92);
-
     //下载信息名称
     m_labelInfoName = new DLabel(this);
-    m_labelInfoName->setGeometry(85, 89, 356, 40);
+    m_labelInfoName->setMinimumWidth(400);
     if(m_ariaInfo.name.isEmpty() && !m_ariaInfo.files.isEmpty()){
         m_ariaInfo.name = m_ariaInfo.files[0].path;
     }
     m_labelInfoName->setText(m_ariaInfo.name);
     m_labelInfoName->setFont(font);
     m_labelInfoName->setWordWrap(true);
+    hlinfo->addWidget(m_folderIcon);
+    hlinfo->addWidget(m_labelInfoName);
+    hlinfo->addStretch();
+    QWidget *infoWidget = new QWidget(this);
+    infoWidget->setLayout(hlinfo);
+    addContent(infoWidget);
 
     //总大小标签
     QFont font2;
-    font2.setPixelSize(12);
     QPalette pal;
     pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     m_labelFileSize = new DLabel(this);
@@ -154,17 +157,19 @@ void BtInfoDialog::initUI()
     m_widget = new DWidget(this);
     m_tableView = new BtInfoTableView(m_widget);
     m_tableView->setMouseTracking(true);
-    m_widget->setGeometry(15, 142, 471, 235);
     m_widget->setAutoFillBackground(true);
-
     QVBoxLayout *vb = new QVBoxLayout(m_widget);
     vb->setContentsMargins(10, 0, 10, 5);
     vb->addWidget(m_tableView);
-    QSharedPointer<QHBoxLayout> hb = QSharedPointer<QHBoxLayout>(new QHBoxLayout);
+    m_widget->setLayout(vb);
+    addContent(m_widget);
+    QHBoxLayout* hb = new QHBoxLayout;
     hb->addWidget(m_labelSelectedFileNum, Qt::AlignLeft);
     hb->addStretch();
     hb->addWidget(m_labelFileSize, Qt::AlignRight);
-    hb->setGeometry(QRect(15, 381, 471, 20));
+    QWidget *SelinfoWidget = new QWidget(this);
+    SelinfoWidget->setLayout(hb);
+    addContent(SelinfoWidget);
 
     //Checkbox
     m_checkAll = new DCheckBox(this);
@@ -177,7 +182,6 @@ void BtInfoDialog::initUI()
 
     m_checkVideo = new DCheckBox(this);
     m_checkVideo->setObjectName("checkVideo");
-    m_checkVideo->setGeometry(100, 401, 95, 29);
     m_checkVideo->setText(tr("Videos"));
     m_checkVideo->setFont(font);
     m_checkVideo->setChecked(true);
@@ -185,7 +189,6 @@ void BtInfoDialog::initUI()
 
     m_checkPicture = new DCheckBox(this);
     m_checkPicture->setObjectName("checkPicture");
-    m_checkPicture->setGeometry(185, 401, 95, 29);
     m_checkPicture->setText(tr("Pictures"));
     m_checkPicture->setFont(font);
     m_checkPicture->setChecked(true);
@@ -193,7 +196,6 @@ void BtInfoDialog::initUI()
 
     m_checkAudio = new DCheckBox(this);
     m_checkAudio->setObjectName("checkAudio");
-    m_checkAudio->setGeometry(270, 401, 95, 29);
     m_checkAudio->setText(tr("Music"));
     m_checkAudio->setFont(font);
     m_checkAudio->setChecked(true);
@@ -201,22 +203,25 @@ void BtInfoDialog::initUI()
 
     m_checkOther = new DCheckBox(this);
     m_checkOther->setObjectName("checkOther");
-    m_checkOther->setGeometry(355, 401, 95, 29); //Aria2cInterface::bytesFormat(this->info.totalLengthByets)try(375, 401, 95, 29);
     m_checkOther->setText(tr("Others"));
     m_checkOther->setFont(font);
     m_checkOther->setChecked(true);
     connect(m_checkOther, SIGNAL(clicked()), this, SLOT(onOtherCheck()));
+    QWidget *checkWidget = new QWidget(this);
+    QHBoxLayout *hlyt = new QHBoxLayout();
+    checkWidget->setLayout(hlyt);
+    hlyt->addWidget(m_checkAll);
+    hlyt->addWidget(m_checkVideo);
+    hlyt->addWidget(m_checkPicture);
+    hlyt->addWidget(m_checkAudio);
+    hlyt->addWidget(m_checkOther);
+    hlyt->addWidget(m_checkAll);
+    addContent(checkWidget);
 
     //下载路径所在分区剩余磁盘容量
-    m_labelCapacityFree = new DLabel(this);
-    m_labelCapacityFree->setGeometry(350, 363, 86, 23);
-    QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
-    m_labelCapacityFree->setPalette(pal);
-    m_labelCapacityFree->setFont(font2);
 
     //
     m_editDir = new DFileChooserEdit(this);
-    m_editDir->setGeometry(15, 435, 471, 36);
     m_editDir->setFont(font);
     //   QString text = getFileEditText(m_defaultDownloadDir);
     QString flieEditText = tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
@@ -225,7 +230,6 @@ void BtInfoDialog::initUI()
     m_labelCapacityFree->setText(flieEditText);
     m_labelCapacityFree->setPalette(pal);
     m_labelCapacityFree->setFont(font2);
-    m_labelCapacityFree->move(348, 438);
     QString str = getFileEditText(m_defaultDownloadDir);
     m_editDir->setText(str);
     m_editDir->setClearButtonEnabled(false);
@@ -236,12 +240,12 @@ void BtInfoDialog::initUI()
     for (int i = 0; i < btnList.size(); i++) {
         btnList[i]->setToolTip(tr("Change download folder"));
     }
-
+    addContent(m_editDir);
     //确定按钮
     m_btnOK = new DPushButton(this);
+    addContent(m_btnOK, Qt::AlignHCenter);
     m_btnOK->setObjectName("sureBtn");
     //this->btnOK->setFixedWidth(190);
-    m_btnOK->setGeometry(160, 480, 191, 35);
     m_btnOK->setText(tr("Download Now"));
     m_btnOK->setFont(font);
     m_btnOK->setAccessibleName("downloadNow");
@@ -254,15 +258,29 @@ void BtInfoDialog::initUI()
     m_tableView->setAlternatingRowColors(true);
     m_tableView->setFrameShape(QAbstractItemView::NoFrame);
 
-//    QFont font;
-    font.setPixelSize(13);
     m_tableView->setFont(font);
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     m_tableView->horizontalHeader()->setHighlightSections(false);
     m_tableView->horizontalHeader()->setFont(font);
 
     m_tableView->verticalHeader()->hide();
-    m_tableView->verticalHeader()->setDefaultSectionSize(46);
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    if (DGuiApplicationHelper::instance()->sizeMode() == DGuiApplicationHelper::NormalMode) {
+        m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+    } else {
+        m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+    }
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
+        if (sizeMode == DGuiApplicationHelper::NormalMode) {
+            m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+        } else {
+            m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+        }
+    });
+#else
+    m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+#endif
+
 
     m_delegate = new BtInfoDelegate(this);
     m_tableView->setItemDelegate(m_delegate);
@@ -597,7 +615,6 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     QPalette pal;
     pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     QFont font;
-    font.setPixelSize(12);
     m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
     m_labelCapacityFree->setPalette(pal);
     m_labelCapacityFree->setFont(font);
