@@ -41,13 +41,11 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     : QWidget(parent)
 {
     QFont lableFont;
-    lableFont.setPixelSize(14);
     //lableFont.setBold(QFont::DemiBold);
     lableFont.setFamily("T5");
     DLabel *pTextLabel = new DLabel(tr("Notify me when downloading finished or failed"), this);
     pTextLabel->setFont(lableFont);
     QFont tipFont;
-    tipFont.setPixelSize(12);
     tipFont.setFamily("T6");
     DPalette palette;
     QColor fontColor("#6d7c88");
@@ -57,7 +55,6 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     pTipLabel->setPalette(palette);
     pTipLabel->setWindowOpacity(0.7);
     QFont btnFont;
-    btnFont.setPixelSize(14);
     btnFont.setFamily("T6");
     QPushButton *btn = new QPushButton(tr("Settings"), this);
     btn->setFont(btnFont);

@@ -52,7 +52,7 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
             this,
             &DownloadHeaderView::onPalettetypechanged);
 
-    m_headerCbx->setFixedSize(25, 25);
+    m_headerCbx->setFixedSize(20, 20);
     m_headerCbx->setVisible(true);
     //setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
@@ -72,7 +72,8 @@ DownloadHeaderView::~DownloadHeaderView()
 
 void DownloadHeaderView::updateGeometries()
 {
-    m_headerCbx->move(sectionPosition(0) + 5, (this->height() - 25) / 2 + 2);
+    m_headerCbx->resize(this->height()-2, this->height()-2);
+    m_headerCbx->move(sectionPosition(0) + 5, 1);
     QHeaderView::updateGeometries();
 }
 

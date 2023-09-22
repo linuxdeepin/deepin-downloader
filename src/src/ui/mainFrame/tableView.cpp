@@ -101,16 +101,16 @@ void TableView::initUI()
     setHorizontalHeader(m_HeaderView);
     m_HeaderView->setStretchLastSection(true);
     m_HeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-    setColumnWidth(0, 20);
+    setColumnWidth(0, 30);
     setColumnWidth(1, 248);
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
     setColumnWidth(2, 110);
     setColumnWidth(3, QHeaderView::Interactive);
     setColumnWidth(4, QHeaderView::Interactive);
     setTabKeyNavigation(true);
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPixelSize(14);
     setFont(font);
 }
 

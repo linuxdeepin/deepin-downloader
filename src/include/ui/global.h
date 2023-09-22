@@ -36,6 +36,9 @@
 #include <QStyleOptionViewItem>
 #include <QApplication>
 namespace Global {
+const int tableView_NormalMode_Width = 48;
+const int tableView_CompactMode_Width = 36;
+const float compactMode_ratio = (2.f/3);
 
 const QString ACTIVE = QObject::tr("Downloading");
 const QString WAITING = QObject::tr("Waiting");

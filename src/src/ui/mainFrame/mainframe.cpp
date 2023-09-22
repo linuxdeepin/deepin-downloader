@@ -143,12 +143,10 @@ void MainFrame::init()
 
     m_DownLoadingTableView = new TableView(tableviewFlag::downloading);
     m_DownLoadingTableView->setObjectName("downloadTableView");
-    m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(48);
     m_DownLoadingTableView->setColumnHidden(4, true);
 
     m_RecycleTableView = new TableView(tableviewFlag::recycle);
     m_RecycleTableView->setObjectName("recycleTableView");
-    m_RecycleTableView->verticalHeader()->setDefaultSectionSize(48);
     m_RecycleTableView->setColumnHidden(3, true);
     m_DownLoadingTableView->getTableControl()->setRecycleTable(m_RecycleTableView);
     m_LeftWidget = new QWidget;
@@ -167,7 +165,6 @@ void MainFrame::init()
     pNotaskWidgetlayout->setContentsMargins(10, 0, 0, 0);
 
     QFont lableFont;
-    lableFont.setPixelSize(17);
     lableFont.setWeight(QFont::DemiBold);
 
     m_NotaskLabel = new Dtk::Widget::DLabel();
@@ -182,7 +179,6 @@ void MainFrame::init()
 
     m_NotaskTipLabel = new DLabel();
     QFont notaskTipLabelFont;
-    notaskTipLabelFont.setPixelSize(14);
     m_NotaskTipLabel->setFont(notaskTipLabelFont);
     m_NotaskTipLabel->setText(tr("Click + to create new task"));
     m_NotaskTipLabel->setAlignment(Qt::AlignHCenter);
@@ -225,7 +221,28 @@ void MainFrame::init()
     //m_LeftList->setFrameShape(QFrame::Shape::NoFrame);
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPixelSize(14);
+    QSize itemsize = m_LeftList->itemSize();
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    if (DGuiApplicationHelper::instance()->sizeMode() == DGuiApplicationHelper::NormalMode) {
+        font.setPixelSize(15);
+        m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+        m_RecycleTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+        itemsize.setHeight(40);
+        m_LeftList->setItemSize(itemsize);
+    } else {
+        font.setPixelSize(12);
+        m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+        m_RecycleTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+        itemsize.setHeight(40 * Global::compactMode_ratio);
+        m_LeftList->setItemSize(itemsize);
+    }
+#else
+    font.setPixelSize(15);
+    m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+    m_RecycleTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+    itemsize.setHeight(40);
+    m_LeftList->setItemSize(itemsize);
+#endif
     m_LeftList->setFont(font);
     QPalette pal = m_LeftList->palette();
     pal.setColor(QPalette::Window, Qt::white);
@@ -241,6 +258,31 @@ void MainFrame::init()
     m_RecycleItem = new DStandardItem(QIcon::fromTheme("dcc_list_delete"), tr("Trash"));
     m_RecycleItem->setAccessibleText("Trash");
     m_RecycleItem->setFont(font);
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
+        QSize itemsize = m_LeftList->itemSize();
+        QFont font;
+        font.setFamily("Source Han Sans");
+        if (sizeMode == DGuiApplicationHelper::NormalMode) {
+                font.setPixelSize(15);
+                m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+                m_RecycleTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+                m_LeftList->setItemSize(QSize(Global::tableView_NormalMode_Width, Global::tableView_NormalMode_Width));
+                itemsize.setHeight(40);
+                m_LeftList->setItemSize(itemsize);
+            } else {
+                font.setPixelSize(12);
+                m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+                m_RecycleTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+                m_LeftList->setItemSize(QSize(Global::tableView_CompactMode_Width, Global::tableView_CompactMode_Width));
+                itemsize.setHeight(40 * Global::compactMode_ratio);
+                m_LeftList->setItemSize(itemsize);
+            }
+        m_DownloadingItem->setFont(font);
+        m_DownloadFinishItem->setFont(font);
+        m_RecycleItem->setFont(font);
+    });
+#endif
     m_DownloadingItem->setEditable(false);
     m_DownloadFinishItem->setEditable(false);
     m_RecycleItem->setEditable(false);
@@ -561,6 +603,7 @@ void MainFrame::onTrayQuitClick(bool force)
         if (rs != DDialog::Accepted) {
             return;
         }
+        msgBox.setParent(NULL);
     }
     m_DownLoadingTableView->getTableControl()->saveDataBeforeClose();
     m_RecycleTableView->getTableControl()->saveDataBeforeClose();
@@ -699,9 +742,9 @@ void MainFrame::setPaletteType()
         palette.setColor(DPalette::Background, c);
         m_TaskNumWidget->setPalette(palette);
         m_NotaskLabel->setWindowOpacity(0.2);
-        m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading_dark"));
-        m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done_dark"));
-        m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete_dark"));
+        m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading_dark", QIcon(":/icons/deepin/builtin/dark/actions/dcc_list_downloading_dark_11px.svg")));
+        m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done_dark", QIcon(":/icons/deepin/builtin/dark/actions/dcc_print_done_dark_11px.svg")));
+        m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete_dark", QIcon(":/icons/deepin/builtin/dark/actions/dcc_list_delete_dark_11px.svg")));
         DPalette notaskTipLabelP;
         notaskTipLabelP.setBrush(DPalette::WindowText,
                                  DGuiApplicationHelper::instance()->applicationPalette().textTips());
@@ -722,9 +765,9 @@ void MainFrame::setPaletteType()
         palette.setColor(DPalette::Background, c);
         m_TaskNumWidget->setPalette(palette);
         m_NotaskLabel->setWindowOpacity(0.2);
-        m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading"));
-        m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done"));
-        m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete"));
+        m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading", QIcon(":/icons/deepin/builtin/dark/actions/dcc_list_downloading_dark_11px.svg")));
+        m_DownloadFinishItem->setIcon(QIcon::fromTheme("dcc_print_done", QIcon(":/icons/deepin/builtin/light/actions/dcc_print_done_11px.svg")));
+        m_RecycleItem->setIcon(QIcon::fromTheme("dcc_list_delete", QIcon(":/icons/deepin/builtin/light/actions/dcc_list_delete_11px.svg")));
         //m_pdownloadingItem->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
         //m_pdownloadfinishItem->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
         //m_precycleItem->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
@@ -738,6 +781,7 @@ void MainFrame::setPaletteType()
 void MainFrame::onSettingsMenuClicked()
 {
     DSettingsDialog settingsDialog(this);
+    settingsDialog.setFixedWidth(795);
     settingsDialog.setAccessibleName("DSettingsDialog");
     settingsDialog.setObjectName("DSettingsDialog");
 
@@ -1552,7 +1596,7 @@ void MainFrame::onSearchEditTextChanged(QString text)
         flag = 0;
     }
     QPoint p = m_ToolBar->getSearchEditPosition();
-    QPoint pp = QPoint(p.x() + 250, p.y() + 10);
+    QPoint pp = QPoint(p.x(), p.y());
     searchWidget->move(pp);
     m_SearchContent = text;
     QList<QString> taskIDList;

@@ -102,7 +102,6 @@ void CreateTaskWidget::initUi()
 
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPixelSize(13);
 
     DLabel *msgTitle = new DLabel(this);
     QString titleMsg = tr("New Task");
@@ -130,7 +129,7 @@ void CreateTaskWidget::initUi()
     }
 
     m_texturl->setPlaceholderText(tr("Enter download links or drag a torrent file here"));
-    m_texturl->setFixedSize(QSize(500, 154));
+    m_texturl->setMinimumSize(QSize(500, 154));
     m_texturl->setFont(font);
     m_texturl->setWordWrapMode(QTextOption::NoWrap);
     // m_texturl->document()->setMaximumBlockCount(60);
@@ -153,27 +152,32 @@ void CreateTaskWidget::initUi()
     m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_tableView->setEditTriggers(QAbstractItemView::EditKeyPressed);
     m_tableView->setAlternatingRowColors(true);
-
-//    DPalette tableviewPalette;
-//    QBrush brush(QColor(0,0,0,1));
-
-//    tableviewPalette.setBrush(DPalette::Base, brush);
-//    m_tableView->setPalette(tableviewPalette);
-//    brush.setColor(QColor(0,0,0,2));
-//    tableviewPalette.setBrush(DPalette::Base, brush);
-//    m_tableView->horizontalHeader()->setPalette(tableviewPalette);
-
-
-//    QFont font;
-    font.setPixelSize(13);
     m_tableView->setFont(font);
     headerView *header = new headerView(Qt::Horizontal, m_tableView);
-    // header->setStyleSheet("QHeaderView::section stop: 70 #ffffff， stop");
     m_tableView->setHorizontalHeader(header);
     header->setDefaultAlignment(Qt::AlignLeft);
     header->setHighlightSections(false);
     m_tableView->verticalHeader()->hide();
-    m_tableView->verticalHeader()->setDefaultSectionSize(46);
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    if (DGuiApplicationHelper::instance()->sizeMode() == DGuiApplicationHelper::NormalMode) {
+        m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+        m_texturl->setMinimumHeight(154);
+    } else {
+        m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+        m_texturl->setMinimumHeight(184);
+    }
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
+        if (sizeMode == DGuiApplicationHelper::NormalMode) {
+            m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+            m_texturl->setMinimumHeight(154);
+        } else {
+            m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
+            m_texturl->setMinimumHeight(184);
+        }
+    });
+#else
+    m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
+#endif
     m_delegate = new TaskDelegate(this);
     m_delegate->setObjectName("taskDelegate");
     m_tableView->setItemDelegate(m_delegate);
@@ -197,7 +201,6 @@ void CreateTaskWidget::initUi()
     QHBoxLayout *hllyt = new QHBoxLayout(labelWidget);
     //总大小标签
     QFont font2;
-    font2.setPixelSize(12);
     QPalette pal2;
     pal2.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     m_labelFileSize = new DLabel(this);
@@ -282,7 +285,6 @@ void CreateTaskWidget::initUi()
     QPalette palFree;
     palFree.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     QFont fontFree;
-    fontFree.setPixelSize(12);
     m_labelCapacityFree = new DLabel();
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
     m_labelCapacityFree->setPalette(palFree);
@@ -335,8 +337,6 @@ void CreateTaskWidget::initUi()
     iconBtn->setAccessibleName("bticonBtn");
     //  QIcon tryIcon1(QIcon::fromTheme("dcc_bt"));
     iconBtn->setIcon(QIcon::fromTheme("dcc_bt"));
-    iconBtn->setIconSize(QSize(18, 15));
-    iconBtn->setFixedSize(QSize(36, 36));
     connect(iconBtn, &DIconButton::clicked, this, &CreateTaskWidget::onFileDialogOpen);
     iconBtn->setToolTip(tr("Select file"));
     layout->addWidget(iconBtn);
@@ -345,8 +345,6 @@ void CreateTaskWidget::initUi()
     iconBtn->setAccessibleName("mliconBtn");
     //  QIcon tryIcon1(QIcon::fromTheme("dcc_bt"));
     mlBtn->setIcon(QIcon::fromTheme("dcc_ml"));
-    mlBtn->setIconSize(QSize(18, 15));
-    mlBtn->setFixedSize(QSize(36, 36));
     connect(mlBtn, &DIconButton::clicked, this, &CreateTaskWidget::onMLFileDialogOpen);
     mlBtn->setToolTip(tr("Select file"));
     layout->addWidget(mlBtn);
@@ -382,8 +380,8 @@ void CreateTaskWidget::initUi()
     layout->addWidget(rightBox);
     addContent(boxBtn);
 
-    setMaximumSize(521, 575);
-    setMinimumSize(521, 575);
+    setMaximumSize(541, 575);
+    setMinimumSize(541, 575);
     connect(m_analysisUrl, SIGNAL(sendFinishedUrl(LinkInfo *)), this, SLOT(updataTabel(LinkInfo *)));
 }
 
@@ -692,7 +690,6 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
     QPalette pal;
     pal.setColor(QPalette::WindowText, QColor("#8AA1B4"));
     QFont font;
-    font.setPixelSize(12);
     m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
     m_labelCapacityFree->setPalette(pal);
     m_labelCapacityFree->setFont(font);
@@ -1157,8 +1154,8 @@ void CreateTaskWidget::hideTableWidget()
     m_labelFileSize->hide();
     m_checkWidget->hide();
     m_editDir->hide();
-    setMaximumSize(521, 325);
-    setMinimumSize(521, 325);
+    setMaximumSize(541, 325);
+    setMinimumSize(541, 325);
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
     if (XDG_SESSION_TYPE == QLatin1String("wayland")) {
@@ -1178,8 +1175,8 @@ void CreateTaskWidget::showTableWidget()
     m_labelFileSize->show();
     m_checkWidget->show();
     m_editDir->show();
-    setMaximumSize(521, 575);
-    setMinimumSize(521, 575);
+    setMaximumSize(541, 575);
+    setMinimumSize(541, 575);
 
     QRect rect = geometry();
     move(rect.x(), rect.y());

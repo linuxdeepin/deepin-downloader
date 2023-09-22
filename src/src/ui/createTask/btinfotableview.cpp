@@ -38,7 +38,6 @@ BtInfoTableView::BtInfoTableView(QWidget *parent)
     connect(this, &QAbstractItemView::doubleClicked, this, &BtInfoTableView::onDoubleClicked);
     QFont font;
     font.setFamily("Source Han Sans");
-    font.setPixelSize(13);
     setFont(font);
 }
 
