@@ -31,17 +31,14 @@
 
 #include "headerView.h"
 #include <QDebug>
+#include <QPainter>
+#include <QStyleOptionButton>
 
 DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
-    m_headerCbx = new QCheckBox(this);
 
-    // connect(m_headerCbx,&DCheckBox::stateChanged,this,&HeaderView::get_stateChanged);
-    connect(m_headerCbx,
-            &DCheckBox::clicked,
-            this,
-            &DownloadHeaderView::Statechanged);
+    connect(this, &DownloadHeaderView::sectionClicked, this, &DownloadHeaderView::onSectionClicked);
     connect(DGuiApplicationHelper::instance(),
             &DGuiApplicationHelper::paletteTypeChanged,
             this,
@@ -52,8 +49,6 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
             this,
             &DownloadHeaderView::onPalettetypechanged);
 
-    m_headerCbx->setFixedSize(20, 20);
-    m_headerCbx->setVisible(true);
     //setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
     if (DGuiApplicationHelper::instance()->themeType() == 2) {
@@ -67,19 +62,40 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
 
 DownloadHeaderView::~DownloadHeaderView()
 {
-    delete (m_headerCbx);
-}
-
-void DownloadHeaderView::updateGeometries()
-{
-    m_headerCbx->resize(this->height()-2, this->height()-2);
-    m_headerCbx->move(sectionPosition(0) + 5, 1);
-    QHeaderView::updateGeometries();
 }
 
 void DownloadHeaderView::onHeaderChecked(bool checked)
 {
-    m_headerCbx->setChecked(checked);
+    m_isChecked = checked;
+    updateSection(0);
+}
+
+void DownloadHeaderView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
+{
+
+    if (logicalIndex == 0) {
+        painter->save();
+        QStyleOptionHeader opt;
+        initStyleOption(&opt);
+        QStyle::State state = QStyle::State_None;
+        state |= QStyle::State_Enabled;
+        opt.rect = rect;
+        opt.section = logicalIndex;
+        opt.state |= state;
+        style()->drawControl(QStyle::CE_Header, &opt, painter, this);
+        painter->restore();
+        painter->save();
+        QStyleOptionButton checkBoxStyle;
+        checkBoxStyle.state = m_isChecked ? QStyle::State_On : QStyle::State_Off;
+        checkBoxStyle.state |= QStyle::State_Enabled;
+        checkBoxStyle.rect = rect;
+        checkBoxStyle.rect.setX(rect.x() + 5);
+        checkBoxStyle.rect.setWidth(20);
+        QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter);
+        painter->restore();
+        return;
+    }
+    QHeaderView::paintSection(painter, rect, logicalIndex);
 }
 
 void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
@@ -93,4 +109,12 @@ void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType t
         p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());
     }
     setPalette(p);
+}
+
+void DownloadHeaderView::onSectionClicked(int logicalIndex)
+{
+    if (logicalIndex == 0) {
+        m_isChecked = !m_isChecked;
+        Q_EMIT Statechanged(m_isChecked);
+    }
 }
