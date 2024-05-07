@@ -81,12 +81,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 {
     if (index.row() == m_hoverRow) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder());
-            // QColor(0,0,0,13)QColor(255,255,255,26)
+        // QColor(0,0,0,13)QColor(255,255,255,26)
     }
     if (index.row() % 2 != 0) {
         painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8)));
     } else {
-        if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+        if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150)));
         } else {
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10)));
@@ -114,8 +114,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         checkBoxStyle.rect = option.rect;
         checkBoxStyle.rect.setX(option.rect.x() + 5);
         checkBoxStyle.rect.setWidth(20);
-        QSharedPointer<DCheckBox> checkBtn = QSharedPointer<DCheckBox>(new DCheckBox, &QObject::deleteLater);
-        QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter, checkBtn.data());
+        QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkBoxStyle, painter);
     } else if (column == 1) {
         if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
@@ -144,13 +143,13 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             pic = icon.pixmap(20, 20);
         }
 
-        painter->drawPixmap(option.rect.x(), option.rect.y() + (option.rect.height() - 20)/2, pic);
+        painter->drawPixmap(option.rect.x(), option.rect.y() + (option.rect.height() - 20) / 2, pic);
 
         const QString path = index.data(TableModel::SavePath).toString();
         int status = index.data(TableModel::Status).toInt();
         if ((!QFileInfo::exists(path)) && (status == Global::DownloadTaskStatus::Complete || status == Global::DownloadTaskStatus::Removed)) { //文件不存在的任务，添加提示
             QPixmap errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
-            painter->drawPixmap(option.rect.x() + 10, option.rect.y() + (option.rect.height() - 20)/2 + 8, errorPic);
+            painter->drawPixmap(option.rect.x() + 10, option.rect.y() + (option.rect.height() - 20) / 2 + 8, errorPic);
         }
 
         const QRect rectText = localRect.marginsRemoved(QMargins(25, 2, 0, 5));
@@ -179,7 +178,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 m_bgImage->load(":/icons/icon/progressbar_bg.png");
                 m_frontImage->load(":/icons/icon/progressbar_fg.png");
             } else {
-                if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+                if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
                     m_bgImage->load(":/icons/icon/bar-bg.png");
                     m_frontImage->load(":/icons/icon/bar-front.png");
                 } else {
@@ -237,8 +236,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                               + "%    " + speed;
                 if (index.data(TableModel::announceList).toInt()) {
                     str += "  " + tr("Resources:") + " " + QString("%1/%2")
-                            .arg(index.data(TableModel::connection).toInt())
-                            .arg(index.data(TableModel::announceList).toInt());
+                           .arg(index.data(TableModel::connection).toInt())
+                           .arg(index.data(TableModel::announceList).toInt());
                 }
                 str += "   " + tr("Time left ") + index.data(TableModel::Time).toString();
 
@@ -335,8 +334,8 @@ bool ItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
             QVariant value;
             value = model->data(index, TableModel::Ischecked);
             Qt::CheckState state = (static_cast<Qt::CheckState>(value.toInt()) == Qt::Checked
-                                        ? Qt::Unchecked
-                                        : Qt::Checked);
+                                    ? Qt::Unchecked
+                                    : Qt::Checked);
             ret = model->setData(index, state, TableModel::Ischecked); // 取反后存入模型
         } else {
             ret = QStyledItemDelegate::editorEvent(event, model, option, index);
@@ -356,9 +355,9 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     QValidator *validator = new QRegExpValidator(regx, pEdit);
     pEdit->lineEdit()->setValidator(validator);
     pEdit->lineEdit()->setMaxLength(83);
-    connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {
+    connect(pEdit, &DLineEdit::textChanged, this, [ = ](QString filename) {
         DLineEdit *pEdit = qobject_cast<DLineEdit *>(sender());
-        if(pEdit == nullptr) {
+        if (pEdit == nullptr) {
             return ;
         }
         QString str = index.data(TableModel::FileName).toString();
