@@ -55,6 +55,8 @@
 #include "aria2rpcinterface.h"
 #include "taskModel.h"
 
+#define TEXTURL_HEIGHT_DSizeMode 180
+
 CreateTaskWidget::CreateTaskWidget(QWidget *parent)
     : DDialog(parent)
     , m_analysisUrl(new AnalysisUrl)
@@ -164,7 +166,7 @@ void CreateTaskWidget::initUi()
         m_texturl->setMinimumHeight(154);
     } else {
         m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
-        m_texturl->setMinimumHeight(184);
+        m_texturl->setMinimumHeight(TEXTURL_HEIGHT_DSizeMode);
     }
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
         if (sizeMode == DGuiApplicationHelper::NormalMode) {
@@ -172,7 +174,7 @@ void CreateTaskWidget::initUi()
             m_texturl->setMinimumHeight(154);
         } else {
             m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
-            m_texturl->setMinimumHeight(184);
+            m_texturl->setMinimumHeight(TEXTURL_HEIGHT_DSizeMode);
         }
     });
 #else
