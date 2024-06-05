@@ -55,7 +55,8 @@
 #include "aria2rpcinterface.h"
 #include "taskModel.h"
 
-#define TEXTURL_HEIGHT_DSizeMode 180
+#define TEXTURL_HEIGHT_DSizeMode 172
+#define TEXTURL_HEIGHT_NormalMode 149
 
 CreateTaskWidget::CreateTaskWidget(QWidget *parent)
     : DDialog(parent)
@@ -131,7 +132,7 @@ void CreateTaskWidget::initUi()
     }
 
     m_texturl->setPlaceholderText(tr("Enter download links or drag a torrent file here"));
-    m_texturl->setMinimumSize(QSize(500, 154));
+    m_texturl->setMinimumSize(QSize(500, TEXTURL_HEIGHT_NormalMode));
     m_texturl->setFont(font);
     m_texturl->setWordWrapMode(QTextOption::NoWrap);
     // m_texturl->document()->setMaximumBlockCount(60);
@@ -163,7 +164,7 @@ void CreateTaskWidget::initUi()
 #ifdef DTKWIDGET_CLASS_DSizeMode
     if (DGuiApplicationHelper::instance()->sizeMode() == DGuiApplicationHelper::NormalMode) {
         m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
-        m_texturl->setMinimumHeight(154);
+        m_texturl->setMinimumHeight(TEXTURL_HEIGHT_NormalMode);
     } else {
         m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
         m_texturl->setMinimumHeight(TEXTURL_HEIGHT_DSizeMode);
@@ -171,7 +172,7 @@ void CreateTaskWidget::initUi()
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
         if (sizeMode == DGuiApplicationHelper::NormalMode) {
             m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_NormalMode_Width);
-            m_texturl->setMinimumHeight(154);
+            m_texturl->setMinimumHeight(TEXTURL_HEIGHT_NormalMode);
         } else {
             m_tableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
             m_texturl->setMinimumHeight(TEXTURL_HEIGHT_DSizeMode);
