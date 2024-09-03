@@ -48,6 +48,24 @@
 #include "websockettransport.h"
 #include "websockethandle.h"
 
+QString runPipeProcess(QString cmd) {
+    FILE *pPipe = popen(cmd.toUtf8(), "r");
+    QString strData;
+    if (pPipe)
+    {
+        while (!feof(pPipe))
+        {
+            char tempStr[1024] = {0};
+            fgets(tempStr, 1024, pPipe);
+            strData.append(QString::fromLocal8Bit(tempStr));
+        }
+        fclose(pPipe);
+        return strData;
+    }
+    return strData;
+}
+
+
 extensionService::extensionService()
 {
     qDebug() << "[ExtensionService] Initializing WebSocket service";
@@ -112,12 +130,7 @@ void extensionService::checkConnection()
 {
     qDebug() << "[ExtensionService] Checking WebSocket connections";
 
-    QProcess p;
-    QStringList options;
-    options << "-c" << "netstat -apn | grep dlmextensions";
-    p.start("/bin/bash", options);
-    p.waitForFinished();
-    QList<QByteArray> strList = p.readAllStandardOutput().split('\n');
+    QList<QByteArray> strList = runPipeProcess("netstat -apn | grep dlmextensions").toUtf8().split('\n');
     for(QString str : strList) {
         if(str.contains("ESTABLISHED")) {  //存在websocket链接
             qDebug() << "[ExtensionService] Active WebSocket connection found";
