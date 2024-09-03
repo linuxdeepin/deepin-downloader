@@ -45,6 +45,23 @@
 
 Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 
+QString runPipeProcess(QString cmd) {
+    FILE *pPipe = popen(cmd.toUtf8(), "r");
+    QString strData;
+    if (pPipe)
+    {
+        while (!feof(pPipe))
+        {
+            char tempStr[1024] = {0};
+            fgets(tempStr, 1024, pPipe);
+            strData.append(QString::fromLocal8Bit(tempStr));
+        }
+        fclose(pPipe);
+        return strData;
+    }
+    return strData;
+}
+
 Aria2RPCInterface *Aria2RPCInterface::instance()
 {
     // qDebug() << "[Aria2RPC] instance function started";
@@ -194,7 +211,7 @@ bool Aria2RPCInterface::startUp()
     QProcess proc; // = new QProcess;
     proc.setStandardOutputFile("/dev/null");
     proc.setStandardErrorFile("/dev/null");
-    proc.startDetached("sh -c \"" + m_basePath + m_aria2cCmd + " " + opt + "\"");
+    proc.startDetached(m_basePath + m_aria2cCmd + " " + opt);
     proc.waitForStarted();
 #endif
 
@@ -210,7 +227,7 @@ bool Aria2RPCInterface::startUp()
 //    wwwww = proc.readAllStandardOutput();
 
     bCheck = checkAria2cProc();
-    qDebug() << "启动aria2c完成！ " << proc.state() << bCheck;
+    qDebug() << "启动aria2c完成！ " << bCheck;
     return bCheck;
 }
 
@@ -234,14 +251,7 @@ bool Aria2RPCInterface::init()
 bool Aria2RPCInterface::checkAria2cProc()
 {
     qDebug() << "[Aria2RPC] checkAria2cProc function started";
-    QProcess proc;
-    QStringList opt;
-    opt << "-c";
-    //opt << "ps aux | grep aria2c";
-    opt << "ps aux|grep " + m_aria2cCmd;
-    proc.start("/bin/bash", opt);
-    proc.waitForFinished();
-    QString output = QString::fromLocal8Bit(proc.readAllStandardOutput());
+    QString output = runPipeProcess("ps aux|grep " + m_aria2cCmd);
     QStringList lineList = output.split("\n");
     int cnt = 0;
     for (QString t : lineList) {
@@ -271,12 +281,8 @@ bool Aria2RPCInterface::checkAria2cProc()
 int Aria2RPCInterface::killAria2cProc()
 {
     qDebug() << "[Aria2RPC] killAria2cProc function started";
-    QStringList opt;
-    opt << "-c";
-    opt << "ps -ef|grep " + m_aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9";
-    int result = QProcess::execute("/bin/bash", opt);
-    qDebug() << "[Aria2RPC] killAria2cProc function ended with result:" << result;
-    return result;
+    runPipeProcess("ps -ef|grep " + m_aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9");
+    return 0;
 }
 
 void Aria2RPCInterface::setDefaultDownLoadDir(QString dir)
@@ -1014,7 +1020,6 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
 
     QProcess *proc = new QProcess;
     QStringList opt;
-    opt << "-c";
     opt << "df " + path;
     proc->start("/bin/bash", opt);
     proc->waitForFinished();
