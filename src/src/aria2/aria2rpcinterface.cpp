@@ -45,21 +45,27 @@
 
 Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 
-QString runPipeProcess(QString cmd) {
-    FILE *pPipe = popen(cmd.toUtf8(), "r");
-    QString strData;
-    if (pPipe)
-    {
-        while (!feof(pPipe))
-        {
-            char tempStr[1024] = {0};
-            fgets(tempStr, 1024, pPipe);
-            strData.append(QString::fromLocal8Bit(tempStr));
-        }
-        fclose(pPipe);
-        return strData;
+QStringList runPipeProcess(const QString &command, const QString &filter)
+{
+    QProcess process;
+    process.start(command);
+    process.waitForFinished();
+
+    QString comStr = process.readAllStandardOutput();
+    QStringList lines = comStr.split('\n');
+    QStringList filteredLines;
+    if(filter.isEmpty()) {
+        return lines; //返回所有
     }
-    return strData;
+    // 过滤包含指定关键字的行
+    for (const QString &line : lines) {
+        if (line.contains(filter, Qt::CaseInsensitive)) {
+            filteredLines.append(line);
+        }
+    }
+
+    // 合并过滤后的行并返回
+    return filteredLines;   // 返回以换行符分隔的字符串
 }
 
 Aria2RPCInterface *Aria2RPCInterface::instance()
@@ -188,8 +194,7 @@ bool Aria2RPCInterface::Aria2RPCInterface::init()
 
 bool Aria2RPCInterface::checkAria2cProc()
 {
-    QString output = runPipeProcess("ps aux|grep " + m_aria2cCmd);
-    QStringList lineList = output.split("\n");
+    QStringList lineList = runPipeProcess("ps aux", m_aria2cCmd);
     int cnt = 0;
     for (QString t : lineList) {
         if (t.isEmpty()) {
@@ -212,7 +217,23 @@ bool Aria2RPCInterface::checkAria2cProc()
 
 int Aria2RPCInterface::killAria2cProc()
 {
-    runPipeProcess("ps -ef|grep " + m_aria2cCmd + "|grep -v grep|awk '{print $2}'|xargs kill -9");
+    QStringList lines = runPipeProcess("ps -eo pid,lstart,cmd", m_aria2cCmd);
+    QStringList processPids;
+
+    for (const QString &line : lines) {
+        QStringList parts = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+        if (parts.size() < 3) continue;
+        if (!parts[6].contains(m_aria2cCmd)) continue;
+        processPids.append(parts[0]);
+    }
+
+    // 杀死以前启动的进程
+    for (const QString &pid : processPids) {
+        QProcess killProcess;
+        killProcess.start("kill", QStringList() << "-9" << pid);
+        killProcess.waitForFinished();
+        qInfo() << "Killed process with PID:" << pid;
+    }
     return 0;
 }
 
