@@ -388,7 +388,7 @@ tämä ei vaaranna käyttäjän yksityisyyttä.</translation>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
         <source>P lease enter one URL per line</source>
-        <translation type="unfinished"/>
+        <translation>Anna yksi URL-osoite kullekin riville</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
@@ -411,12 +411,12 @@ tämä ei vaaranna käyttäjän yksityisyyttä.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
         <source>Wating</source>
-        <translation type="unfinished"/>
+        <translation>Odottaa</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
         <source>Duplicate name</source>
-        <translation>Nimen kaksoiskappale</translation>
+        <translation>Päällekkäinen nimi</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
@@ -459,7 +459,7 @@ tämä ei vaaranna käyttäjän yksityisyyttä.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
         <source>Diagnostic tool</source>
-        <translation>Työkalu diagnostiikka</translation>
+        <translation>Diagnostiikka</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
