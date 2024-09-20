@@ -388,7 +388,7 @@ y no implica la privacidad del usuario.</translation>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
         <source>P lease enter one URL per line</source>
-        <translation type="unfinished"/>
+        <translation>Introduzca solo una URL por linea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
@@ -411,7 +411,7 @@ y no implica la privacidad del usuario.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
         <source>Wating</source>
-        <translation type="unfinished"/>
+        <translation>Esperando</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
@@ -514,7 +514,7 @@ y no implica la privacidad del usuario.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
         <source>No search results</source>
-        <translation type="unfinished"/>
+        <translation>No hay resultados de búsqueda</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
@@ -572,7 +572,7 @@ Las tareas de descarga se interrumpirán.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
         <source> tasks</source>
-        <translation type="unfinished"/>
+        <translation>tareas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
