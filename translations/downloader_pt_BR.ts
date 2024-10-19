@@ -388,7 +388,7 @@ garantindo a privacidade do usuário.</translation>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
         <source>P lease enter one URL per line</source>
-        <translation type="unfinished"/>
+        <translation>Digite uma URL por linha</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
@@ -411,7 +411,7 @@ garantindo a privacidade do usuário.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
         <source>Wating</source>
-        <translation type="unfinished"/>
+        <translation>Aguardando</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
