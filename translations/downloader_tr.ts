@@ -1,92 +1,95 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="tr" sourcelanguage="en_US" version="2.0">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" sourcelanguage="en_US" language="tr">
 <context>
     <name>BtInfoDialog</name>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="115"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="109"/>
         <source>New Task</source>
         <translation>Yeni Görev</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="139"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
         <source>Total </source>
         <translation>Toplam</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="145"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="373"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="382"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="435"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="464"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="493"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="521"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="571"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="137"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="334"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="343"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="396"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="425"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="454"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="482"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="532"/>
         <source>%1 files selected, %2</source>
         <translation>%2 &apos;dan %1 dosya seçildi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="169"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="161"/>
         <source>All</source>
         <translation>Tümü</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="177"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="168"/>
         <source>Videos</source>
         <translation>Videolar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="185"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="175"/>
         <source>Pictures</source>
         <translation>Resimler</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="193"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
         <source>Music</source>
         <translation>Müzik</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="201"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
         <source>Others</source>
         <translation>Diğerleri</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="218"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="597"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="640"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="204"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="558"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="678"/>
         <source>Available:</source>
         <translation>Mevcut:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="233"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="219"/>
         <source>Change download folder</source>
         <translation>İndirme klasörünü değiştir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="241"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="227"/>
         <source>Download Now</source>
         <translation>Şimdi İndir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="272"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="253"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="627"/>
         <source>Name</source>
         <translation>Ad</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="274"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="255"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="629"/>
         <source>Type</source>
         <translation>Tür</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="275"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="256"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="630"/>
         <source>Size</source>
         <translation>Boyut</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="354"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Yetersiz disk alanı, lütfen indirme klasörünü değiştirin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="354"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>OK</source>
         <translation>TAMAM</translation>
     </message>
@@ -94,123 +97,135 @@
 <context>
     <name>CreateTaskWidget</name>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="105"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="88"/>
         <source>New Task</source>
         <translation>Yeni Görev</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="111"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
         <source>Please enter one URL per line</source>
         <translation>Lütfen her satıra bir URL girin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="123"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="101"/>
         <source>Enter download links or drag a torrent file here</source>
         <translation>İndirme bağlantılarını girin veya bir torrent dosyasını buraya sürükleyin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="196"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1022"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="139"/>
+        <source>Name</source>
+        <translation>Ad</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
+        <source>Type</source>
+        <translation>Tür</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="142"/>
+        <source>Size</source>
+        <translation>Boyut</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="168"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="930"/>
         <source>Total </source>
         <translation>Toplam</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="724"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="758"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="791"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="824"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="857"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="890"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="922"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1088"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="174"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="649"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="683"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="716"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="749"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="782"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="815"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="847"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="995"/>
         <source>%1 files selected, %2</source>
         <translation>%2 &apos;dan %1 dosya seçildi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="215"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="187"/>
         <source>All</source>
         <translation>Tümü</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="221"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
         <source>Videos</source>
         <translation>Videolar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="227"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="197"/>
         <source>Pictures</source>
         <translation>Resimler</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="233"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
         <source>Music</source>
         <translation>Müzik</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="239"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
         <source>Others</source>
         <translation>Diğerleri</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="212"/>
         <source>Documents</source>
         <translation>Belgeler</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="251"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
         <source>Archives</source>
         <translation>Arşivler</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="280"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="527"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="663"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="594"/>
         <source>Available:</source>
         <translation>Mevcut:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="295"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="259"/>
         <source>Change download folder</source>
         <translation>İndirme klasörünü değiştir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="311"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="321"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="283"/>
         <source>Select file</source>
         <translation>Dosya seç</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="335"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
         <source>Cancel</source>
-        <comment>button</comment>
         <translation>İptal et</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="342"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
         <source>Confirm</source>
-        <comment>button</comment>
         <translation>Doğrula</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="427"/>
-        <source>OK</source>
-        <comment>button</comment>
-        <translation>TAMAM</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="362"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="380"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="320"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="338"/>
         <source>Choose Torrent File</source>
         <translation>Torrent Dosyasını Seçin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="427"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Yetersiz disk alanı, lütfen indirme klasörünü değiştirin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1188"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="609"/>
+        <source>OK</source>
+        <translation>TAMAM</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
         <source>Network error, check your network and try later</source>
         <translation>Ağ hatası, ağınızı kontrol edin ve daha sonra deneyin</translation>
     </message>
@@ -218,42 +233,37 @@
 <context>
     <name>DiagnosticModel</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="229"/>
-        <source>IPv6 support</source>
-        <translation>IPv6 desteği</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="231"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="203"/>
         <source>DHT status</source>
         <translation>DHT durumu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="233"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="205"/>
         <source>HTTP task</source>
         <translation>HTTP görevi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="235"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="207"/>
         <source>BT task</source>
         <translation>BT görevi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="237"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="209"/>
         <source>Magnet task</source>
-        <translation>Muknatıs görev</translation>
+        <translation>Mıknatıs görev</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="239"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="211"/>
         <source>Network detection</source>
         <translation>Ağ algılama</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="244"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Pass</source>
         <translation>Geç</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="244"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Failed</source>
         <translation>Başarısız</translation>
     </message>
@@ -261,12 +271,12 @@
 <context>
     <name>DiagnosticTool</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="81"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="64"/>
         <source>Result:</source>
         <translation>Sonuç:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="84"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="67"/>
         <source>Diagnose Again</source>
         <translation>Yeniden Tanıla</translation>
     </message>
@@ -274,12 +284,33 @@
 <context>
     <name>DownloadSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="55"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="51"/>
         <source>Full speed</source>
         <translation>En yüksek hız</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="58"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
+        <source>Limited speed</source>
+        <translation>Sınırlı hız</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="98"/>
+        <source>Max. download speed</source>
+        <translation>En yüksek indirme hızı</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="99"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="105"/>
+        <source>KB/s</source>
+        <translation>KB/s</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="104"/>
+        <source>Max. upload speed</source>
+        <translation>En yüksek yükleme hızı</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="53"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
@@ -288,49 +319,22 @@ diğer kullanıcıların indirmeyi hızlandırmasına yardımcı olabilir,
 ve kullanıcı gizliliğini içermez. </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="66"/>
-        <source>Limited speed</source>
-        <translation>Sınırlı hız</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="106"/>
-        <source>Max. download speed</source>
-        <translation>En yüksek indirme hızı</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="107"/>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="113"/>
-        <source>KB/s</source>
-        <translation>KB/s</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="112"/>
-        <source>Max. upload speed</source>
-        <translation>En yüksek yükleme hızı</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="118"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
         <source>Limit period</source>
         <translation>Sınır süresi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="111"/>
         <source>to</source>
         <translation>şuraya</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="267"/>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="282"/>
-        <source>The end time must be greater than the start time</source>
-        <translation>Bitiş zamanı, başlangıç zamanından büyük olmalıdır</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="301"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="233"/>
         <source>Limited between 100-102400</source>
         <translation>Limit 100-102400 arası</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="323"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="255"/>
         <source>Limited between 16-5120</source>
         <translation>Limit 16-5120 arası</translation>
     </message>
@@ -351,40 +355,43 @@ ve kullanıcı gizliliğini içermez. </translation>
 <context>
     <name>HttpAdvancedSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="66"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="36"/>
         <source>Edit File Extensions</source>
         <translation>Dosya Uzantılarını Düzenle</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="72"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
         <source>Edit Unmonitored Sites</source>
         <translation>İzlenmeyen Siteleri Düzenleyin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="89"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="51"/>
         <source>Restore</source>
         <translation>Geri al</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="102"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="58"/>
         <source>Cancel</source>
         <translation>İptal et</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="110"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="63"/>
         <source>Confirm</source>
-        <comment>button</comment>
         <translation>Doğrula</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="139"/>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="143"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="87"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="91"/>
         <source>Separate file extensions by semicolons (;)</source>
         <translation>Dosya uzantılarını noktalı virgülle ayırın (;)</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="149"/>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="153"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
+        <source>P lease enter one URL per line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
         <source>Please enter one URL per line</source>
         <translation>Lütfen her satıra bir URL girin</translation>
     </message>
@@ -392,34 +399,29 @@ ve kullanıcı gizliliğini içermez. </translation>
 <context>
     <name>ItemDelegate</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="206"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="210"/>
         <source>Paused</source>
         <translation>Duraklatıldı</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="216"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
         <source>Failed</source>
         <translation>Başarısız</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="227"/>
-        <source>Waiting</source>
-        <translation>Bekliyor</translation>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
+        <source>Wating</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="239"/>
-        <source>Resources:</source>
-        <translation>Kaynaklar:</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="243"/>
-        <source>Time left </source>
-        <translation>Kalan süre</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="383"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
         <source>Duplicate name</source>
         <translation>Yinelenen ad</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
+        <source>Time left </source>
+        <translation>Kalan süre</translation>
     </message>
 </context>
 <context>
@@ -433,380 +435,383 @@ ve kullanıcı gizliliğini içermez. </translation>
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="128"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
         <source>Settings</source>
         <translation>Ayarlar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="132"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="314"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
         <source>When completed</source>
         <translation>Bittiğinde</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="134"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
         <source>Shut down</source>
         <translation>Kapat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
         <source>Hibernate</source>
         <translation>Derin uyku</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="138"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="322"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="582"/>
-        <source>Exit</source>
-        <translation>Çıkış</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="147"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
         <source>Diagnostic tool</source>
         <translation>Tanılama aracı</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="199"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="902"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="916"/>
         <source>No download tasks</source>
         <translation>İndirme görevi yok</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="220"/>
         <source>Click + to create new task</source>
         <translation>Yeni görev oluşturmak için + seçeneğine tıklayın</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="227"/>
-        <source>0 tasks</source>
-        <translation>0 görev</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="259"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="847"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="875"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading</source>
         <translation>İndiriliyor</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="262"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="267"/>
         <source>Completed</source>
         <translation>Bitti</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="268"/>
         <source>Trash</source>
         <translation>Çöp</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
         <source>Downloader</source>
         <translation>İndirici</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
         <source>Show main window</source>
         <translation>Ana pencereyi göster</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="308"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
         <source>New task</source>
         <translation>Yeni görev</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="310"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
+        <source>Exit</source>
+        <translation>Çıkış</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
+        <source>No search results</source>
+        <translation>Arama sonucu bulunamadı</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
+        <source>0 tasks</source>
+        <translation>0 görev</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
         <source>Resume all</source>
         <translation>Tümünü devam ettir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="312"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
         <source>Pause all</source>
         <translation>Hepsini duraklat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="581"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="561"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>Çıkmak istediğine emin misiniz?
 İndirme görevleri kesintiye uğrayacak.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="582"/>
-        <source>Cancel</source>
-        <translation>İptal et</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="691"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="713"/>
         <source> files</source>
         <translation>dosyalar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="847"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="875"/>
-        <source>Downloading %1...</source>
-        <translation>İndiriliyor %1...</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="899"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
         <source>No finished tasks</source>
         <translation>Bitmiş görev yok</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="912"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="937"/>
         <source>No deleted tasks</source>
         <translation>Silinen görev yok</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1282"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
         <source>Resume</source>
         <translation>Devam et</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1289"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
         <source>Pause</source>
         <translation>Durakla</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1296"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1311"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
+        <source>Cancel</source>
+        <translation>İptal et</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
+        <source> tasks</source>
+        <translation>görevler</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
+        <source>Downloading %1...</source>
+        <translation>İndiriliyor %1...</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1341"/>
         <source>Download first</source>
         <translation>İlk indir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1318"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1347"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1362"/>
         <source>Download again</source>
         <translation>Yeniden indir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1328"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1356"/>
         <source>Restore</source>
         <translation>Geri al</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1341"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1367"/>
         <source>Open</source>
         <translation>Aç</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1433"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1375"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1451"/>
         <source>Open folder</source>
         <translation>Klasör aç</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1371"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1395"/>
         <source>Rename</source>
         <translation>Yeniden adlandır</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1378"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Move to</source>
         <translation>Şuraya taşı</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1388"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1412"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1424"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1432"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1443"/>
         <source>Copy download link</source>
         <translation>İndirme bağlantısını kopyala</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1399"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1421"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1405"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1426"/>
         <source>Permanently delete</source>
         <translation>Kalıcı olarak sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1441"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1458"/>
         <source>Delete all</source>
         <translation>Tümünü sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1604"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1945"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1620"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>OK</source>
         <translation>TAMAM</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1828"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>Ulaşılan en fazla eşzamanlı görev sayısı. Diğer görevler sıraya girecek.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1945"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
+        <source>Torrent file not exist or broken</source>
+        <translation>Torrent dosyası yok veya bozuk</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>Unable to parse the URL, please check</source>
         <translation>URL ayrıştırılamıyor, lütfen kontrol edin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2359"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2357"/>
         <source>Copied to clipboard</source>
         <translation>Panoya kopyalandı</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2681"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2682"/>
         <source>View</source>
         <translation>Göster</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2705"/>
-        <source>Torrent file not exist or broken</source>
-        <translation>Torrent dosyası yok veya bozuk</translation>
     </message>
 </context>
 <context>
     <name>MessageBox</name>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="43"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="119"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="42"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Warning</source>
         <translation>Uyarı</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="84"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="109"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="129"/>
-        <source>Download Again</source>
-        <translation>Yeniden İndir</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="85"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="81"/>
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation>İndirilen dosyaları silip yeniden indirmek ister misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="87"/>
-        <source>These tasks already exist</source>
-        <translation>Bu görevler zaten var</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="89"/>
-        <source>Delete the downloaded files and download again?</source>
-        <translation>İndirilen dosyalar silinsin ve yeniden indirilsin mi?</translation>
+        <location filename="../src/src/ui/messagebox.cpp" line="84"/>
+        <source>The task already exists.</source>
+        <translation>Görev zaten var.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="102"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="271"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="329"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="344"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="360"/>
-        <source>OK</source>
-        <translation>TAMAM</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="106"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="166"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="205"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="156"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
         <source>Cancel</source>
         <translation>İptal et</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="121"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
         <source>Download error</source>
         <translation>İndirme hatası</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
-        <source>Delete All</source>
-        <translation>Hepsini Sil</translation>
+        <location filename="../src/src/ui/messagebox.cpp" line="80"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="104"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="123"/>
+        <source>Download Again</source>
+        <translation>Yeniden İndir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="149"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="86"/>
+        <source>Delete the downloaded files and download again?</source>
+        <translation>İndirilen dosyalar silinsin ve yeniden indirilsin mi?</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="99"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="283"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="341"/>
+        <source>OK</source>
+        <translation>TAMAM</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="125"/>
+        <source>Delete Task</source>
+        <translation>Görevi Sil</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="139"/>
         <source>Are you sure you want to delete this download task permanently?</source>
         <translation>Bu indirme görevini kalıcı olarak silmek istediğinizden emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="152"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="142"/>
         <source>Local files will be deleted at the same time.</source>
         <translation>Diskteki dosyalar aynı anda silinecektir.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="155"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
         <translation>Bu indirme görevini silmek istediğinizden emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="159"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="161"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="186"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="149"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="151"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="173"/>
         <source>Delete local files</source>
         <translation>Diskteki dosyaları sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="170"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Permanently Delete</source>
         <translation>Kalıcı Olarak Sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="162"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="183"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
         <translation>Çöp kutusundaki tüm görevleri silmek istediğinizden emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="190"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="176"/>
         <source>Empty</source>
         <translation>Boş</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="200"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
+        <source>Rename</source>
+        <translation>Yeniden adlandır</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="214"/>
         <source>Please choose your action</source>
         <translation>Lütfen eyleminizi seçin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Exit</source>
         <translation>Çıkış</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Minimize to system tray</source>
         <translation>Sistem tepsisine küçült</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="204"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="218"/>
         <source>Do not ask again</source>
         <translation>Yeniden sorma</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="206"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="220"/>
         <source>Confirm</source>
         <translation>Doğrula</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="271"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
         <translation>Dosya adı ters eğik çizgi (\) veya eğik çizgi (/) içeremez</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="325"/>
-        <source>Permission denied</source>
-        <translation>İzin reddedildi</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="327"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="339"/>
         <source>Please try another folder</source>
         <translation>Lütfen başka bir klasör deneyin</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="340"/>
-        <source>Path Error</source>
-        <translation>Yol Hatası</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="342"/>
-        <source>The storage folder does not exist, please check and try again</source>
-        <translation>Depolama klasörü mevcut değil, lütfen kontrol edip tekrar deneyin.</translation>
+        <location filename="../src/src/ui/messagebox.cpp" line="337"/>
+        <source>Permission denied</source>
+        <translation>İzin reddedildi</translation>
     </message>
 </context>
 <context>
@@ -866,12 +871,12 @@ Downloading tasks will be interrupted.</source>
         <translation>Bilinmeyen</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="80"/>
+        <location filename="../src/src/downloader/main.cpp" line="65"/>
         <source>Downloader</source>
         <translation>İndirici</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="81"/>
+        <location filename="../src/src/downloader/main.cpp" line="66"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
         <translation>İndirici, URL&apos;leri ve torrent dosyalarını destekleyen, kullanıcı dostu bir indirme aracıdır</translation>
     </message>
@@ -897,252 +902,232 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="345"/>
         <source>Basic</source>
         <translation>Temel</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="380"/>
-        <source>Startup</source>
-        <translation>Başlangıç</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="381"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="347"/>
         <source>Auto startup</source>
         <translation>Otomatik başlat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="382"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="348"/>
         <source>Resume downloading on startup</source>
         <translation>İndirmeye başlangıçta devam et</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="383"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="349"/>
         <source>Download Directory</source>
         <translation>Dizini İndir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="384"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="350"/>
         <source>1-Click Download</source>
         <translation>Tek tıkla indir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="385"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
         <source>Create tasks directly</source>
         <translation>Doğrudan görev oluşturun</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="386"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
+        <source>Startup</source>
+        <translation>Başlangıç</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="352"/>
         <source>Close Main Window</source>
         <translation>Ana Pencereyi Kapat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="387"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="353"/>
         <source>Minimize to system tray</source>
         <translation>Sistem tepsisine küçült</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="388"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="354"/>
         <source>Ask me always</source>
         <translation>Bana her zaman sor</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="355"/>
         <source>Exit</source>
         <translation>Çıkış</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="356"/>
         <source>Tasks</source>
         <translation>Görevler</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="839"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
         <source>Max. concurrent downloads</source>
         <translation>En fazla eşzamanlı indirme</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="853"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="358"/>
         <source>Open files when completed</source>
         <translation>Tamamlandığında dosyaları aç</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="867"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
         <source>Delete tasks without files</source>
         <translation>Dosyaları olmadan görevleri sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
         <source>Downloads</source>
         <translation>İndirilenler</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="361"/>
         <source>Monitoring</source>
         <translation>İzleniyor</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="362"/>
         <source>Applications</source>
         <translation>Uygulamalar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="363"/>
         <source>Clipboard</source>
         <translation>Pano</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="364"/>
         <source>Browser</source>
         <translation>Tarayıcı</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="365"/>
         <source>Links Monitored</source>
         <translation>İzlenen Bağlantılar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="366"/>
         <source>BT Files</source>
         <translation>BT Dosyaları</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
         <source>Create new task when a torrent file downloaded</source>
         <translation>Torrent dosyası indirildiğinde yeni görev oluştur</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
         <source>Create new task when opening a torrent file</source>
         <translation>Bir torrent dosyasını açarken yeni görev oluştur</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
         <source>MetaLink Files</source>
         <translation>MetaLink Dosyaları</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
         <source>Create new task when a metalink file downloaded</source>
         <translation>Metalink dosyası indirildiğinde yeni görev oluştur</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>Create new task when opening a metalink file</source>
         <translation>Metalink dosyasını açarken yeni görev oluştur</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
         <source>Notifications</source>
         <translation>Bildirimler</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
         <source>Notify me when downloading finished or failed</source>
         <translation>İndirme bittiğinde veya başarısız olduğunda beni bilgilendir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
         <source>Play a sound when downloading finished</source>
         <translation>İndirme bittiğinde bir ses çal</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
-        <source>Advanced</source>
-        <translation>Gelişmiş</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
-        <source>Shortcuts</source>
-        <translation>Kısayollar</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="411"/>
-        <source>Show main window when creating new task</source>
-        <translation>Yeni görev oluştururken ana pencereyi göster</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="412"/>
-        <source>Cache</source>
-        <translation>Tampon bellek</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="881"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
         <source>Move slow downloads to the end</source>
         <translation>Yavaş indirmeleri sona taşıyın</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="414"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="822"/>
-        <source>Original address threads</source>
-        <translation>Esas adres iş parçacıkları</translation>
+        <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
+        <source>Advanced</source>
+        <translation>Gelişmiş</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="415"/>
-        <source>Download Management</source>
-        <translation>İndirme Yönetimi</translation>
+        <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
+        <source>Shortcuts</source>
+        <translation>Kısayollar</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="416"/>
-        <source>Speed Settings</source>
-        <translation>Hız Ayarları</translation>
+        <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
+        <source>Show main window when creating new task</source>
+        <translation>Yeni görev oluştururken ana pencereyi göster</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="508"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
+        <source>Cache</source>
+        <translation>Tampon bellek</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="463"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="529"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>BitTorrent</source>
         <translation>BitTorrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="551"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="505"/>
         <source>MetaLink</source>
         <translation>MetaLink</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="573"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="526"/>
         <source>Magnet URI scheme</source>
         <translation>Mıknatıs URI şema</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="672"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>When total speed less than</source>
         <translation>Toplam hız daha az olduğunda</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="672"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>KB/s, increase concurrent tasks</source>
         <translation>KB/s, eşzamanlı görevleri artırın</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="684"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="671"/>
         <source>Total speed should be less than max. download speed</source>
         <translation>Toplam hız, en fazla indirme hızından düşük olmalıdır</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="754"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>Download files less than</source>
         <translation>Daha az dosya indir</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="754"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>MB first</source>
         <translation>MB ilk</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="798"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
         <source>Limit max. number of concurrent download resources</source>
         <translation>En fazla eşzamanlı indirme kaynağı sayısını sınırlayın</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="895"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="799"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
         <translation>Daha büyük disk önbelleği daha hızlı indirmeyi sağlar
@@ -1152,37 +1137,37 @@ ama daha fazla kaynak tüketilir. </translation>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="411"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="416"/>
         <source> &gt; 1 day</source>
         <translation> &gt; 1 gün</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="631"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download failed</source>
         <translation>İndirme başarısız</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="632"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download failed. Network error.</source>
         <translation>Ağ hatası. %1 indirilemedi. </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="633"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>Cancel</source>
         <translation>İptal et</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="633"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>View</source>
         <translation>Göster</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="637"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="657"/>
         <source>Download completed</source>
         <translation>İndirme tamamlandı</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="638"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="658"/>
         <source>%1 download finished</source>
         <translation>%1 indirme tamamlandı</translation>
     </message>
@@ -1190,30 +1175,30 @@ ama daha fazla kaynak tüketilir. </translation>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="499"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Name</source>
         <translation>Ad</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="502"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="428"/>
         <source>Size</source>
         <translation>Boyut</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="506"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="515"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="432"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="441"/>
         <source>Status</source>
         <translation>Durum</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="508"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="517"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="443"/>
         <source>Time finished</source>
         <translation>Süre bitti</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="510"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="519"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="436"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="445"/>
         <source>Time deleted</source>
         <translation>Zaman silindi</translation>
     </message>
@@ -1221,74 +1206,55 @@ ama daha fazla kaynak tüketilir. </translation>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="213"/>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="224"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
         <source>Duplicate name</source>
         <translation>Yinelenen ad</translation>
     </message>
 </context>
 <context>
-    <name>TaskModel</name>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="142"/>
-        <source>Name</source>
-        <translation>Ad</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="146"/>
-        <source>Type</source>
-        <translation>Tür</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="148"/>
-        <source>Size</source>
-        <translation>Boyut</translation>
-    </message>
-</context>
-<context>
     <name>TopButton</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="73"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="72"/>
         <source>New task</source>
         <translation>Yeni görev</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="81"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="157"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="153"/>
         <source>Pause</source>
         <translation>Durakla</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="89"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="156"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="86"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="152"/>
         <source>Resume</source>
         <translation>Devam et</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="97"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="142"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="150"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="158"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="93"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="138"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="146"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="154"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="140"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="136"/>
         <source>Empty</source>
         <translation>Boş</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="141"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="137"/>
         <source>Restore</source>
         <translation>Geri al</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="148"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="144"/>
         <source>Open folder</source>
         <translation>Klasör aç</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="149"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="145"/>
         <source>Open</source>
         <translation>Aç</translation>
     </message>
