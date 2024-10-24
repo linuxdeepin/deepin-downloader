@@ -4,7 +4,7 @@
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="109"/>
         <source>New Task</source>
-        <translation>Punë e Re</translation>
+        <translation>Akt i Ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
@@ -99,7 +99,7 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="88"/>
         <source>New Task</source>
-        <translation>Punë e Re</translation>
+        <translation>Akt i Ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
@@ -1069,7 +1069,7 @@ Aktet e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
         <source>Show main window when creating new task</source>
-        <translation>Shfaq dritaren kryesore, kur krijohet punë e re</translation>
+        <translation>Kur krijohet akt i ri, shfaq dritaren kryesore</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
@@ -1104,7 +1104,7 @@ Aktet e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>KB/s, shto punë që kryhen krah për krah</translation>
+        <translation>KB/s, shto akte që kryhen krah për krah</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="671"/>
@@ -1130,8 +1130,8 @@ Aktet e shkarkimit do të ndërpriten.</translation>
         <location filename="../src/src/ui/settings/settings.cpp" line="799"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>Fshehtinë më e madhe disku do të sjellë shpejtësi
-më të madhe shkarkimesh dhe konsum më të madh të burimeve.</translation>
+        <translation>Fshehtinë më e madhe disku do të sjellë shpejtësi më
+të madhe shkarkimesh dhe konsum më të madh të burimeve.</translation>
     </message>
 </context>
 <context>
@@ -1216,7 +1216,7 @@ më të madhe shkarkimesh dhe konsum më të madh të burimeve.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="72"/>
         <source>New task</source>
-        <translation>Punë e re</translation>
+        <translation>Akt i ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
