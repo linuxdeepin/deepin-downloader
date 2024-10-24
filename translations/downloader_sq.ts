@@ -411,7 +411,7 @@ të shpejtë shkarkimin, pa prekur privatësinë e përdoruesit.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
         <source>Wating</source>
-        <translation type="unfinished"/>
+        <translation>Në pritje</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
@@ -465,12 +465,12 @@ të shpejtë shkarkimin, pa prekur privatësinë e përdoruesit.</translation>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="916"/>
         <source>No download tasks</source>
-        <translation>Pa punë shkarkimi</translation>
+        <translation>Pa akte shkarkimi</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="220"/>
         <source>Click + to create new task</source>
-        <translation>Klikoni + që të krijoni një punë të re</translation>
+        <translation>Klikoni + që të krijoni një akt të ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
@@ -502,7 +502,7 @@ të shpejtë shkarkimin, pa prekur privatësinë e përdoruesit.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
         <source>New task</source>
-        <translation>Punë e re</translation>
+        <translation>Akt i ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
@@ -514,12 +514,12 @@ të shpejtë shkarkimin, pa prekur privatësinë e përdoruesit.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
         <source>No search results</source>
-        <translation type="unfinished"/>
+        <translation>S’ka përfundime kërkimi</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
         <source>0 tasks</source>
-        <translation>0 punë</translation>
+        <translation>0 akte</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
@@ -536,7 +536,7 @@ të shpejtë shkarkimin, pa prekur privatësinë e përdoruesit.</translation>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>Jeni i sigurt se doni të dilet? 
-Punët e shkarkimit do të ndërpriten.</translation>
+Aktet e shkarkimit do të ndërpriten.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
@@ -547,12 +547,12 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
         <source>No finished tasks</source>
-        <translation>Pa punë të përfunduara</translation>
+        <translation>Pa akte të përfunduara</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="937"/>
         <source>No deleted tasks</source>
-        <translation>Pa punë të fshira</translation>
+        <translation>Pa akte të fshira</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
@@ -572,7 +572,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
         <source> tasks</source>
-        <translation type="unfinished"/>
+        <translation>akte</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
@@ -648,7 +648,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>U mbërrit në numrin maksimum të punëve krah për krah njëra-tjetrës. Punë të tjera do të vihen në radhë.</translation>
+        <translation>U mbërrit në numrin maksimum aktesh krah njëri-tjetrit. Aktet e tjera do të vihen në radhë.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
@@ -687,7 +687,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>The task already exists.</source>
-        <translation>Puna ekziston tashmë.</translation>
+        <translation>Akti ekziston tashmë.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="102"/>
@@ -724,12 +724,12 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Delete Task</source>
-        <translation>Fshije Punën</translation>
+        <translation>Fshije Aktin</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="139"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation>Jeni i sigurt se doni të fshihet përgjithmonë kjo punë shkarkimi?</translation>
+        <translation>Jeni i sigurt se doni të fshihet përgjithmonë ky akt shkarkimi?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="142"/>
@@ -739,7 +739,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation>Jeni i sigurt se doni të fshihet kjo punë shkarkimi?</translation>
+        <translation>Jeni i sigurt se doni të fshihet ky akt shkarkimi?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="149"/>
@@ -761,7 +761,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>Jeni i sigurt se doni të fshihen krejt punët te hedhurinat?</translation>
+        <translation>Jeni i sigurt se doni të fshihen krejt aktet te hedhurinat?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="176"/>
@@ -819,7 +819,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="43"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>Njoftomë kur përfundon ose dështon shkarkimi</translation>
+        <translation>Njofto, kur përfundon ose dështon shkarkimi</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="51"/>
@@ -868,7 +868,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
         <location filename="../src/include/ui/global.h" line="42"/>
         <location filename="../src/include/ui/global.h" line="59"/>
         <source>Unknown</source>
-        <translation>E panjohur</translation>
+        <translation>I panjohur</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="65"/>
@@ -929,7 +929,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
         <source>Create tasks directly</source>
-        <translation>Krijoni punë drejtpërsëdrejti</translation>
+        <translation>Krijoni akte drejtpërsëdrejti</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
@@ -959,7 +959,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="356"/>
         <source>Tasks</source>
-        <translation>Punë</translation>
+        <translation>Akte</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
@@ -974,7 +974,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
         <source>Delete tasks without files</source>
-        <translation>Fshi punë pa kartela</translation>
+        <translation>Fshi akte pa kartela</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
@@ -1014,12 +1014,12 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>Krijoni një punë të re, kur shkarkohet një kartelë torrent</translation>
+        <translation>Kur shkarkohet një kartelë torrent, krijo akt të ri.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
         <source>Create new task when opening a torrent file</source>
-        <translation>Krijoni një punë të re, kur hapet një kartelë torrent</translation>
+        <translation>Kur hapet një kartelë torrent, krijo akt të ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
@@ -1029,12 +1029,12 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
         <source>Create new task when a metalink file downloaded</source>
-        <translation>Krijoni një punë të re, kur shkarkohet një kartelë metalink</translation>
+        <translation>Kur shkarkohet një kartelë metalink, krijo akt të ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>Create new task when opening a metalink file</source>
-        <translation>Krijoni një punë të re, kur hapet një kartelë metalink</translation>
+        <translation>Kur hapet një kartelë metalink, krijo akt të ri</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
@@ -1044,7 +1044,7 @@ Punët e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>Njoftomë kur përfundon ose dështon shkarkimi</translation>
+        <translation>Njoftom, kur përfundon ose dështon shkarkimi</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
