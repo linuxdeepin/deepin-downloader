@@ -291,12 +291,12 @@
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
         <source>Limited speed</source>
-        <translation>制限速度</translation>
+        <translation>速度を制限</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="98"/>
         <source>Max. download speed</source>
-        <translation type="unfinished"/>
+        <translation>最大ダウウンロード速度</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="99"/>
@@ -307,7 +307,7 @@
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="104"/>
         <source>Max. upload speed</source>
-        <translation type="unfinished"/>
+        <translation>最大アップロード速度</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="53"/>
