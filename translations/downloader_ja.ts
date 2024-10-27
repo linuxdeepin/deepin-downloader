@@ -314,7 +314,9 @@
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
-        <translation type="unfinished"/>
+        <translation>ダウウンロードしたファイルはP2Pでアップロードされます。
+これによって、ほかのユーザーがファイルをダウンロードする際に
+速度を向上させる手助けができます。ユーザーのプライバシーは保護されます。</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
