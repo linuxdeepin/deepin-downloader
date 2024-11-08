@@ -230,10 +230,10 @@ void MainFrame::init()
         itemsize.setHeight(40);
         m_LeftList->setItemSize(itemsize);
     } else {
-        font.setPixelSize(12);
+        font.setPixelSize(14);
         m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
         m_RecycleTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
-        itemsize.setHeight(40 * Global::compactMode_ratio);
+        itemsize.setHeight(40 - 4);
         m_LeftList->setItemSize(itemsize);
     }
 #else
@@ -271,11 +271,11 @@ void MainFrame::init()
                 itemsize.setHeight(40);
                 m_LeftList->setItemSize(itemsize);
             } else {
-                font.setPixelSize(12);
+                font.setPixelSize(14);
                 m_DownLoadingTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
                 m_RecycleTableView->verticalHeader()->setDefaultSectionSize(Global::tableView_CompactMode_Width);
                 m_LeftList->setItemSize(QSize(Global::tableView_CompactMode_Width, Global::tableView_CompactMode_Width));
-                itemsize.setHeight(40 * Global::compactMode_ratio);
+                itemsize.setHeight(40 - 4);
                 m_LeftList->setItemSize(itemsize);
             }
         m_DownloadingItem->setFont(font);
