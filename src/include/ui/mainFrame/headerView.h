@@ -48,22 +48,9 @@ class DownloadHeaderView : public QHeaderView
     Q_OBJECT
 public:
     explicit DownloadHeaderView(Qt::Orientation orientation,
-                        QWidget        *parent = 0);
+                                QWidget        *parent = 0);
     ~DownloadHeaderView();
 
-protected:
-    /**
-     * @brief 更新位置
-     */
-    void updateGeometries();
-
-private:
-    DCheckBox *m_headerCbx;
-signals:
-    /**
-     * @brief 表头全选按键状态改变按钮
-     */
-    void Statechanged(bool checked);
 public slots:
     /**
      * @brief 清除表头选中状态
@@ -79,6 +66,28 @@ public slots:
      * @brief 调色板改变，重新设置颜色
      */
     void onPalettetypechanged(DGuiApplicationHelper::ColorType type);
+
+    /**
+     * @brief 处理表头的点击事件
+     * @param logicalIndex
+     */
+    void onSectionClicked(int logicalIndex);
+
+signals:
+    /**
+     * @brief 表头全选按键状态改变按钮
+     */
+    void Statechanged(bool checked);
+
+
+protected:
+    /**
+     * @brief 绘制section
+     */
+    void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const override;
+
+private:
+    bool m_isChecked = false;
 };
 
 #endif // HEADERVIEW_H
