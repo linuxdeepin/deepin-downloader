@@ -9,7 +9,7 @@
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
         <source>Total </source>
-        <translation>Total </translation>
+        <translation>Total</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="137"/>
@@ -130,7 +130,7 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="168"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="930"/>
         <source>Total </source>
-        <translation>Total </translation>
+        <translation>Total</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="174"/>
@@ -542,7 +542,7 @@ As tarefas de download serão interrompidas.</translation>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="713"/>
         <source> files</source>
-        <translation> arquivos</translation>
+        <translation>arquivos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
@@ -572,7 +572,7 @@ As tarefas de download serão interrompidas.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
         <source> tasks</source>
-        <translation> tarefas</translation>
+        <translation>tarefas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
