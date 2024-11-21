@@ -724,7 +724,7 @@ As tarefas de download serão interrompidas.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Delete Task</source>
-        <translation>Excluir Tarefa</translation>
+        <translation>Excluir tarefa</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="139"/>
@@ -994,7 +994,7 @@ As tarefas de download serão interrompidas.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="363"/>
         <source>Clipboard</source>
-        <translation>Área de Transferência</translation>
+        <translation>Área de transferência</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="364"/>
