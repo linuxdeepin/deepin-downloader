@@ -1,15 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" sourcelanguage="en_US" language="fr">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" sourcelanguage="en_US" language="ko">
 <context>
     <name>BtInfoDialog</name>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="109"/>
         <source>New Task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>새 작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
         <source>Total </source>
-        <translation>Total</translation>
+        <translation>총</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="137"/>
@@ -21,77 +21,77 @@
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="482"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="532"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 fichiers sélectionnés, %2</translation>
+        <translation>%1개의 파일이 선택되었습니다, %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="161"/>
         <source>All</source>
-        <translation>Tout</translation>
+        <translation>모두</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="168"/>
         <source>Videos</source>
-        <translation>Vidéos</translation>
+        <translation>비디오</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="175"/>
         <source>Pictures</source>
-        <translation>Photos</translation>
+        <translation>사진</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
         <source>Music</source>
-        <translation>Musique</translation>
+        <translation>음악</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
         <source>Others</source>
-        <translation>Autres</translation>
+        <translation>기타</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="204"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="558"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="678"/>
         <source>Available:</source>
-        <translation>Disponible :</translation>
+        <translation>사용 가능:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="219"/>
         <source>Change download folder</source>
-        <translation>Changer le dossier de téléchargement</translation>
+        <translation>다운로드 폴더 변경</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="227"/>
         <source>Download Now</source>
-        <translation>Télécharger maintenant</translation>
+        <translation>지금 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="253"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="627"/>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation>이름</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="255"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="629"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation>유형</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="256"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="630"/>
         <source>Size</source>
-        <translation>Taille</translation>
+        <translation>크기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>Espace disque insuffisant, veuillez modifier le dossier de téléchargement</translation>
+        <translation>디스크 공간이 부족합니다. 다운로드 폴더를 변경하세요.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>확인</translation>
     </message>
 </context>
 <context>
@@ -99,38 +99,38 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="88"/>
         <source>New Task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>새 작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
         <source>Please enter one URL per line</source>
-        <translation>Veuillez saisir une URL par ligne</translation>
+        <translation>한 줄에 하나의 URL을 입력하세요</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="101"/>
         <source>Enter download links or drag a torrent file here</source>
-        <translation>Entrez les liens de téléchargement ou faites glisser un fichier torrent ici</translation>
+        <translation>다운로드 링크를 입력하거나 토렌트 파일을 여기로 드래그하세요.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="139"/>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation>이름</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation>유형</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="142"/>
         <source>Size</source>
-        <translation>Taille</translation>
+        <translation>크기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="168"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="930"/>
         <source>Total </source>
-        <translation>Total</translation>
+        <translation>총</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="174"/>
@@ -143,91 +143,91 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="847"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="995"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 fichiers sélectionnés, %2</translation>
+        <translation>%1개의 파일이 선택되었습니다. %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="187"/>
         <source>All</source>
-        <translation>Tout</translation>
+        <translation>모두</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
         <source>Videos</source>
-        <translation>Vidéos</translation>
+        <translation>비디오</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="197"/>
         <source>Pictures</source>
-        <translation>Photos</translation>
+        <translation>사진</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
         <source>Music</source>
-        <translation>Musique</translation>
+        <translation>음악</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
         <source>Others</source>
-        <translation>Autres</translation>
+        <translation>기타</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="212"/>
         <source>Documents</source>
-        <translation>Documents</translation>
+        <translation>문서</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
         <source>Archives</source>
-        <translation>Archives</translation>
+        <translation>아카이브</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="594"/>
         <source>Available:</source>
-        <translation>Disponible :</translation>
+        <translation>사용 가능:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="259"/>
         <source>Change download folder</source>
-        <translation>Changer le dossier de téléchargement</translation>
+        <translation>다운로드 폴더 변경</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="283"/>
         <source>Select file</source>
-        <translation>Choisir le dossier</translation>
+        <translation>파일 선택</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>취소</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
         <source>Confirm</source>
-        <translation>Confirmer</translation>
+        <translation>확인</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="320"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="338"/>
         <source>Choose Torrent File</source>
-        <translation>Choisir un fichier torrent</translation>
+        <translation>토렌트 파일 선택</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>Espace disque insuffisant, veuillez modifier le dossier de téléchargement</translation>
+        <translation>디스크 공간이 부족합니다. 다운로드 폴더를 변경하세요.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="609"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>확인</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
         <source>Network error, check your network and try later</source>
-        <translation>Erreur réseau, vérifiez votre réseau et réessayez plus tard</translation>
+        <translation>네트워크 오류입니다. 네트워크를 확인하고 나중에 시도하세요.</translation>
     </message>
 </context>
 <context>
@@ -235,37 +235,37 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="203"/>
         <source>DHT status</source>
-        <translation>Statut DHT</translation>
+        <translation>DHT 상태</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="205"/>
         <source>HTTP task</source>
-        <translation>Tâche HTTP</translation>
+        <translation>HTTP 작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="207"/>
         <source>BT task</source>
-        <translation>Tâche BT</translation>
+        <translation>BT 작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="209"/>
         <source>Magnet task</source>
-        <translation>Tâche magnétique</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="211"/>
         <source>Network detection</source>
-        <translation>Détection de réseau</translation>
+        <translation>네트워크 감지</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Pass</source>
-        <translation>Passer</translation>
+        <translation>통과</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Failed</source>
-        <translation>Échoué</translation>
+        <translation>실패</translation>
     </message>
 </context>
 <context>
@@ -273,12 +273,12 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="64"/>
         <source>Result:</source>
-        <translation>Résultat :</translation>
+        <translation>결과:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="67"/>
         <source>Diagnose Again</source>
-        <translation>Diagnostiquer à nouveau</translation>
+        <translation>다시 진단</translation>
     </message>
 </context>
 <context>
@@ -286,57 +286,57 @@
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="51"/>
         <source>Full speed</source>
-        <translation>Pleine vitesse</translation>
+        <translation>최고 속도</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
         <source>Limited speed</source>
-        <translation>Vitesse limitée</translation>
+        <translation>제한된 속도</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="98"/>
         <source>Max. download speed</source>
-        <translation>Vitesse max. de téléchargement</translation>
+        <translation>최대 다운로드 속도</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="99"/>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="105"/>
         <source>KB/s</source>
-        <translation>Ko/s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="104"/>
         <source>Max. upload speed</source>
-        <translation>Max. vitesse de téléchargement</translation>
+        <translation>최대 업로드 속도</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="53"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
-        <translation>Les fichiers téléchargés seront téléchargés via P2P, 
-ce qui pourrait aider d&apos;autres utilisateurs à accélérer au téléchargement,
-et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
+        <translation>다운로드한 파일은 P2P를 통해 업로드됩니다,
+다른 사용자가 다운로드 속도를 높이는 데 도움이 될 수 있습니다,
+사용자 개인 정보를 포함하지 않습니다</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
         <source>Limit period</source>
-        <translation>Période limite</translation>
+        <translation>기간 제한</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="111"/>
         <source>to</source>
-        <translation>à</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="233"/>
         <source>Limited between 100-102400</source>
-        <translation>Limité entre 100-102400</translation>
+        <translation>100-102400 사이 제한</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="255"/>
         <source>Limited between 16-5120</source>
-        <translation>Limité entre 16-5120</translation>
+        <translation>16-5120 사이 제한</translation>
     </message>
 </context>
 <context>
@@ -344,12 +344,12 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="50"/>
         <source>Last used directory</source>
-        <translation>Dernier répertoire utilisé</translation>
+        <translation>최근에 사용한 디렉토리</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="52"/>
         <source>Default directory</source>
-        <translation>Répertoire par défaut</translation>
+        <translation>기본 디렉토리</translation>
     </message>
 </context>
 <context>
@@ -357,33 +357,33 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="36"/>
         <source>Edit File Extensions</source>
-        <translation>Modifier les extensions de fichier</translation>
+        <translation>파일 확장자 편집</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
         <source>Edit Unmonitored Sites</source>
-        <translation>Modifier les sites non surveillés</translation>
+        <translation>모니터링되지 않는 사이트 편집</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="51"/>
         <source>Restore</source>
-        <translation>Restaurer</translation>
+        <translation>복원</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="58"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>취소</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="63"/>
         <source>Confirm</source>
-        <translation>Confirmer</translation>
+        <translation>확인</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="87"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="91"/>
         <source>Separate file extensions by semicolons (;)</source>
-        <translation>Séparer les extensions de fichier par des points-virgules (;)</translation>
+        <translation>파일 확장자는 세미콜론(;)으로 구분</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
@@ -393,7 +393,7 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
         <source>Please enter one URL per line</source>
-        <translation>Veuillez saisir une URL par ligne</translation>
+        <translation>한 줄에 하나의 URL을 입력하세요</translation>
     </message>
 </context>
 <context>
@@ -401,12 +401,12 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="210"/>
         <source>Paused</source>
-        <translation>En pause</translation>
+        <translation>정지</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
         <source>Failed</source>
-        <translation>Échoué</translation>
+        <translation>실패</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
@@ -416,12 +416,12 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
         <source>Duplicate name</source>
-        <translation>Nom en double</translation>
+        <translation>중복 이름</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
         <source>Time left </source>
-        <translation>Temps restant</translation>
+        <translation>남은 시간</translation>
     </message>
 </context>
 <context>
@@ -429,7 +429,7 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="57"/>
         <source>Advanced</source>
-        <translation>Avancée</translation>
+        <translation>고급</translation>
     </message>
 </context>
 <context>
@@ -437,238 +437,238 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
         <source>Settings</source>
-        <translation>Réglages</translation>
+        <translation>설정</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
         <source>When completed</source>
-        <translation>Quand terminé</translation>
+        <translation>완료 시</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
         <source>Shut down</source>
-        <translation>Fermer</translation>
+        <translation>종료</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
         <source>Hibernate</source>
-        <translation>Hiberner</translation>
+        <translation>최대 절전 모드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
         <source>Diagnostic tool</source>
-        <translation>Outil de diagnostic</translation>
+        <translation>진단 도구</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="916"/>
         <source>No download tasks</source>
-        <translation>Aucune tâche de téléchargement</translation>
+        <translation>다운로드 작업 없음</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="220"/>
         <source>Click + to create new task</source>
-        <translation>Cliquez sur + pour créer une nouvelle tâche</translation>
+        <translation>+를 클릭하여 새 작업 생성</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading</source>
-        <translation>Téléchargement</translation>
+        <translation>다운로드 중</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="267"/>
         <source>Completed</source>
-        <translation>Terminé</translation>
+        <translation>완성됨</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="268"/>
         <source>Trash</source>
-        <translation>Corbeille</translation>
+        <translation>쓰레기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
         <source>Downloader</source>
-        <translation>Téléchargeur</translation>
+        <translation>다운로드 도구</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
         <source>Show main window</source>
-        <translation>Afficher la fenêtre principale</translation>
+        <translation>메인 창 표시</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
         <source>New task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>새 작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="310"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
         <source>Exit</source>
-        <translation>Sortir</translation>
+        <translation>종료</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
         <source>No search results</source>
-        <translation>Aucun résultat trouvé</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
         <source>0 tasks</source>
-        <translation>0 tâches</translation>
+        <translation>0개의 작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
         <source>Resume all</source>
-        <translation>Tout résumer</translation>
+        <translation>모두 재개</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
         <source>Pause all</source>
-        <translation>Mettre tout en pause</translation>
+        <translation>모두 일시중지</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="561"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation>Êtes-vous sûr de vouloir quitter ? 
-Les tâches de téléchargement seront interrompues.</translation>
+        <translation>종료하시겠습니까?
+다운로드 작업이 중단됩니다.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="713"/>
         <source> files</source>
-        <translation> dossiers</translation>
+        <translation>파일</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
         <source>No finished tasks</source>
-        <translation>Aucune tâche terminée</translation>
+        <translation>완료된 작업 없음</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="937"/>
         <source>No deleted tasks</source>
-        <translation>Aucune tâche supprimée</translation>
+        <translation>삭제된 작업 없음</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
         <source>Resume</source>
-        <translation>Reprendre</translation>
+        <translation>재개</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
         <source>Pause</source>
-        <translation>Pause</translation>
+        <translation>정지</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>취소</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
         <source> tasks</source>
-        <translation> tâches</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading %1...</source>
-        <translation>Téléchargement de %1...</translation>
+        <translation>%1 다운로드 중...</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1341"/>
         <source>Download first</source>
-        <translation>Télécharger en premier</translation>
+        <translation>먼저 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1347"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1362"/>
         <source>Download again</source>
-        <translation>Télécharger à nouveau</translation>
+        <translation>다시 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1356"/>
         <source>Restore</source>
-        <translation>Restaurer</translation>
+        <translation>복원</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1367"/>
         <source>Open</source>
-        <translation>Ouvert</translation>
+        <translation>열기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1375"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1451"/>
         <source>Open folder</source>
-        <translation>Dossier ouvert</translation>
+        <translation>폴더 열기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1395"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation>이름 바꾸기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Move to</source>
-        <translation>Déplacer vers</translation>
+        <translation>이동</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1432"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1443"/>
         <source>Copy download link</source>
-        <translation>Copier le lien de téléchargement</translation>
+        <translation>다운로드 링크 복사</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1421"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1426"/>
         <source>Permanently delete</source>
-        <translation>Effacé définitivement</translation>
+        <translation>영구 삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1458"/>
         <source>Delete all</source>
-        <translation>Tout supprimer</translation>
+        <translation>모두 삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1620"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>확인</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>Le nombre de tâches max. simultanées est atteint. D&apos;autres tâches seront en attente.</translation>
+        <translation>최대 수. 동시 작업에 도달했습니다. 다른 작업이 대기 중입니다.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
         <source>Torrent file not exist or broken</source>
-        <translation>Le fichier torrent n&apos;existe pas ou est cassé</translation>
+        <translation>토렌트 파일이 존재하지 않거나 손상되었습니다</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>Unable to parse the URL, please check</source>
-        <translation>Impossible d&apos;analyser l&apos;URL, veuillez vérifier</translation>
+        <translation>URL을 구문 분석할 수 없습니다. 확인하십시오.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2357"/>
         <source>Copied to clipboard</source>
-        <translation>Copié dans le presse-papier</translation>
+        <translation>클립보드에 복사됨</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2682"/>
         <source>View</source>
-        <translation>Vue</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -677,17 +677,17 @@ Les tâches de téléchargement seront interrompues.</translation>
         <location filename="../src/src/ui/messagebox.cpp" line="42"/>
         <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Warning</source>
-        <translation>Attention</translation>
+        <translation>경고</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="81"/>
         <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>Voulez-vous supprimer les fichiers téléchargés et les télécharger à nouveau ?</translation>
+        <translation>다운로드한 파일을 삭제하고 다시 다운로드하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>The task already exists.</source>
-        <translation>La tâche existe déjà.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="102"/>
@@ -695,123 +695,123 @@ Les tâches de téléchargement seront interrompues.</translation>
         <location filename="../src/src/ui/messagebox.cpp" line="174"/>
         <location filename="../src/src/ui/messagebox.cpp" line="219"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>취소</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="115"/>
         <source>Download error</source>
-        <translation>Erreur de téléchargement</translation>
+        <translation>다운로드 에러</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="80"/>
         <location filename="../src/src/ui/messagebox.cpp" line="104"/>
         <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Download Again</source>
-        <translation>Télécharger à nouveau</translation>
+        <translation>다시 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="86"/>
         <source>Delete the downloaded files and download again?</source>
-        <translation>Supprimer les fichiers téléchargés et télécharger à nouveau ?</translation>
+        <translation>다운로드한 파일을 삭제하고 다시 다운로드하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="99"/>
         <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <location filename="../src/src/ui/messagebox.cpp" line="341"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>확인</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Delete Task</source>
-        <translation>Supprimer la tâche</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="139"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation>Voulez-vous vraiment supprimer définitivement cette tâche de téléchargement ?</translation>
+        <translation>이 다운로드 작업을 영구적으로 삭제하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="142"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation>Les fichiers locaux seront supprimés en même temps.</translation>
+        <translation>로컬 파일도 동시에 삭제됩니다.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation>Voulez-vous vraiment supprimer cette tâche de téléchargement ?</translation>
+        <translation>이 다운로드 작업을 삭제하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="149"/>
         <location filename="../src/src/ui/messagebox.cpp" line="151"/>
         <location filename="../src/src/ui/messagebox.cpp" line="173"/>
         <source>Delete local files</source>
-        <translation>Supprimer les fichiers locaux</translation>
+        <translation>로컬 파일 삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Permanently Delete</source>
-        <translation>Effacé définitivement</translation>
+        <translation>영구 삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="162"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>Voulez-vous vraiment supprimer toutes les tâches de la corbeille ?</translation>
+        <translation>휴지통에 있는 모든 작업을 삭제하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="176"/>
         <source>Empty</source>
-        <translation>Vide</translation>
+        <translation>비어있음</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation>이름 바꾸기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="214"/>
         <source>Please choose your action</source>
-        <translation>Veuillez choisir votre action</translation>
+        <translation>동작을 선택해주세요</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Exit</source>
-        <translation>Sortir</translation>
+        <translation>종료</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Minimize to system tray</source>
-        <translation>Réduire dans la barre d&apos;état système</translation>
+        <translation>시스템 트레이로 최소화</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="218"/>
         <source>Do not ask again</source>
-        <translation>Ne plus me demander</translation>
+        <translation>다시 묻지 마세요</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="220"/>
         <source>Confirm</source>
-        <translation>Confirmer</translation>
+        <translation>확인</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
-        <translation>Le nom du fichier ne peut pas contenir de barre oblique inverse (\) ou de barre oblique (/)</translation>
+        <translation>파일 이름에는 백슬래시(\) 또는 슬래시(/)를 사용할 수 없습니다.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="339"/>
         <source>Please try another folder</source>
-        <translation>Veuillez essayer un autre dossier</translation>
+        <translation>다른 폴더를 시도하십시오</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="337"/>
         <source>Permission denied</source>
-        <translation>Permission refusée</translation>
+        <translation>권한이 거부되었습니다.</translation>
     </message>
 </context>
 <context>
@@ -819,17 +819,17 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="43"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>M&apos;avertir lorsque le téléchargement est terminé ou échoué</translation>
+        <translation>다운로드 완료 또는 실패 시 알림</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="51"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
-        <translation>Modifiez les paramètres dans &quot;Centre de contrôle - Notification - Téléchargeur&quot;</translation>
+        <translation>&quot;제어 센터 - 알림 - 다운로더&quot;에서 설정 변경</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="58"/>
         <source>Settings</source>
-        <translation>Réglages</translation>
+        <translation>설정</translation>
     </message>
 </context>
 <context>
@@ -837,48 +837,48 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/include/ui/global.h" line="36"/>
         <source>Downloading</source>
-        <translation>Téléchargement</translation>
+        <translation>다운로드 중</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="37"/>
         <source>Waiting</source>
-        <translation>En attente</translation>
+        <translation>대기 중</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="38"/>
         <source>Paused</source>
-        <translation>En pause</translation>
+        <translation>정지</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="39"/>
         <source>Error</source>
-        <translation>Erreur</translation>
+        <translation>에러</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="40"/>
         <source>Completed</source>
-        <translation>Terminé</translation>
+        <translation>완성됨</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="41"/>
         <source>Removed</source>
-        <translation>Supprimé</translation>
+        <translation>삭제됨</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="42"/>
         <location filename="../src/include/ui/global.h" line="59"/>
         <source>Unknown</source>
-        <translation>Inconnue</translation>
+        <translation>알 수 없는</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="65"/>
         <source>Downloader</source>
-        <translation>Téléchargeur</translation>
+        <translation>다운로드 도구</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="66"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation>Téléchargeur est un outil de téléchargement convivial, prenant en charge les URL et les fichiers torrent</translation>
+        <translation>다운로더는 URL 및 토렌트 파일을 지원하는 사용자 친화적인 다운로드 도구입니다.</translation>
     </message>
 </context>
 <context>
@@ -886,17 +886,17 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="57"/>
         <source>Completed</source>
-        <translation>Terminé</translation>
+        <translation>완성됨</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="61"/>
         <source>Trash</source>
-        <translation>Corbeille</translation>
+        <translation>쓰레기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="65"/>
         <source>Downloading</source>
-        <translation>Téléchargement</translation>
+        <translation>다운로드 중</translation>
     </message>
 </context>
 <context>
@@ -904,234 +904,234 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="345"/>
         <source>Basic</source>
-        <translation>Basique</translation>
+        <translation>기초</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="347"/>
         <source>Auto startup</source>
-        <translation>Démarrage automatique</translation>
+        <translation>자동 시작</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="348"/>
         <source>Resume downloading on startup</source>
-        <translation>Reprendre le téléchargement au démarrage</translation>
+        <translation>시작 시 다운로드 재개</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="349"/>
         <source>Download Directory</source>
-        <translation>Télécharger le répertoire</translation>
+        <translation>디렉토리 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="350"/>
         <source>1-Click Download</source>
-        <translation>Téléchargement en 1 clic</translation>
+        <translation>1-클릭 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
         <source>Create tasks directly</source>
-        <translation>Créer des tâches directement</translation>
+        <translation>직접 작업 생성</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
         <source>Startup</source>
-        <translation>Démarrer</translation>
+        <translation>시작</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="352"/>
         <source>Close Main Window</source>
-        <translation>Fermer la fenêtre principale</translation>
+        <translation>메인 창 닫기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="353"/>
         <source>Minimize to system tray</source>
-        <translation>Réduire dans la barre d&apos;état système</translation>
+        <translation>시스템 트레이로 최소화</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="354"/>
         <source>Ask me always</source>
-        <translation>Toujours me demander</translation>
+        <translation>항상 묻기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="355"/>
         <source>Exit</source>
-        <translation>Sortir</translation>
+        <translation>종료</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="356"/>
         <source>Tasks</source>
-        <translation>Tâches</translation>
+        <translation>작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
         <source>Max. concurrent downloads</source>
-        <translation>Max. de téléchargements simultanés</translation>
+        <translation>최대 동시 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="358"/>
         <source>Open files when completed</source>
-        <translation>Ouvrir les fichiers une fois terminé</translation>
+        <translation>완료되면 파일 열기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
         <source>Delete tasks without files</source>
-        <translation>Supprimer les tâches sans fichiers</translation>
+        <translation>파일이 없는 작업 삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
         <source>Downloads</source>
-        <translation>Téléchargements</translation>
+        <translation>다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="361"/>
         <source>Monitoring</source>
-        <translation>Surveillance</translation>
+        <translation>모니터링</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="362"/>
         <source>Applications</source>
-        <translation>Applications</translation>
+        <translation>어플리케이션</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="363"/>
         <source>Clipboard</source>
-        <translation>Presse-papiers</translation>
+        <translation>클립보드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="364"/>
         <source>Browser</source>
-        <translation>Navigateur</translation>
+        <translation>브라우저</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="365"/>
         <source>Links Monitored</source>
-        <translation>Liens surveillés</translation>
+        <translation>모니터링되는 링크</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="366"/>
         <source>BT Files</source>
-        <translation>Fichiers BT</translation>
+        <translation>BT 파일</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>Créer une nouvelle tâche lorsqu&apos;un fichier torrent est téléchargé</translation>
+        <translation>토렌트 파일 다운로드 시 새 작업 생성</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
         <source>Create new task when opening a torrent file</source>
-        <translation>Créer une nouvelle tâche lors de l&apos;ouverture d&apos;un fichier torrent</translation>
+        <translation>토렌트 파일을 열 때 새 작업 만들기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
         <source>MetaLink Files</source>
-        <translation>Fichiers MetaLink</translation>
+        <translation>MetaLink 파일</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
         <source>Create new task when a metalink file downloaded</source>
-        <translation>Créer une nouvelle tâche lors du téléchargement d&apos;un fichier metalink</translation>
+        <translation>Metalink 파일 다운로드 시 새 작업 생성</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>Create new task when opening a metalink file</source>
-        <translation>Créer une nouvelle tâche lors de l&apos;ouverture d&apos;un fichier metalink</translation>
+        <translation>Metalink 파일을 열 때 새 작업 생성</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
         <source>Notifications</source>
-        <translation>Notifications</translation>
+        <translation>알림</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>M&apos;avertir lorsque le téléchargement est terminé ou échoué</translation>
+        <translation>다운로드 완료 또는 실패 시 알림</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
         <source>Play a sound when downloading finished</source>
-        <translation>Jouer un son une fois le téléchargement terminé</translation>
+        <translation>다운로드 완료 시 소리 재생</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
         <source>Move slow downloads to the end</source>
-        <translation>Déplacer les téléchargements lents jusqu&apos;à la fin</translation>
+        <translation>느린 다운로드를 마지막으로 이동</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
         <source>Advanced</source>
-        <translation>Avancé</translation>
+        <translation>고급</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
         <source>Shortcuts</source>
-        <translation>Raccourcis</translation>
+        <translation>단축키</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
         <source>Show main window when creating new task</source>
-        <translation>Afficher la fenêtre principale lors de la création d&apos;une nouvelle tâche</translation>
+        <translation>새 작업을 만들 때 기본 창 표시</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
         <source>Cache</source>
-        <translation>Cache</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="463"/>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>BitTorrent</source>
-        <translation>BitTorrent</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="505"/>
         <source>MetaLink</source>
-        <translation>MetaLink</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="526"/>
         <source>Magnet URI scheme</source>
-        <translation>Schéma d&apos;URI du magnet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>When total speed less than</source>
-        <translation>Lorsque la vitesse totale est inférieure à</translation>
+        <translation>총 속도가 다음보다 작을 때</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>Ko/s, augmenter les tâches simultanées</translation>
+        <translation>KB/s, 동시 작업 증가</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="671"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation>La vitesse totale doit être inférieure à la vitesse max. vitesse de téléchargement</translation>
+        <translation>총 속도는 최대보다 작아야 합니다. 다운로드 속도</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>Download files less than</source>
-        <translation>Télécharger des fichiers de moins de</translation>
+        <translation>이하의 파일 다운로드</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>MB first</source>
-        <translation>Mo en premier</translation>
+        <translation>MB 먼저</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation>Limite max. nombre de ressources de téléchargements simultanées</translation>
+        <translation>최대 제한 동시 다운로드 리소스 수</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="799"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>Un cache disque plus grand entraînera une vitesse de téléchargement plus rapide
-et une plus grande consommation de ressources.</translation>
+        <translation>디스크 캐시가 클수록 다운로드 속도가 빨라집니다 
+그리고 더 많은 자원 소비.</translation>
     </message>
 </context>
 <context>
@@ -1139,37 +1139,37 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="416"/>
         <source> &gt; 1 day</source>
-        <translation> &gt; 1 jour</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download failed</source>
-        <translation>Échec du téléchargement</translation>
+        <translation>다운로드 실패</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download failed. Network error.</source>
-        <translation>Le téléchargement de %1 a échoué. Erreur réseau.</translation>
+        <translation>%1 다운로드에 실패했습니다. 네트워크 오류.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>취소</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>View</source>
-        <translation>Vue</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="657"/>
         <source>Download completed</source>
-        <translation>Téléchargement terminé</translation>
+        <translation>다운로드 완료</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="658"/>
         <source>%1 download finished</source>
-        <translation>%1 téléchargement terminé</translation>
+        <translation>%1 다운로드 완료</translation>
     </message>
 </context>
 <context>
@@ -1177,30 +1177,30 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation>이름</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="428"/>
         <source>Size</source>
-        <translation>Taille</translation>
+        <translation>크기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="432"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="441"/>
         <source>Status</source>
-        <translation>Statut</translation>
+        <translation>상태</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="443"/>
         <source>Time finished</source>
-        <translation>Heure de fin</translation>
+        <translation>시간 종료</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="436"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="445"/>
         <source>Time deleted</source>
-        <translation>Heure de suppression</translation>
+        <translation>삭제된 시간</translation>
     </message>
 </context>
 <context>
@@ -1208,7 +1208,7 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
         <source>Duplicate name</source>
-        <translation>Nom en double</translation>
+        <translation>중복된 이름</translation>
     </message>
 </context>
 <context>
@@ -1216,19 +1216,19 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="72"/>
         <source>New task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>새 작업</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="153"/>
         <source>Pause</source>
-        <translation>Pause</translation>
+        <translation>정지</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="86"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="152"/>
         <source>Resume</source>
-        <translation>Reprendre</translation>
+        <translation>재개</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="93"/>
@@ -1236,27 +1236,27 @@ et une plus grande consommation de ressources.</translation>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="146"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="154"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>삭제</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="136"/>
         <source>Empty</source>
-        <translation>Vide</translation>
+        <translation>비어있음</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="137"/>
         <source>Restore</source>
-        <translation>Restaurer</translation>
+        <translation>복원</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="144"/>
         <source>Open folder</source>
-        <translation>Dossier ouvert</translation>
+        <translation>폴더 열기</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="145"/>
         <source>Open</source>
-        <translation>Ouvert</translation>
+        <translation>열기</translation>
     </message>
 </context>
 </TS>
