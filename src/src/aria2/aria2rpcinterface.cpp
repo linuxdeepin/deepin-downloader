@@ -108,15 +108,10 @@ bool Aria2RPCInterface::startUp()
     *设置aria2c  session 路径  时间  input 路径
     */
     QString sessionCacheFile = QDir::homePath() + "/.cache/uos-aria2c.session"; //session 文件路径
-    QString inputFile = QDir::homePath() + "/.cache/uos-aria2c.input"; //.input文件路径
-    QString dhtFile = QDir::homePath() + "/.config/uos/downloader/dht.dat"; //
-    QString dht6File = QDir::homePath() + "/.config/uos/downloader/dht6.dat"; //
     QString saveSessionInterval = "30"; //秒
 
     qDebug() << "创建session缓存文件: " << sessionCacheFile;
     QProcess::execute("touch", QStringList() << sessionCacheFile); //创建session缓存文件
-    //QProcess::execute("touch", QStringList() << dhtFile); //创建dht文件
-    //QProcess::execute("touch", QStringList() << dht6File); //创建dht6文件
 
     QString opt;
     opt += " --enable-rpc=true"; //启动RPC
@@ -147,8 +142,6 @@ bool Aria2RPCInterface::startUp()
     opt += " --save-session-interval=" + saveSessionInterval;
     opt += " --enable-dht=true"; //启动dht文件
     opt += " --enable-dht6=false"; //禁用dht6文件
-    opt += " --dht-file-path=" + dhtFile;
-    opt += " --dht-file-path6=" + dht6File;
     opt += " --follow-metalink=false";
     if(QSysInfo::currentCpuArchitecture() == "loongarch64"){
         opt += " --async-dns=false";
@@ -806,8 +799,8 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
 {
     QProcess *proc = new QProcess;
     QStringList opt;
-    opt << "df " + path;
-    proc->start("/bin/bash", opt);
+    opt << path;
+    proc->start("df", opt);
     proc->waitForFinished();
     QByteArray rt = proc->readAllStandardOutput();
     proc->close();
