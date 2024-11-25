@@ -440,24 +440,6 @@ void MainFrame::updateDHTFile()
     }
     QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht.dat");
     QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht6.dat");
-
-    QString dhtpah = QDir::homePath() + "/.config/uos/downloader/";
-    static QProcess p;
-#if QT_VERSION_MAJOR > 5
-    p.start("curl", {"--connect-timeout", "10", "-m", "20", "https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat", "-o", dhtpah, "dht6.dat -O"});
-#else
-    p.start("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -o" + dhtpah + "dht6.dat -O");
-#endif
-    p.setStandardOutputFile("/dev/null");
-
-    static QProcess p2;
-#if QT_VERSION_MAJOR > 5
-    p2.start("curl", {"--connect-timeout", "10", "-m", "20", "https://github.com/P3TERX/aria2.conf/raw/master/dht.dat", "-o", dhtpah, "dht.dat -O"});
-#else
-    p2.start("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -o" + dhtpah + "dht.dat -O");
-#endif
-    p2.setStandardOutputFile("/dev/null");
-    qDebug() << "[MainFrame] updateDHTFile function ended";
 }
 
 void MainFrame::initConnection()
