@@ -1,10 +1,10 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" sourcelanguage="en_US" language="fr">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" sourcelanguage="en_US" language="es">
 <context>
     <name>BtInfoDialog</name>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="109"/>
         <source>New Task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>Nueva tarea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
@@ -21,72 +21,72 @@
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="482"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="532"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 fichiers sélectionnés, %2</translation>
+        <translation>%1 archivos seleccionados, %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="161"/>
         <source>All</source>
-        <translation>Tout</translation>
+        <translation>Todo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="168"/>
         <source>Videos</source>
-        <translation>Vidéos</translation>
+        <translation>Vídeos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="175"/>
         <source>Pictures</source>
-        <translation>Photos</translation>
+        <translation>Imágenes</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
         <source>Music</source>
-        <translation>Musique</translation>
+        <translation>Música</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
         <source>Others</source>
-        <translation>Autres</translation>
+        <translation>Otros</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="204"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="558"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="678"/>
         <source>Available:</source>
-        <translation>Disponible :</translation>
+        <translation>Disponible:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="219"/>
         <source>Change download folder</source>
-        <translation>Changer le dossier de téléchargement</translation>
+        <translation>Cambiar la carpeta de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="227"/>
         <source>Download Now</source>
-        <translation>Télécharger maintenant</translation>
+        <translation>Descargar ahora</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="253"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="627"/>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="255"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="629"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="256"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="630"/>
         <source>Size</source>
-        <translation>Taille</translation>
+        <translation>Tamaño</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>Espace disque insuffisant, veuillez modifier le dossier de téléchargement</translation>
+        <translation>Espacio de disco insuficiente, por favor cambie la carpeta de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
@@ -99,32 +99,32 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="88"/>
         <source>New Task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>Nueva tarea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
         <source>Please enter one URL per line</source>
-        <translation>Veuillez saisir une URL par ligne</translation>
+        <translation>Por favor, introduzca una URL por línea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="101"/>
         <source>Enter download links or drag a torrent file here</source>
-        <translation>Entrez les liens de téléchargement ou faites glisser un fichier torrent ici</translation>
+        <translation>Introduzca los enlaces de descarga o arrastre un archivo torrent aquí</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="139"/>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="142"/>
         <source>Size</source>
-        <translation>Taille</translation>
+        <translation>Tamaño</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="168"/>
@@ -143,80 +143,80 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="847"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="995"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 fichiers sélectionnés, %2</translation>
+        <translation>%1 archivos seleccionados, %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="187"/>
         <source>All</source>
-        <translation>Tout</translation>
+        <translation>Todo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
         <source>Videos</source>
-        <translation>Vidéos</translation>
+        <translation>Vídeos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="197"/>
         <source>Pictures</source>
-        <translation>Photos</translation>
+        <translation>Imágenes</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
         <source>Music</source>
-        <translation>Musique</translation>
+        <translation>Música</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
         <source>Others</source>
-        <translation>Autres</translation>
+        <translation>Otros</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="212"/>
         <source>Documents</source>
-        <translation>Documents</translation>
+        <translation>Documentos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
         <source>Archives</source>
-        <translation>Archives</translation>
+        <translation>Archivos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="594"/>
         <source>Available:</source>
-        <translation>Disponible :</translation>
+        <translation>Disponible:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="259"/>
         <source>Change download folder</source>
-        <translation>Changer le dossier de téléchargement</translation>
+        <translation>Cambiar la carpeta de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="283"/>
         <source>Select file</source>
-        <translation>Choisir le dossier</translation>
+        <translation>Seleccione el archivo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
         <source>Confirm</source>
-        <translation>Confirmer</translation>
+        <translation>Confirmar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="320"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="338"/>
         <source>Choose Torrent File</source>
-        <translation>Choisir un fichier torrent</translation>
+        <translation>Elija el archivo Torrent</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>Espace disque insuffisant, veuillez modifier le dossier de téléchargement</translation>
+        <translation>Espacio de disco insuficiente, por favor cambie la carpeta de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
         <source>Network error, check your network and try later</source>
-        <translation>Erreur réseau, vérifiez votre réseau et réessayez plus tard</translation>
+        <translation>Error de red, compruebe su red e inténtelo más tarde</translation>
     </message>
 </context>
 <context>
@@ -235,37 +235,37 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="203"/>
         <source>DHT status</source>
-        <translation>Statut DHT</translation>
+        <translation>Estado de DHT</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="205"/>
         <source>HTTP task</source>
-        <translation>Tâche HTTP</translation>
+        <translation>Tarea HTTP</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="207"/>
         <source>BT task</source>
-        <translation>Tâche BT</translation>
+        <translation>Tarea BT</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="209"/>
         <source>Magnet task</source>
-        <translation>Tâche magnétique</translation>
+        <translation>Tarea magnet</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="211"/>
         <source>Network detection</source>
-        <translation>Détection de réseau</translation>
+        <translation>Detección de la red</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Pass</source>
-        <translation>Passer</translation>
+        <translation>Pasar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Failed</source>
-        <translation>Échoué</translation>
+        <translation>Fallido</translation>
     </message>
 </context>
 <context>
@@ -273,12 +273,12 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="64"/>
         <source>Result:</source>
-        <translation>Résultat :</translation>
+        <translation>Resultado:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="67"/>
         <source>Diagnose Again</source>
-        <translation>Diagnostiquer à nouveau</translation>
+        <translation>Diagnosticar de nuevo</translation>
     </message>
 </context>
 <context>
@@ -286,57 +286,57 @@
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="51"/>
         <source>Full speed</source>
-        <translation>Pleine vitesse</translation>
+        <translation>Velocidad máxima</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
         <source>Limited speed</source>
-        <translation>Vitesse limitée</translation>
+        <translation>Velocidad limitada</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="98"/>
         <source>Max. download speed</source>
-        <translation>Vitesse max. de téléchargement</translation>
+        <translation>Velocidad limitada</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="99"/>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="105"/>
         <source>KB/s</source>
-        <translation>Ko/s</translation>
+        <translation>KB/s</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="104"/>
         <source>Max. upload speed</source>
-        <translation>Max. vitesse de téléchargement</translation>
+        <translation>Velocidad máxima de carga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="53"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
-        <translation>Les fichiers téléchargés seront téléchargés via P2P, 
-ce qui pourrait aider d&apos;autres utilisateurs à accélérer au téléchargement,
-et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
+        <translation>Los archivos descargados se subirán a través de P2P, 
+lo que podría ayudar a otros usuarios a acelerar la descarga, 
+y no implica la privacidad del usuario.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
         <source>Limit period</source>
-        <translation>Période limite</translation>
+        <translation>Periodo límite</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="111"/>
         <source>to</source>
-        <translation>à</translation>
+        <translation>a</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="233"/>
         <source>Limited between 100-102400</source>
-        <translation>Limité entre 100-102400</translation>
+        <translation>Limitado entre 100-102400</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="255"/>
         <source>Limited between 16-5120</source>
-        <translation>Limité entre 16-5120</translation>
+        <translation>Limitado entre 16-5120</translation>
     </message>
 </context>
 <context>
@@ -344,12 +344,12 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="50"/>
         <source>Last used directory</source>
-        <translation>Dernier répertoire utilisé</translation>
+        <translation>Última carpeta utilizada</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="52"/>
         <source>Default directory</source>
-        <translation>Répertoire par défaut</translation>
+        <translation>Carpeta por defecto</translation>
     </message>
 </context>
 <context>
@@ -357,43 +357,43 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="36"/>
         <source>Edit File Extensions</source>
-        <translation>Modifier les extensions de fichier</translation>
+        <translation>Editar las extensiones de los archivos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
         <source>Edit Unmonitored Sites</source>
-        <translation>Modifier les sites non surveillés</translation>
+        <translation>Editar sitios no supervisados</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="51"/>
         <source>Restore</source>
-        <translation>Restaurer</translation>
+        <translation>Restaurar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="58"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="63"/>
         <source>Confirm</source>
-        <translation>Confirmer</translation>
+        <translation>Confirmar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="87"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="91"/>
         <source>Separate file extensions by semicolons (;)</source>
-        <translation>Séparer les extensions de fichier par des points-virgules (;)</translation>
+        <translation>Separe las extensiones de los archivos con punto y coma (;)</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
         <source>P lease enter one URL per line</source>
-        <translation type="unfinished"/>
+        <translation>Introduzca solo una URL por linea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
         <source>Please enter one URL per line</source>
-        <translation>Veuillez saisir une URL par ligne</translation>
+        <translation>Por favor, introduzca una URL por línea</translation>
     </message>
 </context>
 <context>
@@ -401,27 +401,27 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="210"/>
         <source>Paused</source>
-        <translation>En pause</translation>
+        <translation>Pausa</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
         <source>Failed</source>
-        <translation>Échoué</translation>
+        <translation>Fallido</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
         <source>Wating</source>
-        <translation type="unfinished"/>
+        <translation>Esperando</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
         <source>Duplicate name</source>
-        <translation>Nom en double</translation>
+        <translation>Nombre duplicado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
         <source>Time left </source>
-        <translation>Temps restant</translation>
+        <translation>Tiempo restante</translation>
     </message>
 </context>
 <context>
@@ -429,7 +429,7 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="57"/>
         <source>Advanced</source>
-        <translation>Avancée</translation>
+        <translation>Avanzado</translation>
     </message>
 </context>
 <context>
@@ -437,207 +437,207 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
         <source>Settings</source>
-        <translation>Réglages</translation>
+        <translation>Ajustes</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
         <source>When completed</source>
-        <translation>Quand terminé</translation>
+        <translation>Una vez completado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
         <source>Shut down</source>
-        <translation>Fermer</translation>
+        <translation>Apagar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
         <source>Hibernate</source>
-        <translation>Hiberner</translation>
+        <translation>Hibernar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
         <source>Diagnostic tool</source>
-        <translation>Outil de diagnostic</translation>
+        <translation>Herramienta de diagnóstico</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="916"/>
         <source>No download tasks</source>
-        <translation>Aucune tâche de téléchargement</translation>
+        <translation>No hay tareas de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="220"/>
         <source>Click + to create new task</source>
-        <translation>Cliquez sur + pour créer une nouvelle tâche</translation>
+        <translation>Haga clic en + para crear una nueva tarea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading</source>
-        <translation>Téléchargement</translation>
+        <translation>Descargando</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="267"/>
         <source>Completed</source>
-        <translation>Terminé</translation>
+        <translation>Completado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="268"/>
         <source>Trash</source>
-        <translation>Corbeille</translation>
+        <translation>Papelera</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
         <source>Downloader</source>
-        <translation>Téléchargeur</translation>
+        <translation>Descargador</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
         <source>Show main window</source>
-        <translation>Afficher la fenêtre principale</translation>
+        <translation>Mostrar la ventana principal</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
         <source>New task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>Nueva tarea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="310"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
         <source>Exit</source>
-        <translation>Sortir</translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
         <source>No search results</source>
-        <translation>Aucun résultat trouvé</translation>
+        <translation>No hay resultados de búsqueda</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
         <source>0 tasks</source>
-        <translation>0 tâches</translation>
+        <translation>0 tareas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
         <source>Resume all</source>
-        <translation>Tout résumer</translation>
+        <translation>Reanudar todo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
         <source>Pause all</source>
-        <translation>Mettre tout en pause</translation>
+        <translation>Pausar todo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="561"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation>Êtes-vous sûr de vouloir quitter ? 
-Les tâches de téléchargement seront interrompues.</translation>
+        <translation>¿Está seguro de que quiere salir? 
+Las tareas de descarga se interrumpirán.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="713"/>
         <source> files</source>
-        <translation> dossiers</translation>
+        <translation>archivos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
         <source>No finished tasks</source>
-        <translation>Aucune tâche terminée</translation>
+        <translation>No hay tareas terminadas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="937"/>
         <source>No deleted tasks</source>
-        <translation>Aucune tâche supprimée</translation>
+        <translation>No hay tareas eliminadas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
         <source>Resume</source>
-        <translation>Reprendre</translation>
+        <translation>Reanudar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
         <source>Pause</source>
-        <translation>Pause</translation>
+        <translation>Pausa</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
         <source> tasks</source>
-        <translation> tâches</translation>
+        <translation>tareas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading %1...</source>
-        <translation>Téléchargement de %1...</translation>
+        <translation>Descargando %1...</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1341"/>
         <source>Download first</source>
-        <translation>Télécharger en premier</translation>
+        <translation>Descargar primero</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1347"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1362"/>
         <source>Download again</source>
-        <translation>Télécharger à nouveau</translation>
+        <translation>Descargar de nuevo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1356"/>
         <source>Restore</source>
-        <translation>Restaurer</translation>
+        <translation>Restaurar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1367"/>
         <source>Open</source>
-        <translation>Ouvert</translation>
+        <translation>Abrir</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1375"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1451"/>
         <source>Open folder</source>
-        <translation>Dossier ouvert</translation>
+        <translation>Abrir carpeta</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1395"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation>Renombrar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Move to</source>
-        <translation>Déplacer vers</translation>
+        <translation>Mover a</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1432"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1443"/>
         <source>Copy download link</source>
-        <translation>Copier le lien de téléchargement</translation>
+        <translation>Copiar el enlace de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1421"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>Borrar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1426"/>
         <source>Permanently delete</source>
-        <translation>Effacé définitivement</translation>
+        <translation>Eliminar permanentemente</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1458"/>
         <source>Delete all</source>
-        <translation>Tout supprimer</translation>
+        <translation>Borrar todo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1620"/>
@@ -648,27 +648,27 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>Le nombre de tâches max. simultanées est atteint. D&apos;autres tâches seront en attente.</translation>
+        <translation>El número de tareas concurrentes máximo alcanzado. Otras tareas estarán en cola.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
         <source>Torrent file not exist or broken</source>
-        <translation>Le fichier torrent n&apos;existe pas ou est cassé</translation>
+        <translation>El archivo Torrent no existe o está roto</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>Unable to parse the URL, please check</source>
-        <translation>Impossible d&apos;analyser l&apos;URL, veuillez vérifier</translation>
+        <translation>No se ha podido analizar la URL, por favor, compruebelo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2357"/>
         <source>Copied to clipboard</source>
-        <translation>Copié dans le presse-papier</translation>
+        <translation>Copiado en el portapapeles</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2682"/>
         <source>View</source>
-        <translation>Vue</translation>
+        <translation>Ver</translation>
     </message>
 </context>
 <context>
@@ -677,17 +677,17 @@ Les tâches de téléchargement seront interrompues.</translation>
         <location filename="../src/src/ui/messagebox.cpp" line="42"/>
         <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Warning</source>
-        <translation>Attention</translation>
+        <translation>Advertencia</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="81"/>
         <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>Voulez-vous supprimer les fichiers téléchargés et les télécharger à nouveau ?</translation>
+        <translation>¿Quieres borrar los archivos descargados y volver a descargarlos?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>The task already exists.</source>
-        <translation>La tâche existe déjà.</translation>
+        <translation>La tarea ya existe.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="102"/>
@@ -695,24 +695,24 @@ Les tâches de téléchargement seront interrompues.</translation>
         <location filename="../src/src/ui/messagebox.cpp" line="174"/>
         <location filename="../src/src/ui/messagebox.cpp" line="219"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="115"/>
         <source>Download error</source>
-        <translation>Erreur de téléchargement</translation>
+        <translation>Error de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="80"/>
         <location filename="../src/src/ui/messagebox.cpp" line="104"/>
         <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Download Again</source>
-        <translation>Télécharger à nouveau</translation>
+        <translation>Descargar de nuevo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="86"/>
         <source>Delete the downloaded files and download again?</source>
-        <translation>Supprimer les fichiers téléchargés et télécharger à nouveau ?</translation>
+        <translation>¿Borrar los archivos descargados y volver a descargarlos?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="99"/>
@@ -724,94 +724,94 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Delete Task</source>
-        <translation>Supprimer la tâche</translation>
+        <translation>Eliminar tarea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="139"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation>Voulez-vous vraiment supprimer définitivement cette tâche de téléchargement ?</translation>
+        <translation>¿Está seguro de que quiere eliminar esta tarea de descarga de forma permanente?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="142"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation>Les fichiers locaux seront supprimés en même temps.</translation>
+        <translation>Los archivos locales se eliminarán al mismo tiempo.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation>Voulez-vous vraiment supprimer cette tâche de téléchargement ?</translation>
+        <translation>¿Está seguro de que quiere eliminar esta tarea de descarga?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="149"/>
         <location filename="../src/src/ui/messagebox.cpp" line="151"/>
         <location filename="../src/src/ui/messagebox.cpp" line="173"/>
         <source>Delete local files</source>
-        <translation>Supprimer les fichiers locaux</translation>
+        <translation>Borrar archivos locales</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Permanently Delete</source>
-        <translation>Effacé définitivement</translation>
+        <translation>Borrar permanentemente</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="162"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>Borrar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>Voulez-vous vraiment supprimer toutes les tâches de la corbeille ?</translation>
+        <translation>¿Estás seguro de que quieres eliminar todas las tareas de la Papelera?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="176"/>
         <source>Empty</source>
-        <translation>Vide</translation>
+        <translation>Vacío</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation>Renombrar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="214"/>
         <source>Please choose your action</source>
-        <translation>Veuillez choisir votre action</translation>
+        <translation>Por favor, elija su acción</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Exit</source>
-        <translation>Sortir</translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Minimize to system tray</source>
-        <translation>Réduire dans la barre d&apos;état système</translation>
+        <translation>Minimizar a la bandeja del sistema</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="218"/>
         <source>Do not ask again</source>
-        <translation>Ne plus me demander</translation>
+        <translation>No preguntar de nuevo</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="220"/>
         <source>Confirm</source>
-        <translation>Confirmer</translation>
+        <translation>Confirmar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
-        <translation>Le nom du fichier ne peut pas contenir de barre oblique inverse (\) ou de barre oblique (/)</translation>
+        <translation>El nombre del archivo no puede contener una barra invertida (\) o una barra (/)</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="339"/>
         <source>Please try another folder</source>
-        <translation>Veuillez essayer un autre dossier</translation>
+        <translation>Por favor, pruebe con otra carpeta</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="337"/>
         <source>Permission denied</source>
-        <translation>Permission refusée</translation>
+        <translation>Permiso denegado</translation>
     </message>
 </context>
 <context>
@@ -819,17 +819,17 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="43"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>M&apos;avertir lorsque le téléchargement est terminé ou échoué</translation>
+        <translation>Notificarme cuando la descarga haya finalizado o haya fallado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="51"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
-        <translation>Modifiez les paramètres dans &quot;Centre de contrôle - Notification - Téléchargeur&quot;</translation>
+        <translation>Cambiar la configuración en &quot;Centro de control - Notificación - Descargador&quot;</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="58"/>
         <source>Settings</source>
-        <translation>Réglages</translation>
+        <translation>Ajustes</translation>
     </message>
 </context>
 <context>
@@ -837,48 +837,48 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/include/ui/global.h" line="36"/>
         <source>Downloading</source>
-        <translation>Téléchargement</translation>
+        <translation>Descargando</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="37"/>
         <source>Waiting</source>
-        <translation>En attente</translation>
+        <translation>Esperando</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="38"/>
         <source>Paused</source>
-        <translation>En pause</translation>
+        <translation>Pausa</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="39"/>
         <source>Error</source>
-        <translation>Erreur</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="40"/>
         <source>Completed</source>
-        <translation>Terminé</translation>
+        <translation>Completado</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="41"/>
         <source>Removed</source>
-        <translation>Supprimé</translation>
+        <translation>Eliminado</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="42"/>
         <location filename="../src/include/ui/global.h" line="59"/>
         <source>Unknown</source>
-        <translation>Inconnue</translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="65"/>
         <source>Downloader</source>
-        <translation>Téléchargeur</translation>
+        <translation>Descargador</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="66"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation>Téléchargeur est un outil de téléchargement convivial, prenant en charge les URL et les fichiers torrent</translation>
+        <translation>Downloader es una herramienta de descarga fácil de usar, que soporta URLs y archivos torrent</translation>
     </message>
 </context>
 <context>
@@ -886,17 +886,17 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="57"/>
         <source>Completed</source>
-        <translation>Terminé</translation>
+        <translation>Completado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="61"/>
         <source>Trash</source>
-        <translation>Corbeille</translation>
+        <translation>Basura</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="65"/>
         <source>Downloading</source>
-        <translation>Téléchargement</translation>
+        <translation>Descargando</translation>
     </message>
 </context>
 <context>
@@ -904,172 +904,172 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="345"/>
         <source>Basic</source>
-        <translation>Basique</translation>
+        <translation>Básico</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="347"/>
         <source>Auto startup</source>
-        <translation>Démarrage automatique</translation>
+        <translation>Inicio automático</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="348"/>
         <source>Resume downloading on startup</source>
-        <translation>Reprendre le téléchargement au démarrage</translation>
+        <translation>Reanudar la descarga al inicio</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="349"/>
         <source>Download Directory</source>
-        <translation>Télécharger le répertoire</translation>
+        <translation>Carpeta de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="350"/>
         <source>1-Click Download</source>
-        <translation>Téléchargement en 1 clic</translation>
+        <translation>1-Haga clic en Descargar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
         <source>Create tasks directly</source>
-        <translation>Créer des tâches directement</translation>
+        <translation>Crear tareas directamente</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
         <source>Startup</source>
-        <translation>Démarrer</translation>
+        <translation>Inicio</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="352"/>
         <source>Close Main Window</source>
-        <translation>Fermer la fenêtre principale</translation>
+        <translation>Cerrar la ventana principal</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="353"/>
         <source>Minimize to system tray</source>
-        <translation>Réduire dans la barre d&apos;état système</translation>
+        <translation>Minimizar a la bandeja del sistema</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="354"/>
         <source>Ask me always</source>
-        <translation>Toujours me demander</translation>
+        <translation>Pregúntame siempre</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="355"/>
         <source>Exit</source>
-        <translation>Sortir</translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="356"/>
         <source>Tasks</source>
-        <translation>Tâches</translation>
+        <translation>Tareas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
         <source>Max. concurrent downloads</source>
-        <translation>Max. de téléchargements simultanés</translation>
+        <translation>Número máximo de descargas simultáneas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="358"/>
         <source>Open files when completed</source>
-        <translation>Ouvrir les fichiers une fois terminé</translation>
+        <translation>Abrir los archivos una vez completados</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
         <source>Delete tasks without files</source>
-        <translation>Supprimer les tâches sans fichiers</translation>
+        <translation>Eliminar tareas sin archivos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
         <source>Downloads</source>
-        <translation>Téléchargements</translation>
+        <translation>Descargas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="361"/>
         <source>Monitoring</source>
-        <translation>Surveillance</translation>
+        <translation>Supervisión</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="362"/>
         <source>Applications</source>
-        <translation>Applications</translation>
+        <translation>Aplicaciones</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="363"/>
         <source>Clipboard</source>
-        <translation>Presse-papiers</translation>
+        <translation>Portapapeles</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="364"/>
         <source>Browser</source>
-        <translation>Navigateur</translation>
+        <translation>Navegador</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="365"/>
         <source>Links Monitored</source>
-        <translation>Liens surveillés</translation>
+        <translation>Enlaces monitoreados</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="366"/>
         <source>BT Files</source>
-        <translation>Fichiers BT</translation>
+        <translation>Archivos BT</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>Créer une nouvelle tâche lorsqu&apos;un fichier torrent est téléchargé</translation>
+        <translation>Crear una nueva tarea cuando se descarga un archivo torrent</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
         <source>Create new task when opening a torrent file</source>
-        <translation>Créer une nouvelle tâche lors de l&apos;ouverture d&apos;un fichier torrent</translation>
+        <translation>Crear una nueva tarea al abrir un archivo torrent</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
         <source>MetaLink Files</source>
-        <translation>Fichiers MetaLink</translation>
+        <translation>Archivos MetaLink</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
         <source>Create new task when a metalink file downloaded</source>
-        <translation>Créer une nouvelle tâche lors du téléchargement d&apos;un fichier metalink</translation>
+        <translation>Crear una nueva tarea cuando se descarga un archivo metalink</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>Create new task when opening a metalink file</source>
-        <translation>Créer une nouvelle tâche lors de l&apos;ouverture d&apos;un fichier metalink</translation>
+        <translation>Crear una nueva tarea al abrir un archivo metalink</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
         <source>Notifications</source>
-        <translation>Notifications</translation>
+        <translation>Notificaciones</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>M&apos;avertir lorsque le téléchargement est terminé ou échoué</translation>
+        <translation>Notificarme cuando la descarga haya finalizado o haya fallado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
         <source>Play a sound when downloading finished</source>
-        <translation>Jouer un son une fois le téléchargement terminé</translation>
+        <translation>Reproducir un sonido al finalizar la descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
         <source>Move slow downloads to the end</source>
-        <translation>Déplacer les téléchargements lents jusqu&apos;à la fin</translation>
+        <translation>Mover las descargas lentas al final</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
         <source>Advanced</source>
-        <translation>Avancé</translation>
+        <translation>Avanzado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
         <source>Shortcuts</source>
-        <translation>Raccourcis</translation>
+        <translation>Atajos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
         <source>Show main window when creating new task</source>
-        <translation>Afficher la fenêtre principale lors de la création d&apos;une nouvelle tâche</translation>
+        <translation>Mostrar la ventana principal al crear una nueva tarea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
@@ -1094,44 +1094,44 @@ Les tâches de téléchargement seront interrompues.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="526"/>
         <source>Magnet URI scheme</source>
-        <translation>Schéma d&apos;URI du magnet</translation>
+        <translation>Esquema de URI Magnet</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>When total speed less than</source>
-        <translation>Lorsque la vitesse totale est inférieure à</translation>
+        <translation>Cuando la velocidad total es menor que</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>Ko/s, augmenter les tâches simultanées</translation>
+        <translation>KB/s, aumente las tareas simultáneas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="671"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation>La vitesse totale doit être inférieure à la vitesse max. vitesse de téléchargement</translation>
+        <translation>La velocidad total debe ser inferior a la velocidad máxima de descarga</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>Download files less than</source>
-        <translation>Télécharger des fichiers de moins de</translation>
+        <translation>Descargar archivos de menos de</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>MB first</source>
-        <translation>Mo en premier</translation>
+        <translation>MB primero</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation>Limite max. nombre de ressources de téléchargements simultanées</translation>
+        <translation>Limitar el número máximo de recursos de descarga simultáneos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="799"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>Un cache disque plus grand entraînera une vitesse de téléchargement plus rapide
-et une plus grande consommation de ressources.</translation>
+        <translation>Un caché de disco más grande dará lugar a una mayor velocidad de descarga 
+y un mayor consumo de recursos.</translation>
     </message>
 </context>
 <context>
@@ -1139,37 +1139,37 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="416"/>
         <source> &gt; 1 day</source>
-        <translation> &gt; 1 jour</translation>
+        <translation> &gt; 1 día</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download failed</source>
-        <translation>Échec du téléchargement</translation>
+        <translation>Descarga fallida</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download failed. Network error.</source>
-        <translation>Le téléchargement de %1 a échoué. Erreur réseau.</translation>
+        <translation>%1 descarga falló. Error de red.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>View</source>
-        <translation>Vue</translation>
+        <translation>Ver</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="657"/>
         <source>Download completed</source>
-        <translation>Téléchargement terminé</translation>
+        <translation>Descarga completa</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="658"/>
         <source>%1 download finished</source>
-        <translation>%1 téléchargement terminé</translation>
+        <translation>%1 descarga terminada</translation>
     </message>
 </context>
 <context>
@@ -1177,30 +1177,30 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="428"/>
         <source>Size</source>
-        <translation>Taille</translation>
+        <translation>Tamaño</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="432"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="441"/>
         <source>Status</source>
-        <translation>Statut</translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="443"/>
         <source>Time finished</source>
-        <translation>Heure de fin</translation>
+        <translation>Tiempo terminado</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="436"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="445"/>
         <source>Time deleted</source>
-        <translation>Heure de suppression</translation>
+        <translation>Tiempo eliminado</translation>
     </message>
 </context>
 <context>
@@ -1208,7 +1208,7 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
         <source>Duplicate name</source>
-        <translation>Nom en double</translation>
+        <translation>Nombre duplicado</translation>
     </message>
 </context>
 <context>
@@ -1216,19 +1216,19 @@ et une plus grande consommation de ressources.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="72"/>
         <source>New task</source>
-        <translation>Nouvelle tâche</translation>
+        <translation>Nueva tarea</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="153"/>
         <source>Pause</source>
-        <translation>Pause</translation>
+        <translation>Pausa</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="86"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="152"/>
         <source>Resume</source>
-        <translation>Reprendre</translation>
+        <translation>Reanudar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="93"/>
@@ -1236,27 +1236,27 @@ et une plus grande consommation de ressources.</translation>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="146"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="154"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>Borrar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="136"/>
         <source>Empty</source>
-        <translation>Vide</translation>
+        <translation>Vacío</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="137"/>
         <source>Restore</source>
-        <translation>Restaurer</translation>
+        <translation>Restaurar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="144"/>
         <source>Open folder</source>
-        <translation>Dossier ouvert</translation>
+        <translation>Abrir carpeta</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="145"/>
         <source>Open</source>
-        <translation>Ouvert</translation>
+        <translation>Abrir</translation>
     </message>
 </context>
 </TS>
