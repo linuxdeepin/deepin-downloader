@@ -153,7 +153,7 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
         <source>Videos</source>
-        <translation>المقاطع</translation>
+        <translation>الفيديوهات</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="197"/>
@@ -163,7 +163,7 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
         <source>Music</source>
-        <translation>الصوتيات</translation>
+        <translation>الموسيقى</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
@@ -173,18 +173,18 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="212"/>
         <source>Documents</source>
-        <translation>المستندات</translation>
+        <translation>الوثائق</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
         <source>Archives</source>
-        <translation>المحفوظات</translation>
+        <translation>المجلدات</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="594"/>
         <source>Available:</source>
-        <translation>المتاح:</translation>
+        <translation>متاح:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="259"/>
@@ -195,7 +195,7 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="283"/>
         <source>Select file</source>
-        <translation>اختيار الملف</translation>
+        <translation>حدد الملف</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
@@ -211,12 +211,12 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="320"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="338"/>
         <source>Choose Torrent File</source>
-        <translation>اختر ملف تورنت</translation>
+        <translation>اختر ملف التورنت</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>مساحة القرص غير كافية ، الرجاء تغيير مجلد التنزيل</translation>
+        <translation>مساحة القرص غير كافية، يرجى تغيير مجلد التنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
         <source>Network error, check your network and try later</source>
-        <translation>خطأ في الشبكة ، تحقق من الشبكة وحاول لاحقاً</translation>
+        <translation>خطأ في الشبكة، يرجى التحقق من شبكتك وحاول مرة أخرى لاحقًا</translation>
     </message>
 </context>
 <context>
@@ -235,32 +235,32 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="203"/>
         <source>DHT status</source>
-        <translation type="unfinished"/>
+        <translation>وضع DHT</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="205"/>
         <source>HTTP task</source>
-        <translation>مهمة بروتوكول نقل النص الفائق</translation>
+        <translation>مهام HTTP</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="207"/>
         <source>BT task</source>
-        <translation type="unfinished"/>
+        <translation>مهام BT</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="209"/>
         <source>Magnet task</source>
-        <translation type="unfinished"/>
+        <translation>مهام المغناطيس</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="211"/>
         <source>Network detection</source>
-        <translation>التحقق من الشبكة</translation>
+        <translation>كشف الشبكة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Pass</source>
-        <translation>تم بنجاح</translation>
+        <translation>نجح</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
@@ -278,7 +278,7 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="67"/>
         <source>Diagnose Again</source>
-        <translation>التشخيص مرة أخرى</translation>
+        <translation>إجراء التشخيص مرة أخرى</translation>
     </message>
 </context>
 <context>
@@ -286,7 +286,7 @@
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="51"/>
         <source>Full speed</source>
-        <translation>السرعة الكاملة</translation>
+        <translation>بسرعة قصوى</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
@@ -435,7 +435,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
         <source>Settings</source>
-        <translation>اعدادات</translation>
+        <translation>الإعدادات</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
@@ -447,12 +447,12 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
         <source>Shut down</source>
-        <translation>إيقاف التشغيل</translation>
+        <translation>إغلاق</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
         <source>Hibernate</source>
-        <translation>السبات</translation>
+        <translation>التخميد</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
@@ -463,39 +463,39 @@ and it does not involve user privacy.</source>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="916"/>
         <source>No download tasks</source>
-        <translation>لا توجد مهام تنزيل</translation>
+        <translation>لا مهام للتنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="220"/>
         <source>Click + to create new task</source>
-        <translation type="unfinished"/>
+        <translation>انقر + لإنشاء مهمة جديدة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading</source>
-        <translation>جاري التنزيل</translation>
+        <translation>التنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="267"/>
         <source>Completed</source>
-        <translation>تم الإكتمال</translation>
+        <translation>تم</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="268"/>
         <source>Trash</source>
-        <translation>سلة المحذوفات</translation>
+        <translation>القمامة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
         <source>Downloader</source>
-        <translation type="unfinished"/>
+        <translation>موجه التنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
         <source>Show main window</source>
-        <translation>اظهار النافذة الرئيسية</translation>
+        <translation>عرض النافذة الرئيسية</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
@@ -512,12 +512,12 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
         <source>No search results</source>
-        <translation type="unfinished"/>
+        <translation>لا نتائج بحث</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
         <source>0 tasks</source>
-        <translation>لا تةجد مهام</translation>
+        <translation>0 مهام</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
@@ -527,30 +527,29 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
         <source>Pause all</source>
-        <translation>إيقاف الكل مؤقتا</translation>
+        <translation>إيقاف الكل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="561"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation>هل أنت متأكد من أنك تريد الخروج؟ 
-ستتم مقاطعة مهام التنزيل.</translation>
+        <translation>هل أنت متأكد ترغب في الخروج؟</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="713"/>
         <source> files</source>
-        <translation> الملفات</translation>
+        <translation>ملفات</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
         <source>No finished tasks</source>
-        <translation>لا توجد مهام منتهية</translation>
+        <translation>لا مهام منتهية</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="937"/>
         <source>No deleted tasks</source>
-        <translation>لا توجد مهام محذوفة</translation>
+        <translation>لا مهام محذوفة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
@@ -560,7 +559,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
         <source>Pause</source>
-        <translation>ايقاف مؤقت</translation>
+        <translation>إيقاف</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
@@ -570,24 +569,24 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
         <source> tasks</source>
-        <translation type="unfinished"/>
+        <translation> المهام</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading %1...</source>
-        <translation>جاري التنزيل 1% ...</translation>
+        <translation>تحميل %1...</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1341"/>
         <source>Download first</source>
-        <translation>التنزيل أولاً</translation>
+        <translation>قم بالتنزيل أولا</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1347"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1362"/>
         <source>Download again</source>
-        <translation>التنزيل مرة أخرى</translation>
+        <translation>قم بالتنزيل مرة أخرى</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1356"/>
@@ -608,12 +607,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1395"/>
         <source>Rename</source>
-        <translation>إعادة التسمية</translation>
+        <translation>تغيير الاسم</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Move to</source>
-        <translation>نقل إلى</translation>
+        <translation>انتقل إلى</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
@@ -630,7 +629,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1426"/>
         <source>Permanently delete</source>
-        <translation>حذف بشكل نهائي</translation>
+        <translation>حذف نهائي</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1458"/>
@@ -646,7 +645,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>لقد تم الوصول إلى الحد الأقصى لعدد المهام المتزامنة، مهام أخرى ستكون قائمة الانتظار.</translation>
+        <translation>بلغ عدد المهام المتزامنة القصوى. سيتم وضع المهام الأخرى في الطابور.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
@@ -656,12 +655,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>Unable to parse the URL, please check</source>
-        <translation type="unfinished"/>
+        <translation>لم يتمكن من تحليل عنوان URL، يرجى التحقق</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2357"/>
         <source>Copied to clipboard</source>
-        <translation>نسخ إلى الحافظة</translation>
+        <translation>تم النسخ إلى الحافظة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2682"/>
@@ -680,12 +679,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="81"/>
         <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>هل تريد حذف الملفات التي تم تنزيلها وتنزيلها مرة أخرى؟</translation>
+        <translation>هل تريد حذف الملفات المنزلة وحفظها مرة أخرى؟</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
         <source>The task already exists.</source>
-        <translation type="unfinished"/>
+        <translation>تمتلك المهام بالفعل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="102"/>
@@ -705,7 +704,7 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="104"/>
         <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Download Again</source>
-        <translation>التنزيل مرة أخرى</translation>
+        <translation>حفظ مرة أخرى</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="86"/>
@@ -784,7 +783,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Minimize to system tray</source>
-        <translation type="unfinished"/>
+        <translation>تصغير إلى&apos;area النظام</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="218"/>
@@ -845,7 +844,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/include/ui/global.h" line="38"/>
         <source>Paused</source>
-        <translation>في وضع الايقاف المؤقت</translation>
+        <translation>معلق</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="39"/>
@@ -855,12 +854,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/include/ui/global.h" line="40"/>
         <source>Completed</source>
-        <translation>تم الإكتمال</translation>
+        <translation>مكتمل</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="41"/>
         <source>Removed</source>
-        <translation>تم الحذف</translation>
+        <translation>مسح</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="42"/>
@@ -871,12 +870,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="65"/>
         <source>Downloader</source>
-        <translation type="unfinished"/>
+        <translation>مؤقت للتنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="66"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation type="unfinished"/>
+        <translation>مؤقت التحميل هو أداة تنزيل سهلة الاستخدام تدعم عناوين URL وملفات التورنت</translation>
     </message>
 </context>
 <context>
@@ -884,17 +883,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="57"/>
         <source>Completed</source>
-        <translation>تم الإكتمال</translation>
+        <translation>مكتمل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="61"/>
         <source>Trash</source>
-        <translation>المحذوفات</translation>
+        <translation>القمامة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="65"/>
         <source>Downloading</source>
-        <translation>جاري التنزيل</translation>
+        <translation>قيد التنزيل</translation>
     </message>
 </context>
 <context>
@@ -907,7 +906,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="347"/>
         <source>Auto startup</source>
-        <translation>بدء التشغيل التلقائي</translation>
+        <translation>تشغيل تلقائي عند التشغيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="348"/>
@@ -917,17 +916,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="349"/>
         <source>Download Directory</source>
-        <translation>مجلد التنزيل</translation>
+        <translation>الدليل للتنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="350"/>
         <source>1-Click Download</source>
-        <translation type="unfinished"/>
+        <translation>تنزيل بنقرة واحدة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
         <source>Create tasks directly</source>
-        <translation>إنشاء المهام بشكل مباشر</translation>
+        <translation>إنشاء مهام مباشرة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
@@ -942,12 +941,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="353"/>
         <source>Minimize to system tray</source>
-        <translation type="unfinished"/>
+        <translation>تصغير إلى&apos;area النظام</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="354"/>
         <source>Ask me always</source>
-        <translation>اسألني دائما</translation>
+        <translation>اسألني دائمًا</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="355"/>
@@ -962,17 +961,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
         <source>Max. concurrent downloads</source>
-        <translation>الحد الأقصى للتنزيلات المتزامنة</translation>
+        <translation>حد أقصى لعدد التنزيلات المتزامنة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="358"/>
         <source>Open files when completed</source>
-        <translation>فتح الملفات عند اكتمالها</translation>
+        <translation>افتح الملفات عند الانتهاء</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
         <source>Delete tasks without files</source>
-        <translation>حذف المهام التي لا تحتوي على ملفات</translation>
+        <translation>حذف المهام بدون ملفات</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
@@ -982,7 +981,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="361"/>
         <source>Monitoring</source>
-        <translation>جاري المراقبة</translation>
+        <translation>الرقابة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="362"/>
@@ -1002,37 +1001,37 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="365"/>
         <source>Links Monitored</source>
-        <translation>الروابط التي تحت المراقبة</translation>
+        <translation>الروابط المراقبة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="366"/>
         <source>BT Files</source>
-        <translation type="unfinished"/>
+        <translation>ملفات bittorrent</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>إنشاء مهمة جديدة عند تنزيل ملف تورنت</translation>
+        <translation>إنشاء مهمة جديدة عند تنزيل ملف التورنت</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
         <source>Create new task when opening a torrent file</source>
-        <translation>إنشاء مهمة جديدة عند فتح ملف تورنت</translation>
+        <translation>إنشاء مهمة جديدة عند فتح ملف التورنت</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
         <source>MetaLink Files</source>
-        <translation type="unfinished"/>
+        <translation>ملفات metalink</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
         <source>Create new task when a metalink file downloaded</source>
-        <translation type="unfinished"/>
+        <translation>إنشاء مهمة جديدة عند تنزيل ملف metalink</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>Create new task when opening a metalink file</source>
-        <translation type="unfinished"/>
+        <translation>إنشاء مهمة جديدة عند فتح ملف metalink</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
@@ -1042,17 +1041,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>القيام بتنبيه عند انتهاء التنزيل أو فشله</translation>
+        <translation>أبلغني عند الانتهاء أو الفشل في التنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
         <source>Play a sound when downloading finished</source>
-        <translation>تشغيل صوت عند انتهاء التنزيل</translation>
+        <translation>تشغيل صوت عند الانتهاء من التنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
         <source>Move slow downloads to the end</source>
-        <translation>نقل التنزيلات البطيئة إلى آخر المهام</translation>
+        <translation>اضبط التنزيلات البطيئة في النهاية</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
@@ -1067,68 +1066,70 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
         <source>Show main window when creating new task</source>
-        <translation>إظهار النافذة الرئيسية عند إنشاء مهمة جديدة</translation>
+        <translation>عرض النافذة الرئيسية عند إنشاء مهمة جديدة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
         <source>Cache</source>
-        <translation>ذاكرة التخزين المؤقت</translation>
+        <translation>مخبأ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="463"/>
         <source>HTTP</source>
-        <translation>بروتوكول نقل النص الفائق</translation>
+        <translation>HTTP</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>BitTorrent</source>
-        <translation type="unfinished"/>
+        <translation>بت تورنت</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="505"/>
         <source>MetaLink</source>
-        <translation type="unfinished"/>
+        <translation>metalink</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="526"/>
         <source>Magnet URI scheme</source>
-        <translation type="unfinished"/>
+        <translation>مخطط URI المغناطيس</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>When total speed less than</source>
-        <translation>عندما يكون إجمالي السرعة أقل من</translation>
+        <translation>عندما تكون السرعة الكلية أقل من</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>كيلوبايت / ثانية ، قم بزيادة المهام المتزامنة</translation>
+        <translation>KB/s، زيادة مهام المتزامنة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="671"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation>يجب أن يكون إجمالي السرعة أقل من السرعة القصوى للتنزيل</translation>
+        <translation>يجب أن يكون السرعة الكلية أقل من السرعة القصوى للتنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>Download files less than</source>
-        <translation>تنزيل ملفات التي أقل من</translation>
+        <translation>تنزيل الملفات أقل من</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>MB first</source>
-        <translation>ميغابايت أولاً</translation>
+        <translation>MB først</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation>الحد الأقصى لعدد موارد التنزيل المتزامنة</translation>
+        <translation>حد أقصى لعدد موارد التنزيل المتزامنة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="799"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>سيؤدي الزيادة في ذاكرة التخزين المؤقت إلى زيادة في سرعة تنزيل وزيادة في  استهلاك موارد الجهاز.</translation>
+        <translation>|-
+  حجم أكبر للذاكرة التخزينية المؤقتة على القرص سيؤدي إلى زيادة سرعة التنزيل 
+  واستهلاك المزيد من الموارد.</translation>
     </message>
 </context>
 <context>
@@ -1136,17 +1137,17 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="416"/>
         <source> &gt; 1 day</source>
-        <translation>&gt; 1 يوم</translation>
+        <translation> &gt; 1 يوم</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download failed</source>
-        <translation>فشلت عملية التنزيل</translation>
+        <translation>فشل التنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download failed. Network error.</source>
-        <translation>٪ 1 فشل التنزيل. خطأ في الشبكة.</translation>
+        <translation>%1 فشل في التنزيل. خطأ في الشبكة</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
@@ -1161,12 +1162,12 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="657"/>
         <source>Download completed</source>
-        <translation>اكتمل التنزيل</translation>
+        <translation>تم التنزيل</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="658"/>
         <source>%1 download finished</source>
-        <translation>٪1 انتهى التنزيل</translation>
+        <translation>%1 الانتهاء من التنزيل</translation>
     </message>
 </context>
 <context>
@@ -1174,7 +1175,7 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Name</source>
-        <translation>الاسم</translation>
+        <translation>اسم</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="428"/>
@@ -1191,13 +1192,13 @@ and more resource consumption.</source>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="443"/>
         <source>Time finished</source>
-        <translation>الوقت الذي انتهت به العملية</translation>
+        <translation>وقت الانتهاء</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="436"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="445"/>
         <source>Time deleted</source>
-        <translation>الوقت الذي تمت فيه عملية الحذف</translation>
+        <translation>وقت الحذف</translation>
     </message>
 </context>
 <context>
@@ -1219,7 +1220,7 @@ and more resource consumption.</source>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="153"/>
         <source>Pause</source>
-        <translation>ايقاف مؤقت</translation>
+        <translation>إيقاف مؤقت</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="86"/>
@@ -1238,7 +1239,7 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="136"/>
         <source>Empty</source>
-        <translation>فارغ</translation>
+        <translation>فراغ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="137"/>
@@ -1248,12 +1249,12 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="144"/>
         <source>Open folder</source>
-        <translation>فتح المجلد</translation>
+        <translation>افتح المجلد</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="145"/>
         <source>Open</source>
-        <translation>فتح</translation>
+        <translation>افتح</translation>
     </message>
 </context>
 </TS>
