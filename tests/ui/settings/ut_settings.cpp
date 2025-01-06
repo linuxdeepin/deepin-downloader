@@ -570,7 +570,11 @@ TEST_F(ut_Settings, DiagnosticTool)
     model.columnCount();
     QModelIndex index;
     index.r = 2;
+#if QT_VERSION_MAJOR > 5
+    model.data(index, Qt::ForegroundRole);
+#else
     model.data(index, Qt::TextColorRole);
+#endif
     model.data(index, 123);
     QTimer::singleShot(7000, this, [=]() {
         d->close();

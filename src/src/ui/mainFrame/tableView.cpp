@@ -41,7 +41,9 @@
 #include <QProcess>
 #include <QThread>
 #include <QDesktopServices>
+#if QT_VERSION_MAJOR <= 5
 #include <DApplicationHelper>
+#endif
 #include <QStandardItemModel>
 
 #include "../database/dbinstance.h"
@@ -245,6 +247,9 @@ bool TableView::refreshTableView(const int &index)
         //getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         break;
     }
+#if QT_VERSION_MAJOR > 5
+    resizeColumnToContents(4);
+#endif
     update();
     return true;
 }
@@ -285,8 +290,14 @@ void LeftListView::currentChanged(const QModelIndex &current, const QModelIndex 
 void LeftListView::paintEvent(QPaintEvent *e)
 {
     DPalette pa;
+#if QT_VERSION_MAJOR > 5
+    pa = this->palette();
+    pa.setBrush(DPalette::ItemBackground, pa.brush(DPalette::Base));
+    this->setPalette(pa);
+#else
     pa = DApplicationHelper::instance()->palette(this);
     pa.setBrush(DPalette::ItemBackground, pa.brush(DPalette::Base));
     DApplicationHelper::instance()->setPalette(this, pa);
+#endif
     DListView::paintEvent(e);
 }

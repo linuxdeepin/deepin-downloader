@@ -23,7 +23,7 @@ add_executable(downloader main.cpp
     accessiblewidget.cpp
 )
 
-target_link_libraries(downloader dlmcontrolui dlmlog Qt5::Core)
+target_link_libraries(downloader dlmcontrolui dlmlog Qt${QT_VERSION_MAJOR}::Core)
 
 #INSTALL(TARGETS downloader DESTINATION share/downloader)
 #install(TARGETS downloader DESTINATION bin)

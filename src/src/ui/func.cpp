@@ -11,6 +11,9 @@
 #include <QCryptographicHash>
 #include <dpinyin.h>
 #include <sys/resource.h>
+#if QT_VERSION_MAJOR > 5
+#include <QRegularExpression>
+#endif
 
 bool Func::isNetConnect()
 {
@@ -120,7 +123,7 @@ bool Func::setMimeappsValue(QString key, QString value)
     QTextStream writeData(&writerFile);
 
     for (int i = 0; i < DefaultList.size(); i++) {
-        writeData << DefaultList[i] << endl;
+        writeData << DefaultList[i] << Qt::endl;
     }
     writeData.flush();
     writerFile.close();
@@ -257,7 +260,11 @@ QString Func::chineseToPinyin(QString input)
     QString value = input;
     for(int i = input.size() - 1; i >= 0; i--) {
         QString ch = input.at(i);
+#if QT_VERSION_MAJOR > 5
+        if (ch.contains(QRegularExpression("[\\x4e00-\\x9fa5]+"))) {
+#else
         if(ch.contains(QRegExp("[\\x4e00-\\x9fa5]+"))){
+#endif
             QString pinyin = removeDigital(DTK_NAMESPACE::Core::Chinese2Pinyin(ch));
             value.replace(ch, pinyin);
         }

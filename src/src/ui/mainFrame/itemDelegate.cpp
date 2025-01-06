@@ -120,7 +120,11 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
+#if QT_VERSION_MAJOR > 5
+            painter->drawRoundedRect(rect.x(), rect.y(), 25, rect.height(), 25, 25);
+#else
             painter->drawRoundRect(rect.x(), rect.y(), 25, rect.height(), 25, 25);
+#endif
             painter->drawRect(rect.x() + 15, rect.y(), rect.width() - 15, rect.height());
             painter->setPen(QColor("#FFFFFF"));
             QItemEditorFactory::setDefaultFactory(new QItemEditorFactory);
@@ -172,7 +176,11 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             if (isSelected) {
                 painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
                 painter->setBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight());
+#if QT_VERSION_MAJOR > 5
+                painter->drawRoundedRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
+#else
                 painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
+#endif
                 painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
                 painter->setPen(QColor("#FFFFFF"));
 
@@ -289,7 +297,11 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
+#if QT_VERSION_MAJOR > 5
+            painter->drawRoundedRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
+#else
             painter->drawRoundRect(rect.x() + rect.width() - 25, rect.y(), 25, rect.height(), 25, 25);
+#endif
             painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
             painter->setPen(QColor("#FFFFFF"));
         }
@@ -352,8 +364,13 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 {
     Q_UNUSED(option);
     DLineEdit *pEdit = new DLineEdit(parent);
+#if QT_VERSION_MAJOR > 5
+    QRegularExpression regx("[^\\\\/\':\\*\\?\"<>|#%？]+"); // 屏蔽特殊字符
+    QValidator *validator = new QRegularExpressionValidator(regx, pEdit);
+#else
     QRegExp regx("[^\\\\/\':\\*\\?\"<>|#%？]+"); //屏蔽特殊字符
     QValidator *validator = new QRegExpValidator(regx, pEdit);
+#endif
     pEdit->lineEdit()->setValidator(validator);
     pEdit->lineEdit()->setMaxLength(83);
     connect(pEdit, &DLineEdit::textChanged, this, [=](QString filename) {

@@ -7,7 +7,9 @@
 #include <DLabel>
 #include <DFontSizeManager>
 #include <DTitlebar>
+#if QT_VERSION_MAJOR <= 5
 #include <DApplicationHelper>
+#endif
 #include <DFontSizeManager>
 #include <DWidgetUtil>
 
@@ -17,7 +19,9 @@
 #include <QStackedWidget>
 #include <QSystemTrayIcon>
 #include <QCloseEvent>
+#if QT_VERSION_MAJOR <= 5
 #include <QDesktopWidget>
+#endif
 #include <QClipboard>
 #include <QTimer>
 #include <QThread>
@@ -132,7 +136,7 @@ void MainFrame::init()
     titlebar()->setObjectName("titlebar");
 
     QPalette p;
-    p.setColor(QPalette::Background, QColor(255, 255, 255));
+    p.setColor(QPalette::Window, QColor(255, 255, 255));
 
     QFrame *pMainWidget = new QFrame;
     pMainWidget->setFrameShape(QFrame::NoFrame);
@@ -195,7 +199,11 @@ void MainFrame::init()
     m_TaskNumWidget->setFixedHeight(30);
     //m_pTaskNumWidget->setPalette(pa);
     QHBoxLayout *TaskNumWidgetlayout = new QHBoxLayout(m_TaskNumWidget);
+#if QT_VERSION_MAJOR > 5
+    TaskNumWidgetlayout->setContentsMargins(0, 0, 0, 0);
+#else
     TaskNumWidgetlayout->setMargin(0);
+#endif
     m_TaskNum = new QLabel(tr("0 tasks"));
     m_TaskNum->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_TaskNum->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
@@ -417,11 +425,19 @@ void MainFrame::updateDHTFile()
 
     QString dhtpah = QDir::homePath() + "/.config/uos/downloader/";
     static QProcess p;
+#if QT_VERSION_MAJOR > 5
+    p.start("curl", {"--connect-timeout", "10", "-m", "20", "https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat", "-o", dhtpah, "dht6.dat -O"});
+#else
     p.start("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat -o" + dhtpah + "dht6.dat -O");
+#endif
     p.setStandardOutputFile("/dev/null");
 
     static QProcess p2;
+#if QT_VERSION_MAJOR > 5
+    p2.start("curl", {"--connect-timeout", "10", "-m", "20", "https://github.com/P3TERX/aria2.conf/raw/master/dht.dat", "-o", dhtpah, "dht.dat -O"});
+#else
     p2.start("curl --connect-timeout 10 -m 20 https://github.com/P3TERX/aria2.conf/raw/master/dht.dat -o" + dhtpah + "dht.dat -O");
+#endif
     p2.setStandardOutputFile("/dev/null");
 }
 
@@ -610,7 +626,7 @@ void MainFrame::onTrayQuitClick(bool force)
     Aria2RPCInterface::instance()->shutdown();
     // qApp->quit();
     QTimer::singleShot(3000, this, [&]() {
-        qApp->quit();
+        qApp->exit();
     });
 }
 
@@ -711,13 +727,17 @@ void MainFrame::setTaskNum()
 
 void MainFrame::setPaletteType()
 {
+#if QT_VERSION_MAJOR > 5
+    DPalette pb = m_LeftList->viewport()->palette();
+#else
     DPalette pb = DApplicationHelper::instance()->palette(m_LeftList->viewport());
+#endif
     pb.setBrush(DPalette::Base, QColor(0, 0, 0, 0));
     m_LeftList->setPalette(pb);
 
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
         DPalette deepthemePalette;
-        deepthemePalette.setBrush(DPalette::Background,
+        deepthemePalette.setBrush(DPalette::Window,
                                   DGuiApplicationHelper::instance()->applicationPalette().base());
         m_LeftWidget->setPalette(deepthemePalette);
         //m_pdownloadingItem->setBackground(DGuiApplicationHelper::instance()->applicationPalette().base());
@@ -739,7 +759,7 @@ void MainFrame::setPaletteType()
         DPalette palette;
         QColor c = DGuiApplicationHelper::instance()->applicationPalette().base().color();
         c.setAlpha(70);
-        palette.setColor(DPalette::Background, c);
+        palette.setColor(DPalette::Window, c);
         m_TaskNumWidget->setPalette(palette);
         m_NotaskLabel->setWindowOpacity(0.2);
         m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading_dark", QIcon(":/icons/deepin/builtin/dark/actions/dcc_list_downloading_dark_11px.svg")));
@@ -751,7 +771,7 @@ void MainFrame::setPaletteType()
         m_TaskNum->setPalette(notaskTipLabelP);
     } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
         DPalette p;
-        p.setBrush(DPalette::Background,
+        p.setBrush(DPalette::Window,
                    DGuiApplicationHelper::instance()->applicationPalette().base());
         DPalette tableviewPalette;
         tableviewPalette.setBrush(DPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().window());
@@ -762,7 +782,7 @@ void MainFrame::setPaletteType()
         DPalette palette;
         QColor c = DGuiApplicationHelper::instance()->applicationPalette().base().color();
         c.setAlpha(70);
-        palette.setColor(DPalette::Background, c);
+        palette.setColor(DPalette::Window, c);
         m_TaskNumWidget->setPalette(palette);
         m_NotaskLabel->setWindowOpacity(0.2);
         m_DownloadingItem->setIcon(QIcon::fromTheme("dcc_list_downloading", QIcon(":/icons/deepin/builtin/dark/actions/dcc_list_downloading_dark_11px.svg")));
@@ -1877,7 +1897,11 @@ void MainFrame::onDownloadFirstBtnClicked()
     }
     if (m_CheckItem->status == Global::DownloadTaskStatus::Paused) {
         Aria2RPCInterface::instance()->unpause(m_CheckItem->gid, m_CheckItem->taskId);
+#if QT_VERSION_MAJOR > 5
+        QElapsedTimer time;
+#else
         QTime time;
+#endif
         time.start();
         while (time.elapsed() < 400) {
             QCoreApplication::processEvents();
@@ -2804,7 +2828,11 @@ void MainFrame::onParseUrlList(QVector<LinkInfo> &urlList, QString path)
         }
 
         onDownloadNewUrl(url, path, info.urlName, info.type, info.urlSize);
+#if QT_VERSION_MAJOR > 5
+        QElapsedTimer time;
+#else
         QTime time;
+#endif
         time.start();
         while (time.elapsed() < 1000) {
             QCoreApplication::processEvents();
@@ -2979,7 +3007,7 @@ void MainFrame::setAutoStart(bool ret)
     }
     QTextStream writeData(&writerFile);
     for (int i = 0; i < list.size(); i++) {
-        writeData << list[i] << endl;
+        writeData << list[i] << Qt::endl;
     }
     writeData.flush();
     writerFile.close();
@@ -3190,7 +3218,11 @@ bool MainFrame::checkIsHasSameTask(QString infoHash)
             }
         }
     }
+#if QT_VERSION_MAJOR > 5
+    QElapsedTimer time;
+#else
     QTime time;
+#endif
     time.start();
     while (time.elapsed() < 500) {
         QCoreApplication::processEvents();

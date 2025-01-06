@@ -12,7 +12,8 @@ class QueryUrl : public QObject
     Q_OBJECT
 
 public:
-    explicit QueryUrl(QObject *parent = nullptr);
+    explicit QueryUrl(QObject *parent = nullptr)
+        {};
 private:
 };
 

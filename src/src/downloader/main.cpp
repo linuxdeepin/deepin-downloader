@@ -30,10 +30,13 @@
  */
 
 #include <DApplication>
+#include <DGuiApplicationHelper>
 #include <DMainWindow>
 #include <DWidgetUtil>
 #include <DSwitchButton>
+#if QT_VERSION_MAJOR <= 5
 #include <DApplicationSettings>
+#endif
 #include <QTranslator>
 #include <QClipboard>
 #include <QSharedMemory>
@@ -70,9 +73,11 @@ int main(int argc, char *argv[])
 
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+#if QT_VERSION_MAJOR <= 5
     if (XDG_SESSION_TYPE == QLatin1String("x11")) {
         DlmApplication::loadDXcbPlugin();
     }
+#endif
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     DlmApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);
@@ -134,9 +139,11 @@ int main(int argc, char *argv[])
         char *to = static_cast<char *>(sharedMemory.data());
         memset(to, 0, 199);
     }
+#if QT_VERSION_MAJOR <= 5
     // 保存程序的窗口主题设置
     DApplicationSettings as;
     Q_UNUSED(as)
+#endif
     QDir dirCheck;
     QString LogPath = QString("%1/%2/%3/Log/")
                            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
@@ -205,8 +212,12 @@ bool checkProcessExist()
 {
     QProcess process;
     QStringList list;
+#if QT_VERSION_MAJOR > 5
+    process.start("pgrep", {"downloader"});
+#else
     process.start("pgrep downloader");
     process.start();
+#endif
     process.waitForStarted(1000);
     process.waitForFinished(1000);
     QString str = process.readAll();

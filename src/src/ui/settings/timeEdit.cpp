@@ -4,7 +4,12 @@
 
 #include "timeEdit.h"
 
+#if QT_VERSION_MAJOR <= 5
 #include <QRegExpValidator>
+#else
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
+#endif
 #include <QDebug>
 
 CTimeEdit::CTimeEdit(QWidget *parent)
@@ -44,9 +49,15 @@ void CTimeEdit::initUI()
     //m_timeEdit->lineEdit()->setInputMask("00:00;0");
     m_timeEdit->setClearButtonEnabled(false);
     m_timeEdit->setMinimumHeight(22);
+#if QT_VERSION_MAJOR > 5
+    QRegularExpressionValidator *validator = nullptr;
+    QRegularExpression rx("0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]");
+    validator = new QRegularExpressionValidator(rx, this);
+#else
     QRegExpValidator *validator = nullptr;
     QRegExp rx("0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]");
     validator = new QRegExpValidator(rx, this);
+#endif
     m_timeEdit->lineEdit()->setValidator(validator);
     setLineEdit(m_timeEdit->lineEdit());
 

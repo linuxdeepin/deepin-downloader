@@ -69,13 +69,18 @@ set(CMAKE_AUTORCC ON)
 #打开全局uic
 set(CMAKE_AUTOUIC ON)
 
+set(QT_VERSION_MAJOR 6)
+if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    set(DTK_VERSION 6)
+endif()
+
 set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Test WebChannel WebSockets)
-find_package(Qt5 COMPONENTS ${QT} REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT} REQUIRED)
 
 #应用DTK库
-find_package(DtkWidget REQUIRED)
-find_package(DtkCore REQUIRED)
-find_package(DtkGui REQUIRED)
+find_package(Dtk${DTK_VERSION}Widget REQUIRED)
+find_package(Dtk${DTK_VERSION}Core REQUIRED)
+find_package(Dtk${DTK_VERSION}Gui REQUIRED)
 
 #安装
 # qm files.
