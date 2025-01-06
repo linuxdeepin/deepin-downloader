@@ -79,11 +79,11 @@ set (UDLC_UI_HEADERS
 
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
-QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
+qt_wrap_cpp (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
 
 #添加资源文件
 set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/resource/resource.qrc)
-qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
+qt_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
 add_library(dlmcontrolui SHARED
@@ -129,14 +129,14 @@ target_link_libraries(dlmcontrolui
     dlmlog
     dlmaria2
     dlmdatabase
-    ${DtkCore_LIBRARIES}
-    ${DtkWidget_LIBRARIES}
-    ${DtkGui_LIBRARIES}
-    Qt5::Core
-    Qt5::Network
-    Qt5::Widgets
-    Qt5::Svg
-    Qt5::DBus
+    Dtk${DTK_VERSION}::Core
+    Dtk${DTK_VERSION}::Gui
+    Dtk${DTK_VERSION}::Widget
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Network
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Svg
+    Qt${QT_VERSION_MAJOR}::DBus
 )
 
 #install(TARGETS dlmcontrolui DESTINATION lib)

@@ -203,7 +203,8 @@ bool TaskModel::removeRow(int position, const QModelIndex &index)
     Q_UNUSED(index);
     beginRemoveRows(QModelIndex(), position, position);
 
-    m_linkInfo.removeAt(position);
+    if (m_linkInfo.size() > position)
+        m_linkInfo.removeAt(position);
 
     endRemoveRows();
     return true;

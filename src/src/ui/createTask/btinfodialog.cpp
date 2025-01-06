@@ -233,7 +233,11 @@ void BtInfoDialog::initUI()
     QString str = getFileEditText(m_defaultDownloadDir);
     m_editDir->setText(str);
     m_editDir->setClearButtonEnabled(false);
+#if QT_VERSION_MAJOR > 5
+    m_editDir->setFileMode(QFileDialog::Directory);
+#else
     m_editDir->setFileMode(QFileDialog::DirectoryOnly);
+#endif
     m_editDir->lineEdit()->setEnabled(false);
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &BtInfoDialog::onFilechoosed);
     QList<DSuggestButton *> btnList = m_editDir->findChildren<DSuggestButton *>();
@@ -631,7 +635,7 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
     m_delegate->setHoverColor(DGuiApplicationHelper::instance()->applicationPalette().frameBorder());
 
     if (themeType == 1) {
-        p.setColor(QPalette::Background, Qt::white);
+        p.setColor(QPalette::Window, Qt::white);
         m_delegate->setHoverColor(QColor(0, 0, 0, 13));
 
         QPalette pal;
@@ -665,7 +669,7 @@ QString BtInfoDialog::getFileEditText(QString text)
     for (int i = 0; i < flieEditText.size(); i++) {
         //判断字符中是否包含中文或者大写字母
         if ((flieEditText[i] >= 'A' && flieEditText[i] <= 'Z')
-            || (flieEditText[i] >= 0x4E00 && flieEditText[i] <= 0x9FA5)) {
+            || (flieEditText[i] >= QChar(0x4E00) && flieEditText[i] <= QChar(0x9FA5))) {
             count++;
         }
     }
@@ -675,7 +679,7 @@ QString BtInfoDialog::getFileEditText(QString text)
     for (int i = 0; i < text.size(); i++) {
         //判断字符中是否包含中文或者大写字母
         if ((text[i] >= 'A' && text[i] <= 'Z')
-            || (text[i] >= 0x4E00 && text[i] <= 0x9FA5)) {
+            || (text[i] >= QChar(0x4E00) && text[i] <= QChar(0x9FA5))) {
             hasLongStr++;
         }
     }

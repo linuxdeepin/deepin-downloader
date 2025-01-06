@@ -79,14 +79,25 @@ file(GLOB ALL_SOURCES "../src/src/ui/*.cpp"
 file(GLOB SRC_QRC ${PROJECT_SOURCE_DIR}/src/src/ui/resource/*.qrc)
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
-QT5_WRAP_CPP (UDLC_UI_HEADERS_MOC ${ALL_HEADERS})
+qt_wrap_cpp (UDLC_UI_HEADERS_MOC ${ALL_HEADERS})
 
 #将test文件，源文件，源头文件，moc文件加入到test程序中
 add_executable(${PROJECT_NAME_TEST} ${SRC_LIST} ${ALL_HEADERS} ${ALL_SOURCES} ${UDLC_UI_HEADERS_MOC} ${SRC_QRC})
 
 #添加gtest库，Qt库，dtk库
 target_link_libraries(${PROJECT_NAME_TEST} gmock gmock_main gtest gtest_main pthread
-    Qt5::Core Qt5::Network Qt5::Widgets Qt5::Svg Qt5::DBus Qt5::Sql Qt5::Test ${DtkWidget_LIBRARIES} ${DtkGui_LIBRARIES} ${DtkCore_LIBRARIES} Qt5::WebChannel Qt5::WebSockets)
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Network
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Svg
+    Qt${QT_VERSION_MAJOR}::DBus
+    Qt${QT_VERSION_MAJOR}::Sql
+    Qt${QT_VERSION_MAJOR}::Test
+    Dtk${DTK_VERSION}::Core
+    Dtk${DTK_VERSION}::Gui
+    Dtk${DTK_VERSION}::Widget
+    Qt${QT_VERSION_MAJOR}::WebChannel
+    Qt${QT_VERSION_MAJOR}::WebSockets)
 
 # 添加 QTest 测试
 add_test(${PROJECT_NAME_TEST} COMMAND ${PROJECT_NAME_TEST})

@@ -12,6 +12,6 @@ ADD_DEFINITIONS(-DLM_LOG_LIB )
 add_library(dlmlog SHARED
     log.cpp
     )
-target_link_libraries(dlmlog Qt5::Core)
+target_link_libraries(dlmlog Qt${QT_VERSION_MAJOR}::Core)
 
 #install(TARGETS dlmlog DESTINATION lib)

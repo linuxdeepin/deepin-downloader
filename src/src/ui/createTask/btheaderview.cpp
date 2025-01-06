@@ -94,7 +94,7 @@ void headerView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
        // p.setColor(QPalette::Base, QColor(0,0,0,20));
         QColor c = DGuiApplicationHelper::instance()->applicationPalette().base().color();
         c.setAlpha(70);
-        p.setColor(DPalette::Background, c);
+        p.setColor(DPalette::Window, c);
         //p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());
     }
     setPalette(p);

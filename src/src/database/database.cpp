@@ -18,7 +18,7 @@ DataBase::DataBase()
     //如果数据库文件不存在
     if (!databaseFile.isFile()) {
         //拷贝数据库文件
-        qDebug() << "error: no db file  "; //<< QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_FILENAME << QString(_dataBasePath) + UOS_DOWNLOAD_DATABASE_FILENAME << endl;
+        qDebug() << "error: no db file  "; //<< QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_FILENAME << QString(_dataBasePath) + UOS_DOWNLOAD_DATABASE_FILENAME << Qt::endl;
         QFile::copy(QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_OLD_FILENAME,
                     dbPath);
         QString strold = UOS_DONWLOAD_DATABASE_PATH + "downloader.db";

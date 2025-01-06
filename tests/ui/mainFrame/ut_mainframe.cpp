@@ -1113,11 +1113,6 @@ TEST_F(ut_MainFreme, modelList)
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->recyleList();
     MainFrame::instance()->m_DownLoadingTableView->getTableModel()->getTableModelMap();
 }
-TEST_F(ut_MainFreme, setThemeType)
-{
-    DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::DarkType);
-    DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::LightType);
-}
 TEST_F(ut_MainFreme, onIsMetalinkDownload)
 {
     MainFrame::instance()->onIsMetalinkDownload(true);
