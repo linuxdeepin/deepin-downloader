@@ -59,7 +59,11 @@ void FileSavePathChooser::initUI()
 
     m_fileChooserEdit->lineEdit()->setReadOnly(true);
     m_fileChooserEdit->lineEdit()->setClearButtonEnabled(false);
+#if QT_VERSION_MAJOR > 5
+    m_fileChooserEdit->setFileMode(QFileDialog::FileMode::Directory);
+#else
     m_fileChooserEdit->setFileMode(QFileDialog::FileMode::DirectoryOnly);
+#endif
 
     if (m_currentSelect == 1) {
         m_autoLastPathRadioButton->setChecked(true);

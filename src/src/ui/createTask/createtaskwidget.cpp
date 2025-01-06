@@ -42,7 +42,11 @@
 #include <QProcess>
 #include <QStandardItemModel>
 #include <QMimeDatabase>
+#if QT_VERSION_MAJOR <= 5
 #include <QDesktopWidget>
+#else
+#include <QRegularExpression>
+#endif
 #include <QFont>
 #include "btinfodialog.h"
 #include "messagebox.h"
@@ -301,7 +305,11 @@ void CreateTaskWidget::initUi()
     m_editDir->lineEdit()->setTextMargins(0, 0, m_editDir->lineEdit()->width(), 0);
     m_editDir->lineEdit()->setLayout(siezhlyt);
     m_editDir->setFont(font);
+#if QT_VERSION_MAJOR > 5
+    m_editDir->setFileMode(QFileDialog::Directory);
+#else
     m_editDir->setFileMode(QFileDialog::FileMode::DirectoryOnly);
+#endif
     connect(m_editDir, &DFileChooserEdit::fileChoosed, this, &CreateTaskWidget::onFilechoosed);
 
     m_editDir->setDirectoryUrl(QUrl(m_defaultDownloadDir));
@@ -333,7 +341,9 @@ void CreateTaskWidget::initUi()
 
     QWidget *boxBtn = new QWidget(this);
     QHBoxLayout *layout = new QHBoxLayout(boxBtn);
+#if QT_VERSION_MAJOR <= 5
     layout->setMargin(0);
+#endif
     layout->setContentsMargins(0, 0, 0, 0);
     DIconButton *iconBtn = new DIconButton(boxBtn);
     iconBtn->setAccessibleName("bticonBtn");
@@ -977,7 +987,11 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
     }
     name = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
     // 对url进行转码
+#if QT_VERSION_MAJOR > 5
+    if (!name.contains(QRegularExpression("[\\x4e00-\\x9fa5]+"))) {
+#else
     if (!name.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
+#endif
         const QByteArray byte = name.toLatin1();
         QString decode = QUrl::fromPercentEncoding(byte);
         if (decode.contains("?")) {
@@ -1013,7 +1027,11 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 
     QString str = m_model->data(m_model->index(index, 1),1).toString();  //获取不到名称就加默认名称
     if(!str.size() && !size.isEmpty() && !type.isEmpty()){
+#if QT_VERSION_MAJOR > 5
+        QElapsedTimer t;
+#else
         QTime t;
+#endif
         t.start();
         while(t.elapsed()<10);
         QDateTime dateTime = QDateTime::currentDateTime();

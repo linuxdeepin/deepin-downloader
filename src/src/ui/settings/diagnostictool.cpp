@@ -45,6 +45,9 @@
 #include "global.h"
 #include "func.h"
 #include "aria2rpcinterface.h"
+#if QT_VERSION_MAJOR > 5
+#include <random>
+#endif
 
 DiagnosticTool::DiagnosticTool(QWidget *parent)
     : DDialog(parent)
@@ -176,6 +179,32 @@ void DiagnosticTool::startDiagnostic()
         m_Model->appendData(Func::isIPV6Connect());
     });
 
+#if QT_VERSION_MAJOR > 5
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(0, 800); // 生成 0 到 800 之间的随机数
+
+    QTimer::singleShot(distrib(gen) + 200, this, [=]() {
+        m_Model->appendData(m_IsHasDHT & Func::isNetConnect());
+    });
+
+    QTimer::singleShot(distrib(gen) + 800, this, [=]() {
+        m_Model->appendData(Func::isHTTPConnect());
+    });
+
+    QTimer::singleShot(distrib(gen) + 1400, this, [=]() {
+        m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
+    });
+
+    QTimer::singleShot(distrib(gen) + 2000, this, [=]() {
+        m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
+    });
+
+    QTimer::singleShot(distrib(gen) + 2500, this, [=]() {
+        m_Model->appendData(Func::isNetConnect());
+        m_Button->setEnabled(true);
+    });
+#else
     QTimer::singleShot(qrand() % (800) + 200, this, [=]() {
         m_Model->appendData(m_IsHasDHT & Func::isNetConnect());
     });
@@ -195,6 +224,7 @@ void DiagnosticTool::startDiagnostic()
         m_Model->appendData(Func::isNetConnect());
         m_Button->setEnabled(true);
     });
+#endif
 }
 
 DiagnosticModel::DiagnosticModel(QObject *parent)
@@ -282,8 +312,13 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
             return Qt::AlignLeft;
         }
         break;
+#if QT_VERSION_MAJOR > 5
+    case Qt::ForegroundRole:
+        return m_DiagnosticStatusList.at(index.row()) ? ("#00c77d") : ("#ff5736");
+#else
     case Qt::TextColorRole:
         return m_DiagnosticStatusList.at(index.row()) ? ("#00c77d") : ("#ff5736");
+#endif
     case Qt::AccessibleTextRole:
     case Qt::AccessibleDescriptionRole: {
         if (index.column() == 1) {
@@ -336,7 +371,11 @@ void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
                      QSize(radius * 2, radius * 2)), 270, 90);
 
 
+#if QT_VERSION_MAJOR > 5
+    painter->setPen(QColor(index.data(Qt::ForegroundRole).toString()));
+#else
     painter->setPen(QColor(index.data(Qt::TextColorRole).toString()));
+#endif
     if (index.row() % 2 != 0) {
         painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
     } else {

@@ -40,7 +40,9 @@
 #include <DLineEdit>
 #include <DAlertControl>
 #include <DBackgroundGroup>
+#if QT_VERSION_MAJOR <= 5
 #include <DApplicationHelper>
+#endif
 #include <DHorizontalLine>
 #include <QTimer>
 #include "settings.h"
@@ -174,7 +176,11 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
     m_comboBox->setFixedWidth(150);
     m_comboBox->addItems(textList);
     m_comboBox->setCurrentText(currenttext);
+#if QT_VERSION_MAJOR > 5
+    m_comboBox->setAccessibleName(text.remove(QRegularExpression("\\s")));
+#else
     m_comboBox->setAccessibleName(text.remove(QRegExp("\\s")));
+#endif
     layout->addWidget(pLabel);
     layout->addStretch();
     layout->addWidget(m_comboBox, 0, Qt::AlignRight);

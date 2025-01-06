@@ -234,6 +234,8 @@ bool TableModel::switchDownloadingMode()
 
 bool TableModel::switchFinishedMode()
 {
+    beginResetModel();
+
     m_Mode = Finished;
     m_RenderList.clear();
 
@@ -242,7 +244,10 @@ bool TableModel::switchFinishedMode()
             m_RenderList.append(item);
         }
     }
+
     sortDownload(m_SortColumn, m_SortOrder);
+
+    endResetModel();
     return true;
 }
 
@@ -650,13 +655,21 @@ typedef bool (*LessThan)(const QPair<QVariant, int> &left,
 bool itemLessThan(const QPair<QVariant, int> &left,
                   const QPair<QVariant, int> &right)
 {
+#if QT_VERSION_MAJOR > 5
+    return left.first.toDouble() < right.first.toDouble();
+#else
     return left.first < right.first;
+#endif
 }
 
 bool itemGreaterThan(const QPair<QVariant, int> &left,
                      const QPair<QVariant, int> &right)
 {
+#if QT_VERSION_MAJOR > 5
+    return right.first.toDouble() < left.first.toDouble();
+#else
     return right.first < left.first;
+#endif
 }
 
 void TableModel::sort(int column, Qt::SortOrder order)

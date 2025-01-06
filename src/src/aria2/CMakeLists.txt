@@ -19,7 +19,7 @@ set (DWM_ARIA_HEADERS
 )
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
-QT5_WRAP_CPP (DWM_ARIA_HEADERS_MOC ${DWM_ARIA_HEADERS})
+qt_wrap_cpp (DWM_ARIA_HEADERS_MOC ${DWM_ARIA_HEADERS})
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
 add_library(dlmaria2 SHARED
@@ -28,7 +28,7 @@ add_library(dlmaria2 SHARED
     ${DWM_ARIA_HEADERS_MOC}
 )
 
-target_link_libraries(dlmaria2 dlmlog Qt5::Core)
+target_link_libraries(dlmaria2 dlmlog Qt${QT_VERSION_MAJOR}::Core)
 
 #install(TARGETS dlmaria2 DESTINATION lib)
 

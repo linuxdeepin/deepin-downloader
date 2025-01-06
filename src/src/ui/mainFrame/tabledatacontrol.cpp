@@ -47,6 +47,9 @@
 #include <QMimeDatabase>
 #include <QTimer>
 #include <QJsonArray>
+#if QT_VERSION_MAJOR > 5
+#include <QRegularExpression>
+#endif
 #include <dpinyin.h>
 #include <iostream>
 #include <memory>
@@ -968,7 +971,12 @@ bool TableDataControl::reDownloadTask(QString taskId, QString filePath, QString 
         opt.insert("out", fileName);
         Aria2RPCInterface::instance()->addUri(url, opt, strId);
         QString filename = QString(url).right(url.length() - url.lastIndexOf('/') - 1);
+#if QT_VERSION_MAJOR > 5
+        QRegularExpression regex("[\\x4e00-\\x9fa5]+");
+        if (!filename.contains(regex)) {
+#else
         if (!filename.contains(QRegExp("[\\x4e00-\\x9fa5]+"))) {
+#endif
             const QByteArray filenameByte = filename.toLatin1();
             QString filenameDecode = QUrl::fromPercentEncoding(filenameByte);
             filename = filenameDecode;

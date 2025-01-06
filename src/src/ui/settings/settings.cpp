@@ -30,7 +30,9 @@
  */
 #include "settings.h"
 
+#if QT_VERSION_MAJOR <= 5
 #include <DThemeManager>
+#endif
 #include <DSettings>
 #include <DSettingsGroup>
 #include <DSettingsWidgetFactory>
