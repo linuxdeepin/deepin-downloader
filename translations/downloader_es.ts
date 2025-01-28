@@ -265,7 +265,7 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Failed</source>
-        <translation>Fallido</translation>
+        <translation>Falló</translation>
     </message>
 </context>
 <context>
@@ -406,7 +406,7 @@ y no implica la privacidad del usuario.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
         <source>Failed</source>
-        <translation>Fallido</translation>
+        <translation>Falló</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
