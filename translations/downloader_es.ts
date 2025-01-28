@@ -1144,7 +1144,7 @@ y un mayor consumo de recursos.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download failed</source>
-        <translation>Descarga fallida</translation>
+        <translation>La descarga falló</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
