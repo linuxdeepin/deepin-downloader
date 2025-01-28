@@ -682,7 +682,7 @@ Las tareas de descarga se interrumpirán.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="81"/>
         <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>¿Quieres borrar los archivos descargados y volver a descargarlos?</translation>
+        <translation>¿Quiere borrar los archivos descargados y volver a descargarlos?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="84"/>
@@ -761,7 +761,7 @@ Las tareas de descarga se interrumpirán.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>¿Estás seguro de que quieres eliminar todas las tareas de la Papelera?</translation>
+        <translation>¿Está seguro que quiere eliminar todas las tareas de la Papelera?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="176"/>
