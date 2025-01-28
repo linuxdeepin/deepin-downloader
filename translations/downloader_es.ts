@@ -739,7 +739,7 @@ Las tareas de descarga se interrumpirán.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation>¿Está seguro de que quiere eliminar esta tarea de descarga?</translation>
+        <translation>¿Está seguro que quiere eliminar esta tarea de descarga?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="149"/>
