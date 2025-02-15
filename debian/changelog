@@ -1,3 +1,9 @@
+deepin-downloader (6.0.2) unstable; urgency=medium
+
+  * chore: New version 6.0.2.
+
+ -- xiepengfei <xiepengfei@uniontech.com>  Sat, 15 Feb 2025 14:27:35 +0800
+
 deepin-downloader (6.0.1) stable; urgency=medium
 
   * changelog 6.0.1.
