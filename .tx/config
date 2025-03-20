@@ -3,13 +3,13 @@ host = http://www.transifex.com
 minimum_perc = 80
 mode = developer
 
-[deepin-downloader.downloader]
+[o:linuxdeepin:p:deepin-downloader:r:2143a2ea1fc5bf1c0a0cf03bf62d4d79]
 file_filter = translations/downloader_<lang>.ts
 source_file = translations/downloader_en_US.ts
 source_lang = en_US
 type = QT
 
-[deepin-downloader.downloader-desktop-ts]
+[o:linuxdeepin:p:deepin-downloader:r:6d3e4e6ed0fe8cc0038a27da5c5e0199]
 file_filter = translations/desktop/desktop_<lang>.ts
 preTranslate_file = desktop/downloader.desktop
 source_file = translations/desktop/desktop.ts
