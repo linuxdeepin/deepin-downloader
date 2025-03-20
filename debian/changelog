@@ -1,3 +1,9 @@
+deepin-downloader (6.0.3) unstable; urgency=medium
+
+  * fix: update translations and config.
+
+ -- renbin <renbin@uniontech.com>  Thu, 20 Mar 2025 19:06:24 +0800
+
 deepin-downloader (6.0.2) unstable; urgency=medium
 
   * chore: New version 6.0.2.
