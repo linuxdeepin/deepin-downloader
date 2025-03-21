@@ -402,7 +402,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="235"/>
         <source>Waiting</source>
-        <translation type="unfinished"/>
+        <translation>Gözləyir</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="247"/>
