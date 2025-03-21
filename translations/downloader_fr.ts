@@ -404,7 +404,7 @@ et cela n&apos;implique pas la confidentialité des utilisateurs.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="235"/>
         <source>Waiting</source>
-        <translation type="unfinished"/>
+        <translation>En attente</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="247"/>
