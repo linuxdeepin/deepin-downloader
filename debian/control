@@ -16,7 +16,6 @@ Build-Depends:
  qt6-websockets-dev,
  libdtk6widget-dev,
  libdtk6gui-dev,
- libdframeworkdbus-dev,
  libgtest-dev,
  libgmock-dev,
  sqlite3,
