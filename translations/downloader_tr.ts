@@ -870,7 +870,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="86"/>
         <source>downloader</source>
-        <translation type="unfinished"/>
+        <translation>indirici</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="87"/>

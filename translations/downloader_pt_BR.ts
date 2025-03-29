@@ -870,7 +870,7 @@ As tarefas de download serão interrompidas.</translation>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="86"/>
         <source>downloader</source>
-        <translation type="unfinished"/>
+        <translation>Gerenciador de Downloads</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="87"/>
