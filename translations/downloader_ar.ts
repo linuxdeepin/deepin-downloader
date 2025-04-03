@@ -21,7 +21,7 @@
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="547"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="597"/>
         <source>%1 files selected, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 ملف تم انتقاؤه، %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="178"/>
@@ -125,7 +125,7 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="964"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1141"/>
         <source>%1 files selected, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 ملف تم انتقاؤه، %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="234"/>
@@ -283,7 +283,7 @@
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
-        <translation type="unfinished"/>
+        <translation>ملفات تم تحميلها ستعثّر من خلال P2P، وهو ما يمكن أن يساعد المستخدمين الآخرين على زيادة سرعة التحميل، ولا يتضمن خصوصية المستخدم.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="70"/>
@@ -818,7 +818,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="53"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
-        <translation type="unfinished"/>
+        <translation>:NS ISI PPI NOI IT - Downloader&quot; </translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="59"/>
@@ -867,7 +867,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="86"/>
         <source>downloader</source>
-        <translation type="unfinished"/>
+        <translation>التحميل</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="87"/>
@@ -1084,7 +1084,7 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="836"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>threads الأوصاف الأصلية</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
