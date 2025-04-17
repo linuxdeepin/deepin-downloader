@@ -1,3 +1,10 @@
+deepin-downloader (6.0.5) unstable; urgency=medium
+
+  * chore: update translations.
+  * [deepin-downloader] Updates for project Deepin Downloader (#83)
+
+ -- renbin <renbin@uniontech.com>  Thu, 17 Apr 2025 10:08:45 +0800
+
 deepin-downloader (6.0.4) unstable; urgency=medium
 
   * chore: New version 6.0.4.
