@@ -6,6 +6,7 @@
 
 DataBase::DataBase()
 {
+    qDebug() << "Initializing database connection";
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 
     // QString _dataBasePath = qApp->applicationDirPath();

@@ -67,12 +67,14 @@ TableView::TableView(int Flag)
     , m_Itemdegegate(new ItemDelegate(this, m_TableFlag))
     , m_Setting(Settings::getInstance())
 {
+    qDebug() << "TableView created with flag:" << Flag;
     initUI();
     initConnections();
 }
 
 TableView::~TableView()
 {
+    qDebug() << "TableView destroyed";
     delete (m_TableModel);
     delete (m_TableDataControl);
     delete (m_HeaderView);
@@ -80,6 +82,7 @@ TableView::~TableView()
 
 void TableView::initUI()
 {
+    qDebug() << "Initializing table view UI";
     setModel(m_TableModel);
     setItemDelegate(m_Itemdegegate);
     setFrameShape(QFrame::NoFrame);
@@ -118,6 +121,7 @@ void TableView::initUI()
 
 void TableView::initConnections()
 {
+    qDebug() << "Initializing table view connections";
     connect(m_HeaderView, &DownloadHeaderView::Statechanged, this, &TableView::HeaderStatechanged);
     //connect(this, &TableView::ClearHeaderCheck, m_HeaderView, &HeaderView::onClearHeaderChecked);
     connect(m_TableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
@@ -225,6 +229,7 @@ void TableView::currentChanged(const QModelIndex &current, const QModelIndex &pr
 
 bool TableView::refreshTableView(const int &index)
 {
+    qDebug() << "Refreshing table view with index:" << index;
     if (index > 1) {
         return false;
     }

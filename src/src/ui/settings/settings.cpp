@@ -89,20 +89,24 @@ Settings *Settings::getInstance()
 Settings::Settings(QObject *parent)
     : QObject(parent)
 {
+    qDebug() << "Settings instance created";
 }
 
 Settings::~Settings()
 {
+    qDebug() << "Settings instance destroyed";
     delete m_iniFile;
 }
 
 void Settings::init()
 {
+    qDebug() << "Initializing settings";
     setupCOnfigFile();
     initWidget();
 }
 void Settings::initWidget()
 {
+    qDebug() << "Initializing settings widgets";
     m_backend = new QSettingBackend(m_configPath);
     m_settings = DSettings::fromJsonFile(":/json/settings");
 
@@ -424,6 +428,7 @@ void Settings::initWidget()
 
 void Settings::setupCOnfigFile()
 {
+    qDebug() << "Setting up config file";
     m_configPath = QString("%1/%2/%3/config.conf")
                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                        .arg(qApp->organizationName())

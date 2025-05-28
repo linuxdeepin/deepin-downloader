@@ -38,14 +38,20 @@ static quint64 _remainDisk = DEFALT_REMAIN_SIZE;
 
 void setLogPath(const QString &path)
 {
+    qDebug() << "[LogSystem] Setting log path to:" << path;
+
     s_logPath = path;
 }
 void setLogDir(const QString &dir)
 {
+    qDebug() << "[LogSystem] Setting log directory to:" << dir;
+
     _logDir = dir;
 }
 void setLogLevel(int level)
 {
+    qDebug() << "[LogSystem] Setting log level to:" << level;
+
     s_logLevel = level;
 }
 
@@ -68,6 +74,8 @@ QFileInfoList GetLogList()
 }
 void CheckLogTime()
 {
+    qDebug() << "[LogSystem] Checking log files by time (max days:" << _logDaysRemain << ")";
+
     auto curTime = QDateTime::currentDateTime();
     auto logList = GetLogList();
     for (int i = 0; i < logList.size() - 1; ++i) {
@@ -83,6 +91,8 @@ void CheckLogTime()
 }
 quint64 GetDiskFreeSpace()
 {
+    qDebug() << "[LogSystem] Checking disk free space";
+
     QStorageInfo storage = QStorageInfo::root();
     storage.refresh(); //获得最新磁盘信息
 
@@ -98,6 +108,8 @@ quint64 GetDiskFreeSpace()
 }
 void CheckFreeDisk()
 {
+    qDebug() << "[LogSystem] Checking disk space (min required:" << _remainDisk << "bytes)";
+
     auto freeSpace = GetDiskFreeSpace();
 
     if (freeSpace < _remainDisk) {
@@ -114,11 +126,15 @@ void CheckFreeDisk()
 }
 bool CheckRotateSize()
 {
+    qDebug() << "[LogSystem] Checking log rotation by size (current:" << _logFile.size() << "max:" << _rotateSize << ")";
+
     bool ret = _logFile.size() >= _rotateSize;
     return ret;
 }
 bool CheckRotateTimePoint()
 {
+    qDebug() << "[LogSystem] Checking log rotation by time";
+
     QFileInfo curLogInfo(_logFile);
     auto curLogCreateDate = curLogInfo.birthTime();
     auto curDate = QDateTime::currentDateTime();
@@ -158,6 +174,8 @@ void WriteVersion()
 }
 void CreateNewLog()
 {
+    qDebug() << "[LogSystem] Creating new log file";
+
     auto appName = QCoreApplication::applicationName();
     auto version = QCoreApplication::applicationVersion();
     auto curTime = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmsszzz");
@@ -166,6 +184,7 @@ void CreateNewLog()
     setLogPath(logName);
     _logFile.open(QIODevice::ReadWrite | QIODevice::Append);
     //日志头写入App\系统参数
+    qDebug() << "[LogSystem] New log file created:" << logName;
     WriteVersion();
 }
 

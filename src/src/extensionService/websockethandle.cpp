@@ -40,6 +40,8 @@
 Websockethandle::Websockethandle(QObject *parent)
     : QObject(parent)
 {
+    qDebug() << "[WebSocketHandle] Initializing DBus service";
+
     QDBusConnection::sessionBus().unregisterService("com.dlmExtensionService.service");
     QDBusConnection::sessionBus().registerService("com.dlmExtensionService.service");
     QDBusConnection::sessionBus().registerObject("/dlmExtensionService/path", this, QDBusConnection ::ExportAllSlots | QDBusConnection ::ExportAllSignals);
@@ -47,10 +49,13 @@ Websockethandle::Websockethandle(QObject *parent)
 
 Websockethandle::~Websockethandle()
 {
+    qDebug() << "[WebSocketHandle] Destroying WebSocket handler";
 }
 
 bool Websockethandle::isControlBrowser()
 {
+    qDebug() << "[WebSocketHandle] Checking browser control settings";
+
     QString iniConfigPath = QString("%1/%2/%3/config.conf")
                                 .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                                 .arg("uos")
@@ -58,20 +63,27 @@ bool Websockethandle::isControlBrowser()
     QSettings set(iniConfigPath, QSettings::IniFormat);
 
     bool b = set.value("Monitoring.MonitoringObject.Browser/value").toBool();
+    qDebug() << "[WebSocketHandle] Browser control setting:" << b;
     return b;
 }
 
 void Websockethandle::sendTextToClient(bool b)
 {
+    qDebug() << "[WebSocketHandle] Sending text to client:" << b;
+
     sendText(QString().number(b));
 }
 
 void Websockethandle::receiveText(const QString &text)
 {
+    qDebug() << "[WebSocketHandle] Received text:" << text;
+
     if (text.contains("init")) { //初始化
+        qDebug() << "[WebSocketHandle] Handling init request";
         bool b = isControlBrowser();
         sendText(QString().number(b));
         return;
     }
+    qDebug() << "[WebSocketHandle] Sending URL to downloader:" << text;
     sendWebText(text);  //发送链接到下载器
 }

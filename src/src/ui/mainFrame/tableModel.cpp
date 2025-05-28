@@ -48,6 +48,7 @@ TableModel::TableModel(int Flag, QObject *parent)
     , m_TableviewtabFlag(Flag)
     , m_DownloadingCount(0)
 {
+    qDebug() << "TableModel created with flag:" << Flag;
     connect(this, &TableModel::checkDatachange, this, &TableModel::onCheckdatachange);
     m_SortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
@@ -55,6 +56,7 @@ TableModel::TableModel(int Flag, QObject *parent)
 
 TableModel::~TableModel()
 {
+    qDebug() << "TableModel destroyed, cleaning up data";
     for(auto data : m_DataList) {
         delete data;
     }
@@ -122,6 +124,7 @@ void TableModel::onCheckdatachange(int flag)
 
 DownloadDataItem *TableModel::find(const QString &taskId)
 {
+    qDebug() << "Finding task with ID:" << taskId;
     if (m_Map.contains(taskId)) {
         return m_Map.value(taskId);
     }
@@ -139,6 +142,7 @@ DeleteDataItem *TableModel::find(const QString &gid, int flag)
 
 bool TableModel::append(DownloadDataItem *data)
 {
+    qDebug() << "Appending download data, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
         return false;
     }
@@ -153,6 +157,7 @@ bool TableModel::append(DownloadDataItem *data)
 
 bool TableModel::append(DeleteDataItem *data)
 {
+    qDebug() << "Appending delete data, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
         return false;
     }
@@ -167,6 +172,7 @@ bool TableModel::append(DeleteDataItem *data)
 
 bool TableModel::removeItem(DownloadDataItem *data)
 {
+    qDebug() << "Removing download item, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
         return false;
     }
@@ -184,6 +190,7 @@ bool TableModel::removeItem(DownloadDataItem *data)
 
 bool TableModel::removeItem(DeleteDataItem *data)
 {
+    qDebug() << "Removing delete item, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
         return false;
     }
@@ -220,6 +227,7 @@ bool TableModel::removeRecycleItems()
 
 bool TableModel::switchDownloadingMode()
 {
+    qDebug() << "Switching to downloading mode";
     beginResetModel();
 
     m_Mode = Downloading;
@@ -237,6 +245,7 @@ bool TableModel::switchDownloadingMode()
 
 bool TableModel::switchFinishedMode()
 {
+    qDebug() << "Switching to finished mode";
     beginResetModel();
 
     m_Mode = Finished;

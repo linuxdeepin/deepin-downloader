@@ -40,6 +40,7 @@
 NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "NotificationsSettiingWidget created";
     QFont lableFont;
     //lableFont.setBold(QFont::DemiBold);
     lableFont.setFamily("T5");
@@ -67,6 +68,7 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     pLayout->addLayout(pVLayout);
     pLayout->addWidget(btn);
     connect(btn, &QPushButton::clicked, this, []() {
+        qDebug() << "Opening control center notification settings";
         QDBusInterface iface("com.deepin.dde.ControlCenter",
                              "/com/deepin/dde/ControlCenter",
                              "com.deepin.dde.ControlCenter",

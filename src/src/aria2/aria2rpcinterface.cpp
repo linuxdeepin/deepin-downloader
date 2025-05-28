@@ -55,15 +55,19 @@ Aria2RPCInterface::Aria2RPCInterface(QObject *parent)
     , m_aria2cCmd(ARIA2C_NAME)
     , m_basePath(ARIA2C_PATH)
 {
+    qDebug() << "[Aria2RPC] Interface initialized";
 }
 
 Aria2RPCInterface::~Aria2RPCInterface()
 {
+    qDebug() << "[Aria2RPC] Interface destroyed";
     delete m_proc;
 }
 
 bool Aria2RPCInterface::startUp()
 {
+    qDebug() << "[Aria2RPC] Starting aria2 service";
+
     /*
      *检测aria2c执行文件是否存在
      */
@@ -209,6 +213,8 @@ bool Aria2RPCInterface::checkAria2cFile()
 
 bool Aria2RPCInterface::Aria2RPCInterface::init()
 {
+    qDebug() << "[Aria2RPC] Initializing aria2 service";
+
     setupConfig();
     bool rs = startUp();
     qDebug() << "Startup aria2:" << QString::number(rs);
@@ -277,6 +283,7 @@ QString Aria2RPCInterface::getConfigFilePath() const
 bool Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString id)
 {
     if (uri.isEmpty() || opt.isEmpty() || id.isEmpty()) {
+        qWarning() << "[Aria2RPC] Invalid parameters for addUri";
         return false;
     }
     uri = processThunderUri(uri); //处理迅雷链接
@@ -308,6 +315,7 @@ bool Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filenam
 bool Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> opt, QString id)
 {
     if (torrentFile.isEmpty() || opt.isEmpty() || id.isEmpty()) {
+        qWarning() << "[Aria2RPC] Invalid parameters for addTorrent";
         return false;
     }
     QString torrentB64Str = fileToBase64(torrentFile); //把bt文件转成base64编码
@@ -325,6 +333,7 @@ bool Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> 
 bool Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> opt, QString id)
 {
     if (metalink.isEmpty() || opt.isEmpty() || id.isEmpty()) {
+        qWarning() << "[Aria2RPC] Invalid parameters for addMetalink";
         return false;
     }
     QString metalinkB64Str = fileToBase64(metalink);

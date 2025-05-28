@@ -30,7 +30,9 @@
  */
 
 #include "aria2cbtinfo.h"
+#include <QDebug>
 
 Aria2cBtInfo::Aria2cBtInfo()
 {
+    qDebug() << "[Aria2cBtInfo] Constructor initialized";
 }

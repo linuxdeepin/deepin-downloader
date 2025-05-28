@@ -41,17 +41,20 @@
 SearchResoultWidget::SearchResoultWidget(QWidget *parent)
     : QListWidget(parent)
 {
+    qDebug() << "Initializing SearchResoultWidget";
     setMinimumWidth(380);
     setFixedHeight(280);
     DPlatformWindowHandle handle(this);
     handle.setWindowRadius(18);
     setIconSize(QSize(12, 12));
     setSpacing(2);
+    qDebug() << "SearchResoultWidget initialized with size 380x280";
 }
 
 void SearchResoultWidget::setData(QList<QString> &taskIDList,
                                   QList<int> &taskStatusList, QList<QString> &tasknameList)
 {
+    qDebug() << "Setting search result data with" << taskIDList.count() << "items";
     this->clear();
     bool first = true;
     for(int i = 0; i< taskIDList.count(); i++){
@@ -99,6 +102,7 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
 
 void SearchResoultWidget::onKeypressed(Qt::Key k)
 {
+    qDebug() << "Key pressed:" << k;
     QModelIndex index = currentIndex();
     if(k == Qt::Key_Up) {
         if(currentItem() == nullptr){
@@ -136,6 +140,7 @@ void SearchResoultWidget::focusOutEvent(QFocusEvent *event)
 void SearchResoultWidget::keyPressEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_Enter) {
+        qDebug() << "Enter key pressed, emitting item clicked";
         emit itemClicked(currentItem());
     }
 }

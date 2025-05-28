@@ -46,11 +46,14 @@
 #include <QStandardItem>
 #include <QDir>
 #include <QThread>
+#include <QDebug>
 #include <DAlertControl>
 #include <DGuiApplicationHelper>
 
 TaskDelegate::TaskDelegate(DDialog *dialog)
 {
+    qDebug() << "TaskDelegate constructor entered";
+
     m_dialog = dialog;
     m_checkBtn = new QCheckBox();
     m_curName.clear();
@@ -58,6 +61,8 @@ TaskDelegate::TaskDelegate(DDialog *dialog)
 
 TaskDelegate::~TaskDelegate()
 {
+    qDebug() << "TaskDelegate destructor entered";
+
     if(m_checkBtn != nullptr){
         delete m_checkBtn;
         m_checkBtn =nullptr;
@@ -182,6 +187,8 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
 
 QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    qDebug() << "createEditor entered for row:" << index.row() << "column:" << index.column();
+
     Q_UNUSED(option);
 
     if (index.column() != 0) {
@@ -259,6 +266,8 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
 
 void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
+    qDebug() << "setEditorData entered for row:" << index.row();
+
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TaskModel::Name).toString();
     m_curName = str;
@@ -267,6 +276,8 @@ void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
 
 void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
+    qDebug() << "setModelData entered for row:" << index.row();
+
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     if (pEdit == nullptr) {
         return;

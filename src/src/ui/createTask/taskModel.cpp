@@ -45,12 +45,12 @@ using namespace DTK_CORE_NAMESPACE;
 TaskModel::TaskModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-
+    qDebug() << "TaskModel constructor entered";
 }
 
 TaskModel::~TaskModel()
 {
-
+    qDebug() << "TaskModel destructor entered";
 }
 
 int TaskModel::rowCount(const QModelIndex &parent) const
@@ -169,6 +169,8 @@ Qt::ItemFlags TaskModel::flags(const QModelIndex &index) const
 
 bool TaskModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    qDebug() << "setData called for row:" << index.row() << "column:" << index.column() << "role:" << role;
+
     if (!index.isValid()) {
         return false;
     }
@@ -200,6 +202,8 @@ bool TaskModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
 bool TaskModel::removeRow(int position, const QModelIndex &index)
 {
+    qDebug() << "Removing row at position:" << position;
+
     Q_UNUSED(index);
     beginRemoveRows(QModelIndex(), position, position);
 
@@ -212,6 +216,8 @@ bool TaskModel::removeRow(int position, const QModelIndex &index)
 
 bool TaskModel::insertRows(int position, int rows, const QModelIndex &index)
 {
+    qDebug() << "Inserting" << rows << "rows at position:" << position;
+
     Q_UNUSED(index);
     if(m_linkInfo.size() > position){
         return false;

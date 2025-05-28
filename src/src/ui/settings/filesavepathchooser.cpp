@@ -42,6 +42,7 @@
 
 FileSavePathChooser::FileSavePathChooser(const int &currentSelect, const QString &downloadPath)
 {
+    qDebug() << "FileSavePathChooser created with currentSelect:" << currentSelect << "downloadPath:" << downloadPath;
     m_currentSelect = currentSelect;
     m_downloadPath = downloadPath;
 
@@ -51,6 +52,7 @@ FileSavePathChooser::FileSavePathChooser(const int &currentSelect, const QString
 
 void FileSavePathChooser::initUI()
 {
+    qDebug() << "Initializing file save path chooser UI";
     m_fileChooserEdit = new DFileChooserEdit;
     m_autoLastPathRadioButton = new DRadioButton(tr("Last used directory")); // 自动修改为上次使用的目录
     m_autoLastPathRadioButton->setObjectName("lastPathBtn");
@@ -111,6 +113,7 @@ void FileSavePathChooser::initUI()
 
 void FileSavePathChooser::initConnections()
 {
+    qDebug() << "Initializing file save path chooser connections";
     connect(m_autoLastPathRadioButton, &DRadioButton::clicked, this, &FileSavePathChooser::onRadioButtonClicked);
     connect(m_customsPathRadioButton, &DRadioButton::clicked, this, &FileSavePathChooser::onRadioButtonClicked);
     connect(m_fileChooserEdit, &DFileChooserEdit::textChanged, this, &FileSavePathChooser::onLineEditTextChanged);
@@ -119,6 +122,7 @@ void FileSavePathChooser::initConnections()
 void FileSavePathChooser::onRadioButtonClicked()
 {
     DRadioButton *radioButton = qobject_cast<DRadioButton *>(sender());
+    qDebug() << "Radio button clicked:" << radioButton->text();
 
     if (m_autoLastPathRadioButton == radioButton) {
         m_autoLastPathRadioButton->setChecked(true);
@@ -141,10 +145,12 @@ void FileSavePathChooser::onRadioButtonClicked()
 
 void FileSavePathChooser::onLineEditTextChanged(const QString &text)
 {
+    qDebug() << "File save path changed to:" << text;
     QFileInfo fileInfo;
 
     fileInfo.setFile(text);
     if (!fileInfo.isWritable()) {
+        qWarning() << "Selected path is not writable:" << text;
         MessageBox messageBox(this);
         messageBox.setFolderDenied();
         m_fileChooserEdit->setText(m_downloadPath);

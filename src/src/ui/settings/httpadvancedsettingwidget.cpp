@@ -46,6 +46,7 @@
 HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(QWidget *parent)
     : DDialog(parent)
 {
+    qDebug() << "HttpAdvancedSettingWidget created";
     setFixedSize(475, 345);
     m_configPath = QString("%1/%2/%3/httpAdvanced.json")
                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
@@ -62,6 +63,7 @@ HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(QWidget *parent)
 
 void HttpAdvancedSettingWidget::initUI()
 {
+    qDebug() << "Initializing HTTP advanced settings UI";
     m_btnBox = new DButtonBox(this);
     QList<DButtonBoxButton*> list;
     QFont font;
@@ -159,6 +161,7 @@ void HttpAdvancedSettingWidget::reset()
 
 void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 {
+    qDebug() << "File extensions edit button clicked";
     QString curPlaceholderText = m_textEdit->placeholderText();
     if(!(curPlaceholderText == tr("Separate file extensions by semicolons (;)"))
             && !curPlaceholderText.isEmpty()) {
@@ -170,6 +173,7 @@ void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 }
 void HttpAdvancedSettingWidget::onWebBtnClicked()
 {
+    qDebug() << "Unmonitored sites edit button clicked";
     if(!(m_textEdit->placeholderText() == tr("Please enter one URL per line"))
             && !m_textEdit->placeholderText().isEmpty()) {
         m_curSuffixStr = m_textEdit->toPlainText();
@@ -181,6 +185,7 @@ void HttpAdvancedSettingWidget::onWebBtnClicked()
 
 void HttpAdvancedSettingWidget::onRstoreDefaultClicked()
 {
+    qDebug() << "Restoring default file extensions";
 //    QFile file(m_configPath);
 //    if(!file.open(QIODevice::ReadWrite)) {
 //        return;
@@ -201,8 +206,10 @@ void HttpAdvancedSettingWidget::onRstoreDefaultClicked()
 
 void HttpAdvancedSettingWidget::onSureClicked()
 {
+    qDebug() << "Saving HTTP advanced settings";
     QFile file(m_configPath);
     if(!file.open(QIODevice::ReadWrite)) {
+        qWarning() << "Failed to open config file:" << m_configPath;
         return;
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
@@ -223,5 +230,6 @@ void HttpAdvancedSettingWidget::onSureClicked()
 
 void HttpAdvancedSettingWidget::onCancelClicked()
 {
+    qDebug() << "HTTP advanced settings dialog canceled";
     close();
 }

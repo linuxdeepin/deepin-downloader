@@ -71,6 +71,7 @@ TableDataControl::TableDataControl(TableView *pTableView, QObject *parent)
     : QObject(parent)
     , m_DownloadTableView(pTableView)
 {
+    qDebug() << "TableDataControl initialized with table view";
 }
 
 bool TableDataControl::setRecycleTable(TableView *pRecycleTable)
@@ -85,6 +86,7 @@ bool TableDataControl::setRecycleTable(TableView *pRecycleTable)
 bool TableDataControl::removeDownloadListJob(Global::DownloadDataItem *pData,
                                              bool isDeleteAria2, bool isAddToRecycle)
 {
+    qDebug() << "Removing download job";
     if (pData == nullptr) {
         return false;
     }
@@ -148,6 +150,7 @@ bool TableDataControl::removeDownloadListJob(Global::DownloadDataItem *pData,
 
 bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
 {
+    qDebug() << "Adding new aria2 task, method:" << json.value("method").toString();
     QString id = json.value("id").toString();
     if (id == "dht.dat" || id == "dht6.dat") {
         return false;
@@ -224,6 +227,7 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
 
 bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent)
 {
+    qDebug() << "Processing aria2 status change for task:" << json.value("id").toString();
     QJsonObject result = json.value("result").toObject();
     QJsonObject bittorrent = result.value("bittorrent").toObject();
     QString filePath;
@@ -523,6 +527,7 @@ bool TableDataControl::aria2GetGlobalStatus(QJsonObject &json)
 
 bool TableDataControl::aria2MethodForceRemove(QJsonObject &json)
 {
+    qDebug() << "Force removing aria2 task:" << json.value("id").toString();
     QString id = json.value("id").toString();
     qDebug() << "aria2MethodForceRemove: " << id;
     if (id.startsWith("REDOWNLOAD_")) { // 重新下载前的移除完成后
@@ -775,6 +780,7 @@ bool TableDataControl::onDelAction(int currentTab)
 
 bool TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanent, TableView *pRecycleTableView)
 {
+    qDebug() << "Confirming download list deletion, permanent:" << permanent;
     bool ifDeleteLocal = permanent || ischecked;
     DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_DeleteList,
                                                                m_DownloadTableView,
@@ -796,6 +802,7 @@ bool TableDataControl::onDeleteDownloadListConfirm(bool ischecked, bool permanen
 
 bool TableDataControl::onDeleteRecycleListConfirm(bool ischecked, bool permanent)
 {
+    qDebug() << "Confirming recycle list deletion, permanent:" << permanent;
     bool ifDeleteLocal = permanent || ischecked;
 
     DeleteItemThread *pDeleteItemThread = new DeleteItemThread(m_RecycleDeleteList,
@@ -937,6 +944,7 @@ bool TableDataControl::deleteTask(bool ifDeleteLocal, TableView *pRecycleTableVi
 
 bool TableDataControl::reDownloadTask(QString taskId, QString filePath, QString fileName, QString url)
 {
+    qDebug() << "Redownloading task:" << taskId << "file:" << fileName;
     QString savePath = getDownloadSavepathFromConfig();
     if (getDownloadSavepathFromConfig() != filePath) {
         int folderPathLength = filePath.size() - fileName.size() - 1;

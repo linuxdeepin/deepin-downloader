@@ -38,6 +38,7 @@
 ItemSelectionWidget::ItemSelectionWidget(QWidget *parent, bool isHttp)
     : QWidget(parent)
 {
+    qDebug() << "ItemSelectionWidget created with isHttp:" << isHttp;
     initUI(isHttp);
     initConnections();
 }
@@ -45,6 +46,7 @@ ItemSelectionWidget::ItemSelectionWidget(QWidget *parent, bool isHttp)
 // 初始化界面
 void ItemSelectionWidget::initUI(bool isHttp)
 {
+    qDebug() << "Initializing item selection widget UI";
 //    setStyleSheet("background:rgba(211, 211, 211, 1)");
 
     m_label = new DLabel("HTTP下载");
@@ -72,11 +74,13 @@ void ItemSelectionWidget::initUI(bool isHttp)
 // 初始化链接
 void ItemSelectionWidget::initConnections()
 {
+    qDebug() << "Initializing item selection widget connections";
     connect(m_checkBox, &QCheckBox::stateChanged, this, &ItemSelectionWidget::onCheckBoxStateChanged);
 }
 
 void ItemSelectionWidget::onCheckBoxStateChanged(int state)
 {
+    qDebug() << "Checkbox state changed to:" << (state == Qt::Checked ? "Checked" : "Unchecked");
     if (state == Qt::Unchecked) {
         emit checkBoxIsChecked(false);
     } else if(state == Qt::Checked) {

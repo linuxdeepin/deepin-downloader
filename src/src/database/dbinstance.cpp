@@ -6,6 +6,8 @@
 
 bool DBInstance::addTask(TaskInfo &task)
 {
+    qDebug() << "[DBInstance] Adding new task:" << task.taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -30,6 +32,8 @@ bool DBInstance::addTask(TaskInfo &task)
 
 bool DBInstance::delTask(QString taskId)
 {
+    qDebug() << "[DBInstance] Deleting task:" << taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -64,6 +68,8 @@ bool DBInstance::delTask(QString taskId)
 
 bool DBInstance::delAllTask()
 {
+    qDebug() << "[DBInstance] Deleting all tasks";
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -92,6 +98,8 @@ bool DBInstance::delAllTask()
 
 bool DBInstance::updateTaskInfoByID(TaskInfo &task)
 {
+    qDebug() << "[DBInstance] Updating task:" << task.taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -118,6 +126,8 @@ bool DBInstance::updateTaskInfoByID(TaskInfo &task)
 
 bool DBInstance::updateAllTaskInfo(QList<TaskInfo> &taskList)
 {
+    qDebug() << "[DBInstance] Updating" << taskList.size() << "tasks";
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -145,6 +155,8 @@ bool DBInstance::updateAllTaskInfo(QList<TaskInfo> &taskList)
 
 bool DBInstance::getTaskByID(QString taskId, TaskInfo &task)
 {
+    qDebug() << "[DBInstance] Getting task by ID:" << taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -172,6 +184,8 @@ bool DBInstance::getTaskByID(QString taskId, TaskInfo &task)
 
 bool DBInstance::getAllTask(QList<TaskInfo> &taskList)
 {
+    qDebug() << "[DBInstance] Getting all tasks";
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -202,6 +216,8 @@ bool DBInstance::getAllTask(QList<TaskInfo> &taskList)
 
 bool DBInstance::isExistUrl(QString url, bool &ret)
 {
+    qDebug() << "[DBInstance] Checking if URL exists:" << url;
+
     ret = false;
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
@@ -212,6 +228,7 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     QString selectAllSql = "select count(*)  from download_task where download_task.url like'" + url + "%' ;";
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
+        qWarning() << "[DBInstance] Failed to check URL existence:" << sql.lastError().text();
         return false;
     }
     while (sql.next()) {
@@ -223,6 +240,7 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
     selectAllSql = "select count(*)  from url_info where url_info.infoHash like'%" + url + "%' ;";
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
+        qWarning() << "[DBInstance] Failed to check magnet URL existence:" << sql.lastError().text();
         return false;
     }
     while (sql.next()) {
@@ -235,6 +253,8 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
 
 QString DBInstance::getTaskIdByMagnet(QString url)
 {
+    qDebug() << "[DBInstance] Getting task ID by magnet URL:" << url;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -245,6 +265,7 @@ QString DBInstance::getTaskIdByMagnet(QString url)
     QString selectAllSql = "select task_id  from url_info where url_info.infoHash like'%" + url + "%' ;";
     sql.prepare(selectAllSql);
     if (!sql.exec()) {
+        qWarning() << "[DBInstance] Failed to get task ID by magnet:" << sql.lastError().text();
         return "";
     }
     while (sql.next()) {
@@ -255,6 +276,8 @@ QString DBInstance::getTaskIdByMagnet(QString url)
 
 bool DBInstance::addTaskStatus(TaskStatus &task)
 {
+    qDebug() << "[DBInstance] Adding task status for task:" << task.taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -281,6 +304,8 @@ bool DBInstance::addTaskStatus(TaskStatus &task)
 
 bool DBInstance::updateTaskStatusById(TaskStatus &task)
 {
+    qDebug() << "[DBInstance] Updating task status for task:" << task.taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -306,6 +331,8 @@ bool DBInstance::updateTaskStatusById(TaskStatus &task)
 
 bool DBInstance::updateAllTaskStatus(QList<TaskStatus> &taskList)
 {
+    qDebug() << "[DBInstance] Updating" << taskList.size() << "task statuses";
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -333,6 +360,8 @@ bool DBInstance::updateAllTaskStatus(QList<TaskStatus> &taskList)
 
 bool DBInstance::getTaskStatusById(QString taskId, TaskStatus &task)
 {
+    qDebug() << "[DBInstance] Getting task status for task:" << taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -361,6 +390,8 @@ bool DBInstance::getTaskStatusById(QString taskId, TaskStatus &task)
 
 bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
 {
+    qDebug() << "[DBInstance] Getting all task statuses";
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -391,6 +422,8 @@ bool DBInstance::getAllTaskStatus(QList<TaskStatus> &taskList)
 
 bool DBInstance::addBtTask(TaskInfoHash &url)
 {
+    qDebug() << "[DBInstance] Adding BT task:" << url.taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -413,6 +446,8 @@ bool DBInstance::addBtTask(TaskInfoHash &url)
 
 bool DBInstance::updateBtTaskById(TaskInfoHash &url)
 {
+    qDebug() << "[DBInstance] Updating BT task:" << url.taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -431,6 +466,8 @@ bool DBInstance::updateBtTaskById(TaskInfoHash &url)
 
 bool DBInstance::getBtTaskById(QString taskId, TaskInfoHash &url)
 {
+    qDebug() << "[DBInstance] Getting BT task by ID:" << taskId;
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -456,6 +493,8 @@ bool DBInstance::getBtTaskById(QString taskId, TaskInfoHash &url)
 
 bool DBInstance::getAllBtTask(QList<TaskInfoHash> &urlList)
 {
+    qDebug() << "[DBInstance] Getting all BT tasks";
+
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {
         qDebug() << q.lastError();
@@ -483,6 +522,8 @@ bool DBInstance::getAllBtTask(QList<TaskInfoHash> &urlList)
 
 int DBInstance::getSameNameCount(QString filename, QString type)
 {
+    qDebug() << "[DBInstance] Getting same name count for:" << filename << "." << type;
+
     int count = 0;
     QSqlDatabase q = DataBase::Instance().getDB();
     if (!q.isOpen()) {

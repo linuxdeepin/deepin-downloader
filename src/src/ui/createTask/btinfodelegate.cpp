@@ -49,10 +49,12 @@ BtInfoDelegate::BtInfoDelegate(DDialog *dialog):
     m_dialog(dialog),
     m_checkBtn(new QCheckBox)
 {
+    qDebug() << "BtInfoDelegate constructor";
 }
 
 BtInfoDelegate::~BtInfoDelegate()
 {
+    qDebug() << "BtInfoDelegate destructor";
     delete m_checkBtn;
 }
 
@@ -113,6 +115,8 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 
 bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
+    qDebug() << "editorEvent type:" << event->type() << "at row:" << index.row() << "column:" << index.column();
+
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     if (index.column() == 0) {
         QRect rect(option.rect);

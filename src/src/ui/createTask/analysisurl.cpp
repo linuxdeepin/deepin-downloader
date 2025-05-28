@@ -12,11 +12,13 @@
 AnalysisUrl::AnalysisUrl(QObject *parent)
     : QObject(parent)
 {
+    qDebug() << "AnalysisUrl constructor";
     //qRegisterMetaType<LinkInfo>("LinkInfo*");
 }
 
 AnalysisUrl::~AnalysisUrl()
 {
+    qDebug() << "AnalysisUrl destructor, stopping" << m_workThread.size() << "threads";
     for (int i = 0; i < m_workThread.size(); i++) {
         stopWork(i);
     }
@@ -24,7 +26,9 @@ AnalysisUrl::~AnalysisUrl()
 
 void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
 {
+    qDebug() << "setUrlList called with" << list.size() << "urls";
     if (list.isEmpty()) {
+        qWarning() << "Empty url list provided";
         return;
     }
     QMap<QString, LinkInfo>::iterator it = m_curAllUrl.begin();
@@ -77,6 +81,8 @@ void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
 
 void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
 {
+    qDebug() << "getLinkInfo for url:" << linkInfo.url << "state:" << linkInfo.state;
+
     static QMutex mutex;
     bool isLock = mutex.tryLock();
     if (isLock) {
@@ -114,6 +120,8 @@ void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
 
 void AnalysisUrl::stopWork(int index)
 {
+    qDebug() << "stopWork for thread index:" << index;
+
     static QMutex mutex;
     bool isLock = mutex.tryLock();
     if (isLock) {
@@ -154,6 +162,8 @@ void AnalysisUrl::stopWork(int index)
 
 void AnalysisUrl::getTrueLinkInfo(LinkInfo linkInfo)
 {
+    qDebug() << "getTrueLinkInfo original:" << linkInfo.url << "true:" << linkInfo.urlTrueLink;
+
     static QMutex mutex;
     mutex.lock();
     QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(linkInfo.url);

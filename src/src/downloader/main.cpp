@@ -66,15 +66,18 @@ QAccessibleInterface *accessibleFactory(const QString &classname, QObject *objec
 
 int main(int argc, char *argv[])
 {
+    qDebug() << "[Main] Application starting";
 
     if (qEnvironmentVariableIsEmpty("XDG_CURRENT_DESKTOP")){
-            qputenv("XDG_CURRENT_DESKTOP", "Deepin");
+        qDebug() << "[Main] Setting XDG_CURRENT_DESKTOP to Deepin";
+        qputenv("XDG_CURRENT_DESKTOP", "Deepin");
     }
 
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
 #if QT_VERSION_MAJOR <= 5
     if (XDG_SESSION_TYPE == QLatin1String("x11")) {
+        qDebug() << "[Main] X11 session detected, loading DXcb plugin";
         DlmApplication::loadDXcbPlugin();
     }
 #endif
@@ -102,9 +105,11 @@ int main(int argc, char *argv[])
     sharedMemory.setKey("downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
+        qDebug() << "[Main] Shared memory attached, checking for existing instance";
         if (!checkProcessExist()) { //下载器任务不存在，清空共享内存并启动
             sharedMemory.detach();
         } else { //下载器任务存在
+            qDebug() << "[Main] Existing instance found";
             if (comList.isEmpty()) {
                 QDBusInterface iface("com.downloader.service",
                                      "/downloader/path",
@@ -112,6 +117,7 @@ int main(int argc, char *argv[])
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("Raise");
             } else {
+                qDebug() << "[Main] Writing new URL to shared memory:" << comList[0];
                 if (sharedMemory.isAttached()) {
                     if (readShardMemary(sharedMemory) == comList[0]) {
                         return 0;
@@ -128,7 +134,7 @@ int main(int argc, char *argv[])
                         iface.asyncCall("createNewTask", comList[0]);
                     } else {
                         iface.asyncCall("OpenFile", comList[0]);
-                        qDebug() << "OpenFile :  " << comList[0];
+                        qDebug() << "[Main] Opening file:" << comList[0];
                     }
                 }
             }
@@ -137,6 +143,7 @@ int main(int argc, char *argv[])
     }
     if (sharedMemory.create(199)) {
         char *to = static_cast<char *>(sharedMemory.data());
+        qDebug() << "[Main] Initializing shared memory";
         memset(to, 0, 199);
     }
 #if QT_VERSION_MAJOR <= 5
@@ -151,7 +158,9 @@ int main(int argc, char *argv[])
                            .arg(qApp->applicationName());
 
     setLogDir(LogPath);
+    qDebug() << "[Main] Setting up log directory:" << LogPath;
     if (!dirCheck.exists(LogPath)) {
+        qDebug() << "[Main] Creating log directory";
         dirCheck.mkpath(LogPath);
     }
     //检查日志是否过期
@@ -164,12 +173,14 @@ int main(int argc, char *argv[])
         setLogLevel(0);
     }
     CreateNewLog();
+    qDebug() << "[Main] Log system initialized";
     qInstallMessageHandler(customLogMessageHandler);
 
     qDebug() << LogPath; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
     Dtk::Widget::moveToCenter(&w);
     w.show();
+    qDebug() << "[Main] Main window shown";
 
     for (int i = 0; i < comList.size(); i++) {
         if (comList[i].endsWith(".torrent") || comList[i].endsWith(".metalink")) {
@@ -187,6 +198,7 @@ int main(int argc, char *argv[])
 
 QString readShardMemary(QSharedMemory &sharedMemory)
 {
+    qDebug() << "[Main] Reading shared memory";
     sharedMemory.lock();
     char *to = static_cast<char *>(sharedMemory.data());
     sharedMemory.unlock();
@@ -195,6 +207,7 @@ QString readShardMemary(QSharedMemory &sharedMemory)
 
 void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
 {
+    qDebug() << "[Main] Writing to shared memory:" << strUrl;
     sharedMemory.lock();
     char *to = static_cast<char *>(sharedMemory.data());
     QByteArray array = strUrl.toLocal8Bit();
@@ -210,6 +223,7 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
 
 bool checkProcessExist()
 {
+    qDebug() << "[Main] Checking for existing process";
     QProcess process;
     QStringList list;
 #if QT_VERSION_MAJOR > 5
@@ -223,8 +237,10 @@ bool checkProcessExist()
     QString str = process.readAll();
     QStringList strList = str.split('\n');
     if (strList.size() > 1 && strList.at(1).isEmpty()) {
+        qDebug() << "[Main] No existing process found";
         return false;
     }
+    qDebug() << "[Main] Existing process found";
     return true;
 }
 

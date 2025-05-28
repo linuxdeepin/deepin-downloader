@@ -43,15 +43,20 @@
 ClipboardTimer::ClipboardTimer(QObject *parent)
     : QObject(parent)
 {
+    qDebug() << "ClipboardTimer object created";
+
     auto e = QProcessEnvironment::systemEnvironment();
     m_sessionType = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+    qDebug() << "Session type:" << m_sessionType;
 
     m_clipboard = QApplication::clipboard(); //获取当前剪切板
     connect(m_clipboard, &QClipboard::dataChanged, this, &ClipboardTimer::getDataChanged);
+    qDebug() << "Clipboard monitoring initialized";
 }
 
 ClipboardTimer::~ClipboardTimer()
 {
+    qDebug() << "ClipboardTimer object destroyed";
 }
 
 void ClipboardTimer::checkClipboardHasUrl()
@@ -61,9 +66,11 @@ void ClipboardTimer::checkClipboardHasUrl()
 
 void ClipboardTimer::getDataChanged()
 {
+    qDebug() << "Clipboard content changed";
     static bool isInitWayland = true;
 
     const QMimeData *mimeData = m_clipboard->mimeData();
+    qDebug() << "Clipboard formats:" << mimeData->formats();
     QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
     if(m_sessionType == QLatin1String("wayland")){
         if(m_clipboard->text() == m_lastUrl || m_clipboard->text().isEmpty()){
@@ -112,14 +119,19 @@ void ClipboardTimer::getDataChanged()
     }
     //将符合规则链接发送至主页面
     if (!url.isEmpty()) {
+        qDebug() << "Valid download URL detected in clipboard";
         emit sendClipboardTextChange(url);
+    } else {
+        qDebug() << "No valid download URL found in clipboard";
     }
 }
 
 bool ClipboardTimer::isMagnetFormat(QString url)
 {
     url = url.toLower();
-    return url.mid(0, 20) == "magnet:?xt=urn:btih:";
+    bool isMagnet = url.mid(0, 20) == "magnet:?xt=urn:btih:";
+    qDebug() << "Magnet link check:" << isMagnet;
+    return isMagnet;
 }
 
 bool ClipboardTimer::isHttpFormat(QString url)

@@ -46,6 +46,7 @@
 DownloadSettingWidget::DownloadSettingWidget(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "DownloadSettingWidget created";
     initUI();
     initConnections();
 }
@@ -53,6 +54,7 @@ DownloadSettingWidget::DownloadSettingWidget(QWidget *parent)
 // 初始化界面
 void DownloadSettingWidget::initUI()
 {
+    qDebug() << "Initializing download settings UI";
     m_DownloadSpeedLimitValue = 102400;
     m_UploadSpeedLimitValue = 32;
 
@@ -164,6 +166,7 @@ void DownloadSettingWidget::initUI()
 // 初始化链接
 void DownloadSettingWidget::initConnections()
 {
+    qDebug() << "Initializing download settings connections";
     connect(m_fullSpeedDownloadButton, &DRadioButton::clicked, this, &DownloadSettingWidget::onRadioButtonClicked);
     connect(m_speedLimitDownloadButton, &DRadioButton::clicked, this, &DownloadSettingWidget::onRadioButtonClicked);
     connect(m_maxDownloadSpeedLimit, &SettingInfoInputWidget::textChanged, this, &DownloadSettingWidget::onTextChanged);
@@ -177,6 +180,7 @@ void DownloadSettingWidget::initConnections()
 void DownloadSettingWidget::onRadioButtonClicked()
 {
     DRadioButton *radioButton = qobject_cast<DRadioButton *>(sender());
+    qDebug() << "Radio button clicked:" << radioButton->text();
 
     if (m_fullSpeedDownloadButton == radioButton) {
         m_fullSpeedDownloadButton->setChecked(true);
@@ -252,6 +256,7 @@ void DownloadSettingWidget::onValueChanged(QVariant var){
 void DownloadSettingWidget::onTimeChanged(const QString &time)
 {
     CTimeEdit *timeEdit = qobject_cast<CTimeEdit *>(sender());
+    qDebug() << "Time setting changed:" << time;
 
     if (!m_speedLimitDownloadButton->isChecked()) {
         return;
@@ -294,6 +299,7 @@ void DownloadSettingWidget::onTimeChanged(const QString &time)
 void DownloadSettingWidget::onTextChanged(QString text)
 {
     SettingInfoInputWidget *settingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
+    qDebug() << "Setting text changed:" << text;
 
     if (!m_speedLimitDownloadButton->isChecked()) {
         return;

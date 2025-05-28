@@ -65,6 +65,8 @@ CreateTaskWidget::CreateTaskWidget(QWidget *parent)
     : DDialog(parent)
     , m_analysisUrl(new AnalysisUrl)
 {
+    qDebug() << "CreateTaskWidget constructor entered";
+
     setObjectName("newTaskWidget");
     //DDialog 内将回车键绑定在action上，所以在解析框内无法出发回车函数，下列代码将DDialog中绑定回车的aciton删除
     QObjectList objectList = children();
@@ -83,6 +85,8 @@ CreateTaskWidget::CreateTaskWidget(QWidget *parent)
 
 CreateTaskWidget::~CreateTaskWidget()
 {
+    qDebug() << "CreateTaskWidget destructor entered";
+
 //    delete m_delegate;
     if(m_analysisUrl != nullptr){
         delete m_analysisUrl;
@@ -445,6 +449,8 @@ void CreateTaskWidget::onCancelBtnClicked()
 
 void CreateTaskWidget::onSureBtnClicked()
 {
+    qDebug() << "onSureBtnClicked entered";
+
     if (!Func::isNetConnect()) {
         showNetErrorMsg();
         return;
@@ -678,6 +684,8 @@ void CreateTaskWidget::onTextChanged()
 
 void CreateTaskWidget::onFilechoosed(const QString &filename)
 {
+    qInfo() << "Download directory changed to:" << filename;
+
  //   m_editDir->setFileDialog(m_defaultDownloadDir);
     QFileInfo fileinfo;
     QString strPath;
@@ -734,6 +742,8 @@ void CreateTaskWidget::updataTabel(LinkInfo *linkInfo)
 
 void CreateTaskWidget::onAllCheck()
 {
+    qDebug() << "onAllCheck entered, state:" << m_checkAll->checkState();
+
     int state = m_checkAll->checkState();
     for (int i = 0; i < m_model->rowCount(); i++) {
         if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
@@ -770,6 +780,8 @@ void CreateTaskWidget::onAllCheck()
 
 void CreateTaskWidget::onVideoCheck()
 {
+    qDebug() << "onVideoCheck entered, state:" << m_checkVideo->checkState();
+
     int state = m_checkVideo->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -803,6 +815,8 @@ void CreateTaskWidget::onVideoCheck()
 
 void CreateTaskWidget::onAudioCheck()
 {
+    qDebug() << "onAudioCheck entered, state:" << m_checkAudio->checkState();
+
     int state = m_checkAudio->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -836,6 +850,8 @@ void CreateTaskWidget::onAudioCheck()
 
 void CreateTaskWidget::onPictureCheck()
 {
+    qDebug() << "onPictureCheck entered, state:" << m_checkPicture->checkState();
+
     int state = m_checkPicture->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -869,6 +885,8 @@ void CreateTaskWidget::onPictureCheck()
 
 void CreateTaskWidget::onZipCheck()
 {
+    qDebug() << "onZipCheck entered, state:" << m_checkZip->checkState();
+
     int state = m_checkZip->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -902,6 +920,8 @@ void CreateTaskWidget::onZipCheck()
 
 void CreateTaskWidget::onDocCheck()
 {
+    qDebug() << "onDocCheck entered, state:" << m_checkDoc->checkState();
+
     int state = m_checkDoc->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -935,6 +955,8 @@ void CreateTaskWidget::onDocCheck()
 
 void CreateTaskWidget::onOtherCheck()
 {
+    qDebug() << "onOtherCheck entered, state:" << m_checkOther->checkState();
+
     int state = m_checkOther->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked

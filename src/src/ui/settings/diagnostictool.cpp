@@ -54,6 +54,7 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
 {
+    qDebug() << "DiagnosticTool created";
     initUI();
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
     setAccessibleName("DiagnosticTool");
@@ -64,6 +65,7 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
 
 DiagnosticTool::~DiagnosticTool()
 {
+    qDebug() << "DiagnosticTool destroyed";
     delete m_Model;
     delete m_Tableview;
     delete m_delegate;
@@ -164,6 +166,7 @@ void DiagnosticTool::initUI()
 
 void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
 {
+    qDebug() << "Received aria2 options - hasTracks:" << isHasTracks << "hasDHT:" << isHasDHT;
     m_IsHasTracks = isHasTracks;
     m_IsHasDHT = isHasDHT;
     //m_Model->setData(isHasTracks);
@@ -171,6 +174,7 @@ void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
 
 void DiagnosticTool::startDiagnostic()
 {
+    qDebug() << "Starting diagnostic process";
     Aria2RPCInterface::instance()->getGlobalOption();
     m_Button->setEnabled(false);
     //m_Model->appendData(Func::isIpv6Connect());
@@ -230,14 +234,17 @@ void DiagnosticTool::startDiagnostic()
 DiagnosticModel::DiagnosticModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
+    qDebug() << "DiagnosticModel created";
 }
 
 DiagnosticModel::~DiagnosticModel()
 {
+    qDebug() << "DiagnosticModel destroyed";
 }
 
 void DiagnosticModel::appendData(bool b)
 {
+    qDebug() << "Appending diagnostic data, status:" << b;
     const int row = m_DiagnosticStatusList.size();
     beginInsertRows(QModelIndex(), row, row);
     m_DiagnosticStatusList.append(b);

@@ -64,6 +64,7 @@ MainFrame::MainFrame(QWidget *parent)
     , m_CheckItem(nullptr)
     , m_CheckIndex(QModelIndex())
 {
+    qDebug() << "MainFrame constructor started";
     init();
     initTab();
     initSetting();
@@ -78,9 +79,11 @@ MainFrame::MainFrame(QWidget *parent)
     QString clipboradStr = QApplication::clipboard()->text();
     if (!clipboradStr.isEmpty()) {
         if (Settings::getInstance()->getIsClipboradStart(clipboradStr)) {
+            qDebug() << "Clipboard contains URL, starting download check";
             m_Clipboard->checkClipboardHasUrl();
         }
     }
+    qDebug() << "MainFrame initialization completed";
 }
 
 MainFrame *MainFrame::instance()
@@ -94,6 +97,7 @@ MainFrame *MainFrame::instance()
 
 MainFrame::~MainFrame()
 {
+    qDebug() << "MainFrame destructor started";
     delete (m_Clipboard);
     DataBase::Instance().destory();
 }
@@ -322,6 +326,7 @@ void MainFrame::initSetting()
 
 void MainFrame::initTray()
 {
+    qDebug() << "Initializing system tray icon";
     QIcon tryIcon = QIcon(":/icons/icon/downloader5.svg");
 
     m_SystemTray = new QSystemTrayIcon(this);
@@ -443,6 +448,7 @@ void MainFrame::updateDHTFile()
 
 void MainFrame::initConnection()
 {
+    qDebug() << "Setting up signal connections";
     connect(m_DownLoadingTableView, &TableView::HeaderStatechanged, this, &MainFrame::onHeaderStatechanged);
     connect(m_DownLoadingTableView, &TableView::customContextMenuRequested, this, &MainFrame::onContextMenu, Qt::QueuedConnection);
     connect(m_DownLoadingTableView, &TableView::pressed, this, &MainFrame::onTableItemSelected);
@@ -1805,17 +1811,21 @@ void MainFrame::keyReleaseEvent(QKeyEvent *event)
 
 void MainFrame::onNewBtnClicked()
 {
+    qDebug() << "New task button clicked";
     createNewTask("");
 }
 
 void MainFrame::onStartDownloadBtnClicked()
 {
+    qDebug() << "Start download button clicked for tab:" << m_CurrentTab;
     if (!Func::isNetConnect()) {
+        qWarning() << "No network connection available";
         m_TaskWidget->showNetErrorMsg();
         return;
     }
 
     if (m_CurrentTab == CurrentTab::downloadingTab) {
+        qDebug() << "Resuming selected downloads";
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (auto item : selectList) {
             if (item->isChecked) {
@@ -1831,12 +1841,15 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::onPauseDownloadBtnClicked()
 {
+    qDebug() << "Pause download button clicked for tab:" << m_CurrentTab;
     if (!Func::isNetConnect()) {
+        qWarning() << "No network connection available";
         m_TaskWidget->showNetErrorMsg();
         return;
     }
 
     if (m_CurrentTab == CurrentTab::downloadingTab) {
+        qDebug() << "Pausing selected downloads";
         m_ToolBar->enablePauseBtn(false);
         m_ToolBar->enableStartBtn(true);
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
@@ -1919,6 +1932,7 @@ void MainFrame::onDownloadFirstBtnClicked()
 
 void MainFrame::onDeleteDownloadBtnClicked()
 {
+    qDebug() << "Delete button clicked";
     onDeleteActionTriggered();
 }
 

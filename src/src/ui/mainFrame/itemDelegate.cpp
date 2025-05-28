@@ -59,6 +59,7 @@ ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     : QStyledItemDelegate(parent)
     , m_hoverRow(-1)
 {
+    qDebug() << "ItemDelegate constructor called with flag:" << Flag;
     m_tableFlag = Flag;
     m_isFirstInside = true;
     // progressbar = new QProgressBar;
@@ -73,6 +74,7 @@ ItemDelegate::ItemDelegate(QObject *parent, int Flag)
 
 ItemDelegate::~ItemDelegate()
 {
+    qDebug() << "ItemDelegate destructor called";
     delete (m_bgImage);
     delete (m_frontImage);
 }
@@ -362,6 +364,7 @@ bool ItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
 QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
                                     const QModelIndex &index) const
 {
+    qDebug() << "Creating editor for item";
     Q_UNUSED(option);
     DLineEdit *pEdit = new DLineEdit(parent);
 #if QT_VERSION_MAJOR > 5
@@ -420,6 +423,7 @@ void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
 void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
                                 const QModelIndex &index) const
 {
+    qDebug() << "Setting model data for edited item";
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
     QMimeDatabase db;

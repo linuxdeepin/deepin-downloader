@@ -7,9 +7,11 @@
 DlmApplication::DlmApplication(int &argc, char **argv)
     : DApplication(argc, argv)
 {
+    qDebug() << "Download Manager application initialized";
 }
 
 void DlmApplication::handleQuitAction()
 {
+    qDebug() << "Handling application quit action";
     emit applicatinQuit(false);
 }

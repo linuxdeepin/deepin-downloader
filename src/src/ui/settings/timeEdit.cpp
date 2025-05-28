@@ -15,15 +15,20 @@
 CTimeEdit::CTimeEdit(QWidget *parent)
     : DComboBox(parent)
 {
+    qDebug() << "TimeEdit widget created";
     initUI();
     initConnection();
     setFocus(Qt::MouseFocusReason);
 }
 
-CTimeEdit::~CTimeEdit() {}
+CTimeEdit::~CTimeEdit() 
+{
+    qDebug() << "TimeEdit widget destroyed";
+}
 
 void CTimeEdit::setTime(QTime time)
 {
+    qDebug() << "Setting time to:" << time.toString("hh:mm");
     m_time = time;
     QString sss = m_time.toString("hh:mm");
     m_timeEdit->setText(m_time.toString("hh:mm"));
@@ -35,6 +40,7 @@ QTime CTimeEdit::getTime()
     QString timetext = m_timeEdit->lineEdit()->displayText();
     //将text转换为时间
     m_time = QTime::fromString(timetext, "hh:mm");
+    qDebug() << "Getting current time:" << m_time.toString("hh:mm");
     return m_time;
 }
 
@@ -98,6 +104,7 @@ void CTimeEdit::initConnection()
 
 void CTimeEdit::onIndexChanged(const QString &text)
 {
+    qDebug() << "Time selection changed to:" << text;
     m_timeEdit->setText(text);
 
     QString a = this->currentText();
