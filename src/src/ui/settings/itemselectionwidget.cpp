@@ -41,6 +41,7 @@ ItemSelectionWidget::ItemSelectionWidget(QWidget *parent, bool isHttp)
     qDebug() << "ItemSelectionWidget created with isHttp:" << isHttp;
     initUI(isHttp);
     initConnections();
+    qDebug() << "[ItemSelectionWidget] Constructor ended";
 }
 
 // 初始化界面
@@ -69,6 +70,7 @@ void ItemSelectionWidget::initUI(bool isHttp)
     }
 
     setLayout(mainLayout);
+    qDebug() << "[ItemSelectionWidget] initUI function ended";
 }
 
 // 初始化链接
@@ -82,34 +84,42 @@ void ItemSelectionWidget::onCheckBoxStateChanged(int state)
 {
     qDebug() << "Checkbox state changed to:" << (state == Qt::Checked ? "Checked" : "Unchecked");
     if (state == Qt::Unchecked) {
+        qDebug() << "[ItemSelectionWidget] Checkbox unchecked, emitting false";
         emit checkBoxIsChecked(false);
     } else if(state == Qt::Checked) {
+        qDebug() << "[ItemSelectionWidget] Checkbox checked, emitting true";
         emit checkBoxIsChecked(true);
     }
+    qDebug() << "[ItemSelectionWidget] onCheckBoxStateChanged function ended";
 }
 
 void ItemSelectionWidget::setLabelText(const QString &text)
 {
+    // qDebug() << "[ItemSelectionWidget] setLabelText function started with text:" << text;
     m_label->setText(text);
 }
 
 void ItemSelectionWidget::setCheckBoxChecked(bool isChecked)
 {
+    // qDebug() << "[ItemSelectionWidget] setCheckBoxChecked function started with isChecked:" << isChecked;
     m_checkBox->setChecked(isChecked);
 }
 
 void ItemSelectionWidget::setCheckboxState(Qt::CheckState state)
 {
+    // qDebug() << "[ItemSelectionWidget] setCheckboxState function started with state:" << state;
     m_checkBox->setCheckState(state);
 }
 
 void ItemSelectionWidget::setBlockSignals(bool lock)
 {
+    // qDebug() << "[ItemSelectionWidget] setBlockSignals function started with lock:" << lock;
     m_checkBox->blockSignals(lock);
 }
 
 void ItemSelectionWidget::setAccessibleName(QString name)
 {
+    // qDebug() << "[ItemSelectionWidget] setAccessibleName function started with name:" << name;
     m_checkBox->setAccessibleName(name);
 }
 

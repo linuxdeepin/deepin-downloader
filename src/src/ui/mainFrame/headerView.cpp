@@ -60,17 +60,20 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
     //setSectionResizeMode(QHeaderView::ResizeToContents); // 设置resize模式自适应，不能由程序和用户更改
 
     if (DGuiApplicationHelper::instance()->themeType() == 2) {
+        qDebug() << "[DownloadHeaderView] Setting dark theme";
         onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     } else {
+        qDebug() << "[DownloadHeaderView] Setting light theme";
         onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
     }
     setSortIndicatorShown(true);
     setSectionsClickable(true);
+    qDebug() << "[DownloadHeaderView] Constructor ended";
 }
 
 DownloadHeaderView::~DownloadHeaderView()
 {
-    qDebug() << "Destroying DownloadHeaderView";
+    // qDebug() << "Destroying DownloadHeaderView";
     delete (m_headerCbx);
 }
 
@@ -80,12 +83,14 @@ void DownloadHeaderView::updateGeometries()
     m_headerCbx->resize(this->height()-2, this->height()-2);
     m_headerCbx->move(sectionPosition(0) + 5, 1);
     QHeaderView::updateGeometries();
+    qDebug() << "[DownloadHeaderView] updateGeometries function ended";
 }
 
 void DownloadHeaderView::onHeaderChecked(bool checked)
 {
     qDebug() << "Header checkbox state changed to:" << checked;
     m_headerCbx->setChecked(checked);
+    qDebug() << "[DownloadHeaderView] onHeaderChecked function ended";
 }
 
 void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
@@ -95,9 +100,12 @@ void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType t
     QPalette p;
 
     if (DGuiApplicationHelper::instance()->themeType() == 2) {
+        qDebug() << "[DownloadHeaderView] Setting dark theme palette";
         p.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base());
     } else {
+        qDebug() << "[DownloadHeaderView] Setting light theme palette";
         p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());
     }
     setPalette(p);
+    qDebug() << "[DownloadHeaderView] onPalettetypechanged function ended";
 }

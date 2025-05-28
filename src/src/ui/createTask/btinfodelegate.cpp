@@ -60,19 +60,24 @@ BtInfoDelegate::~BtInfoDelegate()
 
 void BtInfoDelegate::setHoverColor(QBrush c)
 {
+    // qDebug() << "[BtInfoDelegate] setHoverColor function started";
     m_hoverColor = c;
 }
 
 void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    // qDebug() << "[BtInfoDelegate] paint function started";
     painter->save();
 
     if (index.row() == m_hoverRow) {
+        // qDebug() << "[BtInfoDelegate] Painting hover row";
         painter->fillRect(option.rect, m_hoverColor); //QColor(0,0,0,13)QColor(255,255,255,26)
     } else {
         if (index.row() % 2 == 1) {
+            // qDebug() << "[BtInfoDelegate] Painting odd row with base color";
             painter->fillRect(option.rect, option.palette.base());
         } else {
+            // qDebug() << "[BtInfoDelegate] Painting even row with alternate base color";
             painter->fillRect(option.rect, option.palette.alternateBase());
         }
     }
@@ -82,6 +87,7 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     painter->setFont(font);
 
     if (index.column() == 0) {
+        // qDebug() << "[BtInfoDelegate] Painting column 0 (checkbox and icon)";
         QStyleOptionButton checkBoxStyle;
         checkBoxStyle.state = index.data().toString() == "1" ? QStyle::State_On : QStyle::State_Off;
         checkBoxStyle.state |= QStyle::State_Enabled;
@@ -97,6 +103,7 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         QFileInfo fi(tempFilePath + ext);
         QIcon icon = prov.icon(fi);
         if (icon.isNull()) {
+            // qDebug() << "[BtInfoDelegate] Using default file icon";
             icon = prov.icon(QFileIconProvider::File);
         }
         QPixmap pic = icon.pixmap(20, 20);
@@ -106,36 +113,43 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideRight, option.rect.width() - 55);
         painter->drawText(option.rect.marginsRemoved(QMargins(55, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, text);
     } else {
+        // qDebug() << "[BtInfoDelegate] Painting other columns";
         painter->setPen(Qt::darkGray);
         QString text = painter->fontMetrics().elidedText(index.data().toString(), Qt::ElideRight, option.rect.width() - 25);
         painter->drawText(option.rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, text);
     }
     painter->restore();
+    // qDebug() << "[BtInfoDelegate] paint function ended";
 }
 
 bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
-    qDebug() << "editorEvent type:" << event->type() << "at row:" << index.row() << "column:" << index.column();
+    // qDebug() << "editorEvent type:" << event->type() << "at row:" << index.row() << "column:" << index.column();
 
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     if (index.column() == 0) {
+        // qDebug() << "[BtInfoDelegate] Processing column 0 event";
         QRect rect(option.rect);
         rect.setX(10);
         rect.setWidth(15);
         if (event->type() == QEvent::MouseButtonPress
             && mouseEvent->button() == Qt::LeftButton
             && rect.contains(mouseEvent->pos())) {
+            // qDebug() << "[BtInfoDelegate] Checkbox clicked, toggling state";
             QString v = index.data().toString();
             model->setData(index, QVariant(v == "1" ? "0" : "1"), Qt::EditRole);
 
             ((BtInfoDialog *)m_dialog)->updateSelectedInfo();
+            // qDebug() << "[BtInfoDelegate] editorEvent function ended with result: true";
             return true;
         }
     }
+    // qDebug() << "[BtInfoDelegate] editorEvent function ended with result: false";
     return false;
 }
 
 void BtInfoDelegate::onhoverChanged(const QModelIndex &index)
 {
+    // qDebug() << "[BtInfoDelegate] onhoverChanged function started";
     m_hoverRow = index.row();
 }

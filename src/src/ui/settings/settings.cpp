@@ -63,6 +63,7 @@
  */
 int isDigitStr(QString src)
 {
+    // qDebug() << "[Settings] isDigitStr function started for string:" << src;
     QByteArray ba = src.toLatin1(); //QString 转换为 char*
     const char *s = ba.data();
 
@@ -70,8 +71,10 @@ int isDigitStr(QString src)
         s++;
 
     if (*s) { //不是纯数字
+        // qDebug() << "[Settings] isDigitStr function ended with result: -1";
         return -1;
     } else { //纯数字
+        // qDebug() << "[Settings] isDigitStr function ended with result: 0";
         return 0;
     }
 }
@@ -79,22 +82,25 @@ int isDigitStr(QString src)
 Settings *Settings::m_instance = nullptr;
 Settings *Settings::getInstance()
 {
+    // qDebug() << "[Settings] getInstance function started";
     if (m_instance == nullptr) {
+        // qDebug() << "[Settings] Creating new Settings instance";
         m_instance = new Settings;
     }
 
+    // qDebug() << "[Settings] getInstance function ended";
     return m_instance;
 }
 
 Settings::Settings(QObject *parent)
     : QObject(parent)
 {
-    qDebug() << "Settings instance created";
+    // qDebug() << "Settings instance created";
 }
 
 Settings::~Settings()
 {
-    qDebug() << "Settings instance destroyed";
+    // qDebug() << "Settings instance destroyed";
     delete m_iniFile;
 }
 
@@ -424,6 +430,8 @@ void Settings::initWidget()
     auto originalAddressThreads = tr("Original address threads"); // 原始地址线程数
     auto downloadManagement = tr("Download Management"); //下载管理
     auto speedSettings = tr("Speed Settings"); //下载管理
+
+    qDebug() << "End of Settings constructor";
 }
 
 void Settings::setupCOnfigFile()
@@ -437,14 +445,17 @@ void Settings::setupCOnfigFile()
 
 QWidget *Settings::createFileChooserEditHandle(QObject *obj)
 {
+    // qDebug() << "Creating file chooser edit handle";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     int currentSelect = 2;
     QString downloadPath;
 
     if (option->value().toString().isEmpty()) {
+        // qDebug() << "Option value is empty";
         downloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
     } else {
+        // qDebug() << "Option value is not empty";
         QString currentValue = option->value().toString();
 
         if (currentValue.contains("auto;")) {
@@ -459,6 +470,7 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
                 }
             }
         } else {
+            // qDebug() << "Option value is not empty";
             QStringList currentValueList = currentValue.split(';');
 
             if (currentValueList.count() > 1) {
@@ -508,11 +520,13 @@ QWidget *Settings::createFileChooserEditHandle(QObject *obj)
         }
     });
 
+    // qDebug() << "File chooser edit handle created";
     return fileSavePathChooser;
 }
 
 QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
 {
+    // qDebug() << "Creating HTTP download edit handle";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget(nullptr, true);
@@ -534,6 +548,7 @@ QWidget *Settings::createHttpDownloadEditHandle(QObject *obj)
 
 QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
 {
+    // qDebug() << "Creating BT download edit handle";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
@@ -556,6 +571,7 @@ QWidget *Settings::createBTDownloadEditHandle(QObject *obj)
 
 QWidget *Settings::createMetalinkdownloadEditHandle(QObject *obj)
 {
+    // qDebug() << "Creating MetaLink download edit handle";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
@@ -578,6 +594,7 @@ QWidget *Settings::createMetalinkdownloadEditHandle(QObject *obj)
 
 QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
 {
+    // qDebug() << "Creating Magnetic download edit handle";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     ItemSelectionWidget *itemSelectionWidget = new ItemSelectionWidget();
@@ -600,6 +617,7 @@ QWidget *Settings::createMagneticDownloadEditHandle(QObject *obj)
 
 QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
 {
+    // qDebug() << "Creating Download speed limit setting handle";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     int currentSelect = 2;
@@ -659,12 +677,14 @@ QWidget *Settings::createDownloadSpeedLimitSettiingHandle(QObject *obj)
 
 QWidget *Settings::createNotificationsSettiingHandle(QObject *obj)
 {
+    // qDebug() << "Creating Notifications setting handle";
     NotificationsSettiingWidget *pWidget = new NotificationsSettiingWidget;
     return pWidget;
 }
 
 QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
 {
+    // qDebug() << "Creating Auto download by speed handle";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString speed = "";
@@ -748,6 +768,7 @@ QWidget *Settings::createAutoDownloadBySpeedHandle(QObject *obj)
 
 QWidget *Settings::createPriorityDownloadBySizeHandle(QObject *obj)
 {
+    // qDebug() << "[Settings] createPriorityDownloadBySizeHandle function started";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString size = "";
@@ -791,6 +812,7 @@ QWidget *Settings::createPriorityDownloadBySizeHandle(QObject *obj)
 
 QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
 {
+    // qDebug() << "[Settings] createLimitMaxNumberHandle function started";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString size = "";
@@ -827,11 +849,13 @@ QWidget *Settings::createLimitMaxNumberHandle(QObject *obj)
         }
     });
 
+    // qDebug() << "[Settings] createLimitMaxNumberHandle function ended";
     return pWidget;
 }
 
 QWidget *Settings::createAddressThreadHandle(QObject *obj)
 {
+    // qDebug() << "[Settings] createAddressThreadHandle function started";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
     pWidget->setAccessibleName("Originaladdressthreads");
@@ -851,11 +875,13 @@ QWidget *Settings::createAddressThreadHandle(QObject *obj)
         }
     });
 
+    // qDebug() << "[Settings] createAddressThreadHandle function ended";
     return pWidget;
 }
 
 QWidget *Settings::createMaxDownloadTaskHandle(QObject *obj)
 {
+    // qDebug() << "[Settings] createMaxDownloadTaskHandle function started";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
     pWidget->setAccessibleName("MaxConcurrentDownloads");
@@ -874,11 +900,13 @@ QWidget *Settings::createMaxDownloadTaskHandle(QObject *obj)
         }
     });
 
+    // qDebug() << "[Settings] createMaxDownloadTaskHandle function ended";
     return pWidget;
 }
 
 QWidget *Settings::createAutoOpenHandle(QObject *obj)
 {
+    // qDebug() << "[Settings] createAutoOpenHandle function started";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
     pWidget->setAccessibleName("OpenFilesWhenCompleted");
@@ -895,11 +923,13 @@ QWidget *Settings::createAutoOpenHandle(QObject *obj)
         }
     });
 
+    // qDebug() << "[Settings] createAutoOpenHandle function ended";
     return pWidget;
 }
 
 QWidget *Settings::createAutoDeleteHandle(QObject *obj)
 {
+    // qDebug() << "[Settings] createAutoDeleteHandle function started";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
     pWidget->setAccessibleName("DeleteTasksWithoutFiles");
@@ -915,11 +945,13 @@ QWidget *Settings::createAutoDeleteHandle(QObject *obj)
         }
     });
 
+    // qDebug() << "[Settings] createAutoDeleteHandle function ended";
     return pWidget;
 }
 
 QWidget *Settings::createAutoSortBySpeedHandle(QObject *obj)
 {
+    // qDebug() << "[Settings] createAutoSortBySpeedHandle function started";
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
     SettingsLineWidget *pWidget = new SettingsLineWidget();
     pWidget->setAccessibleName("MoveSlowDownloadsToTheEnd");
@@ -935,12 +967,14 @@ QWidget *Settings::createAutoSortBySpeedHandle(QObject *obj)
         }
     });
 
+    // qDebug() << "[Settings] createAutoSortBySpeedHandle function ended";
     return pWidget;
 }
 
 QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
 {
     Q_UNUSED(obj);
+    // qDebug() << "[Settings] createDiskCacheSettiingLabelHandle function started";
     //    auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
 
     QString diskCacheInfo = tr("Larger disk cache will result in faster download speed \nand more resource consumption.");
@@ -955,11 +989,13 @@ QWidget *Settings::createDiskCacheSettiingLabelHandle(QObject *obj)
     palette.setColor(DPalette::Text, fontColor);
     settingsLabel->setLabelPalette(palette);
 
+    // qDebug() << "[Settings] createDiskCacheSettiingLabelHandle function ended";
     return settingsLabel;
 }
 
 bool Settings::getPowerOnState()
 {
+    qDebug() << "[Settings] getPowerOnState function started";
     auto option = m_settings->option("Basic.Start.PowerOn");
 
     return option->value().toBool();
@@ -967,6 +1003,7 @@ bool Settings::getPowerOnState()
 
 void Settings::setAutoStart(bool ret)
 {
+    qDebug() << "[Settings] setAutoStart function started with ret:" << ret;
     auto option = m_settings->option("Basic.Start.PowerOn");
 
     option->setValue(ret);
@@ -974,6 +1011,7 @@ void Settings::setAutoStart(bool ret)
 
 bool Settings::getAutostartUnfinishedTaskState()
 {
+    qDebug() << "[Settings] getAutostartUnfinishedTaskState function started";
     auto option = m_settings->option("Basic.Start.AutoStartUnfinishedTask");
 
     return option->value().toBool();
@@ -981,25 +1019,30 @@ bool Settings::getAutostartUnfinishedTaskState()
 
 int Settings::getDownloadDirectorySelected()
 {
+    qDebug() << "[Settings] getDownloadDirectorySelected function started";
     auto option = m_settings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
 
     QString currentValue = option->value().toString();
 
     if (currentValue.contains("auto;")) {
+        qDebug() << "contains auto; result: 1";
         return 1;
     } else {
+        qDebug() << "contains not auto; result: 0";
         return 0;
     }
 }
 
 QString Settings::getDownloadSavePath()
 {
+    qDebug() << "[Settings] getDownloadSavePath function started";
     auto option = m_settings->option("Basic.DownloadDirectory.downloadDirectoryFileChooser");
 
     QString currentValue = option->value().toString();
     QString downloadPath;
 
     if (currentValue.contains("custom;")) {
+        qDebug() << "[Settings] getDownloadSavePath function ended with result: custom";
         QStringList currentValueList = currentValue.split(';');
 
         if (currentValueList.count() > 1) {
@@ -1012,6 +1055,7 @@ QString Settings::getDownloadSavePath()
             downloadPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + QString("/Downloads");
         }
     } else if (currentValue.contains("auto;")) {
+        qDebug() << "[Settings] getDownloadSavePath function ended with result: auto";
         downloadPath = getCustomFilePath();
 
         if (downloadPath.isEmpty()) {
@@ -1019,35 +1063,41 @@ QString Settings::getDownloadSavePath()
         }
     }
 
+    qDebug() << "[Settings] getDownloadSavePath function ended with result:" << downloadPath;
     return downloadPath;
 }
 
 bool Settings::getOneClickDownloadState()
 {
+    qDebug() << "[Settings] getOneClickDownloadState function started";
     auto option = m_settings->option("Basic.OnekeyDownload.onekeydownload");
     return option->value().toBool();
 }
 
 int Settings::getCloseMainWindowSelected()
 {
+    qDebug() << "[Settings] getCloseMainWindowSelected function started";
     auto option = m_settings->option("Basic.CloseMainWindow.closemainwindow");
     return option->value().toInt();
 }
 
 int Settings::getMaxDownloadTaskNumber()
 {
+    qDebug() << "[Settings] getMaxDownloadTaskNumber function started";
     auto option = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.MaxDownloadTask");
     return option->value().toInt();
 }
 
 int Settings::getOriginalAddressThreadsNumber()
 {
+    qDebug() << "[Settings] getOriginalAddressThreadsNumber function started";
     auto option = m_settings->option("DownloadSettings.downloadmanagement.addressthread");
     return option->value().toInt();
 }
 
 int Settings::getMaxDownloadResourcesNumber()
 {
+    qDebug() << "[Settings] getMaxDownloadResourcesNumber function started";
     auto option = m_settings->option("DownloadSettings.downloadmanagement.maxlimit");
     if (option->value().toString().left(1).toInt()) {
         return option->value().toString().mid(2).toInt();
@@ -1057,18 +1107,21 @@ int Settings::getMaxDownloadResourcesNumber()
 
 bool Settings::getDownloadFinishedOpenState()
 {
+    qDebug() << "[Settings] getDownloadFinishedOpenState function started";
     auto option = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoOpen");
     return option->value().toBool();
 }
 
 bool Settings::getAutoDeleteFileNoExistentTaskState()
 {
+    qDebug() << "[Settings] getAutoDeleteFileNoExistentTaskState function started";
     auto option = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoDelete");
     return option->value().toBool();
 }
 
 int Settings::getDownloadSettingSelected()
 {
+    qDebug() << "[Settings] getDownloadSettingSelected function started";
     auto option = m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
     QString currentValue = option->value().toString();
     if (currentValue.contains("speedlimit;")) {
@@ -1080,6 +1133,7 @@ int Settings::getDownloadSettingSelected()
 
 QString Settings::getMaxDownloadSpeedLimit()
 {
+    qDebug() << "[Settings] getMaxUploadSpeedLimit function started";
     auto option = m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
 
     QString currentValue = option->value().toString();
@@ -1094,11 +1148,13 @@ QString Settings::getMaxDownloadSpeedLimit()
         }
     }
 
+    qDebug() << "[Settings] getMaxUploadSpeedLimit function ended with result:" << maxDownloadSpeedLimit;
     return maxDownloadSpeedLimit;
 }
 
 QString Settings::getMaxUploadSpeedLimit()
 {
+    qDebug() << "[Settings] getSpeedLimitStartTime function started";
     auto option = m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
 
     QString currentValue = option->value().toString();
@@ -1113,11 +1169,13 @@ QString Settings::getMaxUploadSpeedLimit()
         }
     }
 
+    qDebug() << "[Settings] getSpeedLimitStartTime function ended with result:" << maxUploadSpeedLimit;
     return maxUploadSpeedLimit;
 }
 
 QString Settings::getSpeedLimitStartTime()
 {
+    qDebug() << "[Settings] getSpeedLimitStartTime function started";
     auto option = m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
 
     QString currentValue = option->value().toString();
@@ -1132,11 +1190,13 @@ QString Settings::getSpeedLimitStartTime()
         }
     }
 
+    qDebug() << "[Settings] getSpeedLimitStartTime function ended with result:" << startTime;
     return startTime;
 }
 
 QString Settings::getSpeedLimitEndTime()
 {
+    qDebug() << "[Settings] getSpeedLimitEndTime function started";
     auto option = m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
 
     QString currentValue = option->value().toString();
@@ -1151,11 +1211,13 @@ QString Settings::getSpeedLimitEndTime()
         }
     }
 
+    qDebug() << "[Settings] getSpeedLimitEndTime function ended with result:" << endTime;
     return endTime;
 }
 
 DownloadSettings Settings::getAllSpeedLimitInfo()
 {
+    qDebug() << "[Settings] getAllSpeedLimitInfo function started";
     auto option = m_settings->option("DownloadSettings.downloadsettings.downloadspeedlimit");
 
     QString currentValue = option->value().toString();
@@ -1175,11 +1237,13 @@ DownloadSettings Settings::getAllSpeedLimitInfo()
         downloadSettings.m_endTime = currentValueList.at(4);
     }
 
+    qDebug() << "[Settings] getAllSpeedLimitInfo function ended";
     return downloadSettings;
 }
 
 bool Settings::getClipBoardState()
 {
+    qDebug() << "[Settings] getClipBoardState function started";
     auto option = m_settings->option("Monitoring.MonitoringObject.ClipBoard");
 
     return option->value().toBool();
@@ -1187,72 +1251,84 @@ bool Settings::getClipBoardState()
 
 bool Settings::getWebBrowserState()
 {
+    qDebug() << "[Settings] getWebBrowserState function started";
     auto option = m_settings->option("Monitoring.MonitoringObject.Browser");
     return option->value().toBool();
 }
 
 bool Settings::getHttpDownloadState()
 {
+    qDebug() << "[Settings] getHttpDownloadState function started";
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.HttpDownload");
     return option->value().toBool();
 }
 
 bool Settings::getBtDownloadState()
 {
+    qDebug() << "[Settings] getBtDownloadState function started";
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.BTDownload");
     return option->value().toBool();
 }
 
 bool Settings::getMagneticDownloadState()
 {
+    qDebug() << "[Settings] getMagneticDownloadState function started";
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.MagneticDownload");
     return option->value().toBool();
 }
 
 bool Settings::getMLDownloadState()
 {
+    qDebug() << "[Settings] getMLDownloadState function started";
     auto option = m_settings->option("Monitoring.MonitoringDownloadType.MetaLinkDownload");
     return option->value().toBool();
 }
 
 bool Settings::getAutoOpenBtTaskState()
 {
+    qDebug() << "[Settings] getAutoOpenBtTaskState function started";
     auto option = m_settings->option("Monitoring.BTRelation.OpenDownloadPanel");
     return option->value().toBool();
 }
 
 bool Settings::getAutoOpenMetalinkTaskState()
 {
+    qDebug() << "[Settings] getAutoOpenMetalinkTaskState function started";
     auto option = m_settings->option("Monitoring.MetaLinkRelation.OpenDownloadMetaLinkPanel");
     return option->value().toBool();
 }
 
 bool Settings::getStartAssociatedBTFileState()
 {
+    qDebug() << "[Settings] getStartAssociatedBTFileState function started";
     auto option = m_settings->option("Monitoring.BTRelation.AssociateBTFileAtStartup");
     return option->value().toBool();
 }
 
 bool Settings::getStartAssociatedMetaLinkFileState()
 {
+    qDebug() << "[Settings] getStartAssociatedMetaLinkFileState function started";
     auto option = m_settings->option("Monitoring.MetaLinkRelation.AssociateMetaLinkFileAtStartup");
     return option->value().toBool();
 }
 
 bool Settings::getDownloadInfoSystemNotifyState()
 {
+    qDebug() << "[Settings] getDownloadInfoSystemNotifyState function started";
     auto option = m_settings->option("Notifications.remind.downloadInfoNotify");
     return option->value().toBool();
 }
 
 bool Settings::getNewTaskShowMainWindowState()
 {
+    qDebug() << "[Settings] getNewTaskShowMainWindowState function started";
     auto option = m_settings->option("AdvancedSetting.ShortcutKeySetting.NewTaskShowMainwindow");
     return option->value().toBool();
 }
 
 int Settings::getDisckcacheNum()
 {
+    qDebug() << "[Settings] getDisckcacheNum function started";
     auto option = m_settings->option("AdvancedSetting.DownloadDiskCache.DownloadDiskCacheSettiing");
     int number = 128;
 
@@ -1270,69 +1346,88 @@ int Settings::getDisckcacheNum()
         break;
     }
 
+    qDebug() << "[Settings] getDisckcacheNum function ended with result:" << number;
     return number;
 }
 
 bool Settings::getAutoDownloadBySpeed(QString &speed)
 {
+    qDebug() << "[Settings] getAutoDownloadBySpeed function started";
     QString text = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoDownload")->value().toString();
     speed = text.mid(2);
     bool isCheck = text.left(1).toInt();
+    qDebug() << "[Settings] getAutoDownloadBySpeed function ended with result:" << isCheck;
     return isCheck;
 }
 
 bool Settings::getPriorityDownloadBySize(QString &size)
 {
+    qDebug() << "[Settings] getPriorityDownloadBySize function started";
     QString text = m_settings->option("DownloadTaskManagement.downloadtaskmanagement.PriorityDownload")->value().toString();
     size = text.mid(2);
     bool isCheck = text.left(1).toInt();
+    qDebug() << "[Settings] getPriorityDownloadBySize function ended with result:" << isCheck;
     return isCheck;
 }
 
 bool Settings::getAutoSortBySpeed()
 {
+    qDebug() << "[Settings] getAutoSortBySpeed function started";
     return m_settings->option("DownloadTaskManagement.downloadtaskmanagement.AutoSortBySpeed")->value().toBool();
 }
 
 void Settings::setCloseMainWindowSelected(int select)
 {
+    qDebug() << "[Settings] setCloseMainWindowSelected function started";
     auto option = m_settings->option("Basic.CloseMainWindow.closemainwindow");
     option->setValue(select);
+    qDebug() << "[Settings] setCloseMainWindowSelected function ended";
 }
 
 QString Settings::getCustomFilePath()
 {
+    qDebug() << "[Settings] getCustomFilePath function started";
     QString path = m_iniFile->value("FilePath/Filename").toString();
     if (path.remove(' ').isEmpty()) {
+        qDebug() << "[Settings] getCustomFilePath function ended with result: empty";
         return "";
     }
+    qDebug() << "[Settings] getCustomFilePath function ended with result:" << path;
     return path;
 }
 
 void Settings::setCustomFilePath(const QString &path)
 {
+    qDebug() << "[Settings] setCustomFilePath function started";
     m_iniFile->setValue("FilePath/Filename", path);
 }
 
 bool Settings::getIsShowTip()
 {
+    qDebug() << "[Settings] getIsShowTip function started";
     return m_iniFile->value("Close/showTip").toBool();
 }
 
 void Settings::setIsShowTip(bool b)
 {
+    qDebug() << "[Settings] setIsShowTip function started";
     if (b) {
+        qDebug() << "[Settings] setIsShowTip function set to true";
         m_iniFile->setValue("Close/showTip", "true");
     } else {
+        qDebug() << "[Settings] setIsShowTip function set to false";
         m_iniFile->setValue("Close/showTip", "false");
     }
     m_iniFile->sync();
+    qDebug() << "[Settings] setIsShowTip function ended";
 }
 
 bool Settings::getIsClipboradStart(QString str)
 {
+    qDebug() << "[Settings] getIsClipboradStart function started";
     QString clipboradValue = m_iniFile->value("Clipborad/data").toString();
     if (clipboradValue != str) {
+        qDebug() << "[Settings] clipboradValue != str";
         setIsClipboradStart(str);
     }
     return (str == clipboradValue) ? false : true;
@@ -1340,6 +1435,8 @@ bool Settings::getIsClipboradStart(QString str)
 
 void Settings::setIsClipboradStart(QString str)
 {
+    qDebug() << "[Settings] setIsClipboradStart function started";
     m_iniFile->setValue("Clipborad/data", str);
     m_iniFile->sync();
+    qDebug() << "[Settings] setIsClipboradStart function ended";
 }

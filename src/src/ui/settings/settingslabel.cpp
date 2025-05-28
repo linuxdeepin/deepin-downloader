@@ -35,7 +35,7 @@
 SettingsLabel::SettingsLabel(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "SettingsLabel created";
+    // qDebug() << "SettingsLabel created";
     m_label = new DLabel;
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
@@ -43,20 +43,23 @@ SettingsLabel::SettingsLabel(QWidget *parent)
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(mainLayout);
+    // qDebug() << "[SettingsLabel] Constructor ended";
 }
 
 void SettingsLabel::setLabelText(const QString &text)
 {
-    qDebug() << "Setting label text to:" << text;
+    // qDebug() << "Setting label text to:" << text;
     m_label->setText(text);
 }
 
 void SettingsLabel::setLabelFont(QFont font)
 {
+    // qDebug() << "[SettingsLabel] setLabelFont function started";
     m_label->setFont(font);
 }
 
 void SettingsLabel::setLabelPalette(DPalette palette)
 {
+    // qDebug() << "[SettingsLabel] setLabelPalette function started";
     m_label->setPalette(palette);
 }
