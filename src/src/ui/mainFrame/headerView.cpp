@@ -35,13 +35,16 @@
 DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
+    qDebug() << "Initializing DownloadHeaderView";
     m_headerCbx = new QCheckBox(this);
+    qDebug() << "Created header checkbox";
 
     // connect(m_headerCbx,&DCheckBox::stateChanged,this,&HeaderView::get_stateChanged);
     connect(m_headerCbx,
             &DCheckBox::clicked,
             this,
             &DownloadHeaderView::Statechanged);
+    qDebug() << "Connected checkbox signals";
     connect(DGuiApplicationHelper::instance(),
             &DGuiApplicationHelper::paletteTypeChanged,
             this,
@@ -67,11 +70,13 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
 
 DownloadHeaderView::~DownloadHeaderView()
 {
+    qDebug() << "Destroying DownloadHeaderView";
     delete (m_headerCbx);
 }
 
 void DownloadHeaderView::updateGeometries()
 {
+    qDebug() << "Updating header geometries";
     m_headerCbx->resize(this->height()-2, this->height()-2);
     m_headerCbx->move(sectionPosition(0) + 5, 1);
     QHeaderView::updateGeometries();
@@ -79,11 +84,13 @@ void DownloadHeaderView::updateGeometries()
 
 void DownloadHeaderView::onHeaderChecked(bool checked)
 {
+    qDebug() << "Header checkbox state changed to:" << checked;
     m_headerCbx->setChecked(checked);
 }
 
 void DownloadHeaderView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
+    qDebug() << "Theme type changed to:" << type;
     Q_UNUSED(type);
     QPalette p;
 

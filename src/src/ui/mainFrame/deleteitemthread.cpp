@@ -40,6 +40,7 @@
 
 DeleteItemThread::DeleteItemThread()
 {
+    qDebug() << "DeleteItemThread default constructor called";
 }
 
 DeleteItemThread::DeleteItemThread(QList<DeleteDataItem*> &recycleDeleteList,
@@ -47,6 +48,8 @@ DeleteItemThread::DeleteItemThread(QList<DeleteDataItem*> &recycleDeleteList,
                                    bool ifDeleteLocal,
                                    QString deleteType)
 {
+    qDebug() << "DeleteItemThread constructor called with recycle list size:" << recycleDeleteList.size() 
+             << "delete local:" << ifDeleteLocal << "delete type:" << deleteType;
     m_RecycleDeleteList = recycleDeleteList;
     m_RecycleTableview = recycleTableview;
     m_IfDeleteLocal = ifDeleteLocal;
@@ -58,6 +61,8 @@ DeleteItemThread::DeleteItemThread(QList<DownloadDataItem*> &deleteList,
                                    bool ifDeleteLocal,
                                    QString deleteType)
 {
+    qDebug() << "DeleteItemThread constructor called with download list size:" << deleteList.size()
+             << "delete local:" << ifDeleteLocal << "delete type:" << deleteType;
     m_DeleteList = deleteList;
     m_DownloadingTableview = downloadingTableview;
     m_IfDeleteLocal = ifDeleteLocal;
@@ -66,6 +71,7 @@ DeleteItemThread::DeleteItemThread(QList<DownloadDataItem*> &deleteList,
 
 void DeleteItemThread::deleteRecycleData()
 {
+    qDebug() << "Starting to delete recycle data, count:" << m_RecycleDeleteList.size();
     if (m_IfDeleteLocal) {
         for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
             QString savePath = m_RecycleDeleteList.at(i)->savePath;
@@ -114,6 +120,7 @@ void DeleteItemThread::deleteRecycleData()
 
 void DeleteItemThread::deleteDownloadData()
 {
+    qDebug() << "Starting to delete download data, count:" << m_DeleteList.size();
     for (int i = 0; i < m_DeleteList.size(); ++i) {
         QString gid = m_DeleteList.at(i)->gid;
         QString taskId = m_DeleteList.at(i)->taskId;
@@ -178,6 +185,7 @@ void DeleteItemThread::deleteDownloadData()
 
 void DeleteItemThread::run()
 {
+    qDebug() << "Delete thread started, delete type:" << m_StrDeleteType;
     if (m_StrDeleteType == "recycle_delete") {
         deleteRecycleData();
     }
@@ -187,21 +195,25 @@ void DeleteItemThread::run()
     QEventLoop loop;
     QTimer::singleShot(5000, &loop, SLOT(quit()));
     loop.exec();
+    qDebug() << "Delete thread finished";
 }
 
 bool DeleteItemThread::deleteDirectory(const QString &path)
 {
+    qDebug() << "Attempting to delete directory:" << path;
     QFileInfo info(path);
     if (info.isFile()) {
         QFile::remove(path);
         return true;
     }
     if (path.isEmpty()) {
+        qWarning() << "Empty path provided for deletion";
         return false;
     }
 
     QDir dir(path);
     if (!dir.exists()) {
+        qDebug() << "Directory" << path << "does not exist, nothing to delete";
         return true;
     }
 

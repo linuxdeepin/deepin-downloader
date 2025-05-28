@@ -26,6 +26,8 @@ WebSocketClientWrapper::WebSocketClientWrapper(QWebSocketServer *server, QObject
     : QObject(parent)
     , m_server(server)
 {
+    qDebug() << "[WebSocketWrapper] Initializing client wrapper for server:" << server->serverName();
+
     connect(server, &QWebSocketServer::newConnection,
             this, &WebSocketClientWrapper::handleNewConnection);
 }
@@ -35,5 +37,7 @@ WebSocketClientWrapper::WebSocketClientWrapper(QWebSocketServer *server, QObject
 */
 void WebSocketClientWrapper::handleNewConnection()
 {
+    qDebug() << "[WebSocketWrapper] Handling new WebSocket connection";
+
     emit clientConnected(new WebSocketTransport(m_server->nextPendingConnection()));
 }

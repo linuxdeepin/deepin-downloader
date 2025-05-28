@@ -45,6 +45,7 @@ DWIDGET_USE_NAMESPACE
 TopButton::TopButton(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "TopButton constructor";
     Init();
     InitConnections();
     setObjectName("toolBox");
@@ -129,6 +130,7 @@ void TopButton::Init()
 
 void TopButton::InitConnections()
 {
+    qDebug() << "Initializing TopButton connections";
     connect(m_newDownloadBtn, &DIconButton::clicked, this, &TopButton::newDownloadBtnClicked);
     connect(m_pauseDownloadBtn, &DIconButton::clicked, this, &TopButton::pauseDownloadBtnClicked);
     connect(m_startDownloadBtn, &DIconButton::clicked, this, &TopButton::startDownloadBtnClicked);
@@ -148,6 +150,7 @@ void TopButton::mousePressEvent(QMouseEvent *event)
 
 void TopButton::onTableChanged(int index)
 {
+    qDebug() << "Table changed to index:" << index;
     if (index == 2) {
         m_startDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
         m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_restore"));

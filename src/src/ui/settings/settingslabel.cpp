@@ -35,6 +35,7 @@
 SettingsLabel::SettingsLabel(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "SettingsLabel created";
     m_label = new DLabel;
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
@@ -46,6 +47,7 @@ SettingsLabel::SettingsLabel(QWidget *parent)
 
 void SettingsLabel::setLabelText(const QString &text)
 {
+    qDebug() << "Setting label text to:" << text;
     m_label->setText(text);
 }
 

@@ -52,6 +52,8 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath,QWidget *
     , m_torrentFile(torrentFile)
     , m_defaultDownloadDir(btLastSavePath)
 {
+    qDebug() << "BtInfoDialog constructor entered, torrentFile:" << torrentFile << "savePath:" << btLastSavePath;
+
     setFixedSize(500, 525);
     setIcon(QIcon::fromTheme(":/icons/icon/downloader3.svg"));
     initUI();
@@ -61,6 +63,8 @@ BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath,QWidget *
 
 BtInfoDialog::~BtInfoDialog()
 {
+    qDebug() << "BtInfoDialog destructor entered";
+
     delete m_model;
     delete m_delegate;
     delete m_btnOK;
@@ -363,6 +367,8 @@ int BtInfoDialog::exec()
 
 bool BtInfoDialog::onBtnOK()
 {
+    qDebug() << "onBtnOK entered";
+
     if (getSelected().isEmpty()) {
         return false;
     }
@@ -389,6 +395,8 @@ bool BtInfoDialog::onBtnOK()
 
 void BtInfoDialog::onAllCheck()
 {
+    qDebug() << "onAllCheck entered, state:" << m_checkAll->checkState();
+
     int state = m_checkAll->checkState();
     if (state == Qt::Checked) {
         for (int i = 0; i < m_model->rowCount(); i++) {
@@ -435,6 +443,8 @@ bool BtInfoDialog::isPicture(QString ext)
 
 void BtInfoDialog::onVideoCheck()
 {
+    qDebug() << "onVideoCheck entered, state:" << m_checkVideo->checkState();
+
     int state = m_checkVideo->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -464,6 +474,8 @@ void BtInfoDialog::onVideoCheck()
 
 void BtInfoDialog::onAudioCheck()
 {
+    qDebug() << "onAudioCheck entered, state:" << m_checkAudio->checkState();
+
     int state = m_checkAudio->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -493,6 +505,8 @@ void BtInfoDialog::onAudioCheck()
 
 void BtInfoDialog::onPictureCheck()
 {
+    qDebug() << "onPictureCheck entered, state:" << m_checkPicture->checkState();
+
     int state = m_checkPicture->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -522,6 +536,8 @@ void BtInfoDialog::onPictureCheck()
 
 void BtInfoDialog::onOtherCheck()
 {
+    qDebug() << "onOtherCheck entered, state:" << m_checkOther->checkState();
+
     int state = m_checkOther->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
@@ -601,6 +617,8 @@ void BtInfoDialog::updateSelectedInfo()
 
 void BtInfoDialog::onFilechoosed(const QString &filename)
 {
+    qInfo() << "Download directory changed to:" << filename;
+
     QFileInfo fileinfo;
     QString strPath;
     fileinfo.setFile(filename);

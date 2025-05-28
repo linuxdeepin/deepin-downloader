@@ -30,10 +30,13 @@
  */
 
 #include "btinfotableview.h"
+#include <QDebug>
 
 BtInfoTableView::BtInfoTableView(QWidget *parent)
     : DTableView(parent)
 {
+    qDebug() << "BtInfoTableView constructor entered";
+
     setEditTriggers(QAbstractItemView::SelectedClicked);
     connect(this, &QAbstractItemView::doubleClicked, this, &BtInfoTableView::onDoubleClicked);
     QFont font;
@@ -58,6 +61,8 @@ void BtInfoTableView::leaveEvent(QEvent *event)
 
 void BtInfoTableView::onDoubleClicked(const QModelIndex &index)
 {
+    qInfo() << "onDoubleClicked at row:" << index.row() << "column:" << index.column();
+
     emit doubleIndex(index);
     m_curRow = index.row();
     edit(index);

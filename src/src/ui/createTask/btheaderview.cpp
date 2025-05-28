@@ -37,6 +37,8 @@
 headerView::headerView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
+    qDebug() << "headerView constructor, orientation:" << orientation;
+
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
         onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     } else {
@@ -76,6 +78,8 @@ QRect headerView::checkBoxRect(const QRect &sourceRect) const
 
 void headerView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
+    qDebug() << "onPalettetypechanged to:" << type;
+
     Q_UNUSED(type);
     QPalette p;
 

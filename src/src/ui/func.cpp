@@ -17,6 +17,7 @@
 
 bool Func::isNetConnect()
 {
+    qDebug() << "Checking network connection";
     QProcess process;
     QStringList list;
     list << "-i"
@@ -24,8 +25,10 @@ bool Func::isNetConnect()
     process.start("curl", list);
     process.waitForFinished(3000);
     if(!process.exitCode()){
+        qDebug() << "Network connection available";
         return true;
     }
+    qDebug() << "Checking LAN connection";
     return isLanConnect();
 }
 
@@ -55,10 +58,11 @@ bool Func::isIPV6Connect()
 
 bool Func::setMimeappsValue(QString key, QString value)
 {
+    qDebug() << "Setting mimeapps value for" << key;
     QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     QFile readFile(path);
     if (!readFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "error";
+        qDebug() << "Failed to open mimeapps file";
         return false;
     }
     QTextStream data(&readFile);
@@ -136,7 +140,9 @@ QString Func::pathToMD5(QString path)
     theFile.open(QIODevice::ReadOnly);
     QByteArray ba = QCryptographicHash::hash(theFile.readAll(), QCryptographicHash::Md5);
     theFile.close();
-    return  ba.toHex().constData();
+    QString md5 = ba.toHex().constData();
+    qDebug() << "Generated MD5 for file:" << md5;
+    return md5;
 }
 
 //QString Func::getIniConfigValue(QString path, QString group, QString key)
@@ -216,6 +222,7 @@ QString Func::pathToMD5(QString path)
 
 double Func::formatSpeed(QString str)
 {
+    qDebug() << "Formatting speed string:" << str;
     QString number = str;
     if (str.contains("GB/s")) {
         str.remove("GB/s");

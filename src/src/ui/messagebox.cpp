@@ -36,12 +36,15 @@
 MessageBox::MessageBox(QWidget *parent)
     : DDialog(parent)
 {
+    qDebug() << "MessageBox constructor";
     setObjectName("messageBox");
     setMaximumWidth(600);
 }
 
 void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString cancelbtntext, int sameurlCount, QList<QString> sameUrlList)
 {
+    qDebug() << "setWarings called with sameurlCount:" << sameurlCount;
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setTitle(tr("Warning"));
@@ -83,6 +86,8 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
 
 void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedownload)
 {
+    qDebug() << "setRedownload called with ret:" << ret << "isShowRedownload:" << isShowRedownload;
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     if (ret) {
         setTitle(tr("Download Again"));
@@ -118,6 +123,8 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
 
 void MessageBox::setUnusual(const QString &taskId, QString taskList)
 {
+    qDebug() << "setUnusual called for taskId:" << taskId;
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setTitle(tr("Warning"));
@@ -146,6 +153,8 @@ void MessageBox::setUnusual(const QString &taskId, QString taskList)
 
 void MessageBox::setDelete(bool permanentl, bool checked)
 {
+    qDebug() << "setDelete called with permanent:" << permanentl << "checked:" << checked;
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     m_DeleteFlag = permanentl;
 
@@ -183,6 +192,8 @@ void MessageBox::setDelete(bool permanentl, bool checked)
 }
 void MessageBox::setClear()
 {
+    qDebug() << "setClear called";
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     QString show_title = tr("Are you sure you want to delete all tasks in the trash?");
     addLabel(show_title);
@@ -199,6 +210,8 @@ void MessageBox::setClear()
 
 void MessageBox::setExit()
 {
+    qDebug() << "setExit called";
+
     setIcon(QIcon(":/icons/icon/downloader5.svg"));
 
     setTitle(tr("Please choose your action"));
@@ -214,6 +227,8 @@ void MessageBox::setExit()
 
 void MessageBox::addLabel(QString text)
 {
+    qDebug() << "addLabel called with text:" << text;
+
     DLabel *title = new DLabel(this);
     title->setAccessibleName("messageBoxTittle");
     title->setText(text);
@@ -222,6 +237,8 @@ void MessageBox::addLabel(QString text)
 
 void MessageBox::addRadioGroup(QString quitText, QString minText)
 {
+    qDebug() << "addRadioGroup called with quitText:" << quitText << "minText:" << minText;
+
     int status = Settings::getInstance()->getCloseMainWindowSelected();
     m_ButtonQuit = new DRadioButton(quitText);
     m_ButtonMin = new DRadioButton(minText);
@@ -247,6 +264,8 @@ void MessageBox::addRadioGroup(QString quitText, QString minText)
 
 void MessageBox::addCheckbox(QString checkboxText, bool checked)
 {
+    qDebug() << "addCheckbox called with text:" << checkboxText << "checked:" << checked;
+
     m_CheckBox = new DCheckBox(this);
     m_CheckBox->setText(checkboxText);
     m_CheckBox->setAccessibleName("CheckBox");
@@ -282,6 +301,8 @@ void MessageBox::onRenameSureBtnClicked()
 
 void MessageBox::onClearBtnClicked(int index)
 {
+    qDebug() << "onClearBtnClicked with index:" << index;
+
     if (index == 1) {
         bool ischecked;
         ischecked = m_CheckBox->isChecked();
@@ -292,6 +313,8 @@ void MessageBox::onClearBtnClicked(int index)
 
 void MessageBox::onDeleteBtnClicked(int index)
 {
+    qDebug() << "onDeleteBtnClicked with index:" << index << "m_DeleteFlag:" << m_DeleteFlag;
+
     if (index == 1) {
         QAbstractButton *button = getButton(index);
         button->setEnabled(false);
@@ -308,6 +331,8 @@ void MessageBox::onDeleteBtnClicked(int index)
 
 void MessageBox::onExitBtnClicked(int index)
 {
+    qDebug() << "onExitBtnClicked with index:" << index;
+
     if (index == 1) {
         if (m_CheckBox->isChecked()) {
             Settings::getInstance()->setIsShowTip(false);
@@ -324,6 +349,8 @@ void MessageBox::onExitBtnClicked(int index)
 
 void MessageBox::setFolderDenied()
 {
+    qDebug() << "setFolderDenied called";
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setTitle(tr("Permission denied"));
@@ -339,6 +366,8 @@ void MessageBox::setFolderDenied()
 
 void MessageBox::setFolderNotExists()
 {
+    qDebug() << "setFolderNotExists called";
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
     setTitle(tr("Path Error"));
@@ -354,6 +383,8 @@ void MessageBox::setFolderNotExists()
 
 void MessageBox::setNetWorkError(QString warningMsg)
 {
+    qDebug() << "setNetWorkError called with warningMsg:" << warningMsg;
+
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
    // setTitle(warningMsg);

@@ -50,20 +50,26 @@
 
 extensionService::extensionService()
 {
+    qDebug() << "[ExtensionService] Initializing WebSocket service";
     initWebsokcet();
 }
 
 extensionService::~extensionService()
 {
+    qDebug() << "[ExtensionService] Destroying WebSocket service";
     delete m_timer;
 }
 
 void extensionService::initWebsokcet()
 {
+    qDebug() << "[ExtensionService] Initializing WebSocket server";
+
     m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
     if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
+        qWarning() << "[ExtensionService] Failed to start WebSocket server on port 12345";
         qFatal("Failed to open web socket server.");
     }
+    qDebug() << "[ExtensionService] WebSocket server started successfully";
     WebSocketClientWrapper* clientWrapper = new WebSocketClientWrapper(m_server);
     QWebChannel* channel = new QWebChannel;
     QObject::connect(clientWrapper, &WebSocketClientWrapper::clientConnected,
@@ -82,6 +88,8 @@ void extensionService::initWebsokcet()
 
 void extensionService::sendUrlToDownloader(const QString &url)
 {
+    qDebug() << "[ExtensionService] Sending URL to downloader:" << url;
+
     QProcess proc;
     proc.startDetached("downloader " + url);
     QTimer *timer = new QTimer;
@@ -94,6 +102,7 @@ void extensionService::sendUrlToDownloader(const QString &url)
        QDBusMessage m = iface.call("onReceiveExtentionUrl", url);
        QString msg = m.errorMessage();
        if(msg.isEmpty()) {
+           qDebug() << "[ExtensionService] URL successfully sent to downloader";
            timer->stop();
        }
     });
@@ -101,6 +110,8 @@ void extensionService::sendUrlToDownloader(const QString &url)
 
 void extensionService::checkConnection()
 {
+    qDebug() << "[ExtensionService] Checking WebSocket connections";
+
     QProcess p;
     QStringList options;
     options << "-c" << "netstat -apn | grep dlmextensions";
@@ -109,8 +120,10 @@ void extensionService::checkConnection()
     QList<QByteArray> strList = p.readAllStandardOutput().split('\n');
     for(QString str : strList) {
         if(str.contains("ESTABLISHED")) {  //存在websocket链接
+            qDebug() << "[ExtensionService] Active WebSocket connection found";
             return;
         }
     }
+    qDebug() << "[ExtensionService] No active connections, exiting";
     qApp->exit(0);
 }

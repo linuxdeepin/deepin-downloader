@@ -38,12 +38,14 @@
 SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "SettingInfoInputWidget created";
     initUI();
     initConnections();
 }
 
 void SettingInfoInputWidget::initUI()
 {
+    qDebug() << "Initializing setting info input widget UI";
     m_lineEdit = new DLineEdit;
     m_lineEdit->setAccessibleName(m_lineEdit->text());
     m_titleLabel = new DLabel;
@@ -73,12 +75,14 @@ void SettingInfoInputWidget::initUI()
 
 void SettingInfoInputWidget::initConnections()
 {
+    qDebug() << "Initializing setting info input widget connections";
     connect(m_lineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::onLineEditTextChanged);
     connect(m_lineEdit, &DLineEdit::focusChanged, this, &SettingInfoInputWidget::focusChanged);
 }
 
 void SettingInfoInputWidget::onLineEditTextChanged(const QString &text)
 {
+    qDebug() << "Setting input text changed:" << text;
     emit textChanged(text);
 }
 

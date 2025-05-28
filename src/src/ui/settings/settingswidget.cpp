@@ -50,11 +50,13 @@
 SettingsControlWidget::SettingsControlWidget(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "SettingsControlWidget created";
 }
 
 // 初始化界面
 bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
+    qDebug() << "Initializing settings control widget with label:" << label << "text:" << text << "isLineEdit:" << isLineEdit;
     QFont font;
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -148,10 +150,12 @@ DLineEdit *SettingsControlWidget::lineEdit()
 SettingsLineWidget::SettingsLineWidget(QWidget *parent)
     : QWidget(parent)
 {
+    qDebug() << "SettingsLineWidget created";
 }
 
 bool SettingsLineWidget::initUI(QString text, bool currentStat)
 {
+    qDebug() << "Initializing settings line widget with text:" << text << "current state:" << currentStat;
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(text,this);
@@ -169,6 +173,7 @@ bool SettingsLineWidget::initUI(QString text, bool currentStat)
 
 bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QString currenttext)
 {
+    qDebug() << "Initializing settings line widget with text:" << text << "current text:" << currenttext;
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(text,this);

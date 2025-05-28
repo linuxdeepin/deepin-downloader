@@ -35,6 +35,8 @@
 
 int main(int argc, char** argv)
 {
+    qDebug() << "[ExtensionMain] Starting extension service";
+
     QCoreApplication a(argc, argv);
     extensionService e;
     return a.exec();

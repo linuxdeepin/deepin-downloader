@@ -20,6 +20,8 @@
 UrlThread::UrlThread(QObject *parent)
     : QObject(parent)
 {
+    qDebug() << "UrlThread constructor entered";
+
     qRegisterMetaType<LinkInfo>("LinkInfo");
     QString iniConfigPath = QString("%1/%2/%3/content-type.conf")
                                     .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
@@ -39,12 +41,16 @@ UrlThread::UrlThread(QObject *parent)
 
 void UrlThread::start(LinkInfo &urlInfo)
 {
+    qDebug() << "Starting URL analysis for:" << urlInfo.url;
+
   //  m_linkInfo = new LinkInfo;
     m_linkInfo = urlInfo;
 }
 
 void UrlThread::begin()
 {
+    qDebug() << "Beginning network request for URL:" << m_linkInfo.url;
+
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest requset; // 定义请求对象
     requset.setUrl(QUrl(m_linkInfo.url)); // 设置服务器的uri
@@ -57,6 +63,8 @@ void UrlThread::begin()
 
 void UrlThread::onHttpRequest(QNetworkReply *reply)
 {
+    qDebug() << "HTTP request completed for URL:" << reply->url().toString();
+
     m_linkInfo.state = LinkInfo::UrlState::Finished;
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     switch (statusCode) {
@@ -194,6 +202,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
 //        break;
 //    }
     case 404: {
+        qWarning() << "HTTP 404 Not Found for URL:" << reply->url().toString();
         emit sendFinishedUrl(m_linkInfo);
         break;
     }
@@ -291,6 +300,8 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
 
 QString UrlThread::getUrlType(QString url)
 {
+    qDebug() << "Determining URL type for:" << url;
+
     QMimeDatabase db;
     QString type;
     QStringList urlInfoList = url.split("\r\n");
@@ -312,6 +323,8 @@ QString UrlThread::getUrlType(QString url)
 
 QString UrlThread::getUrlSize(QString url)
 {
+    qDebug() << "Determining URL size for:" << url;
+
     QStringList urlInfoList = url.split("\r\n");
     for (int i = 0; i < urlInfoList.size(); i++) {
         if (urlInfoList[i].startsWith("Content-Length:", Qt::CaseInsensitive)) {
