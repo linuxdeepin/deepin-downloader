@@ -70,27 +70,33 @@ ItemDelegate::ItemDelegate(QObject *parent, int Flag)
             this, &ItemDelegate::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged,
             this, &ItemDelegate::onPalettetypechanged);
+    qDebug() << "[ItemDelegate] Constructor ended";
 }
 
 ItemDelegate::~ItemDelegate()
 {
-    qDebug() << "ItemDelegate destructor called";
+    // qDebug() << "ItemDelegate destructor called";
     delete (m_bgImage);
     delete (m_frontImage);
 }
 
 void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    // qDebug() << "[ItemDelegate] paint function started";
     if (index.row() == m_hoverRow) {
+        // qDebug() << "[ItemDelegate] Painting hover row";
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder());
             // QColor(0,0,0,13)QColor(255,255,255,26)
     }
     if (index.row() % 2 != 0) {
+        // qDebug() << "[ItemDelegate] Painting odd row";
         painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8)));
     } else {
         if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+            // qDebug() << "[ItemDelegate] Painting light theme even row";
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150)));
         } else {
+            // qDebug() << "[ItemDelegate] Painting dark theme even row";
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10)));
         }
     }
@@ -138,13 +144,16 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         QFileInfo fileInfo(fileSavePath);
         QPixmap pic;
         if (fileSavePath.contains(filetype) && fileInfo.isDir()) {
+            // qDebug() << "[ItemDelegate] Using folder icon for directory";
             QIcon icon = QIcon::fromTheme("folder");
             pic = icon.pixmap(20, 20);
         } else {
+            // qDebug() << "[ItemDelegate] Using file icon for file";
             QFileIconProvider iconProvider;
             QFileInfo filenameInfo(fileSavePath + filetype);
             QIcon icon = iconProvider.icon(filenameInfo);
             if (icon.isNull()) {
+                // qDebug() << "[ItemDelegate] File icon is null, using default file icon";
                 icon = iconProvider.icon(QFileIconProvider::IconType::File);
             }
             pic = icon.pixmap(20, 20);
@@ -155,6 +164,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         const QString path = index.data(TableModel::SavePath).toString();
         int status = index.data(TableModel::Status).toInt();
         if ((!QFileInfo::exists(path)) && (status == Global::DownloadTaskStatus::Complete || status == Global::DownloadTaskStatus::Removed)) { //文件不存在的任务，添加提示
+            // qDebug() << "[ItemDelegate] File does not exist, drawing error icon";
             QPixmap errorPic = QIcon(":icons/icon/error.svg").pixmap(12, 12);
             painter->drawPixmap(option.rect.x() + 10, option.rect.y() + (option.rect.height() - 20)/2 + 8, errorPic);
         }
@@ -213,10 +223,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             initStyleOption(&viewOption, index);
             if ((index.data(TableModel::Status) == Global::Paused) ||
                     (index.data(TableModel::Status) == Global::Lastincomplete)) {
+                // qDebug() << "[ItemDelegate] Drawing paused status";
                 const QString pauseText = painter->fontMetrics().elidedText(tr("Paused"),
                                                                             Qt::ElideRight, textRect.width() - 10);
                 painter->drawText(barRect, Qt::AlignVCenter | Qt::AlignLeft, pauseText);
             } else if (index.data(TableModel::Status) == Global::Error) {
+                // qDebug() << "[ItemDelegate] Drawing error status";
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
@@ -228,6 +240,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, errorText);
                 return;
             } else if (index.data(TableModel::Status) == Global::Waiting) {
+                // qDebug() << "[ItemDelegate] Drawing waiting status";
                 QFont font;
                 font.setPointSize(10);
                 painter->setFont(font);
@@ -239,6 +252,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
                 painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, wattingText);
                 return;
             } else {
+                // qDebug() << "[ItemDelegate] Drawing progress information";
                 QString speed = index.data(TableModel::Speed).toString();
                 if (speed.left(2).toInt() < 0) {
                     speed = "0KB/s";
@@ -275,10 +289,12 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             int w = static_cast<int>((sizeRect.width() - 16) * p);
 
             if (w <= 3) {
+                // qDebug() << "[ItemDelegate] Drawing small progress bar (width <= 3)";
                 QRect s(sizeRect.x(), sizeRect.y(), w, m_frontImage->height());
                 QRect f(0, 0, 3, m_frontImage->height());
                 painter->drawPixmap(s, *m_frontImage, f);
             } else if ((w > 3) && (w <= sizeRect.width() - 10)) {
+                // qDebug() << "[ItemDelegate] Drawing normal progress bar";
                 // front h
                 QRect s(sizeRect.x(), sizeRect.y(), 3, m_frontImage->height());
                 QRect f(0, 0, 3, m_frontImage->height());
@@ -296,6 +312,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             }
         }
     } else if (column == 4) {
+        // qDebug() << "[ItemDelegate] Painting column 4";
         if (isSelected) {
             painter->setPen(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight().color());
             painter->setBrush(QBrush(Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().highlight()));
@@ -311,41 +328,53 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, time);
 
     } else {
+        // qDebug() << "[ItemDelegate] Not column 4, delegating to parent";
         QStyledItemDelegate::paint(painter, option, index);
     }
+    // qDebug() << "[ItemDelegate] paint function ended";
 }
 
 QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    // qDebug() << "[ItemDelegate] sizeHint function started";
     Q_UNUSED(option);
     Q_UNUSED(index);
     switch (index.column()) {
     case 0:
+        // qDebug() << "[ItemDelegate] sizeHint function ended with column 0 size";
         return QSize(40, 50);
     case 1:
+        // qDebug() << "[ItemDelegate] sizeHint function ended with column 1 size";
         return QSize(248, 50);
     case 2:
+        // qDebug() << "[ItemDelegate] sizeHint function ended with column 2 size";
         return QSize(114, 50);
     case 3:
+        // qDebug() << "[ItemDelegate] sizeHint function ended with column 3 size";
         return QSize(304, 50);
     case 4:
+        // qDebug() << "[ItemDelegate] sizeHint function ended with column 4 size";
         return QSize(304, 50);
     }
+    // qDebug() << "[ItemDelegate] sizeHint function ended with default size";
     return QSize(-1, 50);
 }
 
 bool ItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                                const QStyleOptionViewItem &option, const QModelIndex &index)
 {
+    // qDebug() << "[ItemDelegate] editorEvent function started";
     bool ret = true;
     const int column(index.column());
 
     if (column == 0) {
+        // qDebug() << "[ItemDelegate] Processing column 0 (checkbox)";
         QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent *>(event);
         QRect rect(option.rect);
         rect.setWidth(25);
         rect.setX(rect.x() + 10);
         if ((event->type() == QEvent::MouseButtonPress) && rect.contains(mouseEvent->pos())) {
+            // qDebug() << "[ItemDelegate] Checkbox clicked, toggling state";
             QVariant value;
             value = model->data(index, TableModel::Ischecked);
             Qt::CheckState state = (static_cast<Qt::CheckState>(value.toInt()) == Qt::Checked
@@ -353,18 +382,21 @@ bool ItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                                         : Qt::Checked);
             ret = model->setData(index, state, TableModel::Ischecked); // 取反后存入模型
         } else {
+            // qDebug() << "[ItemDelegate] Not a checkbox click, delegating to parent";
             ret = QStyledItemDelegate::editorEvent(event, model, option, index);
         }
     } else {
+        // qDebug() << "[ItemDelegate] Not column 0, delegating to parent";
         ret = QStyledItemDelegate::editorEvent(event, model, option, index);
     }
+    // qDebug() << "[ItemDelegate] editorEvent function ended with result:" << ret;
     return ret;
 }
 
 QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
                                     const QModelIndex &index) const
 {
-    qDebug() << "Creating editor for item";
+    // qDebug() << "Creating editor for item";
     Q_UNUSED(option);
     DLineEdit *pEdit = new DLineEdit(parent);
 #if QT_VERSION_MAJOR > 5
@@ -400,17 +432,21 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         }
 
         if ((file.isFile() && (filePath != index.data(TableModel::SavePath).toString())) || (hasSameFile)) {
+            // qDebug() << "[ItemDelegate] Duplicate file name detected, showing alert";
             pEdit->showAlertMessage(tr("Duplicate name"), -1);
         } else {
+            // qDebug() << "[ItemDelegate] File name is valid, hiding alert";
             pEdit->hideAlertMessage();
         }
     });
     pEdit->resize(parent->size());
+    // qDebug() << "[ItemDelegate] createEditor function ended with DLineEdit*";
     return pEdit;
 }
 
 void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
+    // qDebug() << "[ItemDelegate] setEditorData function started";
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
 
@@ -418,12 +454,13 @@ void ItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) cons
     QString mime = db.suffixForFileName(str);
     str = str.left(str.size() - mime.size() - 1);
     pEdit->setText(str);
+    // qDebug() << "[ItemDelegate] setEditorData function ended";
 }
 
 void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
                                 const QModelIndex &index) const
 {
-    qDebug() << "Setting model data for edited item";
+    // qDebug() << "Setting model data for edited item";
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TableModel::FileName).toString();
     QMimeDatabase db;
@@ -434,10 +471,12 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
     filePath = filePath.left(filePath.lastIndexOf("/") + 1);
     filePath = filePath + fileName;
     if (!QFileInfo::exists(filePath) && !pEdit->text().isEmpty()) {
+        // qDebug() << "[ItemDelegate] File doesn't exist and text is not empty, checking for duplicates";
         for (int i = 0; i < index.model()->rowCount(); i++) {
             QModelIndex idx = index.sibling(i, index.column());
             QString path = idx.data(TableModel::SavePath).toString();
             if (filePath == path && (filePath != index.data(TableModel::SavePath).toString())) {
+                // qDebug() << "[ItemDelegate] Duplicate file found, returning";
                 return;
             }
         }
@@ -451,20 +490,26 @@ void ItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
         task.downloadFilename = fileName;
         DBInstance::updateTaskInfoByID(task);
     }
+    // qDebug() << "[ItemDelegate] setModelData function ended";
 }
 
 void ItemDelegate::onHoverchanged(const QModelIndex &index)
 {
+    // qDebug() << "[ItemDelegate] onHoverchanged function started";
     m_hoverRow = index.row();
 }
 
 void ItemDelegate::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
+    // qDebug() << "[ItemDelegate] onPalettetypechanged function started";
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        // qDebug() << "[ItemDelegate] Loading light theme images";
         m_frontImage->load(":/icons/icon/bar-bg.png");
         m_bgImage->load(":/icons/icon/bar-front.png");
     } else if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
+        // qDebug() << "[ItemDelegate] Loading dark theme images";
         m_bgImage->load(":/icons/icon/bar-bg.png");
         m_frontImage->load(":/icons/icon/bar-front.png");
     }
+    // qDebug() << "[ItemDelegate] onPalettetypechanged function ended";
 }

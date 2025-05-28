@@ -45,133 +45,173 @@ using namespace DTK_CORE_NAMESPACE;
 TaskModel::TaskModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    qDebug() << "TaskModel constructor entered";
+    // qDebug() << "TaskModel constructor entered";
 }
 
 TaskModel::~TaskModel()
 {
-    qDebug() << "TaskModel destructor entered";
+    // qDebug() << "TaskModel destructor entered";
 }
 
 int TaskModel::rowCount(const QModelIndex &parent) const
 {
+    // qDebug() << "[TaskModel] rowCount function started";
     Q_UNUSED(parent);
     return m_linkInfo.size();
 }
 
 int TaskModel::columnCount(const QModelIndex &parent) const
 {
+    // qDebug() << "[TaskModel] columnCount function started";
     Q_UNUSED(parent);
     return 6;
 }
 
 QVariant TaskModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    // qDebug() << "[TaskModel] data function started";
+    if (!index.isValid()) {
+        // qDebug() << "[TaskModel] Invalid index, returning empty QVariant";
         return QVariant();
+    }
 
     int row = index.row();
 
     LinkInfo data = m_linkInfo.value(row);
 
     if(role == Qt::AccessibleTextRole){
+        // qDebug() << "[TaskModel] Processing AccessibleTextRole for column:" << index.column();
         switch(index.column()) {
         case TaskModel::Ischecked: {
+            // qDebug() << "[TaskModel] Returning accessible text for Ischecked column";
             return data.isChecked.append("_")+QString::number(row);
         }
         case TaskModel::Name: {
+            // qDebug() << "[TaskModel] Returning accessible text for Name column";
             return data.urlName.append("_")+QString::number(row);
         }
         case TaskModel::Type: {
+            // qDebug() << "[TaskModel] Returning accessible text for Type column";
             return data.type.append("_")+QString::number(row);
         }
         case TaskModel::Size: {
+            // qDebug() << "[TaskModel] Returning accessible text for Size column";
             return data.urlSize.append("_")+QString::number(row);
         }
         case TaskModel::Length: {
+            // qDebug() << "[TaskModel] Returning accessible text for Length column";
             return QString::number(data.length);
         }
         case TaskModel::Url: {
+            // qDebug() << "[TaskModel] Returning accessible text for Url column";
             return data.url.append("_")+QString::number(row);
         }
         case TaskModel::TrueUrl: {
+            // qDebug() << "[TaskModel] Returning accessible text for TrueUrl column";
             return data.urlTrueLink.append("_")+QString::number(row);
         }
     }
     }
 
+    // qDebug() << "[TaskModel] Processing role:" << role;
     switch (role) {
         case TaskModel::Ischecked: {
+            // qDebug() << "[TaskModel] Returning Ischecked data";
             return data.isChecked;
         }
         case TaskModel::Name: {
+            // qDebug() << "[TaskModel] Returning Name data";
             return data.urlName;
         }
         case TaskModel::Type: {
+            // qDebug() << "[TaskModel] Returning Type data";
             return data.type;
         }
         case TaskModel::Size: {
+            // qDebug() << "[TaskModel] Returning Size data";
             return data.urlSize;
         }
         case TaskModel::Length: {
+            // qDebug() << "[TaskModel] Returning Length data";
             return QString::number(data.length);
         }
         case TaskModel::Url: {
+            // qDebug() << "[TaskModel] Returning Url data";
             return data.url;
         }
         case TaskModel::TrueUrl: {
+            // qDebug() << "[TaskModel] Returning TrueUrl data";
             return data.urlTrueLink;
         }
         default:
+            // qDebug() << "[TaskModel] Unknown role, breaking";
             break;
     }
+    // qDebug() << "[TaskModel] data function ended";
     return QVariant();
 }
 
 QVariant TaskModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (role != Qt::DisplayRole)
+    // qDebug() << "[TaskModel] headerData function started";
+    if (role != Qt::DisplayRole) {
+        // qDebug() << "[TaskModel] Role is not DisplayRole, returning empty QVariant";
         return QVariant();
+    }
 
     if (role == Qt::BackgroundRole) {
+        // qDebug() << "[TaskModel] Returning white background brush";
         return QBrush(QColor(Qt::white));
     }
 
     if (orientation != Qt::Horizontal) {
+        // qDebug() << "[TaskModel] Orientation is not horizontal, returning empty QVariant";
         return QVariant();
     }
 
+    // qDebug() << "[TaskModel] Processing section:" << section;
     switch (section) {
     case 0:
+        // qDebug() << "[TaskModel] Returning header for Name column";
         return tr("Name");
     case 1:
+        // qDebug() << "[TaskModel] Returning header for empty column";
         return tr("");
     case 2:
+        // qDebug() << "[TaskModel] Returning header for Type column";
         return tr("Type");
     case 3:
+        // qDebug() << "[TaskModel] Returning header for Size column";
         return tr("Size");
     case 4:
+        // qDebug() << "[TaskModel] Returning header for Length column";
         return "long";
     case 5:
+        // qDebug() << "[TaskModel] Returning header for Url column";
         return "url";
     }
 
+    // qDebug() << "[TaskModel] headerData function ended";
     return QVariant();
 }
 
 Qt::ItemFlags TaskModel::flags(const QModelIndex &index) const
 {
+    // qDebug() << "[TaskModel] flags function started";
     if (!index.isValid()) {
+        // qDebug() << "[TaskModel] Index is not valid, returning base flags";
         return QAbstractItemModel::flags(index);
     }
+    // qDebug() << "[TaskModel] flags function ended";
     return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
 bool TaskModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    qDebug() << "setData called for row:" << index.row() << "column:" << index.column() << "role:" << role;
+    // qDebug() << "setData called for row:" << index.row() << "column:" << index.column() << "role:" << role;
 
     if (!index.isValid()) {
+        // qDebug() << "[TaskModel] Invalid index, returning false";
         return false;
     }
 
@@ -179,52 +219,66 @@ bool TaskModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
     LinkInfo linkInfo = m_linkInfo.value(row);
 
-    if (index.column() == 0)
+    if (index.column() == 0) {
+        // qDebug() << "[TaskModel] Setting isChecked data";
         linkInfo.isChecked = value.toString();
-    else if (index.column() == 1)
+    } else if (index.column() == 1) {
+        // qDebug() << "[TaskModel] Setting urlName data";
         linkInfo.urlName = value.toString();
-    else if (index.column() == 2)
+    } else if (index.column() == 2) {
+        // qDebug() << "[TaskModel] Setting type data";
         linkInfo.type = value.toString();
-    else if (index.column() == 3)
+    } else if (index.column() == 3) {
+        // qDebug() << "[TaskModel] Setting urlSize data";
         linkInfo.urlSize = value.toString();
-    else if (index.column() == 4)
+    } else if (index.column() == 4) {
+        // qDebug() << "[TaskModel] Setting length data";
         linkInfo.length = value.toLongLong();
-    else if (index.column() == 5)
+    } else if (index.column() == 5) {
+        // qDebug() << "[TaskModel] Setting url data";
         linkInfo.url = value.toString();
-    else if (index.column() == 6)
+    } else if (index.column() == 6) {
+        // qDebug() << "[TaskModel] Setting urlTrueLink data";
         linkInfo.urlTrueLink = value.toString();
+    }
 
     m_linkInfo.replace(row, linkInfo);
     emit(dataChanged(index, index));
+    // qDebug() << "[TaskModel] setData function ended with result: true";
     return true;
 }
 
 
 bool TaskModel::removeRow(int position, const QModelIndex &index)
 {
-    qDebug() << "Removing row at position:" << position;
+    // qDebug() << "Removing row at position:" << position;
 
     Q_UNUSED(index);
     beginRemoveRows(QModelIndex(), position, position);
 
-    if (m_linkInfo.size() > position)
+    if (m_linkInfo.size() > position) {
+        // qDebug() << "[TaskModel] Removing item at position:" << position;
         m_linkInfo.removeAt(position);
+    }
 
     endRemoveRows();
+    // qDebug() << "[TaskModel] removeRow function ended with result: true";
     return true;
 }
 
 bool TaskModel::insertRows(int position, int rows, const QModelIndex &index)
 {
-    qDebug() << "Inserting" << rows << "rows at position:" << position;
+    // qDebug() << "Inserting" << rows << "rows at position:" << position;
 
     Q_UNUSED(index);
     if(m_linkInfo.size() > position){
+        // qDebug() << "[TaskModel] Position exceeds current size, returning false";
         return false;
     }
     beginInsertRows(QModelIndex(), m_linkInfo.size(), m_linkInfo.size());
     m_linkInfo.append(LinkInfo());
     endInsertRows();
+    // qDebug() << "[TaskModel] insertRows function ended with result: true";
     return true;
 }
 

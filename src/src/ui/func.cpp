@@ -34,6 +34,7 @@ bool Func::isNetConnect()
 
 bool Func::isHTTPConnect()
 {
+    // qDebug() << "[Func] isHTTPConnect function started";
     //    if (!isBt()) {
     //        return false;
     //    }
@@ -42,6 +43,7 @@ bool Func::isHTTPConnect()
 
 bool Func::isIPV6Connect()
 {
+    qDebug() << "[Func] isIPV6Connect function started";
     QProcess process;
     process.start("ifconfig");
     process.waitForFinished(-1);
@@ -49,9 +51,11 @@ bool Func::isIPV6Connect()
     QStringList strList = str.split("\n");
     for(int i = 0 ;i < strList.size(); i++){
         if(strList[i].contains("inet6 fe80::")){
+            qDebug() << "[Func] IPv6 connection found, returning true";
             return true;
         }
     }
+    qDebug() << "[Func] No IPv6 connection found, returning false";
     return false;
 }
         
@@ -62,7 +66,7 @@ bool Func::setMimeappsValue(QString key, QString value)
     QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     QFile readFile(path);
     if (!readFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "Failed to open mimeapps file";
+        qDebug() << "[Func] Failed to open mimeapps file, returning false";
         return false;
     }
     QTextStream data(&readFile);
@@ -89,6 +93,7 @@ bool Func::setMimeappsValue(QString key, QString value)
     }
     //设置key和value,如果key已经存在，将value设置。  如果key不存在，在后追加一行
     if (!DefaultList.isEmpty()) {
+        qDebug() << "[Func] DefaultList is not empty, setting value for" << key;
         for (int i = 0; i < DefaultList.size(); i++) {
             if (DefaultList[i].contains(key)) {
                 if(DefaultList[i] != key+ "=" + value){
@@ -104,6 +109,7 @@ bool Func::setMimeappsValue(QString key, QString value)
     }
     //设置key和value,如果key已经存在，将value设置。  如果key不存在，在后追加一行
     if (!AddedList.isEmpty()) {
+        qDebug() << "[Func] AddedList is not empty, setting value for" << key;
         for (int i = 0; i < AddedList.size(); i++) {
             if (AddedList[i].contains(key)) {
                 if(AddedList[i] != key+ "=" + value){
@@ -131,11 +137,13 @@ bool Func::setMimeappsValue(QString key, QString value)
     }
     writeData.flush();
     writerFile.close();
+    qDebug() << "[Func] setMimeappsValue function ended with result: true";
     return true;
 }
 
 QString Func::pathToMD5(QString path)
 {
+    qDebug() << "[Func] pathToMD5 function started";
     QFile theFile(path);
     theFile.open(QIODevice::ReadOnly);
     QByteArray ba = QCryptographicHash::hash(theFile.readAll(), QCryptographicHash::Md5);
@@ -241,11 +249,13 @@ double Func::formatSpeed(QString str)
     } else if (number.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
     }
+    qDebug() << "[Func] formatSpeed function ended with result:" << num;
     return num;
 }
 
 double Func::formatFileSize(QString str)
 {
+    qDebug() << "[Func] formatFileSize function started with string:" << str;
     double num = -1;
     QString number = str.left(str.length() - 2);
     num = number.toDouble();
@@ -256,12 +266,15 @@ double Func::formatFileSize(QString str)
     } else if (str.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
     }
+    qDebug() << "[Func] formatFileSize function ended with result:" << num;
     return num;
 }
 
 QString Func::chineseToPinyin(QString input)
 {
+    qDebug() << "[Func] chineseToPinyin function started with input:" << input;
     if (input.isEmpty()) {
+        qDebug() << "[Func] Input is empty, returning empty string";
         return "";
     }
     QString value = input;
@@ -276,12 +289,15 @@ QString Func::chineseToPinyin(QString input)
             value.replace(ch, pinyin);
         }
     }
+    qDebug() << "[Func] chineseToPinyin function ended with result:" << value;
     return value;
 }
 
 QString Func::removeDigital(QString input)
 {
+    qDebug() << "[Func] removeDigital function started with input:" << input;
     if ("" == input) {
+        qDebug() << "[Func] Input is empty, returning empty string";
         return "";
     }
     QString value = "";
@@ -294,11 +310,13 @@ QString Func::removeDigital(QString input)
         }
         data++;
     }
+    qDebug() << "[Func] removeDigital function ended with result:" << value;
     return value;
 }
 
 bool Func::isLanConnect()
 {
+    qDebug() << "[Func] isLanConnect function started";
     QString geteWay;
     QString str;
     {
@@ -332,8 +350,10 @@ bool Func::isLanConnect()
         }
     }
     if(geteWay.isEmpty()){
+        qDebug() << "[Func] No gateway found, returning false";
         return false;
     } else {
+        qDebug() << "[Func] Gateway found, returning true";
         return true;
     }
 

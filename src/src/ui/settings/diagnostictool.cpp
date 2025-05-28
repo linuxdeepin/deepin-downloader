@@ -61,11 +61,12 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
     m_Tableview->setAccessibleName("DiagnosticTableView");
     m_Tableview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_Tableview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    qDebug() << "[DiagnosticTool] Constructor ended";
 }
 
 DiagnosticTool::~DiagnosticTool()
 {
-    qDebug() << "DiagnosticTool destroyed";
+    // qDebug() << "DiagnosticTool destroyed";
     delete m_Model;
     delete m_Tableview;
     delete m_delegate;
@@ -73,6 +74,7 @@ DiagnosticTool::~DiagnosticTool()
 
 void DiagnosticTool::initUI()
 {
+    qDebug() << "[DiagnosticTool] initUI function started";
     QIcon tryIcon = QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
@@ -162,6 +164,7 @@ void DiagnosticTool::initUI()
     m_Tableview->setEnabled(false);
     m_Tableview->verticalScrollBar()->setHidden(true);
 
+    qDebug() << "[DiagnosticTool] initUI function ended";
 }
 
 void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
@@ -229,24 +232,26 @@ void DiagnosticTool::startDiagnostic()
         m_Button->setEnabled(true);
     });
 #endif
+    qDebug() << "[DiagnosticTool] startDiagnostic function ended";
 }
 
 DiagnosticModel::DiagnosticModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    qDebug() << "DiagnosticModel created";
+    // qDebug() << "DiagnosticModel created";
 }
 
 DiagnosticModel::~DiagnosticModel()
 {
-    qDebug() << "DiagnosticModel destroyed";
+    // qDebug() << "DiagnosticModel destroyed";
 }
 
 void DiagnosticModel::appendData(bool b)
 {
-    qDebug() << "Appending diagnostic data, status:" << b;
+    // qDebug() << "Appending diagnostic data, status:" << b;
     const int row = m_DiagnosticStatusList.size();
     if (row < 6) {
+        // qDebug() << "Appending diagnostic data, status:" << b;
         m_DiagnosticStatusList.append(b);
         // 不再用插入行（因为行数固定为6），改为按行触发 dataChanged，
         // 并在清空时使用 reset 通知，这样结果会自动刷新而无需点击界面
@@ -256,14 +261,18 @@ void DiagnosticModel::appendData(bool b)
 
 void DiagnosticModel::clearData()
 {
+    // qDebug() << "[DiagnosticModel] clearData function started";
     beginResetModel();
     m_DiagnosticStatusList.clear();
     endResetModel();
+    // qDebug() << "[DiagnosticModel] clearData function ended";
 }
 
 bool DiagnosticModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    // qDebug() << "[DiagnosticModel] setData function started";
     if (!index.isValid()) {
+        // qDebug() << "[DiagnosticModel] setData function ended with result: false (invalid index)";
         return false;
     }
     switch (role) {
@@ -274,24 +283,31 @@ bool DiagnosticModel::setData(const QModelIndex &index, const QVariant &value, i
         break;
     }
 
+    // qDebug() << "[DiagnosticModel] setData function ended with result: true";
     return true;
 }
 
 int DiagnosticModel::rowCount(const QModelIndex &parent) const
 {
+    // qDebug() << "[DiagnosticModel] rowCount function started";
     Q_UNUSED(parent);
+    // qDebug() << "[DiagnosticModel] rowCount function ended with result: 6";
     return 6;
 }
 
 int DiagnosticModel::columnCount(const QModelIndex &parent) const
 {
+    // qDebug() << "[DiagnosticModel] columnCount function started";
     Q_UNUSED(parent);
+    // qDebug() << "[DiagnosticModel] columnCount function ended with result: 3";
     return 3;
 }
 
 QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
 {
+    // qDebug() << "[DiagnosticModel] data function started";
     if (m_DiagnosticStatusList.count() <= index.row()) {
+        // qDebug() << "[DiagnosticModel] data function ended with result: invalid row";
         return QVariant();
     }
     switch (role) {
@@ -355,17 +371,21 @@ QVariant DiagnosticModel::data(const QModelIndex &index, int role) const
         }
     }
     }
+    // qDebug() << "[DiagnosticModel] data function ended";
     return QVariant();
 }
 
 DiagnosticDelegate::DiagnosticDelegate(QObject *parent, int Flag)
 {
+    // qDebug() << "[DiagnosticDelegate] Constructor started";
     Q_UNUSED(parent);
     Q_UNUSED(Flag);
+    // qDebug() << "[DiagnosticDelegate] Constructor ended";
 }
 
 void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    // qDebug() << "[DiagnosticDelegate] paint function started";
     const int radius = 8;
     QRect paintRect = QRect(option.rect.left(), option.rect.top(), option.rect.width(), option.rect.height());
     QPainterPath path;
@@ -389,42 +409,50 @@ void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
     painter->setPen(QColor(index.data(Qt::TextColorRole).toString()));
 #endif
     if (index.row() % 2 != 0) {
+        // qDebug() << "[DiagnosticDelegate] Painting odd row";
         painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
     } else {
         if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
+            // qDebug() << "[DiagnosticDelegate] Painting light theme even row";
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150)));
         } else {
+            // qDebug() << "[DiagnosticDelegate] Painting dark theme even row";
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10)));
         }
     }
 
     switch (index.column()) {
     case 0: {
+        // qDebug() << "[DiagnosticDelegate] Painting column 0 (icon)";
         QPixmap pic = index.data(Qt::DisplayRole).toString();
         QRect rect = QRect(option.rect.x() + 10, option.rect.y() + 2 + (option.rect.height() - pic.height())/2.f, pic.width(), pic.height());
         painter->drawPixmap(rect, pic);
     } break;
     case 1: {
+        // qDebug() << "[DiagnosticDelegate] Painting column 1 (text)";
         QRect rect = option.rect;
         painter->drawText(rect, Qt::AlignVCenter | Qt::AlignLeft, index.data(Qt::DisplayRole).toString());
     } break;
     case 2: {
+        // qDebug() << "[DiagnosticDelegate] Painting column 2 (status)";
         QRect rect = option.rect;
         painter->drawText(rect, Qt::AlignVCenter | Qt::AlignLeft, index.data(Qt::DisplayRole).toString());
     } break;
     default:
         break;
     }
+    // qDebug() << "[DiagnosticDelegate] paint function ended";
 }
 
 BaseWidget::BaseWidget(const QString &text, QWidget *parent, Qt::WindowFlags f)
     :QLabel (text, parent, f)
 {
-
+    // qDebug() << "[BaseWidget] Constructor started";
 }
 
 void BaseWidget::paintEvent(QPaintEvent *e)
 {
+    // qDebug() << "[BaseWidget] paintEvent function started";
     QPainter painter( this);
     const int radius = 8;
     QRect paintRect = e->rect();
@@ -442,4 +470,5 @@ void BaseWidget::paintEvent(QPaintEvent *e)
     path.arcTo(QRect(QPoint(paintRect.bottomRight() - QPoint(radius * 2, radius * 2)),
                      QSize(radius * 2, radius * 2)), 270, 90);
     painter.fillPath(path, DGuiApplicationHelper::instance()->applicationPalette().base());
+    // qDebug() << "[BaseWidget] paintEvent function ended";
 }

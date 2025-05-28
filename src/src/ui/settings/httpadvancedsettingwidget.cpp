@@ -55,10 +55,12 @@ HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(QWidget *parent)
     //判断文件是否存在,如果不存在复制配置文件内容到目录下
     QFileInfo fileInfo(m_configPath);
     if (!fileInfo.exists()) {
+        qDebug() << "[HttpAdvancedSettingWidget] Config file does not exist, copying from default";
         QFile::copy(CONTENT_HTTP_ADVANCED_PATH, m_configPath);
     }
     initUI();
 
+    qDebug() << "[HttpAdvancedSettingWidget] Constructor ended";
 }
 
 void HttpAdvancedSettingWidget::initUI()
@@ -130,10 +132,12 @@ void HttpAdvancedSettingWidget::initUI()
         m_curWebStr = obj.value("CurWeb").toString();
     }
     suffixBtn->click();
+    qDebug() << "[HttpAdvancedSettingWidget] initUI function ended";
 }
 
 void HttpAdvancedSettingWidget::reset()
 {
+    // qDebug() << "[HttpAdvancedSettingWidget] reset function ended";
     QString str = ".asf;.avi;.exe;.iso;.mp3;.mpeg;.mpg;.mpga;"
                   ".ra;.rar;.rm;.rmvb;.tar;.wma;.wmp;.wmv;.mov;"
                   ".zip;.3gp;.chm;.mdf;.torrent;.jar;.msi;.arj;."
@@ -157,6 +161,7 @@ void HttpAdvancedSettingWidget::reset()
     file.flush();
     close();
 
+    // qDebug() << "[HttpAdvancedSettingWidget] reset function ended";
 }
 
 void HttpAdvancedSettingWidget::onSuffixBtnClicked()

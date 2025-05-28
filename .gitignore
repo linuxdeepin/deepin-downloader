@@ -2,3 +2,11 @@
 *.qm
 downloadmanager.ts
 build/
+.vscode/
+.cache/
+
+# AI config
+.promptx/
+.spec-workflow/
+.cursor/
+.specstory/

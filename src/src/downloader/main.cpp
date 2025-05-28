@@ -107,10 +107,12 @@ int main(int argc, char *argv[])
     {
         qDebug() << "[Main] Shared memory attached, checking for existing instance";
         if (!checkProcessExist()) { //下载器任务不存在，清空共享内存并启动
+            qDebug() << "[Main] No existing process found, detaching shared memory";
             sharedMemory.detach();
         } else { //下载器任务存在
             qDebug() << "[Main] Existing instance found";
             if (comList.isEmpty()) {
+                qDebug() << "[Main] No command line arguments, raising existing window";
                 QDBusInterface iface("com.downloader.service",
                                      "/downloader/path",
                                      "local.downloader.MainFrame",
@@ -119,20 +121,26 @@ int main(int argc, char *argv[])
             } else {
                 qDebug() << "[Main] Writing new URL to shared memory:" << comList[0];
                 if (sharedMemory.isAttached()) {
+                    qDebug() << "[Main] Shared memory is attached, checking for duplicate URL";
                     if (readShardMemary(sharedMemory) == comList[0]) {
+                        qDebug() << "[Main] main function ended with return code: 0";
                         return 0;
                     } else {
+                        qDebug() << "[Main] New URL detected, writing to shared memory";
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
                 if (comList[0].contains(".torrent") || comList[0].contains(".metalink")) {
+                    qDebug() << "[Main] Torrent or metalink file detected";
                     QDBusInterface iface("com.downloader.service",
                                          "/downloader/path",
                                          "local.downloader.MainFrame",
                                          QDBusConnection::sessionBus());
                     if(comList[0].contains("http://") || comList[0].contains("https://") || comList[0].contains("ftp://")) {
+                        qDebug() << "[Main] URL detected, creating new task";
                         iface.asyncCall("createNewTask", comList[0]);
                     } else {
+                        qDebug() << "[Main] Local file detected, opening file";
                         iface.asyncCall("OpenFile", comList[0]);
                         qDebug() << "[Main] Opening file:" << comList[0];
                     }
@@ -170,6 +178,7 @@ int main(int argc, char *argv[])
     //创建新日志
     setLogLevel(1);
     if(comList.size() == 1 && comList.first() == "debug") {
+        qDebug() << "[Main] Debug mode enabled";
         setLogLevel(0);
     }
     CreateNewLog();
@@ -184,7 +193,9 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < comList.size(); i++) {
         if (comList[i].endsWith(".torrent") || comList[i].endsWith(".metalink")) {
+            // qDebug() << "[Main] Processing torrent/metalink file:" << comList[i];
             if (Settings::getInstance()->getOneClickDownloadState()) {
+                // qDebug() << "[Main] One-click download enabled, hiding window";
                 w.hide();
             }
             w.OpenFile(comList[i]);
@@ -246,17 +257,24 @@ bool checkProcessExist()
 
 QAccessibleInterface *accessibleFactory(const QString &classname, QObject *object)
 {
+    // qDebug() << "[Main] accessibleFactory function started for class:" << classname;
     QAccessibleInterface *interface = nullptr;
 
     if (object && object->isWidgetType()) {
-        if (classname == "QLabel")
+        // qDebug() << "[Main] Object is a widget type";
+        if (classname == "QLabel") {
+            // qDebug() << "[Main] Creating AccessibleLabel interface";
             interface = new AccessibleLabel(qobject_cast<QLabel *>(object));
+        }
 
-        if (classname == "QPushButton")
+        if (classname == "QPushButton") {
+            // qDebug() << "[Main] Creating AccessibleButton interface";
             interface = new AccessibleButton(qobject_cast<QPushButton *>(object));
+        }
 
 //        if (classname == "QCheckBox")
 //            interface = new AccessibleCheckBox(qobject_cast<QCheckBox *>(object));
     }
+    // qDebug() << "[Main] accessibleFactory function ended";
     return interface;
 }

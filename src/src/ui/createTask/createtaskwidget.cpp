@@ -76,31 +76,37 @@ CreateTaskWidget::CreateTaskWidget(QWidget *parent)
             continue;
         }
         if (!action->autoRepeat()) {
+            // qDebug() << "[CreateTaskWidget] Deleting non-autoRepeat action";
             delete action;
             action = nullptr;
         }
     }
     initUi();
+    qDebug() << "[CreateTaskWidget] Constructor ended";
 }
 
 CreateTaskWidget::~CreateTaskWidget()
 {
-    qDebug() << "CreateTaskWidget destructor entered";
+    // qDebug() << "CreateTaskWidget destructor entered";
 
 //    delete m_delegate;
     if(m_analysisUrl != nullptr){
+        // qDebug() << "[CreateTaskWidget] Deleting analysisUrl";
         delete m_analysisUrl;
         m_analysisUrl = nullptr;
     }
     if(m_delegate != nullptr){
+        // qDebug() << "[CreateTaskWidget] Deleting delegate";
         delete m_delegate;
         m_delegate = nullptr;
     }
 
+    // qDebug() << "[CreateTaskWidget] Destructor ended";
 }
 
 void CreateTaskWidget::initUi()
 {
+    qDebug() << "[CreateTaskWidget] initUi function started";
     setCloseButtonVisible(true);
     setAcceptDrops(true);
 
@@ -399,15 +405,19 @@ void CreateTaskWidget::initUi()
     setMaximumSize(541, 575);
     setMinimumSize(541, 575);
     connect(m_analysisUrl, SIGNAL(sendFinishedUrl(LinkInfo *)), this, SLOT(updataTabel(LinkInfo *)));
+    qDebug() << "[CreateTaskWidget] initUi function ended";
 }
 
 void CreateTaskWidget::onFileDialogOpen()
 {
+    qDebug() << "[CreateTaskWidget] onFileDialogOpen function started";
     QString btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if (btFile != "") {
+        qDebug() << "[CreateTaskWidget] Torrent file selected:" << btFile;
         hide();
         BtInfoDialog dialog(btFile, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
         if (dialog.exec() == QDialog::Accepted) {
+            qDebug() << "[CreateTaskWidget] Dialog accepted, creating torrent download";
             QMap<QString, QVariant> opt;
             opt.clear();
             QString infoName;
@@ -417,10 +427,12 @@ void CreateTaskWidget::onFileDialogOpen()
         }
         close();
     }
+    qDebug() << "[CreateTaskWidget] onFileDialogOpen function ended";
 }
 
 void CreateTaskWidget::onMLFileDialogOpen()
 {
+    qDebug() << "[CreateTaskWidget] onMLFileDialogOpen function started";
     QString mlFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.metalink");
     if (mlFile != "") {
         hide();
@@ -435,16 +447,19 @@ void CreateTaskWidget::onMLFileDialogOpen()
         }
         close();
     }
+    qDebug() << "[CreateTaskWidget] onMLFileDialogOpen function ended";
 }
 
 void CreateTaskWidget::onCancelBtnClicked()
 {
+    qDebug() << "[CreateTaskWidget] onCancelBtnClicked function started";
     m_texturl->clear();
     if (m_analysisUrl != nullptr) {
         delete m_analysisUrl;
         m_analysisUrl = nullptr;
     }
     close();
+    qDebug() << "[CreateTaskWidget] onCancelBtnClicked function ended";
 }
 
 void CreateTaskWidget::onSureBtnClicked()
@@ -452,11 +467,13 @@ void CreateTaskWidget::onSureBtnClicked()
     qDebug() << "onSureBtnClicked entered";
 
     if (!Func::isNetConnect()) {
+        qDebug() << "isNetConnect is false, returning";
         showNetErrorMsg();
         return;
     }
     QFile f(m_defaultDownloadDir);
     if(!f.exists()){
+        qDebug() << "Folder does not exist, returning";
         MessageBox msg(this);
         msg.setAccessibleName("FolderNotExists");
         msg.setFolderNotExists();
@@ -477,6 +494,7 @@ void CreateTaskWidget::onSureBtnClicked()
     static QMutex mutex;
     bool ret = mutex.tryLock();
     if (!ret) {
+        qDebug() << "[CreateTaskWidget] onSureBtnClicked function ended";
         return;
     }
 
@@ -504,22 +522,27 @@ void CreateTaskWidget::onSureBtnClicked()
         m_analysisUrl = nullptr;
     }
     mutex.unlock();
+    qDebug() << "[CreateTaskWidget] onSureBtnClicked function ended";
 }
 
 void CreateTaskWidget::dragEnterEvent(QDragEnterEvent *event)
 {
+    // qDebug() << "[CreateTaskWidget] dragEnterEvent function started";
     //数据中是否包含URL
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction(); //如果是则接受动作
     } else {
         event->ignore();
     }
+    // qDebug() << "[CreateTaskWidget] dragEnterEvent function ended";
 }
 
 void CreateTaskWidget::dropEvent(QDropEvent *event)
 {
+    qDebug() << "[CreateTaskWidget] dropEvent function started";
     const QMimeData *mineData = event->mimeData(); //获取MIME数据
     if (!mineData->hasUrls()) { //如数据中包含URL
+        qDebug() << "[CreateTaskWidget] No URLs found, returning";
         return;
     }
     QList<QUrl> urlList = mineData->urls(); //获取URL列表
@@ -529,8 +552,10 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
     for (int i = 0; i < urlList.size(); ++i) {
         fileName = urlList.at(i).toString();
         if (!fileName.isEmpty()) { //若文件路径不为空
+            // qDebug() << "[CreateTaskWidget] File name:" << fileName;    
             if (fileName.startsWith("file:") && (fileName.endsWith(".torrent") || fileName.endsWith(".metalink"))) {
                 fileName = fileName.right(fileName.length() - 7);
+                // qDebug() << "[CreateTaskWidget] File name after removing .torrent:" << fileName;
                 hide();
                 BtInfoDialog dialog(fileName, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
                 int ret = dialog.exec();
@@ -549,19 +574,24 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
             }
         }
     }
+    qDebug() << "[CreateTaskWidget] dropEvent function ended";
 }
 
 void CreateTaskWidget::setUrl(QString url)
 {
+    qDebug() << "[CreateTaskWidget] setUrl function started";
     if (m_analysisUrl == nullptr) {
+        qDebug() << "[CreateTaskWidget] m_analysisUrl is null, creating new one";
         m_analysisUrl = new AnalysisUrl;
         connect(m_analysisUrl, SIGNAL(sendFinishedUrl(LinkInfo *)), this, SLOT(updataTabel(LinkInfo *)));
     }
     QString setTextUrl;
     QString textUrl = m_texturl->toPlainText();
     if (textUrl.isEmpty()) {
+        qDebug() << "[CreateTaskWidget] Text URL is empty, setting to:" << url;
         setTextUrl = url;
     } else {
+        qDebug() << "[CreateTaskWidget] Text URL is not empty, setting to:" << textUrl + "\n" + url;
         setTextUrl = textUrl + "\n" + url;
     }
     m_texturl->setText(setTextUrl);
@@ -571,36 +601,46 @@ void CreateTaskWidget::setUrl(QString url)
 
     QString freeSize = Aria2RPCInterface::instance()->getCapacityFree(m_defaultDownloadDir);
     m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
+    qDebug() << "[CreateTaskWidget] setUrl function ended";
 }
 
 bool CreateTaskWidget::isMagnet(QString url)
 {
+    qDebug() << "[CreateTaskWidget] isMagnet function started for URL:" << url;
     url = url.toLower();
     return url.mid(0, 20) == "magnet:?xt=urn:btih:";
 }
 
 bool CreateTaskWidget::isHttp(QString url)
 {
+    qDebug() << "[CreateTaskWidget] isHttp function started for URL:" << url;
     url = url.toLower();
     if ((url.startsWith("ftp:")) && (url.startsWith("http://")) && (url.startsWith("https://"))) {
+        qDebug() << "[CreateTaskWidget] URL matches none of the protocols, returning false";
         return false;
     }
+    qDebug() << "[CreateTaskWidget] URL matches protocol criteria, returning true";
     return true;
 }
 
 bool CreateTaskWidget::isFtp(QString url)
 {
+    qDebug() << "[CreateTaskWidget] isFtp function started for URL:" << url;
     url = url.toLower();
     if (url.startsWith("ftp:")) {
+        qDebug() << "[CreateTaskWidget] URL starts with ftp:, returning true";
         return true;
     }
+    qDebug() << "[CreateTaskWidget] URL does not start with ftp:, returning false";
     return false;
 }
 
 void CreateTaskWidget::onTextChanged()
 {
+    qDebug() << "[CreateTaskWidget] onTextChanged function started";
 
     if(nullptr == m_analysisUrl) {
+        qDebug() << "[CreateTaskWidget] m_analysisUrl is null, returning";
         return;
     }
     m_texturl->toPlainText().isEmpty() ? hideTableWidget() : showTableWidget();
@@ -680,6 +720,7 @@ void CreateTaskWidget::onTextChanged()
     while (urlList.size() < m_model->rowCount()) {
         m_model->removeRow(m_model->rowCount() - 1);
     }
+    qDebug() << "[CreateTaskWidget] onTextChanged function ended";
 }
 
 void CreateTaskWidget::onFilechoosed(const QString &filename)
@@ -713,30 +754,36 @@ void CreateTaskWidget::onFilechoosed(const QString &filename)
     m_labelCapacityFree->setText(QString(tr("Available:") + freeSize));
     m_labelCapacityFree->setPalette(pal);
     m_labelCapacityFree->setFont(font);
+    qDebug() << "[CreateTaskWidget] onFilechoosed function ended";
 }
 
 void CreateTaskWidget::closeEvent(QCloseEvent *event)
 {
+    // qDebug() << "[CreateTaskWidget] closeEvent function started";
     Q_UNUSED(event);
     while (m_model->rowCount()) {
         m_model->removeRow(m_model->rowCount() -1);
     }
     m_texturl->clear();
 
+    // qDebug() << "[CreateTaskWidget] closeEvent function ended";
 }
 
 void CreateTaskWidget::showNetErrorMsg()
 {
+    qDebug() << "[CreateTaskWidget] showNetErrorMsg function started";
     MessageBox msg(this); //= new MessageBox();
     //QString title = tr("Network error, check your network and try later");
    // msg.setWarings(getNetErrTip(), tr("OK"), ""); //网络连接失败
     msg.setAccessibleName("Networkerror");
     msg.setNetWorkError(getNetErrTip());
     msg.exec();
+    qDebug() << "[CreateTaskWidget] showNetErrorMsg function ended";
 }
 
 void CreateTaskWidget::updataTabel(LinkInfo *linkInfo)
 {
+    // qDebug() << "[CreateTaskWidget] updataTabel function started";
     setData(linkInfo->index, linkInfo->urlName, linkInfo->type, linkInfo->urlSize, linkInfo->url, linkInfo->length, linkInfo->urlTrueLink);
 }
 
@@ -747,6 +794,7 @@ void CreateTaskWidget::onAllCheck()
     int state = m_checkAll->checkState();
     for (int i = 0; i < m_model->rowCount(); i++) {
         if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
+            // qDebug() << "[CreateTaskWidget] Setting row" << i << "to state:" << (state == Qt::Checked ? "1" : "0");
             m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
         }
     }
@@ -776,6 +824,7 @@ void CreateTaskWidget::onAllCheck()
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
 
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] onAllCheck function ended";
 }
 
 void CreateTaskWidget::onVideoCheck()
@@ -811,6 +860,7 @@ void CreateTaskWidget::onVideoCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] onVideoCheck function ended";
 }
 
 void CreateTaskWidget::onAudioCheck()
@@ -846,6 +896,7 @@ void CreateTaskWidget::onAudioCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] onAudioCheck function ended";
 }
 
 void CreateTaskWidget::onPictureCheck()
@@ -881,6 +932,7 @@ void CreateTaskWidget::onPictureCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] onPictureCheck function ended";
 }
 
 void CreateTaskWidget::onZipCheck()
@@ -916,6 +968,7 @@ void CreateTaskWidget::onZipCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] onZipCheck function ended";
 }
 
 void CreateTaskWidget::onDocCheck()
@@ -951,6 +1004,7 @@ void CreateTaskWidget::onDocCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] onDocCheck function ended";
 }
 
 void CreateTaskWidget::onOtherCheck()
@@ -985,10 +1039,12 @@ void CreateTaskWidget::onOtherCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] onOtherCheck function ended";
 }
 
 void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
 {
+    qDebug() << "[CreateTaskWidget] getUrlToName function started for URL:" << url;
     // 获取url文件名
     if (url.startsWith("magnet")) {
         if (url.split("&").size() < 0) {
@@ -1037,10 +1093,12 @@ void CreateTaskWidget::getUrlToName(QString url, QString &name, QString &type)
         }
     }
     name = QUrl::fromPercentEncoding(name.toUtf8());
+    qDebug() << "[CreateTaskWidget] getUrlToName function ended";
 }
 
 void CreateTaskWidget::setData(int index, QString name, QString type, QString size, QString url, long length, QString trueUrl)
 {
+    // qDebug() << "[CreateTaskWidget] setData function started for index:" << index << "name:" << name;
     m_model->insertRows(index, 0, QModelIndex());
     m_model->setData(m_model->index(index, 0, QModelIndex()),size == "" ? "0" : "1");
     if (!name.isEmpty()) {
@@ -1095,10 +1153,12 @@ void CreateTaskWidget::setData(int index, QString name, QString type, QString si
 
     updateSelectedInfo();
 
+    // qDebug() << "[CreateTaskWidget] setData function ended";
 }
 
 void CreateTaskWidget::updateSelectedInfo()
 {
+    qDebug() << "[CreateTaskWidget] updateSelectedInfo function started";
     int cnt = 0;
     long total = 0;
     int selectVideoCount = 0;
@@ -1162,10 +1222,12 @@ void CreateTaskWidget::updateSelectedInfo()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     m_sureButton->setEnabled(cnt > 0 ? true : false);
+    qDebug() << "[CreateTaskWidget] updateSelectedInfo function ended";
 }
 
 void CreateTaskWidget::setUrlName(int index, QString name)
 {
+    qDebug() << "[CreateTaskWidget] setUrlName function started for index:" << index << "name:" << name;
         QList<TaskInfo> taskList;
         DBInstance::getAllTask(taskList);
         QString curName = name + "." + m_model->data(m_model->index(index, 2),2).toString();
@@ -1184,11 +1246,14 @@ void CreateTaskWidget::setUrlName(int index, QString name)
 
     m_model->setData(m_model->index(index,1),name);
     m_tableView->setColumnHidden(1, true);
+    qDebug() << "[CreateTaskWidget] setUrlName function ended";
 }
 
 void CreateTaskWidget::hideTableWidget()
 {
+    qDebug() << "[CreateTaskWidget] hideTableWidget function started";
     if (m_tableView->isHidden()) {
+        qDebug() << "[CreateTaskWidget] Table widget is already hidden, returning";
         return;
     }
     m_tableView->hide();
@@ -1201,15 +1266,19 @@ void CreateTaskWidget::hideTableWidget()
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
     if (XDG_SESSION_TYPE == QLatin1String("wayland")) {
+        qDebug() << "[CreateTaskWidget] Wayland session detected, adjusting size";
         adjustSize();
     }
 
     m_sureButton->setEnabled(false);
+    qDebug() << "[CreateTaskWidget] hideTableWidget function ended";
 }
 
 void CreateTaskWidget::showTableWidget()
 {
+    qDebug() << "[CreateTaskWidget] showTableWidget function started";
     if (!m_tableView->isHidden()) {
+        qDebug() << "[CreateTaskWidget] Table widget is already visible, returning";
         return;
     }
     m_tableView->show();
@@ -1224,10 +1293,12 @@ void CreateTaskWidget::showTableWidget()
     move(rect.x(), rect.y());
 
     m_sureButton->setEnabled(true);
+    qDebug() << "[CreateTaskWidget] showTableWidget function ended";
 }
 
 bool CreateTaskWidget::isVideo(QString ext)
 {
+    // qDebug() << "[CreateTaskWidget] isVideo function started for extension:" << ext;
     QStringList types;
     types << "avi" << "mp4" << "mkv" << "flv" << "f4v" << "wmv"
           << "rmvb" << "rm" << "mpeg" << "mpg" << "mov" << "ts" << "m4v" << "vob";
@@ -1236,6 +1307,7 @@ bool CreateTaskWidget::isVideo(QString ext)
 
 bool CreateTaskWidget::isAudio(QString ext)
 {
+    // qDebug() << "[CreateTaskWidget] isAudio function started for extension:" << ext;
     QStringList types;
     types << "mp3" << "ogg" << "wav" << "ape" << "flac" << "wma" << "midi" << "aac" << "cda";
     return types.contains(ext,Qt::CaseInsensitive);
@@ -1243,6 +1315,7 @@ bool CreateTaskWidget::isAudio(QString ext)
 
 bool CreateTaskWidget::isPicture(QString ext)
 {
+    // qDebug() << "[CreateTaskWidget] isPicture function started for extension:" << ext;
     QStringList types;
     types << "jpg" << "jpeg" << "gif" << "png" << "bmp" << "svg" << "psd" << "tif" << "ico";
     return types.contains(ext,Qt::CaseInsensitive);
@@ -1250,6 +1323,7 @@ bool CreateTaskWidget::isPicture(QString ext)
 
 bool CreateTaskWidget::isZip(QString ext)
 {
+    // qDebug() << "[CreateTaskWidget] isZip function started for extension:" << ext;
     QStringList types;
     types << "rar" << "zip" << "cab" << "iso" << "jar" << "ace"
           << "7z" << "tar" << "gz" << "arj" << "lzh" << "uue" << "bz2" << "z" << "tar.gz";
@@ -1258,6 +1332,7 @@ bool CreateTaskWidget::isZip(QString ext)
 
 bool CreateTaskWidget::isDoc(QString ext)
 {
+    // qDebug() << "[CreateTaskWidget] isDoc function started for extension:" << ext;
     QStringList types;
     types << "txt" << "doc" << "xls" << "ppt" << "docx" << "xlsx" << "pptx";
     return types.contains(ext,Qt::CaseInsensitive);
@@ -1265,16 +1340,19 @@ bool CreateTaskWidget::isDoc(QString ext)
 
 QString CreateTaskWidget::getNetErrTip()
 {
+    // qDebug() << "[CreateTaskWidget] getNetErrTip function started";
     return QString(tr("Network error, check your network and try later"));
 }
 
 void CreateTaskWidget::keyPressEvent(QKeyEvent *event)
 {
+    // qDebug() << "[CreateTaskWidget] keyPressEvent function started";
     QWidget::keyPressEvent(event);
 }
 
 double CreateTaskWidget::formatSpeed(QString str)
 {
+    qDebug() << "[CreateTaskWidget] formatSpeed function started for string:" << str;
     QString number = str;
     if (str.contains("KB")) {
         number.remove("KB");
@@ -1298,23 +1376,27 @@ double CreateTaskWidget::formatSpeed(QString str)
         num = num * 1024 * 1024 * 1024 * 1024;
     }
 
+    qDebug() << "[CreateTaskWidget] formatSpeed function ended with result:" << num;
     return num;
 }
 
 double CreateTaskWidget::getSelectSize()
 {
+    qDebug() << "[CreateTaskWidget] getSelectSize function started";
     long total = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
         if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
             total += m_model->data(m_model->index(i, 4),4).toString().toLong();
         }
     }
+    qDebug() << "[CreateTaskWidget] getSelectSize function ended with result:" << total;
     return total;
 }
 
 
 bool CreateTaskWidget::isExistType(QString type)
 {
+    qDebug() << "[CreateTaskWidget] isExistType function started for type:" << type;
     QStringList typeList;
     typeList << "asf" << "avi" << "exe" << "iso" << "mp3" << "mpeg" << "mpg" << "mpga" << "ra" <<
                 "rar" << "rm" << "rmvb" << "tar" << "wma" << "wmp" << "wmv" << "mov" << "zip" <<

@@ -37,18 +37,22 @@
 headerView::headerView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
 {
-    qDebug() << "headerView constructor, orientation:" << orientation;
+    // qDebug() << "headerView constructor, orientation:" << orientation;
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
+        // qDebug() << "[BtHeaderView] Setting dark theme";
         onPalettetypechanged(DGuiApplicationHelper::ColorType::DarkType);
     } else {
+        // qDebug() << "[BtHeaderView] Setting light theme";
         onPalettetypechanged(DGuiApplicationHelper::ColorType::LightType);
     }
     //set
+    // qDebug() << "[BtHeaderView] Constructor ended";
 }
 
 void headerView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
 {
+    // qDebug() << "[BtHeaderView] paintSection function started";
     painter->save();
     QHeaderView::paintSection(painter, rect, logicalIndex);
     painter->restore();
@@ -60,10 +64,12 @@ void headerView::paintSection(QPainter *painter, const QRect &rect, int logicalI
     // QPixmap pixmap;
     //  pixmap.load(":/icons/icon/headerIcon.png");
     //  style()->drawItemPixmap(painter, option.rect, logicalIndex, pixmap);
+    // qDebug() << "[BtHeaderView] paintSection function ended";
 }
 
 QRect headerView::checkBoxRect(const QRect &sourceRect) const
 {
+    // qDebug() << "[BtHeaderView] checkBoxRect function started";
     QStyleOptionButton checkBoxStyleOption;
     QRect checkBoxRect = style()->subElementRect(QStyle::SE_CheckBoxIndicator,
                                                  &checkBoxStyleOption);
@@ -71,14 +77,16 @@ QRect headerView::checkBoxRect(const QRect &sourceRect) const
     QPoint checkBoxPoint(m_curWidget - 20, 14);
 
     if (m_curWidget > 400) {
+        // qDebug() << "[BtHeaderView] Resetting curWidget to 0";
         m_curWidget = 0;
     }
+    // qDebug() << "[BtHeaderView] checkBoxRect function ended";
     return QRect(checkBoxPoint, checkBoxRect.size());
 }
 
 void headerView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
 {
-    qDebug() << "onPalettetypechanged to:" << type;
+    // qDebug() << "onPalettetypechanged to:" << type;
 
     Q_UNUSED(type);
     QPalette p;
@@ -87,6 +95,7 @@ void headerView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
     //palette.setColor(DPalette::Background, c);
 
     if(DGuiApplicationHelper::instance()->themeType() == 2) {
+        // qDebug() << "[BtHeaderView] Setting dark theme palette";
         p.setColor(QPalette::Base, QColor(0,0,0,20));
         p.setBrush(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base());
         
@@ -95,6 +104,7 @@ void headerView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
        // p.setColor(DPalette::Background, c);
 
     } else {
+        // qDebug() << "[BtHeaderView] Setting light theme palette";
        // p.setColor(QPalette::Base, QColor(0,0,0,20));
         QColor c = DGuiApplicationHelper::instance()->applicationPalette().base().color();
         c.setAlpha(70);
@@ -102,4 +112,5 @@ void headerView::onPalettetypechanged(DGuiApplicationHelper::ColorType type)
         //p.setColor(QPalette::Base, DGuiApplicationHelper::instance()->applicationPalette().base().color());
     }
     setPalette(p);
+    // qDebug() << "[BtHeaderView] onPalettetypechanged function ended";
 }

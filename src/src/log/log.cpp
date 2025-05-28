@@ -57,8 +57,10 @@ void setLogLevel(int level)
 
 bool static ensureDirExist(const QString &dirPath)
 {
+    // qDebug() << "[LogSystem] ensureDirExist function started for path:" << dirPath;
     QDir dir(dirPath);
     if (dir.exists()) {
+        // qDebug() << "[LogSystem] ensureDirExist function ended with result: true";
         return true;
     }
 
@@ -66,10 +68,12 @@ bool static ensureDirExist(const QString &dirPath)
 }
 QFileInfoList GetLogList()
 {
+    qDebug() << "[LogSystem] GetLogList function started";
     QStringList nameFilter;
     nameFilter << "*.log";
     QDir logDir(_logDir);
     auto logList = logDir.entryInfoList(nameFilter, QDir::Files, QDir::Name);
+    qDebug() << "[LogSystem] Found" << logList.size() << "log files";
     return logList;
 }
 void CheckLogTime()
@@ -83,11 +87,13 @@ void CheckLogTime()
         auto createdTime = logInfo.birthTime();
         auto elapseDays = createdTime.daysTo(curTime);
         if (elapseDays > _logDaysRemain) {
+            qDebug() << "[LogSystem] Removing old log file:" << logInfo.fileName();
             auto logPath = logInfo.absoluteFilePath();
             QDir dir;
             dir.remove(logPath);
         }
     }
+    qDebug() << "[LogSystem] CheckLogTime function ended";
 }
 quint64 GetDiskFreeSpace()
 {
@@ -113,22 +119,28 @@ void CheckFreeDisk()
     auto freeSpace = GetDiskFreeSpace();
 
     if (freeSpace < _remainDisk) {
+        qDebug() << "[LogSystem] Insufficient disk space, cleaning old logs";
         auto logList = GetLogList();
         for (int i = 0; i < logList.size() - 1; ++i) {
+            // qDebug() << "[LogSystem] Removing log file:" << logList[i].fileName();
             QDir dir;
             dir.remove(logList[i].absolutePath());
             freeSpace = GetDiskFreeSpace();
             if (freeSpace > _remainDisk) {
+                qDebug() << "[LogSystem] Sufficient disk space achieved";
                 break;
             }
         }
     }
+ 
+    qDebug() << "[LogSystem] CheckFreeDisk function ended";
 }
 bool CheckRotateSize()
 {
     qDebug() << "[LogSystem] Checking log rotation by size (current:" << _logFile.size() << "max:" << _rotateSize << ")";
 
     bool ret = _logFile.size() >= _rotateSize;
+    qDebug() << "[LogSystem] CheckRotateSize result:" << ret;
     return ret;
 }
 bool CheckRotateTimePoint()
@@ -140,30 +152,43 @@ bool CheckRotateTimePoint()
     auto curDate = QDateTime::currentDateTime();
     auto dayElapse = curLogCreateDate.daysTo(curDate);
     if (dayElapse >= 1) {
+        qDebug() << "[LogSystem] Log rotation needed, creating new log";
         return true;
     }
 
+    qDebug() << "[LogSystem] Log rotation not needed, returning false";
     return false;
 }
 void CloseLog()
 {
+    // qDebug() << "[LogSystem] CloseLog function started";
     _logFile.close();
 }
 
 void WriteVersion()
 {
+    // qDebug() << "[LogSystem] WriteVersion function started";
+
     if (CheckRotateSize() || CheckRotateTimePoint()) {
+        // qDebug() << "[LogSystem] Log rotation needed, creating new log";
         CloseLog();
         CreateNewLog();
     }
+    
     s_logMutex.lock();
     QFile outFile(s_logPath);
     QFileInfo fileInfo(outFile);
-    if (!ensureDirExist(fileInfo.absoluteDir().absolutePath()))
+    if (!ensureDirExist(fileInfo.absoluteDir().absolutePath())) {
+        // qDebug() << "[LogSystem] Failed to ensure directory exists";
+        s_logMutex.unlock();
         return;
+    }
 
-    if (!outFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+    if (!outFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        // qDebug() << "[LogSystem] Failed to open log file for writing";
+        s_logMutex.unlock();
         return;
+    }
 
     QTextStream ts(&outFile);
     auto appName = QCoreApplication::applicationName();
@@ -171,6 +196,8 @@ void WriteVersion()
     ts << appName << " " << version << Qt::endl;
     outFile.close();
     s_logMutex.unlock();
+
+    qDebug() << "[LogSystem] WriteVersion function ended";
 }
 void CreateNewLog()
 {
@@ -186,11 +213,14 @@ void CreateNewLog()
     //日志头写入App\系统参数
     qDebug() << "[LogSystem] New log file created:" << logName;
     WriteVersion();
+    qDebug() << "[LogSystem] CreateNewLog function ended";
 }
 
 void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, const QString &msg)
 {
+    // qDebug() << "[LogSystem] customLogMessageHandler function started";
     if (type < s_logLevel) {
+        // qDebug() << "[LogSystem] Message type below log level, skipping";
         return;
     }
 
@@ -217,11 +247,13 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, cons
     QFile outFile(s_logPath);
     QFileInfo fileInfo(outFile);
     if (!ensureDirExist(fileInfo.absoluteDir().absolutePath())) {
+        // qDebug() << "[LogSystem] Failed to ensure directory exists";
         s_logMutex.unlock();
         return;
     }
 
     if (!outFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        // qDebug() << "[LogSystem] Failed to open log file for writing";
         s_logMutex.unlock();
         return;
     }
@@ -230,4 +262,5 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, cons
     std::cout << msg.toStdString() << std::endl;
     outFile.close();
     s_logMutex.unlock();
+    // qDebug() << "[LogSystem] customLogMessageHandler function ended";
 }

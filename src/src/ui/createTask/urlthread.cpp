@@ -31,12 +31,15 @@ UrlThread::UrlThread(QObject *parent)
     //判断文件是否存在,如果不存在复制配置文件内容到目录下
     QFileInfo fileInfo(iniConfigPath);
     if (!fileInfo.exists()) {
+        qDebug() << "[UrlThread] Config file does not exist, copying from default";
         QFile::copy(CONTENT_TYPE_CONFIG_PATH, iniConfigPath);
     }
         if(m_iniFile == nullptr){
+            qDebug() << "[UrlThread] Creating new QSettings instance";
             m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
             m_iniFile->beginGroup("content-type");
         }
+    qDebug() << "[UrlThread] Constructor ended";
 }
 
 void UrlThread::start(LinkInfo &urlInfo)
@@ -59,6 +62,7 @@ void UrlThread::begin()
     // post信息到服务器
     QObject::connect(manager, &QNetworkAccessManager::finished, this, &UrlThread::onHttpRequest, Qt::UniqueConnection);
     QThread::usleep(100);
+    qDebug() << "[UrlThread] begin function ended";
 }
 
 void UrlThread::onHttpRequest(QNetworkReply *reply)
@@ -296,6 +300,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         });
     }
     }
+    qDebug() << "[UrlThread] onHttpRequest function ended";
 }
 
 QString UrlThread::getUrlType(QString url)
@@ -313,17 +318,20 @@ QString UrlThread::getUrlType(QString url)
         }
     }
     if(type.isEmpty()){
+        qDebug() << "[UrlThread] getUrlType function ended with empty result";
         type = db.suffixForFileName(m_linkInfo.url);
     }
     if(type.isEmpty()){
+        qDebug() << "[UrlThread] getUrlType function ended with empty result";
         type = getNoContentType();
     }
+    qDebug() << "[UrlThread] getUrlType function ended";
     return type;
 }
 
 QString UrlThread::getUrlSize(QString url)
 {
-    qDebug() << "Determining URL size for:" << url;
+    // qDebug() << "[UrlThread] getUrlSize function started for URL:" << url;
 
     QStringList urlInfoList = url.split("\r\n");
     for (int i = 0; i < urlInfoList.size(); i++) {
@@ -334,11 +342,13 @@ QString UrlThread::getUrlSize(QString url)
             return Aria2RPCInterface::instance()->bytesFormat(size);
         }
     }
+    // qDebug() << "[UrlThread] getUrlSize function ended with empty result";
     return "";
 }
 
 QString UrlThread::getType(QString contentType)
 {
+    // qDebug() << "[UrlThread] getType function started for contentType:" << contentType;
     contentType.remove(";");
     QString str3 = m_iniFile->value(contentType).toString();
     return  m_iniFile->value(contentType).toString();
@@ -346,6 +356,7 @@ QString UrlThread::getType(QString contentType)
 
 QString UrlThread::getNoContentType()
 {
+    // qDebug() << "[UrlThread] getNoContentType function started";
     QString jsonType = ".asf;.avi;.exe;.iso;.mp3;.mpeg;.mpg;.mpga;"
                    ".ra;.rar;.rm;.rmvb;.tar;.wma;.wmp;.wmv;.mov;"
                    ".zip;.3gp;.chm;.mdf;.torrent;.jar;.msi;.arj;."
@@ -357,7 +368,9 @@ QString UrlThread::getNoContentType()
     QStringList surlList = url.split('.');
     QString type = surlList[surlList.size()-1];
     if(jsonType.contains(type)){
+        // qDebug() << "[UrlThread] getNoContentType function ended with result:" << type;
         return type;
     }
+    // qDebug() << "[UrlThread] getNoContentType function ended with empty result";
     return "";
 }

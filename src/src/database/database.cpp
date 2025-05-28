@@ -32,23 +32,29 @@ DataBase::DataBase()
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName(dbPath);
     m_db.open();
+    qDebug() << "[Database] DataBase constructor ended";
 }
 
 DataBase &DataBase::Instance()
 {
+    // qDebug() << "[Database] Instance function started";
     static DataBase *d = nullptr;
     if (d == nullptr) {
+        // qDebug() << "[Database] Creating new DataBase instance";
         d = new DataBase();
     }
+    // qDebug() << "[Database] Instance function ended";
     return *d;
 }
 
 QSqlDatabase &DataBase::getDB()
 {
+    // qDebug() << "[Database] getDB function started";
     return m_db;
 }
 
 void DataBase::destory()
 {
+    // qDebug() << "[Database] destory function started";
     m_db.close();
 }

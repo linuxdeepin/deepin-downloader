@@ -105,6 +105,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     layout->addStretch();
     layout->addWidget(m_SwitchBtn, 0, Qt::AlignRight);
     connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat) {
+    qDebug() << "[SettingsControlWidget] initUI function ended with result: true";
         emit checkedChanged(stat);
         if (isLineEdit) {
             m_Edit->setEnabled(stat);
@@ -112,16 +113,19 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
             m_ComboBox->setEnabled(stat);
         }
     });
+    qDebug() << "[SettingsControlWidget] initUI function ended with result: true";
     return true;
 }
 
 void SettingsControlWidget::setSpeend(QString speed)
 {
+    // qDebug() << "[SettingsControlWidget] setSpeend function started with speed:" << speed;
     m_Edit->setText(speed);
 }
 
 void SettingsControlWidget::setSize(QString size)
 {
+    // qDebug() << "[SettingsControlWidget] setSize function started with size:" << size;
     if ("5" == size) {
         m_ComboBox->setCurrentIndex(0);
     } else if ("10" == size) {
@@ -135,15 +139,18 @@ void SettingsControlWidget::setSize(QString size)
     } else if ("100" == size) {
         m_ComboBox->setCurrentIndex(5);
     }
+    // qDebug() << "[SettingsControlWidget] setSize function ended";
 }
 
 void SettingsControlWidget::setSwitch(bool arg)
 {
+    // qDebug() << "[SettingsControlWidget] setSwitch function started with arg:" << arg;
     m_SwitchBtn->setChecked(arg);
 }
 
 DLineEdit *SettingsControlWidget::lineEdit()
 {
+    // qDebug() << "[SettingsControlWidget] lineEdit function started";
     return m_Edit;
 }
 
@@ -168,6 +175,7 @@ bool SettingsLineWidget::initUI(QString text, bool currentStat)
     connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat) {
         emit checkedChanged(stat);
     });
+    qDebug() << "[SettingsLineWidget] initUI function ended with result: true";
     return true;
 }
 
@@ -197,20 +205,24 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
         emit currentTextChanged(text);
         m_comboBox->setAccessibleName(text);
     });
+    qDebug() << "[SettingsLineWidget] initUI function ended with result: true";
     return true;
 }
 
 void SettingsLineWidget::setSwitch(QString arg)
 {
+    // qDebug() << "[SettingsLineWidget] setSwitch function started with arg:" << arg;
     if(arg == "true"){
         m_SwitchBtn->setChecked(true);
     } else {
         m_SwitchBtn->setChecked(false);
     }
+    // qDebug() << "[SettingsLineWidget] setSwitch function ended";
 }
 
 void SettingsLineWidget::setSize(QString size)
 {
+    // qDebug() << "[SettingsLineWidget] setSize function started with size:" << size;
     if ("3" == size) {
         m_comboBox->setCurrentIndex(0);
     } else if ("5" == size) {
@@ -220,10 +232,12 @@ void SettingsLineWidget::setSize(QString size)
     } else if ("20" == size) {
         m_comboBox->setCurrentIndex(3);
     }
+    // qDebug() << "[SettingsLineWidget] setSize function ended";
 }
 
 void SettingsLineWidget::AddressThreadSize(QString size)
 {
+    // qDebug() << "[SettingsLineWidget] AddressThreadSize function started with size:" << size;
     if ("1" == size) {
         m_comboBox->setCurrentIndex(0);
     }else if ("3" == size) {
@@ -235,4 +249,5 @@ void SettingsLineWidget::AddressThreadSize(QString size)
     } else if ("10" == size) {
         m_comboBox->setCurrentIndex(4);
     }
+    // qDebug() << "[SettingsLineWidget] AddressThreadSize function ended";
 }
