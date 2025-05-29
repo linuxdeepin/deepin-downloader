@@ -311,7 +311,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="122"/>
         <source>Limit period</source>
-        <translation type="unfinished"/>
+        <translation>制限する時間</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="123"/>
@@ -322,17 +322,17 @@ and it does not involve user privacy.</source>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="271"/>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="286"/>
         <source>The end time must be greater than the start time</source>
-        <translation type="unfinished"/>
+        <translation>終了時刻は開始時刻よりも大きくする必要があります</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="305"/>
         <source>Limited between 100-102400</source>
-        <translation type="unfinished"/>
+        <translation>100から102400の間で入力してください</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="327"/>
         <source>Limited between 16-5120</source>
-        <translation type="unfinished"/>
+        <translation>16から5120の間で入力してください</translation>
     </message>
 </context>
 <context>
@@ -340,12 +340,12 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="55"/>
         <source>Last used directory</source>
-        <translation type="unfinished"/>
+        <translation>最後に使用したディレクトリ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="57"/>
         <source>Default directory</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのディレクトリ</translation>
     </message>
 </context>
 <context>
@@ -353,7 +353,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="69"/>
         <source>Edit File Extensions</source>
-        <translation type="unfinished"/>
+        <translation>ファイル拡張子を編集</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="75"/>
