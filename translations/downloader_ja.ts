@@ -1092,7 +1092,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
         <source>Download Management</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロード管理</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
@@ -1147,13 +1147,14 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="804"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation type="unfinished"/>
+        <translation>最大同時ダウンロードリソース数の制限</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="941"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation type="unfinished"/>
+        <translation>キャッシュを大きくするとダウンロード速度が速くなりますが
+より多くのリソースを消費します</translation>
     </message>
 </context>
 <context>
