@@ -4,7 +4,7 @@
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="116"/>
         <source>New Task</source>
-        <translation>新しいタスク</translation>
+        <translation>新しいタスクの作成</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="146"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="113"/>
         <source>New Task</source>
-        <translation>新しいタスク</translation>
+        <translation>新しいタスクの作成</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="119"/>
@@ -358,7 +358,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="75"/>
         <source>Edit Unmonitored Sites</source>
-        <translation type="unfinished"/>
+        <translation>モニタリング対象外のサイトを編集</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="90"/>
@@ -512,7 +512,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="334"/>
         <source>New task</source>
-        <translation>新しいタスク</translation>
+        <translation>新しいタスクの作成</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="336"/>
@@ -1161,7 +1161,7 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="418"/>
         <source> &gt; 1 day</source>
-        <translation type="unfinished"/>
+        <translation>1日以上</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="638"/>
@@ -1257,7 +1257,7 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="91"/>
         <source>New task</source>
-        <translation>新しいタスク</translation>
+        <translation>タスクを作成</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="98"/>
