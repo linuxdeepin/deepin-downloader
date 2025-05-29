@@ -220,7 +220,7 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="292"/>
         <source>IPv6 support</source>
-        <translation type="unfinished"/>
+        <translation>IPv6サポート</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="294"/>
@@ -316,7 +316,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="123"/>
         <source>to</source>
-        <translation type="unfinished"/>
+        <translation>から</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="271"/>
@@ -363,7 +363,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="90"/>
         <source>Restore</source>
-        <translation type="unfinished"/>
+        <translation>復元</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="102"/>
@@ -394,7 +394,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="214"/>
         <source>Paused</source>
-        <translation type="unfinished"/>
+        <translation>一時停止中</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="224"/>
@@ -404,17 +404,17 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="235"/>
         <source>Waiting</source>
-        <translation type="unfinished"/>
+        <translation>待機中</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="247"/>
         <source>Resources:</source>
-        <translation type="unfinished"/>
+        <translation>リソース:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="251"/>
         <source>Time left </source>
-        <translation type="unfinished"/>
+        <translation>残り時間</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="400"/>
@@ -452,7 +452,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="118"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>ハイバネート</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="120"/>
@@ -475,12 +475,12 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="187"/>
         <source>Click + to create new task</source>
-        <translation type="unfinished"/>
+        <translation>＋をクリックして新しいタスクを作成します</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="207"/>
         <source>0 tasks</source>
-        <translation type="unfinished"/>
+        <translation>0件のタスク</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="260"/>
@@ -507,7 +507,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="332"/>
         <source>Show main window</source>
-        <translation type="unfinished"/>
+        <translation>メインウィンドウを表示</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="334"/>
@@ -517,18 +517,19 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="336"/>
         <source>Resume all</source>
-        <translation type="unfinished"/>
+        <translation>すべて再開</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="338"/>
         <source>Pause all</source>
-        <translation type="unfinished"/>
+        <translation>すべて一時停止</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="614"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation type="unfinished"/>
+        <translation>終了してもよろしいですか？
+ダウンロードタスクは中断されます。</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="615"/>
@@ -538,29 +539,29 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="725"/>
         <source> files</source>
-        <translation type="unfinished"/>
+        <translation>ファイル</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="895"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="923"/>
         <source>Downloading %1...</source>
-        <translation type="unfinished"/>
+        <translation>%1をダウンロードしています...</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="947"/>
         <source>No finished tasks</source>
-        <translation type="unfinished"/>
+        <translation>完了したタスクはありません</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="960"/>
         <source>No deleted tasks</source>
-        <translation type="unfinished"/>
+        <translation>削除されたタスクはありません</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1073"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2763"/>
         <source>Torrent file not exist or broken</source>
-        <translation type="unfinished"/>
+        <translation>Torrentファイルが存在しないか壊れています</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1073"/>
@@ -583,18 +584,18 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1351"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1366"/>
         <source>Download first</source>
-        <translation type="unfinished"/>
+        <translation>先にダウンロードする</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1373"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1390"/>
         <source>Download again</source>
-        <translation type="unfinished"/>
+        <translation>もう一度ダウンロードする</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1383"/>
         <source>Restore</source>
-        <translation type="unfinished"/>
+        <translation>復元</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1396"/>
@@ -715,12 +716,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="137"/>
         <source>Delete All</source>
-        <translation type="unfinished"/>
+        <translation>すべて削除</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="153"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロードタスクを完全に削除してもよろしいですか？</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="156"/>
@@ -730,7 +731,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロードタスクを削除してもよろしいですか？</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="163"/>
@@ -752,12 +753,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation type="unfinished"/>
+        <translation>ゴミ箱内のダウンロードタスクをすべて削除してもよろしいですか？</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="194"/>
         <source>Empty</source>
-        <translation type="unfinished"/>
+        <translation>空にする</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="204"/>
@@ -802,7 +803,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="344"/>
         <source>Path Error</source>
-        <translation type="unfinished"/>
+        <translation>パスエラー</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="346"/>
@@ -838,17 +839,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/include/ui/global.h" line="44"/>
         <source>Waiting</source>
-        <translation type="unfinished"/>
+        <translation>待機中</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="45"/>
         <source>Paused</source>
-        <translation type="unfinished"/>
+        <translation>一時停止中</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="46"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation>エラー</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="47"/>
@@ -858,18 +859,18 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/include/ui/global.h" line="48"/>
         <source>Removed</source>
-        <translation type="unfinished"/>
+        <translation>削除されました</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="49"/>
         <location filename="../src/include/ui/global.h" line="66"/>
         <source>Unknown</source>
-        <translation type="unfinished"/>
+        <translation>不明</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="86"/>
         <source>downloader</source>
-        <translation type="unfinished"/>
+        <translation>ダウンローダー</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="87"/>
@@ -880,7 +881,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="91"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation type="unfinished"/>
+        <translation>ダウンローダーはユーザーフレンドリーなダウンロードツールです。URLやTorrentファイルに対応しています。</translation>
     </message>
 </context>
 <context>
@@ -979,7 +980,7 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="901"/>
         <source>Delete tasks without files</source>
-        <translation type="unfinished"/>
+        <translation>ファイルのないタスクを削除</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
@@ -1009,7 +1010,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
         <source>Links Monitored</source>
-        <translation type="unfinished"/>
+        <translation>リンクのモニタリング</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
@@ -1096,7 +1097,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
         <source>Speed Settings</source>
-        <translation type="unfinished"/>
+        <translation>速度設定</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="514"/>
@@ -1209,13 +1210,13 @@ and more resource consumption.</source>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="518"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="527"/>
         <source>Status</source>
-        <translation type="unfinished"/>
+        <translation>ステータス</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="520"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="529"/>
         <source>Time finished</source>
-        <translation type="unfinished"/>
+        <translation>完了時刻</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="522"/>
@@ -1281,12 +1282,12 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="156"/>
         <source>Empty</source>
-        <translation type="unfinished"/>
+        <translation>空にする</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="157"/>
         <source>Restore</source>
-        <translation type="unfinished"/>
+        <translation>復元</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="164"/>
