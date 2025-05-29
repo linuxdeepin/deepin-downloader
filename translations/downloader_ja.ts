@@ -726,7 +726,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="156"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation type="unfinished"/>
+        <translation>ローカルファイルも同時に削除されます。</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="159"/>
@@ -738,7 +738,7 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="165"/>
         <location filename="../src/src/ui/messagebox.cpp" line="190"/>
         <source>Delete local files</source>
-        <translation type="unfinished"/>
+        <translation>ローカルファイルも削除</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="174"/>
@@ -778,7 +778,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="208"/>
         <source>Do not ask again</source>
-        <translation type="unfinished"/>
+        <translation>次回からこの質問を表示しない</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="210"/>
@@ -788,7 +788,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="275"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
-        <translation type="unfinished"/>
+        <translation>ファイル名にスラッシュ(/)やバックスラッシュ(\)を含めることはできません</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="329"/>
