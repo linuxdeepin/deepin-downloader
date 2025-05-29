@@ -616,7 +616,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1433"/>
         <source>Move to</source>
-        <translation type="unfinished"/>
+        <translation>移動</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1443"/>
@@ -643,12 +643,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1883"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation type="unfinished"/>
+        <translation>最大同時ダウンロード数の制限に到達しました。他のタスクは待機中です。</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2004"/>
         <source>Unable to parse the URL, please check</source>
-        <translation type="unfinished"/>
+        <translation>URLを解析できませんでした。ご確認ください</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2417"/>
@@ -684,7 +684,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="91"/>
         <source>These tasks already exist</source>
-        <translation type="unfinished"/>
+        <translation>これらのタスクは既に存在します</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="93"/>
@@ -1081,13 +1081,13 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="921"/>
         <source>Move slow downloads to the end</source>
-        <translation type="unfinished"/>
+        <translation>遅いダウンロードを最後に移動する</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="836"/>
         <source>Original address threads</source>
-        <translation type="unfinished"/>
+        <translation>オリジナルのアドレススレッド</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
@@ -1132,7 +1132,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="690"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation type="unfinished"/>
+        <translation>合計の速度は最大ダウンロード速度よりも小さくする必要があります</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="760"/>
