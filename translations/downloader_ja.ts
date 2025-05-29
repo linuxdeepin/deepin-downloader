@@ -763,7 +763,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="204"/>
         <source>Please choose your action</source>
-        <translation type="unfinished"/>
+        <translation>行いたい操作を選択してください</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="206"/>
@@ -793,12 +793,12 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="329"/>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>権限が拒否されました</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="331"/>
         <source>Please try another folder</source>
-        <translation type="unfinished"/>
+        <translation>その他のフォルダをお試しください</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="344"/>
@@ -808,7 +808,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="346"/>
         <source>The storage folder does not exist, please check and try again</source>
-        <translation type="unfinished"/>
+        <translation>保存先フォルダが存在しません。ご確認のうえ、もう一度お試しください</translation>
     </message>
 </context>
 <context>
@@ -821,7 +821,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="53"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
-        <translation type="unfinished"/>
+        <translation>コントロールセンター→通知→ダウンローダー で変更できます</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="59"/>
