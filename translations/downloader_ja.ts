@@ -380,7 +380,7 @@ and it does not involve user privacy.</source>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="163"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="167"/>
         <source>Separate file extensions by semicolons (;)</source>
-        <translation type="unfinished"/>
+        <translation>拡張子はセミコロン(;)で区切ることができます</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="173"/>
@@ -419,7 +419,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="400"/>
         <source>Duplicate name</source>
-        <translation type="unfinished"/>
+        <translation>名前が重複しています</translation>
     </message>
 </context>
 <context>
@@ -1232,7 +1232,7 @@ and more resource consumption.</source>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="220"/>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="231"/>
         <source>Duplicate name</source>
-        <translation type="unfinished"/>
+        <translation>名前が重複しています</translation>
     </message>
 </context>
 <context>
