@@ -255,7 +255,7 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
         <source>Failed</source>
-        <translation>Wystąpił błąd</translation>
+        <translation>Błąd</translation>
     </message>
 </context>
 <context>
@@ -399,7 +399,7 @@ i nie naruszy to zasad prywatności użytkowników.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="224"/>
         <source>Failed</source>
-        <translation>Wystąpił błąd</translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="235"/>
@@ -442,7 +442,7 @@ i nie naruszy to zasad prywatności użytkowników.</translation>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="115"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="340"/>
         <source>When completed</source>
-        <translation>Po ukończeniu</translation>
+        <translation>Po zakończeniu</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="116"/>
