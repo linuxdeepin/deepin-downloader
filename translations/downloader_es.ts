@@ -539,7 +539,7 @@ Las tareas de descarga se interrumpirán.</translation>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="725"/>
         <source> files</source>
-        <translation>archivos</translation>
+        <translation> archivos</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="895"/>
