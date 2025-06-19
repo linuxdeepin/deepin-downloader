@@ -1,264 +1,224 @@
-# Downloader|downloader|
+# Downloader | downloader
 
 ## Overview
 
-Downloader is an easy-to-use tool for downloading network resources. It supports a variety of network download protocols.
+Downloader is a simple and easy-to-use network resource download tool that supports multiple network download protocols.
 
+## Getting Started
 
+You can run or close the Downloader, or create shortcuts through the following methods.
 
-## Guide
+### Running Downloader
 
-You can run, close or create a shortcut for Downloader as follows.
+1. Click the Launcher icon ![deepin_launcher](../common/deepin_launcher.svg) on the taskbar to enter the Launcher interface.
+2. Scroll the mouse wheel or search to locate the Downloader icon ![uos_downloadmanager](../common/uos_downloadmanager.svg), then click to run.
+3. Right-click ![uos_downloadmanager](../common/uos_downloadmanager.svg) to:
+   - Click **Send to Desktop** to create a desktop shortcut.
+   - Click **Pin to Taskbar** to pin the application to the taskbar.
+   - Click **Start on Boot** to add the application to startup items, automatically running when the computer starts.
 
-### Run Downloader
+### Closing Downloader
 
-1. Click ![deepin-launcher](../common/deepin_launcher.svg) on the Dock to enter the interface of launcher.
-2. Locate ![uos-downloadmanager](../common/uos_downloadmanager.svg) by scrolling the mouse wheel or searching "Downloader" in the Launcher interface and click it to run.
-3. Right-click ![uos-downloadmanager](../common/uos_downloadmanager.svg) to:
-   - Select **Send to desktop** to create a shortcut on the desktop.
+- Click ![close](../common/close.svg) in the Downloader interface to exit.
+- Right-click the ![uos_downloadmanager](../common/uos_downloadmanager.svg) icon on the taskbar and select **Close All** to exit Downloader.
+- Click ![icon_menu](../common/icon_menu.svg) in the Downloader interface and select **Exit** to exit Downloader.
 
-   - Select  **Send to dock** to fix it onto the dock.
+## Operations Guide
+### Adding Tasks
 
-   - Select **Add to startup** to run it automatically when the computer is turned on.
+#### Adding Tasks via Download Links
 
-### Close Downloader
-
-- On the main interface of Downloader, click ![close](../common/close.svg)to exit.
-- Right-click ![uos-downloadmanager](../common/uos_downloadmanager.svg)on the Dock, select **Close all** to exit.
-- On interface of Downloader, click ![icon_menu](../common/icon_menu.svg) and select **Exit** to exit.
-
-
-
-## Operations
-### New tasks
-
-#### For URL
-
-1. On main interface of Downloader, click ![add-normal](../common/add_normal.svg), a window titled **New Task** pops up. 
+1. In the Downloader interface, click the add task button ![add_normal](../common/add_normal.svg) to open the New Download Task window.
 
    ![0|homepage](fig/homepage.png)
 
-2. Enter a URL, and select the file to be downloaded, type, and storing path, and click **Confirm** to create a task. 
+2. Enter the download address, select the file to download, type, and storage path, then click **OK** to successfully create the task.
 
-   > ![notes](../common/notes.svg)Notes: You can add many URL at a time, but you should make sure there is only one in each line.
+   > ![notes](../common/notes.svg)Note: When adding multiple links simultaneously, ensure each line contains only one link.
 
+![0|addtask](fig/addtask.png)
 
-![0|addtask1](fig/addtask1.png)
+#### Creating Download Tasks via Torrent Files
 
-#### For BT files
+1. Create download tasks via torrent files using the following three methods:
+   - Double-click a torrent file to open the New Download Task window. If the "Associate Torrent Files" feature is disabled in the main menu settings, double-clicking a torrent file will not create a download task.
+   - Drag and drop a torrent file into the address box in the New Download Task interface.
+   - Click ![BT](../common/BT.svg) in the New Download Task interface, open the file manager, and select the desired torrent file.
+2. After selecting the file to download, type, and storage path, click **Download Now** to successfully create the task.
 
-1. You can create downloading tasks for BT files by one of the following ways:
+#### Creating Download Tasks via MetaLink Files
 
-   - Double-click a BT file, a window titled **New Task** pops up. Please make sure "Create new task when opening a torrent file" in "Main Menu" > "Settings" is switched on. 
-   - In new task interface, drag the BT file into the address box.
-   - In new task interface, click ![add-normal](../common/BT.svg), a window of File Manager pops up. Select the BT file you need to download. 
+1. Create download tasks via MetaLink files using the following three methods:
+   - Double-click a MetaLink file to open the New Download Task window. If the "Associate MetaLink Files" feature is disabled in the main menu settings, double-clicking a MetaLink file will not create a download task.
+   - Drag and drop a MetaLink file into the address box in the New Download Task interface.
+   - Click ![ML](../common/ML.svg) in the New Download Task interface, open the file manager, and select a MetaLink file.
+2. After selecting the file to download, type, and storage path, click **Download Now** to successfully create the task.
 
-2. Select the file to be downloaded, type and storing path. Click **Download Now** to create a task.
+### Searching Tasks
 
-#### For MetaLink files
-
-1. You can create downloading tasks for MetaLink files by one of the following ways:
-
-   - Double click the MetaLink file to pop up the new task window. Please make sure "Create new task when opening a metalink file" in "Main Menu" > "Settings" is switched on. 
-   - In new task interface, drag the MetaLink file into the address box.
-   - In new task interface, click ![add-normal](../common/ML.svg), a window of File Manager pops up. Select the MetaLink file you need to download. 
-
-2. Select the file to be downloaded, type and storing path. Click **Download Now** to create a task.
-
-### Search
-
-1. In the interface of Downloader, click ![search](../common/search.svg) to input keywords.
+In the Downloader interface, click the search button ![search](../common/search.svg), and enter keywords to search for related download tasks.
 
 ![0|search](fig/search.png)
 
 ### Downloading
 
-A list of files being downloaded is displayed in this interface, including task name, size and status.  You can also carry out the following operations to the checked tasks:
+View the list of downloading tasks, including task name, size, and status. You can also perform operations on selected tasks. Below are the operation items for a single task.
 
-> ![notes](../common/notes.svg)Notes: The operations are different when you check single and multiple tasks. Please refer to the actual situation. 
+> ![notes](../common/notes.svg)Note: Operation items differ for single and multiple selected tasks; actual conditions apply.
 
-**Pause**: click ![pause](../common/pause.svg) or right-click and select **Pause** to pause downloading.
+**Pause**: Click the pause button ![pause](../common/pause.svg) or right-click and select **Pause** to pause file download.
 
-**Resume**: if you want to continue downloading, click ![start](../common/start.svg) or right-click and select **Resume** to resume the paused downloading process. 
+**Start**: To continue downloading, click the start button ![start](../common/start.svg) or right-click and select **Start** to resume downloading previously paused files.
 
-**Download first**: If the current number of download tasks is greater than the set maximum number of download tasks, only the tasks that have not started (queued and suspended) have this option. For details of setting the maximum number of download tasks, please refer to [Tasks](#Tasks).
+**Priority Download**: If the current number of download tasks exceeds the set maximum, tasks that haven't started downloading (queued or paused) will have the "Priority Download" option. For details on setting the maximum download tasks, see [Task Management](#任务管理).
 
-**Delete**: click  ![delete](../common/delete.svg) or right-click the file and select **Delete** to delete a downloaded file, and it goes into Trash. If you check **Delete local files**, local file is deleted also. 
+**Delete**: Click the delete button ![delete](../common/delete.svg) or right-click and select **Delete** to delete downloading files. Deleted files are moved to the recycle bin. If **Also delete local file** is checked, the local file will also be deleted.
 
-**Permanently delete**: right-click the file and select this option to delete local file. 
+**Delete Permanently**: Right-click and select to permanently delete selected files; local files will also be deleted.
 
-**Copy download link**: right-click the file and select this option to share it to others. 
+**Copy Download Link**: Right-click and select to copy the download link.
 
-**Open folder**: right-click the file and select this option, the folder where the file is saved will be opened.
+**Open Folder**: Right-click and select to jump to the folder containing the downloaded file.
 
 ![0|downloading](fig/downloading.png)
 
-### Completed
+### Download Completed
 
-A list of files that have been downloaded is displayed in this interface, including file name, size and finish time. You can also carry out the following operations to the checked tasks:
+View the list of completed files, including file name, size, and completion time. You can also perform operations on selected tasks. Below are the operation items for a single task.
 
-> ![notes](../common/notes.svg)Notes: The operations are different when you check single and multiple tasks. Please refer to the actual situation. 
+> ![notes](../common/notes.svg)Note: Operation items differ for single and multiple selected tasks; actual conditions apply.
 
-**Download again**: right-click and select this option, the file would be downloaded again, and the former one would be deleted.
+**Redownload**: Right-click and select to redownload the file and delete the original file.
 
-**Open**: click ![open](../common/open.svg) or right-click and select this option to open the file. 
+**Open**: Click the open button ![open](../common/open.svg) or right-click and select **Open** to open the file.
 
-**Open folder**: click ![open](../common/open_folder.svg)right-click and select this option, the folder where the file is saved will be opened. 
+**Open Folder**: Click the open folder button ![open_folder](../common/open_folder.svg) or right-click and select **Open Folder** to jump to the folder containing the file.
 
-**Rename**: right-click and select this option to rename it.
+**Rename**: Right-click and select to rename the downloaded file.
 
-**Move to**: right-click and select this option to move the downloaded files into the specified folders.
+**Move to Folder**: Right-click and select to move the downloaded file to a specified folder.
 
-**Delete**: click  ![delete](../common/delete.svg) or right-click the file and select **Delete** to delete a downloaded file, and it goes into Trash. If you check **Delete local files**, and local file is deleted also. 
+**Delete**: Click the delete button ![delete](../common/delete.svg) or right-click and select **Delete** to delete downloaded files. Deleted files are moved to the recycle bin. If **Also delete local file** is checked, the local file will also be deleted.
 
-**Permanently delete**: right-click the file and select this option to delete local file.
+**Delete Permanently**: Right-click and select to permanently delete selected files; local files will also be deleted.
 
-**Copy download link**: right-click the file and select this option to share it to others. 
+**Copy Download Link**: Right-click and select to copy the download link.
 
 ![0|download](fig/download.png)
 
-### Failed
+### Download Failed
 
-If downloading process has failed, you can try again. If it still fails, the possible causes include: wrong downloading URL, insufficient storage space, no network connection and so on. Please refer to the actual situation.
+When file download fails, you can try redownloading. If download fails again, it may be due to download link issues, insufficient storage space, or no network connection; actual conditions apply.
 
-![0|failure](fig/failure.png)
+### Recycle Bin
 
-### Trash
+View the list of deleted files, including file name, size, and deletion time. You can also perform operations on selected tasks. Below are the operation items for a single task.
 
-A list of files that have been deleted is displayed in this interface, including file name, size and delete time. You can also carry out the following operations to the checked tasks:
+> ![notes](../common/notes.svg)Note: Operation items differ for single and multiple selected tasks; actual conditions apply.
 
-> ![notes](../common/notes.svg)Notes: The operations are different when you check single and multiple tasks. Please refer to the actual situation. 
+**Restore**: Click the restore button ![reduction](../common/reduction.svg) or right-click and select **Restore** to restore deleted files. Restored files will be moved to the download completed list.
 
-**Restore**: click ![reduction](../common/reduction.svg) or right-click the file and select this option to restore it to its original status and it will be moved into the list of files that have been downloaded.
+**Redownload**: Right-click and select to redownload the file.
 
-**Download again**: right-click the file and select this option to try again. 
+**Open**: Right-click and select to open the file.
 
-**Open**: right-click the file and select this option t open it.
+**Open Folder**: Right-click and select to jump directly to the folder containing the file.
 
-**Open folder**: right-click the file and select this option, the folder where the file is saved will be opened.
+**Copy Download Link**: Right-click and select to copy the download link for redownloading or sharing with others.
 
-**Copy download link**: right-click the file and select this option to share it to others. 
+**Delete**: Click the delete button ![delete](../common/delete.svg) or right-click and select **Delete** to delete files in the recycle bin. If **Also delete local file** is checked, the local file will also be deleted.
 
-**Delete**: click  ![delete](../common/delete.svg) or right-click the file and select **Delete** to delete a downloaded file, and it goes into Trash. If you select **Delete local files**, and local file is deleted also. 
+**Delete Permanently**: Right-click and select to permanently delete selected files; local files will also be deleted.
 
-**Permanently delete**: right-click the file and select this option to delete local file.
-
-**Empty**: click ![remove](../common/remove.svg) or right-click the file and select this option to clear up all files in Trash.
+**Empty**: Click the empty button ![remove](../common/remove.svg) to clear all files in the recycle bin.
 
 ![0|bin](fig/bin.png)
 
 ## Main Menu
 
-In the main menu, you can adjust settings, use diagnostic tools, switch themes, view help manual, and so on.
+In the main menu, you can perform download settings, use download diagnostic tools, switch window themes, view help manuals, etc.
 
 ### Settings
-#### Basic
+#### Basic Settings
 
-**Startup**: this option is related to the startup of the Downloader.
+**Startup**: Mainly sets program startup related items.
+- Start on Boot: Enable to automatically start Downloader when the computer boots.
+- Automatically start unfinished tasks after startup: Enable to automatically start unfinished tasks in the downloading list when Downloader starts.
 
-- Auto startup: Downloader starts up when the computer starts up when this button is switched on.  
-- Resume downloading on startup: Whenever you start up Downloader, the unfinished tasks in the downloading list will be resumed automatically when this button is switched on.  
+**Download Directory**: Mainly sets download directory related items.
+- Set default directory: Select a folder from the file manager as the default download path. All subsequent download tasks will use this path by default.
+- Last used directory: The download path defaults to the path selected during the last download when creating a new download task.
 
-**Download Directory**: this setting is related to downloading directory. 
+**One-click Download**: Enable to create new tasks directly without opening the Downloader interface when clicking download links or opening torrent files.
 
-- Default directory: select a folder in File Manager and set it as default directory. 
-- Last used directory: when you create a task, the last used directory is set as default directory.
+**Close Main Window**:
+- Select **Minimize to system tray** to hide the application to the system tray when closing the main window.
+- Select **Exit** to exit the application directly when closing the main window.
+- Select **Ask every time** to display a confirmation dialog each time the main window is closed.
 
-**1-Click Download**: once this button is switched on, whenever you click a URL or open a BT file, a task is created directly without popping up the interface of Downloader. 
+#### Task Management
 
-**Close Main Window**: you can choose whether to minimize to System Tray or to exit.
+Mainly sets download tasks, including the maximum number of simultaneous downloads, automatically opening after download completion, automatically moving low-speed tasks to the end of the queue, etc.
 
-![0|basic-settings](fig/basic_settings.png)
+#### Download Settings
 
-#### Tasks
+**Download Management**: Set the number of original address threads (range 1-10). The default global maximum simultaneous download resources is 500; can be customized after enabling.
 
-You can set the tasks being downloaded, for example, maximum concurrent downloads, when total speed less than xxx KB/s, increase concurrent tasks, open files when completed, and so on.
+**Speed Settings**: Choose full-speed download or speed-limited download. Speed-limited download allows setting maximum download speed, maximum upload speed, and speed-limited time periods.
 
-![0|task-management](fig/task_management.png)
+#### Takeover Settings
 
-#### Downloads
+**Applications**: Currently supports clipboard and browser takeover. Only effective when enabled. When a download link is copied to the clipboard or clicked in a browser, Downloader starts and automatically creates a download task.
 
-**Download Management**: you can set the original address threads from 1 to 10. The default limit maximum number of concurrent download resources is 500. You can switch on to set according to your needs.
+**Takeover Download Types**: Can only be selected when there is a takeover target. Currently supports HTTP downloads, MetaLink, torrent downloads, and magnet links. Only when the copied or clicked link is of the selected type will a download task be created.
 
-**Speed Settings**: Select full speed or limited speed. The maximum download speed, maximum upload speed and limit period can be set in "Limited speed" area.
+Click **Advanced Settings** next to HTTP download to edit download file extensions and non-takeover websites.
 
+**Torrent Association**:
+- Automatically open download panel after downloading torrent files: Disabled by default. When enabled, automatically starts Downloader and creates a download task when downloading torrent files.
+- Associate torrent files: Enabled by default. Double-clicking a torrent file opens the New Download Task window to select file types for download.
 
+**MetaLink Association**:
+- Automatically open download panel after downloading MetaLink files: Disabled by default. When enabled, automatically starts Downloader and creates a download task when downloading MetaLink files.
+- Associate MetaLink files: Enabled by default. Double-clicking a MetaLink file opens the New Download Task window to select file types for download.
 
+#### Notification Reminders
 
-![0|download-settings](fig/download_settings.png)
+When task status changes, system notifications remind you of the status change content. For specific operations, see [Notification Settings](dman:///dde#通知设置).
 
-#### Monitoring
+#### Advanced Settings
 
-**Applications**: currently Clipboard and Browser are supported here. To make either one monitored, turn on the switch after it. When a downloading link is copied to Clipboard or is clicked in Browser, Downloader would automatically starts up and create a task.
-
-**Links Monitored**: only when any application is being monitored, can you select link types. Currently, HTTP, MetaLink, BitTorrent and Magnet URI scheme are supported. Tasks are created successfully only when the URL copied or clicked complies with the selected link types. 
-
-Click **Advanced** next to "HTTP" to edit file extensions and the unmonitored websites.
-
-**BT Files**: 
-   - "Create new task when a torrent file downloaded": this function is switched off by default. If you switch it on, when downloading a torrent file, Downloader starts up automatically and creates a task.
-   - "Create new task when opening a torrent file": this function is switched on by default. When you double-click a torrent file, new task window pops up, and you can select the type file in it.
-
-**MetaLink Files**: 
-   - "Create new task when a metalink file downloaded": this function is switched off by default. If you switch it on, when downloading a metalink file, Downloader starts up automatically and creates a task.
-   - "Create new task when opening a metalink file": this function is switched on by default. When you double-click a metalink file, new task window pops up, and you can select the type file in it.
-
-![0|takeover-settings](fig/takeover_settings.png)
-
-#### Notifications
-
-When a task status changes, the system will notify you about the change. Please read [Notification Settings](dman:///dde#Notification Settings) for details. 
-
-![0|notice](fig/notice.png)
-
-#### Advanced
-
-You can set shortcuts and cache sizes here. 
-
-**Shortcuts**: "show main window when creating new task" is turned on by default. You can choose to turn it off.
-**Cache**: Larger disk cache will result in faster download speed and more resource consumption.
-
-![0|advance-settigs](fig/advance_settings.png)
+Set the size of the download disk cache. Larger disk cache results in faster download speeds but consumes more computer resources.
 
 #### Restore Defaults
 
-Click **Restore Defaults** to restore all settings to defaults. 
+Click **Restore Defaults** to restore default settings.
 
-### When download completed
+### After Download Completion
 
-When download is completed, you can select **Shut down**, **Hibernate**, or **Exit Downloader**. For example, in order to avoid the peak use of the network, you can create a download task before you go off work, and set the automatic shutdown after the download is completed.
+After download completion, you can choose to **Shut Down**, **Hibernate**, or **Exit**. For example, to avoid network usage peaks, you can create download tasks before leaving work and set automatic shutdown after download completion.
 
-### Diagnostic tool
+### Diagnostic Tools
 
-You can use it to test IPv6 support, DHT status, HTTP task info, BT task info, Magnet task info and network detection, and so on.
-
-![0|download-diagnosis](fig/download_diagnosis.png)
+Diagnose whether IPv6 protocol is supported, DHT network status, download type task information, and network environment.
 
 ### Theme
 
-The window theme includes Light Theme, Dark Theme and System Theme.
-
-1. Click ![icon_menu](../common/icon_menu.svg)on the interface.
-2. Click  **Theme** to select one.
-
+Window themes include Light, Dark, and System.
+1. In the Downloader interface, click ![icon_menu](../common/icon_menu.svg).
+2. Click **Theme** and select a theme color.
 
 ### Help
 
-Click Help to get the manual, which will help you further know and use Downloader.
-
-1. Click ![icon_menu](../common/icon_menu.svg)on the interface.
-2. Click **Help** to view the manual.
-
+1. In the Downloader interface, click ![icon_menu](../common/icon_menu.svg).
+2. Click **Help** to view the help manual and learn more about using Downloader.
 
 ### About
 
-1. Click ![icon_menu](../common/icon_menu.svg)on the interface.
-2. Click **About** to view version information and introduction about Downloader.
+1. In the Downloader interface, click ![icon_menu](../common/icon_menu.svg).
+2. Click **About** to view the version and introduction of Downloader.
 
 ### Exit
 
-1. Click ![icon_menu](../common/icon_menu.svg)on the interface.
-2. Click  **Exit**.
-
-
-
+1. In the Downloader interface, click ![icon_menu](../common/icon_menu.svg).
+2. Click **Exit**.

@@ -1,72 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">
-  <defs>
-    <filter id="uos-downloadmanager96-a" width="127.3%" height="127.3%" x="-13.6%" y="-13.6%" filterUnits="objectBoundingBox">
-      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
-      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
-      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
-      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
-      <feMerge>
-        <feMergeNode in="shadowMatrixOuter1"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <linearGradient id="uos-downloadmanager96-b" x1="50%" x2="50%" y1="0%" y2="98.139%">
-      <stop offset="0%" stop-color="#FFF"/>
-      <stop offset="100%" stop-color="#EDEDED"/>
-    </linearGradient>
-    <filter id="uos-downloadmanager96-c" width="172.7%" height="214.3%" x="-36.4%" y="-57.1%" filterUnits="objectBoundingBox">
-      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
-      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
-      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.421978973   0 0 0 0 0.652704643   0 0 0 0 0.875452899  0 0 0 0.5 0"/>
-      <feMerge>
-        <feMergeNode in="shadowMatrixOuter1"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <linearGradient id="uos-downloadmanager96-e" x1="87.73%" x2="38.554%" y1="31.118%" y2="64.666%">
-      <stop offset="0%" stop-color="#7871EB"/>
-      <stop offset="100%" stop-color="#57E5FF"/>
-    </linearGradient>
-    <path id="uos-downloadmanager96-d" d="M13.0240523,19.3473373 L13.0140913,19.3373764 L13.0140913,19.3373764 C12.955358,19.2784597 12.8985748,19.218334 12.8437418,19.1570796 L1.70047285,7.97903298 C-0.0684357871,6.20460084 -0.0684357871,3.33353191 1.70047285,1.55909977 C3.46226869,-0.208197363 6.3231638,-0.212657043 8.09046093,1.5491388 L8.10042191,1.55909977 L8.10042191,1.55909977 L16.2187914,9.70270389 L24.3370781,1.55909977 C26.0988739,-0.208197363 28.959769,-0.212657043 30.7270662,1.5491388 L30.7370272,1.55909977 L30.7370272,1.55909977 C32.5059358,3.33353191 32.5059358,6.20460084 30.7370272,7.97903298 L19.5937582,19.1570796 C19.5389252,19.218334 19.482142,19.2784597 19.4234087,19.3373764 C18.5425108,20.2210249 17.386838,20.6639641 16.2304776,20.6657667 C15.0647489,20.6675693 13.9077008,20.2282353 13.0240523,19.3473373 Z"/>
-    <radialGradient id="uos-downloadmanager96-f" cx="94.647%" cy="77.513%" r="98.479%" fx="94.647%" fy="77.513%" gradientTransform="scale(-.7957 -1) rotate(23.08 3.675 -5.23)">
-      <stop offset="0%" stop-color="#7871EB"/>
-      <stop offset="68.65%" stop-color="#65B3F9" stop-opacity=".389"/>
-      <stop offset="100%" stop-color="#5CD1FF"/>
-    </radialGradient>
-    <filter id="uos-downloadmanager96-h" width="159.3%" height="191.4%" x="-29.6%" y="-45.7%" filterUnits="objectBoundingBox">
-      <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
-      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2.5"/>
-      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.419449026   0 0 0 0 0.779397285   0 0 0 0 0.884114583  0 0 0 0.5 0"/>
-      <feMerge>
-        <feMergeNode in="shadowMatrixOuter1"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <linearGradient id="uos-downloadmanager96-j" x1="90.404%" x2="50%" y1="31.328%" y2="70.345%">
-      <stop offset="0%" stop-color="#2B86FF"/>
-      <stop offset="100%" stop-color="#26F9B9"/>
-    </linearGradient>
-    <path id="uos-downloadmanager96-i" d="M21.7964073,32.0569388 C21.7959297,32.0564613 21.7954522,32.0559838 21.7949747,32.0555063 L2.4858483,12.7410576 C-0.385496982,9.86892089 -0.385496982,5.21310658 2.4858483,2.34096987 C5.3561707,-0.530143691 10.0105242,-0.530785047 12.8816377,2.33953736 L12.882354,2.34025356 L26.9993393,16.4612151 L41.1169298,2.34096987 C43.9872522,-0.530143691 48.6416056,-0.530785047 51.5127192,2.33953736 L51.5141517,2.34096987 C54.385497,5.21310658 54.385497,9.86892089 51.5141517,12.7410576 L32.2050253,32.0555063 C30.7379716,33.5229643 28.8048673,34.2405558 26.8820141,34.2082151 L26.8691855,34.2082151 C25.0299346,34.1772805 23.2000628,33.4602075 21.7964073,32.0569388 Z"/>
-    <linearGradient id="uos-downloadmanager96-k" x1="30.234%" x2="116.916%" y1="73.086%" y2="55.092%">
-      <stop offset="0%" stop-color="#26F5BB"/>
-      <stop offset="100%" stop-color="#2B86FE"/>
-    </linearGradient>
-  </defs>
-  <g fill="none" fill-rule="evenodd" filter="url(#uos-downloadmanager96-a)" transform="translate(4 4)">
-    <rect width="88" height="88" fill="url(#uos-downloadmanager96-b)" rx="44"/>
-    <g filter="url(#uos-downloadmanager96-c)" transform="translate(27.688 19)">
-      <mask id="uos-downloadmanager96-g" fill="#fff">
-        <use xlink:href="#uos-downloadmanager96-d"/>
-      </mask>
-      <use fill="url(#uos-downloadmanager96-e)" xlink:href="#uos-downloadmanager96-d"/>
-      <path fill="url(#uos-downloadmanager96-f)" d="M17.25,8.59897844 C13.8484216,13.2206834 6.69638482,12.9590775 4.07978602,11.3894418 C1.46318722,9.81980616 -0.630091827,3.71566754 -0.106772066,1.97162794 C0.416547695,0.22758833 4.7775457,-3.69650078 8.87688383,0.22758833 C12.976222,4.15167744 14.1973014,5.72131309 17.25,8.59897844 Z" mask="url(#uos-downloadmanager96-g)"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>apps/128/downloader</title>
+    <defs>
+        <filter x="-9.2%" y="-4.6%" width="118.4%" height="118.4%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.20036604 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="50%" y1="4.14866431%" x2="50%" y2="94.5953062%" id="linearGradient-2">
+            <stop stop-color="#ECECEC" offset="0%"></stop>
+            <stop stop-color="#E4ECF7" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="40.7675756%" y1="0.362625656%" x2="40.7675756%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FFFFFF" stop-opacity="0.385750724" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.13543317" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-4" cx="10.875" cy="10.875" r="10.875"></circle>
+        <filter x="-6.9%" y="-6.9%" width="113.8%" height="113.8%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="1" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="-1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0.108032992   0 0 0 0 0.378311821  0 0 0 0.2 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="28.6920847%" y1="6.31914407%" x2="88.5061137%" y2="74.7809296%" id="linearGradient-6">
+            <stop stop-color="#FF5E5E" offset="0%"></stop>
+            <stop stop-color="#004BFF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M7.20064394,8.95163198 L7.32103858,9.0617279 L10.8740834,12.6159851 L14.4286326,9.06139914 C15.0487916,8.44106922 16.0317326,8.4044488 16.6947233,8.95163198 L16.8154468,9.06139914 L16.9838819,9.23119631 C17.6426725,9.89016841 17.6426725,10.9583807 16.9838819,11.6173528 L12.0699835,16.5339213 C11.759904,16.8440862 11.359129,17.0083238 10.953,17.0266223 L10.7974646,17.0266433 C10.4420973,17.0107301 10.0907984,16.8830811 9.80074,16.6436884 L9.68034535,16.5342501 L4.76611807,11.6173528 C4.10732754,10.9583807 4.10732754,9.89016841 4.76611807,9.23119631 L4.93455322,9.06139914 C5.55471221,8.44106922 6.53765329,8.4044488 7.20064394,8.95163198 Z M8.73222143,4.95844198 L10.8518597,7.08491028 L12.9696313,4.96050873 C13.3351767,4.59382194 13.9287681,4.59289662 14.2954549,4.95844198 L14.4570798,5.12056513 C14.6353726,5.29941462 14.7308749,5.45656656 14.780962,5.62210763 C14.8310491,5.7876487 14.8310491,5.9568924 14.780962,6.12243347 C14.7308749,6.28797454 14.6353726,6.44512648 14.4570798,6.62397597 L11.7140422,9.37692696 L11.6766143,9.41543324 L11.5170561,9.57548964 C11.3483429,9.7447297 11.1310518,9.83605607 10.9099117,9.84939903 L10.7969256,9.84957157 C10.575745,9.83691812 10.3581702,9.74626963 10.1889301,9.57755639 L10.0273052,9.41543324 L9.99585974,9.38191028 L7.24683965,6.62397597 C7.06854689,6.44512648 6.97304459,6.28797454 6.92295748,6.12243347 C6.87287037,5.9568924 6.87287037,5.7876487 6.92295748,5.62210763 C6.97304459,5.45656656 7.06854689,5.29941462 7.24683965,5.12056513 L7.40639782,4.96050873 C7.77194319,4.59382194 8.36553463,4.59289662 8.73222143,4.95844198 Z" id="path-7"></path>
+        <filter x="-68.5%" y="-68.5%" width="237.0%" height="237.0%" filterUnits="objectBoundingBox" id="filter-9">
+            <feGaussianBlur stdDeviation="2.25" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-68.5%" y="-68.5%" width="237.0%" height="237.0%" filterUnits="objectBoundingBox" id="filter-10">
+            <feGaussianBlur stdDeviation="2.25" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-34.3%" y="-34.3%" width="168.5%" height="168.5%" filterUnits="objectBoundingBox" id="filter-11">
+            <feGaussianBlur stdDeviation="1.125" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-68.5%" y="-68.5%" width="237.0%" height="237.0%" filterUnits="objectBoundingBox" id="filter-12">
+            <feGaussianBlur stdDeviation="2.25" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="apps/128/downloader" stroke="none" fill="none" transform="translate(0.5, 0)">
+        <g id="编组" filter="url(#filter-1)" stroke-width="1" fill-rule="evenodd" transform="translate(1.125, 1.125)">
+            <g id="椭圆形">
+                <use fill="url(#linearGradient-2)" fill-rule="evenodd" xlink:href="#path-4"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                <circle stroke="url(#linearGradient-3)" stroke-width="0.1875" stroke-linejoin="square" cx="10.875" cy="10.875" r="10.78125"></circle>
+            </g>
+            <mask id="mask-8" fill="white">
+                <use xlink:href="#path-7"></use>
+            </mask>
+            <use id="形状结合" fill="url(#linearGradient-6)" fill-rule="nonzero" xlink:href="#path-7"></use>
+            <g id="编组-2" mask="url(#mask-8)" fill-opacity="0.7" stroke="#000000" stroke-opacity="0.1" stroke-width="0.1">
+                <g transform="translate(1.0234, 1.0234)" id="矩形">
+                    <rect fill="#EB1F1F" filter="url(#filter-9)" x="0.8078125" y="1.565625" width="9.7515625" height="9.7515625"></rect>
+                    <rect fill="#F7CA00" filter="url(#filter-10)" x="0.05" y="10.6515625" width="9.7515625" height="9.7515625"></rect>
+                    <rect fill="#B300E0" filter="url(#filter-11)" x="9.14375" y="0.05" width="9.7515625" height="9.7515625"></rect>
+                    <rect fill="#0055FF" filter="url(#filter-12)" x="9.9015625" y="10.6515625" width="9.7515625" height="9.7515625"></rect>
+                </g>
+            </g>
+        </g>
+        <g id="Guide/128"></g>
     </g>
-    <g filter="url(#uos-downloadmanager96-h)" transform="translate(17 34.75)">
-      <mask id="uos-downloadmanager96-l" fill="#fff">
-        <use xlink:href="#uos-downloadmanager96-i"/>
-      </mask>
-      <use fill="url(#uos-downloadmanager96-j)" xlink:href="#uos-downloadmanager96-i"/>
-      <path fill="url(#uos-downloadmanager96-k)" d="M26.9815545,16.4829377 C23.5689909,21.1414218 13.8563099,22.5477566 9.04372021,19.9108788 C4.23113052,17.274001 -3.03150482,10.066535 -1.71898036,5.40805095 C-0.406455903,0.749566861 7.46869086,-6.10631539 11.5812675,-2.15099871 C15.6938441,1.80431798 28.994092,11.4728699 26.9815545,16.4829377 Z" mask="url(#uos-downloadmanager96-l)"/>
-    </g>
-  </g>
 </svg>
