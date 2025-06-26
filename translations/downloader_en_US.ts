@@ -1111,27 +1111,27 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
         <source>%1 download failed. Network error.</source>
-        <translation>%1 تحميل فاشل. خطأ في الشبكة.</translation>
+        <translation>%1 download failed. Network error.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>View</source>
-        <translation>عرض</translation>
+        <translation>View</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download completed</source>
-        <translation>تم تنفيذ التحميل</translation>
+        <translation>Download completed</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download finished</source>
-        <translation>%1 تحميل اكتمل</translation>
+        <translation>%1 download finished</translation>
     </message>
 </context>
 <context>
@@ -1139,27 +1139,27 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="520"/>
         <source>Name</source>
-        <translation>الاسم</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="523"/>
         <source>Size</source>
-        <translation>الحجم</translation>
+        <translation>Size</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="527"/>
         <source>Status</source>
-        <translation>الحالة</translation>
+        <translation>Status</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="529"/>
         <source>Time finished</source>
-        <translation>وقت الانتهاء</translation>
+        <translation>Time finished</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="531"/>
         <source>Time deleted</source>
-        <translation>وقت الحذف</translation>
+        <translation>Time deleted</translation>
     </message>
 </context>
 <context>
@@ -1167,7 +1167,7 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="227"/>
         <source>Duplicate name</source>
-        <translation>اسم مكرر</translation>
+        <translation>Duplicate name</translation>
     </message>
 </context>
 <context>
@@ -1175,17 +1175,17 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/createTask/taskModel.cpp" line="146"/>
         <source>Name</source>
-        <translation>الاسم</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/taskModel.cpp" line="150"/>
         <source>Type</source>
-        <translation>النوع</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/taskModel.cpp" line="152"/>
         <source>Size</source>
-        <translation>الحجم</translation>
+        <translation>Size</translation>
     </message>
 </context>
 <context>
@@ -1193,42 +1193,42 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="92"/>
         <source>New task</source>
-        <translation>مهمة جديدة</translation>
+        <translation>New task</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="99"/>
         <source>Pause</source>
-        <translation>الإيقاف المؤقت</translation>
+        <translation>Pause</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="106"/>
         <source>Resume</source>
-        <translation>استئناف</translation>
+        <translation>Resume</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="113"/>
         <source>Delete</source>
-        <translation>حذف</translation>
+        <translation>Delete</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="159"/>
         <source>Empty</source>
-        <translation>فراغ</translation>
+        <translation>Empty</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="160"/>
         <source>Restore</source>
-        <translation>استعادة</translation>
+        <translation>Restore</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="167"/>
         <source>Open folder</source>
-        <translation>فتح المجلد</translation>
+        <translation>Open folder</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="168"/>
         <source>Open</source>
-        <translation>فتح</translation>
+        <translation>Open</translation>
     </message>
 </context>
 </TS>
