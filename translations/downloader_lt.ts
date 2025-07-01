@@ -15,6 +15,13 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="156"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="407"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="416"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="471"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="502"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="533"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="563"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="613"/>
         <source>%1 files selected, %2</source>
         <translation>%1 failai pažymėti, %2</translation>
     </message>
@@ -45,6 +52,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="231"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="640"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="683"/>
         <source>Available:</source>
         <translation>Prieinamas:</translation>
     </message>
@@ -103,11 +112,20 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="219"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1094"/>
         <source>Total </source>
         <translation>Viso </translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="225"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="776"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="812"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="847"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="882"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="917"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="952"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="986"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1163"/>
         <source>%1 files selected, %2</source>
         <translation>%1 failai pažymėti, %2</translation>
     </message>
@@ -148,6 +166,8 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="573"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="713"/>
         <source>Available:</source>
         <translation>Galimi:</translation>
     </message>
@@ -158,6 +178,7 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="357"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="365"/>
         <source>Select file</source>
         <translation>Pasirinkti failą</translation>
     </message>
@@ -175,6 +196,7 @@
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="406"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="424"/>
         <source>Choose Torrent File</source>
         <translation>Pasirinkti Torrent failą</translation>
     </message>
@@ -200,7 +222,7 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="299"/>
         <source>IPv6 support</source>
-        <translation>IPv6 palaikymas</translation>
+        <translation>IPv6 palačia</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="301"/>
@@ -277,6 +299,7 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="113"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="119"/>
         <source>KB/s</source>
         <translation>KB/s</translation>
     </message>
@@ -297,8 +320,9 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="276"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="291"/>
         <source>The end time must be greater than the start time</source>
-        <translation>Pabaigos laikas turi būti didesnis už pradžios laiką</translation>
+        <translation>Pabaiga turi būti didesnė už pradžią</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="311"/>
@@ -354,11 +378,13 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="166"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="170"/>
         <source>Separate file extensions by semicolons (;)</source>
         <translation>Atskirkite failo priskirtinius kableliais (;</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="177"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="181"/>
         <source>Please enter one URL per line</source>
         <translation>Įveskite vieną URL kiekvienoje eilutėje</translation>
     </message>
@@ -383,7 +409,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="249"/>
         <source>Resources:</source>
-        <translation>Resursai:</translation>
+        <translation>Išteklių:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="253"/>
@@ -413,6 +439,8 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="118"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="119"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="345"/>
         <source>When completed</source>
         <translation>Kai baigės</translation>
     </message>
@@ -428,6 +456,8 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="124"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="353"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
         <source>Exit</source>
         <translation>Išeiti</translation>
     </message>
@@ -438,6 +468,7 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="181"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="956"/>
         <source>No download tasks</source>
         <translation>Nėra atsisiųstų užduočių</translation>
     </message>
@@ -453,6 +484,8 @@ and it does not involve user privacy.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="264"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
         <source>Downloading</source>
         <translation>Atsisiunčiamas</translation>
     </message>
@@ -510,6 +543,7 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
         <source>Downloading %1...</source>
         <translation>Atsisiųskite %1...</translation>
     </message>
@@ -525,11 +559,14 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2777"/>
         <source>Torrent file not exist or broken</source>
         <translation>Torrent failas neegzistuoja arba yra knirštas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1665"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
         <source>OK</source>
         <translation>Gerai</translation>
     </message>
@@ -545,11 +582,13 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1372"/>
         <source>Download first</source>
         <translation>Atsisiųskite pirmiau</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1379"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1396"/>
         <source>Download again</source>
         <translation>Atsisiųskite dar kartą</translation>
     </message>
@@ -565,6 +604,7 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1494"/>
         <source>Open folder</source>
         <translation>Atverti folderių katalogą</translation>
     </message>
@@ -580,6 +620,8 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1449"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1473"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1485"/>
         <source>Copy download link</source>
         <translation>Kopijuoti atsisiųsti ligoninką</translation>
     </message>
@@ -623,11 +665,14 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     <name>MessageBox</name>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="50"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="130"/>
         <source>Warning</source>
         <translation>Įspėjimas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="93"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="118"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="140"/>
         <source>Download Again</source>
         <translation>Atsisiųsti dar kartą</translation>
     </message>
@@ -648,11 +693,18 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="111"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="294"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="360"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="377"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="395"/>
         <source>OK</source>
         <translation>Gerai</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="115"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="179"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="222"/>
         <source>Cancel</source>
         <translation>Atšaukti</translation>
     </message>
@@ -664,7 +716,7 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="144"/>
         <source>Delete All</source>
-        <translation>Pašalinkite viską</translation>
+        <translation>Pašalinti visus</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="162"/>
@@ -683,6 +735,8 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="172"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="201"/>
         <source>Delete local files</source>
         <translation>Šalinti vietinius failus</translation>
     </message>
@@ -754,7 +808,7 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="375"/>
         <source>The storage folder does not exist, please check and try again</source>
-        <translation>Nepavyko rasti saugojimo aplanko, peržiūrėkite ir bandykite dar kartą</translation>
+        <translation>Nepavyko rasti saugojimo aplanko, patikrinkite ir bandykite dar kartą</translation>
     </message>
 </context>
 <context>
@@ -766,8 +820,8 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="54"/>
-        <source>Change settings in "Control Center - Notification - Downloader"</source>
-        <translation>Keisti nustatymus "Kontroliavimo centras - Pranešimai - Atsisiuntėjas" </translation>
+        <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
+        <translation>Keisti nustatymus &quot;Kontroliavimo centras - Pranešimai - Atsisiuntėjas&quot; </translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="60"/>
@@ -809,16 +863,18 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="49"/>
+        <location filename="../src/include/ui/global.h" line="66"/>
         <source>Unknown</source>
         <translation>Nežinomas</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="89"/>
         <source>downloader</source>
-        <translation>Atsisiuntimas</translation>
+        <translation>Atsisiuntėjas</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="90"/>
+        <location filename="../src/src/downloader/main.cpp" line="93"/>
         <source>Downloader</source>
         <translation>Atsisiuntėjas</translation>
     </message>
@@ -910,16 +966,19 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="865"/>
         <source>Max. concurrent downloads</source>
         <translation>Maximalus vieną kartą atsisiunčiančių atsisiuntimų skaičius</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="885"/>
         <source>Open files when completed</source>
         <translation>Atverti failus, kai baigtas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="906"/>
         <source>Delete tasks without files</source>
         <translation>Ištrinti užduotis be failų</translation>
     </message>
@@ -1020,13 +1079,15 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="423"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="926"/>
         <source>Move slow downloads to the end</source>
         <translation>Perkelti greičiausius atsisiuntimus į pabaigą</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="424"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="841"/>
         <source>Original address threads</source>
-        <translation>Originalinės adreso trūkumai</translation>
+        <translation>Originalių adreso įrašų</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="425"/>
@@ -1036,7 +1097,7 @@ Atsisiuntimo užduočių veikla bus pristabdyta.</translation>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="426"/>
         <source>Speed Settings</source>
-        <translation>Greitis</translation>
+        <translation>Greitumo nustatymai</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="519"/>
@@ -1099,8 +1160,8 @@ and more resource consumption.</source>
     <name>TableDataControl</name>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="422"/>
-        <source> > 1 day</source>
-        <translation> > 1 diena</translation>
+        <source> &gt; 1 day</source>
+        <translation> &gt; 1 diena</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="643"/>
@@ -1147,16 +1208,19 @@ and more resource consumption.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="527"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="536"/>
         <source>Status</source>
         <translation>Būsena</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="529"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="538"/>
         <source>Time finished</source>
         <translation>Baigimo laikas</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="531"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="540"/>
         <source>Time deleted</source>
         <translation>Istrėškimo laikas</translation>
     </message>
@@ -1165,6 +1229,7 @@ and more resource consumption.</source>
     <name>TaskDelegate</name>
     <message>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="227"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="238"/>
         <source>Duplicate name</source>
         <translation>Išskirtinė pavadinimą</translation>
     </message>
@@ -1196,16 +1261,21 @@ and more resource consumption.</source>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="99"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="176"/>
         <source>Pause</source>
         <translation>Pauzė</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="106"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="175"/>
         <source>Resume</source>
         <translation>Tęsti</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="113"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="161"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="169"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="177"/>
         <source>Delete</source>
         <translation>Istrėsti</translation>
     </message>

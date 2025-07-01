@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ug">
+<TS version="2.1" sourcelanguage="en_US">
 <context>
     <name>BtInfoDialog</name>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="120"/>
         <source>New Task</source>
-        <translation>چۈشۈرۈش ۋەزىپىسى قۇرۇش</translation>
+        <translation>പുതിയ ജോലി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="150"/>
         <source>Total </source>
-        <translation>جەمئىي</translation>
+        <translation>ആകെ </translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="156"/>
@@ -23,74 +23,74 @@
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="563"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="613"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 ھۆججەت تاللاندى، جەمئىي %2</translation>
+        <translation>%1 ഫയലുകൾ തിരഞ്ഞെടുക്കപ്പെട്ടു, %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
         <source>All</source>
-        <translation>ھەممىسى</translation>
+        <translation>എല്ലാം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
         <source>Videos</source>
-        <translation>سىن</translation>
+        <translation>വീഡിയോകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="196"/>
         <source>Pictures</source>
-        <translation>رەسىم</translation>
+        <translation>ചിത്രങ്ങൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="203"/>
         <source>Music</source>
-        <translation>مۇزىكا</translation>
+        <translation>സംഗീതം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="210"/>
         <source>Others</source>
-        <translation>باشقا</translation>
+        <translation>മറ്റതുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="231"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="640"/>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="683"/>
         <source>Available:</source>
-        <translation>يەنە:</translation>
+        <translation>ഉപയോഗിക്കാനാവുന്ന:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="249"/>
         <source>Change download folder</source>
-        <translation>ساقلايدىغان ئورۇننى تاللاڭ</translation>
+        <translation>ഡൗൺലോഡ് ഫോൾഡർ മാറ്റുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="257"/>
         <source>Download Now</source>
-        <translation>چۈشۈرۈش</translation>
+        <translation>പ്രാരംഭിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="302"/>
         <source>Name</source>
-        <translation>نامى</translation>
+        <translation>പേര്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="304"/>
         <source>Type</source>
-        <translation>تۈرى</translation>
+        <translation>രൂപം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="305"/>
         <source>Size</source>
-        <translation>سىغىمى</translation>
+        <translation>പരിധി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>بوشلۇق يەتمىدى، باشقا ئورۇننى تاللاڭ</translation>
+        <translation>ഡിസ്ക് സ്ഥലം കുറവാണ്, ഡൗൺലോഡ് ഫോൾഡർ മാറ്റുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
         <source>OK</source>
-        <translation>ھەئە</translation>
+        <translation>ഒ.ക്.</translation>
     </message>
 </context>
 <context>
@@ -98,23 +98,23 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="117"/>
         <source>New Task</source>
-        <translation>چۈشۈرۈش ۋەزىپىسى قۇرۇش</translation>
+        <translation>പുതിയ ജോലി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="123"/>
         <source>Please enter one URL per line</source>
-        <translation>كۆپ چۈشۈرۈش ئۇلانمىسى قوشقاندا ھەربىر قۇردا بىر ئۇلانما بولۇشىغا كاپالەتلىك قىلىڭ</translation>
+        <translation>പ്രതി ലൈൻ കൊണ്ട് ഒരു യുആർഎൽ ഇടുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
         <source>Enter download links or drag a torrent file here</source>
-        <translation>چۈشۈرۈش ئادرېسىنى كىرگۈزۈڭ ياكى ھۆججەتنى تارتىپ ئەكىرىڭ</translation>
+        <translation>ഡൗൺലോഡ് ലിങ്കും അല്ലെങ്കിൽ ഒരു ടോർട്ടർ ഫയൽ ഇവിടെ കളിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="219"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1094"/>
         <source>Total </source>
-        <translation>جەمئىي</translation>
+        <translation>ആകെ </translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="225"/>
@@ -127,94 +127,94 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="986"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1163"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 ھۆججەت تاللاندى، جەمئىي %2</translation>
+        <translation>%1 ഫയലുകൾ തിരഞ്ഞെടുക്കപ്പെട്ടു, %2</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="238"/>
         <source>All</source>
-        <translation>ھەممىسى</translation>
+        <translation>എല്ലാം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="244"/>
         <source>Videos</source>
-        <translation>سىن</translation>
+        <translation>വീഡിയോകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="250"/>
         <source>Pictures</source>
-        <translation>رەسىم</translation>
+        <translation>ചിത്രങ്ങൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="256"/>
         <source>Music</source>
-        <translation>مۇزىكا</translation>
+        <translation>സംഗീതം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="262"/>
         <source>Others</source>
-        <translation>باشقا</translation>
+        <translation>മറ്റതുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="268"/>
         <source>Documents</source>
-        <translation>ھۆججەت</translation>
+        <translation>ഡോക്യുമെന്റുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
         <source>Archives</source>
-        <translation>بولاق</translation>
+        <translation>അാർക്കൈവുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="573"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="713"/>
         <source>Available:</source>
-        <translation>يەنە:</translation>
+        <translation>ഉപയാഗിക്കാനാവുന്ന:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="341"/>
         <source>Change download folder</source>
-        <translation>ساقلايدىغان ئورۇننى تاللاڭ</translation>
+        <translation>ഡൗൺലോഡ് ഫോൾഡർ മാറ്റുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="357"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="365"/>
         <source>Select file</source>
-        <translation>ھۆججەتنى تاللاڭ</translation>
+        <translation>പ്രക്രിയകൾ തിരഞ്ഞെടുക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="379"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>بىكار قىلىش</translation>
+        <translation>റദ്ദാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="386"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation>جەزملەش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="406"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="424"/>
-        <source>Choose Torrent File</source>
-        <translation>Torrent ھۆججىتىنى تاللاڭ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
-        <source>Insufficient disk space, please change the download folder</source>
-        <translation>بوشلۇق يەتمىدى، باشقا ئورۇننى تاللاڭ</translation>
+        <translation>ഉറപ്പാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
         <source>OK</source>
         <comment>button</comment>
-        <translation>ھەئە</translation>
+        <translation>ഒ.ക്.</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="406"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="424"/>
+        <source>Choose Torrent File</source>
+        <translation>ടോർറന്റ് ഫയൽ തിരഞ്ഞെടുക്കുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
+        <source>Insufficient disk space, please change the download folder</source>
+        <translation>അപര്യാപ്പിതമായ ഡിസ്ക് സ്ഥലം, ഡൗൺലോഡ് ഫോൾഡറിനെ മാറ്റണം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1268"/>
         <source>Network error, check your network and try later</source>
-        <translation>توردا خاتالىق كۆرۈلدى، تورنى تەكشۈرۈپ قايتا سىناڭ</translation>
+        <translation>നെറ്റ്വർക്ക് പിഴവ്, നിങ്ങളുടെ നെറ്റ്വർക്ക് പരിശോധിക്കുക മാത്രം നേരത്തെ മുന്നോട്ട് പരീക്ഷിക്കുക</translation>
     </message>
 </context>
 <context>
@@ -222,42 +222,42 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="299"/>
         <source>IPv6 support</source>
-        <translation>IPv6 قوللاش</translation>
+        <translation>ഐ.പി.വി.6 സഹായം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="301"/>
         <source>DHT status</source>
-        <translation>DHT ھالىتى</translation>
+        <translation>ഡി.എച്ച്.ടി. സ്ഥിതി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="303"/>
         <source>HTTP task</source>
-        <translation>HTTP ۋەزىپىسى</translation>
+        <translation>ഹ്ട്ട്പ് പ്രവർത്തനം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="305"/>
         <source>BT task</source>
-        <translation>BT ۋەزىپىسى</translation>
+        <translation>ബി.ടി. പ്രവർത്തനം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
         <source>Magnet task</source>
-        <translation>ماگنىت ئۇلانمىلىق ۋەزىپە</translation>
+        <translation>മാഗ്നറ്റ് പ്രവർത്തനം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="309"/>
         <source>Network detection</source>
-        <translation>تورنى تەكشۈرۈش</translation>
+        <translation>നെറ്റ്വർക്ക് തിരിച്ചറിവ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="314"/>
         <source>Pass</source>
-        <translation>نورمال</translation>
+        <translation>പാസ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="314"/>
         <source>Failed</source>
-        <translation>مەغلۇپ بولدى</translation>
+        <translation>നിലനില്ക്കുന്നത് പരാജയപ്പെട്ടു</translation>
     </message>
 </context>
 <context>
@@ -265,12 +265,12 @@
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="91"/>
         <source>Result:</source>
-        <translation>تەكشۈرۈش نەتىجىسى</translation>
+        <translation>ഫലം:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/diagnostictool.cpp" line="93"/>
         <source>Diagnose Again</source>
-        <translation>قايتا تەكشۈرۈش</translation>
+        <translation>പകുതിയിലെ പരിശോധന പുനർനിർവചിക്കുക</translation>
     </message>
 </context>
 <context>
@@ -278,63 +278,61 @@
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
         <source>Full speed</source>
-        <translation>تولۇق سۈرئەتتە چۈشۈرۈش</translation>
+        <translation>പൂർണ്ണ വേഗത</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="72"/>
+        <source>Limited speed</source>
+        <translation>വലത് വേഗത</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="112"/>
+        <source>Max. download speed</source>
+        <translation>നിരക്കിലെ ഡൗൺലോഡ് വേഗത</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="113"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="119"/>
+        <source>KB/s</source>
+        <translation>കബ്/സി</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="118"/>
+        <source>Max. upload speed</source>
+        <translation>നിരക്കിലെ അപ്‌ലോഡ് വേഗത</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="64"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
-        <translation>چۈشۈرۈلگەن ھۆججەت P2P ئارقىلىق يۈكلىنىدۇ ۋە ھەمبەھىرلىنىدۇ ،
-باشقا تورداشلارنىڭ چۈشۈرۈشنى تېزلىتىشىگە ياردەم قىلىدۇ ،
-ئىشلەتكۈچىنىڭ مەخپىيەتلىكىگە چېقىلمايدۇ.</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="72"/>
-        <source>Limited speed</source>
-        <translation>سۈرئەت چەكلەپ چۈشۈرۈش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="112"/>
-        <source>Max. download speed</source>
-        <translation>ئەڭ چوڭ چۈشۈرۈش سۈرئىتىگە چەك قويۇش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="113"/>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="119"/>
-        <source>KB/s</source>
-        <translation>KB/s</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="118"/>
-        <source>Max. upload speed</source>
-        <translation>ئەڭ چوڭ يوللاش سۈرئىتىگە چەك قويۇش</translation>
+        <translation>ഡൗൺലോഡ് ചെയ്യുന്ന ഫയലുകൾ പി.ഡി.പി. വഴി അപ്‌ലോഡ് ചെയ്യും, ഇത് മറ്റ് ഉപയോക്താക്കൾക്ക് ഡൗൺലോഡ് വേഗത കൂട്ടാൻ സഹായിക്കാം, ഇത് ഉപയോക്താ സുരക്ഷ പരിഗണിക്കുന്നില്ല</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="124"/>
         <source>Limit period</source>
-        <translation>سۈرئەت چەكلەش ۋاقتى</translation>
+        <translation>വലത് കാലാവധി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="125"/>
         <source>to</source>
-        <translation>غىچە</translation>
+        <translation>എത്ര</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="276"/>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="291"/>
         <source>The end time must be greater than the start time</source>
-        <translation>ئاخىرلىشىش ۋاقتى باشلىنىش ۋاقتىدىن كېيىن بولۇشى كېرەك</translation>
+        <translation>അവസാന സമയം ആരംഭ സമയത്തിനേക്കാൾ കൂടുതലായിരിക്കണം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="311"/>
         <source>Limited between 100-102400</source>
-        <translation>100-102400 ئارلىقىدىكى پۈتۈن سان كىرگۈزۈڭ</translation>
+        <translation>100 മുതൽ 102400 വരെ വലത്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="333"/>
         <source>Limited between 16-5120</source>
-        <translation>16-5120 ئارلقىىدىكى پۈتۈن سان كىرگۈزۈڭ</translation>
+        <translation>16 മുതൽ 5120 വരെ വലത്</translation>
     </message>
 </context>
 <context>
@@ -342,12 +340,12 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="57"/>
         <source>Last used directory</source>
-        <translation>ئالدىنقى قېتىم ئىشلەتكەن مۇندەرىجە</translation>
+        <translation>അവസാനം ഉപയോഗിച്ച ഫോൾഡറിനെ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="59"/>
         <source>Default directory</source>
-        <translation>سۈكۈتتىكى مۇندەرىجە</translation>
+        <translation>പ്രഖ്യാപിച്ച ഫോൾഡറിനെ</translation>
     </message>
 </context>
 <context>
@@ -355,40 +353,40 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="71"/>
         <source>Edit File Extensions</source>
-        <translation>چۈشۈرگەن ھۆججەتنىڭ كېڭەيتىلگەن نامىنى تەھرىرلەش</translation>
+        <translation>ഫയൽ പ്രാധാന്യത്തിനുള്ള വിശദീകരണം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="77"/>
         <source>Edit Unmonitored Sites</source>
-        <translation>نازارەت قىلىنمىغان تور بېكەتلەرنى تەھرىرلەش</translation>
+        <translation>അപ്രതിവേക്ഷിത സൈറ്റുകൾ എഡിറ്റ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="92"/>
         <source>Restore</source>
-        <translation>ئەسلىگە قايتۇرۇش</translation>
+        <translation>പുനരധിവേശനം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="104"/>
         <source>Cancel</source>
-        <translation>بىكار قىلىش</translation>
+        <translation>സസ്പെൻഡ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="110"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation>جەزملەش</translation>
+        <translation>ഉറപ്പാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="166"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="170"/>
         <source>Separate file extensions by semicolons (;)</source>
-        <translation>توغرا كېڭەيتىلگەن نام كىرگۈزۈڭ، ; بەلگىسى بىلەن ئايرىڭ</translation>
+        <translation>ഫയൽ പ്രാധാന്യത്തിനുള്ള വിശദീകരണം സെമിക്കോൾണുകളാൽ (;) വേർതിരിക്കുന്നു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="177"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="181"/>
         <source>Please enter one URL per line</source>
-        <translation>كۆپ چۈشۈرۈش ئۇلانمىسى قوشقاندا ھەربىر قۇردا بىر ئۇلانما بولۇشىغا كاپالەتلىك قىلىڭ</translation>
+        <translation>നിങ്ങൾക്ക് ഒരു URL പ്രതി ലൈൻ പ്രവേശിക്കണം</translation>
     </message>
 </context>
 <context>
@@ -396,32 +394,32 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="216"/>
         <source>Paused</source>
-        <translation>توختىتىلدى</translation>
+        <translation>സസ്പെൻഡ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="226"/>
         <source>Failed</source>
-        <translation>مەغلۇپ بولدى</translation>
+        <translation>ഉണ്ടായിരുന്നു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="237"/>
         <source>Waiting</source>
-        <translation>ساقلاۋاتىدۇ</translation>
+        <translation>തെറിച്ചിരിക്കുന്നു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="249"/>
         <source>Resources:</source>
-        <translation>مەنبە سانى:</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="253"/>
-        <source>Time left </source>
-        <translation>يەنە ۋاقىت</translation>
+        <translation>സാധാരണ സാധ്യതകൾ:</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="403"/>
         <source>Duplicate name</source>
-        <translation>ھۆججەت تەكرارلانغان</translation>
+        <translation>ഡ്യൂപ്ലിക്കേറ്റ് പേര്</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="253"/>
+        <source>Time left </source>
+        <translation>സമയം ബാക്കിയുള്ളത് </translation>
     </message>
 </context>
 <context>
@@ -429,7 +427,7 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="63"/>
         <source>Advanced</source>
-        <translation>ئالىي تەڭشەك</translation>
+        <translation>വിവരങ്ങൾ</translation>
     </message>
 </context>
 <context>
@@ -437,229 +435,229 @@ and it does not involve user privacy.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="114"/>
         <source>Settings</source>
-        <translation>تەڭشەك</translation>
+        <translation>സെറ്റിംഗ്സ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="118"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="119"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="345"/>
         <source>When completed</source>
-        <translation>چۈشۈرۈش تاماملانغاندىن كېيىن</translation>
+        <translation>ഒപ്പം പൂർത്തിയായാൽ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="120"/>
         <source>Shut down</source>
-        <translation>كومپيۇتېرنى تاقاش</translation>
+        <translation>ബന്ധം തുറക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="122"/>
         <source>Hibernate</source>
-        <translation>ئۇيقۇ ھالىتى</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="124"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="353"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
-        <source>Exit</source>
-        <translation>چېكىنىش</translation>
+        <translation>ഹിബർണേറ്റ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
         <source>Diagnostic tool</source>
-        <translation>تەكشۈرۈش قورالى</translation>
+        <translation>ഡയഗ്നോസ്റ്റിക് ടൂൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="181"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="956"/>
         <source>No download tasks</source>
-        <translation>چۈشۈرۈش ۋەزىپىسى يوق</translation>
+        <translation>ഡൗൺലോഡ് ടാസ്കുകൾ ഇല്ല</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="191"/>
         <source>Click + to create new task</source>
-        <translation>+ بەلگىسىنى بېسىپ يېڭى چۈشۈرۈش ۋەزىپىسى قۇرۇڭ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
-        <source>0 tasks</source>
-        <translation>0 ۋەزىپە</translation>
+        <translation>പുതിയ ടാസ്ക് സൃഷ്ടിക്കാൻ + ക്ലിക്ക് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="264"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
         <source>Downloading</source>
-        <translation>چۈشۈۋاتىدۇ</translation>
+        <translation>ഡൗൺലോഡ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="267"/>
         <source>Completed</source>
-        <translation>چۈشۈرۈش تاماملاندى</translation>
+        <translation>പൂർത്തിയായി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="270"/>
         <source>Trash</source>
-        <translation>ئەخلەت ساندۇقى</translation>
+        <translation>ട്രഷ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="335"/>
         <source>Downloader</source>
-        <translation>چۈشۈرگۈچ</translation>
+        <translation>ഡൗൺലോഡർ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="337"/>
         <source>Show main window</source>
-        <translation>باش كۆزنەك كۆرۈنسۇن</translation>
+        <translation>പ്രാഥമിക വിൻഡോ കാണിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="339"/>
         <source>New task</source>
-        <translation>يېڭى ۋەزىپە قۇرۇش</translation>
+        <translation>പുതിയ ടാസ്ക്</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="124"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="353"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
+        <source>Exit</source>
+        <translation>പുറത്ത്</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
+        <source>0 tasks</source>
+        <translation>0 ടാസ്കുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="341"/>
         <source>Resume all</source>
-        <translation>ھەممىسىنى باشلاش</translation>
+        <translation>എല്ലാവരും പുനരധിവേശനം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="343"/>
         <source>Pause all</source>
-        <translation>ھەممىسىنى توختىتىش</translation>
+        <translation>എല്ലാവും നിർത്തുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="620"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation>پىروگراممىدىن چېكىنسىڭىز چۈشۈرۈش ئۈزۈلۈپ قالىدۇ، راستلا چېكىنەمسىز؟</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
-        <source>Cancel</source>
-        <translation>بىكار قىلىش</translation>
+        <translation>നിങ്ങൾ വിട്ടുപോവാൻ തീരുമാനിച്ചിരിക്കുന്നു? ഡൗൺലോഡ് ചെയ്യുന്ന പ്രവർത്തനങ്ങൾ തടയപ്പെടുമെന്ന് ഉറപ്പുള്ളു.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="731"/>
         <source> files</source>
-        <translation>ھۆججەت</translation>
+        <translation> ഫയലുകൾ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="953"/>
+        <source>No finished tasks</source>
+        <translation>അവസാനിച്ച പ്രവർത്തനങ്ങൾ ഇല്ല</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="966"/>
+        <source>No deleted tasks</source>
+        <translation>നിലവിലെ പ്രവർത്തനങ്ങൾ ഇല്ല</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1343"/>
+        <source>Resume</source>
+        <translation>പുനരാരംഭം</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
+        <source>Pause</source>
+        <translation>നിർത്തുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
+        <source>Cancel</source>
+        <translation>റദ്ദാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
         <source>Downloading %1...</source>
-        <translation>%1 چۈشۈرۈش باشلاندى</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="953"/>
-        <source>No finished tasks</source>
-        <translation>چۈشۈرۈش تاماملانغان ھۆججەت يوق</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="966"/>
-        <source>No deleted tasks</source>
-        <translation>ئۆچۈرۈلگەن ۋەزىپە يوق</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2777"/>
-        <source>Torrent file not exist or broken</source>
-        <translation>ئۇرۇق ھۆججەت يوق ياكى بۇزۇلغان</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1665"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
-        <source>OK</source>
-        <translation>ھەئە</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1343"/>
-        <source>Resume</source>
-        <translation>باشلاش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
-        <source>Pause</source>
-        <translation>توختىتىش</translation>
+        <translation>ഡൗൺലോഡ് ചെയ്യുന്ന %1...</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1372"/>
         <source>Download first</source>
-        <translation>ئالدىن چۈشۈرۈش</translation>
+        <translation>ആദ്യം ഡൗൺലോഡ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1379"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1396"/>
         <source>Download again</source>
-        <translation>قايتا چۈشۈرۈش</translation>
+        <translation>പുനരാരംഭം ഡൗൺലോഡ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1389"/>
         <source>Restore</source>
-        <translation>ئەسلىگە قايتۇرۇش</translation>
+        <translation>പുനരധിവേശം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Open</source>
-        <translation>ئېچىش</translation>
+        <translation>തുറക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1494"/>
         <source>Open folder</source>
-        <translation>ھۆججەت قىسقۇچنى ئېچىش</translation>
+        <translation>ഫോൾഡറിനെ തുറക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1432"/>
         <source>Rename</source>
-        <translation>قايتا ناملاش</translation>
+        <translation>പേര് മാറ്റുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1439"/>
         <source>Move to</source>
-        <translation>ھۆججەت قىسقۇچقا يۆتكەش</translation>
+        <translation>മാറ്റിവയ്ക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1449"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1473"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1485"/>
         <source>Copy download link</source>
-        <translation>چۈشۈرۈش ئۇلانمىسىنى كۆچۈرۈش</translation>
+        <translation>ഡൗൺലോഡ് ലിങ്ക് കോപ്പി ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1460"/>
         <source>Delete</source>
-        <translation>ئۆچۈرۈش</translation>
+        <translation>ഇല്ലാതാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1466"/>
         <source>Permanently delete</source>
-        <translation>تولۇق ئۆچۈرۈش</translation>
+        <translation>നിരന്തരമായി ഇല്ലാതാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1502"/>
         <source>Delete all</source>
-        <translation>ھەممىنى ئۆچۈرۈش</translation>
+        <translation>എല്ലാവും ഇല്ലാതാക്കുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1665"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
+        <source>OK</source>
+        <translation>ഓക്കെ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1896"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>تەڭ چۈشۈرۈش ۋەزىپە سانى يۇقىرى چەككە يەتتى، باشقا ۋەزىپىلەر ئاپتوماتىك ۋاقتىنچە توختىتىلدى</translation>
+        <translation>മാക്സിമം സമാന്തര പ്രവർത്തനങ്ങളുടെ എണ്ണം അതിശയിച്ചിരിക്കുന്നു. മറ്റ് പ്രവർത്തനങ്ങൾ തിരിച്ചുവരും.</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2777"/>
+        <source>Torrent file not exist or broken</source>
+        <translation>ടോർട്ട് ഫയൽ ഇല്ലെന്നു അല്ലെങ്കിൽ തകർന്നിരിക്കുന്നു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
         <source>Unable to parse the URL, please check</source>
-        <translation>URL نى يېشەلمىدى، تەكشۈرۈڭ</translation>
+        <translation>ഇന്റർനെറ്റ് വിലാസം പാർസ് ചെയ്യാൻ കഴിയുന്നില്ല, പരിശോധിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2431"/>
         <source>Copied to clipboard</source>
-        <translation>كېسىش تاختىسىغا كۆچۈرۈلدى</translation>
+        <translation>ക്ലിപ്പ്ബോർഡിലേയ്ക്ക് കോപ്പി ചെയ്തിരിക്കുന്നു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2753"/>
         <source>View</source>
-        <translation>كۆرۈش</translation>
+        <translation>നിരിക്കുക</translation>
     </message>
 </context>
 <context>
@@ -668,29 +666,42 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="50"/>
         <location filename="../src/src/ui/messagebox.cpp" line="130"/>
         <source>Warning</source>
-        <translation>ئاگاھلاندۇرۇش</translation>
+        <translation>വിലാപം</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="94"/>
+        <source>Do you want to delete the downloaded files and download again?</source>
+        <translation>നിങ്ങൾ ഡൗൺലോഡ് ചെയ്ത ഫയലുകൾ ഇല്ലാതാക്കുകയും പുനരാരംഭം ഡൗൺലോഡ് ചെയ്യുകയും ചെയ്യാൻ ആഗ്രഹിക്കുന്നുവോ?</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="179"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="222"/>
+        <source>Cancel</source>
+        <translation>റദ്ദാക്കുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
+        <source>Download error</source>
+        <translation>ഡൗൺലോഡ് പിഴവ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="93"/>
         <location filename="../src/src/ui/messagebox.cpp" line="118"/>
         <location filename="../src/src/ui/messagebox.cpp" line="140"/>
         <source>Download Again</source>
-        <translation>قايتا چۈشۈرۈش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="94"/>
-        <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>قايتا چۈشۈرۈش ئەسلىدىكى ھۆججەتنى ئۆچۈرۈۋېتىدۇ. قايتا چۈشۈرەمسىز؟</translation>
+        <translation>പുനഃ ഡൗൺലോഡ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="96"/>
         <source>These tasks already exist</source>
-        <translation>بۇ ۋەزىپىلەر مەۋجۇت</translation>
+        <translation>ഈ ജോലികൾ ഇതുമുമ്പേ ഉണ്ടായിരുന്നു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="98"/>
         <source>Delete the downloaded files and download again?</source>
-        <translation>چۈشۈرۈلگەن مەزمۇننى ئۆچۈرۈپ قايتا چۈشۈرەمسىز؟</translation>
+        <translation>ഡൗൺലോഡ് ചെയ്ത ഫയലുകൾ നിലകൊള്ളുകയാണോ അല്ലെങ്കിൽ പുനഃ ഡൗൺലോഡ് ചെയ്യുകയാണോ?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="111"/>
@@ -699,117 +710,104 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="377"/>
         <location filename="../src/src/ui/messagebox.cpp" line="395"/>
         <source>OK</source>
-        <translation>ھەئە</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="179"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="222"/>
-        <source>Cancel</source>
-        <translation>بىكار قىلىش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
-        <source>Download error</source>
-        <translation>چۈشۈرۈشتە نورمالسىزلىق كۆرۈلدى</translation>
+        <translation>ഒക്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="144"/>
         <source>Delete All</source>
-        <translation>ھەممىنى ئۆچۈرۈش</translation>
+        <translation>എല്ലാം നീക്കം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="162"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation>بۇ چۈشۈرۈش ۋەزىپىسىنى پۈتۈنلەي ئۆچۈرمەكچىمۇ؟</translation>
+        <translation>നിങ്ങൾ ഈ ഡൗൺലോഡ് ജോലി നിർണ്ണയിച്ചിട്ടുള്ളത് നിലകൊള്ളുകയാണോ അല്ലെങ്കിൽ നിർണ്ണയിച്ചിട്ടുള്ളത് നിലകൊള്ളുകയാണോ?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="165"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation>پۈتۈنلەي ئۆچۈرۈشنى تاللىغاندىن كېيىن ، يەرلىكتىكى ھۆججەتلەرمۇ ئۆچۈرۈلىدۇ.</translation>
+        <translation>ലോക്കൽ ഫയലുകൾ ഒരേ സമയം നീക്കം ചെയ്യും.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="168"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation>بۇ چۈشۈرۈش ۋەزىپىسىنى ئۆچۈرمەكچىمۇ؟</translation>
+        <translation>നിങ്ങൾ ഈ ഡൗൺലോഡ് ജോലി നീക്കം ചെയ്യാൻ തയ്യാറാണോ?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="172"/>
         <location filename="../src/src/ui/messagebox.cpp" line="174"/>
         <location filename="../src/src/ui/messagebox.cpp" line="201"/>
         <source>Delete local files</source>
-        <translation>يەرلىكتىكى ھۆججەتلەرنىمۇ ئۆچۈرۈش</translation>
+        <translation>ലോക്കൽ ഫയലുകൾ നീക്കം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="183"/>
         <source>Permanently Delete</source>
-        <translation>تولۇق ئۆچۈرۈش</translation>
+        <translation>നിർണ്ണയിച്ചിട്ടുള്ളത് നിലകൊള്ളുകയാണോ അല്ലെങ്കിൽ നിലകൊള്ളുകയാണോ?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Delete</source>
-        <translation>ئۆچۈرۈش</translation>
+        <translation>നീക്കം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="198"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>ئەخلەت ساندۇقىدىكى بارلىق ۋەزىپىلەرنى قۇرۇقدامسىز؟</translation>
+        <translation>നിങ്ങൾ പുറത്തിറക്കിയ എല്ലാ ജോലികളും നീക്കം ചെയ്യാൻ തയ്യാറാണോ?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="205"/>
         <source>Empty</source>
-        <translation>قۇرۇقداش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="217"/>
-        <source>Please choose your action</source>
-        <translation>مەشغۇلات تاللاڭ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
-        <source>Exit</source>
-        <translation>چېكىنىش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
-        <source>Minimize to system tray</source>
-        <translation>سىستېما تەخسىگە كىچىكلىتىش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="221"/>
-        <source>Do not ask again</source>
-        <translation>ئەمدى سورىما</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="223"/>
-        <source>Confirm</source>
-        <translation>جەزملەش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="294"/>
-        <source>The file name cannot contain a backslash (\) or slash (/)</source>
-        <translation>ھۆججەت نامىدا «\» ياكى «/» بولسا بولمايدۇ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="356"/>
-        <source>Permission denied</source>
-        <translation>تاللانغان مۇندەرىجىگە مەشغۇلات قىلىش ھوقۇقىڭىز يوق</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="358"/>
-        <source>Please try another folder</source>
-        <translation>قايتا تاللاڭ</translation>
+        <translation>പുറത്തിറക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="373"/>
         <source>Path Error</source>
-        <translation>ئورۇن خاتا</translation>
+        <translation>പാത തെറ്റി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="375"/>
         <source>The storage folder does not exist, please check and try again</source>
-        <translation>كۆرسىتىلگەن ئورۇن مەۋجۇت ئەمەس، تەكشۈرۈپ قايتا سىناڭ</translation>
+        <translation>സംഭരണ ഫോൾഡർ ഇതുമുമ്പേ ഉണ്ടായിരുന്നില്ല, പരിശോധിച്ച് മുന്നോട്ട് പോകുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="217"/>
+        <source>Please choose your action</source>
+        <translation>ഒരു മറ്റ് ഫോൾഡർ പരിശോധിച്ച് മുന്നോട്ട് പോകുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
+        <source>Exit</source>
+        <translation>അനുമതി നിഷേധിച്ചിരിക്കുന്നു</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
+        <source>Minimize to system tray</source>
+        <translation>ഡൗൺലോഡ് പൂർത്തിയാകുമ്പോൾ അല്ലെങ്കിൽ തോറ്റുമ്പോൾ എന്നോട് അറിയിക്കുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="221"/>
+        <source>Do not ask again</source>
+        <translation>„കൺട്രോൾ സെന്റർ - അറിയിപ്പ് - ഡൗൺലോഡർ“ പരിശോധിച്ച് മുന്നോട്ട് പോകുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="223"/>
+        <source>Confirm</source>
+        <translation>സെറ്റിംഗ്</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="294"/>
+        <source>The file name cannot contain a backslash (\) or slash (/)</source>
+        <translation>ഡൗൺലോഡ് ചെയ്യുന്നു</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="358"/>
+        <source>Please try another folder</source>
+        <translation>തെറ്റി</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="356"/>
+        <source>Permission denied</source>
+        <translation>പേസ് ചെയ്യുന്നു</translation>
     </message>
 </context>
 <context>
@@ -817,17 +815,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="47"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>چۈشۈرۈش تاماملانغان / مەغلۇپ بولغاندا ، سىستېما ئۇقتۇرۇش قىلسۇن</translation>
+        <translation>തെറ്റ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="54"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
-        <translation>«كونترول مەرگىزى» - «ئۇقتۇرۇش» - «چۈشۈرگۈچ»كە كىرىپ تەڭشەڭ</translation>
+        <translation>&quot;കൺട്രോൾ സെന്റർ - നോട്ടിഫിക്കേഷൻ - ഡൗൺലോഡർ&quot; ഇൽ സെറ്റിംഗ്സ് മാറ്റം വരുത്തുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="60"/>
         <source>Settings</source>
-        <translation>تەڭشەك</translation>
+        <translation>സെറ്റിംഗ്സ്</translation>
     </message>
 </context>
 <context>
@@ -835,54 +833,54 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/include/ui/global.h" line="43"/>
         <source>Downloading</source>
-        <translation>چۈشۈۋاتىدۇ</translation>
+        <translation>ഡൗൺലോഡ് ചെയ്യുന്നു</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="44"/>
         <source>Waiting</source>
-        <translation>ساقلاۋاتىدۇ</translation>
+        <translation>പ്രതീക്ഷിക്കുന്നു</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="45"/>
         <source>Paused</source>
-        <translation>توختىتىلدى</translation>
+        <translation>നിർത്തിയിട്ടുള്ളത്</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="46"/>
         <source>Error</source>
-        <translation>چۈشۈرۈش بىنورمال</translation>
+        <translation>പിഴവ്</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="47"/>
         <source>Completed</source>
-        <translation>چۈشۈرۈش تاماملاندى</translation>
+        <translation>പൂർത്തിയായി</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="48"/>
         <source>Removed</source>
-        <translation>يۆتكەلدى</translation>
+        <translation>നഷ്ടപ്പെട്ട</translation>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="49"/>
         <location filename="../src/include/ui/global.h" line="66"/>
         <source>Unknown</source>
-        <translation>نامەلۇم</translation>
+        <translation>അപരിചിതമായി</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="89"/>
         <source>downloader</source>
-        <translation>تېزىكچى</translation>
+        <translation>ഡൗൺലോഡർ</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="90"/>
         <location filename="../src/src/downloader/main.cpp" line="93"/>
         <source>Downloader</source>
-        <translation>چۈشۈرگۈچ</translation>
+        <translation>ഡൗൺലോഡർ</translation>
     </message>
     <message>
         <location filename="../src/src/downloader/main.cpp" line="94"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation>چۈشۈرگۈچ URL ۋە torrent ھۆججىتىنى چۈشۈرۈشنى قوللايدىغان ئاددىي ۋە ئىشلىتىشكە قولايلىق چۈشۈرۈش قورالى.</translation>
+        <translation>ഡൗൺലോഡർ ഉപയോക്താവിനു സൌകര്യമായ ഡൗൺലോഡ് ഉപകരണമാണ്, URLs ഉം torrent ഫയലുകളും പിന്തുണച്ചുകൊടുക്കുന്നു</translation>
     </message>
 </context>
 <context>
@@ -890,17 +888,17 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="69"/>
         <source>Completed</source>
-        <translation>چۈشۈرۈش تاماملاندى</translation>
+        <translation>പൂർത്തിയായി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="77"/>
         <source>Trash</source>
-        <translation>ئەخلەت ساندۇقى</translation>
+        <translation>മാലിന്യം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="85"/>
         <source>Downloading</source>
-        <translation>چۈشۈۋاتىدۇ</translation>
+        <translation>ഡൗൺലോഡ് ചെയ്യുക</translation>
     </message>
 </context>
 <context>
@@ -908,253 +906,253 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
         <source>Basic</source>
-        <translation>ئاساسىي تەڭشەك</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
-        <source>Startup</source>
-        <translation>قوزغىتىش</translation>
+        <translation>പ്രാഥമിക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
         <source>Auto startup</source>
-        <translation>سىستېما بىلەن تەڭ قوزغىلىش</translation>
+        <translation>സ്വയം പ്രാരംഭിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
         <source>Resume downloading on startup</source>
-        <translation>قوزغالغاندىن كېيىن تاماملانمىغان ۋەزىپىلەرنى ئاپتوماتىك باشلاش</translation>
+        <translation>പ്രാരംഭിക്കുമ്പോൾ ഡൗൺലോഡ് തുടർന്നുകൊണ്ടിരിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
         <source>Download Directory</source>
-        <translation>چۈشۈرۈش مۇندەرىجىسى</translation>
+        <translation>ഡൗൺലോഡ് ഫോൾഡറുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
         <source>1-Click Download</source>
-        <translation>بىر كۇنۇپكا بىلەن چۈشۈرۈش</translation>
+        <translation>ഒരു ക്ലിക്ക് ഡൗൺലോഡ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
         <source>Create tasks directly</source>
-        <translation>بىر كۇنۇپكا بىلەن چۈشۈرۈش ۋەزىپىسى قۇرۇش</translation>
+        <translation>പ്രവർത്തനങ്ങൾ തിരിച്ചു സൃഷ്ടിക്കുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
+        <source>Startup</source>
+        <translation>പ്രാരംഭിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
         <source>Close Main Window</source>
-        <translation>ئاساىي كۆزنەكنى تاقاش</translation>
+        <translation>പ്രാഥമിക വിൻഡോ അടച്ചു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
         <source>Minimize to system tray</source>
-        <translation>سىستېما تەخسىگە كىچىكلىتىش</translation>
+        <translation>സിസ്റ്റം ട്രേയിലേക്ക് കുഞ്ഞാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
         <source>Ask me always</source>
-        <translation>ھەر قېتىم سورىسۇن</translation>
+        <translation>എന്നോട് എപ്പോഴും ചോദിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
         <source>Exit</source>
-        <translation>چېكىنىش</translation>
+        <translation>പുറത്ത്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
         <source>Tasks</source>
-        <translation>ۋەزىپە باشقۇرۇش</translation>
+        <translation>പ്രവർത്തനങ്ങൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="865"/>
         <source>Max. concurrent downloads</source>
-        <translation>تەڭ چۈشۈرۈشكە بولىدىغان ۋەزىپە سانى</translation>
+        <translation>പരമാവധി ഒന്നിച്ച് ഡൗൺലോഡ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="885"/>
         <source>Open files when completed</source>
-        <translation>چۈشۈرۈش تاماملانغاندىن كېيىن ئاچسۇن</translation>
+        <translation>പൂർത്തിയായി ഫയലുകൾ തുറക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="906"/>
         <source>Delete tasks without files</source>
-        <translation>«ھۆججەت مەۋجۇت ئەمەس» بولغان ۋەزىپىلەرنى ئاپتوماتىك ئۆچۈرۈش</translation>
+        <translation>ഫയലുകൾ ഇല്ലാത്ത പ്രവർത്തനങ്ങൾ അപ്പോൾ മായ്ക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
         <source>Downloads</source>
-        <translation>چۈشۈرۈش تەڭشىكى</translation>
+        <translation>ഡൗൺലോഡ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
         <source>Monitoring</source>
-        <translation>نازارەت قىلىش تەڭشىكى</translation>
+        <translation>പരിശോധന</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
         <source>Applications</source>
-        <translation>app لەر</translation>
+        <translation>പ്രവർത്തനങ്ങൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
         <source>Clipboard</source>
-        <translation>كېسىش تاختىسى</translation>
+        <translation>ക്ലിപ്ബോർഡ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
         <source>Browser</source>
-        <translation>تور كۆرگۈ</translation>
+        <translation>ബ്രൌസർ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
         <source>Links Monitored</source>
-        <translation>چۈشۈرۈش تۈرىنى نازارەت قىلىش</translation>
+        <translation>പരിശോധന ചെയ്യപ്പെട്ട ലിങ്കുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
         <source>BT Files</source>
-        <translation>BT ئۇلانمىسى</translation>
+        <translation>ബിറ്റ് ഫയൽസ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="411"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>Torrent ھۆججىتىنى چۈشۈرگەندىن كېيىن چۈشۈرۈش تاختىسىنى ئاپتوماتىك ئېچىش</translation>
+        <translation>ടോർട്ട് ഫയൽ ഡൗൺലോഡ് ചെയ്യുമ്പോൾ പുതിയ ടാസ്ക് ഉണ്ടാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="412"/>
         <source>Create new task when opening a torrent file</source>
-        <translation>Torrent ھۆججىتىنى ئاچقاندا يېڭى ۋەزىپە قۇرۇش</translation>
+        <translation>ടോർട്ട് ഫയൽ തുറക്കുമ്പോൾ പുതിയ ടാസ്ക് ഉണ്ടാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
         <source>MetaLink Files</source>
-        <translation>MetaLink ئۇلانمىسى</translation>
+        <translation>മീറ്റാ ലിങ്ക് ഫയൽസ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="414"/>
         <source>Create new task when a metalink file downloaded</source>
-        <translation>MetaLink ھۆججىتىنى چۈشۈرگەندىن كېيىن چۈشۈرۈش تاختىسىنى ئاپتوماتىك ئېچىش</translation>
+        <translation>മീറ്റാ ലിങ്ക് ഫയൽ ഡൗൺലോഡ് ചെയ്യുമ്പോൾ പുതിയ ടാസ്ക് ഉണ്ടാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="415"/>
         <source>Create new task when opening a metalink file</source>
-        <translation>MetaLink ئۇلانما ھۆججىتى</translation>
+        <translation>മീറ്റാ ലിങ്ക് ഫയൽ തുറക്കുമ്പോൾ പുതിയ ടാസ്ക് ഉണ്ടാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="416"/>
         <source>Notifications</source>
-        <translation>ئەسكەرتىش ئۇقتۇرۇشى</translation>
+        <translation>അറിയിപ്പുകൾ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="417"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>چۈشۈرۈش تاماملانغان / مەغلۇپ بولغاندا ، سىستېما ئۇقتۇرۇش قىلسۇن</translation>
+        <translation>ഡൗൺലോഡ് പൂർത്തിയാകുമ്പോൾ അല്ലെങ്കിൽ പരാജയപ്പെടുമ്പോൾ എന്നോട് അറിയിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="418"/>
         <source>Play a sound when downloading finished</source>
-        <translation>چۈشۈرۈش تاماملانغاندىن كېيىن ئەسكەرتىش ئاۋازى چىقسۇن</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
-        <source>Advanced</source>
-        <translation>ئالىي تەڭشەك</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
-        <source>Shortcuts</source>
-        <translation>تېزلەتمە تەڭشەك</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
-        <source>Show main window when creating new task</source>
-        <translation>يېڭى ۋەزىپە قۇرغاندا ئاساسلىق كۆرۈنمە يۈزدە كۆرسىتىش</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
-        <source>Cache</source>
-        <translation>غەملەكلەر</translation>
+        <translation>ഡൗൺലോഡ് പൂർത്തിയാകുമ്പോൾ ഒരു ശബ്ദം പ്ലെയ്‌സ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="423"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="926"/>
         <source>Move slow downloads to the end</source>
-        <translation>تۆۋەن سۈرئەتلىك ۋەزىپىلەرنى ئاپتوماتىك ھالدا  ئاخىرىغا يۆتكەش</translation>
+        <translation>പുതിയ ഡൗൺലോഡ് കാര്യങ്ങൾ അവസാനത്തെ പങ്കാളികളായി മാറ്റുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
+        <source>Advanced</source>
+        <translation>പ്രഗത്നം</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
+        <source>Shortcuts</source>
+        <translation>ശേഖരം</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
+        <source>Show main window when creating new task</source>
+        <translation>പുതിയ ടാസ്ക് ഉണ്ടാക്കുമ്പോൾ പ്രധാന വിൻഡോ കാണിക്കുക</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
+        <source>Cache</source>
+        <translation>കേഷ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="424"/>
         <location filename="../src/src/ui/settings/settings.cpp" line="841"/>
         <source>Original address threads</source>
-        <translation>ئەسلى ئادرېس لىنىيە سانى</translation>
+        <translation>സാധാരണ വിലാസ റൂട്ട്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="425"/>
         <source>Download Management</source>
-        <translation>چۈشۈرۈشنى باشقۇرۇش</translation>
+        <translation>ഡൗൺലോഡ് നിരക്കിൽ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="426"/>
         <source>Speed Settings</source>
-        <translation>سۈرئەت تەڭشەش</translation>
+        <translation>വേഗത സെറ്റിംഗ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="519"/>
         <source>HTTP</source>
-        <translation>HTTP چۈشۈرۈش</translation>
+        <translation>എച്ച്ടിടിപി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="540"/>
         <source>BitTorrent</source>
-        <translation>BT چۈشۈرۈش</translation>
+        <translation>ബിറ്റ് ടോർട്ട്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="562"/>
         <source>MetaLink</source>
-        <translation>MetaLink</translation>
+        <translation>മീറ്റാ ലിങ്ക്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="584"/>
         <source>Magnet URI scheme</source>
-        <translation>ماگنېت ئۇلانمىلىق چۈشۈرۈش</translation>
+        <translation>മാഗ്നറ്റ് യുആർഐ സ്കീമ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="683"/>
         <source>When total speed less than</source>
-        <translation>ئومۇمىي چۈشۈرۈش سۈرئىتى تۆۋەن</translation>
+        <translation>ആകെ വേഗത കുറവാണെങ്കിൽ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="683"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>KB/s بولغاندا تەڭ چۈشۈرۈش ۋەزىپە سانىنى ئاپتوماتىك كۆپەيتىش</translation>
+        <translation>കബി/സി, പരസ്പര ടാസ്ക് വർദ്ധിപ്പിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="695"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation>ئومۇمىي چۈشۈرۈش سۈرئىتى ئەڭ چوڭ چۈشۈرۈش سۈرئىتىدىن كىچىك بولسۇن</translation>
+        <translation>ആകെ വേഗത കുറവാണെങ്കിൽ പരാജയപ്പെടുമ്പോൾ സ്ഥിരമായ ഡൗൺലോഡ് വേഗതയിൽ കുറവാണെങ്കിൽ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="765"/>
         <source>Download files less than</source>
-        <translation>MB دىن كىچىك بولغان ۋەزىپىلەرنى</translation>
+        <translation>ഫയലുകൾ കുറവാണെങ്കിൽ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="765"/>
         <source>MB first</source>
-        <translation>ئالدىن چۈشۈرۈش</translation>
+        <translation>എംബി ആദ്യം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="809"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation>بىرلا ۋاقىتتا چۈشۈرۈش مەنبەلىرىنىڭ ئومۇمىي ئەڭ چوڭ سانىنى چەكلەش</translation>
+        <translation>പരസ്പര ഡൗൺലോഡ് സാമ്പത്തിക സംഖ്യ പരിധി നിലക്കിൽ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="946"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>دىسكىدىكى غەملەك قانچە چوڭ بولسا چۈشۈرۈش سۈرئىتى شۇنچە تېز بولىدۇ، كومپيۇتېرىڭىزدىن ئىگىلەيدىغان بوشلۇقمۇ شۇنچە كۆپ بولىدۇ.</translation>
+        <translation>ഉയർന്ന ഡിസ്ക് കേഷ് ഡൗൺലോഡ് വേഗതയിൽ കൂടുതൽ വേഗത നൽകും അല്ലെങ്കിൽ കൂടുതൽ സാമ്പത്തിക ഉപയോഗം ഉണ്ടാകും.</translation>
     </message>
 </context>
 <context>
@@ -1162,37 +1160,37 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="422"/>
         <source> &gt; 1 day</source>
-        <translation> &gt; 1 كۈن</translation>
+        <translation> &gt; 1 ദിവസം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="643"/>
         <source>Download failed</source>
-        <translation>چۈشۈرەلمىدى</translation>
+        <translation>ഡൗൺലോഡ് പരാജയപ്പെട്ടു</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
         <source>%1 download failed. Network error.</source>
-        <translation>%1 چۈشۈرەلمىدى، توردا خاتالىق كۆرۈلدى</translation>
+        <translation>%1 ഡൗൺലോഡ് പൂർത്തിയാകാതെ പോയി. നെറ്റ്വർക്ക് പ്രശ്നം.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>Cancel</source>
-        <translation>بىكار قىلىش</translation>
+        <translation>വെട്ടി നിർത്തുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>View</source>
-        <translation>كۆرۈش</translation>
+        <translation>ശീർഷകം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download completed</source>
-        <translation>چۈشۈرۈش تاماملاندى</translation>
+        <translation>ഡൗൺലോഡ് പൂർത്തിയായി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download finished</source>
-        <translation>%1 چۈشۈرۈش تاماملاندى</translation>
+        <translation>%1 ഡൗൺലോഡ് പൂർത്തിയായി</translation>
     </message>
 </context>
 <context>
@@ -1200,30 +1198,30 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="520"/>
         <source>Name</source>
-        <translation>نامى</translation>
+        <translation>പേര്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="523"/>
         <source>Size</source>
-        <translation>سىغىمى</translation>
+        <translation>വലുപ്പം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="527"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="536"/>
         <source>Status</source>
-        <translation>ھالىتى</translation>
+        <translation>നിലയ്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="529"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="538"/>
         <source>Time finished</source>
-        <translation>تاماملانغان ۋاقىت</translation>
+        <translation>സമയം പൂർത്തിയായി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="531"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="540"/>
         <source>Time deleted</source>
-        <translation>ۋاقىتنى ئۆچۈرۈش</translation>
+        <translation>സമയം അപ്പോൾ നഷ്ടമായി</translation>
     </message>
 </context>
 <context>
@@ -1232,7 +1230,7 @@ and more resource consumption.</source>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="227"/>
         <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="238"/>
         <source>Duplicate name</source>
-        <translation>ھۆججەت تەكرارلانغان</translation>
+        <translation>പേര് പുനരാവർത്തിയായി</translation>
     </message>
 </context>
 <context>
@@ -1240,17 +1238,17 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/createTask/taskModel.cpp" line="146"/>
         <source>Name</source>
-        <translation>نامى</translation>
+        <translation>പേര്</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/taskModel.cpp" line="150"/>
         <source>Type</source>
-        <translation>تۈرى</translation>
+        <translation>തരം</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/taskModel.cpp" line="152"/>
         <source>Size</source>
-        <translation>سىغىمى</translation>
+        <translation>വലുപ്പം</translation>
     </message>
 </context>
 <context>
@@ -1258,19 +1256,19 @@ and more resource consumption.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="92"/>
         <source>New task</source>
-        <translation>يېڭى ۋەزىپە قۇرۇش</translation>
+        <translation>പുതിയ ജോലി</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="99"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="176"/>
         <source>Pause</source>
-        <translation>توختىتىش</translation>
+        <translation>പേസ് ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="106"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="175"/>
         <source>Resume</source>
-        <translation>باشلاش</translation>
+        <translation>പുനരാരംഭിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="113"/>
@@ -1278,27 +1276,27 @@ and more resource consumption.</source>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="169"/>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="177"/>
         <source>Delete</source>
-        <translation>ئۆچۈرۈش</translation>
+        <translation>ഇല്ലാതാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="159"/>
         <source>Empty</source>
-        <translation>قۇرۇقداش</translation>
+        <translation>ശൂന്യമാക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="160"/>
         <source>Restore</source>
-        <translation>ئەسلىگە قايتۇرۇش</translation>
+        <translation>പുനഃസ്ഥാപിക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="167"/>
         <source>Open folder</source>
-        <translation>ھۆججەت قىسقۇچنى ئېچىش</translation>
+        <translation>ഫോൾഡർ തുറക്കുക</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/topButton.cpp" line="168"/>
         <source>Open</source>
-        <translation>ئېچىش</translation>
+        <translation>തുറക്കുക</translation>
     </message>
 </context>
 </TS>
