@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" sourcelanguage="en_US" language="pl">
 <context>
     <name>BtInfoDialog</name>
     <message>
@@ -195,6 +193,12 @@
         <translation>Potwierdź</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
+        <source>OK</source>
+        <comment>button</comment>
+        <translation>OK</translation>
+    </message>
+    <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="406"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="424"/>
         <source>Choose Torrent File</source>
@@ -204,12 +208,6 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Za mało miejsca na dysku, zmień folder pobierania</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
-        <source>OK</source>
-        <comment>button</comment>
-        <translation>OK</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1268"/>
@@ -281,15 +279,6 @@
         <translation>Pełna prędkość</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="64"/>
-        <source>Downloaded files will be uploaded through P2P, 
-which could help other users speed up the downloading, 
-and it does not involve user privacy.</source>
-        <translation>Pobrane pliki będą przesyłane przy użyciu P2P, 
-co może przyspieszyć pobieranie innym użytkownikom 
-i nie naruszy to zasad prywatności użytkowników.</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="72"/>
         <source>Limited speed</source>
         <translation>Ograniczona prędkość</translation>
@@ -309,6 +298,15 @@ i nie naruszy to zasad prywatności użytkowników.</translation>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="118"/>
         <source>Max. upload speed</source>
         <translation>Maks. prędkość wysyłania</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="64"/>
+        <source>Downloaded files will be uploaded through P2P, 
+which could help other users speed up the downloading, 
+and it does not involve user privacy.</source>
+        <translation>Pobrane pliki będą przesyłane przy użyciu P2P, 
+co może przyspieszyć pobieranie innym użytkownikom 
+i nie naruszy to zasad prywatności użytkowników.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="124"/>
@@ -414,14 +412,14 @@ i nie naruszy to zasad prywatności użytkowników.</translation>
         <translation>Zasoby:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="253"/>
-        <source>Time left </source>
-        <translation>Pozostało </translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="403"/>
         <source>Duplicate name</source>
         <translation>Duplikuj nazwę</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="253"/>
+        <source>Time left </source>
+        <translation>Pozostało </translation>
     </message>
 </context>
 <context>
@@ -457,13 +455,6 @@ i nie naruszy to zasad prywatności użytkowników.</translation>
         <translation>Hibernuj</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="124"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="353"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
-        <source>Exit</source>
-        <translation>Wyjdź</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
         <source>Diagnostic tool</source>
         <translation>Narzędzie diagnostyczne</translation>
@@ -478,11 +469,6 @@ i nie naruszy to zasad prywatności użytkowników.</translation>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="191"/>
         <source>Click + to create new task</source>
         <translation>Kliknij + , aby utworzyć nowe zadanie</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
-        <source>0 tasks</source>
-        <translation>0 zadań</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="264"/>
@@ -517,6 +503,18 @@ i nie naruszy to zasad prywatności użytkowników.</translation>
         <translation>Nowe zadanie</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="124"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="353"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
+        <source>Exit</source>
+        <translation>Wyjdź</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
+        <source>0 tasks</source>
+        <translation>0 zadań</translation>
+    </message>
+    <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="341"/>
         <source>Resume all</source>
         <translation>Wznów wszystko</translation>
@@ -534,20 +532,9 @@ Downloading tasks will be interrupted.</source>
 Wszystkie pobierania zostaną przerwane.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
-        <source>Cancel</source>
-        <translation>Anuluj</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="731"/>
         <source> files</source>
         <translation> plików</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
-        <source>Downloading %1...</source>
-        <translation>Pobieranie %1...</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="953"/>
@@ -560,19 +547,6 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>Brak usuniętych zadań</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2777"/>
-        <source>Torrent file not exist or broken</source>
-        <translation>Plik torrent nie istnieje lub jest uszkodzony</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1665"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1343"/>
         <source>Resume</source>
         <translation>Wznów</translation>
@@ -581,6 +555,17 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
         <source>Pause</source>
         <translation>Wstrzymaj</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
+        <source>Downloading %1...</source>
+        <translation>Pobieranie %1...</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
@@ -643,9 +628,22 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>Usuń wszystko</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1665"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1896"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>Osiągnięto maks. liczbę równoczesnych zadań. Następne będą dodawane do kolejki.</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2777"/>
+        <source>Torrent file not exist or broken</source>
+        <translation>Plik torrent nie istnieje lub jest uszkodzony</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
@@ -672,16 +670,29 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="94"/>
+        <source>Do you want to delete the downloaded files and download again?</source>
+        <translation>Czy chcesz usunąć pobrane pliki i pobrać je ponownie?</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="179"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="222"/>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
+        <source>Download error</source>
+        <translation>Błąd pobierania</translation>
+    </message>
+    <message>
         <location filename="../src/src/ui/messagebox.cpp" line="93"/>
         <location filename="../src/src/ui/messagebox.cpp" line="118"/>
         <location filename="../src/src/ui/messagebox.cpp" line="140"/>
         <source>Download Again</source>
         <translation>Pobierz ponownie</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="94"/>
-        <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>Czy chcesz usunąć pobrane pliki i pobrać je ponownie?</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="96"/>
@@ -703,19 +714,6 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="179"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="222"/>
-        <source>Cancel</source>
-        <translation>Anuluj</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
-        <source>Download error</source>
-        <translation>Błąd pobierania</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/messagebox.cpp" line="144"/>
         <source>Delete All</source>
         <translation>Usuń wszystkie</translation>
@@ -728,7 +726,7 @@ Wszystkie pobierania zostaną przerwane.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="165"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation>Pliki lokalne zostaną usunięte w tym samym czasie.</translation>
+        <translation>Pliki lokalne zostaną również usunięte.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="168"/>
@@ -763,6 +761,16 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>Pusty</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="373"/>
+        <source>Path Error</source>
+        <translation>Błąd ścieżki</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="375"/>
+        <source>The storage folder does not exist, please check and try again</source>
+        <translation>Folder magazynu nie istnieje, rozwiąż problem i spróbuj ponownie</translation>
+    </message>
+    <message>
         <location filename="../src/src/ui/messagebox.cpp" line="217"/>
         <source>Please choose your action</source>
         <translation>Wybierz działanie</translation>
@@ -793,24 +801,14 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>Nazwa pliku nie może zawierać ukośnika wstecznego (\), ani ukośnika (/)</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="356"/>
-        <source>Permission denied</source>
-        <translation>Odmowa dostępu</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/messagebox.cpp" line="358"/>
         <source>Please try another folder</source>
         <translation>Spróbuj inny folder</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="373"/>
-        <source>Path Error</source>
-        <translation>Błąd ścieżki</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="375"/>
-        <source>The storage folder does not exist, please check and try again</source>
-        <translation>Folder magazynu nie istnieje, rozwiąż problem i spróbuj ponownie</translation>
+        <location filename="../src/src/ui/messagebox.cpp" line="356"/>
+        <source>Permission denied</source>
+        <translation>Odmowa dostępu</translation>
     </message>
 </context>
 <context>
@@ -912,11 +910,6 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>Podstawowe</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
-        <source>Startup</source>
-        <translation>Start systemu</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
         <source>Auto startup</source>
         <translation>Uruchom przy starcie systemu</translation>
@@ -940,6 +933,11 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
         <source>Create tasks directly</source>
         <translation>Utwórz zadanie bezpośrednio</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
+        <source>Startup</source>
+        <translation>Start systemu</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
@@ -1060,6 +1058,12 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <translation>Odtwórz dźwięk po zakończeniu pobierania</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="423"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="926"/>
+        <source>Move slow downloads to the end</source>
+        <translation>Przenieś wolne pobierania na koniec kolejki</translation>
+    </message>
+    <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
         <source>Advanced</source>
         <translation>Zaawansowane</translation>
@@ -1078,12 +1082,6 @@ Wszystkie pobierania zostaną przerwane.</translation>
         <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
         <source>Cache</source>
         <translation>Pamięć podręczna</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="423"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="926"/>
-        <source>Move slow downloads to the end</source>
-        <translation>Przenieś wolne pobierania na koniec kolejki</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="424"/>
