@@ -1,4 +1,10 @@
-deepin-downloader (6.0.10.) unstable; urgency=medium
+deepin-downloader (6.0.11) unstable; urgency=medium
+
+  * update version to 6.0.11.
+
+ -- Tian ShiLin <tianshilin@uniontech.com>  Thu, 03 Jul 2025 21:01:49 +0800
+
+deepin-downloader (6.0.10) unstable; urgency=medium
 
   * update version to 6.0.10.
 
