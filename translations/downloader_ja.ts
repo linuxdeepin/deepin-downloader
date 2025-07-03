@@ -2,91 +2,94 @@
 <context>
     <name>BtInfoDialog</name>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="120"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="109"/>
         <source>New Task</source>
         <translation>新しいタスクの作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="150"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
         <source>Total </source>
         <translation>合計</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="156"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="407"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="416"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="471"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="502"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="533"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="563"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="613"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="137"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="334"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="343"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="396"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="425"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="454"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="482"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="532"/>
         <source>%1 files selected, %2</source>
         <translation>%1件のファイル( %2 )が選択されています</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="161"/>
         <source>All</source>
         <translation>すべて</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="168"/>
         <source>Videos</source>
         <translation>動画</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="196"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="175"/>
         <source>Pictures</source>
         <translation>写真</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="203"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
         <source>Music</source>
         <translation>音楽</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="210"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
         <source>Others</source>
         <translation>その他</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="231"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="640"/>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="683"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="204"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="558"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="678"/>
         <source>Available:</source>
         <translation>利用可能:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="249"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="219"/>
         <source>Change download folder</source>
         <translation>ダウンロード先を変更</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="257"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="227"/>
         <source>Download Now</source>
         <translation>今すぐダウンロード</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="302"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="253"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="627"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="304"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="255"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="629"/>
         <source>Type</source>
         <translation>種類</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="305"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="256"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="630"/>
         <source>Size</source>
         <translation>サイズ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>ディスクの空き容量が不足しています。ダウンロード先を変更してください。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -94,123 +97,135 @@
 <context>
     <name>CreateTaskWidget</name>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="117"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="88"/>
         <source>New Task</source>
         <translation>新しいタスクの作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="123"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
         <source>Please enter one URL per line</source>
         <translation>URLは１行に１つだけ入力してください</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="101"/>
         <source>Enter download links or drag a torrent file here</source>
         <translation>ダウウンロードリンクを入力するか、Torrentファイルをここにドロップしてください</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="219"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1094"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="139"/>
+        <source>Name</source>
+        <translation>名前</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
+        <source>Type</source>
+        <translation>種類</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="142"/>
+        <source>Size</source>
+        <translation>サイズ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="168"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="930"/>
         <source>Total </source>
         <translation>合計</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="225"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="776"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="812"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="174"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="649"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="683"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="716"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="749"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="782"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="815"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="847"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="882"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="917"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="952"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="986"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1163"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="995"/>
         <source>%1 files selected, %2</source>
         <translation>%1件のファイル(%2)が選択されています</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="238"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="187"/>
         <source>All</source>
         <translation>すべて</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="244"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
         <source>Videos</source>
         <translation>動画</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="250"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="197"/>
         <source>Pictures</source>
         <translation>写真</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="256"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
         <source>Music</source>
         <translation>音楽</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="262"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
         <source>Others</source>
         <translation>その他</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="268"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="212"/>
         <source>Documents</source>
         <translation>ドキュメント</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
         <source>Archives</source>
         <translation>アーカイブ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="573"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="713"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="594"/>
         <source>Available:</source>
         <translation>利用可能:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="341"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="259"/>
         <source>Change download folder</source>
         <translation>ダウンロード先を変更</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="357"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="365"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="283"/>
         <source>Select file</source>
         <translation>ファイルを選択</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="379"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
         <source>Cancel</source>
-        <comment>button</comment>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
         <source>Confirm</source>
-        <comment>button</comment>
         <translation>確認</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
-        <source>OK</source>
-        <comment>button</comment>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="406"/>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="424"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="320"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="338"/>
         <source>Choose Torrent File</source>
         <translation>Torrentファイルを選択</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>ディスクの空き容量が不足しています。ダウンロード先を変更してください。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1268"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="609"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
         <source>Network error, check your network and try later</source>
         <translation>ネットワークエラーです。ネットワークを確認してやり直してください。</translation>
     </message>
@@ -218,42 +233,37 @@
 <context>
     <name>DiagnosticModel</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="299"/>
-        <source>IPv6 support</source>
-        <translation>IPv6サポート</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="301"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="203"/>
         <source>DHT status</source>
         <translation>DHTステータス</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="303"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="205"/>
         <source>HTTP task</source>
         <translation>HTTPタスク</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="305"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="207"/>
         <source>BT task</source>
         <translation>BTタスク</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="209"/>
         <source>Magnet task</source>
         <translation>Magnetタスク</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="309"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="211"/>
         <source>Network detection</source>
         <translation>ネットワーク検出</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="314"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Pass</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="314"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
         <source>Failed</source>
         <translation>失敗</translation>
     </message>
@@ -261,12 +271,12 @@
 <context>
     <name>DiagnosticTool</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="91"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="64"/>
         <source>Result:</source>
         <translation>結果:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="93"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="67"/>
         <source>Diagnose Again</source>
         <translation>再度診断する</translation>
     </message>
@@ -274,33 +284,33 @@
 <context>
     <name>DownloadSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="51"/>
         <source>Full speed</source>
         <translation>最大速度</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="72"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
         <source>Limited speed</source>
         <translation>速度を制限</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="112"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="98"/>
         <source>Max. download speed</source>
         <translation>最大ダウウンロード速度</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="113"/>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="119"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="99"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="105"/>
         <source>KB/s</source>
         <translation>KB/s</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="118"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="104"/>
         <source>Max. upload speed</source>
         <translation>最大アップロード速度</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="64"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="53"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
@@ -309,28 +319,22 @@ and it does not involve user privacy.</source>
 速度を向上させる手助けができます。ユーザーのプライバシーは保護されます。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="124"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
         <source>Limit period</source>
         <translation>制限する時間</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="125"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="111"/>
         <source>to</source>
         <translation>から</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="276"/>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="291"/>
-        <source>The end time must be greater than the start time</source>
-        <translation>終了時刻は開始時刻よりも大きくする必要があります</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="311"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="233"/>
         <source>Limited between 100-102400</source>
         <translation>100から102400の間で入力してください</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="333"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="255"/>
         <source>Limited between 16-5120</source>
         <translation>16から5120の間で入力してください</translation>
     </message>
@@ -338,12 +342,12 @@ and it does not involve user privacy.</source>
 <context>
     <name>FileSavePathChooser</name>
     <message>
-        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="57"/>
+        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="50"/>
         <source>Last used directory</source>
         <translation>最後に使用したディレクトリ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="59"/>
+        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="52"/>
         <source>Default directory</source>
         <translation>デフォルトのディレクトリ</translation>
     </message>
@@ -351,40 +355,43 @@ and it does not involve user privacy.</source>
 <context>
     <name>HttpAdvancedSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="71"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="36"/>
         <source>Edit File Extensions</source>
         <translation>ファイル拡張子を編集</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="77"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
         <source>Edit Unmonitored Sites</source>
         <translation>モニタリング対象外のサイトを編集</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="92"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="51"/>
         <source>Restore</source>
         <translation>復元</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="104"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="58"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="110"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="63"/>
         <source>Confirm</source>
-        <comment>button</comment>
         <translation>確認</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="166"/>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="170"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="87"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="91"/>
         <source>Separate file extensions by semicolons (;)</source>
         <translation>拡張子はセミコロン(;)で区切ることができます</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="177"/>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="181"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
+        <source>P lease enter one URL per line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
         <source>Please enter one URL per line</source>
         <translation>URLは１行に１つだけ入力してください</translation>
     </message>
@@ -392,32 +399,27 @@ and it does not involve user privacy.</source>
 <context>
     <name>ItemDelegate</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="216"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="210"/>
         <source>Paused</source>
         <translation>一時停止中</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="226"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
         <source>Failed</source>
         <translation>失敗</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="237"/>
-        <source>Waiting</source>
-        <translation>待機中</translation>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
+        <source>Wating</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="249"/>
-        <source>Resources:</source>
-        <translation>リソース:</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="403"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
         <source>Duplicate name</source>
         <translation>名前が重複しています</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="253"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
         <source>Time left </source>
         <translation>残り時間</translation>
     </message>
@@ -425,7 +427,7 @@ and it does not involve user privacy.</source>
 <context>
     <name>ItemSelectionWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="63"/>
+        <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="57"/>
         <source>Advanced</source>
         <translation>詳細設定</translation>
     </message>
@@ -433,47 +435,47 @@ and it does not involve user privacy.</source>
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="114"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="118"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="119"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="345"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="136"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="306"/>
         <source>When completed</source>
         <translation>ダウンロード完了時の動作</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="120"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
         <source>Shut down</source>
         <translation>シャットダウン</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="122"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
         <source>Hibernate</source>
         <translation>ハイバネート</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
         <source>Diagnostic tool</source>
         <translation>診断ツール</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="181"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="956"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="916"/>
         <source>No download tasks</source>
         <translation>ダウンロードタスクはありません</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="191"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="220"/>
         <source>Click + to create new task</source>
         <translation>＋をクリックして新しいタスクを作成します</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="264"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading</source>
         <translation>進行中</translation>
     </message>
@@ -483,180 +485,188 @@ and it does not involve user privacy.</source>
         <translation>完了</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="270"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="268"/>
         <source>Trash</source>
         <translation>ゴミ箱</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="335"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
         <source>Downloader</source>
         <translation>ダウンローダー</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="337"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
         <source>Show main window</source>
         <translation>メインウィンドウを表示</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="339"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
         <source>New task</source>
         <translation>新しいタスクの作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="124"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="353"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="310"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
         <source>Exit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
+        <source>No search results</source>
+        <translation>検索結果はありません</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
         <source>0 tasks</source>
         <translation>0件のタスク</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="341"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
         <source>Resume all</source>
         <translation>すべて再開</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="343"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
         <source>Pause all</source>
         <translation>すべて一時停止</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="620"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="561"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
         <translation>終了してもよろしいですか？
 ダウンロードタスクは中断されます。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="731"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="713"/>
         <source> files</source>
         <translation>ファイル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="953"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
         <source>No finished tasks</source>
         <translation>完了したタスクはありません</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="966"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="937"/>
         <source>No deleted tasks</source>
         <translation>削除されたタスクはありません</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1343"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
         <source>Resume</source>
         <translation>再開</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
         <source>Pause</source>
         <translation>一時停止</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="929"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
+        <source> tasks</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="888"/>
         <source>Downloading %1...</source>
         <translation>%1をダウンロードしています...</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1372"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1341"/>
         <source>Download first</source>
         <translation>先にダウンロードする</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1379"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1396"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1347"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1362"/>
         <source>Download again</source>
         <translation>もう一度ダウンロードする</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1389"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1356"/>
         <source>Restore</source>
         <translation>復元</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1367"/>
         <source>Open</source>
         <translation>開く</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1494"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1375"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1451"/>
         <source>Open folder</source>
         <translation>フォルダーを開く</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1432"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1395"/>
         <source>Rename</source>
         <translation>名前を変更</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1439"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
         <source>Move to</source>
         <translation>移動</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1449"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1473"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1485"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1432"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1443"/>
         <source>Copy download link</source>
         <translation>ダウンロードリンクをコピー</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1460"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1421"/>
         <source>Delete</source>
         <translation>削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1466"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1426"/>
         <source>Permanently delete</source>
         <translation>完全に削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1502"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1458"/>
         <source>Delete all</source>
         <translation>すべて削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1665"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1620"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1896"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
         <translation>最大同時ダウンロード数の制限に到達しました。他のタスクは待機中です。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2777"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
         <source>Torrent file not exist or broken</source>
         <translation>Torrentファイルが存在しないか壊れています</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>Unable to parse the URL, please check</source>
         <translation>URLを解析できませんでした。ご確認ください</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2431"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2357"/>
         <source>Copied to clipboard</source>
         <translation>クリップボードにコピーしました</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2753"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2682"/>
         <source>View</source>
         <translation>表示</translation>
     </message>
@@ -664,149 +674,142 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>MessageBox</name>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="50"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="130"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="42"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="113"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="94"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="81"/>
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation>ダウンロードしたファイルを削除してもう一度ダウンロードしますか？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="179"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="202"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="222"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="84"/>
+        <source>The task already exists.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="102"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="156"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
         <source>Download error</source>
         <translation>ダウンロードエラー</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="93"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="118"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="140"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="80"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="104"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Download Again</source>
         <translation>もう一度ダウンロード</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="96"/>
-        <source>These tasks already exist</source>
-        <translation>これらのタスクは既に存在します</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="98"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="86"/>
         <source>Delete the downloaded files and download again?</source>
         <translation>ダウンロードしたファイルを削除してもう一度ダウンロードしますか？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="111"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="294"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="360"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="377"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="395"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="99"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="283"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="341"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
-        <source>Delete All</source>
-        <translation>すべて削除</translation>
+        <location filename="../src/src/ui/messagebox.cpp" line="125"/>
+        <source>Delete Task</source>
+        <translation>タスクを削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="162"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="139"/>
         <source>Are you sure you want to delete this download task permanently?</source>
         <translation>ダウンロードタスクを完全に削除してもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="165"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="142"/>
         <source>Local files will be deleted at the same time.</source>
         <translation>ローカルファイルも同時に削除されます。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="168"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
         <source>Are you sure you want to delete this download task?</source>
         <translation>ダウンロードタスクを削除してもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="172"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
-        <location filename="../src/src/ui/messagebox.cpp" line="201"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="149"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="151"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="173"/>
         <source>Delete local files</source>
         <translation>ローカルファイルも削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="183"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Permanently Delete</source>
         <translation>完全に削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="162"/>
         <source>Delete</source>
         <translation>削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="198"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="170"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
         <translation>ゴミ箱内のダウンロードタスクをすべて削除してもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="205"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="176"/>
         <source>Empty</source>
         <translation>空にする</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="373"/>
-        <source>Path Error</source>
-        <translation>パスエラー</translation>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
+        <source>Rename</source>
+        <translation>名前を変更</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="375"/>
-        <source>The storage folder does not exist, please check and try again</source>
-        <translation>保存先フォルダが存在しません。ご確認のうえ、もう一度お試しください</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="217"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="214"/>
         <source>Please choose your action</source>
         <translation>行いたい操作を選択してください</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Exit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="216"/>
         <source>Minimize to system tray</source>
         <translation>システムトレイに最小化</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="221"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="218"/>
         <source>Do not ask again</source>
         <translation>次回からこの質問を表示しない</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="223"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="220"/>
         <source>Confirm</source>
         <translation>確認</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="294"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
         <translation>ファイル名にスラッシュ(/)やバックスラッシュ(\)を含めることはできません</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="358"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="339"/>
         <source>Please try another folder</source>
         <translation>その他のフォルダをお試しください</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="356"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="337"/>
         <source>Permission denied</source>
         <translation>権限が拒否されました</translation>
     </message>
@@ -814,17 +817,17 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>NotificationsSettiingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="47"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="43"/>
         <source>Notify me when downloading finished or failed</source>
         <translation>ダウンロードが完了または失敗したときに通知</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="54"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="51"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
         <translation>コントロールセンター→通知→ダウンローダー で変更できます</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="60"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="58"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
@@ -832,54 +835,48 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/include/ui/global.h" line="43"/>
+        <location filename="../src/include/ui/global.h" line="36"/>
         <source>Downloading</source>
         <translation>進行中</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="44"/>
+        <location filename="../src/include/ui/global.h" line="37"/>
         <source>Waiting</source>
         <translation>待機中</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="45"/>
+        <location filename="../src/include/ui/global.h" line="38"/>
         <source>Paused</source>
         <translation>一時停止中</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="46"/>
+        <location filename="../src/include/ui/global.h" line="39"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="47"/>
+        <location filename="../src/include/ui/global.h" line="40"/>
         <source>Completed</source>
         <translation>完了</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="48"/>
+        <location filename="../src/include/ui/global.h" line="41"/>
         <source>Removed</source>
         <translation>削除されました</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="49"/>
-        <location filename="../src/include/ui/global.h" line="66"/>
+        <location filename="../src/include/ui/global.h" line="42"/>
+        <location filename="../src/include/ui/global.h" line="59"/>
         <source>Unknown</source>
         <translation>不明</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="89"/>
-        <source>downloader</source>
-        <translation>ダウンローダー</translation>
-    </message>
-    <message>
-        <location filename="../src/src/downloader/main.cpp" line="90"/>
-        <location filename="../src/src/downloader/main.cpp" line="93"/>
+        <location filename="../src/src/downloader/main.cpp" line="65"/>
         <source>Downloader</source>
         <translation>ダウンローダー</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="94"/>
+        <location filename="../src/src/downloader/main.cpp" line="66"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
         <translation>ダウンローダーはユーザーフレンドリーなダウンロードツールです。URLやTorrentファイルに対応しています。</translation>
     </message>
@@ -887,17 +884,17 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>SearchResoultWidget</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="69"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="57"/>
         <source>Completed</source>
         <translation>完了</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="77"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="61"/>
         <source>Trash</source>
         <translation>ゴミ箱</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="85"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="65"/>
         <source>Downloading</source>
         <translation>進行中</translation>
     </message>
@@ -905,252 +902,232 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="345"/>
         <source>Basic</source>
         <translation>基本</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="347"/>
         <source>Auto startup</source>
         <translation>自動的に起動</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="348"/>
         <source>Resume downloading on startup</source>
         <translation>起動時にダウンロードを再開</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="349"/>
         <source>Download Directory</source>
         <translation>保存先</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="350"/>
         <source>1-Click Download</source>
         <translation>ワンクリックダウンロード</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
         <source>Create tasks directly</source>
         <translation>タスクを直接作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
         <source>Startup</source>
         <translation>起動</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="352"/>
         <source>Close Main Window</source>
         <translation>メインウインドウの閉じ方</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="353"/>
         <source>Minimize to system tray</source>
         <translation>システムトレイに最小化</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="354"/>
         <source>Ask me always</source>
         <translation>常に質問する</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="355"/>
         <source>Exit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="356"/>
         <source>Tasks</source>
         <translation>タスク</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="865"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
         <source>Max. concurrent downloads</source>
         <translation>最大の同時ダウンロード数</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="885"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="358"/>
         <source>Open files when completed</source>
         <translation>ダウンロード完了時にファイルを開く</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="906"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
         <source>Delete tasks without files</source>
         <translation>ファイルのないタスクを削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
         <source>Downloads</source>
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="361"/>
         <source>Monitoring</source>
         <translation>モニタリング</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="362"/>
         <source>Applications</source>
         <translation>アプリケーション</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="363"/>
         <source>Clipboard</source>
         <translation>クリップボード</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="364"/>
         <source>Browser</source>
         <translation>ブラウザー</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="365"/>
         <source>Links Monitored</source>
         <translation>リンクのモニタリング</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="366"/>
         <source>BT Files</source>
         <translation>BTファイル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="411"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
         <source>Create new task when a torrent file downloaded</source>
         <translation>Torrentファイルをダウンロードしたときにタスクを作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="412"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
         <source>Create new task when opening a torrent file</source>
         <translation>Torrentファイルを開いたときにタスクを作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
         <source>MetaLink Files</source>
         <translation>MetaLinkファイル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="414"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
         <source>Create new task when a metalink file downloaded</source>
         <translation>MetaLinkファイルをダウンロードしたときにタスクを作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="415"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
         <source>Create new task when opening a metalink file</source>
         <translation>MetaLinkファイルを開いたときにタスクを作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="416"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
         <source>Notifications</source>
         <translation>通知</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="417"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
         <source>Notify me when downloading finished or failed</source>
         <translation>ダウンロードが完了または失敗したときに通知</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="418"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
         <source>Play a sound when downloading finished</source>
         <translation>ダウンロードが完了したときに音を再生</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="423"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="926"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
         <source>Move slow downloads to the end</source>
         <translation>遅いダウンロードを最後に移動する</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
         <source>Advanced</source>
         <translation>詳細設定</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
         <source>Shortcuts</source>
         <translation>ショートカット</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
         <source>Show main window when creating new task</source>
         <translation>新しいタスクを作成するときにメインウインドウを表示</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
         <source>Cache</source>
         <translation>キャッシュ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="424"/>
-        <location filename="../src/src/ui/settings/settings.cpp" line="841"/>
-        <source>Original address threads</source>
-        <translation>オリジナルのアドレススレッド</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="425"/>
-        <source>Download Management</source>
-        <translation>ダウンロード管理</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="426"/>
-        <source>Speed Settings</source>
-        <translation>速度設定</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="519"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="463"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="540"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
         <source>BitTorrent</source>
         <translation>BitTorrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="562"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="505"/>
         <source>MetaLink</source>
         <translation>MetaLink</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="584"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="526"/>
         <source>Magnet URI scheme</source>
         <translation>Magnet URI スキーム</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="683"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>When total speed less than</source>
         <translation>合計速度が</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="683"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
         <source>KB/s, increase concurrent tasks</source>
         <translation>KB/s未満のときに同時実行するタスクを増やす</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="695"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="671"/>
         <source>Total speed should be less than max. download speed</source>
         <translation>合計の速度は最大ダウンロード速度よりも小さくする必要があります</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="765"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>Download files less than</source>
         <translation>先にファイルサイズが</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="765"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
         <source>MB first</source>
         <translation>MB以下のファイルをダウンロードする</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="809"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
         <source>Limit max. number of concurrent download resources</source>
         <translation>最大同時ダウンロードリソース数の制限</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="946"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="799"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
         <translation>キャッシュを大きくするとダウンロード速度が速くなりますが
@@ -1160,37 +1137,37 @@ and more resource consumption.</source>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="422"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="416"/>
         <source> &gt; 1 day</source>
         <translation>1日以上</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="643"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
         <source>Download failed</source>
         <translation>ダウンロードに失敗しました</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
         <source>%1 download failed. Network error.</source>
         <translation>%1件のダウンロードに失敗しました。ネットワークエラーです。</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
         <source>View</source>
         <translation>表示</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="657"/>
         <source>Download completed</source>
         <translation>ダウンロードが完了しました</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="658"/>
         <source>%1 download finished</source>
         <translation>%1件のダウンロードが完了しました</translation>
     </message>
@@ -1198,30 +1175,30 @@ and more resource consumption.</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="520"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="523"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="428"/>
         <source>Size</source>
         <translation>サイズ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="527"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="536"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="432"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="441"/>
         <source>Status</source>
         <translation>ステータス</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="529"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="538"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="443"/>
         <source>Time finished</source>
         <translation>完了時刻</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="531"/>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="540"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="436"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="445"/>
         <source>Time deleted</source>
         <translation>削除した日時</translation>
     </message>
@@ -1229,74 +1206,55 @@ and more resource consumption.</source>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="227"/>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="238"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
         <source>Duplicate name</source>
         <translation>名前が重複しています</translation>
     </message>
 </context>
 <context>
-    <name>TaskModel</name>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="146"/>
-        <source>Name</source>
-        <translation>名前</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="150"/>
-        <source>Type</source>
-        <translation>種類</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/taskModel.cpp" line="152"/>
-        <source>Size</source>
-        <translation>サイズ</translation>
-    </message>
-</context>
-<context>
     <name>TopButton</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="92"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="72"/>
         <source>New task</source>
         <translation>タスクを作成</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="99"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="176"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="153"/>
         <source>Pause</source>
         <translation>一時停止</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="106"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="175"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="86"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="152"/>
         <source>Resume</source>
         <translation>再開</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="113"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="161"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="169"/>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="177"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="93"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="138"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="146"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="154"/>
         <source>Delete</source>
         <translation>削除</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="159"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="136"/>
         <source>Empty</source>
         <translation>空にする</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="160"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="137"/>
         <source>Restore</source>
         <translation>復元</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="167"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="144"/>
         <source>Open folder</source>
         <translation>フォルダーを開く</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="168"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="145"/>
         <source>Open</source>
         <translation>開く</translation>
     </message>
