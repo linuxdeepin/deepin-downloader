@@ -1,85 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="hr">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="hr">
 <context>
     <name>BtInfoDialog</name>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="120"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="116"/>
         <source>New Task</source>
         <translation>Novi zadatak</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="150"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="146"/>
         <source>Total </source>
         <translation>Ukupno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="156"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="152"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="399"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="408"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="461"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="490"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="519"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="547"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="597"/>
         <source>%1 files selected, %2</source>
         <translation>%1 datoteka odabrano, %2</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="178"/>
         <source>All</source>
         <translation>Sve</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="185"/>
         <source>Videos</source>
         <translation>Videa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="196"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="192"/>
         <source>Pictures</source>
         <translation>Slike</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="203"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="199"/>
         <source>Music</source>
         <translation>Glazba</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="210"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="206"/>
         <source>Others</source>
         <translation>Ostalo</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="231"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="227"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="622"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="665"/>
         <source>Available:</source>
         <translation>Dostupno:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="249"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="245"/>
         <source>Change download folder</source>
         <translation>Promjeni mapu preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="257"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="253"/>
         <source>Download Now</source>
         <translation>Preuzmi sada</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="302"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="298"/>
         <source>Name</source>
         <translation>Ime</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="304"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="300"/>
         <source>Type</source>
         <translation>Vrsta</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="305"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="301"/>
         <source>Size</source>
         <translation>Veličina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="380"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Nedovoljno prostora na disku, molim promijenite mapu preuzimanja </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="380"/>
         <source>OK</source>
         <translation>U redu</translation>
     </message>
@@ -87,110 +94,123 @@
 <context>
     <name>CreateTaskWidget</name>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="117"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="113"/>
         <source>New Task</source>
         <translation>Novi zadatak</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="123"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="119"/>
         <source>Please enter one URL per line</source>
         <translation>Molim unesite jedan URL po retku</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="137"/>
         <source>Enter download links or drag a torrent file here</source>
         <translation>Unesite poveznice  ili povucite torrent datoteku ovdje</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="219"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="215"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1072"/>
         <source>Total </source>
         <translation>Ukupno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="225"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="221"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="766"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="800"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="833"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="866"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="899"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="932"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="964"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1141"/>
         <source>%1 files selected, %2</source>
         <translation>%1 datoteka odabrano, %2</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="238"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="234"/>
         <source>All</source>
         <translation>Sve</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="244"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="240"/>
         <source>Videos</source>
         <translation>Videa</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="250"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="246"/>
         <source>Pictures</source>
         <translation>Slike</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="256"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="252"/>
         <source>Music</source>
         <translation>Glazba</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="262"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="258"/>
         <source>Others</source>
         <translation>Ostalo</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="268"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="264"/>
         <source>Documents</source>
         <translation>Dokumenti</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="270"/>
         <source>Archives</source>
         <translation>Arhive</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="298"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="567"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="705"/>
         <source>Available:</source>
         <translation>Dostupno:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="341"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="337"/>
         <source>Change download folder</source>
         <translation>Promjeni mapu preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="357"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="353"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="361"/>
         <source>Select file</source>
         <translation>Odaberi datoteku</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="379"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Cancel</source>
         <comment>button</comment>
         <translation>Otkaži</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="386"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="382"/>
         <source>Confirm</source>
         <comment>button</comment>
         <translation>Potvrdi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="406"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="402"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="420"/>
         <source>Choose Torrent File</source>
         <translation>Odaberi torrent datoteku</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="467"/>
         <source>Insufficient disk space, please change the download folder</source>
         <translation>Nedovoljno prostora na disku, molim promijenite mapu preuzimanja </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="473"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="467"/>
         <source>OK</source>
         <comment>button</comment>
         <translation>U redu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1268"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1246"/>
         <source>Network error, check your network and try later</source>
         <translation>Mrežna greška, provjerite vašu mrežu i pokušajte kasnije</translation>
     </message>
@@ -198,42 +218,42 @@
 <context>
     <name>DiagnosticModel</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="299"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="292"/>
         <source>IPv6 support</source>
-        <translation>Подршка IPv6</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="301"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="294"/>
         <source>DHT status</source>
         <translation>DHT status</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="303"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="296"/>
         <source>HTTP task</source>
         <translation>HTTP zadatak</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="305"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="298"/>
         <source>BT task</source>
         <translation>BT zadatak</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="300"/>
         <source>Magnet task</source>
-        <translation>Zadatak magnet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="309"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="302"/>
         <source>Network detection</source>
-        <translation>Detekcija mreže</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="314"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
         <source>Pass</source>
-        <translation>Prošlost</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="314"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
         <source>Failed</source>
         <translation>Neuspjelo</translation>
     </message>
@@ -241,25 +261,25 @@
 <context>
     <name>DiagnosticTool</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="91"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="89"/>
         <source>Result:</source>
         <translation>Rezultat:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="93"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="91"/>
         <source>Diagnose Again</source>
-        <translation>Ponovno dijagnostičko testiranje</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>DownloadSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="59"/>
         <source>Full speed</source>
         <translation>Puna brzina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="64"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="62"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
@@ -268,47 +288,49 @@ and it does not involve user privacy.</source>
 i ne uključuje korisničku privatnost.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="72"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="70"/>
         <source>Limited speed</source>
         <translation>Ograničena brzina</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="112"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
         <source>Max. download speed</source>
         <translation>Maksimalna brzina preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="113"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="111"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="117"/>
         <source>KB/s</source>
         <translation>KB/s</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="118"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="116"/>
         <source>Max. upload speed</source>
         <translation>Maksimalna brzina slanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="124"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="122"/>
         <source>Limit period</source>
         <translation>Ograniči period</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="125"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="123"/>
         <source>to</source>
         <translation>na</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="276"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="271"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="286"/>
         <source>The end time must be greater than the start time</source>
-        <translation>Vrijeme završetka mora biti veće od vrijeme početka</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="311"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="305"/>
         <source>Limited between 100-102400</source>
         <translation>Ograničeno između 100-102400</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="333"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="327"/>
         <source>Limited between 16-5120</source>
         <translation>Ograničeno između 16-5120</translation>
     </message>
@@ -316,12 +338,12 @@ i ne uključuje korisničku privatnost.</translation>
 <context>
     <name>FileSavePathChooser</name>
     <message>
-        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="57"/>
+        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="55"/>
         <source>Last used directory</source>
         <translation>Zadnji korišteni direktorij</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="59"/>
+        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="57"/>
         <source>Default directory</source>
         <translation>Zadani direktorij</translation>
     </message>
@@ -329,37 +351,39 @@ i ne uključuje korisničku privatnost.</translation>
 <context>
     <name>HttpAdvancedSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="71"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="69"/>
         <source>Edit File Extensions</source>
-        <translation>Uredi ekstenzije datoteka</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="77"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="75"/>
         <source>Edit Unmonitored Sites</source>
-        <translation>Uredi neposlušane stranice</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="92"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="90"/>
         <source>Restore</source>
         <translation>Obnovi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="104"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="102"/>
         <source>Cancel</source>
         <translation>Otkaži</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="110"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="108"/>
         <source>Confirm</source>
         <comment>button</comment>
         <translation>Potvrdi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="166"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="163"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="167"/>
         <source>Separate file extensions by semicolons (;)</source>
-        <translation>Odvojite ekstenzije datoteka zarezima (;)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="173"/>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="177"/>
         <source>Please enter one URL per line</source>
         <translation>Molim unesite jedan URL po retku</translation>
@@ -368,40 +392,40 @@ i ne uključuje korisničku privatnost.</translation>
 <context>
     <name>ItemDelegate</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="216"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="214"/>
         <source>Paused</source>
         <translation>Pauzirano</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="226"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="224"/>
         <source>Failed</source>
         <translation>Neuspjelo</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="237"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="235"/>
         <source>Waiting</source>
         <translation>Čekam</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="249"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="247"/>
         <source>Resources:</source>
         <translation>Izvori:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="253"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="251"/>
         <source>Time left </source>
         <translation>Preostalo vrijeme</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="403"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="400"/>
         <source>Duplicate name</source>
-        <translation>Dvostruka naziv</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ItemSelectionWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="63"/>
+        <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="61"/>
         <source>Advanced</source>
         <translation>Napredno</translation>
     </message>
@@ -409,369 +433,397 @@ i ne uključuje korisničku privatnost.</translation>
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="114"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="110"/>
         <source>Settings</source>
         <translation>Postavke</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="118"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="114"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="115"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="340"/>
         <source>When completed</source>
         <translation>Kad je dovršeno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="120"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="116"/>
         <source>Shut down</source>
         <translation>Isključi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="122"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="118"/>
         <source>Hibernate</source>
         <translation>Hiberniraj</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="124"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="120"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="348"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="615"/>
         <source>Exit</source>
         <translation>Izađi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="133"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="129"/>
         <source>Diagnostic tool</source>
         <translation>Dijagnostički alat</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="181"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="177"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="950"/>
         <source>No download tasks</source>
         <translation>Nema zadataka preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="191"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="187"/>
         <source>Click + to create new task</source>
         <translation>Kliknite + za stvaranje novog zadatka</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="211"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="207"/>
         <source>0 tasks</source>
         <translation>0 zadataka</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="264"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="260"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="895"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="923"/>
         <source>Downloading</source>
         <translation>Preuzimam</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="267"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="263"/>
         <source>Completed</source>
         <translation>Dovršeno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="270"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="266"/>
         <source>Trash</source>
         <translation>Smeće</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="335"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="330"/>
         <source>Downloader</source>
         <translation>Preuzimatelj</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="337"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="332"/>
         <source>Show main window</source>
         <translation>Pokaži glavni prozor</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="339"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="334"/>
         <source>New task</source>
         <translation>Novi zadatak</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="341"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="336"/>
         <source>Resume all</source>
-        <translation>Nastavi sve</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="343"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="338"/>
         <source>Pause all</source>
         <translation>Pauziraj sve</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="620"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="614"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation>Da li ste sigurni da želite izći? Preuzimane zadatke će biti prekinuti.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="621"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="615"/>
         <source>Cancel</source>
         <translation>Otkaži</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="731"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="725"/>
         <source> files</source>
         <translation>datoteke</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="901"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="895"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="923"/>
         <source>Downloading %1...</source>
         <translation>Preuzimam %1...</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="953"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="947"/>
         <source>No finished tasks</source>
-        <translation>Nema završenih zadataka</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="966"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="960"/>
         <source>No deleted tasks</source>
-        <translation>Nema obrisanih zadataka</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1073"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2763"/>
         <source>Torrent file not exist or broken</source>
         <translation>Torrent datoteka ne postoji ili je slomljena</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1079"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1073"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1659"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2004"/>
         <source>OK</source>
         <translation>U redu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1343"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1337"/>
         <source>Resume</source>
-        <translation>Nastavi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1350"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1344"/>
         <source>Pause</source>
         <translation>Pauza</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1357"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1351"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1366"/>
         <source>Download first</source>
         <translation>Preuzmi prvo</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1379"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1373"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1390"/>
         <source>Download again</source>
         <translation>Preuzmi ponovno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1389"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1383"/>
         <source>Restore</source>
         <translation>Obnovi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1396"/>
         <source>Open</source>
         <translation>Otvori</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1405"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1488"/>
         <source>Open folder</source>
         <translation>Otvori mapu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1432"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1426"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1439"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1433"/>
         <source>Move to</source>
         <translation>Premjesti u</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1449"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1443"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1467"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1479"/>
         <source>Copy download link</source>
         <translation>Kopiraj poveznicu preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1460"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1454"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1466"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1460"/>
         <source>Permanently delete</source>
         <translation>Trajno izbriši</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1502"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1496"/>
         <source>Delete all</source>
         <translation>Izbriši sve</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1896"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1883"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>Dostignut je maksimalan broj paralelnih zadataka. Ostali zadaci će biti u redu.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2018"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2004"/>
         <source>Unable to parse the URL, please check</source>
-        <translation>Nije moguće parsirati URL, provjerite ga</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2431"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2417"/>
         <source>Copied to clipboard</source>
-        <translation>Kopirano u međuspremnik</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2753"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2739"/>
         <source>View</source>
-        <translation>Pogled</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>MessageBox</name>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="50"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="47"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Warning</source>
         <translation>Upozorenje</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="93"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="88"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="113"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
         <source>Download Again</source>
         <translation>Preuzmi ponovno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="94"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="89"/>
         <source>Do you want to delete the downloaded files and download again?</source>
         <translation>Želite li izbrisati preuzete datoteke i preuzeti ponovno?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="96"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="91"/>
         <source>These tasks already exist</source>
-        <translation>Ovi zadaci već postoje</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="98"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="93"/>
         <source>Delete the downloaded files and download again?</source>
         <translation>Izbrisati preuzete datoteke i preuzeti ponovno?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="111"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="106"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="275"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="333"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="348"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="364"/>
         <source>OK</source>
         <translation>U redu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="110"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="170"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="191"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="209"/>
         <source>Cancel</source>
         <translation>Otkaži</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="132"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="125"/>
         <source>Download error</source>
         <translation>Greška preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="144"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="137"/>
         <source>Delete All</source>
-        <translation>Obriši sve</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="162"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="153"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation>Da li ste sigurni da želite obrisati ovaj preuzimani zadatak trajno?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="165"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="156"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation>Lokalne datoteke će se istovremeno obrisati.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="168"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="159"/>
         <source>Are you sure you want to delete this download task?</source>
-        <translation>Da li ste sigurni da želite obrisati ovaj preuzimani zadatak?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="172"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="163"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="165"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="190"/>
         <source>Delete local files</source>
         <translation>Izbriši lokalne datoteke</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="183"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
         <source>Permanently Delete</source>
         <translation>Trajno izbriši</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="178"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="198"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>Da li ste sigurni da želite obrisati sve zadatke u otpadu?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="205"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="194"/>
         <source>Empty</source>
-        <translation>Prazno</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="217"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="204"/>
         <source>Please choose your action</source>
         <translation>Molim izaberite radnju</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="206"/>
         <source>Exit</source>
         <translation>Izađi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="219"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="206"/>
         <source>Minimize to system tray</source>
-        <translation>Smanjite u sistemsku traku</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="221"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="208"/>
         <source>Do not ask again</source>
         <translation>Ne pitaj me ponovno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="223"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="210"/>
         <source>Confirm</source>
         <translation>Potvrdi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="294"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="275"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
-        <translation>Ime datoteke ne može sadržavati vraćanje (\) ili navodnike (/)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="356"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="329"/>
         <source>Permission denied</source>
-        <translation>Dozvola odbijena</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="358"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="331"/>
         <source>Please try another folder</source>
         <translation>Molim probajte drugu mapu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="373"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="344"/>
         <source>Path Error</source>
-        <translation>Pogrešna putanja</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="375"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="346"/>
         <source>The storage folder does not exist, please check and try again</source>
-        <translation>Папка за чувствително снимanje не постоји, молим проверите и покушајте поновно</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>NotificationsSettiingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="47"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="46"/>
         <source>Notify me when downloading finished or failed</source>
         <translation>Obavijesti me kada je preuzimanje gotovo ili neuspjelo</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="54"/>
-        <source>Change settings in "Control Center - Notification - Downloader"</source>
-        <translation>Промените поставке у "Панел за управљање - Обавештење - Преносилач"</translation>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="53"/>
+        <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="60"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="59"/>
         <source>Settings</source>
         <translation>Postavke</translation>
     </message>
@@ -810,40 +862,41 @@ Downloading tasks will be interrupted.</source>
     </message>
     <message>
         <location filename="../src/include/ui/global.h" line="49"/>
+        <location filename="../src/include/ui/global.h" line="66"/>
         <source>Unknown</source>
         <translation>Nepoznato</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="89"/>
+        <location filename="../src/src/downloader/main.cpp" line="86"/>
         <source>downloader</source>
-        <translation>преносилач</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
+        <location filename="../src/src/downloader/main.cpp" line="87"/>
         <location filename="../src/src/downloader/main.cpp" line="90"/>
         <source>Downloader</source>
         <translation>Preuzimatelj</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="94"/>
+        <location filename="../src/src/downloader/main.cpp" line="91"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation>>-
-Преносилач је кориснији алат за преузимање, подржава URL-ове и torrent датотеке</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>SearchResoultWidget</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="69"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="66"/>
         <source>Completed</source>
         <translation>Dovršeno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="77"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="74"/>
         <source>Trash</source>
         <translation>Smeće</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="85"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="82"/>
         <source>Downloading</source>
         <translation>Preuzimam</translation>
     </message>
@@ -851,286 +904,291 @@ Downloading tasks will be interrupted.</source>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="385"/>
         <source>Basic</source>
         <translation>Osnovno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="386"/>
         <source>Startup</source>
-        <translation>Покретање</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="387"/>
         <source>Auto startup</source>
-        <translation>Аутоматско покретање</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="388"/>
         <source>Resume downloading on startup</source>
-        <translation>Поновно почети преузимање при покретању</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
         <source>Download Directory</source>
         <translation>Direktorij preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
         <source>1-Click Download</source>
-        <translation>Преузимање са једног клика</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
         <source>Create tasks directly</source>
-        <translation>Направите задатке директно</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
         <source>Close Main Window</source>
         <translation>Zatvori glavni prozor</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
         <source>Minimize to system tray</source>
-        <translation>Смањите на системски тренутник</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
         <source>Ask me always</source>
         <translation>Uvijek me pitaj</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
         <source>Exit</source>
         <translation>Izađi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
         <source>Tasks</source>
         <translation>Zadaci</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="860"/>
         <source>Max. concurrent downloads</source>
         <translation>Maksimum trenutnih preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="880"/>
         <source>Open files when completed</source>
-        <translation>Отворите датотеке када се заврши</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="901"/>
         <source>Delete tasks without files</source>
-        <translation>Обришите задатке без датотека</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
         <source>Downloads</source>
         <translation>Preuzimanja</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
         <source>Monitoring</source>
-        <translation>Мониторинг</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
         <source>Applications</source>
         <translation>Aplikacije</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
         <source>Clipboard</source>
-        <translation>Размак</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
         <source>Browser</source>
         <translation>Preglednik</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
         <source>Links Monitored</source>
-        <translation>Спојени линкови</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
         <source>BT Files</source>
         <translation>BT datoteke</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="411"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>Направите нови задатак када се преузме torrent датотека</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
+        <source>Create new task when opening a torrent file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
+        <source>MetaLink Files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
+        <source>Create new task when a metalink file downloaded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="411"/>
+        <source>Create new task when opening a metalink file</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/src/ui/settings/settings.cpp" line="412"/>
-        <source>Create new task when opening a torrent file</source>
-        <translation>Направите нови задатак када отворите torrent датотеку</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
-        <source>MetaLink Files</source>
-        <translation>Мета-линк датотеке</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="414"/>
-        <source>Create new task when a metalink file downloaded</source>
-        <translation>Направите нови задатак када се преузме metalink датотека</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="415"/>
-        <source>Create new task when opening a metalink file</source>
-        <translation>Направите нови задатак када отворите metalink датотеку</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="416"/>
         <source>Notifications</source>
         <translation>Obavijesti</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="417"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
         <source>Notify me when downloading finished or failed</source>
         <translation>Obavijesti me kada je preuzimanje gotovo ili neuspjelo</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="418"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="414"/>
         <source>Play a sound when downloading finished</source>
-        <translation>Пусти звук када се заврши преузимање</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="415"/>
         <source>Advanced</source>
         <translation>Napredno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="416"/>
         <source>Shortcuts</source>
         <translation>Prečaci</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="417"/>
         <source>Show main window when creating new task</source>
         <translation>Pokaži glavni prozor pri stvaranju novog zadatka</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="418"/>
         <source>Cache</source>
-        <translation>Кеширање</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="423"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="921"/>
         <source>Move slow downloads to the end</source>
         <translation>Pomakni spora preuzimanja na kraj</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="424"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="836"/>
         <source>Original address threads</source>
-        <translation>Оригинални адресни нити</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="425"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
         <source>Download Management</source>
         <translation>Upravljanje preuzimanjem</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="426"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
         <source>Speed Settings</source>
         <translation>Postavke brzine</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="519"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="514"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="540"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="535"/>
         <source>BitTorrent</source>
         <translation>BitTorrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="562"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="557"/>
         <source>MetaLink</source>
-        <translation>Мета-линк</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="584"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="579"/>
         <source>Magnet URI scheme</source>
-        <translation>Магнетски URI схема</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="683"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="678"/>
         <source>When total speed less than</source>
-        <translation>Када је укупна брзина мања од</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="683"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="678"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>КБ/с, повећајте паралелне задатке</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="695"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="690"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation>Укупна брзина треба да буде мања од максималне брзине преузимања</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="765"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="760"/>
         <source>Download files less than</source>
-        <translation>Преузимајте датотеке мање од</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="765"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="760"/>
         <source>MB first</source>
-        <translation>МБ прво</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="809"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="804"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation>Ograničite maksimalan broj paralelnih preuzimanja</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="946"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="941"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>Veći disk cache rezultira bržim brzinom preuzimanja i većom potrošnjom resursa.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="422"/>
-        <source> > 1 day</source>
-        <translation> > 1 dan</translation>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="418"/>
+        <source> &gt; 1 day</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="643"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="638"/>
         <source>Download failed</source>
         <translation>Neuspjelo preuzimanje</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="639"/>
         <source>%1 download failed. Network error.</source>
         <translation>%1 neuspjelih preuzimanja. Greška mreže.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="640"/>
         <source>Cancel</source>
         <translation>Otkaži</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="640"/>
         <source>View</source>
-        <translation>Pregled</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
         <source>Download completed</source>
         <translation>Preuzimanje dovršeno</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>%1 download finished</source>
         <translation>%1 preuzimanja završeno</translation>
     </message>
@@ -1138,37 +1196,41 @@ and more resource consumption.</source>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="520"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="511"/>
         <source>Name</source>
         <translation>Ime</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="523"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="514"/>
         <source>Size</source>
         <translation>Veličina</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="518"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="527"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="520"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="529"/>
         <source>Time finished</source>
-        <translation>Vrijeme završetka</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="522"/>
         <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="531"/>
         <source>Time deleted</source>
-        <translation>Vrijeme brisanja</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="227"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="220"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="231"/>
         <source>Duplicate name</source>
-        <translation>Duplicirano ime</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1192,42 +1254,47 @@ and more resource consumption.</source>
 <context>
     <name>TopButton</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="92"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="91"/>
         <source>New task</source>
         <translation>Novi zadatak</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="99"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="98"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="173"/>
         <source>Pause</source>
         <translation>Pauza</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="106"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="105"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="172"/>
         <source>Resume</source>
-        <translation>Nastavi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="113"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="112"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="158"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="166"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="174"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="159"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="156"/>
         <source>Empty</source>
-        <translation>Očisti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="160"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="157"/>
         <source>Restore</source>
         <translation>Obnovi</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="167"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="164"/>
         <source>Open folder</source>
         <translation>Otvori mapu</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="168"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="165"/>
         <source>Open</source>
         <translation>Otvori</translation>
     </message>
