@@ -222,7 +222,7 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="609"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Aceptar</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
