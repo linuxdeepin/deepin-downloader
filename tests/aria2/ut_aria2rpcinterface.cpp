@@ -43,7 +43,8 @@ TEST_F(ut_aria2Test, startUp)
 
 TEST_F(ut_aria2Test, addUri)
 {
-    QString uri = "http://download.qt.io/archive/qt/4.1/qt-x11-opensource-src-4.1.4.tar.gz";
+    // 使用httpbin.org提供的小文件下载测试
+    QString uri = "https://httpbin.org/bytes/1024";
     QMap<QString, QVariant> opt;
     opt.insert("test", "test");
     QString id = "test";
