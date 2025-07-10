@@ -582,10 +582,7 @@ bool CreateTaskWidget::isMagnet(QString url)
 bool CreateTaskWidget::isHttp(QString url)
 {
     url = url.toLower();
-    if ((url.startsWith("ftp:")) && (url.startsWith("http://")) && (url.startsWith("https://"))) {
-        return false;
-    }
-    return true;
+    return url.startsWith("http://") || url.startsWith("https://");
 }
 
 bool CreateTaskWidget::isFtp(QString url)
