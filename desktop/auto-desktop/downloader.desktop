@@ -1,16 +1,19 @@
 [Desktop Entry]
 Categories=downloader;Network;
 Comment=downloader
+Comment[lo]=ເຄື່ອງດາວໂຫລດ
 Exec=downloader %F
 GenericName=Downloader
 GenericName[zh_CN]=下载器
 GenericName[zh_TW]=下载器
+GenericName[lo]=ເຄື່ອງດາວໂຫລດ
 Hidden=false
 Icon=downloader
 MimeType=application/torrent;application/x-bittorrent;
 Name=Downloader
 Name[zh_CN]=下载器
 Name[zh_TW]=下载器
+Name[lo]=ເຄື່ອງດາວໂຫລດ
 StartupNotify=false
 Type=Application
 X-Deepin-Vendor=deepin
