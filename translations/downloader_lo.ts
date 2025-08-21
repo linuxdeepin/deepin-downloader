@@ -1,1200 +1,1304 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" sourcelanguage="lo">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="lo">
 <context>
     <name>BtInfoDialog</name>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="109"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="116"/>
         <source>New Task</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ວຽກງານໃໝ່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="131"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="146"/>
         <source>Total </source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ທັງໝົດ </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="137"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="152"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="399"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="408"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="461"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="490"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="519"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="547"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="597"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 ແມັນເອກະສານທີ່ເລືອກເອັນ, %2</translation>
+        <translation>%1 ໄຟລ໌ທີ່ເລືອກ, %2</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="161"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="178"/>
         <source>All</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ທັງໝົດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="168"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="185"/>
         <source>Videos</source>
-        <translation>ວິдеຼໂຄ</translation>
+        <translation>ວິດີໂອ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="175"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="192"/>
         <source>Pictures</source>
         <translation>ຮູບພາບ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="182"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="199"/>
         <source>Music</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ເພງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="189"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="206"/>
         <source>Others</source>
-        <translation>ອື່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="204"/>
-        <source>Available:</source>
-        <translation>ມີໃຫ້ໃຊ້:</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="219"/>
-        <source>Change download folder</source>
-        <translation>ແປງແົ້ນຕອນລົງໂຄງສ້າງ</translation>
+        <translation>ອື່ນໆ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="227"/>
-        <source>Download Now</source>
-        <translation>ວຽກໃໝ່</translation>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="622"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="665"/>
+        <source>Available:</source>
+        <translation>ພື້ນທີ່ວ່າງ:</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="245"/>
+        <source>Change download folder</source>
+        <translation>ປ່ຽນໂຟນເດີໃສ່ໄຟລ໌</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="253"/>
+        <source>Download Now</source>
+        <translation>ດາວໂຫລດດຽວນີ້</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="298"/>
         <source>Name</source>
         <translation>ຊື່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="255"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="300"/>
         <source>Type</source>
-        <translation>ປະເພຼຸມ</translation>
+        <translation>ປະເພດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="256"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="301"/>
         <source>Size</source>
-        <translation>ຂະ້ອງທ໻ງ</translation>
+        <translation>ຂະໜາດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="380"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>ຂະ້ອງທ໻ງທີ່ບໍ່ພຽງພໍ, ແກ້ໄຂແົ້ນຕອນລົງໂຄງສ້າງ</translation>
+        <translation>ພື້ນທີ່ຮາດດິສບໍ່ພຽງພໍ, ກະລຸນາປ່ຽນໂຟນເດີດາວໂຫລດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
+        <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="380"/>
         <source>OK</source>
-        <translation>ดាន</translation>
+        <translation>ຕົກລົງ</translation>
     </message>
 </context>
 <context>
     <name>CreateTaskWidget</name>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="88"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="113"/>
         <source>New Task</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ວຽກງານໃໝ່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="119"/>
         <source>Please enter one URL per line</source>
-        <translation>សូមបញ្ចូល URL តែមួយក្នុងរបៀបជ្រៅដេរមួយបន្ទាក់</translation>
+        <translation>ກະລຸນາໃສ່ໜຶ່ງ URL ຕໍ່ຫນຶ່ງແຖວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="101"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="137"/>
         <source>Enter download links or drag a torrent file here</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ໃສ່ລິ້ງດາວໂຫລດ ຫຼື ລາກໄຟລ໌ torrent ມາບ່ອນນີ້</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="139"/>
-        <source>Name</source>
-        <translation>ឈ្មោះ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="141"/>
-        <source>Type</source>
-        <translation>ប្រភេទ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="142"/>
-        <source>Size</source>
-        <translation>ទំហំ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="168"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="215"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1072"/>
         <source>Total </source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ທັງໝົດ </translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="174"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="221"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="766"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="800"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="833"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="866"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="899"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="932"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="964"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1141"/>
         <source>%1 files selected, %2</source>
-        <translation>%1 файлов выбрано, %2</translation>
+        <translation>%1 ໄຟລ໌ທີ່ເລືອກ, %2</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="187"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="234"/>
         <source>All</source>
-        <translation>ទាំងអស់</translation>
+        <translation>ທັງໝົດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="192"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="240"/>
         <source>Videos</source>
-        <translation>វិដេអីដេ</translation>
+        <translation>ວິດີໂອ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="197"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="246"/>
         <source>Pictures</source>
-        <translation>រូបភាព</translation>
+        <translation>ຮູບພາບ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="202"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="252"/>
         <source>Music</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ເພງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="207"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="258"/>
         <source>Others</source>
-        <translation>ផ្សេងៗ</translation>
+        <translation>ອື່ນໆ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="212"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="264"/>
         <source>Documents</source>
-        <translation>ឯកសារ</translation>
+        <translation>ເອກະສານ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="217"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="270"/>
         <source>Archives</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ໄຟລ໌ບີບອັດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="245"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="298"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="567"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="705"/>
         <source>Available:</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ພື້ນທີ່ວ່າງ:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="259"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="337"/>
         <source>Change download folder</source>
-        <translation>ផ្លាស់ប្តូរត្រើយ៉ុបទាញយក</translation>
+        <translation>ປ່ຽນໂຟນເດີໃສ່ໄຟລ໌</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="274"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="353"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="361"/>
         <source>Select file</source>
-        <translation>ជ្រួតប្រធាន្</translation>
+        <translation>ເລືອກໄຟລ໌</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="296"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <source>Cancel</source>
-        <translation>បង្គាក់</translation>
+        <comment>button</comment>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="302"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="382"/>
         <source>Confirm</source>
-        <translation>បញ្ជាក់</translation>
+        <comment>button</comment>
+        <translation>ຢືນຢັນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="320"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="402"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="420"/>
         <source>Choose Torrent File</source>
-        <translation>ជ្រួត Torrent File</translation>
+        <translation>ເລືອກໄຟລ໌ Torrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="467"/>
         <source>Insufficient disk space, please change the download folder</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ພື້ນທີ່ຮາດດິສບໍ່ພຽງພໍ, ກະລຸນາປ່ຽນໂຟນເດີດາວໂຫລດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="467"/>
         <source>OK</source>
-        <translation>ວຽກໃໝ່</translation>
+        <comment>button</comment>
+        <translation>ຕົກລົງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
+        <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1246"/>
         <source>Network error, check your network and try later</source>
-        <translation>ຜິດພາດເຄືອຂ່າຍ, ກວດເບິ່ງເຄືອຂ່າຍຂອງທ່ານແລະລອງອີກຄັ້ງໃນພາຍຫຼັງ</translation>
+        <translation>ມີຂໍ້ຜິດພາດເຄືອຂ່າຍ, ກະລຸນາກວດສອບເຄືອຂ່າຍແລະລອງໃໝ່ພາຍຫຼັງ</translation>
     </message>
 </context>
 <context>
     <name>DiagnosticModel</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="203"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="292"/>
+        <source>IPv6 support</source>
+        <translation>ສະໜັບສະໜູນ IPv6</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="294"/>
         <source>DHT status</source>
-        <translation>ស្ថានភាព DHT</translation>
+        <translation>ສະຖານະ DHT</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="205"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="296"/>
         <source>HTTP task</source>
-        <translation>ការងារ HTTP</translation>
+        <translation>ວຽກງານ HTTP</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="207"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="298"/>
         <source>BT task</source>
-        <translation>ការងារ BT</translation>
+        <translation>ວຽກງານ BT</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="209"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="300"/>
         <source>Magnet task</source>
-        <translation>ការងារ Magnet</translation>
+        <translation>ວຽກງານ Magnet</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="211"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="302"/>
         <source>Network detection</source>
         <translation>ການກວດສອບເຄືອຂ່າຍ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
         <source>Pass</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຜ່ານ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="216"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="307"/>
         <source>Failed</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ດາວໂຫລດບໍ່ສຳເລັດ</translation>
     </message>
 </context>
 <context>
     <name>DiagnosticTool</name>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="64"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="89"/>
         <source>Result:</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຜົນລັບ:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="67"/>
+        <location filename="../src/src/ui/settings/diagnostictool.cpp" line="91"/>
         <source>Diagnose Again</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ວິນິດໄສອີກຄັ້ງ</translation>
     </message>
 </context>
 <context>
     <name>DownloadSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="51"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="59"/>
         <source>Full speed</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຄວາມໄວເຕັມທີ່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="61"/>
-        <source>Limited speed</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="98"/>
-        <source>Max. download speed</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="99"/>
-        <source>KB/s</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="104"/>
-        <source>Max. upload speed</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="53"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="62"/>
         <source>Downloaded files will be uploaded through P2P, 
 which could help other users speed up the downloading, 
 and it does not involve user privacy.</source>
-        <translation>ดาวน์โหลดไฟล์จะถูกอัปโหลดผ่าน P2P ซึ่งอาจช่วยให้ผู้ใช้อื่นเร็วขึ้นในการดาวน์โหลด และไม่เกี่ยวข้องกับข้อมูลส่วนตัวของผู้ใช้.</translation>
+        <translation>ໄຟລ໌ທີ່ດາວໂຫລດແລ້ວຈະຖືກອັບໂຫລດຜ່ານ P2P,
+ເຊິ່ງສາມາດຊ່ວຍໃຫ້ຜູ້ໃຊ້ອື່ນດາວໂຫລດໄວຂຶ້ນ,
+ແລະມັນບໍ່ກ່ຽວຂ້ອງກັບຄວາມເປັນສ່ວນຕົວຂອງຜູ້ໃຊ້.</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="70"/>
+        <source>Limited speed</source>
+        <translation>ຈຳກັດຄວາມໄວ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="110"/>
-        <source>Limit period</source>
-        <translation>ວຽກໃໝ່</translation>
+        <source>Max. download speed</source>
+        <translation>ຄວາມໄວດາວໂຫລດສູງສຸດ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="111"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="117"/>
+        <source>KB/s</source>
+        <translation>KB/s</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="116"/>
+        <source>Max. upload speed</source>
+        <translation>ຄວາມໄວອັບໂຫລດສູງສຸດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="122"/>
+        <source>Limit period</source>
+        <translation>ຊ່ວງເວລາຈຳກັດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="123"/>
         <source>to</source>
-        <translation>ถึง</translation>
+        <translation>ຫາ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="233"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="271"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="286"/>
+        <source>The end time must be greater than the start time</source>
+        <translation>ເວລາສິ້ນສຸດຕ້ອງໃຫຍ່ກວ່າເວລາເລີ່ມຕົ້ນ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="305"/>
         <source>Limited between 100-102400</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຈຳກັດລະຫວ່າງ 100-102400</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="255"/>
+        <location filename="../src/src/ui/settings/downloadsettingwidget.cpp" line="327"/>
         <source>Limited between 16-5120</source>
-        <translation>จำกัดระหว่าง 16 ถึง 5120</translation>
+        <translation>ຈຳກັດລະຫວ່າງ 16-5120</translation>
     </message>
 </context>
 <context>
     <name>FileSavePathChooser</name>
     <message>
-        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="50"/>
+        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="55"/>
         <source>Last used directory</source>
-        <translation>ไดเรกทอรีที่ใช้ครั้งสุดท้าย</translation>
+        <translation>ໂຟນເດີທີ່ໃຊ້ລ່າສຸດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="52"/>
+        <location filename="../src/src/ui/settings/filesavepathchooser.cpp" line="57"/>
         <source>Default directory</source>
-        <translation>ថ្លៃិតលំនៅដូច្បារ៉ាត់</translation>
+        <translation>ໂຟນເດີມາດຕະຖານ</translation>
     </message>
 </context>
 <context>
     <name>HttpAdvancedSettingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="36"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="69"/>
         <source>Edit File Extensions</source>
-        <translation>កំណត់តែងផ្នែករូបរាងឯកសារ</translation>
+        <translation>ແກ້ໄຂນາມສະກຸນໄຟລ໌</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="39"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="75"/>
         <source>Edit Unmonitored Sites</source>
-        <translation>កំណត់តែងគេះទៅតេរ៉ាស់ដែលមិនត្រូវກារសាកល្បង</translation>
+        <translation>ແກ້ໄຂເວັບໄຊທີ່ບໍ່ຕິດຕາມ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="51"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="92"/>
         <source>Restore</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ກູ້ຄືນຄ່າເລີ່ມຕົ້ນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="58"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="102"/>
         <source>Cancel</source>
-        <translation>បង្គាក់</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="63"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="108"/>
         <source>Confirm</source>
-        <translation>ວຽກໃໝ່</translation>
+        <comment>button</comment>
+        <translation>ຢືນຢັນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="87"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="163"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="167"/>
         <source>Separate file extensions by semicolons (;)</source>
-        <translation>ច្រោះតែងផ្នែករូបរាងឯកសារជាមួយគ្នាដោយប្រើពិន្ថេក (;)</translation>
+        <translation>ແຍກນາມສະກຸນໄຟລ໌ດ້ວຍເຄື່ອງໝາຍຈູດຄໍາ (;)</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
-        <source>P lease enter one URL per line</source>
-        <translation>លើកូនតែង URL មួយក្នុងរបួសមួយ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="173"/>
+        <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="177"/>
         <source>Please enter one URL per line</source>
-        <translation>សូមចុះការបញ្ចូល URL មួយក្នុងរបួសមួយ</translation>
+        <translation>ກະລຸນາໃສ່ໜຶ່ງ URL ຕໍ່ຫນຶ່ງແຖວ</translation>
     </message>
 </context>
 <context>
     <name>ItemDelegate</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="210"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="214"/>
         <source>Paused</source>
-        <translation>បង្គាក់</translation>
+        <translation>ຢຸດຊົ່ວຄາວແລ້ວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="221"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="224"/>
         <source>Failed</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ດາວໂຫລດບໍ່ສຳເລັດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="233"/>
-        <source>Wating</source>
-        <translation>កំពឹងរ៉ាប់របាំ</translation>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="235"/>
+        <source>Waiting</source>
+        <translation>ກຳລັງລໍຖ້າ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="396"/>
-        <source>Duplicate name</source>
-        <translation>ឈ្មោះមានច្រើនដដែល</translation>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="247"/>
+        <source>Resources:</source>
+        <translation>ຊັບພະຍາກອນ:</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="250"/>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="251"/>
         <source>Time left </source>
-        <translation>ពេលសលេចទៅ </translation>
+        <translation>ເວລາທີ່ເຫຼືອ </translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/itemDelegate.cpp" line="400"/>
+        <source>Duplicate name</source>
+        <translation>ຊື່ຊໍ້າກັນ</translation>
     </message>
 </context>
 <context>
     <name>ItemSelectionWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="57"/>
+        <location filename="../src/src/ui/settings/itemselectionwidget.cpp" line="61"/>
         <source>Advanced</source>
-        <translation>ជំនាញ</translation>
+        <translation>ຂັ້ນສູງ</translation>
     </message>
 </context>
 <context>
     <name>MainFrame</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="131"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="110"/>
         <source>Settings</source>
         <translation>ການຕັ້ງຄ່າ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="135"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="114"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="115"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="340"/>
         <source>When completed</source>
-        <translation>ເມື່ອສຳເລັດ</translation>
+        <translation>ເມື່ອສຳເລັດແລ້ວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="137"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="116"/>
         <source>Shut down</source>
-        <translation>ປິດລົງ</translation>
+        <translation>ປິດເຄື່ອງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="139"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="118"/>
         <source>Hibernate</source>
-        <translation>ຫຼັງຈາກນອນ</translation>
+        <translation>ນອນໄຮເບີເນດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="150"/>
-        <source>Diagnostic tool</source>
-        <translation>ເຄື່ອງມືກວດສອບ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="201"/>
-        <source>No download tasks</source>
-        <translation>ບໍ່ມີວຽກດາວໂຫຼດ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="220"/>
-        <source>Click + to create new task</source>
-        <translation>ກົດ + ເພື່ອສ້າງວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="265"/>
-        <source>Downloading</source>
-        <translation>ກຳລັງດາວໂຫຼດ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="267"/>
-        <source>Completed</source>
-        <translation>ສຳເລັດແລ້ວ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="268"/>
-        <source>Trash</source>
-        <translation>ຖັງຂີ້ເຫຍື້ອ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="300"/>
-        <source>Downloader</source>
-        <translation>ໂປຣແກຣມດາວໂຫຼດ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="302"/>
-        <source>Show main window</source>
-        <translation>ສະແດງຫນ້າຕ່າງຫລັກ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="303"/>
-        <source>New task</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="141"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="120"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="348"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="615"/>
         <source>Exit</source>
         <translation>ອອກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="208"/>
-        <source>No search results</source>
-        <translation>ບໍ່ມີຜົນການຄົ້ນຫາ</translation>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="129"/>
+        <source>Diagnostic tool</source>
+        <translation>ເຄື່ອງມືວິນິດໄສ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="236"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="177"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="950"/>
+        <source>No download tasks</source>
+        <translation>ບໍ່ມີວຽກງານດາວໂຫລດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="187"/>
+        <source>Click + to create new task</source>
+        <translation>ກົດ + ເພື່ອສ້າງວຽກງານໃໝ່</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="207"/>
         <source>0 tasks</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>0 ວຽກງານ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="304"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="260"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="895"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="923"/>
+        <source>Downloading</source>
+        <translation>ກຳລັງດາວໂຫລດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="263"/>
+        <source>Completed</source>
+        <translation>ສຳເລັດແລ້ວ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="266"/>
+        <source>Trash</source>
+        <translation>ຖັງຂີ້ເຫຍື້ອ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="330"/>
+        <source>Downloader</source>
+        <translation>ຕົວດາວໂຫລດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="332"/>
+        <source>Show main window</source>
+        <translation>ສະແດງໜ້າຕ່າງຫຼັກ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="334"/>
+        <source>New task</source>
+        <translation>ວຽກງານໃໝ່</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="336"/>
         <source>Resume all</source>
-        <translation>ផ្ទុរឡើងទាំងអស់</translation>
+        <translation>ສືບຕໍ່ທັງໝົດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="305"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="338"/>
         <source>Pause all</source>
-        <translation>ផ្ទុរបញ្ចាក់ទាំងអស់</translation>
+        <translation>ຢຸດຊົ່ວຄາວທັງໝົດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="561"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="614"/>
         <source>Are you sure you want to exit? 
 Downloading tasks will be interrupted.</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກ?
+ວຽກງານດາວໂຫລດຈະຖືກຂັດຈັງຫວະ.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="697"/>
-        <source> files</source>
-        <translation>&apos;ឯកសារ&apos;</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="910"/>
-        <source>No finished tasks</source>
-        <translation>មិនម៉ាតើម៉ូឌុលបានបញ្ចប់ទេ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="937"/>
-        <source>No deleted tasks</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1329"/>
-        <source>Resume</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1335"/>
-        <source>Pause</source>
-        <translation>ផ្ទុរបញ្ចាក់</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="562"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="615"/>
         <source>Cancel</source>
-        <translation>បង្គាក</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="680"/>
-        <source> tasks</source>
-        <translation>ວຽກໃໝ່</translation>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="725"/>
+        <source> files</source>
+        <translation> ໄຟລ໌</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="861"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="895"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="923"/>
         <source>Downloading %1...</source>
-        <translation>កំពុងទាញយក %1...</translation>
+        <translation>ກຳລັງດາວໂຫລດ %1...</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1341"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="947"/>
+        <source>No finished tasks</source>
+        <translation>ບໍ່ມີວຽກງານທີ່ສຳເລັດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="960"/>
+        <source>No deleted tasks</source>
+        <translation>ບໍ່ມີວຽກງານທີ່ຖືກລົບ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1073"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2763"/>
+        <source>Torrent file not exist or broken</source>
+        <translation>ໄຟລ໌ torrent ບໍ່ມີ ຫຼື ເສຍຫາຍ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1073"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1659"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2004"/>
+        <source>OK</source>
+        <translation>ຕົກລົງ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1337"/>
+        <source>Resume</source>
+        <translation>ສືບຕໍ່</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1344"/>
+        <source>Pause</source>
+        <translation>ຢຸດຊົ່ວຄາວ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1351"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1366"/>
         <source>Download first</source>
-        <translation>ទាញយកជាមុន</translation>
+        <translation>ດາວໂຫລດກ່ອນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1347"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1373"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1390"/>
         <source>Download again</source>
-        <translation>ទាញយកម្តងទៀត</translation>
+        <translation>ດາວໂຫລດອີກຄັ້ງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1356"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1383"/>
         <source>Restore</source>
-        <translation>ត្រូវស្វែងយកឡើងវិញ</translation>
+        <translation>ກູ້ຄືນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1367"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1396"/>
         <source>Open</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ເປີດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1375"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1405"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1488"/>
         <source>Open folder</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1395"/>
-        <source>Rename</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1402"/>
-        <source>Move to</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1411"/>
-        <source>Copy download link</source>
-        <translation>ຄີບພຸດຈາກແບບການดาวໂຫລດ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1421"/>
-        <source>Delete</source>
-        <translation>ລກລົງ</translation>
+        <translation>ເປີດໂຟນເດີ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1426"/>
+        <source>Rename</source>
+        <translation>ປ່ຽນຊື່</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1433"/>
+        <source>Move to</source>
+        <translation>ຍ້າຍໄປ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1443"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1467"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1479"/>
+        <source>Copy download link</source>
+        <translation>ຄັດລອກລິ້ງດາວໂຫລດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1454"/>
+        <source>Delete</source>
+        <translation>ລົບ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1460"/>
         <source>Permanently delete</source>
-        <translation>ລກລົງຕໍ່າງໍ້</translation>
+        <translation>ລົບຖາວອນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1458"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1496"/>
         <source>Delete all</source>
-        <translation>ລກລົງທີ່ທີ່</translation>
+        <translation>ລົບທັງໝົດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1620"/>
-        <source>OK</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1883"/>
         <source>The number of max. concurrent tasks reached. Other tasks will be queuing.</source>
-        <translation>ລິ່ງຂອງການຄຳນຳໃນເວລາດຽວກັນໄດ້ຮັບເຊື່ອມຕໍ່າງໍ້. ང່ານ້າງານອື່ນຈະຖັນທະນາ.</translation>
+        <translation>ໄດ້ເຖິງຈຳນວນວຽກງານພ້ອມກັນສູງສຸດແລ້ວ. ວຽກງານອື່ນຈະຢູ່ໃນຄິວ.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
-        <source>Torrent file not exist or broken</source>
-        <translation>ຊິ້ງເອຟິດຟາຍ མີ່ນບໍ່ມີຫຼືຖັງຊິ້ງ.</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2004"/>
         <source>Unable to parse the URL, please check</source>
-        <translation>ບໍ່ສາມາດແທດສອບ URL ཟ່ອງໄດ້, དີ້ງກຳນຳກຳນຳ.</translation>
+        <translation>ບໍ່ສາມາດວິເຄາະ URL ໄດ້, ກະລຸນາກວດສອບ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2357"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2417"/>
         <source>Copied to clipboard</source>
-        <translation>ຄີບໄດ້ໄວ້ໃນພື່ນແບບຄີບພຸດ</translation>
+        <translation>ຄັດລອກໃສ່ clipboard ແລ້ວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2682"/>
+        <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2739"/>
         <source>View</source>
-        <translation>ເບ຺້ງ</translation>
+        <translation>ເບິ່ງ</translation>
     </message>
 </context>
 <context>
     <name>MessageBox</name>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="42"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="47"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="123"/>
         <source>Warning</source>
-        <translation>ການເຕິ້ງແກນ</translation>
+        <translation>ຄຳເຕືອນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="81"/>
-        <source>Do you want to delete the downloaded files and download again?</source>
-        <translation>តើអ្នកចងោទះចែកចេញីលូកិតដែលទាញយកទុកហើយចងោទះទាញយកវិញមែនទេ?</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="84"/>
-        <source>The task already exists.</source>
-        <translation>មានការងារមុនទៅរួចទុកហើយ។</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="102"/>
-        <source>Cancel</source>
-        <translation>ប៉ុន្ណ័យ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="115"/>
-        <source>Download error</source>
-        <translation>ຜິດພາດໃນການທຳງານ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="80"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="88"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="113"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="133"/>
         <source>Download Again</source>
-        <translation>ທຳງານອີກຄັ້ນ</translation>
+        <translation>ດາວໂຫລດອີກຄັ້ງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="86"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="89"/>
+        <source>Do you want to delete the downloaded files and download again?</source>
+        <translation>ທ່ານຕ້ອງການລົບໄຟລ໌ທີ່ດາວໂຫລດແລ້ວ ແລະດາວໂຫລດອີກຄັ້ງບໍ?</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="91"/>
+        <source>These tasks already exist</source>
+        <translation>ວຽກງານເຫຼົ່ານີ້ມີແລ້ວ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="93"/>
         <source>Delete the downloaded files and download again?</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ລົບໄຟລ໌ທີ່ດາວໂຫລດແລ້ວ ແລະດາວໂຫລດອີກຄັ້ງບໍ?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="99"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="106"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="275"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="333"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="348"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="364"/>
         <source>OK</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຕົກລົງ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="110"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="170"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="191"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="209"/>
+        <source>Cancel</source>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
-        <source>Delete Task</source>
-        <translation>ລົບການງານ</translation>
+        <source>Download error</source>
+        <translation>ຂໍ້ຜິດພາດການດາວໂຫລດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="139"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="137"/>
+        <source>Delete All</source>
+        <translation>ລົບທັງໝົດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="153"/>
         <source>Are you sure you want to delete this download task permanently?</source>
-        <translation>ຢານທ່ານຢານລົບລາຍການທຳງານນີ້ຢ່າງທົວທົງ?</translation>
+        <translation>ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລົບວຽກງານດາວໂຫລດນີ້ຖາວອນ?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="142"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="156"/>
         <source>Local files will be deleted at the same time.</source>
-        <translation>ລາຍການທຳງານທີ້ງ້ອງຈະຖືກລົບລົງໃນເວລາດຽວກັນ.</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="145"/>
-        <source>Are you sure you want to delete this download task?</source>
-        <translation>ຢານທ່ານຢານລົບລາຍການທຳງານນີ້?</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="149"/>
-        <source>Delete local files</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ໄຟລ໌ໃນເຄື່ອງຈະຖືກລົບພ້ອມກັນ.</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="159"/>
-        <source>Permanently Delete</source>
-        <translation>ລົບທົວທົງ</translation>
+        <source>Are you sure you want to delete this download task?</source>
+        <translation>ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລົບວຽກງານດາວໂຫລດນີ້?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="162"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="163"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="165"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="190"/>
+        <source>Delete local files</source>
+        <translation>ລົບໄຟລ໌ໃນເຄື່ອງ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="174"/>
+        <source>Permanently Delete</source>
+        <translation>ລົບຖາວອນ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="178"/>
         <source>Delete</source>
         <translation>ລົບ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="170"/>
-        <source>Are you sure you want to delete all tasks in the trash?</source>
-        <translation>ຢານທ່ານຢານລົບລາຍການທີ້ງ້ອງທີ້ງ້ອງທີ້ງ້ອງ?</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="176"/>
-        <source>Empty</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
         <location filename="../src/src/ui/messagebox.cpp" line="187"/>
-        <source>Rename</source>
-        <translation>ត្រូវកែិតឈ្មោះ</translation>
+        <source>Are you sure you want to delete all tasks in the trash?</source>
+        <translation>ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລົບວຽກງານທັງໝົດໃນຖັງຂີ້ເຫຍື້ອ?</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="214"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="194"/>
+        <source>Empty</source>
+        <translation>ເຄື່ອນອອກ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="204"/>
         <source>Please choose your action</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ກະລຸນາເລືອກການດຳເນີນການຂອງທ່ານ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="216"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="206"/>
         <source>Exit</source>
-        <translation>ចាក់ចេញ</translation>
+        <translation>ອອກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="216"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="206"/>
         <source>Minimize to system tray</source>
-        <translation>បញ្ចື contractionໃນຖານະລະບົດລະບົບ</translation>
+        <translation>ຫຍໍ້ລົງລາຍການລະບົບ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="218"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="208"/>
         <source>Do not ask again</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ບໍ່ຕ້ອງຖາມອີກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="220"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="210"/>
         <source>Confirm</source>
         <translation>ຢືນຢັນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="283"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="275"/>
         <source>The file name cannot contain a backslash (\) or slash (/)</source>
-        <translation>ຊື່ໄຸໄດ້ບໍ່ສາມາດມີ backslash (\) ຫຼື slash (/) ກ្នុងມັນໄດ້</translation>
+        <translation>ຊື່ໄຟລ໌ບໍ່ສາມາດມີເຄື່ອງໝາຍທັບຫຼັງ (\) ຫຼື ທັບໜ້າ (/)</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="339"/>
-        <source>Please try another folder</source>
-        <translation>ກະລຸນາພະເຊົ້າມີເຜຼ໇ກົນອື່ນ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/messagebox.cpp" line="337"/>
+        <location filename="../src/src/ui/messagebox.cpp" line="329"/>
         <source>Permission denied</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ປະຕິເສດການອະນຸຍາດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="331"/>
+        <source>Please try another folder</source>
+        <translation>ກະລຸນາລອງໂຟນເດີອື່ນ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="344"/>
+        <source>Path Error</source>
+        <translation>ຂໍ້ຜິດພາດ Path</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/messagebox.cpp" line="346"/>
+        <source>The storage folder does not exist, please check and try again</source>
+        <translation>ໂຟນເດີເກັບມ້ຽນບໍ່ມີ, ກະລຸນາກວດສອບແລະລອງໃໝ່</translation>
     </message>
 </context>
 <context>
     <name>NotificationsSettiingWidget</name>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="43"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="46"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ແຈ້ງເຕືອນຂ້ອຍເມື່ອດາວໂຫລດສຳເລັດ ຫຼື ລົ້ມເຫຼວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="51"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="53"/>
         <source>Change settings in &quot;Control Center - Notification - Downloader&quot;</source>
-        <translation>ປັບປຸງຕຳຕາມໃນ &quot;Control Center - Notification - Downloader&quot;</translation>
+        <translation>ປ່ຽນການຕັ້ງຄ່າໃນ &quot;ສູນຄວບຄຸມ - ການແຈ້ງເຕືອນ - ຕົວດາວໂຫລດ&quot;</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="58"/>
+        <location filename="../src/src/ui/settings/notificationssettiingwidget.cpp" line="59"/>
         <source>Settings</source>
-        <translation>ການຕຳນິມິດ</translation>
+        <translation>ການຕັ້ງຄ່າ</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/include/ui/global.h" line="36"/>
+        <location filename="../src/include/ui/global.h" line="43"/>
         <source>Downloading</source>
-        <translation>ກຸ່ມງານ</translation>
+        <translation>ກຳລັງດາວໂຫລດ</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="37"/>
+        <location filename="../src/include/ui/global.h" line="44"/>
         <source>Waiting</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ກຳລັງລໍຖ້າ</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="38"/>
+        <location filename="../src/include/ui/global.h" line="45"/>
         <source>Paused</source>
-        <translation>หยุด</translation>
+        <translation>ຢຸດຊົ່ວຄາວແລ້ວ</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="39"/>
+        <location filename="../src/include/ui/global.h" line="46"/>
         <source>Error</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ມີຂໍ້ຜິດພາດ</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="40"/>
+        <location filename="../src/include/ui/global.h" line="47"/>
         <source>Completed</source>
-        <translation>ສຳເລື່ອງແລ້ວ</translation>
+        <translation>ສຳເລັດແລ້ວ</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="41"/>
+        <location filename="../src/include/ui/global.h" line="48"/>
         <source>Removed</source>
-        <translation>ຖື້ມອອກ</translation>
+        <translation>ຖືກຍ້າຍແລ້ວ</translation>
     </message>
     <message>
-        <location filename="../src/include/ui/global.h" line="42"/>
+        <location filename="../src/include/ui/global.h" line="49"/>
+        <location filename="../src/include/ui/global.h" line="66"/>
         <source>Unknown</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ບໍ່ຮູ້</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="65"/>
+        <location filename="../src/src/downloader/main.cpp" line="86"/>
+        <source>downloader</source>
+        <translation>ຕົວດາວໂຫລດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/downloader/main.cpp" line="87"/>
+        <location filename="../src/src/downloader/main.cpp" line="90"/>
         <source>Downloader</source>
-        <translation>ໂຫລດເຄື່ອງມື</translation>
+        <translation>ຕົວດາວໂຫລດ</translation>
     </message>
     <message>
-        <location filename="../src/src/downloader/main.cpp" line="66"/>
+        <location filename="../src/src/downloader/main.cpp" line="91"/>
         <source>Downloader is a user-friendly download tool, supporting URLs and torrent files</source>
-        <translation>ໂຫລດເຄື່ອງມື ཡັງຄະນາ, ཀྵຳເຊື່ອງຫຼຸດ དຳເຊື່ອງຫຼຸດ ཀຳແບບຜີ້ໃຊ້ງານ, དຳເຊື່ອງຫຼຸດ URL ཁຼຸດລາຍການ ཀຳແບບ torrent</translation>
+        <translation>ຕົວດາວໂຫລດແມ່ນເຄື່ອງມືດາວໂຫລດທີ່ໃຊ້ງ່າຍ, ສະໜັບສະໜູນ URL ແລະໄຟລ໌ torrent</translation>
     </message>
 </context>
 <context>
     <name>SearchResoultWidget</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="57"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="66"/>
         <source>Completed</source>
-        <translation>ສຳເລື່ອງແລ້ວ</translation>
+        <translation>ສຳເລັດແລ້ວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="61"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="74"/>
         <source>Trash</source>
-        <translation>ຖານະພະຍາກົນ</translation>
+        <translation>ຖັງຂີ້ເຫຍື້ອ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="65"/>
+        <location filename="../src/src/ui/mainFrame/searchresoultwidget.cpp" line="82"/>
         <source>Downloading</source>
-        <translation>ກຳນຳລົງໂຫລດ</translation>
+        <translation>ກຳລັງດາວໂຫລດ</translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="345"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="385"/>
         <source>Basic</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ພື້ນຖານ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="347"/>
-        <source>Auto startup</source>
-        <translation>ອັດຕະໂບໍລື འອອງ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="348"/>
-        <source>Resume downloading on startup</source>
-        <translation>ອັດຕະໂບໍລື དຳເຊື່ອງຫຼຸດ དຳເຊື່ອງຫຼຸດ དຳເຊື່ອງຫຼຸດ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="349"/>
-        <source>Download Directory</source>
-        <translation>ແົວທຳງ ཀຳແບບໂຫລດ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="350"/>
-        <source>1-Click Download</source>
-        <translation>ໂຫລດດ້ວຍການກົນນະກົດດີ້</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="351"/>
-        <source>Create tasks directly</source>
-        <translation>ວຽກໃໝ່</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="346"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="386"/>
         <source>Startup</source>
-        <translation>ការចាប់ផ្តើម</translation>
+        <translation>ການເລີ່ມຕົ້ນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="352"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="387"/>
+        <source>Auto startup</source>
+        <translation>ເລີ່ມຕົ້ນອັດຕະໂນມັດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="388"/>
+        <source>Resume downloading on startup</source>
+        <translation>ສືບຕໍ່ການດາວໂຫລດເມື່ອເລີ່ມຕົ້ນ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="389"/>
+        <source>Download Directory</source>
+        <translation>ໂຟນເດີດາວໂຫລດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="390"/>
+        <source>1-Click Download</source>
+        <translation>ດາວໂຫລດ 1 ຄລິກ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="391"/>
+        <source>Create tasks directly</source>
+        <translation>ສ້າງວຽກງານໂດຍກົງ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="392"/>
         <source>Close Main Window</source>
-        <translation>បុ trunc របស់ស័ព្វ</translation>
+        <translation>ປິດໜ້າຕ່າງຫຼັກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="353"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="393"/>
         <source>Minimize to system tray</source>
-        <translation>បន្ថយទៅតRAYប្រព័ន្ធសុទ្ធដោយបន្ថែម</translation>
+        <translation>ຫຍໍ້ລົງລາຍການລະບົບ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="354"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="394"/>
         <source>Ask me always</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຖາມຂ້ອຍສະເໝີ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="355"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="395"/>
         <source>Exit</source>
-        <translation>ចាក់ចេញ</translation>
+        <translation>ອອກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="356"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="396"/>
         <source>Tasks</source>
-        <translation>ការងារ</translation>
+        <translation>ວຽກງານ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="357"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="397"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="860"/>
         <source>Max. concurrent downloads</source>
-        <translation>ចំនួនមаксីមัมការទាញយកพร้อมគ្នាជាងគេ</translation>
+        <translation>ດາວໂຫລດພ້ອມກັນສູງສຸດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="358"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="398"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="880"/>
         <source>Open files when completed</source>
-        <translation>បុ truncើនូវឯកសារនៅពេលបរិបញ្ចប់</translation>
+        <translation>ເປີດໄຟລ໌ເມື່ອສຳເລັດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="359"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="399"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="901"/>
         <source>Delete tasks without files</source>
-        <translation>លើងវិញការងារដែលគ្មានឯកសារ</translation>
+        <translation>ລົບວຽກງານທີ່ບໍ່ມີໄຟລ໌</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="360"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="400"/>
         <source>Downloads</source>
-        <translation>ការទាញយក</translation>
+        <translation>ການດາວໂຫລດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="361"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="401"/>
         <source>Monitoring</source>
-        <translation>ការសាកល្បង</translation>
+        <translation>ການຕິດຕາມ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="362"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="402"/>
         <source>Applications</source>
-        <translation>កម្មវិធី</translation>
+        <translation>ແອັບພລິເຄຊັນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="363"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="403"/>
         <source>Clipboard</source>
-        <translation>តុការចំកូច</translation>
+        <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="364"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="404"/>
         <source>Browser</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ບຣາວເຊີ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="365"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="405"/>
         <source>Links Monitored</source>
-        <translation>ລోក མេទូដිក ར៉ານ</translation>
+        <translation>ລິ້ງທີ່ຕິດຕາມ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="366"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="406"/>
         <source>BT Files</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ໄຟລ໌ BT</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="367"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="407"/>
         <source>Create new task when a torrent file downloaded</source>
-        <translation>ดาวน์โหลด торрентไฟล์เสร็จแล้วสร้างงานใหม่</translation>
+        <translation>ສ້າງວຽກງານໃໝ່ເມື່ອດາວໂຫລດໄຟລ໌ torrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="368"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="408"/>
         <source>Create new task when opening a torrent file</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ສ້າງວຽກງານໃໝ່ເມື່ອເປີດໄຟລ໌ torrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="369"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="409"/>
         <source>MetaLink Files</source>
-        <translation>MetaLink དុນឡូត</translation>
+        <translation>ໄຟລ໌ MetaLink</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="370"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="410"/>
         <source>Create new task when a metalink file downloaded</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ສ້າງວຽກງານໃໝ່ເມື່ອດາວໂຫລດໄຟລ໌ metalink</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="371"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="411"/>
         <source>Create new task when opening a metalink file</source>
-        <translation>เปิด metalink ไฟล์สร้างงานใหม่</translation>
+        <translation>ສ້າງວຽກງານໃໝ່ເມື່ອເປີດໄຟລ໌ metalink</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="372"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="412"/>
         <source>Notifications</source>
-        <translation>ແນວທາງ དំណើរກារ</translation>
+        <translation>ການແຈ້ງເຕືອນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="373"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="413"/>
         <source>Notify me when downloading finished or failed</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ແຈ້ງເຕືອນຂ້ອຍເມື່ອດາວໂຫລດສຳເລັດ ຫຼື ລົ້ມເຫຼວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="374"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="414"/>
         <source>Play a sound when downloading finished</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຫຼິ້ນສຽງເມື່ອດາວໂຫລດສຳເລັດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="379"/>
-        <source>Move slow downloads to the end</source>
-        <translation>ຍកดาวນ៍ชំណាស់ទៅທີ້ງຫຼົງ</translation>
-    </message>
-    <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="375"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="415"/>
         <source>Advanced</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຂັ້ນສູງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="376"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="416"/>
         <source>Shortcuts</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ທາງລັດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="377"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="417"/>
         <source>Show main window when creating new task</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ສະແດງໜ້າຕ່າງຫຼັກເມື່ອສ້າງວຽກງານໃໝ່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="378"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="418"/>
         <source>Cache</source>
-        <translation>ຄ່າແບບ</translation>
+        <translation>ດາວໂຫລດສະມາຊິກຂອງດິສກ໌</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="463"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="419"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="921"/>
+        <source>Move slow downloads to the end</source>
+        <translation>ຍ້າຍການດາວໂຫລດທີ່ຊ້າໄປທ້າຍ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="420"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="836"/>
+        <source>Original address threads</source>
+        <translation>ທີ່ຢູ່ຕົ້ນຕໍຂອງສາຍທ່ານ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="421"/>
+        <source>Download Management</source>
+        <translation>ການຄຸ້ມຄອງການດາວໂຫລດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="422"/>
+        <source>Speed Settings</source>
+        <translation>ການຕັ້ງຄ່າຄວາມໄວ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/settings/settings.cpp" line="514"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="484"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="535"/>
         <source>BitTorrent</source>
         <translation>BitTorrent</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="505"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="557"/>
         <source>MetaLink</source>
         <translation>MetaLink</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="526"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="579"/>
         <source>Magnet URI scheme</source>
-        <translation>Magnet URI scheme</translation>
+        <translation>ແຜນການ URI ຂອງ Magnet</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="678"/>
         <source>When total speed less than</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ເມື່ອຄວາມໄວລວມນ້ອຍກວ່າ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="659"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="678"/>
         <source>KB/s, increase concurrent tasks</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>KB/s, ເພີ່ມວຽກງານພ້ອມກັນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="671"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="690"/>
         <source>Total speed should be less than max. download speed</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຄວາມໄວລວມຄວນນ້ອຍກວ່າຄວາມໄວດາວໂຫລດສູງສຸດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="760"/>
         <source>Download files less than</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ດາວໂຫລດໄຟລ໌ນ້ອຍກວ່າ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="740"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="760"/>
         <source>MB first</source>
-        <translation>MB first</translation>
+        <translation>MB ກ່ອນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="783"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="804"/>
         <source>Limit max. number of concurrent download resources</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ຈຳກັດຈຳນວນຊັບພະຍາກອນດາວໂຫລດພ້ອມກັນສູງສຸດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/settings/settings.cpp" line="799"/>
+        <location filename="../src/src/ui/settings/settings.cpp" line="941"/>
         <source>Larger disk cache will result in faster download speed 
 and more resource consumption.</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>Cache ດິສກ໌ທີ່ໃຫຍ່ກວ່າຈະເຮັດໃຫ້ຄວາມໄວດາວໂຫລດໄວຂຶ້ນ
+ແລະໃຊ້ຊັບພະຍາກອນຫຼາຍຂຶ້ນ.</translation>
     </message>
 </context>
 <context>
     <name>TableDataControl</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="416"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="418"/>
         <source> &gt; 1 day</source>
-        <translation> &gt; 1 day</translation>
+        <translation> &gt; 1 ມື້</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="649"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="638"/>
         <source>Download failed</source>
-        <translation>Download failed</translation>
+        <translation>ການດາວໂຫລດລົ້ມເຫຼວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="650"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="639"/>
         <source>%1 download failed. Network error.</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>%1 ດາວໂຫລດລົ້ມເຫຼວ. ມີຂໍ້ຜິດພາດເຄືອຂ່າຍ.</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="640"/>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="651"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="640"/>
         <source>View</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ເບິ່ງ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="657"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="644"/>
         <source>Download completed</source>
-        <translation>ອົບຮົມການຫຸ່ງສົ້ມສຳເລັດ</translation>
+        <translation>ການດາວໂຫລດສຳເລັດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="658"/>
+        <location filename="../src/src/ui/mainFrame/tabledatacontrol.cpp" line="645"/>
         <source>%1 download finished</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>%1 ດາວໂຫລດສຳເລັດແລ້ວ</translation>
     </message>
 </context>
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="425"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="511"/>
         <source>Name</source>
         <translation>ຊື່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="428"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="514"/>
         <source>Size</source>
         <translation>ຂະໜາດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="432"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="518"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="527"/>
         <source>Status</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ສະຖານະ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="434"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="520"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="529"/>
         <source>Time finished</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ເວລາສຳເລັດ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="436"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="522"/>
+        <location filename="../src/src/ui/mainFrame/tableModel.cpp" line="531"/>
         <source>Time deleted</source>
-        <translation>ເວລາການລືມ</translation>
+        <translation>ເວລາລົບ</translation>
     </message>
 </context>
 <context>
     <name>TaskDelegate</name>
     <message>
-        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="203"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="220"/>
+        <location filename="../src/src/ui/createTask/taskdelegate.cpp" line="231"/>
         <source>Duplicate name</source>
-        <translation>ຊື່ຊື່ກົບ</translation>
+        <translation>ຊື່ຊໍ້າກັນ</translation>
+    </message>
+</context>
+<context>
+    <name>TaskModel</name>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="146"/>
+        <source>Name</source>
+        <translation>ຊື່</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="150"/>
+        <source>Type</source>
+        <translation>ປະເພດ</translation>
+    </message>
+    <message>
+        <location filename="../src/src/ui/createTask/taskModel.cpp" line="152"/>
+        <source>Size</source>
+        <translation>ຂະໜາດ</translation>
     </message>
 </context>
 <context>
     <name>TopButton</name>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="72"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="91"/>
         <source>New task</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ວຽກງານໃໝ່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="79"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="98"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="173"/>
         <source>Pause</source>
-        <translation>ຢຸດຊ່ວນ</translation>
+        <translation>ຢຸດຊົ່ວຄາວ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="86"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="105"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="172"/>
         <source>Resume</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ສືບຕໍ່</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="93"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="112"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="158"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="166"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="174"/>
         <source>Delete</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ລົບ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="136"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="156"/>
         <source>Empty</source>
-        <translation>ວຽກໃໝ່</translation>
+        <translation>ເຄື່ອນອອກ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="137"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="157"/>
         <source>Restore</source>
-        <translation>ກຳນຳຄົງ</translation>
+        <translation>ກູ້ຄືນ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="144"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="164"/>
         <source>Open folder</source>
-        <translation>ເປີນເົ້າ</translation>
+        <translation>ເປີດໂຟນເດີ</translation>
     </message>
     <message>
-        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="145"/>
+        <location filename="../src/src/ui/mainFrame/topButton.cpp" line="165"/>
         <source>Open</source>
-        <translation>ເປີນ</translation>
+        <translation>ເປີດ</translation>
     </message>
 </context>
 </TS>
