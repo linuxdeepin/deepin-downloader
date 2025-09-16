@@ -246,14 +246,19 @@ void DiagnosticModel::appendData(bool b)
 {
     qDebug() << "Appending diagnostic data, status:" << b;
     const int row = m_DiagnosticStatusList.size();
-    beginInsertRows(QModelIndex(), row, row);
-    m_DiagnosticStatusList.append(b);
-    endInsertRows();
+    if (row < 6) {
+        m_DiagnosticStatusList.append(b);
+        // 不再用插入行（因为行数固定为6），改为按行触发 dataChanged，
+        // 并在清空时使用 reset 通知，这样结果会自动刷新而无需点击界面
+        emit dataChanged(index(row, 0), index(row, 2));
+    }
 }
 
 void DiagnosticModel::clearData()
 {
+    beginResetModel();
     m_DiagnosticStatusList.clear();
+    endResetModel();
 }
 
 bool DiagnosticModel::setData(const QModelIndex &index, const QVariant &value, int role)

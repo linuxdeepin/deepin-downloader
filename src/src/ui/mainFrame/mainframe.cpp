@@ -1747,6 +1747,8 @@ void MainFrame::showDiagnosticTool()
 {
     DiagnosticTool control(this);
     connect(this, &MainFrame::ariaOption, &control, &DiagnosticTool::onAriaOption);
+    // 最小改动：在对话框显示前主动获取一次全局配置，避免诊断时序导致的误判
+    Aria2RPCInterface::instance()->getGlobalOption();
     control.exec();
 }
 
@@ -1983,13 +1985,8 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
     } else if (method == ARIA2C_METHOD_GET_GLOBAL_OPTION) {
         QJsonObject obj = json.value("result").toObject();
         QString tracker = obj.value("bt-tracker").toString();
-        bool isHasDHT = false;
-        if (obj.value("enable-dht").toString().contains("true")) {
-            QString dhtfile = obj.value("dht-file-path").toString();
-            if (QFileInfo::exists(dhtfile)) {
-                isHasDHT = true;
-            }
-        }
+        // 最小改动：稳健解析 enable-dht（可能为字符串或布尔），避免因类型不同导致误判
+        bool isHasDHT = obj.value("enable-dht").toVariant().toBool();
         emit ariaOption(!tracker.isEmpty(), isHasDHT);
     }
 }
