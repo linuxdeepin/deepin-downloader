@@ -241,6 +241,13 @@ private slots:
      */
     void onOtherCheck();
 
+    /**
+     * @brief 异步处理BT/Metalink文件信息 - 避免调用回环
+     * @param filePath 文件路径
+     * @param isMetalink 是否为metalink文件
+     */
+    void onProcessBtFileAsync(QString filePath, bool isMetalink);
+
 protected:
     /**
      * @brief 拖拽处理函数
@@ -285,6 +292,13 @@ signals:
      * @param infoName bt文件名字
     */
     void downLoadMetaLinkCreate(QString MetaLinkPath, QMap<QString, QVariant> &opt, QString infoName);
+
+    /**
+     * @brief 请求异步处理BT/Metalink文件 - 打破调用回环
+     * @param filePath 文件路径
+     * @param isMetalink 是否为metalink文件
+     */
+    void requestProcessBtFile(QString filePath, bool isMetalink);
 
 private:
     DTextEdit *m_texturl; //url文本框
