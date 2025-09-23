@@ -246,21 +246,62 @@ bool TableDataControl::aria2MethodAdd(QJsonObject &json, QString &searchContent)
 bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentRow, QString &searchContent)
 {
     qDebug() << "Processing aria2 status change for task:" << json.value("id").toString();
-    QJsonObject result = json.value("result").toObject();
-    QJsonObject bittorrent = result.value("bittorrent").toObject();
+    
+    // Minimal safety check: ensure result field exists and is an object
+    QJsonValue resultValue = json.value("result");
+    if (!resultValue.isObject()) {
+        qDebug() << "Error: result field is not an object, skipping status update";
+        return false;
+    }
+    
+    QJsonObject result = resultValue.toObject();
+    
+    // Minimal safety check for bittorrent field
+    QJsonValue bittorrentValue = result.value("bittorrent");
+    QJsonObject bittorrent;
+    if (bittorrentValue.isObject()) {
+        bittorrent = bittorrentValue.toObject();
+    }
     QString filePath;
     QString taskId = json.value("id").toString();
-    QJsonArray files = result.value("files").toArray();
+    
+    // Minimal safety check for files array
+    QJsonValue filesValue = result.value("files");
+    if (!filesValue.isArray() || filesValue.toArray().isEmpty()) {
+        qDebug() << "Error: files field is not a valid array or is empty, skipping status update";
+        return false;
+    }
+    
+    QJsonArray files = filesValue.toArray();
+    
+    // Minimal safety check for first file object
+    if (!files[0].isObject()) {
+        qDebug() << "Error: first file element is not an object, skipping status update";
+        return false;
+    }
+    
+    // Safe access to first file object
+    QJsonObject firstFile = files[0].toObject();
+    
     if (files.size() == 1) {
-        filePath = files[0].toObject().value("path").toString();
+        filePath = firstFile.value("path").toString();
     } else {
-        QString path = files[0].toObject().value("path").toString();
+        QString path = firstFile.value("path").toString();
         QString path2 = result.value("dir").toString();
         filePath = path2 + "/" + path.split('/').at(path2.split('/').count());
         //filePath = path.left(path.count() - path.split('/').last().count() - 1);
     }
 
-    QString fileUri = files[0].toObject().value("uris").toArray()[0].toObject().value("uri").toString();
+    QString fileUri;
+    // Minimal safety check for uris array - cache toArray() result to avoid reference issues
+    QJsonValue urisValue = firstFile.value("uris");
+    if (urisValue.isArray()) {
+        QJsonArray urisArray = urisValue.toArray();
+        if (!urisArray.isEmpty() && urisArray[0].isObject()) {
+            QJsonObject uriObject = urisArray[0].toObject();
+            fileUri = uriObject.value("uri").toString();
+        }
+    }
     QString gId = result.value("gid").toString();
     long totalLength = result.value("totalLength").toString().toLong(); //字节
     long completedLength = result.value("completedLength").toString().toLong(); //字节
@@ -291,7 +332,15 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         return false;
     }
     data->connection = result.value("connections").toString().toLong();
-    data->announceList = bittorrent.value("announceList").toArray().size();
+    
+    // Minimal safety check for announceList
+    data->announceList = 0;
+    if (!bittorrent.isEmpty()) {
+        QJsonValue announceListValue = bittorrent.value("announceList");
+        if (announceListValue.isArray()) {
+            data->announceList = announceListValue.toArray().size();
+        }
+    }
     if (statusStr == "active") {
         qDebug() << "statusStr is active";
         status = Global::DownloadTaskStatus::Active;
@@ -562,8 +611,16 @@ bool TableDataControl::aria2MethodUnpauseAll(QJsonObject &json, int iCurrentRow)
 bool TableDataControl::aria2GetGlobalStatus(QJsonObject &json)
 {
     qDebug() << "aria2GetGlobalStatus function started";
+    
+    // Minimal safety check for result field
+    QJsonValue resultValue = json.value("result");
+    if (!resultValue.isObject()) {
+        qDebug() << "Error: result field is not an object in aria2GetGlobalStatus, skipping";
+        return false;
+    }
+    
     static QList<long long> speedList;
-    QJsonObject ja = json.value("result").toObject();
+    QJsonObject ja = resultValue.toObject();
     long long speed = ja.value("downloadSpeed").toString().toLong();
     speedList.append(speed);
     if (speedList.count() >= 5) {

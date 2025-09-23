@@ -579,8 +579,38 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     }
     int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(); //请求返回的属性值
     QByteArray buf = reply->readAll(); //获取信息
-    QJsonDocument doc = QJsonDocument::fromJson(buf); //转换为json格式
+    
+    // Safety check: validate JSON parsing
+    if (buf.isEmpty()) {
+        qDebug() << "[Aria2RPC] Error: Empty response buffer for method:" << method;
+        return;
+    }
+    
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(buf, &parseError); //转换为json格式
+    
+    // Safety check: ensure JSON parsing succeeded
+    if (parseError.error != QJsonParseError::NoError) {
+        qDebug() << "[Aria2RPC] Error: JSON parse failed for method:" << method 
+                 << "Error:" << parseError.errorString() 
+                 << "Offset:" << parseError.offset;
+        return;
+    }
+    
+    // Safety check: ensure document contains an object
+    if (!doc.isObject()) {
+        qDebug() << "[Aria2RPC] Error: JSON document is not an object for method:" << method;
+        return;
+    }
+    
     QJsonObject obj = doc.object();
+    
+    // Safety check: ensure object is not empty
+    if (obj.isEmpty()) {
+        qDebug() << "[Aria2RPC] Error: JSON object is empty for method:" << method;
+        return;
+    }
+    
     if (code == 200) { //返回正常
         qDebug() << "[Aria2RPC] sendMessage function, method is " << method << ", code is 200";
         emit RPCSuccess(method, obj);

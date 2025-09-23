@@ -48,6 +48,7 @@
 #include <QRegularExpression>
 #endif
 #include <QFont>
+#include <QTimer>
 #include "btinfodialog.h"
 #include "messagebox.h"
 #include "btinfotableview.h"
@@ -82,6 +83,10 @@ CreateTaskWidget::CreateTaskWidget(QWidget *parent)
         }
     }
     initUi();
+
+    // Connect signal to slot for async BT processing to avoid callback loop
+    connect(this, &CreateTaskWidget::requestProcessBtFile, this, &CreateTaskWidget::onProcessBtFileAsync, Qt::QueuedConnection);
+
     qDebug() << "[CreateTaskWidget] Constructor ended";
 }
 
@@ -414,18 +419,9 @@ void CreateTaskWidget::onFileDialogOpen()
     QString btFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.torrent");
     if (btFile != "") {
         qDebug() << "[CreateTaskWidget] Torrent file selected:" << btFile;
-        hide();
-        BtInfoDialog dialog(btFile, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
-        if (dialog.exec() == QDialog::Accepted) {
-            qDebug() << "[CreateTaskWidget] Dialog accepted, creating torrent download";
-            QMap<QString, QVariant> opt;
-            opt.clear();
-            QString infoName;
-            QString infoHash;
-            dialog.getBtInfo(opt, infoName, infoHash);
-            emit downLoadTorrentCreate(btFile, opt, infoName, infoHash);
-        }
-        close();
+
+        // Fixed: Use signal to avoid callback loop between MainFrame and CreateTaskWidget
+        emit requestProcessBtFile(btFile, false); // false = not metalink
     }
     qDebug() << "[CreateTaskWidget] onFileDialogOpen function ended";
 }
@@ -435,17 +431,10 @@ void CreateTaskWidget::onMLFileDialogOpen()
     qDebug() << "[CreateTaskWidget] onMLFileDialogOpen function started";
     QString mlFile = DFileDialog::getOpenFileName(this, tr("Choose Torrent File"), QDir::homePath(), "*.metalink");
     if (mlFile != "") {
-        hide();
-        BtInfoDialog dialog(mlFile, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
-        if (dialog.exec() == QDialog::Accepted) {
-            QMap<QString, QVariant> opt;
-            opt.clear();
-            QString infoName;
-            QString infoHash;
-            dialog.getBtInfo(opt, infoName, infoHash);
-            emit downLoadMetaLinkCreate(mlFile, opt, infoName);
-        }
-        close();
+        qDebug() << "[CreateTaskWidget] Metalink file selected:" << mlFile;
+
+        // Fixed: Use signal to avoid callback loop between MainFrame and CreateTaskWidget  
+        emit requestProcessBtFile(mlFile, true); // true = is metalink
     }
     qDebug() << "[CreateTaskWidget] onMLFileDialogOpen function ended";
 }
@@ -555,22 +544,12 @@ void CreateTaskWidget::dropEvent(QDropEvent *event)
             // qDebug() << "[CreateTaskWidget] File name:" << fileName;    
             if (fileName.startsWith("file:") && (fileName.endsWith(".torrent") || fileName.endsWith(".metalink"))) {
                 fileName = fileName.right(fileName.length() - 7);
-                // qDebug() << "[CreateTaskWidget] File name after removing .torrent:" << fileName;
-                hide();
-                BtInfoDialog dialog(fileName, m_defaultDownloadDir, this); //= new BtInfoDialog(); //torrent文件路径
-                int ret = dialog.exec();
-                if (ret == QDialog::Accepted) {
-                    QMap<QString, QVariant> opt;
-                    QString infoName;
-                    QString infoHash;
-                    dialog.getBtInfo(opt, infoName, infoHash);
-                    if (fileName.endsWith(".torrent")) {
-                        emit downLoadTorrentCreate(fileName, opt, infoName, infoHash);
-                    } else {
-                        emit downLoadMetaLinkCreate(fileName, opt, infoName);
-                    }
-                }
-                close();
+                // qDebug() << "[CreateTaskWidget] File name after removing file: prefix:" << fileName;
+
+                // Fixed: Use signal to avoid callback loop between MainFrame and CreateTaskWidget
+                bool isMetalink = fileName.endsWith(".metalink");
+                emit requestProcessBtFile(fileName, isMetalink);
+                return; // Important: return immediately after emitting signal
             }
         }
     }
@@ -1406,5 +1385,36 @@ bool CreateTaskWidget::isExistType(QString type)
                 "aac" << "txt" << "crx" << "dat" << "7z" << "ttf" << "bat" << "xv" << "xvx" << "pdf" <<
                 "mp4" << "apk" << "ipa" << "epub" << "mobi" << "deb";
     return typeList.contains(type , Qt::CaseSensitivity::CaseSensitive);
+}
+
+void CreateTaskWidget::onProcessBtFileAsync(QString filePath, bool isMetalink)
+{
+    qDebug() << "[CreateTaskWidget] onProcessBtFileAsync function started with filePath:" << filePath << "isMetalink:" << isMetalink;
+
+    // Use QTimer::singleShot to break the callback loop by deferring execution
+    QTimer::singleShot(0, this, [=]() {
+        qDebug() << "[CreateTaskWidget] Processing BT/Metalink file asynchronously";
+
+        hide(); // Hide the main dialog
+        BtInfoDialog dialog(filePath, m_defaultDownloadDir, this);
+        int ret = dialog.exec();
+
+        if (ret == QDialog::Accepted) {
+            QMap<QString, QVariant> opt;
+            QString infoName;
+            QString infoHash;
+            dialog.getBtInfo(opt, infoName, infoHash);
+            
+            if (isMetalink) {
+                emit downLoadMetaLinkCreate(filePath, opt, infoName);
+            } else {
+                emit downLoadTorrentCreate(filePath, opt, infoName, infoHash);
+            }
+        }
+
+        close(); // Close the main dialog
+    });
+
+    qDebug() << "[CreateTaskWidget] onProcessBtFileAsync function ended";
 }
 
