@@ -388,7 +388,7 @@ të shpejtë shkarkimin, pa prekur privatësinë e përdoruesit.</translation>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="97"/>
         <source>P lease enter one URL per line</source>
-        <translation type="unfinished"/>
+        <translation>Ju lutemi, jepni një URL për rresht</translation>
     </message>
     <message>
         <location filename="../src/src/ui/settings/httpadvancedsettingwidget.cpp" line="101"/>
@@ -771,7 +771,7 @@ Aktet e shkarkimit do të ndërpriten.</translation>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="187"/>
         <source>Rename</source>
-        <translation>Riemërtoni</translation>
+        <translation>Riemërtojeni</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="214"/>
