@@ -45,7 +45,7 @@ DWIDGET_USE_NAMESPACE
 TopButton::TopButton(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "TopButton constructor";
+    // qDebug() << "TopButton constructor";
     Init();
     InitConnections();
     setObjectName("toolBox");
@@ -53,11 +53,13 @@ TopButton::TopButton(QWidget *parent)
 
 QPoint TopButton::getSearchEditPosition()
 {
+    // qDebug() << "[TopButton] getSearchEditPosition function started";
     return m_searchEdit->geometry().bottomLeft();
 }
 
 void TopButton::Init()
 {
+    // qDebug() << "[TopButton] Init function started";
     QHBoxLayout *mainHlayout = new QHBoxLayout(this);
 
     mainHlayout->setContentsMargins(0, 5, 0, 5);
@@ -125,12 +127,12 @@ void TopButton::Init()
     mainHlayout->addStretch();
 
     // mainHlayout->addStretch();
-    qDebug() << "asdwasdw";
+    // qDebug() << "asdwasdw";
 }
 
 void TopButton::InitConnections()
 {
-    qDebug() << "Initializing TopButton connections";
+    // qDebug() << "Initializing TopButton connections";
     connect(m_newDownloadBtn, &DIconButton::clicked, this, &TopButton::newDownloadBtnClicked);
     connect(m_pauseDownloadBtn, &DIconButton::clicked, this, &TopButton::pauseDownloadBtnClicked);
     connect(m_startDownloadBtn, &DIconButton::clicked, this, &TopButton::startDownloadBtnClicked);
@@ -138,11 +140,14 @@ void TopButton::InitConnections()
     connect(m_searchEdit, &DSearchEdit::focusChanged, this, &TopButton::SearchEditFocus);
     connect(m_searchEdit, &DSearchEdit::textChanged, this, &TopButton::SearchEditTextChange);
     connect(m_searchEdit, &SearchWidget::keyPressed, this, &TopButton::SearchEditKeyPressed);
+    // qDebug() << "[TopButton] InitConnections function ended";
 }
 
 void TopButton::mousePressEvent(QMouseEvent *event)
 {
+    // qDebug() << "[TopButton] mousePressEvent function started";
     if (event->button() == Qt::RightButton) {
+        // qDebug() << "[TopButton] mousePressEvent function ended";
         return;
     }
     QWidget::mousePressEvent(event);
@@ -150,8 +155,9 @@ void TopButton::mousePressEvent(QMouseEvent *event)
 
 void TopButton::onTableChanged(int index)
 {
-    qDebug() << "Table changed to index:" << index;
+    // qDebug() << "[TopButton] onTableChanged function started with index:" << index;
     if (index == 2) {
+        // qDebug() << "[TopButton] onTableChanged function ended";
         m_startDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_delete"));
         m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_recycel_restore"));
         m_deleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
@@ -160,6 +166,7 @@ void TopButton::onTableChanged(int index)
         m_pauseDownloadBtn->setToolTip(tr("Restore"));
         m_deleteDownloadBtn->setToolTip(tr("Delete"));
     } else if (index == 1) {
+        // qDebug() << "[TopButton] onTableChanged function ended";
         m_startDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfolder"));
         m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_finish_openfile"));
         m_deleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
@@ -168,6 +175,7 @@ void TopButton::onTableChanged(int index)
         m_pauseDownloadBtn->setToolTip(tr("Open"));
         m_deleteDownloadBtn->setToolTip(tr("Delete"));
     } else {
+        // qDebug() << "[TopButton] onTableChanged function ended";
         m_startDownloadBtn->setIcon(QIcon::fromTheme("dcc_icon_start"));
         m_pauseDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_pause"));
         m_deleteDownloadBtn->setIcon(QIcon::fromTheme("dcc_list_icon_delete"));
@@ -180,11 +188,13 @@ void TopButton::onTableChanged(int index)
         m_pauseDownloadBtn->setEnabled(false);
         m_deleteDownloadBtn->setEnabled(false);
     }
+    // qDebug() << "[TopButton] onTableChanged function ended";
 }
 
 SearchWidget::SearchWidget(QWidget *parent)
      : DTK_WIDGET_NAMESPACE::DSearchEdit(parent)
 {
+    // qDebug() << "[SearchWidget] Constructor started";
     connect(lineEdit(), &QLineEdit::editingFinished, this, [&](){
                 emit keyPressed(Qt::Key_Enter);
     });
@@ -192,18 +202,22 @@ SearchWidget::SearchWidget(QWidget *parent)
 
 bool SearchWidget::eventFilter(QObject *o, QEvent *e)
 {
+    // qDebug() << "[SearchWidget] eventFilter function started";
     if (e->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(e);
         switch (ke->key()) {
         case Qt::Key_Up: {
+            // qDebug() << "[SearchWidget] Key_Up pressed";
             emit keyPressed(Qt::Key_Up);
             return true;
         }
         case Qt::Key_Down: {
+            // qDebug() << "[SearchWidget] Key_Down pressed";
             emit keyPressed(Qt::Key_Down);
             return true;
         }
         case Qt::Key_Enter: {
+            // qDebug() << "[SearchWidget] Key_Enter pressed";
             emit keyPressed(Qt::Key_Enter);
             return true;
         }

@@ -54,6 +54,7 @@ DeleteItemThread::DeleteItemThread(QList<DeleteDataItem*> &recycleDeleteList,
     m_RecycleTableview = recycleTableview;
     m_IfDeleteLocal = ifDeleteLocal;
     m_StrDeleteType = deleteType;
+    qDebug() << "[DeleteItemThread] Recycle constructor ended";
 }
 
 DeleteItemThread::DeleteItemThread(QList<DownloadDataItem*> &deleteList,
@@ -67,12 +68,14 @@ DeleteItemThread::DeleteItemThread(QList<DownloadDataItem*> &deleteList,
     m_DownloadingTableview = downloadingTableview;
     m_IfDeleteLocal = ifDeleteLocal;
     m_StrDeleteType = deleteType;
+    qDebug() << "[DeleteItemThread] Download constructor ended";
 }
 
 void DeleteItemThread::deleteRecycleData()
 {
     qDebug() << "Starting to delete recycle data, count:" << m_RecycleDeleteList.size();
     if (m_IfDeleteLocal) {
+        qDebug() << "[DeleteItemThread] Deleting local files";
         for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
             QString savePath = m_RecycleDeleteList.at(i)->savePath;
             QString gid = m_RecycleDeleteList.at(i)->gid;
@@ -81,27 +84,33 @@ void DeleteItemThread::deleteRecycleData()
             if (!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
+                    // qDebug() << "[DeleteItemThread] Deleting directory recursively:" << savePath;
                     QDir tar(m_RecycleDeleteList.at(i)->savePath);
                     tar.removeRecursively();
                     if (QFile::exists(savePath + ".aria2")) {
+                        // qDebug() << "[DeleteItemThread] Removing aria2 temp file:" << savePath + ".aria2";
                         QFile::remove(savePath + ".aria2");
                         QTimer::singleShot(3000, [=]() {
                             QFile::remove(savePath + ".aria2");
                         });
                     }
                 } else {
+                    // qDebug() << "[DeleteItemThread] Deleting single file:" << savePath;
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
                         if (m_RecycleDeleteList.at(i)->url.isEmpty()) { //bt任务
+                            // qDebug() << "[DeleteItemThread] Processing BT task deletion";
                             TaskInfoHash info;
                             DBInstance::getBtTaskById(m_RecycleDeleteList.at(i)->taskId, info);
                             QString torrentPath = info.filePath;
                             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                             QString mode = btInfo.mode;
                             if (m_RecycleDeleteList.at(i)->savePath.contains(btInfo.name)) {
+                                // qDebug() << "[DeleteItemThread] Deleting BT task directory:" << m_RecycleDeleteList.at(i)->savePath;
                                 deleteDirectory(m_RecycleDeleteList.at(i)->savePath);
                             }
                         } else {
+                            // qDebug() << "[DeleteItemThread] Processing regular task deletion";
                             deleteDirectory(m_RecycleDeleteList.at(i)->savePath);
                         }
                         if (QFile::exists(ariaTempFile)) {
@@ -116,6 +125,7 @@ void DeleteItemThread::deleteRecycleData()
         }
     }
     emit removeFinished();
+    qDebug() << "[DeleteItemThread] deleteRecycleData function ended";
 }
 
 void DeleteItemThread::deleteDownloadData()
@@ -133,16 +143,20 @@ void DeleteItemThread::deleteDownloadData()
             if (!savePath.isEmpty()) {
                 QFileInfo fileinfo(savePath);
                 if (fileinfo.isDir() && savePath.contains(filename) && !filename.isEmpty()) {
+                    // qDebug() << "[DeleteItemThread] Deleting download directory:" << savePath;
                     if (m_DeleteList.at(i)->url.isEmpty()) { //bt任务
+                        // qDebug() << "[DeleteItemThread] Processing BT download task deletion";
                         TaskInfoHash info;
                         DBInstance::getBtTaskById(m_DeleteList.at(i)->taskId, info);
                         QString torrentPath = info.filePath;
                         Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                         QString mode = btInfo.mode;
                         if (m_DeleteList.at(i)->savePath.contains(btInfo.name)) {
+                            // qDebug() << "[DeleteItemThread] Deleting BT download directory:" << m_DeleteList.at(i)->savePath;
                             deleteDirectory(m_DeleteList.at(i)->savePath);
                         }
                     } else {
+                        // qDebug() << "[DeleteItemThread] Processing regular download task deletion";
                         deleteDirectory(m_DeleteList.at(i)->savePath);
                     }
                     if (QFile::exists(savePath + ".aria2")) {
@@ -155,18 +169,22 @@ void DeleteItemThread::deleteDownloadData()
                         });
                     }
                 } else {
+                    // qDebug() << "[DeleteItemThread] Deleting single download file:" << savePath;
                     QString ariaTempFile = savePath + ".aria2";
                     if (!savePath.isEmpty()) {
                         if (m_DeleteList.at(i)->url.isEmpty()) { //bt任务
+                            // qDebug() << "[DeleteItemThread] Processing BT single file deletion";
                             TaskInfoHash info;
                             DBInstance::getBtTaskById(m_DeleteList.at(i)->taskId, info);
                             QString torrentPath = info.filePath;
                             Aria2cBtInfo btInfo = Aria2RPCInterface::instance()->getBtInfo(torrentPath);
                             QString mode = btInfo.mode;
                             if (m_DeleteList.at(i)->savePath.contains(btInfo.name)) {
+                                // qDebug() << "[DeleteItemThread] Deleting BT single file:" << m_DeleteList.at(i)->savePath;
                                 deleteDirectory(m_DeleteList.at(i)->savePath);
                             }
                         } else {
+                            // qDebug() << "[DeleteItemThread] Processing regular single file deletion";
                             deleteDirectory(m_DeleteList.at(i)->savePath);
                         }
                         if (QFile::exists(ariaTempFile)) {
@@ -181,15 +199,18 @@ void DeleteItemThread::deleteDownloadData()
         }
     }
     emit removeFinished();
+    qDebug() << "[DeleteItemThread] deleteDownloadData function ended";
 }
 
 void DeleteItemThread::run()
 {
     qDebug() << "Delete thread started, delete type:" << m_StrDeleteType;
     if (m_StrDeleteType == "recycle_delete") {
+        qDebug() << "[DeleteItemThread] Executing recycle delete operation";
         deleteRecycleData();
     }
     if (m_StrDeleteType == "download_delete") {
+        qDebug() << "[DeleteItemThread] Executing download delete operation";
         deleteDownloadData();
     }
     QEventLoop loop;
@@ -203,6 +224,7 @@ bool DeleteItemThread::deleteDirectory(const QString &path)
     qDebug() << "Attempting to delete directory:" << path;
     QFileInfo info(path);
     if (info.isFile()) {
+        qDebug() << "[DeleteItemThread] Deleting file:" << path;
         QFile::remove(path);
         return true;
     }
@@ -221,8 +243,10 @@ bool DeleteItemThread::deleteDirectory(const QString &path)
     QFileInfoList fileList = dir.entryInfoList();
     for (QFileInfo fi : fileList) {
         if (fi.isFile()) {
+            // qDebug() << "[DeleteItemThread] Deleting file in directory:" << fi.fileName();
             fi.dir().remove(fi.fileName());
         } else {
+            // qDebug() << "[DeleteItemThread] Recursively deleting subdirectory:" << fi.absoluteFilePath();
             deleteDirectory(fi.absoluteFilePath());
         }
     }

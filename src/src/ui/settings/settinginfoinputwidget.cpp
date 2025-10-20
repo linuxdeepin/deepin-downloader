@@ -41,6 +41,7 @@ SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent)
     qDebug() << "SettingInfoInputWidget created";
     initUI();
     initConnections();
+    qDebug() << "[SettingInfoInputWidget] Constructor ended";
 }
 
 void SettingInfoInputWidget::initUI()
@@ -71,6 +72,7 @@ void SettingInfoInputWidget::initUI()
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(mainLayout);
+    qDebug() << "[SettingInfoInputWidget] initUI function ended";
 }
 
 void SettingInfoInputWidget::initConnections()
@@ -78,6 +80,7 @@ void SettingInfoInputWidget::initConnections()
     qDebug() << "Initializing setting info input widget connections";
     connect(m_lineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::onLineEditTextChanged);
     connect(m_lineEdit, &DLineEdit::focusChanged, this, &SettingInfoInputWidget::focusChanged);
+    qDebug() << "[SettingInfoInputWidget] initConnections function ended";
 }
 
 void SettingInfoInputWidget::onLineEditTextChanged(const QString &text)
@@ -88,38 +91,45 @@ void SettingInfoInputWidget::onLineEditTextChanged(const QString &text)
 
 void SettingInfoInputWidget::setTitleLabelText(const QString &text)
 {
+    // qDebug() << "Setting title label text:" << text;
     m_titleLabel->setText(text);
 }
 
 void SettingInfoInputWidget::setUnitLabelText(const QString &text)
 {
+    // qDebug() << "Setting unit label text:" << text;
     m_unitLabel->setText(text);
 }
 
 void SettingInfoInputWidget::setRangeLabelText(const QString &text)
 {
+    // qDebug() << "Setting range label text:" << text;
     m_rangeLabel->setText(text);
 }
 
 void SettingInfoInputWidget::setLineEditText(const QString &text)
 {
+    // qDebug() << "Setting line edit text:" << text;
     m_lineEdit->setText(text);
     m_lineEdit->setAccessibleName(text);
 }
 
 void SettingInfoInputWidget::setLineEditIsDisabled(bool isDisabled)
 {
+    // qDebug() << "Setting line edit is disabled:" << isDisabled;
     m_lineEdit->setDisabled(isDisabled);
 }
 
 void SettingInfoInputWidget::setValid(const int &minValid, const int &maxValid)
 {
+    // qDebug() << "Setting valid:" << minValid << "to" << maxValid;
     QIntValidator *validator = new QIntValidator(minValid, maxValid, this);
     m_lineEdit->lineEdit()->setValidator(validator);
 }
 
 QString SettingInfoInputWidget::getLineEditText()
 {
+    // qDebug() << "Getting line edit text";
     QString strText = m_lineEdit->text();
 
     return strText;
@@ -127,31 +137,37 @@ QString SettingInfoInputWidget::getLineEditText()
 
 void SettingInfoInputWidget::setWidgetWidth(const int &width)
 {
+    // qDebug() << "Setting widget width:" << width;
     m_widget->setFixedWidth(width);
 }
 
 void SettingInfoInputWidget::setRangeLabelFont(QFont font)
 {
+    // qDebug() << "Setting range label font:" << font;
     m_rangeLabel->setFont(font);
 }
 
 void SettingInfoInputWidget::setRangeLabelPalette(DPalette palette)
 {
+    // qDebug() << "Setting range label palette:" << palette;
     m_rangeLabel->setPalette(palette);
 }
 
 void SettingInfoInputWidget::setLineEditAlert(bool isAlert)
 {
+    // qDebug() << "Setting line edit alert:" << isAlert;
     m_lineEdit->setAlert(isAlert);
 }
 
 DLineEdit *SettingInfoInputWidget::getLineEdit()
 {
+    // qDebug() << "Getting line edit";
     return m_lineEdit;
 }
 
 bool SettingInfoInputWidget::getIsAlert()
 {
+    // qDebug() << "Getting line edit alert";
     return m_lineEdit->isAlert();
 }
 

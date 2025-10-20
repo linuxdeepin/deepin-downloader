@@ -19,11 +19,12 @@ CTimeEdit::CTimeEdit(QWidget *parent)
     initUI();
     initConnection();
     setFocus(Qt::MouseFocusReason);
+    qDebug() << "[TimeEdit] Constructor ended";
 }
 
 CTimeEdit::~CTimeEdit() 
 {
-    qDebug() << "TimeEdit widget destroyed";
+    // qDebug() << "TimeEdit widget destroyed";
 }
 
 void CTimeEdit::setTime(QTime time)
@@ -36,6 +37,7 @@ void CTimeEdit::setTime(QTime time)
 
 QTime CTimeEdit::getTime()
 {
+    qDebug() << "[TimeEdit] getTime function started";
     //获取显示的text
     QString timetext = m_timeEdit->lineEdit()->displayText();
     //将text转换为时间
@@ -46,11 +48,13 @@ QTime CTimeEdit::getTime()
 
 DLineEdit *CTimeEdit::dLineEdit()
 {
+    // qDebug() << "[TimeEdit] dLineEdit function started";
     return m_timeEdit;
 }
 
 void CTimeEdit::initUI()
 {
+    // qDebug() << "[TimeEdit] initUI function started";
     m_timeEdit = new DLineEdit(this);
     //m_timeEdit->lineEdit()->setInputMask("00:00;0");
     m_timeEdit->setClearButtonEnabled(false);
@@ -78,6 +82,7 @@ void CTimeEdit::initUI()
 
 void CTimeEdit::initConnection()
 {
+    // qDebug() << "[TimeEdit] initConnection function started";
 //    m_timeEdit->disconnect(SIGNAL(returnPressed()));
 //    m_timeEdit->disconnect(SIGNAL(editingFinished()));
 //    m_timeEdit->disconnect(SIGNAL(selectionChanged()));
@@ -100,11 +105,12 @@ void CTimeEdit::initConnection()
         QString c = m_timeEdit->lineEdit()->text();
        // emit inputFinished(this->currentText());
     });
+    // qDebug() << "[TimeEdit] initConnection function ended";
 }
 
 void CTimeEdit::onIndexChanged(const QString &text)
 {
-    qDebug() << "Time selection changed to:" << text;
+    // qDebug() << "Time selection changed to:" << text;
     m_timeEdit->setText(text);
 
     QString a = this->currentText();

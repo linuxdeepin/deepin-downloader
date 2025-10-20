@@ -42,17 +42,18 @@
 
 FileSavePathChooser::FileSavePathChooser(const int &currentSelect, const QString &downloadPath)
 {
-    qDebug() << "FileSavePathChooser created with currentSelect:" << currentSelect << "downloadPath:" << downloadPath;
+    // qDebug() << "FileSavePathChooser created with currentSelect:" << currentSelect << "downloadPath:" << downloadPath;
     m_currentSelect = currentSelect;
     m_downloadPath = downloadPath;
 
     initUI();
     initConnections();
+    // qDebug() << "[FileSavePathChooser] Constructor ended";
 }
 
 void FileSavePathChooser::initUI()
 {
-    qDebug() << "Initializing file save path chooser UI";
+    // qDebug() << "Initializing file save path chooser UI";
     m_fileChooserEdit = new DFileChooserEdit;
     m_autoLastPathRadioButton = new DRadioButton(tr("Last used directory")); // 自动修改为上次使用的目录
     m_autoLastPathRadioButton->setObjectName("lastPathBtn");
@@ -68,10 +69,12 @@ void FileSavePathChooser::initUI()
 #endif
 
     if (m_currentSelect == 1) {
+        // qDebug() << "currentSelect is 1";
         m_autoLastPathRadioButton->setChecked(true);
         m_customsPathRadioButton->setChecked(false);
         m_fileChooserEdit->setDisabled(true);
     } else {
+        // qDebug() << "currentSelect is 2";
         m_autoLastPathRadioButton->setChecked(false);
         m_customsPathRadioButton->setChecked(true);
         m_fileChooserEdit->setDisabled(false);
@@ -109,22 +112,26 @@ void FileSavePathChooser::initUI()
     //    setStyleSheet("background:rgba(249, 249, 249, 1)");
 
     setLayout(mainLayout);
+    // qDebug() << "[FileSavePathChooser] initUI function ended";
 }
 
 void FileSavePathChooser::initConnections()
 {
-    qDebug() << "Initializing file save path chooser connections";
+    // qDebug() << "Initializing file save path chooser connections";
     connect(m_autoLastPathRadioButton, &DRadioButton::clicked, this, &FileSavePathChooser::onRadioButtonClicked);
     connect(m_customsPathRadioButton, &DRadioButton::clicked, this, &FileSavePathChooser::onRadioButtonClicked);
     connect(m_fileChooserEdit, &DFileChooserEdit::textChanged, this, &FileSavePathChooser::onLineEditTextChanged);
+    // qDebug() << "[FileSavePathChooser] initConnections function ended";
 }
 
 void FileSavePathChooser::onRadioButtonClicked()
 {
+    // qDebug() << "[FileSavePathChooser] onRadioButtonClicked function started";
     DRadioButton *radioButton = qobject_cast<DRadioButton *>(sender());
     qDebug() << "Radio button clicked:" << radioButton->text();
 
     if (m_autoLastPathRadioButton == radioButton) {
+        // qDebug() << "[FileSavePathChooser] Auto last path radio button selected";
         m_autoLastPathRadioButton->setChecked(true);
         m_customsPathRadioButton->setChecked(false);
         m_fileChooserEdit->setDisabled(true);
@@ -133,6 +140,7 @@ void FileSavePathChooser::onRadioButtonClicked()
 
         emit textChanged(text);
     } else if (m_customsPathRadioButton == radioButton) {
+        // qDebug() << "[FileSavePathChooser] Custom path radio button selected";
         m_autoLastPathRadioButton->setChecked(false);
         m_customsPathRadioButton->setChecked(true);
         m_fileChooserEdit->setDisabled(false);
@@ -141,45 +149,54 @@ void FileSavePathChooser::onRadioButtonClicked()
 
         emit textChanged(text);
     }
+    // qDebug() << "[FileSavePathChooser] onRadioButtonClicked function ended";
 }
 
 void FileSavePathChooser::onLineEditTextChanged(const QString &text)
 {
-    qDebug() << "File save path changed to:" << text;
+    // qDebug() << "File save path changed to:" << text;
     QFileInfo fileInfo;
 
     fileInfo.setFile(text);
     if (!fileInfo.isWritable()) {
-        qWarning() << "Selected path is not writable:" << text;
+        // qWarning() << "Selected path is not writable:" << text;
         MessageBox messageBox(this);
         messageBox.setFolderDenied();
         m_fileChooserEdit->setText(m_downloadPath);
 
         messageBox.exec();
     } else {
+        // qDebug() << "[FileSavePathChooser] Path is writable, emitting textChanged";
         QString changedText = "custom;" + text;
 
         emit textChanged(changedText);
     }
+    // qDebug() << "[FileSavePathChooser] onLineEditTextChanged function ended";
 }
 
 bool FileSavePathChooser::setLineEditText(const QString &text)
 {
+    // qDebug() << "[FileSavePathChooser] setLineEditText function started with text:" << text;
     m_downloadPath = text;
     m_fileChooserEdit->setText(text);
+    // qDebug() << "[FileSavePathChooser] setLineEditText function ended with result: true";
     return true;
 }
 
 bool FileSavePathChooser::setCurrentSelectRadioButton(const int &currentSelect)
 {
+    // qDebug() << "[FileSavePathChooser] setCurrentSelectRadioButton function started with currentSelect:" << currentSelect;
     if (currentSelect == 1) {
+        // qDebug() << "[FileSavePathChooser] Setting auto last path radio button";
         m_autoLastPathRadioButton->setChecked(true);
         m_customsPathRadioButton->setChecked(false);
         m_fileChooserEdit->setDisabled(true);
     } else {
+        // qDebug() << "[FileSavePathChooser] Setting custom path radio button";
         m_autoLastPathRadioButton->setChecked(false);
         m_customsPathRadioButton->setChecked(true);
         m_fileChooserEdit->setDisabled(false);
     }
+    // qDebug() << "[FileSavePathChooser] setCurrentSelectRadioButton function ended with result: true";
     return true;
 }

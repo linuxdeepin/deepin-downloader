@@ -98,13 +98,15 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
         }
     }
 
+    qDebug() << "[SearchResoultWidget] setData function ended";
 }
 
 void SearchResoultWidget::onKeypressed(Qt::Key k)
 {
-    qDebug() << "Key pressed:" << k;
+    // qDebug() << "Key pressed:" << k;
     QModelIndex index = currentIndex();
     if(k == Qt::Key_Up) {
+        // qDebug() << "Up key pressed";
         if(currentItem() == nullptr){
             setCurrentIndex(index.sibling(0,0));
             return;
@@ -115,6 +117,7 @@ void SearchResoultWidget::onKeypressed(Qt::Key k)
         setCurrentIndex(index.sibling
                         (index.row() - 1, index.column()));
     } else if(k == Qt::Key_Down) {
+        // qDebug() << "Down key pressed";
         if(currentItem() == nullptr){
             setCurrentIndex(index.sibling(0,0));
             return;
@@ -125,22 +128,26 @@ void SearchResoultWidget::onKeypressed(Qt::Key k)
         setCurrentIndex(index.sibling
                         (index.row() + 1, index.column()));
     } else if(k == Qt::Key_Enter) {
+        // qDebug() << "Enter key pressed";
         if(currentItem() != nullptr) {
             emit itemClicked(currentItem());
         }
     }
+    // qDebug() << "[SearchResoultWidget] onKeypressed function ended";
 }
 
 void SearchResoultWidget::focusOutEvent(QFocusEvent *event)
 {
+    // qDebug() << "[SearchResoultWidget] focusOutEvent function started";
     Q_UNUSED(event);
     this->hide();
 }
 
 void SearchResoultWidget::keyPressEvent(QKeyEvent *e)
 {
+    // qDebug() << "[SearchResoultWidget] keyPressEvent function started";
     if(e->key() == Qt::Key_Enter) {
-        qDebug() << "Enter key pressed, emitting item clicked";
+        // qDebug() << "Enter key pressed, emitting item clicked";
         emit itemClicked(currentItem());
     }
 }

@@ -52,26 +52,30 @@ TableModel::TableModel(int Flag, QObject *parent)
     connect(this, &TableModel::checkDatachange, this, &TableModel::onCheckdatachange);
     m_SortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
+    qDebug() << "[TableModel] Constructor ended";
 }
 
 TableModel::~TableModel()
 {
-    qDebug() << "TableModel destroyed, cleaning up data";
+    // qDebug() << "TableModel destroyed, cleaning up data";
     for(auto data : m_DataList) {
         delete data;
     }
     for(auto data : m_RecyleList) {
         delete data;
     }
+    // qDebug() << "[TableModel] Destructor ended";
 }
 
 void TableModel::onCheckdatachange(int flag)
 {
+    qDebug() << "[TableModel] onCheckdatachange function started";
     int checkNum = 0;
     QList<DownloadDataItem *> activeList;
     QList<DownloadDataItem *> finishList;
 
     if (flag == 0) {
+        qDebug() << "flag is 0";
         for (DownloadDataItem *item : m_DataList) {
             if (m_Mode == Downloading) {
                 if (item->status != Global::DownloadTaskStatus::Complete) {
@@ -108,6 +112,7 @@ void TableModel::onCheckdatachange(int flag)
             }
         }
     } else {
+        qDebug() << "flag is not 0";
         for (int i = 0; i < m_RecyleList.size(); i++) {
             DeleteDataItem *del_data = m_RecyleList.at(i);
             if (del_data->isChecked) {
@@ -120,30 +125,37 @@ void TableModel::onCheckdatachange(int flag)
             emit tableviewAllcheckedOrAllunchecked(false);
         }
     }
+    qDebug() << "[TableModel] onCheckdatachange function ended";
 }
 
 DownloadDataItem *TableModel::find(const QString &taskId)
 {
-    qDebug() << "Finding task with ID:" << taskId;
+    // qDebug() << "Finding task with ID:" << taskId;
     if (m_Map.contains(taskId)) {
+        // qDebug() << "[TableModel] find function ended with result: found";
         return m_Map.value(taskId);
     }
+    // qDebug() << "[TableModel] find function ended with result: not found";
     return nullptr;
 }
 
 DeleteDataItem *TableModel::find(const QString &gid, int flag)
 {
+    // qDebug() << "[TableModel] find function started for gid:" << gid << "flag:" << flag;
     Q_UNUSED(flag);
     if (m_Deletemap.contains(gid)) {
+        // qDebug() << "[TableModel] find function ended with result: found";
         return m_Deletemap.value(gid);
     }
+    // qDebug() << "[TableModel] find function ended with result: not found";
     return nullptr;
 }
 
 bool TableModel::append(DownloadDataItem *data)
 {
-    qDebug() << "Appending download data, task ID:" << (data ? data->taskId : "null");
+    // qDebug() << "Appending download data, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
+        // qDebug() << "[TableModel] append function ended with result: false (data is null)";
         return false;
     }
     const int row = m_DataList.size();
@@ -152,13 +164,15 @@ bool TableModel::append(DownloadDataItem *data)
     m_DataList.append(data);
     m_Map.insert(data->taskId, data);
     endInsertRows();
+    // qDebug() << "[TableModel] append function ended with result: true";
     return true;
 }
 
 bool TableModel::append(DeleteDataItem *data)
 {
-    qDebug() << "Appending delete data, task ID:" << (data ? data->taskId : "null");
+    // qDebug() << "Appending delete data, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
+        // qDebug() << "[TableModel] append function ended with result: false (data is null)";
         return false;
     }
     const int row = m_RecyleList.size();
@@ -167,16 +181,19 @@ bool TableModel::append(DeleteDataItem *data)
     m_RecyleList.append(data);
     m_Deletemap.insert(data->taskId, data);
     endInsertRows();
+    // qDebug() << "[TableModel] append function ended with result: true";
     return true;
 }
 
 bool TableModel::removeItem(DownloadDataItem *data)
 {
-    qDebug() << "Removing download item, task ID:" << (data ? data->taskId : "null");
+    // qDebug() << "Removing download item, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
+        // qDebug() << "[TableModel] removeItem function ended with result: false (data is null)";
         return false;
     }
     if (m_Map.contains(data->taskId)) {
+        // qDebug() << "[TableModel] Item found in map, removing";
         beginRemoveRows(QModelIndex(), m_DataList.indexOf(data), m_DataList.indexOf(data));
         m_Map.remove(data->taskId);
         m_DataList.removeOne(data);
@@ -185,16 +202,19 @@ bool TableModel::removeItem(DownloadDataItem *data)
         data = nullptr;
         endRemoveRows();
     }
+    // qDebug() << "[TableModel] removeItem function ended with result: true";
     return true;
 }
 
 bool TableModel::removeItem(DeleteDataItem *data)
 {
-    qDebug() << "Removing delete item, task ID:" << (data ? data->taskId : "null");
+    // qDebug() << "Removing delete item, task ID:" << (data ? data->taskId : "null");
     if (data == nullptr) {
+        // qDebug() << "[TableModel] removeItem function ended with result: false (data is null)";
         return false;
     }
     if (m_Deletemap.contains(data->taskId)) {
+        // qDebug() << "[TableModel] Item found in delete map, removing";
         beginRemoveRows(QModelIndex(), m_RecyleList.indexOf(data), m_RecyleList.indexOf(data));
         m_Deletemap.remove(data->taskId);
         m_RecyleList.removeOne(data);
@@ -202,26 +222,31 @@ bool TableModel::removeItem(DeleteDataItem *data)
         data = nullptr;
         endRemoveRows();
     }
+    // qDebug() << "[TableModel] removeItem function ended with result: true";
     return true;
 }
 
 bool TableModel::removeItems()
 {
+    // qDebug() << "[TableModel] removeItems function started";
     beginRemoveRows(QModelIndex(), 0, m_DataList.size());
     qDeleteAll(m_DataList.begin(), m_DataList.end());
     m_DataList.clear();
     m_Map.clear();
     endRemoveRows();
+    // qDebug() << "[TableModel] removeItems function ended with result: true";
     return true;
 }
 
 bool TableModel::removeRecycleItems()
 {
+    // qDebug() << "[TableModel] removeRecycleItems function started";
     beginRemoveRows(QModelIndex(), 0, m_RecyleList.size());
     qDeleteAll(m_RecyleList.begin(), m_RecyleList.end());
     m_RecyleList.clear();
     m_Deletemap.clear();
     endRemoveRows();
+    // qDebug() << "[TableModel] removeRecycleItems function ended with result: true";
     return true;
 }
 
@@ -240,6 +265,7 @@ bool TableModel::switchDownloadingMode()
     }
     sortDownload(m_SortColumn, m_SortOrder);
     endResetModel();
+    qDebug() << "[TableModel] switchDownloadingMode function ended with result: true";
     return true;
 }
 
@@ -260,11 +286,13 @@ bool TableModel::switchFinishedMode()
     sortDownload(m_SortColumn, m_SortOrder);
 
     endResetModel();
+    qDebug() << "[TableModel] switchFinishedMode function ended with result: true";
     return true;
 }
 
 int TableModel::rowCount(const QModelIndex &parent) const
 {
+    // qDebug() << "[TableModel] rowCount function started";
     Q_UNUSED(parent);
     if (m_TableviewtabFlag == 0) {
         return m_RenderList.size();
@@ -275,6 +303,7 @@ int TableModel::rowCount(const QModelIndex &parent) const
 
 int TableModel::columnCount(const QModelIndex &parent) const
 {
+    // qDebug() << "[TableModel] columnCount function started";
     Q_UNUSED(parent);
 
     return 5;
@@ -282,7 +311,9 @@ int TableModel::columnCount(const QModelIndex &parent) const
 
 QVariant TableModel::data(const QModelIndex &index, int role) const
 {
+    // qDebug() << "[TableModel] data function started";
     if (!index.isValid()) {
+        // qDebug() << "[TableModel] data function ended with result: invalid index";
         return QVariant();
     }
     const int row = index.row();
@@ -495,20 +526,25 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
         break;
     }
     }
+    // qDebug() << "[TableModel] data function ended with result: QVariant()";
     return QVariant();
 }
 
 QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    // qDebug() << "[TableModel] headerData function started";
     if (role != Qt::DisplayRole) {
+        // qDebug() << "[TableModel] headerData function ended with result: not DisplayRole";
         return QVariant();
     }
 
     if (role == Qt::BackgroundRole) {
+        // qDebug() << "[TableModel] headerData function ended with result: BackgroundRole";
         return QBrush(QColor(Qt::white));
     }
 
     if (orientation != Qt::Horizontal) {
+        // qDebug() << "[TableModel] headerData function ended with result: not Horizontal";
         return QVariant();
     }
 
@@ -541,18 +577,22 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
         }
     }
 
+    // qDebug() << "[TableModel] headerData function ended with result: QVariant()";
     return QVariant();
 }
 
 Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
 {
+    // qDebug() << "[TableModel] flags function started";
     if (!index.isValid()) {
+        // qDebug() << "[TableModel] flags function ended with result: invalid index";
         return QAbstractItemModel::flags(index);
     }
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable; //ItemIsEnabled,表明这一项可以使用，ItemIsSelectable 表明这一项可以选中。
 
     if (index.column() == 1) //增加第二列的控制选项。
         flags |= Qt::ItemIsUserCheckable | Qt::ItemIsEditable | Qt::ItemIsDragEnabled;
+    // qDebug() << "[TableModel] flags function ended with result:" << flags;
     return flags;
 }
 
@@ -563,7 +603,9 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
 
 bool TableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    // qDebug() << "[TableModel] setData function started";
     if (!index.isValid()) {
+        // qDebug() << "[TableModel] setData function ended with result: false (invalid index)";
         return false;
     }
 
@@ -624,36 +666,43 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
     default:
         return false;
     }
+    // qDebug() << "[TableModel] setData function ended with result: false";
     return false;
 }
 
 int TableModel::getTablemodelMode()
 {
+    // qDebug() << "[TableModel] getTablemodelMode function started";
     return m_Mode;
 }
 
 const QList<DownloadDataItem *> &TableModel::dataList()
 {
+    // qDebug() << "[TableModel] dataList function started";
     return m_DataList;
 }
 
 const QList<DownloadDataItem *> &TableModel::renderList()
 {
+    // qDebug() << "[TableModel] renderList function started";
     return m_RenderList;
 }
 
 const QList<DeleteDataItem *> &TableModel::recyleList()
 {
+    // qDebug() << "[TableModel] recyleList function started";
     return m_RecyleList;
 }
 
 QMap<QString, DownloadDataItem *> &TableModel::getTableModelMap()
 {
+    // qDebug() << "[TableModel] getTableModelMap function started";
     return m_Map;
 }
 
 int TableModel::DownloadingCount()
 {
+    // qDebug() << "[TableModel] DownloadingCount function started";
     if (Downloading == m_Mode) {
         return m_RenderList.count();
     } else {
@@ -686,7 +735,9 @@ bool itemGreaterThan(const QPair<QVariant, int> &left,
 
 void TableModel::sort(int column, Qt::SortOrder order)
 {
+    // qDebug() << "[TableModel] sort function started with column:" << column << "order:" << order;
     if (0 == column) {
+        // qDebug() << "[TableModel] sort function ended (column is 0)";
         return;
     }
     if (0 == m_TableviewtabFlag) {
@@ -696,11 +747,14 @@ void TableModel::sort(int column, Qt::SortOrder order)
     } else if (1 == m_TableviewtabFlag) {
         sortRecycle(column, order);
     }
+    // qDebug() << "[TableModel] sort function ended";
 }
 
 void TableModel::sortDownload(int column, Qt::SortOrder order)
 {
+    // qDebug() << "[TableModel] sortDownload function started with column:" << column << "order:" << order;
     if (Finished == m_Mode && column == 3) {
+        // qDebug() << "[TableModel] sortDownload function ended (Finished mode and column 3)";
         return;
     }
     QVector<QPair<QVariant, int>> sortable;
@@ -778,10 +832,12 @@ void TableModel::sortDownload(int column, Qt::SortOrder order)
     }
     m_RenderList = sortData;
     emit layoutChanged();
+    // qDebug() << "[TableModel] sortDownload function ended";
 }
 
 void TableModel::sortRecycle(int column, Qt::SortOrder order)
 {
+    // qDebug() << "[TableModel] sortRecycle function started with column:" << column << "order:" << order;
     QVector<QPair<QVariant, int>> sortable;
     QVector<int> unsortable;
 
@@ -829,4 +885,5 @@ void TableModel::sortRecycle(int column, Qt::SortOrder order)
     }
     m_RecyleList = sortData;
     emit layoutChanged();
+    // qDebug() << "[TableModel] sortRecycle function ended";
 }

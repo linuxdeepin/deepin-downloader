@@ -35,47 +35,56 @@
 BtInfoTableView::BtInfoTableView(QWidget *parent)
     : DTableView(parent)
 {
-    qDebug() << "BtInfoTableView constructor entered";
+    // qDebug() << "BtInfoTableView constructor entered";
 
     setEditTriggers(QAbstractItemView::SelectedClicked);
     connect(this, &QAbstractItemView::doubleClicked, this, &BtInfoTableView::onDoubleClicked);
     QFont font;
     font.setFamily("Source Han Sans");
     setFont(font);
+    // qDebug() << "[BtInfoTableView] Constructor ended";
 }
 
 void BtInfoTableView::mouseMoveEvent(QMouseEvent *event)
 {
+    // qDebug() << "[BtInfoTableView] mouseMoveEvent function started";
     Q_UNUSED(event);
     //  reset();
     QModelIndex idx = indexAt(event->pos());
     emit hoverChanged(idx);
+    // qDebug() << "[BtInfoTableView] mouseMoveEvent function ended";
 }
 
 void BtInfoTableView::leaveEvent(QEvent *event)
 {
+    // qDebug() << "[BtInfoTableView] leaveEvent function started";
     Q_UNUSED(event);
     reset();
     emit hoverChanged(QModelIndex());
+    // qDebug() << "[BtInfoTableView] leaveEvent function ended";
 }
 
 void BtInfoTableView::onDoubleClicked(const QModelIndex &index)
 {
-    qInfo() << "onDoubleClicked at row:" << index.row() << "column:" << index.column();
+    // qInfo() << "onDoubleClicked at row:" << index.row() << "column:" << index.column();
 
     emit doubleIndex(index);
     m_curRow = index.row();
     edit(index);
+    // qDebug() << "[BtInfoTableView] onDoubleClicked function ended";
 }
 
 void BtInfoTableView::mouseReleaseEvent(QMouseEvent *event)
 {
+    // qDebug() << "[BtInfoTableView] mouseReleaseEvent function started";
 #if !defined(CMAKE_SAFETYTEST_ARG_ON)
     Q_UNUSED(event);
     QModelIndex idx = indexAt(event->pos());
     if (idx.row() == m_curRow) {
+        // qDebug() << "[BtInfoTableView] Same row clicked, returning";
         return;
     }
     reset();
 #endif
+    // qDebug() << "[BtInfoTableView] mouseReleaseEvent function ended";
 }

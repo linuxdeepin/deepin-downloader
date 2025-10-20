@@ -70,11 +70,12 @@ TableView::TableView(int Flag)
     qDebug() << "TableView created with flag:" << Flag;
     initUI();
     initConnections();
+    qDebug() << "[TableView] Constructor ended";
 }
 
 TableView::~TableView()
 {
-    qDebug() << "TableView destroyed";
+    // qDebug() << "TableView destroyed";
     delete (m_TableModel);
     delete (m_TableDataControl);
     delete (m_HeaderView);
@@ -117,6 +118,7 @@ void TableView::initUI()
     QFont font;
     font.setFamily("Source Han Sans");
     setFont(font);
+    qDebug() << "[TableView] initUI function ended";
 }
 
 void TableView::initConnections()
@@ -128,15 +130,18 @@ void TableView::initConnections()
     connect(this, &TableView::isCheckHeader, m_HeaderView, &DownloadHeaderView::onHeaderChecked);
     connect(this, &TableView::Hoverchanged, m_Itemdegegate, &ItemDelegate::onHoverchanged);
     connect(m_TableModel, &TableModel::layoutChanged, this, &TableView::onModellayoutChanged);
+    qDebug() << "[TableView] initConnections function ended";
 }
 
 void TableView::onListchanged()
 {
+    qDebug() << "[TableView] onListchanged function started";
     currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
 }
 
 void TableView::reset(bool switched)
 {
+    // qDebug() << "[TableView] reset function started with switched:" << switched;
     int size = QTableView::verticalScrollBar()->value();
 
     QTableView::reset();
@@ -146,25 +151,30 @@ void TableView::reset(bool switched)
         size = 0;
     }
     QTableView::verticalScrollBar()->setValue(size);
+    // qDebug() << "[TableView] reset function ended";
 }
 
 TableModel *TableView::getTableModel()
 {
+    // qDebug() << "[TableView] getTableModel function started";
     return m_TableModel;
 }
 
 TableDataControl *TableView::getTableControl()
 {
+    // qDebug() << "[TableView] getTableControl function started";
     return m_TableDataControl;
 }
 
 DownloadHeaderView *TableView::getTableHeader()
 {
+    // qDebug() << "[TableView] getTableHeader function started";
     return m_HeaderView;
 }
 
 void TableView::mousePressEvent(QMouseEvent *event)
 {
+    // qDebug() << "[TableView] mousePressEvent function started";
     if (event->button() == Qt::LeftButton) {
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
@@ -177,16 +187,20 @@ void TableView::mousePressEvent(QMouseEvent *event)
             m_PreviousIndex = index;
         }
     }
+    // qDebug() << "[TableView] mousePressEvent function ended";
 }
 
 void TableView::mouseMoveEvent(QMouseEvent *event)
 {
+    // qDebug() << "[TableView] mouseMoveEvent function started";
     QModelIndex idx = indexAt(event->pos());
     emit Hoverchanged(idx);
+    // qDebug() << "[TableView] mouseMoveEvent function ended";
 }
 
 void TableView::mouseReleaseEvent(QMouseEvent *event)
 {
+    // qDebug() << "[TableView] mouseReleaseEvent function started";
     QModelIndex index = indexAt(event->pos());
 
     if ((index.row() < 0) && (index.column() < 0)) {
@@ -196,19 +210,24 @@ void TableView::mouseReleaseEvent(QMouseEvent *event)
     }
     //reset();
     QTableView::mouseReleaseEvent(event);
+    // qDebug() << "[TableView] mouseReleaseEvent function ended";
 }
 
 void TableView::leaveEvent(QEvent *event)
 {
+    // qDebug() << "[TableView] leaveEvent function started";
     Q_UNUSED(event);
     //reset();
     // currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
     emit Hoverchanged(QModelIndex());
+    // qDebug() << "[TableView] leaveEvent function ended";
 }
 
 void TableView::keyPressEvent(QKeyEvent *event)
 {
+    // qDebug() << "[TableView] keyPressEvent function started";
     if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_C)) {
+        // qDebug() << "[TableView] Ctrl+C pressed, returning";
         return;
     }
     //    if(event->key() == Qt::Key_Down) {
@@ -220,21 +239,26 @@ void TableView::keyPressEvent(QKeyEvent *event)
     //        setCurrentIndex(m_PreviousIndex.sibling(m_PreviousIndex.row() - 1, 0));
     //    }
     QWidget::keyPressEvent(event);
+    // qDebug() << "[TableView] keyPressEvent function ended";
 }
 
 void TableView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
+    // qDebug() << "[TableView] currentChanged function started";
     QTableView::currentChanged(current, previous);
+    // qDebug() << "[TableView] currentChanged function ended";
 }
 
 bool TableView::refreshTableView(const int &index)
 {
-    qDebug() << "Refreshing table view with index:" << index;
+    // qDebug() << "[TableView] refreshTableView function started with index:" << index;
     if (index > 1) {
+        // qDebug() << "[TableView] refreshTableView function ended with result: false (index > 1)";
         return false;
     }
     switch (index) {
     case 0: {
+        // qDebug() << "[TableView] Switching to downloading mode";
         //if(1 == getTableModel()->getTablemodelMode()){
         getTableModel()->switchDownloadingMode();
         //}
@@ -244,6 +268,7 @@ bool TableView::refreshTableView(const int &index)
     }
 
     case 1:
+        // qDebug() << "[TableView] Switching to finished mode";
         //if(0 == getTableModel()->getTablemodelMode()){
         getTableModel()->switchFinishedMode();
         //}
@@ -256,12 +281,15 @@ bool TableView::refreshTableView(const int &index)
     resizeColumnToContents(4);
 #endif
     update();
+    // qDebug() << "[TableView] refreshTableView function ended with result: true";
     return true;
 }
 
 void TableView::onModellayoutChanged()
 {
+    // qDebug() << "[TableView] onModellayoutChanged function started";
     if (m_TableFlag == 0) {
+        qDebug() << "[TableView] Processing download data items";
         const QList<DownloadDataItem *> &selectList = getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); i++) {
             if (selectList.at(i)->isHide) {
@@ -271,6 +299,7 @@ void TableView::onModellayoutChanged()
             }
         }
     } else {
+        // qDebug() << "[TableView] Processing delete data items";
         const QList<DeleteDataItem *> &selectList = getTableModel()->recyleList();
         for (int i = 0; i < selectList.size(); i++) {
             if (selectList.at(i)->isHide) {
@@ -280,20 +309,25 @@ void TableView::onModellayoutChanged()
             }
         }
     }
+    // qDebug() << "[TableView] onModellayoutChanged function ended";
 }
 
 LeftListView::LeftListView()
 {
+    // qDebug() << "[LeftListView] Constructor started";
 }
 
 void LeftListView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
+    // qDebug() << "[LeftListView] currentChanged function started";
     Q_UNUSED(previous);
     emit currentIndexChanged(current);
+    // qDebug() << "[LeftListView] currentChanged function ended";
 }
 
 void LeftListView::paintEvent(QPaintEvent *e)
 {
+    // qDebug() << "[LeftListView] paintEvent function started";
     DPalette pa;
 #if QT_VERSION_MAJOR > 5
     pa = this->palette();
@@ -305,4 +339,5 @@ void LeftListView::paintEvent(QPaintEvent *e)
     DApplicationHelper::instance()->setPalette(this, pa);
 #endif
     DListView::paintEvent(e);
+    // qDebug() << "[LeftListView] paintEvent function ended";
 }

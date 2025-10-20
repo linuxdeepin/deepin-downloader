@@ -57,13 +57,15 @@ TaskDelegate::TaskDelegate(DDialog *dialog)
     m_dialog = dialog;
     m_checkBtn = new QCheckBox();
     m_curName.clear();
+    qDebug() << "[TaskDelegate] Constructor ended";
 }
 
 TaskDelegate::~TaskDelegate()
 {
-    qDebug() << "TaskDelegate destructor entered";
+    // qDebug() << "TaskDelegate destructor entered";
 
     if(m_checkBtn != nullptr){
+        // qDebug() << "[TaskDelegate] Deleting checkBtn";
         delete m_checkBtn;
         m_checkBtn =nullptr;
     }
@@ -72,21 +74,25 @@ TaskDelegate::~TaskDelegate()
 
 void TaskDelegate::setHoverColor(QBrush c)
 {
+    // qDebug() << "[TaskDelegate] setHoverColor function started";
     m_hoverColor = c;
 }
 
 void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    // qDebug() << "[TaskDelegate] paint function started";
     painter->save();
 
     QString size = index.model()->data(index.model()->index(index.row(), 3),3).toString();
     if (index.row() == m_hoverRow && !size.isEmpty()) {
+        // qDebug() << "[TaskDelegate] Painting hover row";
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder()); //
     }
     if (index.row() % 2 != 0) {
+        // qDebug() << "[TaskDelegate] Painting odd row";
         painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10))); //
     } else {
-
+        // qDebug() << "[TaskDelegate] Painting even row";
         painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8))); //
     }
 
@@ -97,6 +103,7 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     painter->setFont(font);
 
     if (index.column() == 0) {
+        // qDebug() << "[TaskDelegate] Painting checkbox";
         QStyleOptionButton checkBoxStyle;
         QString data = index.data(0).toString();
         checkBoxStyle.state = index.data(0).toString() == "1" ? QStyle::State_On : QStyle::State_Off;
@@ -139,8 +146,9 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         painter->drawText(option.rect.marginsRemoved(QMargins(55, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, text);
 
     } else if(index.column() == 1){
-
+        // qDebug() << "[TaskDelegate] Painting column 1";
     } else {
+        // qDebug() << "[TaskDelegate] Painting column 2";
         painter->setPen(Qt::darkGray);
         if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
            painter->setPen(size.isEmpty() ? QColor(192, 198, 212, 70) : QColor(192, 198, 212));
@@ -153,23 +161,28 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     }
 
     painter->restore();
+    // qDebug() << "[TaskDelegate] paint function ended";
 }
 
 bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
+    // qDebug() << "[TaskDelegate] editorEvent function started";
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     QString size = index.data(TaskModel::Size).toString();
     if (size.isEmpty()) {
+        // qDebug() << "[TaskDelegate] Size is empty, returning false";
         return false;
     }
 
     if (index.column() == 0) {
+        // qDebug() << "[TaskDelegate] Column is 0, processing checkbox";
         QRect rect(option.rect);
         rect.setX(10);
         rect.setWidth(15);
         if (event->type() == QEvent::MouseButtonPress
             && mouseEvent->button() == Qt::LeftButton
             && rect.contains(mouseEvent->pos())) {
+            // qDebug() << "[TaskDelegate] Checkbox clicked";
             QString v = index.data().toString();
             model->setData(index, QVariant(v == "1" ? "0" : "1"), Qt::EditRole);
 
@@ -177,25 +190,29 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
             return false;
         } else if (event->type() == QEvent::MouseButtonDblClick
                    && !rect.contains(mouseEvent->pos())) {
+            // qDebug() << "[TaskDelegate] Double click on checkbox";
             DLineEdit *pEdit = new DLineEdit();
             pEdit->setGeometry(50, 10, 10, 10);
         }
     }
 
+    // qDebug() << "[TaskDelegate] editorEvent function ended";
     return true;
 }
 
 QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    qDebug() << "createEditor entered for row:" << index.row() << "column:" << index.column();
+    // qDebug() << "createEditor entered for row:" << index.row() << "column:" << index.column();
 
     Q_UNUSED(option);
 
     if (index.column() != 0) {
+        // qDebug() << "[TaskDelegate] Column is not 0, returning nullptr";
         return nullptr;
     }
     QString size = index.data(TaskModel::Size).toString();//index.model()->data(index.model()->index(index.row(), 3)).toString();
     if (size.isEmpty()) {
+        // qDebug() << "[TaskDelegate] Size is empty, returning nullptr";
         return nullptr;
     }
     DLineEdit *pEdit = new DLineEdit(parent);
@@ -261,31 +278,35 @@ QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     pEdit->setGeometry(0, 0, 0, 0);
 
     QString FilePath = index.data().toString();
+    // qDebug() << "[TaskDelegate] createEditor function ended with result: DLineEdit*";
     return pEdit;
 }
 
 void TaskDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    qDebug() << "setEditorData entered for row:" << index.row();
+    // qDebug() << "[TaskDelegate] setEditorData function started for row:" << index.row();
 
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     QString str = index.data(TaskModel::Name).toString();
     m_curName = str;
     pEdit->setText(str);
+    // qDebug() << "[TaskDelegate] setEditorData function ended";
 }
 
 void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    qDebug() << "setModelData entered for row:" << index.row();
+    // qDebug() << "[TaskDelegate] setModelData function started for row:" << index.row();
 
     DLineEdit *pEdit = qobject_cast<DLineEdit *>(editor);
     if (pEdit == nullptr) {
+        // qDebug() << "[TaskDelegate] pEdit is null, returning";
         return;
     }
     pEdit->setAccessibleName("editor");
     QString str = pEdit->text();
     int row = index.row();
     if (str.isEmpty()) {
+        // qDebug() << "[TaskDelegate] String is empty, setting to current name";
         ((CreateTaskWidget *)m_dialog)->setUrlName(row, m_curName);
         return;
     }
@@ -294,14 +315,17 @@ void TaskDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, cons
     for (int i = 0; i < index.model()->rowCount(); i++) {
         curName = index.model()->data(index.model()->index(i, 1),1).toString() + "." + index.model()->data(index.model()->index(i, 2),2).toString();
         if (curName == typeName) {
+            // qDebug() << "[TaskDelegate] Duplicate name found, setting to current name";
             ((CreateTaskWidget *)m_dialog)->setUrlName(row, m_curName);
             return;
         }
     }
     ((CreateTaskWidget *)m_dialog)->setUrlName(row, str);
+    // qDebug() << "[TaskDelegate] setModelData function ended";
 }
 
 void TaskDelegate::onhoverChanged(const QModelIndex &index)
 {
+    // qDebug() << "[TaskDelegate] onhoverChanged function started";
     m_hoverRow = index.row();
 }
