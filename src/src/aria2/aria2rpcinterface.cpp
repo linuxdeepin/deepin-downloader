@@ -281,9 +281,13 @@ int Aria2RPCInterface::killAria2cProc()
     QStringList processPids;
 
     for (const QString &line : lines) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        QStringList parts = line.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
+#else
         QStringList parts = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+#endif
         if (parts.size() < 3) continue;
-        if (!parts[6].contains(m_aria2cCmd)) continue;
+        if (parts.size() <= 6 || !parts[6].contains(m_aria2cCmd)) continue;
         processPids.append(parts[0]);
     }
 
