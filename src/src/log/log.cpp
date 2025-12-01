@@ -36,6 +36,12 @@ static quint64 _logDaysRemain = DEFALT_REMAIN_TIME;
 static int _rotateSize = MAXLOGSIZE;
 static quint64 _remainDisk = DEFALT_REMAIN_SIZE;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#define ENDL Qt::endl
+#else
+#define ENDL endl
+#endif
+
 void setLogPath(const QString &path)
 {
     qDebug() << "[LogSystem] Setting log path to:" << path;
@@ -193,7 +199,7 @@ void WriteVersion()
     QTextStream ts(&outFile);
     auto appName = QCoreApplication::applicationName();
     auto version = QCoreApplication::applicationVersion();
-    ts << appName << " " << version << Qt::endl;
+    ts << appName << " " << version << ENDL;
     outFile.close();
     s_logMutex.unlock();
 
@@ -258,7 +264,7 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, cons
         return;
     }
     QTextStream ts(&outFile);
-    ts << message.toUtf8() << Qt::endl;
+    ts << message.toUtf8() << ENDL;
     std::cout << msg.toStdString() << std::endl;
     outFile.close();
     s_logMutex.unlock();

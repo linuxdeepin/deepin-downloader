@@ -133,7 +133,7 @@ bool Func::setMimeappsValue(QString key, QString value)
     QTextStream writeData(&writerFile);
 
     for (int i = 0; i < DefaultList.size(); i++) {
-        writeData << DefaultList[i] << Qt::endl;
+        writeData << DefaultList[i] << QT_ENDL;
     }
     writeData.flush();
     writerFile.close();

@@ -18,7 +18,11 @@ set (DWM_EXTENSIONSERVICE_HEADERS
 )
 
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
-qt_wrap_cpp (DWM_EXTENSIONSERVICE_HEADERS_MOC ${DWM_EXTENSIONSERVICE_HEADERS})
+if (QT_VERSION VERSION_GREATER_EQUAL "6.0")
+    qt_wrap_cpp (DWM_EXTENSIONSERVICE_HEADERS_MOC ${DWM_EXTENSIONSERVICE_HEADERS})
+else()
+    qt5_wrap_cpp (DWM_EXTENSIONSERVICE_HEADERS_MOC ${DWM_EXTENSIONSERVICE_HEADERS})
+endif()
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
 add_executable(dlmextensionservice
@@ -37,9 +41,9 @@ target_link_libraries(dlmextensionservice
     Qt${QT_VERSION_MAJOR}::WebSockets
     Qt${QT_VERSION_MAJOR}::Network
     Qt${QT_VERSION_MAJOR}::DBus
-    Dtk${DTK_VERSION}::Core
-    Dtk${DTK_VERSION}::Gui
-    Dtk${DTK_VERSION}::Widget
+    Dtk${DTK_VERSION_MAJOR}::Core
+    Dtk${DTK_VERSION_MAJOR}::Gui
+    Dtk${DTK_VERSION_MAJOR}::Widget
 )
 
 install(TARGETS dlmextensionservice DESTINATION bin)

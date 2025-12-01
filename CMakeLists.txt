@@ -22,20 +22,21 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_DEBUG_POSTFIX "d")
 
 #设置安装路径
-set(CMAKE_INSTALL_PREFIX /usr)
-## Install settings
-#if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-#    set(CMAKE_INSTALL_PREFIX /usr)
-#endif ()
+include(GNUInstallDirs)
+# Install settings
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+   set(CMAKE_INSTALL_PREFIX /usr)
+endif ()
 
 #option(DOTEST "option for test" OFF)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+# 引入翻译生成
+include(translation-generate)
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
     message("release")
-    # generate qm
-    execute_process(COMMAND bash "translate_generation.sh"
-                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif ()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-all -z now -z noexecstack -fpie -pie")
@@ -69,23 +70,24 @@ set(CMAKE_AUTORCC ON)
 #打开全局uic
 set(CMAKE_AUTOUIC ON)
 
-set(QT_VERSION_MAJOR 6)
-if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    set(DTK_VERSION 6)
-endif()
+# Find Qt version
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+message("   >>> Found Qt version: ${QT_VERSION_MAJOR}")
 
-set(QT Core Gui Widgets Network DBus Sql LinguistTools Svg Test WebChannel WebSockets)
+if (QT_VERSION_MAJOR MATCHES 6)
+    set(DTK_VERSION_MAJOR 6)
+else()
+    set(DTK_VERSION_MAJOR "")
+endif()
+message("   >>> Build with DTK: ${DTK_VERSION_MAJOR}")
+
+set(QT Core Gui Widgets Network DBus Sql Svg Test WebChannel WebSockets)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT} REQUIRED)
 
 #应用DTK库
-find_package(Dtk${DTK_VERSION}Widget REQUIRED)
-find_package(Dtk${DTK_VERSION}Core REQUIRED)
-find_package(Dtk${DTK_VERSION}Gui REQUIRED)
-
-#安装
-# qm files.
-file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/downloader/translations)
+find_package(Dtk${DTK_VERSION_MAJOR}Widget REQUIRED)
+find_package(Dtk${DTK_VERSION_MAJOR}Core REQUIRED)
+find_package(Dtk${DTK_VERSION_MAJOR}Gui REQUIRED)
 
 #desktop
 install(FILES desktop/downloader.desktop DESTINATION share/applications)

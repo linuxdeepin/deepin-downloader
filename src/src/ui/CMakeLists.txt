@@ -61,29 +61,17 @@ set (UDLC_UI_HEADERS
 
 
 
-#发布的时候生成qm文件
-#if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
-#    #生成 ts qm文件
-#    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_zh_CN.ts")
-#    qt5_create_translation(QM_FILES
-#        ${PROJECT_SOURCE_DIR}/translations
-#        ${TS_FILES}
-#        OPTIONS -source-language en_US -no-obsolete)
-
-#    set(TS_FILES  ${PROJECT_SOURCE_DIR}  "${PROJECT_SOURCE_DIR}/translations/downloader_en_US.ts")
-#    qt5_create_translation(QM_FILES
-#        ${PROJECT_SOURCE_DIR}/translations
-#        ${TS_FILES}
-#        OPTIONS -source-language en_US -no-obsolete)
-#endif ()
-
-
 #需要生成的moc文件，输出文件名称放在变量 mocfiles中，必须在find QT5 package才能调用
-qt_wrap_cpp (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
-
 #添加资源文件
 set(QRC_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/resource/resource.qrc)
-qt_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
+# 根据Qt版本选择合适的命令
+if (QT_VERSION VERSION_GREATER_EQUAL "6.0")
+    qt_wrap_cpp (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
+    qt_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
+else()
+    qt5_wrap_cpp (UDLC_UI_HEADERS_MOC ${UDLC_UI_HEADERS})
+    qt5_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
+endif()
 
 #设置输出dll的名称、类型(动态库、静态库)及所用到的文件
 add_library(dlmcontrolui SHARED
@@ -122,16 +110,15 @@ add_library(dlmcontrolui SHARED
        func.cpp
        ${UDLC_UI_HEADERS_MOC}
        ${QRC_FILES}
-       ${QM_FILES}
 )
 
 target_link_libraries(dlmcontrolui 
     dlmlog
     dlmaria2
     dlmdatabase
-    Dtk${DTK_VERSION}::Core
-    Dtk${DTK_VERSION}::Gui
-    Dtk${DTK_VERSION}::Widget
+    Dtk${DTK_VERSION_MAJOR}::Core
+    Dtk${DTK_VERSION_MAJOR}::Gui
+    Dtk${DTK_VERSION_MAJOR}::Widget
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Network
     Qt${QT_VERSION_MAJOR}::Widgets

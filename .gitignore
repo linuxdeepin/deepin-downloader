@@ -4,6 +4,7 @@ downloadmanager.ts
 build/
 .vscode/
 .cache/
+build*/
 
 # AI config
 .promptx/

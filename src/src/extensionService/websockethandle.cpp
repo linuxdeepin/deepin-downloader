@@ -36,6 +36,7 @@
 #include <QStandardPaths>
 #include <QCoreApplication>
 #include <QDBusConnection>
+#include <QDebug>
 
 Websockethandle::Websockethandle(QObject *parent)
     : QObject(parent)

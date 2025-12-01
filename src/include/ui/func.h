@@ -34,6 +34,12 @@
 
 #include <QObject>
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#define QT_ENDL Qt::endl
+#else
+#define QT_ENDL endl
+#endif
+
 class Func : public QObject
 {
     Q_OBJECT
