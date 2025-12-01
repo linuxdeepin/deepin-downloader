@@ -31,6 +31,8 @@
 
 
 #include <QCoreApplication>
+#include <QDebug>
+
 #include "extensionservice.h"
 
 int main(int argc, char** argv)

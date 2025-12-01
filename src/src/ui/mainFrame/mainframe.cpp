@@ -3364,7 +3364,7 @@ void MainFrame::setAutoStart(bool ret)
     }
     QTextStream writeData(&writerFile);
     for (int i = 0; i < list.size(); i++) {
-        writeData << list[i] << Qt::endl;
+        writeData << list[i] << QT_ENDL;
     }
     writeData.flush();
     writerFile.close();

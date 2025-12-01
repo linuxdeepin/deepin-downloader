@@ -13,6 +13,11 @@ Files: *CMakeLists.txt  config.h.cmake
 Copyright: None
 License: CC0-1.0
 
+# cmake
+Files: cmake/*
+Copyright: UnionTech Software Technology Co., Ltd.
+License: CC0-1.0
+
 # translation
 Files: translations/* translations/desktop/* translations/downloader/* .tx/* 
 Copyright: None
@@ -44,7 +49,7 @@ Copyright: None
 License: CC0-1.0
 
 # gitignore
-Files: .gitignore
+Files: .gitignore .cursorindexingignore
 Copyright: None
 License: CC0-1.0
 

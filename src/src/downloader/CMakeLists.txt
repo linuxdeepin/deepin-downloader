@@ -25,6 +25,14 @@ add_executable(downloader main.cpp
 
 target_link_libraries(downloader dlmcontrolui dlmlog Qt${QT_VERSION_MAJOR}::Core)
 
+# translation files
+TRANSLATION_GENERATE(QM_FILES ${CMAKE_SOURCE_DIR}/translations)
+add_custom_target(${PROJECT_NAME}_qm_files DEPENDS ${QM_FILES})
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_qm_files)
+
+# Install translations
+install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
+
 #INSTALL(TARGETS downloader DESTINATION share/downloader)
 #install(TARGETS downloader DESTINATION bin)
 

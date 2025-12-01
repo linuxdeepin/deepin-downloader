@@ -1,6 +1,6 @@
 /usr/bin/downloader
 /usr/bin/dlmextensionservice
-translations/*.qm /usr/share/downloader/translations
+/usr/share/downloader/translations/*.qm
 assets/* /usr/share/deepin-manual/manual-assets/application/
 desktop/downloader.desktop /usr/share/applications
 data/downloader.db /usr/share/downloader/database
