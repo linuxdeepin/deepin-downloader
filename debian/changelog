@@ -1,3 +1,10 @@
+deepin-downloader (6.0.17) unstable; urgency=medium
+
+  * fix: [build] Fix Qt5 and Qt6 build issues.
+  * chore: Integrate some bug fixes from release/eagle branch.
+
+ -- re2zero <yangwu@uniontech.com>  Thu, 04 Dec 2025 16:17:25 +0800
+
 deepin-downloader (6.0.16) unstable; urgency=medium
 
   * fix(diagnostic): Stabilize DHT determination and ensure automatic refresh of diagnostic results
