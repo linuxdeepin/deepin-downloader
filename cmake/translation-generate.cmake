@@ -26,7 +26,7 @@ function(TRANSLATION_GENERATE QMS)
       list(APPEND ${QMS} ${QMFIL})
       add_custom_command(
           OUTPUT ${QMFIL}
-          # COMMAND ${Qt5_LUPDATE_EXECUTABLE} ${CMAKE_SOURCE_DIR} -ts ${TSFIL}
+          # COMMAND ${Qt${QT_VERSION_MAJOR}_LUPDATE_EXECUTABLE} ${CMAKE_SOURCE_DIR} -ts ${TSFIL}
           COMMAND ${QT_LRELEASE} ${TSFIL} -qm ${QMFIL}
           DEPENDS ${TSFIL}
           COMMENT "Running ${QT_LRELEASE} on ${TSFIL}"
