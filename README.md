@@ -6,15 +6,17 @@ Download Manager is Deepin Desktop Environment download manager.
 
 ### Build dependencies
 
-* cmake
-* qt5
+* cmake (>= 3.1.0)
+* Qt5 (>= 5.11.0) 或 Qt6 (>= 6.0.0)
 * aria2
 
 
 ### Runtime dependencies
 
-* Qt5 (>= 5.3)
-* Qt5-X11extras
+* Qt5 (>= 5.11.0) 或 Qt6 (>= 6.0.0)
+* DTK (Deepin Toolkit)
+  - Qt5: DtkWidget, DtkCore, DtkGui
+  - Qt6: Dtk6Widget, Dtk6Core, Dtk6Gui
 
 
 ## Installation
