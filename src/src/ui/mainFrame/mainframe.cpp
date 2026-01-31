@@ -2760,19 +2760,16 @@ void MainFrame::onPowerOnChanged(bool isPowerOn)
 
     if (isPowerOn == 1) {
         qDebug() << "isPowerOn is 1";
-        QString cmd = QString("cp %1 %2").arg(UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop).arg(userDefaultDesktopPath);
-        qDebug() << cmd;
-        char *ch;
-        QByteArray ba = cmd.toLatin1();
-        ch = ba.data();
-        system(ch);
+        QString srcPath = UOS_DOWNLOAD_MANAGER_DESKTOP_PATH + defaultDesktop;
+        QString dstPath = userDefaultDesktopPath + defaultDesktop;
+        qDebug() << "copy" << srcPath << "to" << dstPath;
+        QDir().mkpath(userDefaultDesktopPath);
+        QFile::remove(dstPath);
+        QFile::copy(srcPath, dstPath);
     } else {
         qDebug() << "isPowerOn is 0";
-        QString cmd = QString("rm -f %1").arg(userDefaultDesktopPath + defaultDesktop);
-        char *ch;
-        QByteArray ba = cmd.toLatin1();
-        ch = ba.data();
-        system(ch);
+        QString filePath = userDefaultDesktopPath + defaultDesktop;
+        QFile::remove(filePath);
     }
     qDebug() << "[MainFrame] onPowerOnChanged function ended";
 }
@@ -3352,11 +3349,7 @@ void MainFrame::setAutoStart(bool ret)
         }
     }
 
-    QString cmd = QString("rm -f %1").arg(path);
-    char *ch;
-    QByteArray ba = cmd.toLatin1();
-    ch = ba.data();
-    system(ch);
+    QFile::remove(path);
     //将替换以后的字符串，重新写入到文件中去
     QFile writerFile(path);
     if (writerFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
