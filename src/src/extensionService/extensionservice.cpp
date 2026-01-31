@@ -107,7 +107,7 @@ void extensionService::initWebsokcet()
 void extensionService::sendUrlToDownloader(const QString &url)
 {
     QProcess proc;
-    proc.startDetached("downloader " + url);
+    proc.startDetached("downloader", QStringList() << url);
     QTimer *timer = new QTimer;
     timer->start(50);
     connect(timer, &QTimer::timeout, this, [=](){
