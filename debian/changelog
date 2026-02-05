@@ -1,3 +1,10 @@
+deepin-downloader (6.0.18) unstable; urgency=medium
+
+  * fix: Improve command execution for file operations
+  * build(debian): separate Qt5/Qt6 build configurations for V25/V20 support
+
+ -- dengzhongyuan <dengzhongyuan@uniontech.com>  Thu, 05 Feb 2026 19:57:49 +0800
+
 deepin-downloader (6.0.17) unstable; urgency=medium
 
   * fix: [build] Fix Qt5 and Qt6 build issues.
