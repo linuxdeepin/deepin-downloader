@@ -484,10 +484,20 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
             continue;
         } else if (bFlag && line.startsWith("---+---")) { //
             QStringList stl = temp.split("|");
+            if (stl.size() < 3) {
+                qWarning() << "[Aria2RPC] getBtInfo: unexpected file line format, expected idx|path|size, got:" << temp;
+                temp = "";
+                continue;
+            }
+            QStringList spl = stl[2].split(" ");
+            if (spl.size() < 2) {
+                qWarning() << "[Aria2RPC] getBtInfo: unexpected size format in file line:" << stl[2];
+                temp = "";
+                continue;
+            }
             Aria2cBtFileInfo f;
             f.index = stl[0].toInt();
             f.path = stl[1];
-            QStringList spl = stl[2].split(" ");
             f.length = spl[0].remove('i');
 
             QString len = spl[1].remove(',');
@@ -1023,7 +1033,16 @@ QString Aria2RPCInterface::getCapacityFree(QString path)
                 }
             }
         }
-        free = tpl[3];
+        // append the last token if there is no trailing space
+        if (!temp.isEmpty()) {
+            tpl.append(temp);
+        }
+
+        if (tpl.size() > 3) {
+            free = tpl[3];
+        } else {
+            qWarning() << "[Aria2RPC] Unexpected df output format, tokens:" << tpl;
+        }
     }
 
     qDebug() << "[Aria2RPC] getCapacityFree function ended with result:" << (free + "B");
@@ -1060,7 +1079,16 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
                 }
             }
         }
-        free = tpl[3];
+        // append the last token if there is no trailing space
+        if (!temp.isEmpty()) {
+            tpl.append(temp);
+        }
+
+        if (tpl.size() > 3) {
+            free = tpl[3];
+        } else {
+            qWarning() << "[Aria2RPC] Unexpected df output format in getCapacityFreeByte, tokens:" << tpl;
+        }
     }
 
     qDebug() << "[Aria2RPC] getCapacityFreeByte function ended with result:" << free.toLong();

@@ -40,8 +40,8 @@ bool DBInstance::delTask(QString taskId)
         return false;
     }
     QSqlQuery sql;
-    QString str = QString("delete from  download_task where task_id='%1';").arg(taskId);
-    sql.prepare(str);
+    sql.prepare("delete from download_task where task_id=?;");
+    sql.addBindValue(taskId);
     if (!sql.exec()) {
 //        QSqlError error = sql.lastError();
 //        qWarning() << "Delete download_task failed : " << error;
@@ -225,8 +225,8 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllSql = "select count(*)  from download_task where download_task.url like'" + url + "%' ;";
-    sql.prepare(selectAllSql);
+    sql.prepare("select count(*) from download_task where download_task.url like ?;");
+    sql.addBindValue(url + "%");
     if (!sql.exec()) {
         qWarning() << "[DBInstance] Failed to check URL existence:" << sql.lastError().text();
         return false;
@@ -236,9 +236,10 @@ bool DBInstance::isExistUrl(QString url, bool &ret)
             ret = true;
         }
     }
-    url = url.remove("magnet:?xt=urn:btih:");
-    selectAllSql = "select count(*)  from url_info where url_info.infoHash like'%" + url + "%' ;";
-    sql.prepare(selectAllSql);
+    QString magnetHash = url;
+    magnetHash.remove("magnet:?xt=urn:btih:");
+    sql.prepare("select count(*) from url_info where url_info.infoHash like ?;");
+    sql.addBindValue("%" + magnetHash + "%");
     if (!sql.exec()) {
         qWarning() << "[DBInstance] Failed to check magnet URL existence:" << sql.lastError().text();
         return false;
@@ -261,9 +262,10 @@ QString DBInstance::getTaskIdByMagnet(QString url)
         return "";
     }
     QSqlQuery sql;
-    url = url.remove("magnet:?xt=urn:btih:");
-    QString selectAllSql = "select task_id  from url_info where url_info.infoHash like'%" + url + "%' ;";
-    sql.prepare(selectAllSql);
+    QString magnetHash = url;
+    magnetHash.remove("magnet:?xt=urn:btih:");
+    sql.prepare("select task_id from url_info where url_info.infoHash like ?;");
+    sql.addBindValue("%" + magnetHash + "%");
     if (!sql.exec()) {
         qWarning() << "[DBInstance] Failed to get task ID by magnet:" << sql.lastError().text();
         return "";
@@ -368,8 +370,8 @@ bool DBInstance::getTaskStatusById(QString taskId, TaskStatus &task)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllAql = "select * from download_task_status where task_id='" + taskId + "';";
-    sql.prepare(selectAllAql);
+    sql.prepare("select * from download_task_status where task_id=?;");
+    sql.addBindValue(taskId);
     if (!sql.exec()) {
 //        qWarning() << "update download_task_status failed : " << sql.lastError();
         return false;
@@ -474,8 +476,8 @@ bool DBInstance::getBtTaskById(QString taskId, TaskInfoHash &url)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllAql = "select * from url_info where task_id='" + taskId + "';";
-    sql.prepare(selectAllAql);
+    sql.prepare("select * from url_info where task_id=?;");
+    sql.addBindValue(taskId);
     if (!sql.exec()) {
 //        qWarning() << "select url_info failed : " << sql.lastError();
         return false;
@@ -532,25 +534,21 @@ int DBInstance::getSameNameCount(QString filename, QString type)
     }
 
     QSqlQuery sql;
-    QString sqlStr = QString("select count(download_filename) from download_task where"
-                             " download_filename = '"
-                             + filename + "." + type + "';");
-    sql.prepare(sqlStr);
+    QString fullFilename = filename + "." + type;
+    sql.prepare("select count(download_filename) from download_task where download_filename = ?;");
+    sql.addBindValue(fullFilename);
     if (!sql.exec()) {
 //        qWarning() << "select count(download_filename) failed : " << sql.lastError();
-//        qWarning() << sqlStr;
         return 0;
     }
-    qWarning() << sqlStr;
     while (sql.next()) {
         count = sql.value(0).toInt();
     }
     if (count == 1) {
         QSqlQuery sql1;
-        QString sqlStr1 = QString("select count(download_filename) from download_task where"
-                                  " download_filename like '"
-                                  + filename + "-%." + type + "';");
-        sql1.prepare(sqlStr1);
+        QString likePattern = filename + "-%." + type;
+        sql1.prepare("select count(download_filename) from download_task where download_filename like ?;");
+        sql1.addBindValue(likePattern);
         if (!sql1.exec()) {
 //            qWarning() << "select count(download_filename) failed : " << sql.lastError();
 //            qWarning() << sqlStr1;
@@ -572,9 +570,8 @@ bool DBInstance::isExistBtInHash(QString hash, bool &ret)
         return false;
     }
     QSqlQuery sql;
-    QString selectAllSql = "select count(*)  from url_info where url_info.infoHash='" + hash + "' ;";
-    qDebug() << selectAllSql;
-    sql.prepare(selectAllSql);
+    sql.prepare("select count(*) from url_info where url_info.infoHash=?;");
+    sql.addBindValue(hash);
     if (!sql.exec()) {
 //        qWarning() << "select download_task,download_task_status failed :  " << sql.lastError();
         return false;
@@ -595,8 +592,8 @@ bool DBInstance::getTaskForUrl(QString url, TaskInfo &task)
         return false;
     }
     QSqlQuery sql;
-    QString str = QString("select * from download_task where url = '%1';").arg(url);
-    sql.prepare(str);
+    sql.prepare("select * from download_task where url = ?;");
+    sql.addBindValue(url);
     if (!sql.exec()) {
 //        qDebug() << "getAllTask download_task table failed : " << sql.lastError();
         return false;

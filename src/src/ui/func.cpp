@@ -335,14 +335,7 @@ bool Func::isLanConnect()
         for(int i = 2; i < netstatInfo.size()-1; i++){
             geteWayList = netstatInfo[i].split(' ');
             geteWayList.removeAll(QString(""));
-//            it = geteWayList.begin();
-//            for ( ; it != geteWayList.end(); it++) {
-//                QString a = *it;
-//                if(it->isEmpty()){
-//                    geteWayList.erase(it);
-//                }
-//            }
-            if(geteWayList[1] != "0.0.0.0")
+            if(geteWayList.size() > 1 && geteWayList[1] != "0.0.0.0")
             {
                 geteWay = geteWayList[1];
                 break;
