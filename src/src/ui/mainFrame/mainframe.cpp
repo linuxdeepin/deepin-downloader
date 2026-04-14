@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -229,6 +229,7 @@ void MainFrame::init()
 
     m_LeftList = new LeftListView;
     m_LeftList->setObjectName("leftList");
+    m_LeftList->setBackgroundType(DStyledItemDelegate::NoBackground);
     m_LeftList->setItemSpacing(0);
     m_LeftList->setItemSize(QSize(112, 40));
     m_LeftList->setItemMargins(QMargins(10, 2, 5, 2));
