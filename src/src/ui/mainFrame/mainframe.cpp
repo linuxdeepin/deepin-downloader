@@ -229,7 +229,8 @@ void MainFrame::init()
 
     m_LeftList = new LeftListView;
     m_LeftList->setObjectName("leftList");
-    m_LeftList->setBackgroundType(DStyledItemDelegate::NoBackground);
+    m_LeftList->setBackgroundType(static_cast<DStyledItemDelegate::BackgroundType>(
+        DStyledItemDelegate::RoundedBackground | DStyledItemDelegate::NoNormalState));
     m_LeftList->setItemSpacing(0);
     m_LeftList->setItemSize(QSize(112, 40));
     m_LeftList->setItemMargins(QMargins(10, 2, 5, 2));
