@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -64,24 +64,7 @@ void TopButton::Init()
 
     mainHlayout->setContentsMargins(0, 5, 0, 5);
     mainHlayout->setSpacing(10);
-    m_iconLable = new DLabel;
-    QIcon logo_icon = QIcon(":icons/icon/downloader5.svg");
-#ifdef DTKWIDGET_CLASS_DSizeMode
-    if (DGuiApplicationHelper::instance()->sizeMode() == DGuiApplicationHelper::NormalMode) {
-        m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
-    } else {
-        m_iconLable->setPixmap(logo_icon.pixmap(32*Global::compactMode_ratio, 32*Global::compactMode_ratio));
-    }
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, this, [=](DGuiApplicationHelper::SizeMode sizeMode) {
-        if (sizeMode == DGuiApplicationHelper::NormalMode) {
-            m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
-        } else {
-            m_iconLable->setPixmap(logo_icon.pixmap(32*Global::compactMode_ratio, 32*Global::compactMode_ratio));
-        }
-    });
-#else
-    m_iconLable->setPixmap(logo_icon.pixmap(32, 32));
-#endif
+
     m_searchEdit = new SearchWidget();
     m_searchEdit->setMinimumWidth(380);
     m_searchEdit->lineEdit()->setMaxLength(256);
@@ -115,8 +98,6 @@ void TopButton::Init()
     m_deleteDownloadBtn->setToolTip(tr("Delete"));
 
     mainHlayout->addSpacing(10);
-    mainHlayout->addWidget(m_iconLable);
-    mainHlayout->addSpacing(7);
     mainHlayout->addWidget(m_pauseDownloadBtn);
     mainHlayout->addWidget(m_startDownloadBtn);
 

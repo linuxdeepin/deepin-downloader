@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -175,7 +175,6 @@ signals:
     void SearchEditKeyPressed(Qt::Key);
 
 private:
-    Dtk::Widget::DLabel *m_iconLable;
     Dtk::Widget::DIconButton *m_newDownloadBtn;
     Dtk::Widget::DIconButton *m_startDownloadBtn;
     Dtk::Widget::DIconButton *m_stopDownloadBtn;
