@@ -140,6 +140,7 @@ void MainFrame::init()
     pSettingsMenu->addAction(pDiagnosticAction);
 
     titlebar()->setMenu(pSettingsMenu);
+    titlebar()->setIcon(QIcon::fromTheme("downloader", QIcon(":/icons/icon/downloader.svg")));
     m_ToolBar = new TopButton(this);
     titlebar()->setCustomWidget(m_ToolBar, false);
     titlebar()->setObjectName("titlebar");
