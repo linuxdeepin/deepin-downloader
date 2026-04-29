@@ -1,3 +1,13 @@
+deepin-downloader (6.0.20) unstable; urgency=medium
+
+  * chore: Update version to 6.0.20
+  * fix(ui): use system theme icon for better integration
+  * fix(ui): set left list view background type adapt to hover
+  * fix(ui): set left list view background type to NoBackground
+  * chore(CI): add debian check workflow
+
+ -- zhanghongyuan <zhanghongyuan@uniontech.com>  Wed, 29 Apr 2026 13:21:20 +0800
+
 deepin-downloader (6.0.19) unstable; urgency=medium
 
   * fix: Enhance error handling in Aria2RPC and DBInstance
