@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -179,7 +179,9 @@ void TableView::mousePressEvent(QMouseEvent *event)
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
         QModelIndex index = indexAt(event->pos());
-        this->reset();
+        // Note: Removed this->reset() call here to fix issue where clicking blank area
+        // during editing would fail to commit the rename. The reset call was interfering
+        // with Qt's normal edit commit process.
         if ((index.row() < 0) && (index.column() < 0)) {
             currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
             //return;
