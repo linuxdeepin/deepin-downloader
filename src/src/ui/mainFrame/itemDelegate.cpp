@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -440,6 +440,10 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
         }
     });
     pEdit->resize(parent->size());
+    // Only column 1 has file icon, so adjust editor position to not cover it
+    if (index.column() == 1) {
+        pEdit->setContentsMargins(20, 0, 0, 0);
+    }
     // qDebug() << "[ItemDelegate] createEditor function ended with DLineEdit*";
     return pEdit;
 }
