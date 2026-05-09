@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -35,7 +35,15 @@
 #include <qlayout.h>
 #include <QDBusConnection>
 #include <QDBusInterface>
-#include <QDBusPendingCall>
+#include <QDBusMessage>
+
+static const QString CONTROL_CENTER1_SERVICE = "org.deepin.dde.ControlCenter1";
+static const QString CONTROL_CENTER1_PATH = "/org/deepin/dde/ControlCenter1";
+static const QString CONTROL_CENTER1_INTERFACE = "org.deepin.dde.ControlCenter1";
+
+static const QString CONTROL_CENTER_SERVICE = "com.deepin.dde.ControlCenter";
+static const QString CONTROL_CENTER_PATH = "/com/deepin/dde/ControlCenter";
+static const QString CONTROL_CENTER_INTERFACE = "com.deepin.dde.ControlCenter";
 
 NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     : QWidget(parent)
@@ -67,12 +75,39 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     QHBoxLayout *pLayout = new QHBoxLayout(this);
     pLayout->addLayout(pVLayout);
     pLayout->addWidget(btn);
-    connect(btn, &QPushButton::clicked, this, []() {
-        qDebug() << "Opening control center notification settings";
-        QDBusInterface iface("com.deepin.dde.ControlCenter",
-                             "/com/deepin/dde/ControlCenter",
-                             "com.deepin.dde.ControlCenter",
-                             QDBusConnection::sessionBus());
-        iface.asyncCall("ShowPage", "notification", "下载器");
-    });
+    connect(btn, &QPushButton::clicked, this, &NotificationsSettiingWidget::openControlCenterNotificationSettings);
+}
+
+void NotificationsSettiingWidget::openControlCenterNotificationSettings()
+{
+    qDebug() << "Opening control center notification settings";
+
+    QDBusInterface controlCenter1Interface(CONTROL_CENTER1_SERVICE,
+                                          CONTROL_CENTER1_PATH,
+                                          CONTROL_CENTER1_INTERFACE,
+                                          QDBusConnection::sessionBus());
+
+    QDBusMessage reply = controlCenter1Interface.call("ShowPage", "notification", "list/downloader");
+    if (reply.type() == QDBusMessage::ErrorMessage) {
+        qDebug() << "ShowPage with specific page failed, trying with just notification:" << reply.errorMessage();
+
+        QDBusMessage fallbackReply = controlCenter1Interface.call("ShowPage", "notification");
+        if (fallbackReply.type() == QDBusMessage::ErrorMessage) {
+            qDebug() << "New ControlCenter1 interface failed, trying old interface:" << fallbackReply.errorMessage();
+            tryOldInterface();
+        }
+    }
+}
+
+void NotificationsSettiingWidget::tryOldInterface()
+{
+    QDBusInterface oldIface(CONTROL_CENTER_SERVICE,
+                           CONTROL_CENTER_PATH,
+                           CONTROL_CENTER_INTERFACE,
+                           QDBusConnection::sessionBus());
+
+    QDBusMessage reply = oldIface.call("ShowPage", "notification", "下载器");
+    if (reply.type() == QDBusMessage::ErrorMessage) {
+        qWarning() << "Failed to open control center with old interface:" << reply.errorMessage();
+    }
 }
