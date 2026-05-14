@@ -1,3 +1,13 @@
+deepin-downloader (6.0.21) unstable; urgency=medium
+
+  * chore: Update version to 6.0.21
+  * [skip CI] Translate downloader.ts in ru
+  * fix(settings): adapt to new control center interface
+  * fix(ui): remove reset call to fix edit commit issue
+  * fix(ui): adjust editor position to avoid covering file icon
+
+ -- zhanghongyuan <zhanghongyuan@uniontech.com>  Thu, 14 May 2026 13:13:00 +0800
+
 deepin-downloader (6.0.20) unstable; urgency=medium
 
   * chore: Update version to 6.0.20
