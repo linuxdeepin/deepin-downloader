@@ -104,7 +104,7 @@
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="91"/>
         <source>Please enter one URL per line</source>
-        <translation>Пожалуйста, введите по одному URL в каждой строке</translation>
+        <translation>Пожалуйста, введите по одному URL-адресу в каждой строке</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="101"/>
