@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -430,10 +430,7 @@ bool TableDataControl::aria2MethodStatusChanged(QJsonObject &json, int iCurrentR
         dealNotificaitonSettings(statusStr, fileName, errorCode);
         if (Settings::getInstance()->getDownloadFinishedOpenState() && (!isMetaData) && (!fileName.endsWith(".torrent"))) {
             qDebug() << "Settings::getInstance()->getDownloadFinishedOpenState() is true";
-            QString urlDecode = QUrl::fromPercentEncoding(filePath.toUtf8());
-            urlDecode = "file:///" + urlDecode;
-            QUrl url = QUrl(urlDecode, QUrl::TolerantMode);
-            QDesktopServices::openUrl(url);
+            QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
         }
         if (!checkTaskStatus()) {
             qDebug() << "checkTaskStatus() is false";
