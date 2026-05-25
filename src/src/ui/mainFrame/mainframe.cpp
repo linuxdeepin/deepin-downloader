@@ -2571,12 +2571,10 @@ void MainFrame::onOpenFileActionTriggered()
     qDebug() << "[MainFrame] onOpenFileActionTriggered function started";
     if (m_CurrentTab == CurrentTab::finishTab) {
         qDebug() << "Current tab is finish tab";
-        QString path = QString("file:///") + m_CheckItem->savePath;
-        QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(m_CheckItem->savePath));
     } else if (m_CurrentTab == recycleTab) {
         qDebug() << "Current tab is recycle tab";
-        QString path = QString("file:///") + m_DelCheckItem->savePath;
-        QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(m_DelCheckItem->savePath));
     }
     qDebug() << "[MainFrame] onOpenFileActionTriggered function ended";
 }
@@ -2588,14 +2586,12 @@ void MainFrame::onOpenFolderActionTriggered()
         qDebug() << "Current tab is recycle tab";
         QString filePath = m_DelCheckItem->savePath.left(m_DelCheckItem->savePath.length()
                                                          - m_DelCheckItem->savePath.split('/').last().length());
-        QString path = QString("file:///") + filePath;
-        QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
     } else {
         qDebug() << "Current tab is downloading tab or finish tab";
         QString filePath = m_CheckItem->savePath.left(m_CheckItem->savePath.length()
                                                       - m_CheckItem->savePath.split('/').last().length());
-        QString path = QString("file:///") + filePath;
-        QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
     }
     qDebug() << "[MainFrame] onOpenFolderActionTriggered function ended";
 }
