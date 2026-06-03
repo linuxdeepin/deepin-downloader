@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -612,7 +612,13 @@ TEST_F(ut_Settings, DownloadSettingWidget3)
 TEST_F(ut_Settings, FileSavePathChooser)
 {
     FileSavePathChooser *pWidget = new FileSavePathChooser(1, "");
-    pWidget->onRadioButtonClicked();
+    // 使用 QTest::mouseClick 模拟真实按钮点击，避免直接调用 slot 时 sender() 为 nullptr 导致段错误
+    DRadioButton *customBtn = pWidget->findChild<DRadioButton *>("customPathBtn");
+    DRadioButton *lastPathBtn = pWidget->findChild<DRadioButton *>("lastPathBtn");
+    if (customBtn && lastPathBtn) {
+        QTest::mouseClick(customBtn, Qt::LeftButton);
+        QTest::mouseClick(lastPathBtn, Qt::LeftButton);
+    }
     delete pWidget;
 }
 

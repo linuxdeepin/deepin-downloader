@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -721,7 +721,7 @@ QString BtInfoDialog::getFileEditText(QString text)
 {
     qDebug() << "[BtInfoDialog] getFileEditText function started with text:" << text;
     QString flieEditText = text + "    " + tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(text);
-    int count = text.count();
+    int count = text.size();
     int hasLongStr = 0;
 
     for (int i = 0; i < flieEditText.size(); i++) {

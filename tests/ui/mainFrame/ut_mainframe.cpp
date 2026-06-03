@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QDBusMessage>
+#include "qt_event_helper.h"
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusPendingCall>
@@ -904,7 +905,7 @@ TEST_F(ut_MainFreme, initTabledata)
 TEST_F(ut_MainFreme, tableView)
 {
     TableView *table = new TableView(1);
-    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *event = createMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     table->mousePressEvent(event);
     delete table;
     delete event;
@@ -913,7 +914,7 @@ TEST_F(ut_MainFreme, tableView)
 TEST_F(ut_MainFreme, tableView2)
 {
     TableView *table = new TableView(1);
-    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *event = createMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     table->mouseMoveEvent(event);
     delete table;
     delete event;
@@ -922,7 +923,7 @@ TEST_F(ut_MainFreme, tableView2)
 TEST_F(ut_MainFreme, tableView3)
 {
     TableView *table = new TableView(1);
-    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *event = createMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     table->mouseReleaseEvent(event);
     delete table;
     delete event;
