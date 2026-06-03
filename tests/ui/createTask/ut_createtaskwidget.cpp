@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -13,6 +13,7 @@
 #include <QPalette>
 #include <QFileInfo>
 #include <QMimeData>
+#include "qt_event_helper.h"
 #include "taskdelegate.h"
 #include "gtest/gtest.h"
 #include "createtaskwidget.h"
@@ -248,7 +249,7 @@ TEST_F(ut_CreateTaskWidget, trueUrltableStatus)
     TaskDelegate *dlg = c->findChild<TaskDelegate *>("taskDelegate");
 
     QTest::mouseClick(view->viewport(), Qt::LeftButton, Qt::KeyboardModifiers(), rect.center());
-    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *event = createMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     view->mouseReleaseEvent(event);
     QTest::qWait(100);
     c->close();
@@ -355,7 +356,7 @@ TEST_F(ut_CreateTaskWidget, getFtpFileSize)
 TEST_F(ut_CreateTaskWidget, tableView1)
 {
     BtInfoTableView *table = new BtInfoTableView();
-    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *event = createMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     table->mouseMoveEvent(event);
     delete table;
     delete event;
@@ -364,7 +365,7 @@ TEST_F(ut_CreateTaskWidget, tableView1)
 TEST_F(ut_CreateTaskWidget, tableView2)
 {
     BtInfoTableView *table = new BtInfoTableView();
-    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *event = createMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     table->leaveEvent(event);
     delete table;
     delete event;
@@ -374,7 +375,7 @@ TEST_F(ut_CreateTaskWidget, tableView2)
 TEST_F(ut_CreateTaskWidget, tableView3)
 {
     BtInfoTableView *table = new BtInfoTableView();
-    QMouseEvent *event = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *event = createMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     table->mouseReleaseEvent(event);
     delete table;
     delete event;

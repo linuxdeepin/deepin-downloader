@@ -16,6 +16,9 @@ ADD_COMPILE_OPTIONS(-fno-access-control)
 ADD_COMPILE_OPTIONS(-fno-inline)
 #添加-fno-inline编译选项，禁止内联，能获取到函数地址，可以对内联函数进行打桩
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-inline")
+#抑制 stub 框架将成员函数指针转换为 C 函数指针时的警告（-Wpmf-conversions）
+#stub.h 通过 mprotect + 内联汇编修改函数体实现打桩，运行时不受此转换影响
+ADD_COMPILE_OPTIONS(-Wno-pmf-conversions)
 
 set(CMAKE_SAFETYTEST "${CMAKE_SAFETYTEST_ARG}")
 if(CMAKE_SAFETYTEST STREQUAL "")

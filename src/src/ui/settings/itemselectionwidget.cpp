@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -77,7 +77,7 @@ void ItemSelectionWidget::initUI(bool isHttp)
 void ItemSelectionWidget::initConnections()
 {
     qDebug() << "Initializing item selection widget connections";
-    connect(m_checkBox, &QCheckBox::stateChanged, this, &ItemSelectionWidget::onCheckBoxStateChanged);
+    connect(m_checkBox, &QCheckBox::checkStateChanged, this, &ItemSelectionWidget::onCheckBoxStateChanged);
 }
 
 void ItemSelectionWidget::onCheckBoxStateChanged(int state)
