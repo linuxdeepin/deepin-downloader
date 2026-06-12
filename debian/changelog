@@ -1,3 +1,13 @@
+deepin-downloader (6.0.22) unstable; urgency=medium
+
+  * chore: Update version to 6.0.22
+  * [skip CI] Translate downloader.ts in cs
+  * test: migrate unit tests to Qt6 build environment
+  * fix: use QUrl::fromLocalFile for file URLs
+  * [skip CI] Translate downloader.ts in ru
+
+ -- zhanghongyuan <zhanghongyuan@uniontech.com>  Fri, 12 Jun 2026 09:01:46 +0800
+
 deepin-downloader (6.0.21) unstable; urgency=medium
 
   * chore: Update version to 6.0.21
