@@ -1,3 +1,10 @@
+deepin-downloader (6.0.23) unstable; urgency=medium
+
+  * chore: Update version to 6.0.23
+  * refactor(mainframe): replace hardcoded font and SVG icons with DCI icons and DFontSizeManager
+
+ -- zhanghongyuan <zhanghongyuan@uniontech.com>  Thu, 25 Jun 2026 19:48:26 +0800
+
 deepin-downloader (6.0.22) unstable; urgency=medium
 
   * chore: Update version to 6.0.22
