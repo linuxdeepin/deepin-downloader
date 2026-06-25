@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -449,6 +449,12 @@ private:
      * @brief 设置主题模式
     */
     void setPaletteType();
+
+    /**
+     * @brief 刷新左侧列表图标，根据当前主题和选中项设置 Pressed/Normal 状态
+     * @param theme 当前 DCI 主题 (Dark/Light)
+    */
+    void refreshLeftListIcons(Dtk::Gui::DDciIcon::Theme theme);
 
     /**
      * @brief 解析url，得到url名字

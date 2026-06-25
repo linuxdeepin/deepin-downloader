@@ -63,6 +63,9 @@
         <file>icon/progressbar_fg_dark.png</file>
         <file>icon/progressbar_bg_dark.png</file>
         <file>icon/DarkTypeIcon.png</file>
+        <file>icon/list_download.dci</file>
+        <file>icon/print_done.dci</file>
+        <file>icon/list_delete.dci</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="settings">json/settings.json</file>
