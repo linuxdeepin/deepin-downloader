@@ -9,6 +9,7 @@ Name=Deepin Downloader
 StartupNotify=false
 Type=Application
 X-Deepin-Vendor=deepin
+X-Deepin-Singleton=true
 
 # Translations:
 # Do not manually modify!
