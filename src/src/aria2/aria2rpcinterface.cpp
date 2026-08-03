@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -124,7 +124,6 @@ bool Aria2RPCInterface::startUp()
     opt += "--enable-rpc=true"; //启动RPC
     opt += "--rpc-secret=" + getToken();
     opt += "--rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
-    opt += "--check-certificate=false"; //停用rpc身份验证
     opt += "--rpc-allow-origin-all=true"; // 允许所有来源
     opt += "--rpc-max-request-size=99999999"; //设置rpc最大接收数
     opt += "--rpc-save-upload-metadata=true"; //
@@ -170,7 +169,6 @@ bool Aria2RPCInterface::startUp()
     opt += " --enable-rpc=true"; //启动RPC
     opt += " --rpc-secret=" + getToken();
     opt += " --rpc-listen-port=" + this->m_rpcPort; //RPC监听的端口
-    opt += " --check-certificate=false"; //停用rpc身份验证
     opt += " --rpc-allow-origin-all=true"; // 允许所有来源
     opt += " --rpc-max-request-size=99999999"; //设置rpc最大接收数
     opt += " --rpc-save-upload-metadata=true"; //
