@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -32,6 +32,7 @@
 
 #include "extensionservice.h"
 
+#include <QWebSocketCorsAuthenticator>
 #include <QWebSocketServer>
 #include <QWebChannel>
 #include <QWebSocket>
@@ -47,6 +48,11 @@
 #include "websocketclientwrapper.h"
 #include "websockettransport.h"
 #include "websockethandle.h"
+
+namespace {
+const QString kAllowedExtensionOrigin =
+        QStringLiteral("chrome-extension://ojlicckikdkkaclkpdddijgehekpmmbg");
+}
 
 QStringList runPipeProcess(const QString &command, const QString &filter)
 {
@@ -89,6 +95,20 @@ void extensionService::initWebsokcet()
     qDebug() << "[ExtensionService] Initializing WebSocket server";
 
     m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
+    connect(m_server, &QWebSocketServer::originAuthenticationRequired,
+            this, [](QWebSocketCorsAuthenticator *authenticator) {
+        const QString requestedOrigin = authenticator->origin();
+        QString origin = requestedOrigin;
+        // Qt versions may expose extension origins with a trailing slash.
+        if (origin.endsWith(QLatin1Char('/'))) {
+            origin.chop(1);
+        }
+        const bool allowed = origin == kAllowedExtensionOrigin;
+        authenticator->setAllowed(allowed);
+        if (!allowed) {
+            qWarning() << "[ExtensionService] Rejected WebSocket origin:" << requestedOrigin;
+        }
+    });
     if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
         qWarning() << "[ExtensionService] Failed to start WebSocket server on port 12345";
         qFatal("Failed to open web socket server.");
