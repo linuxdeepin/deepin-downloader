@@ -129,7 +129,7 @@ void TableView::initConnections()
     connect(m_TableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
     connect(this, &TableView::isCheckHeader, m_HeaderView, &DownloadHeaderView::onHeaderChecked);
     connect(this, &TableView::Hoverchanged, m_Itemdegegate, &ItemDelegate::onHoverchanged);
-    connect(m_TableModel, &TableModel::layoutChanged, this, &TableView::onModellayoutChanged);
+    connect(m_TableModel, &QAbstractItemModel::layoutChanged, this, &TableView::onModellayoutChanged);
     qDebug() << "[TableView] initConnections function ended";
 }
 

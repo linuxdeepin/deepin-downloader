@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,6 +34,7 @@
 #include <QString>
 #include <QStandardItemModel>
 #include <QMimeData>
+#include <QMetaType>
 
 #include "settings.h"
 #include <dpinyin.h>
@@ -713,24 +714,27 @@ int TableModel::DownloadingCount()
 typedef bool (*LessThan)(const QPair<QVariant, int> &left,
                          const QPair<QVariant, int> &right);
 
+// 数值型（文件大小、下载速度，已转为 QVariant(double)）按数值比较；
+// 字符串型（文件名、完成时间、创建时间等，经拼音转换为 QVariant(QString)）按字符串比较。
+// Qt6 弃用了 QVariant 的比较运算符，原实现统一 toDouble() 会使字符串列比较值塌缩为相等，
+// 导致 std::stable_sort 退化为空操作、排序失效，故按存储类型分派比较。
+inline bool variantLessThan(const QVariant &left, const QVariant &right)
+{
+    if (left.userType() == QMetaType::Double && right.userType() == QMetaType::Double)
+        return left.toDouble() < right.toDouble();
+    return left.toString() < right.toString();
+}
+
 bool itemLessThan(const QPair<QVariant, int> &left,
                   const QPair<QVariant, int> &right)
 {
-#if QT_VERSION_MAJOR > 5
-    return left.first.toDouble() < right.first.toDouble();
-#else
-    return left.first < right.first;
-#endif
+    return variantLessThan(left.first, right.first);
 }
 
 bool itemGreaterThan(const QPair<QVariant, int> &left,
                      const QPair<QVariant, int> &right)
 {
-#if QT_VERSION_MAJOR > 5
-    return right.first.toDouble() < left.first.toDouble();
-#else
-    return right.first < left.first;
-#endif
+    return variantLessThan(right.first, left.first);
 }
 
 void TableModel::sort(int column, Qt::SortOrder order)

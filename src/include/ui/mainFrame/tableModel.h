@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -244,10 +244,6 @@ signals:
      */
     void CheckChange(bool checked, int flag);
 
-    /**
-     * @brief 排序后数据改变
-     */
-    void layoutChanged();
 private slots:
     /**
      * @brief 获取选中改变
