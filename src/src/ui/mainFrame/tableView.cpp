@@ -106,8 +106,14 @@ void TableView::initUI()
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     m_HeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
     setColumnWidth(2, 110);
-    setColumnWidth(3, QHeaderView::Interactive);
-    setColumnWidth(4, QHeaderView::Interactive);
+    // BUG-243731: 原代码 setColumnWidth(3/4, QHeaderView::Interactive) 误把
+    // ResizeMode 枚举当像素宽度传入（Interactive==0），导致列宽被设为 0（被
+    // minimumSectionSize 钳为极窄值），仅靠 setStretchLastSection 掩盖。此处
+    // 改为正确的 setSectionResizeMode 并补合理初始宽度，使默认即可完整展示表头。
+    m_HeaderView->setSectionResizeMode(3, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(4, QHeaderView::Interactive);
+    setColumnWidth(3, 150);
+    setColumnWidth(4, 150);
     setTabKeyNavigation(true);
     QFont font;
     font.setFamily("Source Han Sans");
@@ -270,6 +276,9 @@ void TableView::onModellayoutChanged()
             }
         }
     }
+    // BUG-243731: setRowHidden 改变可见行集合后重算竖向滚动条范围与可视性，
+    // 确保切回菜单/排序后滚动条按内容多少默认展示。
+    updateGeometries();
 }
 
 LeftListView::LeftListView()

@@ -57,6 +57,11 @@ protected:
      */
     void updateGeometries();
 
+    /**
+     * @brief 按可用宽度省略表头文字，避免列被拖窄时文字被裁剪展示不全
+     */
+    void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const override;
+
 private:
     DCheckBox *m_headerCbx;
 signals:
