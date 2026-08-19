@@ -31,6 +31,10 @@
 
 #include "headerView.h"
 #include <QDebug>
+#include <QPainter>
+#include <QStyleOptionHeader>
+#include <QStyle>
+#include <QAbstractItemModel>
 
 DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
@@ -68,6 +72,40 @@ DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *par
 DownloadHeaderView::~DownloadHeaderView()
 {
     delete (m_headerCbx);
+}
+
+void DownloadHeaderView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
+{
+    QHeaderView::paintSection(painter, rect, logicalIndex);
+
+    // BUG-243731: 列被拖窄时表头文字默认被裁剪（不省略），改为按可用宽度省略绘制，
+    // 使窄列显示干净的省略号而非半截文字。
+    const QAbstractItemModel *m = model();
+    if (!m)
+        return;
+    const QString text = m->headerData(logicalIndex, orientation(), Qt::DisplayRole).toString();
+    if (text.isEmpty())
+        return;
+
+    const int margin = style()->pixelMetric(QStyle::PM_HeaderMargin, nullptr, this);
+    int rightReserve = margin;
+    if (isSortIndicatorShown() && sortIndicatorSection() == logicalIndex)
+        rightReserve += style()->pixelMetric(QStyle::PM_HeaderMarkSize, nullptr, this) + margin;
+
+    const QRect textRect = rect.adjusted(margin, 0, -rightReserve, 0);
+    if (textRect.width() <= 0)
+        return;
+
+    const QString elided = fontMetrics().elidedText(text, Qt::ElideRight, textRect.width());
+    if (elided == text)
+        return; // 文字完整放得下，基类已正确绘制，无需重绘
+
+    QStyleOptionHeader opt;
+    opt.initFrom(this);
+    opt.text = elided;
+    opt.rect = textRect;
+    opt.textAlignment = defaultAlignment();
+    style()->drawControl(QStyle::CE_HeaderLabel, &opt, painter, this);
 }
 
 void DownloadHeaderView::updateGeometries()
