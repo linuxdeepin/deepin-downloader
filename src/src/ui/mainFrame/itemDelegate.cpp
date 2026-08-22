@@ -156,7 +156,7 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         const QRect rectText = localRect.marginsRemoved(QMargins(25, 2, 0, 5));
         QString name = painter->fontMetrics().elidedText(index.data(TableModel::FileName).toString(),
                                                          Qt::ElideMiddle,
-                                                         textRect.width() - 20);
+                                                         rectText.width());
         painter->drawText(rectText, Qt::AlignVCenter | Qt::AlignLeft, name);
     } else if (column == 2) {
         if (isSelected) {
