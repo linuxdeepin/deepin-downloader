@@ -106,8 +106,10 @@ void TableView::initUI()
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     m_HeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
     setColumnWidth(2, 110);
-    setColumnWidth(3, QHeaderView::Interactive);
-    setColumnWidth(4, QHeaderView::Interactive);
+    setColumnWidth(3, 200);
+    m_HeaderView->setSectionResizeMode(3, QHeaderView::Interactive);
+    setColumnWidth(4, 200);
+    m_HeaderView->setSectionResizeMode(4, QHeaderView::Interactive);
     setTabKeyNavigation(true);
     QFont font;
     font.setFamily("Source Han Sans");
