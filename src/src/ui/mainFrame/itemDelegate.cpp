@@ -165,7 +165,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->drawRect(rect);
             painter->setPen(QColor("#FFFFFF"));
         }
-        const QString size = index.data(TableModel::Size).toString();
+        const QString size = painter->fontMetrics().elidedText(index.data(TableModel::Size).toString(),
+                                                               Qt::ElideRight, rect.width() - 10);
         painter->drawText(rect.marginsRemoved(QMargins(5, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, size);
     } else if (column == 3) {
         if (m_tableFlag == 0) {
@@ -293,7 +294,8 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->drawRect(rect.x(), rect.y(), rect.width() - 15, rect.height());
             painter->setPen(QColor("#FFFFFF"));
         }
-        const QString time = index.data(TableModel::Time).toString();
+        const QString time = painter->fontMetrics().elidedText(index.data(TableModel::Time).toString(),
+                                                               Qt::ElideRight, textRect.width() - 5);
         painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, time);
 
     } else {
