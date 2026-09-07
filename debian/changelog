@@ -1,3 +1,14 @@
+deepin-downloader (6.0.27) unstable; urgency=medium
+
+  * [skip CI] Translate downloader.ts in pt
+  * chore: Sync by https://github.com/linuxdeepin/.github/commit/a300f8523d4876677112edab6a0772f7ad112976
+  * fix: update Arabic (ar) translations
+  * [skip CI] Translate desktop.ts in sv
+  * [skip CI] Translate downloader.ts in ar
+  * [skip CI] Translate downloader.ts in sv
+
+ -- Liu Zhangjian <liuzhangjian@uniontech.com>  Mon, 07 Sep 2026 13:25:09 +0800
+
 deepin-downloader (6.0.26) unstable; urgency=medium
 
   * chore: Update version to 6.0.26
