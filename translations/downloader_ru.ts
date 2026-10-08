@@ -91,7 +91,7 @@
     <message>
         <location filename="../src/src/ui/createTask/btinfodialog.cpp" line="315"/>
         <source>OK</source>
-        <translation>ОК</translation>
+        <translation>Хорошо</translation>
     </message>
 </context>
 <context>
@@ -222,7 +222,7 @@
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="375"/>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="609"/>
         <source>OK</source>
-        <translation>ОК</translation>
+        <translation>Хорошо</translation>
     </message>
     <message>
         <location filename="../src/src/ui/createTask/createtaskwidget.cpp" line="1086"/>
@@ -643,7 +643,7 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1620"/>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
         <source>OK</source>
-        <translation>ОК</translation>
+        <translation>Хорошо</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1855"/>
@@ -653,7 +653,7 @@ Downloading tasks will be interrupted.</source>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="2706"/>
         <source>Torrent file not exist or broken</source>
-        <translation>Торрент-файл не существует или поврежден</translation>
+        <translation>Торрент-файл не существует или повреждён</translation>
     </message>
     <message>
         <location filename="../src/src/ui/mainFrame/mainframe.cpp" line="1960"/>
@@ -719,7 +719,7 @@ Downloading tasks will be interrupted.</source>
         <location filename="../src/src/ui/messagebox.cpp" line="283"/>
         <location filename="../src/src/ui/messagebox.cpp" line="341"/>
         <source>OK</source>
-        <translation>ОК</translation>
+        <translation>Хорошо</translation>
     </message>
     <message>
         <location filename="../src/src/ui/messagebox.cpp" line="125"/>
