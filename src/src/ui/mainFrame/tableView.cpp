@@ -105,9 +105,10 @@ void TableView::initUI()
     setColumnWidth(1, 248);
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     m_HeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
+    m_HeaderView->setMinimumSectionSize(120);
     setColumnWidth(2, 110);
-    setColumnWidth(3, QHeaderView::Interactive);
-    setColumnWidth(4, QHeaderView::Interactive);
+    setColumnWidth(3, 100);
+    setColumnWidth(4, 100);
     setTabKeyNavigation(true);
     QFont font;
     font.setFamily("Source Han Sans");
@@ -245,7 +246,7 @@ bool TableView::refreshTableView(const int &index)
         //getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         break;
     }
-    update();
+    updateGeometries();
     return true;
 }
 
@@ -270,6 +271,7 @@ void TableView::onModellayoutChanged()
             }
         }
     }
+    updateGeometries();
 }
 
 LeftListView::LeftListView()

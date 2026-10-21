@@ -220,6 +220,7 @@ bool TableModel::removeRecycleItems()
 
 bool TableModel::switchDownloadingMode()
 {
+    beginResetModel();
     m_Mode = Downloading;
     m_RenderList.clear();
 
@@ -229,11 +230,13 @@ bool TableModel::switchDownloadingMode()
         }
     }
     sortDownload(m_SortColumn, m_SortOrder);
+    endResetModel();
     return true;
 }
 
 bool TableModel::switchFinishedMode()
 {
+    beginResetModel();
     m_Mode = Finished;
     m_RenderList.clear();
 
@@ -243,6 +246,7 @@ bool TableModel::switchFinishedMode()
         }
     }
     sortDownload(m_SortColumn, m_SortOrder);
+    endResetModel();
     return true;
 }
 

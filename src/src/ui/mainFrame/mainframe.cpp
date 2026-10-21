@@ -911,8 +911,10 @@ void MainFrame::onListClicked(const QModelIndex &index)
 
     if ((index.row() == 0) || (index.row() == 1)) {
         m_DownLoadingTableView->refreshTableView(index.row());
-        m_DownLoadingTableView->horizontalHeader()->reset();
+        m_DownLoadingTableView->getTableHeader()->setSortIndicator(-1, Qt::AscendingOrder);
         m_DownLoadingTableView->reset(true);
+        m_DownLoadingTableView->updateGeometriesWrapper();
+        m_DownLoadingTableView->scrollToTop();
         setTaskNum();
         if (index.row() == 1) {
             m_NotaskLabel->setText(tr("No finished tasks"));
