@@ -51,6 +51,7 @@ public:
     TableView(int Flag);
     ~TableView();
     void reset(bool switched = false);
+    void updateGeometriesWrapper() { updateGeometries(); }
     /**
      * @brief 获取model
      * @return model
