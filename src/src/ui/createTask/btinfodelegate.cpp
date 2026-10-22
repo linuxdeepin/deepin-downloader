@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -44,17 +44,18 @@
 #include <QModelIndex>
 #include <QCheckBox>
 #include <QDir>
+#include "ddlog.h"
 
 BtInfoDelegate::BtInfoDelegate(DDialog *dialog):
     m_dialog(dialog),
     m_checkBtn(new QCheckBox)
 {
-    qDebug() << "BtInfoDelegate constructor";
+    qCDebug(downloaderLog) << "BtInfoDelegate constructor";
 }
 
 BtInfoDelegate::~BtInfoDelegate()
 {
-    qDebug() << "BtInfoDelegate destructor";
+    qCDebug(downloaderLog) << "BtInfoDelegate destructor";
     delete m_checkBtn;
 }
 

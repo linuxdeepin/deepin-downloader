@@ -48,6 +48,7 @@
 #include "websocketclientwrapper.h"
 #include "websockettransport.h"
 #include "websockethandle.h"
+#include "ddlog.h"
 
 namespace {
 const QString kAllowedExtensionOrigin =
@@ -80,19 +81,19 @@ QStringList runPipeProcess(const QString &command, const QString &filter)
 
 extensionService::extensionService()
 {
-    qDebug() << "[ExtensionService] Initializing WebSocket service";
+    qCDebug(extensionLog) << "[ExtensionService] Initializing WebSocket service";
     initWebsokcet();
 }
 
 extensionService::~extensionService()
 {
-    qDebug() << "[ExtensionService] Destroying WebSocket service";
+    qCDebug(extensionLog) << "[ExtensionService] Destroying WebSocket service";
     delete m_timer;
 }
 
 void extensionService::initWebsokcet()
 {
-    qDebug() << "[ExtensionService] Initializing WebSocket server";
+    qCDebug(extensionLog) << "[ExtensionService] Initializing WebSocket server";
 
     m_server = new QWebSocketServer(QStringLiteral("QWebChannel Server"), QWebSocketServer::NonSecureMode);
     connect(m_server, &QWebSocketServer::originAuthenticationRequired,
@@ -106,14 +107,14 @@ void extensionService::initWebsokcet()
         const bool allowed = origin == kAllowedExtensionOrigin;
         authenticator->setAllowed(allowed);
         if (!allowed) {
-            qWarning() << "[ExtensionService] Rejected WebSocket origin:" << requestedOrigin;
+            qCWarning(extensionLog) << "[ExtensionService] Rejected WebSocket origin:" << requestedOrigin;
         }
     });
     if (!m_server->listen(QHostAddress("127.0.0.1"), 12345)) {
-        qWarning() << "[ExtensionService] Failed to start WebSocket server on port 12345";
+        qCWarning(extensionLog) << "[ExtensionService] Failed to start WebSocket server on port 12345";
         qFatal("Failed to open web socket server.");
     }
-    qDebug() << "[ExtensionService] WebSocket server started successfully";
+    qCDebug(extensionLog) << "[ExtensionService] WebSocket server started successfully";
     WebSocketClientWrapper* clientWrapper = new WebSocketClientWrapper(m_server);
     QWebChannel* channel = new QWebChannel;
     QObject::connect(clientWrapper, &WebSocketClientWrapper::clientConnected,
@@ -132,7 +133,7 @@ void extensionService::initWebsokcet()
 
 void extensionService::sendUrlToDownloader(const QString &url)
 {
-    qDebug() << "[ExtensionService] Sending URL to downloader:" << url;
+    qCDebug(extensionLog) << "[ExtensionService] Sending URL to downloader:" << url;
 
     QProcess proc;
     proc.startDetached("downloader", QStringList() << url);
@@ -146,7 +147,7 @@ void extensionService::sendUrlToDownloader(const QString &url)
        QDBusMessage m = iface.call("onReceiveExtentionUrl", url);
        QString msg = m.errorMessage();
        if(msg.isEmpty()) {
-           qDebug() << "[ExtensionService] URL successfully sent to downloader";
+           qCDebug(extensionLog) << "[ExtensionService] URL successfully sent to downloader";
            timer->stop();
        }
     });
@@ -154,15 +155,15 @@ void extensionService::sendUrlToDownloader(const QString &url)
 
 void extensionService::checkConnection()
 {
-    qDebug() << "[ExtensionService] Checking WebSocket connections";
+    qCDebug(extensionLog) << "[ExtensionService] Checking WebSocket connections";
 
     QStringList strList = runPipeProcess("netstat -apn", "dlmextensions");
     for(QString str : strList) {
         if(str.contains("ESTABLISHED")) {  //存在websocket链接
-            qDebug() << "[ExtensionService] Active WebSocket connection found";
+            qCDebug(extensionLog) << "[ExtensionService] Active WebSocket connection found";
             return;
         }
     }
-    qDebug() << "[ExtensionService] No active connections, exiting";
+    qCDebug(extensionLog) << "[ExtensionService] No active connections, exiting";
     qApp->exit(0);
 }

@@ -56,6 +56,7 @@
 #include "topButton.h"
 #include "tabledatacontrol.h"
 #include "global.h"
+#include "ddlog.h"
 
 using namespace Global;
 
@@ -67,10 +68,10 @@ TableView::TableView(int Flag)
     , m_Itemdegegate(new ItemDelegate(this, m_TableFlag))
     , m_Setting(Settings::getInstance())
 {
-    qDebug() << "TableView created with flag:" << Flag;
+    qCDebug(downloaderLog) << "TableView created with flag:" << Flag;
     initUI();
     initConnections();
-    qDebug() << "[TableView] Constructor ended";
+    qCDebug(downloaderLog) << "[TableView] Constructor ended";
 }
 
 TableView::~TableView()
@@ -83,7 +84,7 @@ TableView::~TableView()
 
 void TableView::initUI()
 {
-    qDebug() << "Initializing table view UI";
+    qCDebug(downloaderLog) << "Initializing table view UI";
     setModel(m_TableModel);
     setItemDelegate(m_Itemdegegate);
     setFrameShape(QFrame::NoFrame);
@@ -118,24 +119,24 @@ void TableView::initUI()
     QFont font;
     font.setFamily("Source Han Sans");
     setFont(font);
-    qDebug() << "[TableView] initUI function ended";
+    qCDebug(downloaderLog) << "[TableView] initUI function ended";
 }
 
 void TableView::initConnections()
 {
-    qDebug() << "Initializing table view connections";
+    qCDebug(downloaderLog) << "Initializing table view connections";
     connect(m_HeaderView, &DownloadHeaderView::Statechanged, this, &TableView::HeaderStatechanged);
     //connect(this, &TableView::ClearHeaderCheck, m_HeaderView, &HeaderView::onClearHeaderChecked);
     connect(m_TableModel, &TableModel::tableviewAllcheckedOrAllunchecked, this, &TableView::isCheckHeader);
     connect(this, &TableView::isCheckHeader, m_HeaderView, &DownloadHeaderView::onHeaderChecked);
     connect(this, &TableView::Hoverchanged, m_Itemdegegate, &ItemDelegate::onHoverchanged);
     connect(m_TableModel, &QAbstractItemModel::layoutChanged, this, &TableView::onModellayoutChanged);
-    qDebug() << "[TableView] initConnections function ended";
+    qCDebug(downloaderLog) << "[TableView] initConnections function ended";
 }
 
 void TableView::onListchanged()
 {
-    qDebug() << "[TableView] onListchanged function started";
+    qCDebug(downloaderLog) << "[TableView] onListchanged function started";
     currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
 }
 
@@ -291,7 +292,7 @@ void TableView::onModellayoutChanged()
 {
     // qDebug() << "[TableView] onModellayoutChanged function started";
     if (m_TableFlag == 0) {
-        qDebug() << "[TableView] Processing download data items";
+        qCDebug(downloaderLog) << "[TableView] Processing download data items";
         const QList<DownloadDataItem *> &selectList = getTableModel()->renderList();
         for (int i = 0; i < selectList.size(); i++) {
             if (selectList.at(i)->isHide) {

@@ -42,6 +42,7 @@
 #include <QCryptographicHash>
 #include <QtMath>
 #include <QUuid>
+#include "ddlog.h"
 
 Aria2RPCInterface *Aria2RPCInterface::m_instance = new Aria2RPCInterface;
 
@@ -90,13 +91,13 @@ Aria2RPCInterface::~Aria2RPCInterface()
 
 bool Aria2RPCInterface::startUp()
 {
-    qDebug() << "[Aria2RPC] Starting aria2 service";
+    qCDebug(downloaderLog) << "[Aria2RPC] Starting aria2 service";
 
     /*
      *检测aria2c执行文件是否存在
      */
     if (!checkAria2cFile()) {
-        qDebug() << "未发现" << m_basePath + m_aria2cCmd;
+        qCDebug(downloaderLog) << "未发现" << m_basePath + m_aria2cCmd;
         return false;
     }
 
@@ -105,7 +106,7 @@ bool Aria2RPCInterface::startUp()
      */
     bool bCheck = checkAria2cProc();
     if (bCheck) {
-        qDebug() << m_aria2cCmd + "进程已存在,killAria2cProc()";
+        qCDebug(downloaderLog) << m_aria2cCmd + "进程已存在,killAria2cProc()";
         killAria2cProc();
     }
 
@@ -115,11 +116,11 @@ bool Aria2RPCInterface::startUp()
     QString sessionCacheFile = QDir::homePath() + "/.cache/uos-aria2c.session"; //session 文件路径
     QString saveSessionInterval = "30"; //秒
 
-    qDebug() << "创建session缓存文件: " << sessionCacheFile;
+    qCDebug(downloaderLog) << "创建session缓存文件: " << sessionCacheFile;
     QProcess::execute("touch", QStringList() << sessionCacheFile); //创建session缓存文件
 
 #if QT_VERSION_MAJOR > 5
-    qDebug() << "[Aria2RPC] Using Qt version > 5";
+    qCDebug(downloaderLog) << "[Aria2RPC] Using Qt version > 5";
     QStringList opt;
     opt += "--enable-rpc=true"; //启动RPC
     opt += "--rpc-secret=" + getToken();
@@ -130,11 +131,11 @@ bool Aria2RPCInterface::startUp()
 
     //opt += "--not-conf=true";//不使用配置文件
     if (!this->m_configPath.isEmpty()) {
-        qDebug() << "[Aria2RPC] Config path is not empty, using config file:" << this->m_configPath;
+        qCDebug(downloaderLog) << "[Aria2RPC] Config path is not empty, using config file:" << this->m_configPath;
         opt += "--conf-path=" + this->m_configPath; //加载指定的配置文件
     }
     if (!this->m_defaultDownloadPath.isEmpty()) {
-        qDebug() << "[Aria2RPC] Default download path is not empty:" << this->m_defaultDownloadPath;
+        qCDebug(downloaderLog) << "[Aria2RPC] Default download path is not empty:" << this->m_defaultDownloadPath;
         opt += "--dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
     opt += "--continue=true"; //http续传配置
@@ -152,7 +153,7 @@ bool Aria2RPCInterface::startUp()
     opt += "--enable-dht6=false"; //禁用dht6文件
     opt += "--follow-metalink=false";
     if(QSysInfo::currentCpuArchitecture() == "loongarch64"){
-        qDebug() << "[Aria2RPC] Using loongarch64 architecture, disabling async-dns";
+        qCDebug(downloaderLog) << "[Aria2RPC] Using loongarch64 architecture, disabling async-dns";
         opt += "--async-dns=false";
     }
 
@@ -164,7 +165,7 @@ bool Aria2RPCInterface::startUp()
     proc.startDetached();
     proc.waitForStarted();
 #else
-    qDebug() << "[Aria2RPC] Using Qt version <= 5";
+    qCDebug(downloaderLog) << "[Aria2RPC] Using Qt version <= 5";
     QString opt;
     opt += " --enable-rpc=true"; //启动RPC
     opt += " --rpc-secret=" + getToken();
@@ -175,11 +176,11 @@ bool Aria2RPCInterface::startUp()
 
     //opt += " --not-conf=true";//不使用配置文件
     if (!this->m_configPath.isEmpty()) {
-        qDebug() << "[Aria2RPC] Config path is not empty, using config file:" << this->m_configPath;
+        qCDebug(downloaderLog) << "[Aria2RPC] Config path is not empty, using config file:" << this->m_configPath;
         opt += " --conf-path=" + this->m_configPath; //加载指定的配置文件
     }
     if (!this->m_defaultDownloadPath.isEmpty()) {
-        qDebug() << "[Aria2RPC] Default download path is not empty:" << this->m_defaultDownloadPath;
+        qCDebug(downloaderLog) << "[Aria2RPC] Default download path is not empty:" << this->m_defaultDownloadPath;
         opt += " --dir=" + this->m_defaultDownloadPath; //配置默认下载路径。优先级高于配置文件，已移动到配置文件中
     }
     opt += " --continue=true"; //http续传配置
@@ -197,7 +198,7 @@ bool Aria2RPCInterface::startUp()
     opt += " --enable-dht6=false"; //禁用dht6文件
     opt += " --follow-metalink=false";
     if(QSysInfo::currentCpuArchitecture() == "loongarch64"){
-        qDebug() << "[Aria2RPC] Using loongarch64 architecture, disabling async-dns";
+        qCDebug(downloaderLog) << "[Aria2RPC] Using loongarch64 architecture, disabling async-dns";
         opt += " --async-dns=false";
     }
 
@@ -222,30 +223,30 @@ bool Aria2RPCInterface::startUp()
 //    wwwww = proc.readAllStandardOutput();
 
     bCheck = checkAria2cProc();
-    qDebug() << "启动aria2c完成！ " << bCheck;
+    qCDebug(downloaderLog) << "启动aria2c完成！ " << bCheck;
     return bCheck;
 }
 
 bool Aria2RPCInterface::checkAria2cFile()
 {
-    qDebug() << "[Aria2RPC] checkAria2cFile function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] checkAria2cFile function started";
     QFile file(m_basePath + m_aria2cCmd);
     return file.exists();
 }
 
 bool Aria2RPCInterface::init()
 {
-    qDebug() << "[Aria2RPC] Initializing aria2 service";
+    qCDebug(downloaderLog) << "[Aria2RPC] Initializing aria2 service";
 
     setupConfig();
     bool rs = startUp();
-    qDebug() << "Startup aria2:" << QString::number(rs);
+    qCDebug(downloaderLog) << "Startup aria2:" << QString::number(rs);
     return rs;
 }
 
 bool Aria2RPCInterface::checkAria2cProc()
 {
-    qDebug() << "[Aria2RPC] checkAria2cProc function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] checkAria2cProc function started";
     QStringList lineList = runPipeProcess("ps aux", m_aria2cCmd);
     int cnt = 0;
     for (QString t : lineList) {
@@ -264,17 +265,17 @@ bool Aria2RPCInterface::checkAria2cProc()
         }
     }
     if (cnt > 0) {
-        qDebug() << "[Aria2RPC] Aria2c process found, returning true";
+        qCDebug(downloaderLog) << "[Aria2RPC] Aria2c process found, returning true";
         return true;
     } else {
-        qDebug() << "[Aria2RPC] Aria2c process not found, returning false";
+        qCDebug(downloaderLog) << "[Aria2RPC] Aria2c process not found, returning false";
         return false;
     }
 }
 
 int Aria2RPCInterface::killAria2cProc()
 {
-    qDebug() << "[Aria2RPC] killAria2cProc function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] killAria2cProc function started";
     QStringList lines = runPipeProcess("ps -eo pid,lstart,cmd", m_aria2cCmd);
     QStringList processPids;
 
@@ -294,7 +295,7 @@ int Aria2RPCInterface::killAria2cProc()
         QProcess killProcess;
         killProcess.start("kill", QStringList() << "-9" << pid);
         killProcess.waitForFinished();
-        qInfo() << "Killed process with PID:" << pid;
+        qCInfo(downloaderLog) << "Killed process with PID:" << pid;
     }
     return 0;
 }
@@ -327,9 +328,9 @@ QString Aria2RPCInterface::getConfigFilePath() const
 
 bool Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString id)
 {
-    qDebug() << "[Aria2RPC] addUri function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] addUri function started";
     if (uri.isEmpty() || opt.isEmpty() || id.isEmpty()) {
-        qWarning() << "[Aria2RPC] Invalid parameters for addUri";
+        qCWarning(downloaderLog) << "[Aria2RPC] Invalid parameters for addUri";
         return false;
     }
     uri = processThunderUri(uri); //处理迅雷链接
@@ -342,15 +343,15 @@ bool Aria2RPCInterface::addUri(QString uri, QMap<QString, QVariant> opt, QString
     ja.append(optJson);
 
     bool result = callRPC(ARIA2C_METHOD_ADD_URI, ja, id);
-    qDebug() << "[Aria2RPC] addUri function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] addUri function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filename, QString id)
 {
-    qDebug() << "[Aria2RPC] addNewUri function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] addNewUri function started";
     if (uri.isEmpty() || savepath.isEmpty() || filename.isEmpty() || id.isEmpty()) {
-        qDebug() << "[Aria2RPC] addNewUri function ended with result: false";
+        qCDebug(downloaderLog) << "[Aria2RPC] addNewUri function ended with result: false";
         return false;
     }
     QMap<QString, QVariant> opt;
@@ -358,7 +359,7 @@ bool Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filenam
     opt.insert("out", filename);
 
     bool result = addUri(uri, opt, id);
-    qDebug() << "[Aria2RPC] addNewUri function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] addNewUri function ended with result:" << result;
     return result;
 
     //qDebug() << "Add new uri" << uri;
@@ -366,9 +367,9 @@ bool Aria2RPCInterface::addNewUri(QString uri, QString savepath, QString filenam
 
 bool Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> opt, QString id)
 {
-    qDebug() << "[Aria2RPC] addTorrent function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] addTorrent function started";
     if (torrentFile.isEmpty() || opt.isEmpty() || id.isEmpty()) {
-        qWarning() << "[Aria2RPC] Invalid parameters for addTorrent";
+        qCWarning(downloaderLog) << "[Aria2RPC] Invalid parameters for addTorrent";
         return false;
     }
     QString torrentB64Str = fileToBase64(torrentFile); //把bt文件转成base64编码
@@ -381,15 +382,15 @@ bool Aria2RPCInterface::addTorrent(QString torrentFile, QMap<QString, QVariant> 
     ja.append(optJson);
 
     bool result = callRPC(ARIA2C_METHOD_ADD_TORRENT, ja, id);
-    qDebug() << "[Aria2RPC] addTorrent function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] addTorrent function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> opt, QString id)
 {
-    qDebug() << "[Aria2RPC] addMetalink function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] addMetalink function started";
     if (metalink.isEmpty() || opt.isEmpty() || id.isEmpty()) {
-        qWarning() << "[Aria2RPC] Invalid parameters for addMetalink";
+        qCWarning(downloaderLog) << "[Aria2RPC] Invalid parameters for addMetalink";
         return false;
     }
     QString metalinkB64Str = fileToBase64(metalink);
@@ -402,7 +403,7 @@ bool Aria2RPCInterface::addMetalink(QString metalink, QMap<QString, QVariant> op
     ja.append(optJson);
 
     bool result = callRPC(ARIA2C_METHOD_ADD_METALINK, ja, id);
-    qDebug() << "[Aria2RPC] addMetalink function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] addMetalink function ended with result:" << result;
     return result;
 }
 
@@ -422,15 +423,15 @@ QString Aria2RPCInterface::fileToBase64(QString filePath)
 
 bool Aria2RPCInterface::purgeDownloadResult(QString id)
 {
-    qDebug() << "[Aria2RPC] purgeDownloadResult function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] purgeDownloadResult function started";
     bool result = callRPC(ARIA2C_METHOD_PURGE_DOWNLOAD_RESULT, id);
-    qDebug() << "[Aria2RPC] purgeDownloadResult function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] purgeDownloadResult function ended with result:" << result;
     return result;
 }
 
 Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
 {
-    qDebug() << "[Aria2RPC] getBtInfo function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] getBtInfo function started";
     QProcess Proc; //进程调用指针
     QStringList opt;
     opt << "--show-files=true";
@@ -483,13 +484,13 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
         } else if (bFlag && line.startsWith("---+---")) { //
             QStringList stl = temp.split("|");
             if (stl.size() < 3) {
-                qWarning() << "[Aria2RPC] getBtInfo: unexpected file line format, expected idx|path|size, got:" << temp;
+                qCWarning(downloaderLog) << "[Aria2RPC] getBtInfo: unexpected file line format, expected idx|path|size, got:" << temp;
                 temp = "";
                 continue;
             }
             QStringList spl = stl[2].split(" ");
             if (spl.size() < 2) {
-                qWarning() << "[Aria2RPC] getBtInfo: unexpected size format in file line:" << stl[2];
+                qCWarning(downloaderLog) << "[Aria2RPC] getBtInfo: unexpected size format in file line:" << stl[2];
                 temp = "";
                 continue;
             }
@@ -508,12 +509,12 @@ Aria2cBtInfo Aria2RPCInterface::getBtInfo(QString torrentPath)
         }
     }
     if (btInfo.totalLengthByets == 0) {
-        qDebug() << "[Aria2RPC] getBtInfo function, totalLengthByets is 0, calculating totalLengthByets";
+        qCDebug(downloaderLog) << "[Aria2RPC] getBtInfo function, totalLengthByets is 0, calculating totalLengthByets";
         for (int i = 0; i < btInfo.files.size(); i++) {
             btInfo.totalLengthByets += btInfo.files[i].lengthBytes;
         }
     }
-    qDebug() << "[Aria2RPC] getBtInfo function ended";
+    qCDebug(downloaderLog) << "[Aria2RPC] getBtInfo function ended";
     return btInfo;
 }
 
@@ -549,11 +550,11 @@ bool Aria2RPCInterface::callRPC(QString method, QString id)
 
 bool Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
 {
-    qDebug() << "[Aria2RPC] sendMessage function started with method:" << method;
+    qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function started with method:" << method;
     QNetworkAccessManager *manager = new QNetworkAccessManager; //定义网络对象
 
     if (!jsonObj.isEmpty()) { //json如果不为空
-        qDebug() << "[Aria2RPC] sendMessage function, jsonObj is not empty";
+        qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function, jsonObj is not empty";
         QNetworkRequest requset; //定义请求对象
         requset.setUrl(QUrl(this->m_rpcServer)); //设置服务器的uri
         requset.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -582,29 +583,29 @@ bool Aria2RPCInterface::sendMessage(QJsonObject jsonObj, const QString &method)
         //                    qDebug() << "finished" << ":  " << buf;
         //                });
         bool result = (networkReply->error() ? false : true);
-        qDebug() << "[Aria2RPC] sendMessage function ended with result:" << result;
+        qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function ended with result:" << result;
         return result;
     }
 
     if (manager != nullptr) {
-        qDebug() << "[Aria2RPC] sendMessage function, manager is not null";
+        qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function, manager is not null";
         manager->deleteLater();
         manager = nullptr;
     }
 
-    qDebug() << "[Aria2RPC] sendMessage function ended with false";
+    qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function ended with false";
     return false;
 }
 
 void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &method, const QString id)
 {
-    qDebug() << "[Aria2RPC] rpcRequestReply function started with method:" << method;
+    qCDebug(downloaderLog) << "[Aria2RPC] rpcRequestReply function started with method:" << method;
     if (method == ARIA2C_METHOD_FORCE_PAUSE) {
-        qDebug() << "[Aria2RPC] sendMessage function, method is FORCE_PAUSE";
+        qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function, method is FORCE_PAUSE";
         method.size();
     }
     if (method == ARIA2C_METHOD_PAUSE) {
-        qDebug() << "[Aria2RPC] sendMessage function, method is PAUSE";
+        qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function, method is PAUSE";
         method.size();
     }
     int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(); //请求返回的属性值
@@ -612,7 +613,7 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     
     // Safety check: validate JSON parsing
     if (buf.isEmpty()) {
-        qDebug() << "[Aria2RPC] Error: Empty response buffer for method:" << method;
+        qCDebug(downloaderLog) << "[Aria2RPC] Error: Empty response buffer for method:" << method;
         return;
     }
     
@@ -621,7 +622,7 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     
     // Safety check: ensure JSON parsing succeeded
     if (parseError.error != QJsonParseError::NoError) {
-        qDebug() << "[Aria2RPC] Error: JSON parse failed for method:" << method 
+        qCDebug(downloaderLog) << "[Aria2RPC] Error: JSON parse failed for method:" << method 
                  << "Error:" << parseError.errorString() 
                  << "Offset:" << parseError.offset;
         return;
@@ -629,7 +630,7 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     
     // Safety check: ensure document contains an object
     if (!doc.isObject()) {
-        qDebug() << "[Aria2RPC] Error: JSON document is not an object for method:" << method;
+        qCDebug(downloaderLog) << "[Aria2RPC] Error: JSON document is not an object for method:" << method;
         return;
     }
     
@@ -637,36 +638,36 @@ void Aria2RPCInterface::rpcRequestReply(QNetworkReply *reply, const QString &met
     
     // Safety check: ensure object is not empty
     if (obj.isEmpty()) {
-        qDebug() << "[Aria2RPC] Error: JSON object is empty for method:" << method;
+        qCDebug(downloaderLog) << "[Aria2RPC] Error: JSON object is empty for method:" << method;
         return;
     }
     
     if (code == 200) { //返回正常
-        qDebug() << "[Aria2RPC] sendMessage function, method is " << method << ", code is 200";
+        qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function, method is " << method << ", code is 200";
         emit RPCSuccess(method, obj);
     } else { //错误
-        qDebug() << "[Aria2RPC] sendMessage function, method is " << method << ", code is not 200";
+        qCDebug(downloaderLog) << "[Aria2RPC] sendMessage function, method is " << method << ", code is not 200";
         emit RPCError(method, id, code, obj);
     }
 
     reply->deleteLater();
     //reply->destroyed();
-    qDebug() << "[Aria2RPC] rpcRequestReply function ended";
+    qCDebug(downloaderLog) << "[Aria2RPC] rpcRequestReply function ended";
 }
 
 bool Aria2RPCInterface::tellStatus(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] tellStatus function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] tellStatus function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
-    qDebug() << "[Aria2RPC] tellStatus function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] tellStatus function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
 {
-    qDebug() << "[Aria2RPC] tellStatus function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] tellStatus function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     QJsonArray ka;
@@ -675,125 +676,125 @@ bool Aria2RPCInterface::tellStatus(QString gId, QStringList keys, QString id)
     }
     ja.append(ka);
     bool result = callRPC(ARIA2C_METHOD_TELL_STATUS, ja, id);
-    qDebug() << "[Aria2RPC] tellStatus function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] tellStatus function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::pause(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] pause function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] pause function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_PAUSE, ja, id);
-    qDebug() << "[Aria2RPC] pause function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] pause function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::forcePause(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] forcePause function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] forcePause function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_FORCE_PAUSE, ja, id);
-    qDebug() << "[Aria2RPC] forcePause function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] forcePause function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::pauseAll(QString id)
 {
-    qDebug() << "[Aria2RPC] pauseAll function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] pauseAll function started";
     bool result = callRPC(ARIA2C_METHOD_PAUSE_ALL, id);
-    qDebug() << "[Aria2RPC] pauseAll function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] pauseAll function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::forcePauseAll(QString id)
 {
-    qDebug() << "[Aria2RPC] forcePauseAll function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] forcePauseAll function started";
     bool result = callRPC(ARIA2C_METHOD_FORCE_PAUSE_ALL, id);
-    qDebug() << "[Aria2RPC] forcePauseAll function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] forcePauseAll function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::unpause(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] unpause function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] unpause function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_UNPAUSE, ja, id);
-    qDebug() << "[Aria2RPC] unpause function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] unpause function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::unpauseAll(QString id)
 {
-    qDebug() << "[Aria2RPC] unpauseAll function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] unpauseAll function started";
     bool result = callRPC(ARIA2C_METHOD_UNPAUSE_ALL, id);
-    qDebug() << "[Aria2RPC] unpauseAll function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] unpauseAll function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::remove(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] remove function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] remove function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_REMOVE, ja, id);
-    qDebug() << "[Aria2RPC] remove function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] remove function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::forceRemove(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] forceRemove function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] forceRemove function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_FORCE_REMOVE, ja, id);
-    qDebug() << "[Aria2RPC] forceRemove function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] forceRemove function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::removeDownloadResult(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] removeDownloadResult function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] removeDownloadResult function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_REMOVE_DOWNLOAD_RESULT, ja, id);
-    qDebug() << "[Aria2RPC] removeDownloadResult function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] removeDownloadResult function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::getFiles(QString gId, QString id)
 {
-    qDebug() << "[Aria2RPC] getFiles function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] getFiles function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     bool result = callRPC(ARIA2C_METHOD_GET_FILES, ja, id);
-    qDebug() << "[Aria2RPC] getFiles function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] getFiles function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::getGlobalSatat()
 {
-    qDebug() << "[Aria2RPC] getGlobalSatat function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] getGlobalSatat function started";
     QJsonArray ja;
     bool result = callRPC(ARIA2C_METHOD_GET_GLOBAL_STAT, ja, "");
-    qDebug() << "[Aria2RPC] getGlobalSatat function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] getGlobalSatat function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::getGlobalOption()
 {
-    qDebug() << "[Aria2RPC] getGlobalOption function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] getGlobalOption function started";
     QJsonArray ja;
     bool result = callRPC(ARIA2C_METHOD_GET_GLOBAL_OPTION, ja, "");
-    qDebug() << "[Aria2RPC] getGlobalOption function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] getGlobalOption function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QString id)
 {
-    qDebug() << "[Aria2RPC] changeGlobalOption function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] changeGlobalOption function started";
     QJsonArray ja;
     QJsonDocument doc = QJsonDocument::fromVariant(QVariant(options));
     QByteArray jba = doc.toJson();
@@ -803,25 +804,25 @@ bool Aria2RPCInterface::changeGlobalOption(QMap<QString, QVariant> options, QStr
     QJsonObject optJson = doc.object();
     ja.append(nobj);
     bool result = callRPC(ARIA2C_METHOD_CHANGE_GLOBAL_OPTION, ja, id);
-    qDebug() << "[Aria2RPC] changeGlobalOption function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] changeGlobalOption function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::changePosition(QString gId, int pos)
 {
-    qDebug() << "[Aria2RPC] changePosition function started with gId:" << gId;
+    qCDebug(downloaderLog) << "[Aria2RPC] changePosition function started with gId:" << gId;
     QJsonArray ja;
     ja.append(gId);
     ja.append(pos);
     ja.append("POS_SET");
     bool result = callRPC(ARIA2C_METHOD_CHANGE_POSITION, ja, gId);
-    qDebug() << "[Aria2RPC] changePosition function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] changePosition function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
 {
-    qDebug() << "[Aria2RPC] modifyConfigFile function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] modifyConfigFile function started";
 
     QString strAll;
     QStringList strList;
@@ -833,17 +834,17 @@ bool Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
 
     QFile readFile(m_aria2configPath);
     if (readFile.open((QIODevice::ReadOnly | QIODevice::Text))) {
-        qDebug() << "[Aria2RPC] Successfully opened config file for reading";
+        qCDebug(downloaderLog) << "[Aria2RPC] Successfully opened config file for reading";
         QTextStream stream(&readFile);
         strAll = stream.readAll();
     } else {
-        qDebug() << "[Aria2RPC] modifyConfigFile function ended with false";
+        qCDebug(downloaderLog) << "[Aria2RPC] modifyConfigFile function ended with false";
         return false;
     }
     readFile.close();
     QFile writeFile(m_aria2configPath);
     if (writeFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug() << "[Aria2RPC] Successfully opened config file for writing";
+        qCDebug(downloaderLog) << "[Aria2RPC] Successfully opened config file for writing";
         QTextStream stream(&writeFile);
         strList = strAll.split("\n");
         for (int i = 0; i < strList.count(); i++) {
@@ -864,13 +865,13 @@ bool Aria2RPCInterface::modifyConfigFile(QString configItem, QString value)
     }
     writeFile.close();
 
-    qDebug() << "[Aria2RPC] modifyConfigFile function ended with true";
+    qCDebug(downloaderLog) << "[Aria2RPC] modifyConfigFile function ended with true";
     return true;
 }
 
 bool Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
 {
-    qDebug() << "[Aria2RPC] setMaxDownloadNum function started: maxDownload:" << maxDownload;
+    qCDebug(downloaderLog) << "[Aria2RPC] setMaxDownloadNum function started: maxDownload:" << maxDownload;
 
     QMap<QString, QVariant> opt;
     QString value = "max-concurrent-downloads=" + maxDownload;
@@ -878,13 +879,13 @@ bool Aria2RPCInterface::setMaxDownloadNum(QString maxDownload)
     opt.insert("max-concurrent-downloads", maxDownload);
 
     bool result = changeGlobalOption(opt);
-    qDebug() << "[Aria2RPC] setMaxDownloadNum function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] setMaxDownloadNum function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString uploadSpeed)
 {
-    qDebug() << "[Aria2RPC] setDownloadUploadSpeed function started: downloadSpeed:" << downloadSpeed << "uploadSpeed:" << uploadSpeed;
+    qCDebug(downloaderLog) << "[Aria2RPC] setDownloadUploadSpeed function started: downloadSpeed:" << downloadSpeed << "uploadSpeed:" << uploadSpeed;
     
     QMap<QString, QVariant> opt;
     QString down_speed = downloadSpeed + "K";
@@ -898,13 +899,13 @@ bool Aria2RPCInterface::setDownloadUploadSpeed(QString downloadSpeed, QString up
 
     value = "max-overall-upload-limit=" + upload_speed;
     bool result = modifyConfigFile("max-overall-upload-limit=", value);
-    qDebug() << "[Aria2RPC] setDownloadUploadSpeed function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] setDownloadUploadSpeed function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)
 {
-    qDebug() << "[Aria2RPC] SetDisckCacheNum function started: disckCacheNum:" << disckCacheNum;
+    qCDebug(downloaderLog) << "[Aria2RPC] SetDisckCacheNum function started: disckCacheNum:" << disckCacheNum;
 
     QMap<QString, QVariant> opt;
     QString cacheNum = disckCacheNum + "M";
@@ -913,13 +914,13 @@ bool Aria2RPCInterface::SetDisckCacheNum(QString disckCacheNum)
     QString value = "disk-cache=" + cacheNum;
 
     bool result = modifyConfigFile("disk-cache=", value);
-    qDebug() << "[Aria2RPC] SetDisckCacheNum function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] SetDisckCacheNum function ended with result:" << result;
     return result;
 }
 
 void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadLimitSpeed)
 {
-    qDebug() << "[Aria2RPC] setDownloadLimitSpeed function started: downloadLimitSpeed:" << downloadLimitSpeed;
+    qCDebug(downloaderLog) << "[Aria2RPC] setDownloadLimitSpeed function started: downloadLimitSpeed:" << downloadLimitSpeed;
     QMap<QString, QVariant> opt;
 
     QString speed = downloadLimitSpeed + "K";
@@ -930,12 +931,12 @@ void Aria2RPCInterface::setDownloadLimitSpeed(QString downloadLimitSpeed)
     QString value = "max-overall-download-limit=" + speed;
     modifyConfigFile("max-overall-download-limit=", value);
 
-    qDebug() << "set download limit speed:" << downloadLimitSpeed;
+    qCDebug(downloaderLog) << "set download limit speed:" << downloadLimitSpeed;
 }
 
 bool Aria2RPCInterface::setUploadLimitSpeed(QString UploadLimitSpeed)
 {
-    qDebug() << "[Aria2RPC] setUploadLimitSpeed function started: UploadLimitSpeed:" << UploadLimitSpeed;
+    qCDebug(downloaderLog) << "[Aria2RPC] setUploadLimitSpeed function started: UploadLimitSpeed:" << UploadLimitSpeed;
 
     QMap<QString, QVariant> opt;
     QString speed = UploadLimitSpeed + "K";
@@ -944,23 +945,23 @@ bool Aria2RPCInterface::setUploadLimitSpeed(QString UploadLimitSpeed)
 
     QString value = "max-overall-upload-limit=" + speed;
     bool result = modifyConfigFile("max-overall-upload-limit=", value);
-    qDebug() << "[Aria2RPC] setUploadLimitSpeed function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] setUploadLimitSpeed function ended with result:" << result;
     return result;
 }
 
 QString Aria2RPCInterface::processThunderUri(QString thunder)
 {
-    qDebug() << "[Aria2RPC] processThunderUri function started: thunder:" << thunder;
+    qCDebug(downloaderLog) << "[Aria2RPC] processThunderUri function started: thunder:" << thunder;
     
     QString uri = thunder;
     if (thunder.startsWith("thunder://")) {
-        qDebug() << "[Aria2RPC] URI is thunder protocol, decoding";
+        qCDebug(downloaderLog) << "[Aria2RPC] URI is thunder protocol, decoding";
         QString oUir = thunder.mid(thunder.indexOf("thunder://") + 9 + 1);
         uri = QString(QByteArray::fromBase64(oUir.toLatin1()));
         uri = uri.mid(2, uri.length() - 4); //AA[URI]ZZ
     }
 
-    qDebug() << "[Aria2RPC] processThunderUri function ended with uri:" << uri;
+    qCDebug(downloaderLog) << "[Aria2RPC] processThunderUri function ended with uri:" << uri;
     return uri;
 }
 
@@ -1001,7 +1002,7 @@ QString Aria2RPCInterface::processThunderUri(QString thunder)
 
 QString Aria2RPCInterface::getCapacityFree(QString path)
 {
-    qDebug() << "[Aria2RPC] getCapacityFree function started: path:" << path;
+    qCDebug(downloaderLog) << "[Aria2RPC] getCapacityFree function started: path:" << path;
 
     QProcess *proc = new QProcess;
     QStringList opt;
@@ -1017,7 +1018,7 @@ QString Aria2RPCInterface::getCapacityFree(QString path)
     QString free = "0B";
     QStringList lt = QString(rt).split("\n");
     if (lt.length() >= 2) {
-        qDebug() << "[Aria2RPC] Found at least 2 lines in df output";
+        qCDebug(downloaderLog) << "[Aria2RPC] Found at least 2 lines in df output";
         QString line = lt.at(1);
         QString temp;
         QStringList tpl;
@@ -1039,17 +1040,17 @@ QString Aria2RPCInterface::getCapacityFree(QString path)
         if (tpl.size() > 3) {
             free = tpl[3];
         } else {
-            qWarning() << "[Aria2RPC] Unexpected df output format, tokens:" << tpl;
+            qCWarning(downloaderLog) << "[Aria2RPC] Unexpected df output format, tokens:" << tpl;
         }
     }
 
-    qDebug() << "[Aria2RPC] getCapacityFree function ended with result:" << (free + "B");
+    qCDebug(downloaderLog) << "[Aria2RPC] getCapacityFree function ended with result:" << (free + "B");
     return free + "B";
 }
 
 long Aria2RPCInterface::getCapacityFreeByte(QString path)
 {
-    qDebug() << "[Aria2RPC] getCapacityFreeByte function started: path:" << path;
+    qCDebug(downloaderLog) << "[Aria2RPC] getCapacityFreeByte function started: path:" << path;
 
     QProcess *proc = new QProcess;
     QStringList opt;
@@ -1063,7 +1064,7 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
     QString free = "0";
     QStringList lt = QString(rt).split("\n");
     if (lt.length() >= 2) {
-        qDebug() << "[Aria2RPC] Found at least 2 lines in df output";
+        qCDebug(downloaderLog) << "[Aria2RPC] Found at least 2 lines in df output";
         QString line = lt.at(1);
         QString temp;
         QStringList tpl;
@@ -1085,27 +1086,27 @@ long Aria2RPCInterface::getCapacityFreeByte(QString path)
         if (tpl.size() > 3) {
             free = tpl[3];
         } else {
-            qWarning() << "[Aria2RPC] Unexpected df output format in getCapacityFreeByte, tokens:" << tpl;
+            qCWarning(downloaderLog) << "[Aria2RPC] Unexpected df output format in getCapacityFreeByte, tokens:" << tpl;
         }
     }
 
-    qDebug() << "[Aria2RPC] getCapacityFreeByte function ended with result:" << free.toLong();
+    qCDebug(downloaderLog) << "[Aria2RPC] getCapacityFreeByte function ended with result:" << free.toLong();
     return free.toLong();
 }
 
 QString Aria2RPCInterface::getBtToMetalink(QString filePath)
 {
-    qDebug() << "[Aria2RPC] getBtToMetalink function started: filePath:" << filePath;
+    qCDebug(downloaderLog) << "[Aria2RPC] getBtToMetalink function started: filePath:" << filePath;
     
     QString strMetaLink = ""; //磁力链
 
     QFile file(filePath); //strFilePath文件的绝对路径
     if (file.open(QIODevice::ReadOnly)) //只读方式打开
     {
-        qDebug() << "[Aria2RPC] Successfully opened file for reading";
+        qCDebug(downloaderLog) << "[Aria2RPC] Successfully opened file for reading";
         QCryptographicHash hash(QCryptographicHash::Sha1);
         if (!file.atEnd()) {
-            qDebug() << "[Aria2RPC] File not empty, calculating hash";
+            qCDebug(downloaderLog) << "[Aria2RPC] File not empty, calculating hash";
             hash.addData(file.readAll());
             QString stHashValue;
             stHashValue.append(hash.result().toHex());
@@ -1113,16 +1114,16 @@ QString Aria2RPCInterface::getBtToMetalink(QString filePath)
         }
     }
 
-    qDebug() << "[Aria2RPC] getBtToMetalink function ended with empty result";
+    qCDebug(downloaderLog) << "[Aria2RPC] getBtToMetalink function ended with empty result";
     return strMetaLink;
 }
 
 QString Aria2RPCInterface::bytesFormat(qint64 size)
 {
-    qDebug() << "[Aria2RPC] bytesFormat function started: size:" << size;
+    qCDebug(downloaderLog) << "[Aria2RPC] bytesFormat function started: size:" << size;
     
     if (!size) {
-        qDebug() << "[Aria2RPC] Size is 0, returning 0B";
+        qCDebug(downloaderLog) << "[Aria2RPC] Size is 0, returning 0B";
         return "0B";
     }
     QStringList sl;
@@ -1136,23 +1137,23 @@ QString Aria2RPCInterface::bytesFormat(qint64 size)
     }
     int i = qFloor(qLn(size) / qLn(1024));
     QString result = QString::number(size * 1.0 / qPow(1024, qFloor(i)), 'f', (i > 1) ? 2 : 0) + sl.at(i);
-    qDebug() << "[Aria2RPC] bytesFormat function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] bytesFormat function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::shutdown(QString id)
 {
-    qDebug() << "[Aria2RPC] shutdown function started: id:" << id;
+    qCDebug(downloaderLog) << "[Aria2RPC] shutdown function started: id:" << id;
     bool result = callRPC(ARIA2C_METHOD_SHUTDOWN, id);
-    qDebug() << "[Aria2RPC] shutdown function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] shutdown function ended with result:" << result;
     return result;
 }
 
 bool Aria2RPCInterface::forceShutdown(QString id)
 {
-    qDebug() << "[Aria2RPC] forceShutdown function started: id:" << id;
+    qCDebug(downloaderLog) << "[Aria2RPC] forceShutdown function started: id:" << id;
     bool result = callRPC(ARIA2C_METHOD_FORCE_SHUTDOWN, id);
-    qDebug() << "[Aria2RPC] forceShutdown function ended with result:" << result;
+    qCDebug(downloaderLog) << "[Aria2RPC] forceShutdown function ended with result:" << result;
     return result;
 }
 
@@ -1166,7 +1167,7 @@ QString Aria2RPCInterface::getToken()
 
 bool Aria2RPCInterface::setupConfig()
 {
-    qDebug() << "[Aria2RPC] setupConfig function started";
+    qCDebug(downloaderLog) << "[Aria2RPC] setupConfig function started";
 
     //定义配置文件路径
     QString m_aria2configPath = QString("%1/%2/%3/aria2.conf")
@@ -1177,12 +1178,12 @@ bool Aria2RPCInterface::setupConfig()
     //判断文件是否存在,如果不存在复制配置文件内容到目录下
     QFileInfo fileInfo(m_aria2configPath);
     if (!fileInfo.exists()) {
-        qDebug() << "[Aria2RPC] Config file does not exist, copying from template";
+        qCDebug(downloaderLog) << "[Aria2RPC] Config file does not exist, copying from template";
         QFile::copy(ARIA_CONFIG_PATH, m_aria2configPath);
     }
 
     //设置配置文件路径
     setConfigFilePath(m_aria2configPath);
-    qDebug() << "[Aria2RPC] setupConfig function ended with true";
+    qCDebug(downloaderLog) << "[Aria2RPC] setupConfig function ended with true";
     return true;
 }

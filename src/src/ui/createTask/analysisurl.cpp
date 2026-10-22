@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QMetaType>
 #include <QMutex>
+#include "ddlog.h"
 
 AnalysisUrl::AnalysisUrl(QObject *parent)
     : QObject(parent)
@@ -26,9 +27,9 @@ AnalysisUrl::~AnalysisUrl()
 
 void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
 {
-    qDebug() << "setUrlList called with" << list.size() << "urls";
+    qCDebug(downloaderLog) << "setUrlList called with" << list.size() << "urls";
     if (list.isEmpty()) {
-        qWarning() << "Empty url list provided";
+        qCWarning(downloaderLog) << "Empty url list provided";
         return;
     }
     QMap<QString, LinkInfo>::iterator it = m_curAllUrl.begin();
@@ -83,17 +84,17 @@ void AnalysisUrl::setUrlList(QMap<QString, LinkInfo> list)
         }
     }
     mutex.unlock();
-    qDebug() << "[AnalysisUrl] setUrlList function ended";
+    qCDebug(downloaderLog) << "[AnalysisUrl] setUrlList function ended";
 }
 
 void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
 {
-    qDebug() << "getLinkInfo for url:" << linkInfo.url << "state:" << linkInfo.state;
+    qCDebug(downloaderLog) << "getLinkInfo for url:" << linkInfo.url << "state:" << linkInfo.state;
 
     static QMutex mutex;
     bool isLock = mutex.tryLock();
     if (isLock) {
-        qDebug() << "[AnalysisUrl] Mutex locked, processing link info";
+        qCDebug(downloaderLog) << "[AnalysisUrl] Mutex locked, processing link info";
         QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(linkInfo.url);
         QMap<QString, LinkInfo>::iterator iter = m_curAllUrl.begin();
          for (; iter != m_curAllUrl.end(); iter++) {
@@ -107,14 +108,14 @@ void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
                 emit sendFinishedUrl(&linkInfo);
                 stopWork(iter.value().index);
                 mutex.unlock();
-                qDebug() << "[AnalysisUrl] getLinkInfo function ended early (true link match)";
+                qCDebug(downloaderLog) << "[AnalysisUrl] getLinkInfo function ended early (true link match)";
                 return;
              }
 
          }
         if(it==m_curAllUrl.end())
         {
-            qDebug() << "[AnalysisUrl] URL not found in current list";
+            qCDebug(downloaderLog) << "[AnalysisUrl] URL not found in current list";
             mutex.unlock();
             return;
         }
@@ -127,43 +128,43 @@ void AnalysisUrl::getLinkInfo(LinkInfo linkInfo)
         stopWork(it.value().index);
     }
     mutex.unlock();
-    qDebug() << "[AnalysisUrl] getLinkInfo function ended";
+    qCDebug(downloaderLog) << "[AnalysisUrl] getLinkInfo function ended";
 }
 
 void AnalysisUrl::stopWork(int index)
 {
-    qDebug() << "stopWork for thread index:" << index;
+    qCDebug(downloaderLog) << "stopWork for thread index:" << index;
 
     static QMutex mutex;
     bool isLock = mutex.tryLock();
     if (isLock) {
-        qDebug() << "[AnalysisUrl] Mutex locked, stopping work";
+        qCDebug(downloaderLog) << "[AnalysisUrl] Mutex locked, stopping work";
         QMap<int,QThread*>::iterator it=m_workThread.find(index);
         if(it == m_workThread.end()){
-            qDebug() << "[AnalysisUrl] Thread not found for index:" << index;
+            qCDebug(downloaderLog) << "[AnalysisUrl] Thread not found for index:" << index;
             mutex.unlock();
             return;
         }
         QMap<int,UrlThread*>::iterator urlIt=m_urlThread.find(index);
         if(urlIt == m_urlThread.end()){
-            qDebug() << "[AnalysisUrl] URL thread not found for index:" << index;
+            qCDebug(downloaderLog) << "[AnalysisUrl] URL thread not found for index:" << index;
             mutex.unlock();
             return;
         }
         if(urlIt.value() == nullptr){
-            qDebug() << "[AnalysisUrl] URL thread is null for index:" << index;
+            qCDebug(downloaderLog) << "[AnalysisUrl] URL thread is null for index:" << index;
             mutex.unlock();
             return;
         }
         if(it==m_workThread.end()){
-            qDebug() << "[AnalysisUrl] Work thread not found (second check) for index:" << index;
+            qCDebug(downloaderLog) << "[AnalysisUrl] Work thread not found (second check) for index:" << index;
             mutex.unlock();
             return ;
         }
 
         QThread *thread = m_workThread.value(index);
         if(thread == nullptr){
-            qDebug() << "[AnalysisUrl] Thread is null for index:" << index;
+            qCDebug(downloaderLog) << "[AnalysisUrl] Thread is null for index:" << index;
             mutex.unlock();
             return;
         }
@@ -176,25 +177,25 @@ void AnalysisUrl::stopWork(int index)
         urlIt.value() = nullptr;
         mutex.unlock();
     }
-    qDebug() << "[AnalysisUrl] stopWork function ended";
+    qCDebug(downloaderLog) << "[AnalysisUrl] stopWork function ended";
 }
 
 void AnalysisUrl::getTrueLinkInfo(LinkInfo linkInfo)
 {
-    qDebug() << "getTrueLinkInfo original:" << linkInfo.url << "true:" << linkInfo.urlTrueLink;
+    qCDebug(downloaderLog) << "getTrueLinkInfo original:" << linkInfo.url << "true:" << linkInfo.urlTrueLink;
 
     static QMutex mutex;
     mutex.lock();
     QMap<QString, LinkInfo>::iterator it = m_curAllUrl.find(linkInfo.url);
     if(it==m_curAllUrl.end()){
-        qDebug() << "[AnalysisUrl] Original URL not found in current list:" << linkInfo.url;
+        qCDebug(downloaderLog) << "[AnalysisUrl] Original URL not found in current list:" << linkInfo.url;
         mutex.unlock();
         return;
     }
     m_curAllUrl.erase(it);
     m_curAllUrl.insert(linkInfo.urlTrueLink, linkInfo);
     mutex.unlock();
-    qDebug() << "[AnalysisUrl] getTrueLinkInfo function ended";
+    qCDebug(downloaderLog) << "[AnalysisUrl] getTrueLinkInfo function ended";
 }
 
 

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -40,22 +40,23 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QDebug>
+#include "ddlog.h"
 
 
 
 DownloadSettingWidget::DownloadSettingWidget(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "DownloadSettingWidget created";
+    qCDebug(downloaderLog) << "DownloadSettingWidget created";
     initUI();
     initConnections();
-    qDebug() << "[DownloadSettingWidget] Constructor ended";
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] Constructor ended";
 }
 
 // 初始化界面
 void DownloadSettingWidget::initUI()
 {
-    qDebug() << "Initializing download settings UI";
+    qCDebug(downloaderLog) << "Initializing download settings UI";
     m_DownloadSpeedLimitValue = 102400;
     m_UploadSpeedLimitValue = 32;
 
@@ -162,13 +163,13 @@ void DownloadSettingWidget::initUI()
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(mainLayout);
-    qDebug() << "[DownloadSettingWidget] initUI function ended";
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] initUI function ended";
 }
 
 // 初始化链接
 void DownloadSettingWidget::initConnections()
 {
-    qDebug() << "Initializing download settings connections";
+    qCDebug(downloaderLog) << "Initializing download settings connections";
     connect(m_fullSpeedDownloadButton, &DRadioButton::clicked, this, &DownloadSettingWidget::onRadioButtonClicked);
     connect(m_speedLimitDownloadButton, &DRadioButton::clicked, this, &DownloadSettingWidget::onRadioButtonClicked);
     connect(m_maxDownloadSpeedLimit, &SettingInfoInputWidget::textChanged, this, &DownloadSettingWidget::onTextChanged);
@@ -177,16 +178,16 @@ void DownloadSettingWidget::initConnections()
     connect(m_endTimeEdit, &CTimeEdit::inputFinished, this, &DownloadSettingWidget::onTimeChanged);
     connect(m_maxDownloadSpeedLimit, &SettingInfoInputWidget::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
     connect(m_maxUploadSpeedLimit, &SettingInfoInputWidget::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
-    qDebug() << "[DownloadSettingWidget] initConnections function ended";
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] initConnections function ended";
 }
 
 void DownloadSettingWidget::onRadioButtonClicked()
 {
     DRadioButton *radioButton = qobject_cast<DRadioButton *>(sender());
-    qDebug() << "Radio button clicked:" << radioButton->text();
+    qCDebug(downloaderLog) << "Radio button clicked:" << radioButton->text();
 
     if (m_fullSpeedDownloadButton == radioButton) {
-        qDebug() << "radio button is full speed";
+        qCDebug(downloaderLog) << "radio button is full speed";
         m_fullSpeedDownloadButton->setChecked(true);
         m_speedLimitDownloadButton->setChecked(false);
         m_maxDownloadSpeedLimit->setLineEditIsDisabled(true);
@@ -202,7 +203,7 @@ void DownloadSettingWidget::onRadioButtonClicked()
 
         emit speedLimitInfoChanged(text);
     } else if (m_speedLimitDownloadButton == radioButton) {
-        qDebug() << "radio button is speed limit";
+        qCDebug(downloaderLog) << "radio button is speed limit";
         m_fullSpeedDownloadButton->setChecked(false);
         m_speedLimitDownloadButton->setChecked(true);
         m_maxDownloadSpeedLimit->setLineEditIsDisabled(false);
@@ -218,7 +219,7 @@ void DownloadSettingWidget::onRadioButtonClicked()
 
         emit speedLimitInfoChanged(text);
     }
-    qDebug() << "onRadioButtonClicked function ended";
+    qCDebug(downloaderLog) << "onRadioButtonClicked function ended";
 }
 
 void DownloadSettingWidget::onValueChanged(QVariant var){
@@ -265,15 +266,15 @@ void DownloadSettingWidget::onValueChanged(QVariant var){
 void DownloadSettingWidget::onTimeChanged(const QString &time)
 {
     CTimeEdit *timeEdit = qobject_cast<CTimeEdit *>(sender());
-    qDebug() << "Time setting changed:" << time;
+    qCDebug(downloaderLog) << "Time setting changed:" << time;
 
     if (!m_speedLimitDownloadButton->isChecked()) {
-        qDebug() << "onTimeChanged function ended";
+        qCDebug(downloaderLog) << "onTimeChanged function ended";
         return;
     }
 
     if (m_startTimeEdit == timeEdit ) {
-        qDebug() << "m_startTimeEdit";
+        qCDebug(downloaderLog) << "m_startTimeEdit";
         if(time < m_endTimeEdit->currentText()) {
             QString text = QString("speedlimit;%1;%2;%3;%4")
                                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
@@ -283,14 +284,14 @@ void DownloadSettingWidget::onTimeChanged(const QString &time)
 
             emit speedLimitInfoChanged(text);
         } else {
-            qDebug() << "m_startTimeAlertControl";
+            qCDebug(downloaderLog) << "m_startTimeAlertControl";
             m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
                                                      m_startTimeEdit->dLineEdit()->parentWidget()->parentWidget(), 2000);
             m_startTimeEdit->dLineEdit()->setAlert(true);
             m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
         }
     } else if (m_endTimeEdit == timeEdit) {
-        qDebug() << "m_endTimeEdit";
+        qCDebug(downloaderLog) << "m_endTimeEdit";
         if(time > m_startTimeEdit->currentText()) {
             QString text = QString("speedlimit;%1;%2;%3;%4")
                                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
@@ -299,29 +300,29 @@ void DownloadSettingWidget::onTimeChanged(const QString &time)
                                .arg(time);
             emit speedLimitInfoChanged(text);
         } else {
-            qDebug() << "m_endTimeAlertControl";
+            qCDebug(downloaderLog) << "m_endTimeAlertControl";
             m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
                                                      m_startTimeEdit->dLineEdit()->parentWidget()->parentWidget(), 2000);
             m_startTimeEdit->dLineEdit()->setAlert(true);
             m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
         }
     }
-    qDebug() << "onTimeChanged function ended";
+    qCDebug(downloaderLog) << "onTimeChanged function ended";
 }
 
 void DownloadSettingWidget::onTextChanged(QString text)
 {
-    qDebug() << "[DownloadSettingWidget] onTextChanged function started";
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] onTextChanged function started";
     SettingInfoInputWidget *settingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
-    qDebug() << "Setting text changed:" << text;
+    qCDebug(downloaderLog) << "Setting text changed:" << text;
 
     if (!m_speedLimitDownloadButton->isChecked()) {
-        qDebug() << "onTextChanged function ended";
+        qCDebug(downloaderLog) << "onTextChanged function ended";
         return;
     }
 
     if (m_maxDownloadSpeedLimit == settingInfoInputWidget) {
-        qDebug() << "m_maxDownloadSpeedLimit";
+        qCDebug(downloaderLog) << "m_maxDownloadSpeedLimit";
         if (text.toInt() < 100 || text.toInt() > 102400) {
             // 请输入100-102400之间的整数
             m_downloadAlertControl->showAlertMessage(tr("Limited between 100-102400"),
@@ -344,7 +345,7 @@ void DownloadSettingWidget::onTextChanged(QString text)
         }
 
     } else if (m_maxUploadSpeedLimit == settingInfoInputWidget) {
-        qDebug() << "m_maxUploadSpeedLimit";
+        qCDebug(downloaderLog) << "m_maxUploadSpeedLimit";
         if (text.toInt() < 16 || text.toInt() > 5120) {
             // 请输入16-5120之间的整数
             m_uploadAlertControl->showAlertMessage(tr("Limited between 16-5120"), m_maxUploadSpeedLimit->getLineEdit()->parentWidget()->parentWidget(), -1);
@@ -365,16 +366,16 @@ void DownloadSettingWidget::onTextChanged(QString text)
             emit speedLimitInfoChanged(info);
         }
     }
-    qDebug() << "onTextChanged function ended";
+    qCDebug(downloaderLog) << "onTextChanged function ended";
 }
 
 void DownloadSettingWidget::onFocusChanged(bool onFocus)
 {
-    qDebug() << "[DownloadSettingWidget] onFocusChanged function started";
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] onFocusChanged function started";
     SettingInfoInputWidget *settingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
 
     if (m_maxDownloadSpeedLimit == settingInfoInputWidget) {
-        qDebug() << "m_maxDownloadSpeedLimit";
+        qCDebug(downloaderLog) << "m_maxDownloadSpeedLimit";
         if (!onFocus && m_maxDownloadSpeedLimit->getIsAlert()) {
             m_maxDownloadSpeedLimit->setLineEditAlert(false);
             m_downloadAlertControl->hideAlertMessage();
@@ -382,21 +383,21 @@ void DownloadSettingWidget::onFocusChanged(bool onFocus)
         }
 
     } else if (m_maxUploadSpeedLimit == settingInfoInputWidget) {
-        qDebug() << "m_maxUploadSpeedLimit";
+        qCDebug(downloaderLog) << "m_maxUploadSpeedLimit";
         if (!onFocus && m_maxUploadSpeedLimit->getIsAlert()) {
             m_maxUploadSpeedLimit->setLineEditAlert(false);
             m_uploadAlertControl->hideAlertMessage();
             m_maxUploadSpeedLimit->setLineEditText(QString::number(16));
         }
     }
-    qDebug() << "[DownloadSettingWidget] onFocusChanged function ended";
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] onFocusChanged function ended";
 }
 
 bool DownloadSettingWidget::setCurrentSelectRadioButton(const int &currentSelect)
 {
-    qDebug() << "[DownloadSettingWidget] setCurrentSelectRadioButton function started with currentSelect:" << currentSelect;
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] setCurrentSelectRadioButton function started with currentSelect:" << currentSelect;
     if (1 == currentSelect) {
-        qDebug() << "currentSelect is 1";
+        qCDebug(downloaderLog) << "currentSelect is 1";
         m_fullSpeedDownloadButton->setChecked(true);
         m_speedLimitDownloadButton->setChecked(false);
         m_maxDownloadSpeedLimit->setLineEditIsDisabled(true);
@@ -404,7 +405,7 @@ bool DownloadSettingWidget::setCurrentSelectRadioButton(const int &currentSelect
         m_startTimeEdit->setDisabled(true);
         m_endTimeEdit->setDisabled(true);
     } else {
-        qDebug() << "currentSelect is 2";
+        qCDebug(downloaderLog) << "currentSelect is 2";
         m_fullSpeedDownloadButton->setChecked(false);
         m_speedLimitDownloadButton->setChecked(true);
         m_maxDownloadSpeedLimit->setLineEditIsDisabled(false);
@@ -412,13 +413,13 @@ bool DownloadSettingWidget::setCurrentSelectRadioButton(const int &currentSelect
         m_startTimeEdit->setDisabled(false);
         m_endTimeEdit->setDisabled(false);
     }
-    qDebug() << "[DownloadSettingWidget] setCurrentSelectRadioButton function ended with result: true";
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] setCurrentSelectRadioButton function ended with result: true";
     return true;
 }
 
 bool DownloadSettingWidget::setMaxDownloadSpeedLimit(const QString &text)
 {
-    qDebug() << "[DownloadSettingWidget] setMaxDownloadSpeedLimit function started with text:" << text;
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] setMaxDownloadSpeedLimit function started with text:" << text;
     m_DownloadSpeedLimitValue = text.toInt();
     m_maxDownloadSpeedLimit->setLineEditText(text);
     return true;
@@ -426,7 +427,7 @@ bool DownloadSettingWidget::setMaxDownloadSpeedLimit(const QString &text)
 
 bool DownloadSettingWidget::setMaxUploadSpeedLimit(const QString &text)
 {
-    qDebug() << "[DownloadSettingWidget] setMaxUploadSpeedLimit function started with text:" << text;
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] setMaxUploadSpeedLimit function started with text:" << text;
     m_UploadSpeedLimitValue = text.toInt();
     m_maxUploadSpeedLimit->setLineEditText(text);
     return true;
@@ -434,7 +435,7 @@ bool DownloadSettingWidget::setMaxUploadSpeedLimit(const QString &text)
 
 bool DownloadSettingWidget::setStartTime(const QString &text)
 {
-    qDebug() << "[DownloadSettingWidget] setStartTime function started with text:" << text;
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] setStartTime function started with text:" << text;
     QTime time = QTime::fromString(text, "hh:mm");
     m_startTimeEdit->setTime(time);
     return true;
@@ -442,7 +443,7 @@ bool DownloadSettingWidget::setStartTime(const QString &text)
 
 bool DownloadSettingWidget::setEndTime(const QString &text)
 {
-    qDebug() << "[DownloadSettingWidget] setEndTime function started with text:" << text;
+    qCDebug(downloaderLog) << "[DownloadSettingWidget] setEndTime function started with text:" << text;
     QTime time = QTime::fromString(text, "hh:mm");
     m_endTimeEdit->setTime(time);
     return true;

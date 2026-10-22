@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -11,13 +11,14 @@
 #include <QCryptographicHash>
 #include <dpinyin.h>
 #include <sys/resource.h>
+#include "ddlog.h"
 #if QT_VERSION_MAJOR > 5
 #include <QRegularExpression>
 #endif
 
 bool Func::isNetConnect()
 {
-    qDebug() << "Checking network connection";
+    qCDebug(downloaderLog) << "Checking network connection";
     QProcess process;
     QStringList list;
     list << "-i"
@@ -25,10 +26,10 @@ bool Func::isNetConnect()
     process.start("curl", list);
     process.waitForFinished(3000);
     if(!process.exitCode()){
-        qDebug() << "Network connection available";
+        qCDebug(downloaderLog) << "Network connection available";
         return true;
     }
-    qDebug() << "Checking LAN connection";
+    qCDebug(downloaderLog) << "Checking LAN connection";
     return isLanConnect();
 }
 
@@ -43,7 +44,7 @@ bool Func::isHTTPConnect()
 
 bool Func::isIPV6Connect()
 {
-    qDebug() << "[Func] isIPV6Connect function started";
+    qCDebug(downloaderLog) << "[Func] isIPV6Connect function started";
     QProcess process;
     process.start("ifconfig");
     process.waitForFinished(-1);
@@ -51,22 +52,22 @@ bool Func::isIPV6Connect()
     QStringList strList = str.split("\n");
     for(int i = 0 ;i < strList.size(); i++){
         if(strList[i].contains("inet6 fe80::")){
-            qDebug() << "[Func] IPv6 connection found, returning true";
+            qCDebug(downloaderLog) << "[Func] IPv6 connection found, returning true";
             return true;
         }
     }
-    qDebug() << "[Func] No IPv6 connection found, returning false";
+    qCDebug(downloaderLog) << "[Func] No IPv6 connection found, returning false";
     return false;
 }
         
 
 bool Func::setMimeappsValue(QString key, QString value)
 {
-    qDebug() << "Setting mimeapps value for" << key;
+    qCDebug(downloaderLog) << "Setting mimeapps value for" << key;
     QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/mimeapps.list";
     QFile readFile(path);
     if (!readFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "[Func] Failed to open mimeapps file, returning false";
+        qCDebug(downloaderLog) << "[Func] Failed to open mimeapps file, returning false";
         return false;
     }
     QTextStream data(&readFile);
@@ -93,7 +94,7 @@ bool Func::setMimeappsValue(QString key, QString value)
     }
     //设置key和value,如果key已经存在，将value设置。  如果key不存在，在后追加一行
     if (!DefaultList.isEmpty()) {
-        qDebug() << "[Func] DefaultList is not empty, setting value for" << key;
+        qCDebug(downloaderLog) << "[Func] DefaultList is not empty, setting value for" << key;
         for (int i = 0; i < DefaultList.size(); i++) {
             if (DefaultList[i].contains(key)) {
                 if(DefaultList[i] != key+ "=" + value){
@@ -109,7 +110,7 @@ bool Func::setMimeappsValue(QString key, QString value)
     }
     //设置key和value,如果key已经存在，将value设置。  如果key不存在，在后追加一行
     if (!AddedList.isEmpty()) {
-        qDebug() << "[Func] AddedList is not empty, setting value for" << key;
+        qCDebug(downloaderLog) << "[Func] AddedList is not empty, setting value for" << key;
         for (int i = 0; i < AddedList.size(); i++) {
             if (AddedList[i].contains(key)) {
                 if(AddedList[i] != key+ "=" + value){
@@ -137,19 +138,19 @@ bool Func::setMimeappsValue(QString key, QString value)
     }
     writeData.flush();
     writerFile.close();
-    qDebug() << "[Func] setMimeappsValue function ended with result: true";
+    qCDebug(downloaderLog) << "[Func] setMimeappsValue function ended with result: true";
     return true;
 }
 
 QString Func::pathToMD5(QString path)
 {
-    qDebug() << "[Func] pathToMD5 function started";
+    qCDebug(downloaderLog) << "[Func] pathToMD5 function started";
     QFile theFile(path);
     theFile.open(QIODevice::ReadOnly);
     QByteArray ba = QCryptographicHash::hash(theFile.readAll(), QCryptographicHash::Md5);
     theFile.close();
     QString md5 = ba.toHex().constData();
-    qDebug() << "Generated MD5 for file:" << md5;
+    qCDebug(downloaderLog) << "Generated MD5 for file:" << md5;
     return md5;
 }
 
@@ -230,7 +231,7 @@ QString Func::pathToMD5(QString path)
 
 double Func::formatSpeed(QString str)
 {
-    qDebug() << "Formatting speed string:" << str;
+    qCDebug(downloaderLog) << "Formatting speed string:" << str;
     QString number = str;
     if (str.contains("GB/s")) {
         str.remove("GB/s");
@@ -249,13 +250,13 @@ double Func::formatSpeed(QString str)
     } else if (number.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
     }
-    qDebug() << "[Func] formatSpeed function ended with result:" << num;
+    qCDebug(downloaderLog) << "[Func] formatSpeed function ended with result:" << num;
     return num;
 }
 
 double Func::formatFileSize(QString str)
 {
-    qDebug() << "[Func] formatFileSize function started with string:" << str;
+    qCDebug(downloaderLog) << "[Func] formatFileSize function started with string:" << str;
     double num = -1;
     QString number = str.left(str.length() - 2);
     num = number.toDouble();
@@ -266,15 +267,15 @@ double Func::formatFileSize(QString str)
     } else if (str.contains("GB")) {
         num = num * 1024 * 1024 * 1024;
     }
-    qDebug() << "[Func] formatFileSize function ended with result:" << num;
+    qCDebug(downloaderLog) << "[Func] formatFileSize function ended with result:" << num;
     return num;
 }
 
 QString Func::chineseToPinyin(QString input)
 {
-    qDebug() << "[Func] chineseToPinyin function started with input:" << input;
+    qCDebug(downloaderLog) << "[Func] chineseToPinyin function started with input:" << input;
     if (input.isEmpty()) {
-        qDebug() << "[Func] Input is empty, returning empty string";
+        qCDebug(downloaderLog) << "[Func] Input is empty, returning empty string";
         return "";
     }
     QString value = input;
@@ -289,15 +290,15 @@ QString Func::chineseToPinyin(QString input)
             value.replace(ch, pinyin);
         }
     }
-    qDebug() << "[Func] chineseToPinyin function ended with result:" << value;
+    qCDebug(downloaderLog) << "[Func] chineseToPinyin function ended with result:" << value;
     return value;
 }
 
 QString Func::removeDigital(QString input)
 {
-    qDebug() << "[Func] removeDigital function started with input:" << input;
+    qCDebug(downloaderLog) << "[Func] removeDigital function started with input:" << input;
     if ("" == input) {
-        qDebug() << "[Func] Input is empty, returning empty string";
+        qCDebug(downloaderLog) << "[Func] Input is empty, returning empty string";
         return "";
     }
     QString value = "";
@@ -310,13 +311,13 @@ QString Func::removeDigital(QString input)
         }
         data++;
     }
-    qDebug() << "[Func] removeDigital function ended with result:" << value;
+    qCDebug(downloaderLog) << "[Func] removeDigital function ended with result:" << value;
     return value;
 }
 
 bool Func::isLanConnect()
 {
-    qDebug() << "[Func] isLanConnect function started";
+    qCDebug(downloaderLog) << "[Func] isLanConnect function started";
     QString geteWay;
     QString str;
     {
@@ -343,10 +344,10 @@ bool Func::isLanConnect()
         }
     }
     if(geteWay.isEmpty()){
-        qDebug() << "[Func] No gateway found, returning false";
+        qCDebug(downloaderLog) << "[Func] No gateway found, returning false";
         return false;
     } else {
-        qDebug() << "[Func] Gateway found, returning true";
+        qCDebug(downloaderLog) << "[Func] Gateway found, returning true";
         return true;
     }
 

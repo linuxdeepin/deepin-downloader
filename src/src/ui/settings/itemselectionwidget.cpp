@@ -34,20 +34,21 @@
 #include <QDebug>
 #include <DCommandLinkButton>
 #include "httpadvancedsettingwidget.h"
+#include "ddlog.h"
 
 ItemSelectionWidget::ItemSelectionWidget(QWidget *parent, bool isHttp)
     : QWidget(parent)
 {
-    qDebug() << "ItemSelectionWidget created with isHttp:" << isHttp;
+    qCDebug(downloaderLog) << "ItemSelectionWidget created with isHttp:" << isHttp;
     initUI(isHttp);
     initConnections();
-    qDebug() << "[ItemSelectionWidget] Constructor ended";
+    qCDebug(downloaderLog) << "[ItemSelectionWidget] Constructor ended";
 }
 
 // 初始化界面
 void ItemSelectionWidget::initUI(bool isHttp)
 {
-    qDebug() << "Initializing item selection widget UI";
+    qCDebug(downloaderLog) << "Initializing item selection widget UI";
 //    setStyleSheet("background:rgba(211, 211, 211, 1)");
 
     m_label = new DLabel("HTTP下载");
@@ -70,27 +71,27 @@ void ItemSelectionWidget::initUI(bool isHttp)
     }
 
     setLayout(mainLayout);
-    qDebug() << "[ItemSelectionWidget] initUI function ended";
+    qCDebug(downloaderLog) << "[ItemSelectionWidget] initUI function ended";
 }
 
 // 初始化链接
 void ItemSelectionWidget::initConnections()
 {
-    qDebug() << "Initializing item selection widget connections";
+    qCDebug(downloaderLog) << "Initializing item selection widget connections";
     connect(m_checkBox, &QCheckBox::checkStateChanged, this, &ItemSelectionWidget::onCheckBoxStateChanged);
 }
 
 void ItemSelectionWidget::onCheckBoxStateChanged(int state)
 {
-    qDebug() << "Checkbox state changed to:" << (state == Qt::Checked ? "Checked" : "Unchecked");
+    qCDebug(downloaderLog) << "Checkbox state changed to:" << (state == Qt::Checked ? "Checked" : "Unchecked");
     if (state == Qt::Unchecked) {
-        qDebug() << "[ItemSelectionWidget] Checkbox unchecked, emitting false";
+        qCDebug(downloaderLog) << "[ItemSelectionWidget] Checkbox unchecked, emitting false";
         emit checkBoxIsChecked(false);
     } else if(state == Qt::Checked) {
-        qDebug() << "[ItemSelectionWidget] Checkbox checked, emitting true";
+        qCDebug(downloaderLog) << "[ItemSelectionWidget] Checkbox checked, emitting true";
         emit checkBoxIsChecked(true);
     }
-    qDebug() << "[ItemSelectionWidget] onCheckBoxStateChanged function ended";
+    qCDebug(downloaderLog) << "[ItemSelectionWidget] onCheckBoxStateChanged function ended";
 }
 
 void ItemSelectionWidget::setLabelText(const QString &text)

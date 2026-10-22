@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -46,17 +46,18 @@
 #include <DHorizontalLine>
 #include <QTimer>
 #include "settings.h"
+#include "ddlog.h"
 
 SettingsControlWidget::SettingsControlWidget(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "SettingsControlWidget created";
+    qCDebug(downloaderLog) << "SettingsControlWidget created";
 }
 
 // 初始化界面
 bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
 {
-    qDebug() << "Initializing settings control widget with label:" << label << "text:" << text << "isLineEdit:" << isLineEdit;
+    qCDebug(downloaderLog) << "Initializing settings control widget with label:" << label << "text:" << text << "isLineEdit:" << isLineEdit;
     QFont font;
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -105,7 +106,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
     layout->addStretch();
     layout->addWidget(m_SwitchBtn, 0, Qt::AlignRight);
     connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat) {
-    qDebug() << "[SettingsControlWidget] initUI function ended with result: true";
+    qCDebug(downloaderLog) << "[SettingsControlWidget] initUI function ended with result: true";
         emit checkedChanged(stat);
         if (isLineEdit) {
             m_Edit->setEnabled(stat);
@@ -113,7 +114,7 @@ bool SettingsControlWidget::initUI(QString label, QString text, bool isLineEdit)
             m_ComboBox->setEnabled(stat);
         }
     });
-    qDebug() << "[SettingsControlWidget] initUI function ended with result: true";
+    qCDebug(downloaderLog) << "[SettingsControlWidget] initUI function ended with result: true";
     return true;
 }
 
@@ -157,12 +158,12 @@ DLineEdit *SettingsControlWidget::lineEdit()
 SettingsLineWidget::SettingsLineWidget(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "SettingsLineWidget created";
+    qCDebug(downloaderLog) << "SettingsLineWidget created";
 }
 
 bool SettingsLineWidget::initUI(QString text, bool currentStat)
 {
-    qDebug() << "Initializing settings line widget with text:" << text << "current state:" << currentStat;
+    qCDebug(downloaderLog) << "Initializing settings line widget with text:" << text << "current state:" << currentStat;
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(text,this);
@@ -175,13 +176,13 @@ bool SettingsLineWidget::initUI(QString text, bool currentStat)
     connect(m_SwitchBtn, &DSwitchButton::checkedChanged, this, [=](bool stat) {
         emit checkedChanged(stat);
     });
-    qDebug() << "[SettingsLineWidget] initUI function ended with result: true";
+    qCDebug(downloaderLog) << "[SettingsLineWidget] initUI function ended with result: true";
     return true;
 }
 
 bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QString currenttext)
 {
-    qDebug() << "Initializing settings line widget with text:" << text << "current text:" << currenttext;
+    qCDebug(downloaderLog) << "Initializing settings line widget with text:" << text << "current text:" << currenttext;
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     DLabel *pLabel = new DLabel(text,this);
@@ -205,7 +206,7 @@ bool SettingsLineWidget::initUI(QString text, const QStringList &textList, QStri
         emit currentTextChanged(text);
         m_comboBox->setAccessibleName(text);
     });
-    qDebug() << "[SettingsLineWidget] initUI function ended with result: true";
+    qCDebug(downloaderLog) << "[SettingsLineWidget] initUI function ended with result: true";
     return true;
 }
 

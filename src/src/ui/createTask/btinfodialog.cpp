@@ -46,6 +46,7 @@
 #include <dpinyin.h>
 #include <QFont>
 #include <QTimer>
+#include "ddlog.h"
 
 BtInfoDialog::BtInfoDialog(QString torrentFile, QString btLastSavePath,QWidget *parent)
     : DDialog(parent)
@@ -114,7 +115,7 @@ QString BtInfoDialog::getName()
 
 void BtInfoDialog::initUI()
 {
-    qDebug() << "[BtInfoDialog] initUI function started";
+    qCDebug(downloaderLog) << "[BtInfoDialog] initUI function started";
     m_ariaInfo = Aria2RPCInterface::instance()->getBtInfo(m_torrentFile);
 //    setTitle(" ");
 //    setWindowTitle(tr(""));
@@ -361,26 +362,26 @@ void BtInfoDialog::initUI()
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &BtInfoDelegate::onhoverChanged);
    // connect(m_tableView->horizontalHeader(), SIGNAL(sectionPressed(int)), this, SLOT(Sort(int)));
     onPaletteTypeChanged(DGuiApplicationHelper::ColorType::LightType);
-    qDebug() << "[BtInfoDialog] initUI function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] initUI function ended";
 }
 
 int BtInfoDialog::exec()
 {
-    qDebug() << "[BtInfoDialog] exec function started";
+    qCDebug(downloaderLog) << "[BtInfoDialog] exec function started";
     QHBoxLayout layout(m_editDir->lineEdit());
     layout.addWidget(m_labelCapacityFree, 0, Qt::AlignRight | Qt::AlignCenter);
     m_editDir->setFixedHeight(36);
 
-    qDebug() << "[BtInfoDialog] exec function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] exec function ended";
     return DDialog::exec();
 }
 
 bool BtInfoDialog::onBtnOK()
 {
-    qDebug() << "onBtnOK entered";
+    qCDebug(downloaderLog) << "onBtnOK entered";
 
     if (getSelected().isEmpty()) {
-        qDebug() << "[BtInfoDialog] No files selected, returning false";
+        qCDebug(downloaderLog) << "[BtInfoDialog] No files selected, returning false";
         return false;
     }
 
@@ -392,23 +393,23 @@ bool BtInfoDialog::onBtnOK()
         }
     }
     if (free < (total / 1024)) { //剩余空间比较 KB
-        qDebug() << "Disk capacity is not enough!";
+        qCDebug(downloaderLog) << "Disk capacity is not enough!";
         MessageBox msg(this);
         msg.setWarings(tr("Insufficient disk space, please change the download folder"), tr("OK"), tr(""));
         msg.exec();
-        qDebug() << "[BtInfoDialog] onBtnOK function ended with result: false";
+        qCDebug(downloaderLog) << "[BtInfoDialog] onBtnOK function ended with result: false";
         return false;
     }
     Settings::getInstance()->setCustomFilePath(m_defaultDownloadDir);
     close();
     accept();
-    qDebug() << "[BtInfoDialog] onBtnOK function ended with result: true";
+    qCDebug(downloaderLog) << "[BtInfoDialog] onBtnOK function ended with result: true";
     return true;
 }
 
 void BtInfoDialog::onAllCheck()
 {
-    qDebug() << "onAllCheck entered, state:" << m_checkAll->checkState();
+    qCDebug(downloaderLog) << "onAllCheck entered, state:" << m_checkAll->checkState();
 
     int state = m_checkAll->checkState();
     if (state == Qt::Checked) {
@@ -438,38 +439,38 @@ void BtInfoDialog::onAllCheck()
 
 bool BtInfoDialog::isVideo(QString ext)
 {
-    qDebug() << "[BtInfoDialog] isVideo function started for extension:" << ext;
+    qCDebug(downloaderLog) << "[BtInfoDialog] isVideo function started for extension:" << ext;
     QString types = "avi,mp4,mkv,flv,f4v,wmv,rmvb,rm,mpeg,mpg,mov,ts,m4v,vob";
     return types.indexOf(ext) != -1;
 }
 
 bool BtInfoDialog::isAudio(QString ext)
 {
-    qDebug() << "[BtInfoDialog] isAudio function started for extension:" << ext;
+    qCDebug(downloaderLog) << "[BtInfoDialog] isAudio function started for extension:" << ext;
     QString types = "mp3,ogg,wav,ape,flac,wma,midi,aac,cda";
     return types.indexOf(ext) != -1;
 }
 
 bool BtInfoDialog::isPicture(QString ext)
 {
-    qDebug() << "[BtInfoDialog] isPicture function started for extension:" << ext;
+    qCDebug(downloaderLog) << "[BtInfoDialog] isPicture function started for extension:" << ext;
     QString types = "jpg,jpeg,gif,png,bmp,svg,psd,tif,ico";
     return types.indexOf(ext) != -1;
 }
 
 void BtInfoDialog::onVideoCheck()
 {
-    qDebug() << "[BtInfoDialog] onVideoCheck function started, state:" << m_checkVideo->checkState();
+    qCDebug(downloaderLog) << "[BtInfoDialog] onVideoCheck function started, state:" << m_checkVideo->checkState();
 
     int state = m_checkVideo->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
         && m_checkPicture->checkState() == Qt::Checked
         && m_checkOther->checkState() == Qt::Checked) {
-        qDebug() << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
         m_checkAll->setCheckState(Qt::Checked);
     } else {
-        qDebug() << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
         m_checkAll->setCheckState(Qt::Unchecked);
     }
 
@@ -488,22 +489,22 @@ void BtInfoDialog::onVideoCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     setOkBtnStatus(cnt);
-    qDebug() << "[BtInfoDialog] onVideoCheck function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] onVideoCheck function ended";
 }
 
 void BtInfoDialog::onAudioCheck()
 {
-    qDebug() << "[BtInfoDialog] onAudioCheck function started, state:" << m_checkAudio->checkState();
+    qCDebug(downloaderLog) << "[BtInfoDialog] onAudioCheck function started, state:" << m_checkAudio->checkState();
 
     int state = m_checkAudio->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
         && m_checkPicture->checkState() == Qt::Checked
         && m_checkOther->checkState() == Qt::Checked) {
-        qDebug() << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
         m_checkAll->setCheckState(Qt::Checked);
     } else {
-        qDebug() << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
         m_checkAll->setCheckState(Qt::Unchecked);
     }
 
@@ -522,22 +523,22 @@ void BtInfoDialog::onAudioCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     setOkBtnStatus(cnt);
-    qDebug() << "[BtInfoDialog] onAudioCheck function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] onAudioCheck function ended";
 }
 
 void BtInfoDialog::onPictureCheck()
 {
-    qDebug() << "[BtInfoDialog] onPictureCheck function started, state:" << m_checkPicture->checkState();
+    qCDebug(downloaderLog) << "[BtInfoDialog] onPictureCheck function started, state:" << m_checkPicture->checkState();
 
     int state = m_checkPicture->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
         && m_checkPicture->checkState() == Qt::Checked
         && m_checkOther->checkState() == Qt::Checked) {
-        qDebug() << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
         m_checkAll->setCheckState(Qt::Checked);
     } else {
-        qDebug() << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
         m_checkAll->setCheckState(Qt::Unchecked);
     }
 
@@ -556,22 +557,22 @@ void BtInfoDialog::onPictureCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     setOkBtnStatus(cnt);
-    qDebug() << "[BtInfoDialog] onPictureCheck function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] onPictureCheck function ended";
 }
 
 void BtInfoDialog::onOtherCheck()
 {
-    qDebug() << "[BtInfoDialog] onOtherCheck function started, state:" << m_checkOther->checkState();
+    qCDebug(downloaderLog) << "[BtInfoDialog] onOtherCheck function started, state:" << m_checkOther->checkState();
 
     int state = m_checkOther->checkState();
     if (m_checkVideo->checkState() == Qt::Checked
         && m_checkAudio->checkState() == Qt::Checked
         && m_checkPicture->checkState() == Qt::Checked
         && m_checkOther->checkState() == Qt::Checked) {
-        qDebug() << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] All checkboxes checked, setting 'All' to checked";
         m_checkAll->setCheckState(Qt::Checked);
     } else {
-        qDebug() << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Not all checkboxes checked, setting 'All' to unchecked";
         m_checkAll->setCheckState(Qt::Unchecked);
     }
     long total = 0;
@@ -589,12 +590,12 @@ void BtInfoDialog::onOtherCheck()
     QString size = Aria2RPCInterface::instance()->bytesFormat(total);
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     setOkBtnStatus(cnt);
-    qDebug() << "[BtInfoDialog] onOtherCheck function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] onOtherCheck function ended";
 }
 
 void BtInfoDialog::updateSelectedInfo()
 {
-    qDebug() << "[BtInfoDialog] updateSelectedInfo function started";
+    qCDebug(downloaderLog) << "[BtInfoDialog] updateSelectedInfo function started";
     int cnt = 0;
     long total = 0;
     int selectVideoCount = 0;
@@ -642,18 +643,18 @@ void BtInfoDialog::updateSelectedInfo()
     m_labelSelectedFileNum->setText(QString(tr("%1 files selected, %2")).arg(QString::number(cnt)).arg(size));
     cnt == m_model->rowCount() ? m_checkAll->setCheckState(Qt::Checked) : m_checkAll->setCheckState(Qt::Unchecked);
     setOkBtnStatus(cnt);
-    qDebug() << "[BtInfoDialog] updateSelectedInfo function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] updateSelectedInfo function ended";
 }
 
 void BtInfoDialog::onFilechoosed(const QString &filename)
 {
-    qInfo() << "Download directory changed to:" << filename;
+    qCInfo(downloaderLog) << "Download directory changed to:" << filename;
 
     QFileInfo fileinfo;
     QString strPath;
     fileinfo.setFile(filename);
     if (!fileinfo.isWritable()) {
-        qDebug() << "[BtInfoDialog] Selected directory is not writable";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Selected directory is not writable";
         MessageBox msg(this);
         msg.setFolderDenied();
         msg.exec();
@@ -661,7 +662,7 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
         QString text = getFileEditText(m_defaultDownloadDir);
         m_editDir->lineEdit()->setText(text);
         m_editDir->setDirectoryUrl(m_defaultDownloadDir);
-        qDebug() << "[BtInfoDialog] onFilechoosed function ended (directory not writable)";
+        qCDebug(downloaderLog) << "[BtInfoDialog] onFilechoosed function ended (directory not writable)";
         return;
     }
     //获取到更改后的大小
@@ -676,18 +677,18 @@ void BtInfoDialog::onFilechoosed(const QString &filename)
     m_editDir->lineEdit()->setText(text);
     m_editDir->setDirectoryUrl(filename);
     m_defaultDownloadDir = filename;
-    qDebug() << "[BtInfoDialog] onFilechoosed function ended successfully";
+    qCDebug(downloaderLog) << "[BtInfoDialog] onFilechoosed function ended successfully";
 }
 
 void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
 {
-    qDebug() << "[BtInfoDialog] onPaletteTypeChanged function started with type:" << type;
+    qCDebug(downloaderLog) << "[BtInfoDialog] onPaletteTypeChanged function started with type:" << type;
     int themeType = DGuiApplicationHelper::instance()->themeType();
     QPalette p;
     m_delegate->setHoverColor(DGuiApplicationHelper::instance()->applicationPalette().frameBorder());
 
     if (themeType == 1) {
-        qDebug() << "[BtInfoDialog] Setting light theme palette";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Setting light theme palette";
         p.setColor(QPalette::Window, Qt::white);
         m_delegate->setHoverColor(QColor(0, 0, 0, 13));
 
@@ -696,7 +697,7 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
         m_labelFileSize->setPalette(pal);
         m_labelSelectedFileNum->setPalette(pal);
     } else {
-        qDebug() << "[BtInfoDialog] Setting dark theme palette";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Setting dark theme palette";
         p = DGuiApplicationHelper::instance()->applicationPalette();
         m_delegate->setHoverColor(QColor(255, 255, 255, 26));
 
@@ -704,22 +705,22 @@ void BtInfoDialog::onPaletteTypeChanged(DGuiApplicationHelper::ColorType type)
         m_labelSelectedFileNum->setPalette(DGuiApplicationHelper::instance()->applicationPalette());
     }
     m_widget->setPalette(p);
-    qDebug() << "[BtInfoDialog] onPaletteTypeChanged function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] onPaletteTypeChanged function ended";
 }
 
 void BtInfoDialog::getBtInfo(QMap<QString, QVariant> &opt, QString &infoName, QString &infoHash)
 {
-    qDebug() << "[BtInfoDialog] getBtInfo function started";
+    qCDebug(downloaderLog) << "[BtInfoDialog] getBtInfo function started";
     opt.insert("dir", m_editDir->text());
     opt.insert("select-file", getSelected());
     infoName = m_labelInfoName->text();
     infoHash = m_ariaInfo.infoHash;
-    qDebug() << "[BtInfoDialog] getBtInfo function ended - dir:" << m_editDir->text() << "name:" << infoName << "hash:" << infoHash;
+    qCDebug(downloaderLog) << "[BtInfoDialog] getBtInfo function ended - dir:" << m_editDir->text() << "name:" << infoName << "hash:" << infoHash;
 }
 
 QString BtInfoDialog::getFileEditText(QString text)
 {
-    qDebug() << "[BtInfoDialog] getFileEditText function started with text:" << text;
+    qCDebug(downloaderLog) << "[BtInfoDialog] getFileEditText function started with text:" << text;
     QString flieEditText = text + "    " + tr("Available:") + Aria2RPCInterface::instance()->getCapacityFree(text);
     int count = text.size();
     int hasLongStr = 0;
@@ -742,32 +743,32 @@ QString BtInfoDialog::getFileEditText(QString text)
         }
     }
     text = text.right(45 - hasLongStr / 2);
-    qDebug() << "[BtInfoDialog] getFileEditText function ended with result:" << text;
+    qCDebug(downloaderLog) << "[BtInfoDialog] getFileEditText function ended with result:" << text;
     return text;
 }
 
 void BtInfoDialog::setOkBtnStatus(int count)
 {
-    qDebug() << "[BtInfoDialog] setOkBtnStatus function started with count:" << count;
+    qCDebug(downloaderLog) << "[BtInfoDialog] setOkBtnStatus function started with count:" << count;
     if (count == 0) {
-        qDebug() << "[BtInfoDialog] No files selected, disabling OK button";
+        qCDebug(downloaderLog) << "[BtInfoDialog] No files selected, disabling OK button";
         m_btnOK->setEnabled(false);
     } else {
-        qDebug() << "[BtInfoDialog] Files selected, enabling OK button";
+        qCDebug(downloaderLog) << "[BtInfoDialog] Files selected, enabling OK button";
         m_btnOK->setEnabled(true);
     }
-    qDebug() << "[BtInfoDialog] setOkBtnStatus function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] setOkBtnStatus function ended";
 }
 
 void BtInfoDialog::closeEvent(QCloseEvent *event)
 {
-    qDebug() << "[BtInfoDialog] closeEvent function started";
+    qCDebug(downloaderLog) << "[BtInfoDialog] closeEvent function started";
     QTimer::singleShot(5000, this->parent(), [=](){
         QSharedMemory sharedMemory;
         sharedMemory.setKey("downloader");
         if (sharedMemory.attach()) //设置成单例程序
         {
-            qDebug() << "[BtInfoDialog] Clearing shared memory on close";
+            qCDebug(downloaderLog) << "[BtInfoDialog] Clearing shared memory on close";
             sharedMemory.lock();
             char *to = static_cast<char *>(sharedMemory.data());
             int num = sharedMemory.size();
@@ -775,5 +776,5 @@ void BtInfoDialog::closeEvent(QCloseEvent *event)
             sharedMemory.unlock();
         }
     });
-    qDebug() << "[BtInfoDialog] closeEvent function ended";
+    qCDebug(downloaderLog) << "[BtInfoDialog] closeEvent function ended";
 }
