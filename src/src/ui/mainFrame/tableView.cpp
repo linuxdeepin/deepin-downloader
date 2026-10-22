@@ -271,6 +271,13 @@ bool TableView::refreshTableView(const int &index)
 
     case 1:
         // qDebug() << "[TableView] Switching to finished mode";
+        // A model reset destroys the inline rename editor. Defer the periodic
+        // refresh until editing finishes; the next status update will rebuild it.
+        if (state() == QAbstractItemView::EditingState) {
+            // The request was handled by deferring it. Callers do not use this
+            // return value as a retry signal.
+            return true;
+        }
         //if(0 == getTableModel()->getTablemodelMode()){
         getTableModel()->switchFinishedMode();
         //}
