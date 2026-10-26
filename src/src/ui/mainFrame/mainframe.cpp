@@ -559,10 +559,6 @@ void MainFrame::createNewTask(QString url)
         }
     }
     m_TaskWidget->setUrl(url);
-    if (!Func::isNetConnect()) {
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
     if (m_TaskWidget->isHidden()) {
         m_TaskWidget->move(pos().x() + this->width() / 2 - m_TaskWidget->width() / 2,
                            pos().y() + this->height() / 2 - 575 / 2);
@@ -833,10 +829,6 @@ void MainFrame::onClipboardDataChanged(QString url)
 
 void MainFrame::OpenFile(const QString &url)
 {
-    if (!Func::isNetConnect()) {
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
     bool bIsBt = Settings::getInstance()->getStartAssociatedBTFileState();
     bool bIsMl = Settings::getInstance()->getStartAssociatedMetaLinkFileState();
     if ((!bIsBt && url.endsWith(".torrent")) || (!bIsMl && url.endsWith(".metalink"))) {
@@ -1781,11 +1773,6 @@ void MainFrame::onNewBtnClicked()
 
 void MainFrame::onStartDownloadBtnClicked()
 {
-    if (!Func::isNetConnect()) {
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
-
     if (m_CurrentTab == CurrentTab::downloadingTab) {
         const QList<DownloadDataItem *> &selectList = m_DownLoadingTableView->getTableModel()->renderList();
         for (auto item : selectList) {
@@ -1802,11 +1789,6 @@ void MainFrame::onStartDownloadBtnClicked()
 
 void MainFrame::onPauseDownloadBtnClicked()
 {
-    if (!Func::isNetConnect()) {
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
-
     if (m_CurrentTab == CurrentTab::downloadingTab) {
         m_ToolBar->enablePauseBtn(false);
         m_ToolBar->enableStartBtn(true);
@@ -2088,10 +2070,6 @@ void MainFrame::onDeleteActionTriggered()
 
 void MainFrame::onRedownloadActionTriggered()
 {
-    if (!Func::isNetConnect()) {
-        m_TaskWidget->showNetErrorMsg();
-        return;
-    }
     if (m_CurrentTab == CurrentTab::recycleTab) {
         if (QFileInfo::exists(m_DelCheckItem->savePath)) {
             MessageBox msg(this);

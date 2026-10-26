@@ -433,10 +433,6 @@ void CreateTaskWidget::onCancelBtnClicked()
 
 void CreateTaskWidget::onSureBtnClicked()
 {
-    if (!Func::isNetConnect()) {
-        showNetErrorMsg();
-        return;
-    }
     QFile f(m_defaultDownloadDir);
     if(!f.exists()){
         MessageBox msg(this);
