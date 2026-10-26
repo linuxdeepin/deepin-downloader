@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -53,6 +53,8 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
     : DDialog(parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
+    , m_IsHasTracks(false)
+    , m_IsHasDHT(false)
 {
     qDebug() << "DiagnosticTool created";
     initUI();
