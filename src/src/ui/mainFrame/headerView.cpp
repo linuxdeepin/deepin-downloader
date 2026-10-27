@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -75,6 +75,30 @@ void DownloadHeaderView::updateGeometries()
     m_headerCbx->resize(this->height()-2, this->height()-2);
     m_headerCbx->move(sectionPosition(0) + 5, 1);
     QHeaderView::updateGeometries();
+}
+
+void DownloadHeaderView::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        int pos = event->pos().x();
+        int section1Pos = sectionPosition(1);
+        if (sectionResizeMode(0) == QHeaderView::Fixed
+            && qAbs(pos - section1Pos) <= 4) {
+            return;
+        }
+    }
+    QHeaderView::mousePressEvent(event);
+}
+
+void DownloadHeaderView::mouseMoveEvent(QMouseEvent *event)
+{
+    int pos = event->pos().x();
+    int section1Pos = sectionPosition(1);
+    if (sectionResizeMode(0) == QHeaderView::Fixed
+        && qAbs(pos - section1Pos) <= 4) {
+        return;
+    }
+    QHeaderView::mouseMoveEvent(event);
 }
 
 void DownloadHeaderView::onHeaderChecked(bool checked)

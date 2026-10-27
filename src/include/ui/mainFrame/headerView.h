@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -36,6 +36,7 @@
 #include <DCheckBox>
 #include <DApplication>
 #include <dguiapplicationhelper.h>
+#include <QMouseEvent>
 
 DWIDGET_USE_NAMESPACE
 
@@ -56,6 +57,8 @@ protected:
      * @brief 更新位置
      */
     void updateGeometries();
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     DCheckBox *m_headerCbx;
