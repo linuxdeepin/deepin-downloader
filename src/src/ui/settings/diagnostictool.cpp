@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -163,21 +163,29 @@ void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
 {
     m_IsHasTracks = isHasTracks;
     m_IsHasDHT = isHasDHT;
-    //m_Model->setData(isHasTracks);
+    QTimer::singleShot(400, this, [=]() {
+        if (!m_dhtRowAdded) {
+            m_dhtRowAdded = true;
+            m_Model->insertData(1, m_IsHasDHT && Func::isNetConnect());
+        }
+    });
 }
 
 void DiagnosticTool::startDiagnostic()
 {
     Aria2RPCInterface::instance()->getGlobalOption();
     m_Button->setEnabled(false);
-    //m_Model->appendData(Func::isIpv6Connect());
     m_Tableview->update();
+    m_dhtRowAdded = false;
     QTimer::singleShot(200, this, [=]() {
         m_Model->appendData(Func::isIPV6Connect());
     });
 
-    QTimer::singleShot(qrand() % (800) + 200, this, [=]() {
-        m_Model->appendData(m_IsHasDHT & Func::isNetConnect());
+    QTimer::singleShot(2000, this, [=]() {
+        if (!m_dhtRowAdded) {
+            m_dhtRowAdded = true;
+            m_Model->insertData(1, false);
+        }
     });
 
     QTimer::singleShot(qrand() % (800) + 800, this, [=]() {
@@ -185,10 +193,10 @@ void DiagnosticTool::startDiagnostic()
     });
 
     QTimer::singleShot(qrand() % (800) + 1400, this, [=]() {
-        m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
+        m_Model->appendData((m_IsHasTracks || m_IsHasDHT) && Func::isNetConnect());
     });
     QTimer::singleShot(qrand() % (800) + 2000, this, [=]() {
-        m_Model->appendData((m_IsHasTracks | m_IsHasDHT) & Func::isNetConnect());
+        m_Model->appendData((m_IsHasTracks || m_IsHasDHT) && Func::isNetConnect());
     });
 
     QTimer::singleShot(qrand() % (800) + 2500, this, [=]() {
@@ -211,6 +219,13 @@ void DiagnosticModel::appendData(bool b)
     const int row = m_DiagnosticStatusList.size();
     beginInsertRows(QModelIndex(), row, row);
     m_DiagnosticStatusList.append(b);
+    endInsertRows();
+}
+
+void DiagnosticModel::insertData(int row, bool value)
+{
+    beginInsertRows(QModelIndex(), row, row);
+    m_DiagnosticStatusList.insert(row, value);
     endInsertRows();
 }
 
