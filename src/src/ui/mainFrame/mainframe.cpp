@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -2906,6 +2906,12 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
     onCheckChanged(0, 0);
     m_ToolBar->clearSearchText();
     pWidget->hide();
+
+    if (tab.contains("Downloading") || tab.contains("Completed")) {
+        m_DownLoadingTableView->setFocus();
+    } else if (tab.contains("Trash")) {
+        m_RecycleTableView->setFocus();
+    }
 }
 
 bool MainFrame::isAutoStart()
