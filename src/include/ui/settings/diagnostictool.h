@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -68,8 +68,9 @@ private:
     DiagnosticDelegate *m_pDelegate;
     DiagnosticModel *m_Model;
     QPushButton *m_Button;
-    bool m_IsHasTracks;
-    bool m_IsHasDHT;
+    bool m_IsHasTracks = false;
+    bool m_IsHasDHT = false;
+    bool m_dhtRowAdded = false;
     DiagnosticDelegate *m_delegate;
 };
 
@@ -89,6 +90,7 @@ public:
     ~DiagnosticModel();
 
     void appendData(bool b);
+    void insertData(int row, bool value);
 
     void clearData();
 
