@@ -54,12 +54,13 @@
 #include "tableModel.h"
 #include "global.h"
 #include "../database/dbinstance.h"
+#include "ddlog.h"
 
 ItemDelegate::ItemDelegate(QObject *parent, int Flag)
     : QStyledItemDelegate(parent)
     , m_hoverRow(-1)
 {
-    qDebug() << "ItemDelegate constructor called with flag:" << Flag;
+    qCDebug(downloaderLog) << "ItemDelegate constructor called with flag:" << Flag;
     m_tableFlag = Flag;
     m_isFirstInside = true;
     // progressbar = new QProgressBar;
@@ -70,7 +71,7 @@ ItemDelegate::ItemDelegate(QObject *parent, int Flag)
             this, &ItemDelegate::onPalettetypechanged);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged,
             this, &ItemDelegate::onPalettetypechanged);
-    qDebug() << "[ItemDelegate] Constructor ended";
+    qCDebug(downloaderLog) << "[ItemDelegate] Constructor ended";
 }
 
 ItemDelegate::~ItemDelegate()

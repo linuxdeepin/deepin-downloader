@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -45,6 +45,7 @@
 #include "global.h"
 #include "func.h"
 #include "aria2rpcinterface.h"
+#include "ddlog.h"
 #if QT_VERSION_MAJOR > 5
 #include <random>
 #endif
@@ -54,14 +55,14 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
 {
-    qDebug() << "DiagnosticTool created";
+    qCDebug(downloaderLog) << "DiagnosticTool created";
     initUI();
     QTimer::singleShot(500, this, SLOT(startDiagnostic()));
     setAccessibleName("DiagnosticTool");
     m_Tableview->setAccessibleName("DiagnosticTableView");
     m_Tableview->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_Tableview->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    qDebug() << "[DiagnosticTool] Constructor ended";
+    qCDebug(downloaderLog) << "[DiagnosticTool] Constructor ended";
 }
 
 DiagnosticTool::~DiagnosticTool()
@@ -74,7 +75,7 @@ DiagnosticTool::~DiagnosticTool()
 
 void DiagnosticTool::initUI()
 {
-    qDebug() << "[DiagnosticTool] initUI function started";
+    qCDebug(downloaderLog) << "[DiagnosticTool] initUI function started";
     QIcon tryIcon = QIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
     tryIcon.pixmap(QSize(30, 30));
     setIcon(tryIcon);
@@ -164,12 +165,12 @@ void DiagnosticTool::initUI()
     m_Tableview->setEnabled(false);
     m_Tableview->verticalScrollBar()->setHidden(true);
 
-    qDebug() << "[DiagnosticTool] initUI function ended";
+    qCDebug(downloaderLog) << "[DiagnosticTool] initUI function ended";
 }
 
 void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
 {
-    qDebug() << "Received aria2 options - hasTracks:" << isHasTracks << "hasDHT:" << isHasDHT;
+    qCDebug(downloaderLog) << "Received aria2 options - hasTracks:" << isHasTracks << "hasDHT:" << isHasDHT;
     m_IsHasTracks = isHasTracks;
     m_IsHasDHT = isHasDHT;
     //m_Model->setData(isHasTracks);
@@ -177,7 +178,7 @@ void DiagnosticTool::onAriaOption(bool isHasTracks, bool isHasDHT)
 
 void DiagnosticTool::startDiagnostic()
 {
-    qDebug() << "Starting diagnostic process";
+    qCDebug(downloaderLog) << "Starting diagnostic process";
     Aria2RPCInterface::instance()->getGlobalOption();
     m_Button->setEnabled(false);
     //m_Model->appendData(Func::isIpv6Connect());
@@ -232,7 +233,7 @@ void DiagnosticTool::startDiagnostic()
         m_Button->setEnabled(true);
     });
 #endif
-    qDebug() << "[DiagnosticTool] startDiagnostic function ended";
+    qCDebug(downloaderLog) << "[DiagnosticTool] startDiagnostic function ended";
 }
 
 DiagnosticModel::DiagnosticModel(QObject *parent)

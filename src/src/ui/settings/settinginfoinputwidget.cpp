@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,19 +34,20 @@
 #include <DPalette>
 
 #include <QHBoxLayout>
+#include "ddlog.h"
 
 SettingInfoInputWidget::SettingInfoInputWidget(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "SettingInfoInputWidget created";
+    qCDebug(downloaderLog) << "SettingInfoInputWidget created";
     initUI();
     initConnections();
-    qDebug() << "[SettingInfoInputWidget] Constructor ended";
+    qCDebug(downloaderLog) << "[SettingInfoInputWidget] Constructor ended";
 }
 
 void SettingInfoInputWidget::initUI()
 {
-    qDebug() << "Initializing setting info input widget UI";
+    qCDebug(downloaderLog) << "Initializing setting info input widget UI";
     m_lineEdit = new DLineEdit;
     m_lineEdit->setAccessibleName(m_lineEdit->text());
     m_titleLabel = new DLabel;
@@ -72,20 +73,20 @@ void SettingInfoInputWidget::initUI()
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(mainLayout);
-    qDebug() << "[SettingInfoInputWidget] initUI function ended";
+    qCDebug(downloaderLog) << "[SettingInfoInputWidget] initUI function ended";
 }
 
 void SettingInfoInputWidget::initConnections()
 {
-    qDebug() << "Initializing setting info input widget connections";
+    qCDebug(downloaderLog) << "Initializing setting info input widget connections";
     connect(m_lineEdit, &DLineEdit::textChanged, this, &SettingInfoInputWidget::onLineEditTextChanged);
     connect(m_lineEdit, &DLineEdit::focusChanged, this, &SettingInfoInputWidget::focusChanged);
-    qDebug() << "[SettingInfoInputWidget] initConnections function ended";
+    qCDebug(downloaderLog) << "[SettingInfoInputWidget] initConnections function ended";
 }
 
 void SettingInfoInputWidget::onLineEditTextChanged(const QString &text)
 {
-    qDebug() << "Setting input text changed:" << text;
+    qCDebug(downloaderLog) << "Setting input text changed:" << text;
     emit textChanged(text);
 }
 

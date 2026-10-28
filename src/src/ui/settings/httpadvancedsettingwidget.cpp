@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -42,11 +42,12 @@
 #include <QFile>
 #include "func.h"
 #include "config.h"
+#include "ddlog.h"
 
 HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(QWidget *parent)
     : DDialog(parent)
 {
-    qDebug() << "HttpAdvancedSettingWidget created";
+    qCDebug(downloaderLog) << "HttpAdvancedSettingWidget created";
     setFixedSize(475, 345);
     m_configPath = QString("%1/%2/%3/httpAdvanced.json")
                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
@@ -55,17 +56,17 @@ HttpAdvancedSettingWidget::HttpAdvancedSettingWidget(QWidget *parent)
     //判断文件是否存在,如果不存在复制配置文件内容到目录下
     QFileInfo fileInfo(m_configPath);
     if (!fileInfo.exists()) {
-        qDebug() << "[HttpAdvancedSettingWidget] Config file does not exist, copying from default";
+        qCDebug(downloaderLog) << "[HttpAdvancedSettingWidget] Config file does not exist, copying from default";
         QFile::copy(CONTENT_HTTP_ADVANCED_PATH, m_configPath);
     }
     initUI();
 
-    qDebug() << "[HttpAdvancedSettingWidget] Constructor ended";
+    qCDebug(downloaderLog) << "[HttpAdvancedSettingWidget] Constructor ended";
 }
 
 void HttpAdvancedSettingWidget::initUI()
 {
-    qDebug() << "Initializing HTTP advanced settings UI";
+    qCDebug(downloaderLog) << "Initializing HTTP advanced settings UI";
     m_btnBox = new DButtonBox(this);
     QList<DButtonBoxButton*> list;
     QFont font;
@@ -132,7 +133,7 @@ void HttpAdvancedSettingWidget::initUI()
         m_curWebStr = obj.value("CurWeb").toString();
     }
     suffixBtn->click();
-    qDebug() << "[HttpAdvancedSettingWidget] initUI function ended";
+    qCDebug(downloaderLog) << "[HttpAdvancedSettingWidget] initUI function ended";
 }
 
 void HttpAdvancedSettingWidget::reset()
@@ -166,7 +167,7 @@ void HttpAdvancedSettingWidget::reset()
 
 void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 {
-    qDebug() << "File extensions edit button clicked";
+    qCDebug(downloaderLog) << "File extensions edit button clicked";
     QString curPlaceholderText = m_textEdit->placeholderText();
     if(!(curPlaceholderText == tr("Separate file extensions by semicolons (;)"))
             && !curPlaceholderText.isEmpty()) {
@@ -178,7 +179,7 @@ void HttpAdvancedSettingWidget::onSuffixBtnClicked()
 }
 void HttpAdvancedSettingWidget::onWebBtnClicked()
 {
-    qDebug() << "Unmonitored sites edit button clicked";
+    qCDebug(downloaderLog) << "Unmonitored sites edit button clicked";
     if(!(m_textEdit->placeholderText() == tr("Please enter one URL per line"))
             && !m_textEdit->placeholderText().isEmpty()) {
         m_curSuffixStr = m_textEdit->toPlainText();
@@ -190,7 +191,7 @@ void HttpAdvancedSettingWidget::onWebBtnClicked()
 
 void HttpAdvancedSettingWidget::onRstoreDefaultClicked()
 {
-    qDebug() << "Restoring default file extensions";
+    qCDebug(downloaderLog) << "Restoring default file extensions";
 //    QFile file(m_configPath);
 //    if(!file.open(QIODevice::ReadWrite)) {
 //        return;
@@ -211,10 +212,10 @@ void HttpAdvancedSettingWidget::onRstoreDefaultClicked()
 
 void HttpAdvancedSettingWidget::onSureClicked()
 {
-    qDebug() << "Saving HTTP advanced settings";
+    qCDebug(downloaderLog) << "Saving HTTP advanced settings";
     QFile file(m_configPath);
     if(!file.open(QIODevice::ReadWrite)) {
-        qWarning() << "Failed to open config file:" << m_configPath;
+        qCWarning(downloaderLog) << "Failed to open config file:" << m_configPath;
         return;
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
@@ -235,6 +236,6 @@ void HttpAdvancedSettingWidget::onSureClicked()
 
 void HttpAdvancedSettingWidget::onCancelClicked()
 {
-    qDebug() << "HTTP advanced settings dialog canceled";
+    qCDebug(downloaderLog) << "HTTP advanced settings dialog canceled";
     close();
 }

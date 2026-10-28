@@ -36,6 +36,7 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusMessage>
+#include "ddlog.h"
 
 static const QString CONTROL_CENTER1_SERVICE = "org.deepin.dde.ControlCenter1";
 static const QString CONTROL_CENTER1_PATH = "/org/deepin/dde/ControlCenter1";
@@ -48,7 +49,7 @@ static const QString CONTROL_CENTER_INTERFACE = "com.deepin.dde.ControlCenter";
 NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "NotificationsSettiingWidget created";
+    qCDebug(downloaderLog) << "NotificationsSettiingWidget created";
     QFont lableFont;
     //lableFont.setBold(QFont::DemiBold);
     lableFont.setFamily("T5");
@@ -80,7 +81,7 @@ NotificationsSettiingWidget::NotificationsSettiingWidget(QWidget *parent)
 
 void NotificationsSettiingWidget::openControlCenterNotificationSettings()
 {
-    qDebug() << "Opening control center notification settings";
+    qCDebug(downloaderLog) << "Opening control center notification settings";
 
     QDBusInterface controlCenter1Interface(CONTROL_CENTER1_SERVICE,
                                           CONTROL_CENTER1_PATH,
@@ -89,11 +90,11 @@ void NotificationsSettiingWidget::openControlCenterNotificationSettings()
 
     QDBusMessage reply = controlCenter1Interface.call("ShowPage", "notification", "list/downloader");
     if (reply.type() == QDBusMessage::ErrorMessage) {
-        qDebug() << "ShowPage with specific page failed, trying with just notification:" << reply.errorMessage();
+        qCDebug(downloaderLog) << "ShowPage with specific page failed, trying with just notification:" << reply.errorMessage();
 
         QDBusMessage fallbackReply = controlCenter1Interface.call("ShowPage", "notification");
         if (fallbackReply.type() == QDBusMessage::ErrorMessage) {
-            qDebug() << "New ControlCenter1 interface failed, trying old interface:" << fallbackReply.errorMessage();
+            qCDebug(downloaderLog) << "New ControlCenter1 interface failed, trying old interface:" << fallbackReply.errorMessage();
             tryOldInterface();
         }
     }
@@ -108,6 +109,6 @@ void NotificationsSettiingWidget::tryOldInterface()
 
     QDBusMessage reply = oldIface.call("ShowPage", "notification", "下载器");
     if (reply.type() == QDBusMessage::ErrorMessage) {
-        qWarning() << "Failed to open control center with old interface:" << reply.errorMessage();
+        qCWarning(downloaderLog) << "Failed to open control center with old interface:" << reply.errorMessage();
     }
 }

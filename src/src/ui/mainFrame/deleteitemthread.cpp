@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -37,10 +37,11 @@
 #include <QTimer>
 
 #include "../database/dbinstance.h"
+#include "ddlog.h"
 
 DeleteItemThread::DeleteItemThread()
 {
-    qDebug() << "DeleteItemThread default constructor called";
+    qCDebug(downloaderLog) << "DeleteItemThread default constructor called";
 }
 
 DeleteItemThread::DeleteItemThread(QList<DeleteDataItem*> &recycleDeleteList,
@@ -48,13 +49,13 @@ DeleteItemThread::DeleteItemThread(QList<DeleteDataItem*> &recycleDeleteList,
                                    bool ifDeleteLocal,
                                    QString deleteType)
 {
-    qDebug() << "DeleteItemThread constructor called with recycle list size:" << recycleDeleteList.size() 
+    qCDebug(downloaderLog) << "DeleteItemThread constructor called with recycle list size:" << recycleDeleteList.size() 
              << "delete local:" << ifDeleteLocal << "delete type:" << deleteType;
     m_RecycleDeleteList = recycleDeleteList;
     m_RecycleTableview = recycleTableview;
     m_IfDeleteLocal = ifDeleteLocal;
     m_StrDeleteType = deleteType;
-    qDebug() << "[DeleteItemThread] Recycle constructor ended";
+    qCDebug(downloaderLog) << "[DeleteItemThread] Recycle constructor ended";
 }
 
 DeleteItemThread::DeleteItemThread(QList<DownloadDataItem*> &deleteList,
@@ -62,20 +63,20 @@ DeleteItemThread::DeleteItemThread(QList<DownloadDataItem*> &deleteList,
                                    bool ifDeleteLocal,
                                    QString deleteType)
 {
-    qDebug() << "DeleteItemThread constructor called with download list size:" << deleteList.size()
+    qCDebug(downloaderLog) << "DeleteItemThread constructor called with download list size:" << deleteList.size()
              << "delete local:" << ifDeleteLocal << "delete type:" << deleteType;
     m_DeleteList = deleteList;
     m_DownloadingTableview = downloadingTableview;
     m_IfDeleteLocal = ifDeleteLocal;
     m_StrDeleteType = deleteType;
-    qDebug() << "[DeleteItemThread] Download constructor ended";
+    qCDebug(downloaderLog) << "[DeleteItemThread] Download constructor ended";
 }
 
 void DeleteItemThread::deleteRecycleData()
 {
-    qDebug() << "Starting to delete recycle data, count:" << m_RecycleDeleteList.size();
+    qCDebug(downloaderLog) << "Starting to delete recycle data, count:" << m_RecycleDeleteList.size();
     if (m_IfDeleteLocal) {
-        qDebug() << "[DeleteItemThread] Deleting local files";
+        qCDebug(downloaderLog) << "[DeleteItemThread] Deleting local files";
         for (int i = 0; i < m_RecycleDeleteList.size(); i++) {
             QString savePath = m_RecycleDeleteList.at(i)->savePath;
             QString gid = m_RecycleDeleteList.at(i)->gid;
@@ -125,12 +126,12 @@ void DeleteItemThread::deleteRecycleData()
         }
     }
     emit removeFinished();
-    qDebug() << "[DeleteItemThread] deleteRecycleData function ended";
+    qCDebug(downloaderLog) << "[DeleteItemThread] deleteRecycleData function ended";
 }
 
 void DeleteItemThread::deleteDownloadData()
 {
-    qDebug() << "Starting to delete download data, count:" << m_DeleteList.size();
+    qCDebug(downloaderLog) << "Starting to delete download data, count:" << m_DeleteList.size();
     for (int i = 0; i < m_DeleteList.size(); ++i) {
         QString gid = m_DeleteList.at(i)->gid;
         QString taskId = m_DeleteList.at(i)->taskId;
@@ -199,43 +200,43 @@ void DeleteItemThread::deleteDownloadData()
         }
     }
     emit removeFinished();
-    qDebug() << "[DeleteItemThread] deleteDownloadData function ended";
+    qCDebug(downloaderLog) << "[DeleteItemThread] deleteDownloadData function ended";
 }
 
 void DeleteItemThread::run()
 {
-    qDebug() << "Delete thread started, delete type:" << m_StrDeleteType;
+    qCDebug(downloaderLog) << "Delete thread started, delete type:" << m_StrDeleteType;
     if (m_StrDeleteType == "recycle_delete") {
-        qDebug() << "[DeleteItemThread] Executing recycle delete operation";
+        qCDebug(downloaderLog) << "[DeleteItemThread] Executing recycle delete operation";
         deleteRecycleData();
     }
     if (m_StrDeleteType == "download_delete") {
-        qDebug() << "[DeleteItemThread] Executing download delete operation";
+        qCDebug(downloaderLog) << "[DeleteItemThread] Executing download delete operation";
         deleteDownloadData();
     }
     QEventLoop loop;
     QTimer::singleShot(5000, &loop, SLOT(quit()));
     loop.exec();
-    qDebug() << "Delete thread finished";
+    qCDebug(downloaderLog) << "Delete thread finished";
 }
 
 bool DeleteItemThread::deleteDirectory(const QString &path)
 {
-    qDebug() << "Attempting to delete directory:" << path;
+    qCDebug(downloaderLog) << "Attempting to delete directory:" << path;
     QFileInfo info(path);
     if (info.isFile()) {
-        qDebug() << "[DeleteItemThread] Deleting file:" << path;
+        qCDebug(downloaderLog) << "[DeleteItemThread] Deleting file:" << path;
         QFile::remove(path);
         return true;
     }
     if (path.isEmpty()) {
-        qWarning() << "Empty path provided for deletion";
+        qCWarning(downloaderLog) << "Empty path provided for deletion";
         return false;
     }
 
     QDir dir(path);
     if (!dir.exists()) {
-        qDebug() << "Directory" << path << "does not exist, nothing to delete";
+        qCDebug(downloaderLog) << "Directory" << path << "does not exist, nothing to delete";
         return true;
     }
 
