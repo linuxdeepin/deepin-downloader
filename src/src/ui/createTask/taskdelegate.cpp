@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -49,15 +49,16 @@
 #include <QDebug>
 #include <DAlertControl>
 #include <DGuiApplicationHelper>
+#include "ddlog.h"
 
 TaskDelegate::TaskDelegate(DDialog *dialog)
 {
-    qDebug() << "TaskDelegate constructor entered";
+    qCDebug(downloaderLog) << "TaskDelegate constructor entered";
 
     m_dialog = dialog;
     m_checkBtn = new QCheckBox();
     m_curName.clear();
-    qDebug() << "[TaskDelegate] Constructor ended";
+    qCDebug(downloaderLog) << "[TaskDelegate] Constructor ended";
 }
 
 TaskDelegate::~TaskDelegate()

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -9,6 +9,7 @@
 #include "dbinstance.h"
 #include "settings.h"
 #include "dlmapplication.h"
+#include "ddlog.h"
 
 #if defined(CMAKE_SAFETYTEST_ARG_ON)
 #include <sanitizer/asan_interface.h>
@@ -21,9 +22,9 @@ int main(int argc, char *argv[])
     //qputenv("QT_QPA_PLATFORM", "offscreen");
     DlmApplication a(argc, argv);
     testing::InitGoogleTest(&argc, argv);
-    qDebug() << "start run test: " << QDateTime::currentDateTime();
+    qCDebug(downloaderLog) << "start run test: " << QDateTime::currentDateTime();
     int ret = RUN_ALL_TESTS();
-    qDebug() << "end run test" << QDateTime::currentDateTime();
+    qCDebug(downloaderLog) << "end run test" << QDateTime::currentDateTime();
 
 #if defined(CMAKE_SAFETYTEST_ARG_ON)
     __sanitizer_set_report_path("asan.log");
