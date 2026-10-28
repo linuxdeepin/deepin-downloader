@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -406,14 +406,10 @@ void MainFrame::updateDHTFile()
 {
     QFileInfo f(QDir::homePath() + "/.config/uos/downloader/dht.dat");
     QDateTime t = f.fileTime(QFileDevice::FileModificationTime);
-
-    QFileInfo f2(QDir::homePath() + "/.config/uos/downloader/dht6.dat");
-    QDateTime t2 = f2.fileTime(QFileDevice::FileModificationTime);
-    if (t.date() == QDate::currentDate() && t2.date() == QDate::currentDate()) {
+    if (t.date() == QDate::currentDate()) {
         return;
     }
     QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht.dat");
-    QFile::remove(QDir::homePath() + "/.config/uos/downloader/dht6.dat");
 }
 
 void MainFrame::initConnection()
