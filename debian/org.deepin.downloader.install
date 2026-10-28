@@ -1,5 +1,6 @@
 /usr/bin/downloader
 /usr/bin/dlmextensionservice
+/usr/share/dsg/configs/org.deepin.downloader
 /usr/share/downloader/translations/*.qm
 assets/* /usr/share/deepin-manual/manual-assets/application/
 desktop/downloader.desktop /usr/share/applications

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,10 +34,17 @@
 #include <QDebug>
 
 #include "extensionservice.h"
+#include "ddlog.h"
+#include "logger.h"
 
 int main(int argc, char** argv)
 {
-    qDebug() << "[ExtensionMain] Starting extension service";
+    // 动态日志规则必须最先初始化：在任何日志打印之前构造 MLogger，
+    // 否则 QT_LOGGING_RULES 环境变量取消设置不生效（参考 deepin-reader）
+    static MLogger logger;
+    Q_UNUSED(logger)
+
+    qCDebug(extensionLog) << "[ExtensionMain] Starting extension service";
 
     QCoreApplication a(argc, argv);
     extensionService e;
