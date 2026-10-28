@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -507,10 +507,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(t) {
 }, ["blocking", "responseHeaders"])
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    console.log("chrome.webRequest.onBeforeSendHeaders")
-    console.log(details)
     if(details.method == "HEAD") {
-        console.log(details)
         removeBrowserHeaders(details.requestHeaders, /Cookie/i);
         return { requestHeaders: details.requestHeaders };
     }
@@ -705,7 +702,6 @@ function onHeadersReceived(details) {
         }
 
         if(isSupportMediaExt(c)) {
-            console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
             isSelfCreate = false
             chrome.downloads.download({
@@ -716,7 +712,6 @@ function onHeadersReceived(details) {
 
         var h = o.headers["content-type"];
         if (isSupportContentType(h)) {
-            console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
             isSelfCreate = false
             chrome.downloads.download({
