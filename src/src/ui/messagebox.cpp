@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -32,18 +32,19 @@
 #include "messagebox.h"
 #include "settings.h"
 #include <QPushButton>
+#include "ddlog.h"
 
 MessageBox::MessageBox(QWidget *parent)
     : DDialog(parent)
 {
-    qDebug() << "MessageBox constructor";
+    qCDebug(downloaderLog) << "MessageBox constructor";
     setObjectName("messageBox");
     setMaximumWidth(600);
 }
 
 void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString cancelbtntext, int sameurlCount, QList<QString> sameUrlList)
 {
-    qDebug() << "setWarings called with sameurlCount:" << sameurlCount;
+    qCDebug(downloaderLog) << "setWarings called with sameurlCount:" << sameurlCount;
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -82,20 +83,20 @@ void MessageBox::setWarings(QString warningMsg, QString surebtntext, QString can
             [=]() {
                 close();
             });
-    qDebug() << "[MessageBox] setWarings function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setWarings function ended";
 }
 
 void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedownload)
 {
-    qDebug() << "setRedownload called with ret:" << ret << "isShowRedownload:" << isShowRedownload;
+    qCDebug(downloaderLog) << "setRedownload called with ret:" << ret << "isShowRedownload:" << isShowRedownload;
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     if (ret) {
-        qDebug() << "[MessageBox] ret is true, setting title to Download Again";
+        qCDebug(downloaderLog) << "[MessageBox] ret is true, setting title to Download Again";
         setTitle(tr("Download Again"));
         addLabel(tr("Do you want to delete the downloaded files and download again?"));
     } else {
-        qDebug() << "[MessageBox] ret is false, setting title to These tasks already exist";
+        qCDebug(downloaderLog) << "[MessageBox] ret is false, setting title to These tasks already exist";
         setTitle(tr("These tasks already exist"));
         if (!isShowRedownload) {
             addLabel(tr("Delete the downloaded files and download again?"));
@@ -111,12 +112,12 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
     addContent(urlText);
 
     if (isShowRedownload) {
-        qDebug() << "[MessageBox] isShowRedownload is true, adding OK button";
+        qCDebug(downloaderLog) << "[MessageBox] isShowRedownload is true, adding OK button";
         QAbstractButton *btn1 = getButton(addButton(tr("OK")));
         btn1->setObjectName("OK");
         btn1->setAccessibleName("OK");
     } else {
-        qDebug() << "[MessageBox] isShowRedownload is false, adding Cancel button";
+        qCDebug(downloaderLog) << "[MessageBox] isShowRedownload is false, adding Cancel button";
         QAbstractButton *btn1 = getButton(addButton(tr("Cancel")));
         btn1->setObjectName("cancel");
         btn1->setAccessibleName("cancele");
@@ -124,12 +125,12 @@ void MessageBox::setRedownload(const QString sameUrl, bool ret, bool isShowRedow
         btn2->setObjectName("redownload");
         btn2->setAccessibleName("redownload");
     }
-    qDebug() << "[MessageBox] setRedownload function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setRedownload function ended";
 }
 
 void MessageBox::setUnusual(const QString &taskId, QString taskList)
 {
-    qDebug() << "setUnusual called for taskId:" << taskId;
+    qCDebug(downloaderLog) << "setUnusual called for taskId:" << taskId;
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -155,33 +156,33 @@ void MessageBox::setUnusual(const QString &taskId, QString taskList)
                 emit unusualConfirm(index, taskId);
                 close();
             });
-    qDebug() << "[MessageBox] setUnusual function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setUnusual function ended";
 }
 
 void MessageBox::setDelete(bool permanentl, bool checked)
 {
-    qDebug() << "setDelete called with permanent:" << permanentl << "checked:" << checked;
+    qCDebug(downloaderLog) << "setDelete called with permanent:" << permanentl << "checked:" << checked;
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     m_DeleteFlag = permanentl;
 
     if (permanentl) {
-        qDebug() << "[MessageBox] permanentl is true, setting title to Are you sure you want to delete this download task permanently?";
+        qCDebug(downloaderLog) << "[MessageBox] permanentl is true, setting title to Are you sure you want to delete this download task permanently?";
         QString show_title = tr("Are you sure you want to delete this download task permanently?");
         setTitle(show_title);
         addSpacing(10);
         QString show_msg = tr("Local files will be deleted at the same time.");
         addLabel(show_msg);
     } else {
-        qDebug() << "[MessageBox] permanentl is false, setting title to Are you sure you want to delete this download task?";
+        qCDebug(downloaderLog) << "[MessageBox] permanentl is false, setting title to Are you sure you want to delete this download task?";
         QString showTitle = tr("Are you sure you want to delete this download task?");
         setTitle(showTitle);
         addSpacing(10);
         if (checked) {
-            qDebug() << "[MessageBox] checked is true, adding Delete local files checkbox";
+            qCDebug(downloaderLog) << "[MessageBox] checked is true, adding Delete local files checkbox";
             addCheckbox(tr("Delete local files"), true);
         } else {
-            qDebug() << "[MessageBox] checked is false, adding Delete local files checkbox";
+            qCDebug(downloaderLog) << "[MessageBox] checked is false, adding Delete local files checkbox";
             addCheckbox(tr("Delete local files"));
         }
     }
@@ -191,22 +192,22 @@ void MessageBox::setDelete(bool permanentl, bool checked)
     btn->setObjectName("cancel");
     btn->setAccessibleName("cancel");
     if (permanentl) {
-        qDebug() << "[MessageBox] permanentl is true, adding Permanently Delete button";
+        qCDebug(downloaderLog) << "[MessageBox] permanentl is true, adding Permanently Delete button";
         QAbstractButton *btn = getButton(addButton(tr("Permanently Delete"), true, ButtonType::ButtonWarning));
         btn->setObjectName("delete");
         btn->setAccessibleName("delete");
     } else {
-        qDebug() << "[MessageBox] permanentl is false, adding Delete button";
+        qCDebug(downloaderLog) << "[MessageBox] permanentl is false, adding Delete button";
         QAbstractButton *btn = getButton(addButton(tr("Delete"), true, ButtonType::ButtonWarning));
         btn->setObjectName("delete");
         btn->setAccessibleName("delete");
     }
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onDeleteBtnClicked);
-    qDebug() << "[MessageBox] setDelete function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setDelete function ended";
 }
 void MessageBox::setClear()
 {
-    qDebug() << "[MessageBox] setClear function started";
+    qCDebug(downloaderLog) << "[MessageBox] setClear function started";
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
     QString show_title = tr("Are you sure you want to delete all tasks in the trash?");
@@ -220,12 +221,12 @@ void MessageBox::setClear()
     btn2->setObjectName("empty");
     btn2->setAccessibleName("empty");
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onClearBtnClicked);
-    qDebug() << "[MessageBox] setClear function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setClear function ended";
 }
 
 void MessageBox::setExit()
 {
-    qDebug() << "[MessageBox] setExit function started";
+    qCDebug(downloaderLog) << "[MessageBox] setExit function started";
 
     setIcon(QIcon(":/icons/icon/downloader5.svg"));
 
@@ -238,23 +239,23 @@ void MessageBox::setExit()
     addButton(tr("Confirm"));
 
     connect(this, &MessageBox::buttonClicked, this, &MessageBox::onExitBtnClicked);
-    qDebug() << "[MessageBox] setExit function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setExit function ended";
 }
 
 void MessageBox::addLabel(QString text)
 {
-    qDebug() << "[MessageBox] addLabel function started with text:" << text;
+    qCDebug(downloaderLog) << "[MessageBox] addLabel function started with text:" << text;
 
     DLabel *title = new DLabel(this);
     title->setAccessibleName("messageBoxTittle");
     title->setText(text);
     addContent(title, Qt::AlignHCenter);
-    qDebug() << "[MessageBox] addLabel function ended";
+    qCDebug(downloaderLog) << "[MessageBox] addLabel function ended";
 }
 
 void MessageBox::addRadioGroup(QString quitText, QString minText)
 {
-    qDebug() << "[MessageBox] addRadioGroup function started with quitText:" << quitText << "minText:" << minText;
+    qCDebug(downloaderLog) << "[MessageBox] addRadioGroup function started with quitText:" << quitText << "minText:" << minText;
 
     int status = Settings::getInstance()->getCloseMainWindowSelected();
     m_ButtonQuit = new DRadioButton(quitText);
@@ -277,12 +278,12 @@ void MessageBox::addRadioGroup(QString quitText, QString minText)
             [=]() {
                 m_ButtonQuit->setChecked(false);
             });
-    qDebug() << "[MessageBox] addRadioGroup function ended";
+    qCDebug(downloaderLog) << "[MessageBox] addRadioGroup function ended";
 }
 
 void MessageBox::addCheckbox(QString checkboxText, bool checked)
 {
-    qDebug() << "[MessageBox] addCheckbox function started with text:" << checkboxText << "checked:" << checked;
+    qCDebug(downloaderLog) << "[MessageBox] addCheckbox function started with text:" << checkboxText << "checked:" << checked;
 
     m_CheckBox = new DCheckBox(this);
     m_CheckBox->setText(checkboxText);
@@ -291,12 +292,12 @@ void MessageBox::addCheckbox(QString checkboxText, bool checked)
         m_CheckBox->setCheckState(Qt::Checked);
     }
     addContent(m_CheckBox, Qt::AlignLeft);
-    qDebug() << "[MessageBox] addCheckbox function ended";
+    qCDebug(downloaderLog) << "[MessageBox] addCheckbox function ended";
 }
 
 void MessageBox::onRenamelineeditChanged(const QString &text)
 {
-    qDebug() << "[MessageBox] onRenamelineeditChanged function started with text:" << text;
+    qCDebug(downloaderLog) << "[MessageBox] onRenamelineeditChanged function started with text:" << text;
     QString real_name = QString(text).left(text.lastIndexOf('.'));
 
     if (!text.isEmpty() && !real_name.isEmpty()) {
@@ -304,28 +305,28 @@ void MessageBox::onRenamelineeditChanged(const QString &text)
     } else {
         m_RenameSureButton->setEnabled(false);
     }
-    qDebug() << "[MessageBox] onRenamelineeditChanged function ended";
+    qCDebug(downloaderLog) << "[MessageBox] onRenamelineeditChanged function ended";
 }
 
 void MessageBox::onRenameSureBtnClicked()
 {
-    qDebug() << "[MessageBox] onRenameSureBtnClicked function started";
+    qCDebug(downloaderLog) << "[MessageBox] onRenameSureBtnClicked function started";
     QString newname = m_NewnameLineedit->text();
     if (newname.contains("\\") || newname.contains("/")) {
         MessageBox *msg = new MessageBox();
         msg->setWarings(tr("The file name cannot contain a backslash (\\) or slash (/)"), tr("OK"));
         msg->exec();
-        qDebug() << "[MessageBox] onRenameSureBtnClicked function ended (invalid filename)";
+        qCDebug(downloaderLog) << "[MessageBox] onRenameSureBtnClicked function ended (invalid filename)";
         return;
     }
     emit Rename(newname);
     close();
-    qDebug() << "[MessageBox] onRenameSureBtnClicked function ended";
+    qCDebug(downloaderLog) << "[MessageBox] onRenameSureBtnClicked function ended";
 }
 
 void MessageBox::onClearBtnClicked(int index)
 {
-    qDebug() << "[MessageBox] onClearBtnClicked function started with index:" << index;
+    qCDebug(downloaderLog) << "[MessageBox] onClearBtnClicked function started with index:" << index;
 
     if (index == 1) {
         bool ischecked;
@@ -333,56 +334,56 @@ void MessageBox::onClearBtnClicked(int index)
         emit Clearrecycle(ischecked);
     }
     close();
-    qDebug() << "[MessageBox] onClearBtnClicked function ended";
+    qCDebug(downloaderLog) << "[MessageBox] onClearBtnClicked function ended";
 }
 
 void MessageBox::onDeleteBtnClicked(int index)
 {
-    qDebug() << "[MessageBox] onDeleteBtnClicked function started with index:" << index << "m_DeleteFlag:" << m_DeleteFlag;
+    qCDebug(downloaderLog) << "[MessageBox] onDeleteBtnClicked function started with index:" << index << "m_DeleteFlag:" << m_DeleteFlag;
 
     if (index == 1) {
-        qDebug() << "[MessageBox] index is 1, calling Deletedownload";
+        qCDebug(downloaderLog) << "[MessageBox] index is 1, calling Deletedownload";
         QAbstractButton *button = getButton(index);
         button->setEnabled(false);
         if (m_DeleteFlag)
             emit Deletedownload(true, m_DeleteFlag);
         else {
-            qDebug() << "[MessageBox] m_DeleteFlag is false, calling Deletedownload with ischecked";
+            qCDebug(downloaderLog) << "[MessageBox] m_DeleteFlag is false, calling Deletedownload with ischecked";
             bool ischecked;
             ischecked = m_CheckBox->isChecked();
             emit Deletedownload(ischecked, m_DeleteFlag);
         }
     }
     close();
-    qDebug() << "[MessageBox] onDeleteBtnClicked function ended";
+    qCDebug(downloaderLog) << "[MessageBox] onDeleteBtnClicked function ended";
 }
 
 void MessageBox::onExitBtnClicked(int index)
 {
-    qDebug() << "[MessageBox] onExitBtnClicked function started with index:" << index;
+    qCDebug(downloaderLog) << "[MessageBox] onExitBtnClicked function started with index:" << index;
 
     if (index == 1) {
-        qDebug() << "[MessageBox] index is 1, calling closeConfirm";
+        qCDebug(downloaderLog) << "[MessageBox] index is 1, calling closeConfirm";
         if (m_CheckBox->isChecked()) {
-            qDebug() << "[MessageBox] m_CheckBox is checked, calling setIsShowTip";
+            qCDebug(downloaderLog) << "[MessageBox] m_CheckBox is checked, calling setIsShowTip";
             Settings::getInstance()->setIsShowTip(false);
             if (m_ButtonMin->isChecked()) {
-                qDebug() << "[MessageBox] m_ButtonMin is checked, calling setCloseMainWindowSelected";
+                qCDebug(downloaderLog) << "[MessageBox] m_ButtonMin is checked, calling setCloseMainWindowSelected";
                 Settings::getInstance()->setCloseMainWindowSelected(0);
             } else {
-                qDebug() << "[MessageBox] m_ButtonMin is not checked, calling setCloseMainWindowSelected";
+                qCDebug(downloaderLog) << "[MessageBox] m_ButtonMin is not checked, calling setCloseMainWindowSelected";
                 Settings::getInstance()->setCloseMainWindowSelected(1);
             }
         }
         emit closeConfirm(m_ButtonMin->isChecked() ? 0 : 1);
     }
     close();
-    qDebug() << "[MessageBox] onExitBtnClicked function ended";
+    qCDebug(downloaderLog) << "[MessageBox] onExitBtnClicked function ended";
 }
 
 void MessageBox::setFolderDenied()
 {
-    qDebug() << "[MessageBox] setFolderDenied function started";
+    qCDebug(downloaderLog) << "[MessageBox] setFolderDenied function started";
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -395,12 +396,12 @@ void MessageBox::setFolderDenied()
             [=]() {
                 close();
     });
-    qDebug() << "[MessageBox] setFolderDenied function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setFolderDenied function ended";
 }
 
 void MessageBox::setFolderNotExists()
 {
-    qDebug() << "[MessageBox] setFolderNotExists called";
+    qCDebug(downloaderLog) << "[MessageBox] setFolderNotExists called";
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -413,12 +414,12 @@ void MessageBox::setFolderNotExists()
             [=]() {
                 close();
     });
-    qDebug() << "[MessageBox] setFolderDenied function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setFolderDenied function ended";
 }
 
 void MessageBox::setNetWorkError(QString warningMsg)
 {
-    qDebug() << "[MessageBox] setNetWorkError function started with warningMsg:" << warningMsg;
+    qCDebug(downloaderLog) << "[MessageBox] setNetWorkError function started with warningMsg:" << warningMsg;
 
     setIcon(QIcon::fromTheme(":/icons/icon/ndm_messagebox_logo_32px.svg"));
 
@@ -435,5 +436,5 @@ void MessageBox::setNetWorkError(QString warningMsg)
             [=]() {
                 close();
             });
-    qDebug() << "[MessageBox] setNetWorkError function ended";
+    qCDebug(downloaderLog) << "[MessageBox] setNetWorkError function ended";
 }

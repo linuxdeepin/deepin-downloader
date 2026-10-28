@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -31,8 +31,9 @@
 
 #include "aria2cbtinfo.h"
 #include <QDebug>
+#include "ddlog.h"
 
 Aria2cBtInfo::Aria2cBtInfo()
 {
-    qDebug() << "[Aria2cBtInfo] Constructor initialized";
+    qCDebug(downloaderLog) << "[Aria2cBtInfo] Constructor initialized";
 }

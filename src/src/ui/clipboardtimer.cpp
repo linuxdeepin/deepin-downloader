@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -39,39 +39,40 @@
 #include <QJsonObject>
 #include <QProcess>
 #include "func.h"
+#include "ddlog.h"
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
     : QObject(parent)
 {
-    qDebug() << "ClipboardTimer object created";
+    qCDebug(downloaderLog) << "ClipboardTimer object created";
 
     auto e = QProcessEnvironment::systemEnvironment();
     m_sessionType = e.value(QStringLiteral("XDG_SESSION_TYPE"));
-    qDebug() << "Session type:" << m_sessionType;
+    qCDebug(downloaderLog) << "Session type:" << m_sessionType;
 
     m_clipboard = QApplication::clipboard(); //获取当前剪切板
     connect(m_clipboard, &QClipboard::dataChanged, this, &ClipboardTimer::getDataChanged);
-    qDebug() << "Clipboard monitoring initialized";
+    qCDebug(downloaderLog) << "Clipboard monitoring initialized";
 }
 
 ClipboardTimer::~ClipboardTimer()
 {
-    qDebug() << "ClipboardTimer object destroyed";
+    qCDebug(downloaderLog) << "ClipboardTimer object destroyed";
 }
 
 void ClipboardTimer::checkClipboardHasUrl()
 {
-    qDebug() << "[ClipboardTimer] checkClipboardHasUrl function started";
+    qCDebug(downloaderLog) << "[ClipboardTimer] checkClipboardHasUrl function started";
     getDataChanged();
 }
 
 void ClipboardTimer::getDataChanged()
 {
-    qDebug() << "Clipboard content changed";
+    qCDebug(downloaderLog) << "Clipboard content changed";
     static bool isInitWayland = true;
 
     const QMimeData *mimeData = m_clipboard->mimeData();
-    qDebug() << "Clipboard formats:" << mimeData->formats();
+    qCDebug(downloaderLog) << "Clipboard formats:" << mimeData->formats();
     QByteArray isDeepinCilpboard = mimeData->data("FROM_DEEPIN_CLIPBOARD_MANAGER");
     if(m_sessionType == QLatin1String("wayland")){
         if(m_clipboard->text() == m_lastUrl || m_clipboard->text().isEmpty()){
@@ -120,61 +121,61 @@ void ClipboardTimer::getDataChanged()
     }
     //将符合规则链接发送至主页面
     if (!url.isEmpty()) {
-        qDebug() << "Valid download URL detected in clipboard";
+        qCDebug(downloaderLog) << "Valid download URL detected in clipboard";
         emit sendClipboardTextChange(url);
     } else {
-        qDebug() << "No valid download URL found in clipboard";
+        qCDebug(downloaderLog) << "No valid download URL found in clipboard";
     }
-    qDebug() << "[ClipboardTimer] getDataChanged function ended";
+    qCDebug(downloaderLog) << "[ClipboardTimer] getDataChanged function ended";
 }
 
 bool ClipboardTimer::isMagnetFormat(QString url)
 {
-    qDebug() << "[ClipboardTimer] isMagnetFormat function started for URL:" << url;
+    qCDebug(downloaderLog) << "[ClipboardTimer] isMagnetFormat function started for URL:" << url;
     url = url.toLower();
     bool isMagnet = url.mid(0, 20) == "magnet:?xt=urn:btih:";
-    qDebug() << "Magnet link check:" << isMagnet;
+    qCDebug(downloaderLog) << "Magnet link check:" << isMagnet;
     return isMagnet;
 }
 
 bool ClipboardTimer::isHttpFormat(QString url)
 {
-    qDebug() << "[ClipboardTimer] isHttpFormat function started for URL:" << url;
+    qCDebug(downloaderLog) << "[ClipboardTimer] isHttpFormat function started for URL:" << url;
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
-        qDebug() << "[ClipboardTimer] URL does not contain ftp, http, or https protocols, returning false";
+        qCDebug(downloaderLog) << "[ClipboardTimer] URL does not contain ftp, http, or https protocols, returning false";
         return false;
     }
 
     if(!isWebFormat(url)){
-        qDebug() << "[ClipboardTimer] URL is not in valid web format, returning false";
+        qCDebug(downloaderLog) << "[ClipboardTimer] URL is not in valid web format, returning false";
         return false;
     }
     QStringList list = url.split(".");
     QString suffix = list[list.size() - 1];
     QStringList typeList = getTypeList();
     if (typeList.contains(suffix)) {
-        qDebug() << "[ClipboardTimer] Suffix found in type list, returning true";
+        qCDebug(downloaderLog) << "[ClipboardTimer] Suffix found in type list, returning true";
         return true;
     }
     for (int i = 0; i < typeList.size(); i++) {
         if (typeList[i].toUpper() == suffix.toUpper()) {
-            qDebug() << "[ClipboardTimer] Suffix found in type list (case insensitive), returning true";
+            qCDebug(downloaderLog) << "[ClipboardTimer] Suffix found in type list (case insensitive), returning true";
             return true;
         }
     }
-    qDebug() << "[ClipboardTimer] Suffix not found in type list, returning false";
+    qCDebug(downloaderLog) << "[ClipboardTimer] Suffix not found in type list, returning false";
     return false;
 }
 
 bool ClipboardTimer::isBtFormat(QString url)
 {
-    qDebug() << "[ClipboardTimer] isBtFormat function started for URL:" << url;
+    qCDebug(downloaderLog) << "[ClipboardTimer] isBtFormat function started for URL:" << url;
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
-        qDebug() << "[ClipboardTimer] URL does not contain ftp, http, or https protocols, returning false";
+        qCDebug(downloaderLog) << "[ClipboardTimer] URL does not contain ftp, http, or https protocols, returning false";
         return false;
     }
     if(!isWebFormat(url)){
-        qDebug() << "[ClipboardTimer] URL is not in valid web format, returning false";
+        qCDebug(downloaderLog) << "[ClipboardTimer] URL is not in valid web format, returning false";
         return false;
     }
     QStringList list = url.split(".");
@@ -182,28 +183,28 @@ bool ClipboardTimer::isBtFormat(QString url)
     QStringList type;
     type << "torrent";
     if (type.contains(suffix)) {
-        qDebug() << "[ClipboardTimer] Suffix matches torrent format, returning true";
+        qCDebug(downloaderLog) << "[ClipboardTimer] Suffix matches torrent format, returning true";
         return true;
     }
     for (int i = 0; i < type.size(); i++) {
         if (type[i].toUpper() == suffix.toUpper()) {
-            qDebug() << "[ClipboardTimer] Suffix matches torrent format (case insensitive), returning true";
+            qCDebug(downloaderLog) << "[ClipboardTimer] Suffix matches torrent format (case insensitive), returning true";
             return true;
         }
     }
-    qDebug() << "[ClipboardTimer] Suffix does not match torrent format, returning false";
+    qCDebug(downloaderLog) << "[ClipboardTimer] Suffix does not match torrent format, returning false";
     return false;
 }
 
 bool ClipboardTimer::isMlFormat(QString url)
 {
-    qDebug() << "[ClipboardTimer] isMlFormat function started for URL:" << url;
+    qCDebug(downloaderLog) << "[ClipboardTimer] isMlFormat function started for URL:" << url;
     if ((-1 == url.indexOf("ftp:")) && (-1 == url.indexOf("http://")) && (-1 == url.indexOf("https://"))) {
-        qDebug() << "[ClipboardTimer] URL does not contain ftp, http, or https protocols, returning false";
+        qCDebug(downloaderLog) << "[ClipboardTimer] URL does not contain ftp, http, or https protocols, returning false";
         return false;
     }
     if(!isWebFormat(url)){
-        qDebug() << "[ClipboardTimer] URL is not in valid web format, returning false";
+        qCDebug(downloaderLog) << "[ClipboardTimer] URL is not in valid web format, returning false";
         return false;
     }
 
@@ -213,22 +214,22 @@ bool ClipboardTimer::isMlFormat(QString url)
     QStringList type;
     type << "metalink";
     if (type.contains(suffix)) {
-        qDebug() << "[ClipboardTimer] Suffix matches metalink format, returning true";
+        qCDebug(downloaderLog) << "[ClipboardTimer] Suffix matches metalink format, returning true";
         return true;
     }
     for (int i = 0; i < type.size(); i++) {
         if (type[i].toUpper() == suffix.toUpper()) {
-            qDebug() << "[ClipboardTimer] Suffix matches metalink format (case insensitive), returning true";
+            qCDebug(downloaderLog) << "[ClipboardTimer] Suffix matches metalink format (case insensitive), returning true";
             return true;
         }
     }
-    qDebug() << "[ClipboardTimer] Suffix does not match metalink format, returning false";
+    qCDebug(downloaderLog) << "[ClipboardTimer] Suffix does not match metalink format, returning false";
     return false;
 }
 
 QStringList ClipboardTimer::getTypeList()
 {
-    qDebug() << "[ClipboardTimer] getTypeList function started";
+    qCDebug(downloaderLog) << "[ClipboardTimer] getTypeList function started";
 
     QString configPath = QString("%1/%2/%3/httpAdvanced.json")
                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
@@ -236,7 +237,7 @@ QStringList ClipboardTimer::getTypeList()
                        .arg(qApp->applicationName());
     QFile file(configPath);
     if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "[ClipboardTimer] File open failed!, returning empty list";
+        qCDebug(downloaderLog) << "[ClipboardTimer] File open failed!, returning empty list";
         return QStringList();
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
@@ -256,20 +257,20 @@ QStringList ClipboardTimer::getTypeList()
 //    }
    defaulList.removeAll("metalink");
    defaulList.removeAll("torrent");
-   qDebug() << "[ClipboardTimer] Filtered type list:" << defaulList;
+   qCDebug(downloaderLog) << "[ClipboardTimer] Filtered type list:" << defaulList;
    return  defaulList;
 }
 
 QStringList ClipboardTimer::getWebList()
 {
-    qDebug() << "[ClipboardTimer] getWebList function started";
+    qCDebug(downloaderLog) << "[ClipboardTimer] getWebList function started";
     QString configPath = QString("%1/%2/%3/httpAdvanced.json")
                        .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
                        .arg(qApp->organizationName())
                        .arg(qApp->applicationName());
     QFile file(configPath);
     if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open failed!";
+        qCDebug(downloaderLog) << "File open failed!";
         return QStringList();
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
@@ -282,7 +283,7 @@ QStringList ClipboardTimer::getWebList()
 
 bool ClipboardTimer::isWebFormat(QString url)
 {
-    qDebug() << "[ClipboardTimer] isWebFormat function started for URL:" << url;
+    qCDebug(downloaderLog) << "[ClipboardTimer] isWebFormat function started for URL:" << url;
 
     url = url.mid(url.indexOf("//")+2);
     url = url.mid(0,url.indexOf("/"));
@@ -298,13 +299,13 @@ bool ClipboardTimer::isWebFormat(QString url)
             return false;
         }
     }
-    qDebug() << "[ClipboardTimer] URL not found in web list, allowing, returning true";
+    qCDebug(downloaderLog) << "[ClipboardTimer] URL not found in web list, allowing, returning true";
     return true;
 }
 
 QStringList ClipboardTimer::midWebList(QStringList webList)
 {
-    qDebug() << "[ClipboardTimer] midWebList function started with" << webList.size() << "entries";
+    qCDebug(downloaderLog) << "[ClipboardTimer] midWebList function started with" << webList.size() << "entries";
     for (int i = 0; i < webList.size() ; ++i) {
         if (!((-1 == webList[i].indexOf("ftp:")) && (-1 == webList[i].indexOf("http://")) && (-1 == webList[i].indexOf("https://")))) {
             // qDebug() << "[ClipboardTimer] Entry contains protocol, extracting domain";
@@ -316,7 +317,7 @@ QStringList ClipboardTimer::midWebList(QStringList webList)
         }
     }
 
-    qDebug() << "[ClipboardTimer] midWebList function ended with processed list:" << webList;
+    qCDebug(downloaderLog) << "[ClipboardTimer] midWebList function ended with processed list:" << webList;
     return webList;
 }
 

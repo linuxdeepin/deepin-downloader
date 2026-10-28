@@ -1,12 +1,13 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "database.h"
+#include "ddlog.h"
 
 DataBase::DataBase()
 {
-    qDebug() << "Initializing database connection";
+    qCDebug(downloaderLog) << "Initializing database connection";
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 
     // QString _dataBasePath = qApp->applicationDirPath();
@@ -19,7 +20,7 @@ DataBase::DataBase()
     //如果数据库文件不存在
     if (!databaseFile.isFile()) {
         //拷贝数据库文件
-        qDebug() << "error: no db file  "; //<< QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_FILENAME << QString(_dataBasePath) + UOS_DOWNLOAD_DATABASE_FILENAME << Qt::endl;
+        qCDebug(downloaderLog) << "error: no db file  "; //<< QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_FILENAME << QString(_dataBasePath) + UOS_DOWNLOAD_DATABASE_FILENAME << Qt::endl;
         QFile::copy(QString(UOS_DONWLOAD_DATABASE_PATH) + UOS_DOWNLOAD_DATABASE_OLD_FILENAME,
                     dbPath);
         QString strold = UOS_DONWLOAD_DATABASE_PATH + "downloader.db";
@@ -32,7 +33,7 @@ DataBase::DataBase()
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName(dbPath);
     m_db.open();
-    qDebug() << "[Database] DataBase constructor ended";
+    qCDebug(downloaderLog) << "[Database] DataBase constructor ended";
 }
 
 DataBase &DataBase::Instance()

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -16,11 +16,12 @@
 #include <QSettings>
 #include <QFileInfo>
 #include "config.h"
+#include "ddlog.h"
 
 UrlThread::UrlThread(QObject *parent)
     : QObject(parent)
 {
-    qDebug() << "UrlThread constructor entered";
+    qCDebug(downloaderLog) << "UrlThread constructor entered";
 
     qRegisterMetaType<LinkInfo>("LinkInfo");
     QString iniConfigPath = QString("%1/%2/%3/content-type.conf")
@@ -31,20 +32,20 @@ UrlThread::UrlThread(QObject *parent)
     //判断文件是否存在,如果不存在复制配置文件内容到目录下
     QFileInfo fileInfo(iniConfigPath);
     if (!fileInfo.exists()) {
-        qDebug() << "[UrlThread] Config file does not exist, copying from default";
+        qCDebug(downloaderLog) << "[UrlThread] Config file does not exist, copying from default";
         QFile::copy(CONTENT_TYPE_CONFIG_PATH, iniConfigPath);
     }
         if(m_iniFile == nullptr){
-            qDebug() << "[UrlThread] Creating new QSettings instance";
+            qCDebug(downloaderLog) << "[UrlThread] Creating new QSettings instance";
             m_iniFile = new QSettings(iniConfigPath, QSettings::IniFormat);
             m_iniFile->beginGroup("content-type");
         }
-    qDebug() << "[UrlThread] Constructor ended";
+    qCDebug(downloaderLog) << "[UrlThread] Constructor ended";
 }
 
 void UrlThread::start(LinkInfo &urlInfo)
 {
-    qDebug() << "Starting URL analysis for:" << urlInfo.url;
+    qCDebug(downloaderLog) << "Starting URL analysis for:" << urlInfo.url;
 
   //  m_linkInfo = new LinkInfo;
     m_linkInfo = urlInfo;
@@ -52,7 +53,7 @@ void UrlThread::start(LinkInfo &urlInfo)
 
 void UrlThread::begin()
 {
-    qDebug() << "Beginning network request for URL:" << m_linkInfo.url;
+    qCDebug(downloaderLog) << "Beginning network request for URL:" << m_linkInfo.url;
 
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest requset; // 定义请求对象
@@ -62,12 +63,12 @@ void UrlThread::begin()
     // post信息到服务器
     QObject::connect(manager, &QNetworkAccessManager::finished, this, &UrlThread::onHttpRequest, Qt::UniqueConnection);
     QThread::usleep(100);
-    qDebug() << "[UrlThread] begin function ended";
+    qCDebug(downloaderLog) << "[UrlThread] begin function ended";
 }
 
 void UrlThread::onHttpRequest(QNetworkReply *reply)
 {
-    qDebug() << "HTTP request completed for URL:" << reply->url().toString();
+    qCDebug(downloaderLog) << "HTTP request completed for URL:" << reply->url().toString();
 
     m_linkInfo.state = LinkInfo::UrlState::Finished;
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
@@ -206,7 +207,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
 //        break;
 //    }
     case 404: {
-        qWarning() << "HTTP 404 Not Found for URL:" << reply->url().toString();
+        qCWarning(downloaderLog) << "HTTP 404 Not Found for URL:" << reply->url().toString();
         emit sendFinishedUrl(m_linkInfo);
         break;
     }
@@ -261,7 +262,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         process->start("curl", list);
         connect(process, &QProcess::readyReadStandardOutput, this, [=]() {
 #endif
-            qDebug()<<"readyReadStandardOutput";
+            qCDebug(downloaderLog)<<"readyReadStandardOutput";
             static QMutex mutex;
             mutex.lock();
             QProcess *proc = dynamic_cast<QProcess *>(sender());
@@ -290,7 +291,7 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
             QProcess *proc = dynamic_cast<QProcess *>(sender());
             QString str = proc->readAllStandardError();
 
-            qDebug()<<"readyReadStandardError: " << str;
+            qCDebug(downloaderLog)<<"readyReadStandardError: " << str;
             if(proc->exitCode() == 0 && (!str.contains("curl"))) {
                 return ;
             }
@@ -300,12 +301,12 @@ void UrlThread::onHttpRequest(QNetworkReply *reply)
         });
     }
     }
-    qDebug() << "[UrlThread] onHttpRequest function ended";
+    qCDebug(downloaderLog) << "[UrlThread] onHttpRequest function ended";
 }
 
 QString UrlThread::getUrlType(QString url)
 {
-    qDebug() << "Determining URL type for:" << url;
+    qCDebug(downloaderLog) << "Determining URL type for:" << url;
 
     QMimeDatabase db;
     QString type;
@@ -318,14 +319,14 @@ QString UrlThread::getUrlType(QString url)
         }
     }
     if(type.isEmpty()){
-        qDebug() << "[UrlThread] getUrlType function ended with empty result";
+        qCDebug(downloaderLog) << "[UrlThread] getUrlType function ended with empty result";
         type = db.suffixForFileName(m_linkInfo.url);
     }
     if(type.isEmpty()){
-        qDebug() << "[UrlThread] getUrlType function ended with empty result";
+        qCDebug(downloaderLog) << "[UrlThread] getUrlType function ended with empty result";
         type = getNoContentType();
     }
-    qDebug() << "[UrlThread] getUrlType function ended";
+    qCDebug(downloaderLog) << "[UrlThread] getUrlType function ended";
     return type;
 }
 

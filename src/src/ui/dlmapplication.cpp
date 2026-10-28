@@ -1,17 +1,18 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "dlmapplication.h"
 #include <QDebug>
+#include "ddlog.h"
 DlmApplication::DlmApplication(int &argc, char **argv)
     : DApplication(argc, argv)
 {
-    qDebug() << "Download Manager application initialized";
+    qCDebug(downloaderLog) << "Download Manager application initialized";
 }
 
 void DlmApplication::handleQuitAction()
 {
-    qDebug() << "Handling application quit action";
+    qCDebug(downloaderLog) << "Handling application quit action";
     emit applicatinQuit(false);
 }
