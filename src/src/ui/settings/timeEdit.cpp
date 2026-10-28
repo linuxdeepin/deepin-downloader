@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -11,15 +11,16 @@
 #include <QRegularExpressionValidator>
 #endif
 #include <QDebug>
+#include "ddlog.h"
 
 CTimeEdit::CTimeEdit(QWidget *parent)
     : DComboBox(parent)
 {
-    qDebug() << "TimeEdit widget created";
+    qCDebug(downloaderLog) << "TimeEdit widget created";
     initUI();
     initConnection();
     setFocus(Qt::MouseFocusReason);
-    qDebug() << "[TimeEdit] Constructor ended";
+    qCDebug(downloaderLog) << "[TimeEdit] Constructor ended";
 }
 
 CTimeEdit::~CTimeEdit() 
@@ -29,7 +30,7 @@ CTimeEdit::~CTimeEdit()
 
 void CTimeEdit::setTime(QTime time)
 {
-    qDebug() << "Setting time to:" << time.toString("hh:mm");
+    qCDebug(downloaderLog) << "Setting time to:" << time.toString("hh:mm");
     m_time = time;
     QString sss = m_time.toString("hh:mm");
     m_timeEdit->setText(m_time.toString("hh:mm"));
@@ -37,12 +38,12 @@ void CTimeEdit::setTime(QTime time)
 
 QTime CTimeEdit::getTime()
 {
-    qDebug() << "[TimeEdit] getTime function started";
+    qCDebug(downloaderLog) << "[TimeEdit] getTime function started";
     //获取显示的text
     QString timetext = m_timeEdit->lineEdit()->displayText();
     //将text转换为时间
     m_time = QTime::fromString(timetext, "hh:mm");
-    qDebug() << "Getting current time:" << m_time.toString("hh:mm");
+    qCDebug(downloaderLog) << "Getting current time:" << m_time.toString("hh:mm");
     return m_time;
 }
 

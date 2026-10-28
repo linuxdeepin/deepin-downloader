@@ -40,6 +40,7 @@
 #include <dpinyin.h>
 #include "global.h"
 #include "func.h"
+#include "ddlog.h"
 using namespace Global;
 using namespace DTK_CORE_NAMESPACE;
 
@@ -49,11 +50,11 @@ TableModel::TableModel(int Flag, QObject *parent)
     , m_TableviewtabFlag(Flag)
     , m_DownloadingCount(0)
 {
-    qDebug() << "TableModel created with flag:" << Flag;
+    qCDebug(downloaderLog) << "TableModel created with flag:" << Flag;
     connect(this, &TableModel::checkDatachange, this, &TableModel::onCheckdatachange);
     m_SortColumn = 0;
     m_SortOrder = Qt::AscendingOrder;
-    qDebug() << "[TableModel] Constructor ended";
+    qCDebug(downloaderLog) << "[TableModel] Constructor ended";
 }
 
 TableModel::~TableModel()
@@ -70,13 +71,13 @@ TableModel::~TableModel()
 
 void TableModel::onCheckdatachange(int flag)
 {
-    qDebug() << "[TableModel] onCheckdatachange function started";
+    qCDebug(downloaderLog) << "[TableModel] onCheckdatachange function started";
     int checkNum = 0;
     QList<DownloadDataItem *> activeList;
     QList<DownloadDataItem *> finishList;
 
     if (flag == 0) {
-        qDebug() << "flag is 0";
+        qCDebug(downloaderLog) << "flag is 0";
         for (DownloadDataItem *item : m_DataList) {
             if (m_Mode == Downloading) {
                 if (item->status != Global::DownloadTaskStatus::Complete) {
@@ -113,7 +114,7 @@ void TableModel::onCheckdatachange(int flag)
             }
         }
     } else {
-        qDebug() << "flag is not 0";
+        qCDebug(downloaderLog) << "flag is not 0";
         for (int i = 0; i < m_RecyleList.size(); i++) {
             DeleteDataItem *del_data = m_RecyleList.at(i);
             if (del_data->isChecked) {
@@ -126,7 +127,7 @@ void TableModel::onCheckdatachange(int flag)
             emit tableviewAllcheckedOrAllunchecked(false);
         }
     }
-    qDebug() << "[TableModel] onCheckdatachange function ended";
+    qCDebug(downloaderLog) << "[TableModel] onCheckdatachange function ended";
 }
 
 DownloadDataItem *TableModel::find(const QString &taskId)
@@ -253,7 +254,7 @@ bool TableModel::removeRecycleItems()
 
 bool TableModel::switchDownloadingMode()
 {
-    qDebug() << "Switching to downloading mode";
+    qCDebug(downloaderLog) << "Switching to downloading mode";
     beginResetModel();
 
     m_Mode = Downloading;
@@ -266,13 +267,13 @@ bool TableModel::switchDownloadingMode()
     }
     sortDownload(m_SortColumn, m_SortOrder);
     endResetModel();
-    qDebug() << "[TableModel] switchDownloadingMode function ended with result: true";
+    qCDebug(downloaderLog) << "[TableModel] switchDownloadingMode function ended with result: true";
     return true;
 }
 
 bool TableModel::switchFinishedMode()
 {
-    qDebug() << "Switching to finished mode";
+    qCDebug(downloaderLog) << "Switching to finished mode";
     beginResetModel();
 
     m_Mode = Finished;
@@ -287,7 +288,7 @@ bool TableModel::switchFinishedMode()
     sortDownload(m_SortColumn, m_SortOrder);
 
     endResetModel();
-    qDebug() << "[TableModel] switchFinishedMode function ended with result: true";
+    qCDebug(downloaderLog) << "[TableModel] switchFinishedMode function ended with result: true";
     return true;
 }
 

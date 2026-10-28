@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -37,24 +37,25 @@
 #include <dplatformwindowhandle.h>
 #include "global.h"
 #include <DGuiApplicationHelper>
+#include "ddlog.h"
 
 SearchResoultWidget::SearchResoultWidget(QWidget *parent)
     : QListWidget(parent)
 {
-    qDebug() << "Initializing SearchResoultWidget";
+    qCDebug(downloaderLog) << "Initializing SearchResoultWidget";
     setMinimumWidth(380);
     setFixedHeight(280);
     DPlatformWindowHandle handle(this);
     handle.setWindowRadius(18);
     setIconSize(QSize(12, 12));
     setSpacing(2);
-    qDebug() << "SearchResoultWidget initialized with size 380x280";
+    qCDebug(downloaderLog) << "SearchResoultWidget initialized with size 380x280";
 }
 
 void SearchResoultWidget::setData(QList<QString> &taskIDList,
                                   QList<int> &taskStatusList, QList<QString> &tasknameList)
 {
-    qDebug() << "Setting search result data with" << taskIDList.count() << "items";
+    qCDebug(downloaderLog) << "Setting search result data with" << taskIDList.count() << "items";
     this->clear();
     bool first = true;
     for(int i = 0; i< taskIDList.count(); i++){
@@ -98,7 +99,7 @@ void SearchResoultWidget::setData(QList<QString> &taskIDList,
         }
     }
 
-    qDebug() << "[SearchResoultWidget] setData function ended";
+    qCDebug(downloaderLog) << "[SearchResoultWidget] setData function ended";
 }
 
 void SearchResoultWidget::onKeypressed(Qt::Key k)

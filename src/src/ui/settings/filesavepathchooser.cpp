@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -39,6 +39,7 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <DSuggestButton>
+#include "ddlog.h"
 
 FileSavePathChooser::FileSavePathChooser(const int &currentSelect, const QString &downloadPath)
 {
@@ -128,7 +129,7 @@ void FileSavePathChooser::onRadioButtonClicked()
 {
     // qDebug() << "[FileSavePathChooser] onRadioButtonClicked function started";
     DRadioButton *radioButton = qobject_cast<DRadioButton *>(sender());
-    qDebug() << "Radio button clicked:" << radioButton->text();
+    qCDebug(downloaderLog) << "Radio button clicked:" << radioButton->text();
 
     if (m_autoLastPathRadioButton == radioButton) {
         // qDebug() << "[FileSavePathChooser] Auto last path radio button selected";
