@@ -92,6 +92,10 @@ find_package(Dtk${DTK_VERSION_MAJOR}Gui REQUIRED)
 #desktop
 install(FILES desktop/downloader.desktop DESTINATION share/applications)
 
+# dconfig meta（调试模式 deepin-debug-config 依赖，日志规则动态下发）
+file(GLOB DCONFIG_META_FILES "${CMAKE_SOURCE_DIR}/dconfig/*.json")
+install(FILES ${DCONFIG_META_FILES} DESTINATION share/dsg/configs/org.deepin.downloader)
+
 #datebases
 install(FILES data/downloader.db DESTINATION share/downloader/database)
 

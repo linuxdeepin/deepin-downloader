@@ -57,6 +57,8 @@
 #include "config.h"
 #include "dlmapplication.h"
 #include "accessiblewidget.h"
+#include "ddlog.h"
+#include "logger.h"
 DWIDGET_USE_NAMESPACE
 
 QString readShardMemary(QSharedMemory &sharedMemory);
@@ -66,10 +68,15 @@ QAccessibleInterface *accessibleFactory(const QString &classname, QObject *objec
 
 int main(int argc, char *argv[])
 {
-    qDebug() << "[Main] Application starting";
+    // 动态日志规则必须最先初始化：在任何日志打印之前构造 MLogger，
+    // 否则 QT_LOGGING_RULES 环境变量取消设置不生效（参考 deepin-reader）
+    static MLogger logger;
+    Q_UNUSED(logger)
+
+    qCDebug(downloaderLog) << "[Main] Application starting";
 
     if (qEnvironmentVariableIsEmpty("XDG_CURRENT_DESKTOP")){
-        qDebug() << "[Main] Setting XDG_CURRENT_DESKTOP to Deepin";
+        qCDebug(downloaderLog) << "[Main] Setting XDG_CURRENT_DESKTOP to Deepin";
         qputenv("XDG_CURRENT_DESKTOP", "Deepin");
     }
 
@@ -77,7 +84,7 @@ int main(int argc, char *argv[])
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
 #if QT_VERSION_MAJOR <= 5
     if (XDG_SESSION_TYPE == QLatin1String("x11")) {
-        qDebug() << "[Main] X11 session detected, loading DXcb plugin";
+        qCDebug(downloaderLog) << "[Main] X11 session detected, loading DXcb plugin";
         DlmApplication::loadDXcbPlugin();
     }
 #endif
@@ -105,44 +112,44 @@ int main(int argc, char *argv[])
     sharedMemory.setKey("downloader");
     if (sharedMemory.attach()) //设置成单例程序
     {
-        qDebug() << "[Main] Shared memory attached, checking for existing instance";
+        qCDebug(downloaderLog) << "[Main] Shared memory attached, checking for existing instance";
         if (!checkProcessExist()) { //下载器任务不存在，清空共享内存并启动
-            qDebug() << "[Main] No existing process found, detaching shared memory";
+            qCDebug(downloaderLog) << "[Main] No existing process found, detaching shared memory";
             sharedMemory.detach();
         } else { //下载器任务存在
-            qDebug() << "[Main] Existing instance found";
+            qCDebug(downloaderLog) << "[Main] Existing instance found";
             if (comList.isEmpty()) {
-                qDebug() << "[Main] No command line arguments, raising existing window";
+                qCDebug(downloaderLog) << "[Main] No command line arguments, raising existing window";
                 QDBusInterface iface("com.downloader.service",
                                      "/downloader/path",
                                      "local.downloader.MainFrame",
                                      QDBusConnection::sessionBus());
                 iface.asyncCall("Raise");
             } else {
-                qDebug() << "[Main] Writing new URL to shared memory:" << comList[0];
+                qCDebug(downloaderLog) << "[Main] Writing new URL to shared memory:" << comList[0];
                 if (sharedMemory.isAttached()) {
-                    qDebug() << "[Main] Shared memory is attached, checking for duplicate URL";
+                    qCDebug(downloaderLog) << "[Main] Shared memory is attached, checking for duplicate URL";
                     if (readShardMemary(sharedMemory) == comList[0]) {
-                        qDebug() << "[Main] main function ended with return code: 0";
+                        qCDebug(downloaderLog) << "[Main] main function ended with return code: 0";
                         return 0;
                     } else {
-                        qDebug() << "[Main] New URL detected, writing to shared memory";
+                        qCDebug(downloaderLog) << "[Main] New URL detected, writing to shared memory";
                         writeShardMemary(sharedMemory, comList[0]);
                     }
                 }
                 if (comList[0].contains(".torrent") || comList[0].contains(".metalink")) {
-                    qDebug() << "[Main] Torrent or metalink file detected";
+                    qCDebug(downloaderLog) << "[Main] Torrent or metalink file detected";
                     QDBusInterface iface("com.downloader.service",
                                          "/downloader/path",
                                          "local.downloader.MainFrame",
                                          QDBusConnection::sessionBus());
                     if(comList[0].contains("http://") || comList[0].contains("https://") || comList[0].contains("ftp://")) {
-                        qDebug() << "[Main] URL detected, creating new task";
+                        qCDebug(downloaderLog) << "[Main] URL detected, creating new task";
                         iface.asyncCall("createNewTask", comList[0]);
                     } else {
-                        qDebug() << "[Main] Local file detected, opening file";
+                        qCDebug(downloaderLog) << "[Main] Local file detected, opening file";
                         iface.asyncCall("OpenFile", comList[0]);
-                        qDebug() << "[Main] Opening file:" << comList[0];
+                        qCDebug(downloaderLog) << "[Main] Opening file:" << comList[0];
                     }
                 }
             }
@@ -151,7 +158,7 @@ int main(int argc, char *argv[])
     }
     if (sharedMemory.create(199)) {
         char *to = static_cast<char *>(sharedMemory.data());
-        qDebug() << "[Main] Initializing shared memory";
+        qCDebug(downloaderLog) << "[Main] Initializing shared memory";
         memset(to, 0, 199);
     }
 #if QT_VERSION_MAJOR <= 5
@@ -166,9 +173,9 @@ int main(int argc, char *argv[])
                            .arg(qApp->applicationName());
 
     setLogDir(LogPath);
-    qDebug() << "[Main] Setting up log directory:" << LogPath;
+    qCDebug(downloaderLog) << "[Main] Setting up log directory:" << LogPath;
     if (!dirCheck.exists(LogPath)) {
-        qDebug() << "[Main] Creating log directory";
+        qCDebug(downloaderLog) << "[Main] Creating log directory";
         dirCheck.mkpath(LogPath);
     }
     //检查日志是否过期
@@ -176,20 +183,22 @@ int main(int argc, char *argv[])
     //磁盘剩余空间小于阈值，清除早期日志
     CheckFreeDisk();
     //创建新日志
-    setLogLevel(1);
+    // 注意：不再把文件日志级别压到 QtWarningMsg——分级开关由 DConfig 下发的
+    // Qt 日志分类规则统一控制（调试模式按 debug/info/warning 三级动态调整），
+    // 自定义 handler 内再做级别拦截会导致调试模式开不出 debug 级日志
     if(comList.size() == 1 && comList.first() == "debug") {
-        qDebug() << "[Main] Debug mode enabled";
+        qCDebug(downloaderLog) << "[Main] Debug mode enabled";
         setLogLevel(0);
     }
     CreateNewLog();
-    qDebug() << "[Main] Log system initialized";
+    qCDebug(downloaderLog) << "[Main] Log system initialized";
     qInstallMessageHandler(customLogMessageHandler);
 
-    qDebug() << LogPath; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
+    qCDebug(downloaderLog) << LogPath; //QStandardPaths::displayName(QStandardPaths::ConfigLocation);
     MainFrame w;
     Dtk::Widget::moveToCenter(&w);
     w.show();
-    qDebug() << "[Main] Main window shown";
+    qCDebug(downloaderLog) << "[Main] Main window shown";
 
     for (int i = 0; i < comList.size(); i++) {
         if (comList[i].endsWith(".torrent") || comList[i].endsWith(".metalink")) {
@@ -208,7 +217,7 @@ int main(int argc, char *argv[])
 
 QString readShardMemary(QSharedMemory &sharedMemory)
 {
-    qDebug() << "[Main] Reading shared memory";
+    qCDebug(downloaderLog) << "[Main] Reading shared memory";
     sharedMemory.lock();
     char *to = static_cast<char *>(sharedMemory.data());
     sharedMemory.unlock();
@@ -217,7 +226,7 @@ QString readShardMemary(QSharedMemory &sharedMemory)
 
 void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
 {
-    qDebug() << "[Main] Writing to shared memory:" << strUrl;
+    qCDebug(downloaderLog) << "[Main] Writing to shared memory:" << strUrl;
     sharedMemory.lock();
     char *to = static_cast<char *>(sharedMemory.data());
     QByteArray array = strUrl.toLocal8Bit();
@@ -233,7 +242,7 @@ void writeShardMemary(QSharedMemory &sharedMemory, QString strUrl)
 
 bool checkProcessExist()
 {
-    qDebug() << "[Main] Checking for existing process";
+    qCDebug(downloaderLog) << "[Main] Checking for existing process";
     QProcess process;
     QStringList list;
 #if QT_VERSION_MAJOR > 5
@@ -247,10 +256,10 @@ bool checkProcessExist()
     QString str = process.readAll();
     QStringList strList = str.split('\n');
     if (strList.size() > 1 && strList.at(1).isEmpty()) {
-        qDebug() << "[Main] No existing process found";
+        qCDebug(downloaderLog) << "[Main] No existing process found";
         return false;
     }
-    qDebug() << "[Main] Existing process found";
+    qCDebug(downloaderLog) << "[Main] Existing process found";
     return true;
 }
 

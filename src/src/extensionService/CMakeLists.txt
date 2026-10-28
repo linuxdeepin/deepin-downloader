@@ -3,7 +3,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 include_directories(${PROJECT_SOURCE_DIR}/src/include/extensionService
-                    ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame)
+                    ${PROJECT_SOURCE_DIR}/src/include/ui/mainFrame
+                    ${PROJECT_SOURCE_DIR}/src/include/log)
 link_directories(${CMAKE_BINARY_DIR}/lib)
 
 #预定义宏，主要用于dll导出

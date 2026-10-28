@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -31,6 +31,7 @@
 
 #include "log.h"
 #include <iostream>
+#include "ddlog.h"
 static int s_logLevel = QtDebugMsg;
 static quint64 _logDaysRemain = DEFALT_REMAIN_TIME;
 static int _rotateSize = MAXLOGSIZE;
@@ -44,19 +45,19 @@ static quint64 _remainDisk = DEFALT_REMAIN_SIZE;
 
 void setLogPath(const QString &path)
 {
-    qDebug() << "[LogSystem] Setting log path to:" << path;
+    qCDebug(downloaderLog) << "[LogSystem] Setting log path to:" << path;
 
     s_logPath = path;
 }
 void setLogDir(const QString &dir)
 {
-    qDebug() << "[LogSystem] Setting log directory to:" << dir;
+    qCDebug(downloaderLog) << "[LogSystem] Setting log directory to:" << dir;
 
     _logDir = dir;
 }
 void setLogLevel(int level)
 {
-    qDebug() << "[LogSystem] Setting log level to:" << level;
+    qCDebug(downloaderLog) << "[LogSystem] Setting log level to:" << level;
 
     s_logLevel = level;
 }
@@ -74,17 +75,17 @@ bool static ensureDirExist(const QString &dirPath)
 }
 QFileInfoList GetLogList()
 {
-    qDebug() << "[LogSystem] GetLogList function started";
+    qCDebug(downloaderLog) << "[LogSystem] GetLogList function started";
     QStringList nameFilter;
     nameFilter << "*.log";
     QDir logDir(_logDir);
     auto logList = logDir.entryInfoList(nameFilter, QDir::Files, QDir::Name);
-    qDebug() << "[LogSystem] Found" << logList.size() << "log files";
+    qCDebug(downloaderLog) << "[LogSystem] Found" << logList.size() << "log files";
     return logList;
 }
 void CheckLogTime()
 {
-    qDebug() << "[LogSystem] Checking log files by time (max days:" << _logDaysRemain << ")";
+    qCDebug(downloaderLog) << "[LogSystem] Checking log files by time (max days:" << _logDaysRemain << ")";
 
     auto curTime = QDateTime::currentDateTime();
     auto logList = GetLogList();
@@ -93,39 +94,39 @@ void CheckLogTime()
         auto createdTime = logInfo.birthTime();
         auto elapseDays = createdTime.daysTo(curTime);
         if (elapseDays > _logDaysRemain) {
-            qDebug() << "[LogSystem] Removing old log file:" << logInfo.fileName();
+            qCDebug(downloaderLog) << "[LogSystem] Removing old log file:" << logInfo.fileName();
             auto logPath = logInfo.absoluteFilePath();
             QDir dir;
             dir.remove(logPath);
         }
     }
-    qDebug() << "[LogSystem] CheckLogTime function ended";
+    qCDebug(downloaderLog) << "[LogSystem] CheckLogTime function ended";
 }
 quint64 GetDiskFreeSpace()
 {
-    qDebug() << "[LogSystem] Checking disk free space";
+    qCDebug(downloaderLog) << "[LogSystem] Checking disk free space";
 
     QStorageInfo storage = QStorageInfo::root();
     storage.refresh(); //获得最新磁盘信息
 
     if (storage.isReadOnly())
-        qDebug() << "isReadOnly:" << storage.isReadOnly();
+        qCDebug(downloaderLog) << "isReadOnly:" << storage.isReadOnly();
     else {
-        qDebug() << "name:" << storage.name();
-        qDebug() << "fileSystemType:" << storage.fileSystemType();
-        qDebug() << "size:" << storage.bytesTotal() / 1000 / 1000 << "MB";
-        qDebug() << "availableSize:" << storage.bytesAvailable() / 1000 / 1000 << "MB";
+        qCDebug(downloaderLog) << "name:" << storage.name();
+        qCDebug(downloaderLog) << "fileSystemType:" << storage.fileSystemType();
+        qCDebug(downloaderLog) << "size:" << storage.bytesTotal() / 1000 / 1000 << "MB";
+        qCDebug(downloaderLog) << "availableSize:" << storage.bytesAvailable() / 1000 / 1000 << "MB";
     }
     return (quint64)storage.bytesAvailable();
 }
 void CheckFreeDisk()
 {
-    qDebug() << "[LogSystem] Checking disk space (min required:" << _remainDisk << "bytes)";
+    qCDebug(downloaderLog) << "[LogSystem] Checking disk space (min required:" << _remainDisk << "bytes)";
 
     auto freeSpace = GetDiskFreeSpace();
 
     if (freeSpace < _remainDisk) {
-        qDebug() << "[LogSystem] Insufficient disk space, cleaning old logs";
+        qCDebug(downloaderLog) << "[LogSystem] Insufficient disk space, cleaning old logs";
         auto logList = GetLogList();
         for (int i = 0; i < logList.size() - 1; ++i) {
             // qDebug() << "[LogSystem] Removing log file:" << logList[i].fileName();
@@ -133,36 +134,36 @@ void CheckFreeDisk()
             dir.remove(logList[i].absolutePath());
             freeSpace = GetDiskFreeSpace();
             if (freeSpace > _remainDisk) {
-                qDebug() << "[LogSystem] Sufficient disk space achieved";
+                qCDebug(downloaderLog) << "[LogSystem] Sufficient disk space achieved";
                 break;
             }
         }
     }
  
-    qDebug() << "[LogSystem] CheckFreeDisk function ended";
+    qCDebug(downloaderLog) << "[LogSystem] CheckFreeDisk function ended";
 }
 bool CheckRotateSize()
 {
-    qDebug() << "[LogSystem] Checking log rotation by size (current:" << _logFile.size() << "max:" << _rotateSize << ")";
+    qCDebug(downloaderLog) << "[LogSystem] Checking log rotation by size (current:" << _logFile.size() << "max:" << _rotateSize << ")";
 
     bool ret = _logFile.size() >= _rotateSize;
-    qDebug() << "[LogSystem] CheckRotateSize result:" << ret;
+    qCDebug(downloaderLog) << "[LogSystem] CheckRotateSize result:" << ret;
     return ret;
 }
 bool CheckRotateTimePoint()
 {
-    qDebug() << "[LogSystem] Checking log rotation by time";
+    qCDebug(downloaderLog) << "[LogSystem] Checking log rotation by time";
 
     QFileInfo curLogInfo(_logFile);
     auto curLogCreateDate = curLogInfo.birthTime();
     auto curDate = QDateTime::currentDateTime();
     auto dayElapse = curLogCreateDate.daysTo(curDate);
     if (dayElapse >= 1) {
-        qDebug() << "[LogSystem] Log rotation needed, creating new log";
+        qCDebug(downloaderLog) << "[LogSystem] Log rotation needed, creating new log";
         return true;
     }
 
-    qDebug() << "[LogSystem] Log rotation not needed, returning false";
+    qCDebug(downloaderLog) << "[LogSystem] Log rotation not needed, returning false";
     return false;
 }
 void CloseLog()
@@ -203,11 +204,11 @@ void WriteVersion()
     outFile.close();
     s_logMutex.unlock();
 
-    qDebug() << "[LogSystem] WriteVersion function ended";
+    qCDebug(downloaderLog) << "[LogSystem] WriteVersion function ended";
 }
 void CreateNewLog()
 {
-    qDebug() << "[LogSystem] Creating new log file";
+    qCDebug(downloaderLog) << "[LogSystem] Creating new log file";
 
     auto appName = QCoreApplication::applicationName();
     auto version = QCoreApplication::applicationVersion();
@@ -217,9 +218,9 @@ void CreateNewLog()
     setLogPath(logName);
     _logFile.open(QIODevice::ReadWrite | QIODevice::Append);
     //日志头写入App\系统参数
-    qDebug() << "[LogSystem] New log file created:" << logName;
+    qCDebug(downloaderLog) << "[LogSystem] New log file created:" << logName;
     WriteVersion();
-    qDebug() << "[LogSystem] CreateNewLog function ended";
+    qCDebug(downloaderLog) << "[LogSystem] CreateNewLog function ended";
 }
 
 void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, const QString &msg)
@@ -244,7 +245,10 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext &ctx, cons
     case QtFatalMsg:
         logInfo = QString("Fatal:");
     }
-    QString contextInfo = QString("File:(%1) Line:(%2)").arg(QString(ctx.file)).arg(ctx.line);
+    QString contextInfo = QString("File:(%1) Line:(%2) Category:(%3)")
+                              .arg(QString(ctx.file))
+                              .arg(ctx.line)
+                              .arg(ctx.category);
     QString currentDateTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss ddd");
     QString currentDate = QString("(%1)").arg(currentDateTime);
     QString message = QString("%1 %2 %3 %4").arg(logInfo).arg(contextInfo).arg(msg).arg(currentDate);
