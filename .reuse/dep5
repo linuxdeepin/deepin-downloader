@@ -62,3 +62,13 @@ License: CC0-1.0
 Files: desktop/* docs/* src/src/ui/resource/json/* src/src/ui/resource/wav/* .project webExtensions.pem
 Copyright: CC0-1.0
 License: CC0-1.0
+
+# dconfig
+Files: dconfig/org.deepin.downloader.json
+Copyright: UnionTech Software Technology Co., Ltd.
+License: CC0-1.0
+
+# CI generated report
+Files: reuse_lint_report.md
+Copyright: None
+License: CC0-1.0
