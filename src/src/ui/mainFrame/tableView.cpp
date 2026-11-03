@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -101,13 +101,18 @@ void TableView::initUI()
     setHorizontalHeader(m_HeaderView);
     m_HeaderView->setStretchLastSection(true);
     m_HeaderView->setDefaultAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+    m_HeaderView->setMinimumSectionSize(0); // Allow checkbox column width below default 55px minimum (needs 30px)
     setColumnWidth(0, 30);
     setColumnWidth(1, 248);
     m_HeaderView->setSectionResizeMode(1, QHeaderView::Interactive);
     m_HeaderView->setSectionResizeMode(0, QHeaderView::Fixed);
     setColumnWidth(2, 110);
-    setColumnWidth(3, QHeaderView::Interactive);
-    setColumnWidth(4, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(2, QHeaderView::Interactive);
+    setColumnWidth(3, 110);
+    setColumnWidth(4, 110);
+    m_HeaderView->setSectionResizeMode(3, QHeaderView::Interactive);
+    m_HeaderView->setSectionResizeMode(4, QHeaderView::Interactive);
+    m_HeaderView->setSectionsMovable(false);
     setTabKeyNavigation(true);
     QFont font;
     font.setFamily("Source Han Sans");
