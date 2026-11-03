@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "func.h"
 #include <QProcess>
+#include <QNetworkConfigurationManager>
 #include <QDir>
 #include <QDebug>
 #include <QSettings>
@@ -14,13 +15,8 @@
 
 bool Func::isNetConnect()
 {
-    QProcess process;
-    QStringList list;
-    list << "-i"
-         << "www.baidu.com";
-    process.start("curl", list);
-    process.waitForFinished(3000);
-    if(!process.exitCode()){
+    QNetworkConfigurationManager manager;
+    if (manager.isOnline()) {
         return true;
     }
     return isLanConnect();
