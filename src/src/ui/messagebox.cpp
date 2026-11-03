@@ -253,7 +253,7 @@ void MessageBox::addCheckbox(QString checkboxText, bool checked)
     if (checked) {
         m_CheckBox->setCheckState(Qt::Checked);
     }
-    addContent(m_CheckBox, Qt::AlignLeft);
+    addContent(m_CheckBox, Qt::AlignHCenter);
 }
 
 void MessageBox::onRenamelineeditChanged(const QString &text)
