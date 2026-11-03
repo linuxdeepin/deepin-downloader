@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -52,7 +52,9 @@ QStringList runPipeProcess(const QString &command, const QString &filter)
 {
     QProcess process;
     process.start(command);
-    process.waitForFinished();
+    if (!process.waitForFinished(5000)) {
+        qWarning() << "runPipeProcess timed out for command:" << command;
+    }
 
     QString comStr = process.readAllStandardOutput();
     QStringList lines = comStr.split('\n');
@@ -119,6 +121,7 @@ void extensionService::sendUrlToDownloader(const QString &url)
        QString msg = m.errorMessage();
        if(msg.isEmpty()) {
            timer->stop();
+           timer->deleteLater();
        }
     });
 }

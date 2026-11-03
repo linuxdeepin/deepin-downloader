@@ -1,0 +1,2 @@
+gitnexus_mcp.py call query | repo=org.deepin.downloader, query=onHeadersReceived webRequest browser extension, limit=5 | 0; Error: Repository "org.deepin.downloader" not found. Available repos do not include downloader.
+kb_mcp.py call trellis_context | repo=org.deepin.downloader@release-eagle, query=浏览器扩展 webRequest 视频播放 崩溃 内存泄漏, limit=5 | 0; Error: 仓库命名空间不存在：org.deepin.downloader@release-eagle。现有命名空间中无 downloader 相关条目。

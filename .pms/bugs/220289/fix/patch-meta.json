@@ -1,0 +1,13 @@
+{
+  "head": "c4b4972609842deff0816f0c8ef62a1da976511e",
+  "branch": "agent/agent/452929d6e5dc",
+  "subject": "fix: prevent browser crash on long video playback",
+  "base": "8b017b5825019152a4eeff73e9075f9ef8fc8ca9",
+  "has_parent": true,
+  "empty": false,
+  "files": [
+    "src/downloaderExtensions/background.js",
+    "src/src/extensionService/extensionservice.cpp"
+  ],
+  "diff_bytes": 3196
+}

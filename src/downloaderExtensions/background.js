@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -507,10 +507,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(t) {
 }, ["blocking", "responseHeaders"])
 
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    console.log("chrome.webRequest.onBeforeSendHeaders")
-    console.log(details)
     if(details.method == "HEAD") {
-        console.log(details)
         removeBrowserHeaders(details.requestHeaders, /Cookie/i);
         return { requestHeaders: details.requestHeaders };
     }
@@ -819,12 +816,12 @@ var MIME_TYPE_ARRAY = ["application/vnd.lotus-1-2-3", "image/x-3ds", "video/3gpp
                        "application/w2p", "application/x-compress", "application/x-abiword", "application/zip", "application/x-zoo"]
 
 
-var SUPPORT_MEDIA_EXT_ARRAY = [".asf", ".avi", ".exe", ".iso", ".mp3", ".mpeg", ".mpg", ".mpga", ".ra", ".rar", ".rm", ".rmvb", ".tar", ".wma", ".wmp", ".wmv", ".mov", ".zip", ".3gp", ".chm", ".mdf", 
+var SUPPORT_MEDIA_EXT_SET = new Set([".asf", ".avi", ".exe", ".iso", ".mp3", ".mpeg", ".mpg", ".mpga", ".ra", ".rar", ".rm", ".rmvb", ".tar", ".wma", ".wmp", ".wmv", ".mov", ".zip", ".3gp", ".chm", ".mdf", 
                                ".torrent", ".jar", ".msi", ".arj", ".bin", ".dll", ".psd", ".hqx", ".sit", ".lzh", ".gz", ".tgz", ".xlsx", ".xls", ".doc", ".docx", ".ppt", ".pptx", ".flv", ".swf", 
                                ".mkv", ".tp", ".ts", ".flac", ".ape", ".wav", ".aac", ".txt", ".crx", ".dat", ".7z", ".ttf", ".bat", ".xv", ".xvx", ".pdf", ".mp4", ".apk", ".ipa", ".epub", ".mobi", ".deb", 
-                               ".sisx", ".cab", ".pxl"]
+                               ".sisx", ".cab", ".pxl"])
 
-var SUPPORT_REQUEST_TYPE_ARRAY = ["main_frame", "sub_frame", "object", "xmlhttprequest", "other", "media"]
+var SUPPORT_REQUEST_TYPE_ARRAY = ["main_frame", "sub_frame", "object", "xmlhttprequest", "other"]
 var requestItems = {}
 
 function urlInfo() {
@@ -861,11 +858,7 @@ function getFileNameExt(e) {
 }
 
 function isSupportMediaExt(e) {
-    for (var t in e = e.toLowerCase(),
-    SUPPORT_MEDIA_EXT_ARRAY)
-        if (e.toLowerCase() === SUPPORT_MEDIA_EXT_ARRAY[t])
-            return !0;
-    return !1
+    return SUPPORT_MEDIA_EXT_SET.has(e.toLowerCase())
 }
 
 function isSupportContentType(e) {
