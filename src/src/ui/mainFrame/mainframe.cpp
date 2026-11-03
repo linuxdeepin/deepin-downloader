@@ -2203,7 +2203,7 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
         QJsonObject obj = json.value("result").toObject();
         QString tracker = obj.value("bt-tracker").toString();
         // 最小改动：稳健解析 enable-dht（可能为字符串或布尔），避免因类型不同导致误判
-        bool isHasDHT = obj.value("enable-dht").toVariant().toBool();
+        bool isHasDHT = obj.value("enable-dht").toString() == "true";
         emit ariaOption(!tracker.isEmpty(), isHasDHT);
     }
     qCDebug(downloaderLog) << "[MainFrame] onRpcSuccess function ended";
