@@ -1,0 +1,214 @@
+{
+  "generated_at": "2026-11-03T09:48:14.014070+00:00",
+  "subject": {
+    "input_name": "org.deepin.downloader",
+    "input_file": "",
+    "binary_pkg": "org.deepin.downloader",
+    "source_pkg": "deepin-downloader",
+    "source_version": "6.0.17-1",
+    "gui": true,
+    "dep_source": "installed",
+    "version_note": "installed=6.0.17-1",
+    "installed_version": "6.0.17-1",
+    "source_generation": "qt5"
+  },
+  "generation_conflict": {
+    "want": "qt5",
+    "local_hits": [
+      "dtk6",
+      "qt6"
+    ],
+    "foreign_candidates": [
+      "libqt6core6",
+      "libqt6dbus6",
+      "libqt6gui6",
+      "libqt6network6",
+      "libqt6webchannel6",
+      "libqt6websockets6",
+      "libqt6widgets6"
+    ]
+  },
+  "coverage": {
+    "runtime": true,
+    "recommends": false,
+    "build": false,
+    "session": true,
+    "session_primary": false,
+    "session_declared": "",
+    "session_declared_packages": [],
+    "session_declared_covered": null
+  },
+  "limitation": "",
+  "candidates": [
+    {
+      "package": "libqt6gui6",
+      "tier": "强",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libc6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libdlmaria2",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libdlmcontrolui",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libdlmdatabase",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libdlmlog",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libdtk6widget",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libgcc-s1",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libqt6core6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libqt6dbus6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libqt6network6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libqt6webchannel6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libqt6websockets6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libqt6widgets6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "libstdc++6",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "qt6-websockets-private-abi",
+      "tier": "中",
+      "edges": [
+        "运行时依赖"
+      ],
+      "evidence": [
+        "org.deepin.downloader 的 Depends"
+      ]
+    },
+    {
+      "package": "treeland",
+      "tier": "中",
+      "edges": [
+        "会话层"
+      ],
+      "evidence": [
+        "会话 socket /run/user/1001/treeland.socket｜伴生 socket｜归属按 socket 名推测（无进程持有，可能是残留）"
+      ]
+    }
+  ]
+}
