@@ -25,6 +25,7 @@
 #include <QDesktopWidget>
 #endif
 #include <QClipboard>
+#include <QElapsedTimer>
 #include <QTimer>
 #include <QThread>
 #include <QProcess>

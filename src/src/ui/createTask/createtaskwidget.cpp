@@ -37,6 +37,7 @@
 #include <QMimeData>
 #include <QDebug>
 #include <QMutex>
+#include <QElapsedTimer>
 #include <QThread>
 #include <QStandardPaths>
 #include <QProcess>
