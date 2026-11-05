@@ -979,7 +979,6 @@ void MainFrame::onListClicked(const QModelIndex &index)
         return;
     }
     m_CurrentTab = static_cast<CurrentTab>(index.row());
-    clearTableItemCheckStatus();
     emit saveNameBeforChangeList();
     m_ToolBar->enablePauseBtn(false);
     m_ToolBar->enableStartBtn(false);
@@ -1008,6 +1007,9 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_RecycleTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         m_RightStackwidget->setCurrentIndex(1);
     }
+    // Clear check status after refreshTableView() so the clear operation
+    // acts on the target tab's correct renderList
+    clearTableItemCheckStatus();
     emit tableChanged(index.row());
 }
 

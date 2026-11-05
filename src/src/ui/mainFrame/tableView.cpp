@@ -92,7 +92,11 @@ void TableView::initUI()
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-    setAlternatingRowColors(true);
+    // Alternating row backgrounds are handled entirely by ItemDelegate::paint()
+    // (odd/even overlays). Disabling Qt's built-in alternating colors ensures
+    // all rows share the same base() background, so column 0 (checkbox) can be
+    // made visually consistent by always applying the even-row overlay.
+    setAlternatingRowColors(false);
     setShowGrid(false);
 
     setSelectionMode(QAbstractItemView::SingleSelection);
