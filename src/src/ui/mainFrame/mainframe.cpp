@@ -28,6 +28,11 @@
 #include <QMimeDatabase>
 #include <QUuid>
 #include <QTableWidgetItem>
+#include <QScrollBar>
+#include <QResizeEvent>
+#include <QStyle>
+#include <QCursor>
+#include <QApplication>
 
 #include <unistd.h>
 
@@ -53,6 +58,38 @@
 #include "searchresoultwidget.h"
 
 #define UOS_DOWNLOAD_MANAGER_DESKTOP_PATH "/usr/share/applications/"
+
+namespace {
+class TransientScrollBarHoverFilter : public QObject
+{
+public:
+    using QObject::QObject;
+
+    bool eventFilter(QObject *obj, QEvent *e) override
+    {
+        auto *sb = qobject_cast<QScrollBar *>(obj);
+        if (!sb)
+            return false;
+
+        switch (e->type()) {
+        case QEvent::Enter:
+        case QEvent::HoverEnter:
+        case QEvent::HoverMove:
+            sb->setProperty("_d_dtk_slider_always_show", true);
+            sb->update();
+            break;
+        case QEvent::Leave:
+        case QEvent::HoverLeave:
+            sb->setProperty("_d_dtk_slider_always_show", false);
+            sb->update();
+            break;
+        default:
+            break;
+        }
+        return false;
+    }
+};
+}
 
 MainFrame::MainFrame(QWidget *parent)
     : DMainWindow(parent)
@@ -157,9 +194,10 @@ void MainFrame::init()
     pLeftLayout->setContentsMargins(10, 0, 10, 0);
 
     m_RightWidget = new QWidget;
-    m_NotaskWidget = new QWidget;
-    m_NotaskWidget->setAutoFillBackground(true);
+    m_NotaskWidget = new QWidget(m_RightWidget);
+    m_NotaskWidget->setAutoFillBackground(false);
     m_NotaskWidget->setPalette(p);
+    m_NotaskWidget->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     QVBoxLayout *pNotaskWidgetlayout = new QVBoxLayout(m_NotaskWidget);
     pNotaskWidgetlayout->setContentsMargins(10, 0, 0, 0);
@@ -173,6 +211,7 @@ void MainFrame::init()
     m_NotaskLabel->setText(tr("No download tasks"));
     m_NotaskLabel->setAlignment(Qt::AlignHCenter);
     m_NotaskLabel->setForegroundRole(DPalette::PlaceholderText);
+    pNotaskWidgetlayout->addStretch(1);
     pNotaskWidgetlayout->addWidget(m_NotaskLabel);
 
     //DFontSizeManager::instance()->bind(m_NotaskLabel, DFontSizeManager::T8, QFont::DemiBold);
@@ -184,7 +223,7 @@ void MainFrame::init()
     m_NotaskTipLabel->setAlignment(Qt::AlignHCenter);
     m_NotaskTipLabel->setForegroundRole(DPalette::PlaceholderText);
     pNotaskWidgetlayout->addWidget(m_NotaskTipLabel);
-    pNotaskWidgetlayout->addStretch(5);
+    pNotaskWidgetlayout->addStretch(1);
     QVBoxLayout *pRightLayout = new QVBoxLayout(m_RightWidget);
     pRightLayout->setContentsMargins(0, 0, 0, 0);
 
@@ -202,9 +241,9 @@ void MainFrame::init()
     TaskNumWidgetlayout->addWidget(m_TaskNum);
     m_RightStackwidget->addWidget(m_DownLoadingTableView);
     m_RightStackwidget->addWidget(m_RecycleTableView);
-    pRightLayout->addWidget(m_RightStackwidget);
-    pRightLayout->addWidget(m_NotaskWidget);
-    pRightLayout->addWidget(m_TaskNumWidget);
+    m_RightStackwidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    pRightLayout->addWidget(m_RightStackwidget, 1);
+    pRightLayout->addWidget(m_TaskNumWidget, 0);
     pRightLayout->setSpacing(0);
 
     pMainHLayout->addWidget(m_LeftWidget);
@@ -444,6 +483,15 @@ void MainFrame::initConnection()
     connect(m_RecycleTableView->getTableControl(), &TableDataControl::removeFinished, this, &MainFrame::onRemoveFinished);
     connect(m_RecycleTableView->getTableModel(), &TableModel::CheckChange, this, &MainFrame::onCheckChanged);
     connect(m_RecycleTableView, &TableView::doubleClicked, this, &MainFrame::onTableViewItemDoubleClicked);
+
+    auto updateNotask = [this]() {
+        QTimer::singleShot(0, this, &MainFrame::updateNotaskGeometry);
+    };
+    connect(m_DownLoadingTableView->horizontalScrollBar(), &QScrollBar::rangeChanged, this, updateNotask);
+    connect(m_RecycleTableView->horizontalScrollBar(), &QScrollBar::rangeChanged, this, updateNotask);
+    auto *hoverFilter = new TransientScrollBarHoverFilter(this);
+    m_DownLoadingTableView->horizontalScrollBar()->installEventFilter(hoverFilter);
+    m_RecycleTableView->horizontalScrollBar()->installEventFilter(hoverFilter);
 
     connect(this, &MainFrame::isHeaderChecked, m_DownLoadingTableView, &TableView::isCheckHeader);
     connect(this, &MainFrame::saveNameBeforChangeList, m_DownLoadingTableView, &TableView::onListchanged);
@@ -688,16 +736,44 @@ void MainFrame::setTaskNum()
 
     if (activeNum == 0) {
         m_NotaskWidget->show();
+        m_NotaskWidget->raise();
         if (m_CurrentTab == CurrentTab::downloadingTab) {
             m_NotaskTipLabel->show();
         } else {
             m_NotaskTipLabel->hide();
         }
+        QTimer::singleShot(0, this, &MainFrame::updateNotaskGeometry);
     } else {
         m_NotaskWidget->hide();
         m_NotaskTipLabel->hide();
     }
     m_TaskNum->setText(QString::number(activeNum) + tr(" files"));
+}
+
+void MainFrame::updateNotaskGeometry()
+{
+    if (!m_NotaskWidget || !m_NotaskWidget->isVisible())
+        return;
+
+    TableView *view = qobject_cast<TableView *>(m_RightStackwidget->currentWidget());
+    if (!view)
+        return;
+
+    const QPoint topLeft = view->viewport()->mapTo(m_RightWidget, QPoint(0, 0));
+    QRect geom(topLeft, view->viewport()->size());
+    const int sbExtent = view->style()->pixelMetric(QStyle::PM_ScrollBarExtent, nullptr, view->horizontalScrollBar());
+    if (sbExtent > 0)
+        geom.setHeight(qMax(0, geom.height() - sbExtent));
+    m_NotaskWidget->setGeometry(geom);
+    m_NotaskWidget->raise();
+    view->horizontalScrollBar()->update();
+    view->viewport()->update();
+}
+
+void MainFrame::resizeEvent(QResizeEvent *event)
+{
+    DMainWindow::resizeEvent(event);
+    QTimer::singleShot(0, this, &MainFrame::updateNotaskGeometry);
 }
 
 void MainFrame::setPaletteType()

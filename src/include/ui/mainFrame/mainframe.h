@@ -56,6 +56,7 @@ DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
 
 class QStackedWidget;
+class QResizeEvent;
 class QSystemTrayIcon;
 class QAction;
 class SettingsControlWidget;
@@ -446,6 +447,11 @@ private:
     void setTaskNum();
 
     /**
+     * @brief 更新空列表提示层的位置和大小
+    */
+    void updateNotaskGeometry();
+
+    /**
      * @brief 设置主题模式
     */
     void setPaletteType();
@@ -613,6 +619,12 @@ protected:
      */
     void paintEvent(QPaintEvent *event) override;
 
+    /**
+     * @brief 窗口大小变化事件
+     * @param event 事件类型
+     */
+    void resizeEvent(QResizeEvent *event) override;
+
 private:
     enum tableviewFlag {
         downloading,
@@ -623,7 +635,7 @@ private:
     TableView *m_DownLoadingTableView, *m_RecycleTableView;
     QWidget *m_LeftWidget;
     QWidget *m_RightWidget;
-    QWidget *m_NotaskWidget;
+    QWidget *m_NotaskWidget = nullptr;
     DLabel *m_NotaskLabel;
     DLabel *m_NotaskTipLabel;
     QStackedWidget *m_RightStackwidget;
