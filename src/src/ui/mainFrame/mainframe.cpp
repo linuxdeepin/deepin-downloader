@@ -2014,10 +2014,7 @@ void MainFrame::onRpcSuccess(QString method, QJsonObject json)
         QString tracker = obj.value("bt-tracker").toString();
         bool isHasDHT = false;
         if (obj.value("enable-dht").toString().contains("true")) {
-            QString dhtfile = obj.value("dht-file-path").toString();
-            if (QFileInfo::exists(dhtfile)) {
-                isHasDHT = true;
-            }
+            isHasDHT = true;
         }
         emit ariaOption(!tracker.isEmpty(), isHasDHT);
     }
