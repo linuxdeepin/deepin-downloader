@@ -447,6 +447,15 @@ private:
     void setTaskNum();
 
     /**
+     * @brief 下载中模式下设置排序指示器并执行排序
+     *
+     * 将虚拟排序列索引(5=Speed, 6=createTime)映射到实际可见列
+     * (3=状态/速度列, 1=文件名列)上显示排序箭头，
+     * 同时使用虚拟列索引调用 TableModel::sort 执行实际排序。
+     */
+    void applyDownloadingSortIndicator();
+
+    /**
      * @brief 更新空列表提示层的位置和大小
     */
     void updateNotaskGeometry();

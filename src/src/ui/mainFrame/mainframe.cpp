@@ -524,12 +524,8 @@ void MainFrame::initConnection()
     connect(Settings::getInstance(), &Settings::autoDownloadBySpeedChanged,
             this, &MainFrame::onAutoDownloadBySpeed);
     connect(Settings::getInstance(), &Settings::autoSortBySpeedChanged,
-            this, [=](bool state) {
-                if (state) {
-                    m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
-                } else {
-                    m_DownLoadingTableView->getTableHeader()->setSortIndicator(6, Qt::AscendingOrder);
-                }
+            this, [this](bool) {
+                applyDownloadingSortIndicator();
             });
 
     connect(m_TaskWidget, &CreateTaskWidget::downloadWidgetCreate, this, &MainFrame::onParseUrlList);
@@ -717,11 +713,7 @@ void MainFrame::initTabledata()
     }
     m_DownLoadingTableView->getTableModel()->switchDownloadingMode();
     m_DownLoadingTableView->refreshTableView(0);
-    if (Settings::getInstance()->getAutoSortBySpeed()) {
-        m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
-    } else {
-        m_DownLoadingTableView->getTableHeader()->setSortIndicator(6, Qt::AscendingOrder);
-    }
+    applyDownloadingSortIndicator();
     setTaskNum();
 }
 
@@ -748,6 +740,35 @@ void MainFrame::setTaskNum()
         m_NotaskTipLabel->hide();
     }
     m_TaskNum->setText(QString::number(activeNum) + tr(" files"));
+}
+
+void MainFrame::applyDownloadingSortIndicator()
+{
+    auto header = m_DownLoadingTableView->getTableHeader();
+    auto model = m_DownLoadingTableView->getTableModel();
+    bool sortBySpeed = Settings::getInstance()->getAutoSortBySpeed();
+
+    // TableModel::sortDownload() uses virtual column indices:
+    //   5 → Speed role, 6 → createTime role
+    // These indices exceed TableModel::columnCount() (which returns 5, i.e.
+    // columns 0–4), so passing them to QHeaderView::setSortIndicator() causes
+    // Qt to silently ignore the call — no arrow is shown and no sorting is
+    // triggered.  Map the virtual columns to actual visible columns instead:
+    //   Speed     → column 3 (status/progress/speed, visible in downloading mode)
+    //   createTime → column 1 (filename, visible in downloading mode)
+    int sortColumn = sortBySpeed ? 5 : 6;
+    int indicatorColumn = sortBySpeed ? 3 : 1;
+
+    // Block signals so setSortIndicator() does not emit sortIndicatorChanged,
+    // which would trigger an unwanted sort by the visible column's role
+    // (e.g. Status for column 3) via the QTableView sorting-enabled slot.
+    // The actual sort is performed below with the virtual column that
+    // sortDownload() expects.
+    header->blockSignals(true);
+    header->setSortIndicator(indicatorColumn, Qt::AscendingOrder);
+    header->blockSignals(false);
+
+    model->sort(sortColumn, Qt::AscendingOrder);
 }
 
 void MainFrame::updateNotaskGeometry()
@@ -995,11 +1016,7 @@ void MainFrame::onListClicked(const QModelIndex &index)
             m_DownLoadingTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         } else {
             m_NotaskLabel->setText(tr("No download tasks"));
-            if (Settings::getInstance()->getAutoSortBySpeed()) {
-                m_DownLoadingTableView->getTableHeader()->setSortIndicator(5, Qt::AscendingOrder);
-            } else {
-                m_DownLoadingTableView->getTableHeader()->setSortIndicator(6, Qt::AscendingOrder);
-            }
+            applyDownloadingSortIndicator();
         }
         m_RightStackwidget->setCurrentIndex(0);
     } else {
