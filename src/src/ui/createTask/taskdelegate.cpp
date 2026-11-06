@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -130,7 +130,7 @@ void TaskDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
 
         QString i = index.data(TaskModel::Name).toString();
-        QString text = painter->fontMetrics().elidedText(index.data(index.column()+1).toString(), Qt::ElideRight, option.rect.width() - 55);
+        QString text = painter->fontMetrics().elidedText(index.data(index.column()+1).toString(), Qt::ElideMiddle, option.rect.width() - 55);
         painter->drawText(option.rect.marginsRemoved(QMargins(55, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, text);
 
     } else if(index.column() == 1){
