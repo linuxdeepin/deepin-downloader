@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,6 +34,7 @@
 #include <DWidgetUtil>
 #include <DSwitchButton>
 #include <DApplicationSettings>
+#include <QFont>
 #include <QTranslator>
 #include <QClipboard>
 #include <QSharedMemory>
@@ -137,6 +138,20 @@ int main(int argc, char *argv[])
     // 保存程序的窗口主题设置
     DApplicationSettings as;
     Q_UNUSED(as)
+
+    // 放大 QToolTip 字体 50%，解决任务列表名称悬浮提示太小的问题
+    // 使用 QApplication::setFont 直接设置 QToolTip 字体，HTML 富文本方式在 DDE 环境下不生效
+    // 注意：setFont(tooltipFont, "QToolTip") 影响应用内所有 QToolTip 的字体
+    {
+        QFont tooltipFont = qApp->font("QToolTip");
+        int baseSize = tooltipFont.pointSize();
+        if (baseSize <= 0)
+            baseSize = qApp->font().pointSize();
+        if (baseSize <= 0)
+            baseSize = 9; // 合理的默认值
+        tooltipFont.setPointSize(qRound(baseSize * 1.5));
+        qApp->setFont(tooltipFont, "QToolTip");
+    }
     QDir dirCheck;
     QString LogPath = QString("%1/%2/%3/Log/")
                            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
