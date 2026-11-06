@@ -34,6 +34,8 @@
 #include <QString>
 #include <QStandardItemModel>
 #include <QMimeData>
+#include <QApplication>
+#include <QFont>
 
 #include "settings.h"
 #include <dpinyin.h>
@@ -359,11 +361,20 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 
     case Qt::ToolTipRole: {
         if (index.column() == 1) {
+            QString fileName;
             if (m_TableviewtabFlag == 0) {
-                return data->fileName;
+                fileName = data->fileName;
             } else {
-                return deldata->fileName;
+                fileName = deldata->fileName;
             }
+            // Enlarge tooltip font by 50% for better readability
+            const QFont tooltipFont = QApplication::font("QToolTip");
+            int enlargedSize = qRound(tooltipFont.pointSize() * 1.5);
+            if (enlargedSize <= 0)
+                enlargedSize = qRound(QApplication::font().pointSize() * 1.5);
+            return QString("<span style=\"font-size:%1pt;\">%2</span>")
+                    .arg(enlargedSize)
+                    .arg(fileName.toHtmlEscaped());
         }
         return QVariant();
     }
