@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -21,7 +21,8 @@ public:
     ~CTimeEdit();
     void setTime(QTime time);
     QTime getTime();
-    DLineEdit* dLineEdit();
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 private:
     void initUI();
     void initConnection();
@@ -29,8 +30,8 @@ private slots:
     void onIndexChanged(const QString & text);
 signals:
     void inputFinished(const QString & text);
+    void focusChanged(bool onFocus);
 private:
-    DLineEdit *m_timeEdit = nullptr;
     int m_type = 0; // 0 h,1 m
     int m_pos = 0;
     QTime m_time;

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -101,7 +101,7 @@ void BtInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->drawPixmap(option.rect.x() + 32, option.rect.y() + (option.rect.height() - 20)/2, pic);
 
         painter->setPen(Qt::darkGray);
-        QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideRight, option.rect.width() - 55);
+        QString text = painter->fontMetrics().elidedText(index.model()->data(index.model()->index(index.row(), 1)).toString(), Qt::ElideMiddle, option.rect.width() - 55);
         painter->drawText(option.rect.marginsRemoved(QMargins(55, 2, 0, 2)), Qt::AlignVCenter | Qt::AlignLeft, text);
     } else {
         painter->setPen(Qt::darkGray);
@@ -116,7 +116,7 @@ bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     if (index.column() == 0) {
         QRect rect(option.rect);
-        rect.setX(10);
+        rect.setX(option.rect.x() + 10);
         rect.setWidth(15);
         if (event->type() == QEvent::MouseButtonPress
             && mouseEvent->button() == Qt::LeftButton

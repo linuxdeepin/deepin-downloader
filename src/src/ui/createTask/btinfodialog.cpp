@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -215,7 +215,6 @@ void BtInfoDialog::initUI()
     hlyt->addWidget(m_checkPicture);
     hlyt->addWidget(m_checkAudio);
     hlyt->addWidget(m_checkOther);
-    hlyt->addWidget(m_checkAll);
     addContent(checkWidget);
 
     //下载路径所在分区剩余磁盘容量
@@ -413,20 +412,24 @@ void BtInfoDialog::onAllCheck()
 
 bool BtInfoDialog::isVideo(QString ext)
 {
-    QString types = "avi,mp4,mkv,flv,f4v,wmv,rmvb,rm,mpeg,mpg,mov,ts,m4v,vob";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "avi" << "mp4" << "mkv" << "flv" << "f4v" << "wmv"
+          << "rmvb" << "rm" << "mpeg" << "mpg" << "mov" << "ts" << "m4v" << "vob";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 bool BtInfoDialog::isAudio(QString ext)
 {
-    QString types = "mp3,ogg,wav,ape,flac,wma,midi,aac,cda";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "mp3" << "ogg" << "wav" << "ape" << "flac" << "wma" << "midi" << "aac" << "cda";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 bool BtInfoDialog::isPicture(QString ext)
 {
-    QString types = "jpg,jpeg,gif,png,bmp,svg,psd,tif,ico";
-    return types.indexOf(ext) != -1;
+    QStringList types;
+    types << "jpg" << "jpeg" << "gif" << "png" << "bmp" << "svg" << "psd" << "tif" << "ico";
+    return types.contains(ext,Qt::CaseInsensitive);
 }
 
 void BtInfoDialog::onVideoCheck()
