@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -739,12 +739,6 @@ void CreateTaskWidget::onAllCheck()
     long total = 0;
     int cnt = 0;
     for (int i = 0; i < m_model->rowCount(); i++) {
-        QString ext = m_model->data(m_model->index(i, 2),2).toString();
-        if (isVideo(ext)) {
-            if (m_model->data(m_model->index(i, 4),4).toString().toLong() > 0) {
-                m_model->setData(m_model->index(i, 0), state == Qt::Checked ? "1" : "0");
-            }
-        }
         if (m_model->data(m_model->index(i, 0),0).toString() == "1") {
             total += m_model->data(m_model->index(i, 4),4).toString().toLong();
             cnt++;

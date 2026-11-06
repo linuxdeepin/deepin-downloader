@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -127,8 +127,8 @@ void DownloadSettingWidget::initUI()
     m_endTimeEdit = new CTimeEdit(this);
     m_endTimeEdit->setAccessibleName("endTTimeEdit");
     m_endTimeEdit->setTime(QTime(18,00,00));
-    m_startTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_startTimeEdit->dLineEdit(), m_startTimeEdit->dLineEdit());
-    m_endTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_endTimeEdit->dLineEdit(), m_endTimeEdit->dLineEdit());
+    m_startTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_startTimeEdit, m_startTimeEdit);
+    m_endTimeAlertControl = new DTK_WIDGET_NAMESPACE::DAlertControl(m_endTimeEdit, m_endTimeEdit);
     //m_startTimeEdit->setDisplayFormat("h:mm");
     m_startTimeEdit->setMinimumWidth(160);
     //m_endTimeEdit->setDisplayFormat("h:mm");
@@ -172,6 +172,8 @@ void DownloadSettingWidget::initConnections()
     connect(m_endTimeEdit, &CTimeEdit::inputFinished, this, &DownloadSettingWidget::onTimeChanged);
     connect(m_maxDownloadSpeedLimit, &SettingInfoInputWidget::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
     connect(m_maxUploadSpeedLimit, &SettingInfoInputWidget::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
+    connect(m_startTimeEdit, &CTimeEdit::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
+    connect(m_endTimeEdit, &CTimeEdit::focusChanged, this, &DownloadSettingWidget::onFocusChanged);
 }
 
 void DownloadSettingWidget::onRadioButtonClicked()
@@ -185,6 +187,12 @@ void DownloadSettingWidget::onRadioButtonClicked()
         m_maxUploadSpeedLimit->setLineEditIsDisabled(true);
         m_startTimeEdit->setDisabled(true);
         m_endTimeEdit->setDisabled(true);
+
+        // 切换到全速下载时清除时间告警
+        m_startTimeAlertControl->setAlert(false);
+        m_startTimeAlertControl->hideAlertMessage();
+        m_endTimeAlertControl->setAlert(false);
+        m_endTimeAlertControl->hideAlertMessage();
 
         QString text = QString("fullspeed;%1;%2;%3;%4")
                            .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
@@ -200,6 +208,25 @@ void DownloadSettingWidget::onRadioButtonClicked()
         m_maxUploadSpeedLimit->setLineEditIsDisabled(false);
         m_startTimeEdit->setDisabled(false);
         m_endTimeEdit->setDisabled(false);
+
+        // 切换到限速下载时校验时间，不正确则显示红色告警
+        QTime startTime = QTime::fromString(m_startTimeEdit->currentText(), "hh:mm");
+        QTime endTime = QTime::fromString(m_endTimeEdit->currentText(), "hh:mm");
+        if (startTime < endTime) {
+            m_startTimeAlertControl->setAlert(false);
+            m_startTimeAlertControl->hideAlertMessage();
+            m_endTimeAlertControl->setAlert(false);
+            m_endTimeAlertControl->hideAlertMessage();
+        } else {
+            m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
+                                                     m_startTimeEdit, 2000);
+            m_startTimeAlertControl->setAlert(true);
+            m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
+            m_endTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
+                                                     m_endTimeEdit, 2000);
+            m_endTimeAlertControl->setAlert(true);
+            m_endTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
+        }
 
         QString text = QString("speedlimit;%1;%2;%3;%4")
                            .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
@@ -257,8 +284,14 @@ void DownloadSettingWidget::onTimeChanged(const QString &time)
         return;
     }
 
+    QTime changedTime = QTime::fromString(time, "hh:mm");
+
     if (m_startTimeEdit == timeEdit ) {
-        if(time < m_endTimeEdit->currentText()) {
+        QTime endTime = QTime::fromString(m_endTimeEdit->currentText(), "hh:mm");
+        if(changedTime < endTime) {
+            m_startTimeAlertControl->setAlert(false);
+            m_startTimeAlertControl->hideAlertMessage();
+
             QString text = QString("speedlimit;%1;%2;%3;%4")
                                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
                                .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
@@ -269,12 +302,16 @@ void DownloadSettingWidget::onTimeChanged(const QString &time)
         } else {
             qDebug() << "m_startTimeAlertControl";
             m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
-                                                     m_startTimeEdit->dLineEdit()->parentWidget()->parentWidget(), 2000);
-            m_startTimeEdit->dLineEdit()->setAlert(true);
+                                                     m_startTimeEdit, 2000);
+            m_startTimeAlertControl->setAlert(true);
             m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
         }
     } else if (m_endTimeEdit == timeEdit) {
-        if(time > m_startTimeEdit->currentText()) {
+        QTime startTime = QTime::fromString(m_startTimeEdit->currentText(), "hh:mm");
+        if(changedTime > startTime) {
+            m_endTimeAlertControl->setAlert(false);
+            m_endTimeAlertControl->hideAlertMessage();
+
             QString text = QString("speedlimit;%1;%2;%3;%4")
                                .arg(m_maxDownloadSpeedLimit->getLineEditText().toInt())
                                .arg(m_maxUploadSpeedLimit->getLineEditText().toInt())
@@ -283,10 +320,10 @@ void DownloadSettingWidget::onTimeChanged(const QString &time)
             emit speedLimitInfoChanged(text);
         } else {
             qDebug() << "m_endTimeAlertControl";
-            m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
-                                                     m_startTimeEdit->dLineEdit()->parentWidget()->parentWidget(), 2000);
-            m_startTimeEdit->dLineEdit()->setAlert(true);
-            m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
+            m_endTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
+                                                     m_endTimeEdit, 2000);
+            m_endTimeAlertControl->setAlert(true);
+            m_endTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
         }
     }
 }
@@ -346,20 +383,50 @@ void DownloadSettingWidget::onTextChanged(QString text)
 
 void DownloadSettingWidget::onFocusChanged(bool onFocus)
 {
-    SettingInfoInputWidget *settingInfoInputWidget = qobject_cast<SettingInfoInputWidget *>(sender());
+    QObject *senderObj = sender();
 
-    if (m_maxDownloadSpeedLimit == settingInfoInputWidget) {
+    if (m_maxDownloadSpeedLimit == senderObj) {
         if (!onFocus && m_maxDownloadSpeedLimit->getIsAlert()) {
             m_maxDownloadSpeedLimit->setLineEditAlert(false);
             m_downloadAlertControl->hideAlertMessage();
             m_maxDownloadSpeedLimit->setLineEditText(QString::number(100));
         }
 
-    } else if (m_maxUploadSpeedLimit == settingInfoInputWidget) {
+    } else if (m_maxUploadSpeedLimit == senderObj) {
         if (!onFocus && m_maxUploadSpeedLimit->getIsAlert()) {
             m_maxUploadSpeedLimit->setLineEditAlert(false);
             m_uploadAlertControl->hideAlertMessage();
             m_maxUploadSpeedLimit->setLineEditText(QString::number(16));
+        }
+    } else if (m_startTimeEdit == senderObj) {
+        // 仅在限速下载模式下校验时间告警
+        if (!onFocus && m_speedLimitDownloadButton->isChecked()) {
+            QTime startTime = QTime::fromString(m_startTimeEdit->currentText(), "hh:mm");
+            QTime endTime = QTime::fromString(m_endTimeEdit->currentText(), "hh:mm");
+            if (startTime < endTime) {
+                m_startTimeAlertControl->setAlert(false);
+                m_startTimeAlertControl->hideAlertMessage();
+            } else {
+                m_startTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
+                                                         m_startTimeEdit, 2000);
+                m_startTimeAlertControl->setAlert(true);
+                m_startTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
+            }
+        }
+    } else if (m_endTimeEdit == senderObj) {
+        // 仅在限速下载模式下校验时间告警
+        if (!onFocus && m_speedLimitDownloadButton->isChecked()) {
+            QTime startTime = QTime::fromString(m_startTimeEdit->currentText(), "hh:mm");
+            QTime endTime = QTime::fromString(m_endTimeEdit->currentText(), "hh:mm");
+            if (endTime > startTime) {
+                m_endTimeAlertControl->setAlert(false);
+                m_endTimeAlertControl->hideAlertMessage();
+            } else {
+                m_endTimeAlertControl->showAlertMessage(tr("The end time must be greater than the start time"),
+                                                         m_endTimeEdit, 2000);
+                m_endTimeAlertControl->setAlert(true);
+                m_endTimeAlertControl->setMessageAlignment(Qt::AlignBottom | Qt::AlignRight);
+            }
         }
     }
 }

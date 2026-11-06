@@ -116,7 +116,7 @@ bool BtInfoDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     if (index.column() == 0) {
         QRect rect(option.rect);
-        rect.setX(10);
+        rect.setX(option.rect.x() + 10);
         rect.setWidth(15);
         if (event->type() == QEvent::MouseButtonPress
             && mouseEvent->button() == Qt::LeftButton

@@ -160,7 +160,7 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
 
     if (index.column() == 0) {
         QRect rect(option.rect);
-        rect.setX(10);
+        rect.setX(option.rect.x() + 10);
         rect.setWidth(15);
         if (event->type() == QEvent::MouseButtonPress
             && mouseEvent->button() == Qt::LeftButton
@@ -169,7 +169,7 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
             model->setData(index, QVariant(v == "1" ? "0" : "1"), Qt::EditRole);
 
             ((CreateTaskWidget *)m_dialog)->updateSelectedInfo();
-            return false;
+            return true;
         } else if (event->type() == QEvent::MouseButtonDblClick
                    && !rect.contains(mouseEvent->pos())) {
             DLineEdit *pEdit = new DLineEdit();
@@ -177,7 +177,7 @@ bool TaskDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
         }
     }
 
-    return true;
+    return false;
 }
 
 QWidget *TaskDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
