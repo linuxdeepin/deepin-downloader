@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -355,6 +355,17 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
                 return deldata->deleteTime;
             }
         }
+    }
+
+    case Qt::ToolTipRole: {
+        if (index.column() == 1) {
+            if (m_TableviewtabFlag == 0) {
+                return data->fileName;
+            } else {
+                return deldata->fileName;
+            }
+        }
+        return QVariant();
     }
 
     case TableModel::Ischecked: {
