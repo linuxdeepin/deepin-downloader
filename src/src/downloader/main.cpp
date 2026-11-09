@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,6 +34,9 @@
 #include <DWidgetUtil>
 #include <DSwitchButton>
 #include <DApplicationSettings>
+#include <QFont>
+#include <QToolTip>
+#include <QTimer>
 #include <QTranslator>
 #include <QClipboard>
 #include <QSharedMemory>
@@ -137,6 +140,58 @@ int main(int argc, char *argv[])
     // 保存程序的窗口主题设置
     DApplicationSettings as;
     Q_UNUSED(as)
+
+    // 放大 QToolTip 字体，解决任务列表名称悬浮提示太小的问题
+    // 使用 1.5 倍（50% 放大），通过 QToolTip::setFont() 设置 QTipLabel 字体
+    // 同时处理 pointSize 和 pixelSize 两种情况（DDE 主题可能使用 pixelSize）
+    // 注意：Qt 5.11 的 tooltip 窗口类名是 QTipLabel，字体 role 是 "QTipLabel"；
+    //       必须用 QToolTip::setFont()（内部即 setFont(..., "QTipLabel")），
+    //       不能用 setFont(font, "QToolTip")——该 class 名不存在，放大不生效。
+    // 注意：不能使用 qApp->setStyleSheet 设置 tooltip 字体，实测会导致 setFont 被重置
+    {
+        // 存储初始字体大小，用于后续重新应用时避免叠加放大
+        static int s_basePointSize = QToolTip::font().pointSize();
+        static int s_basePixelSize = QToolTip::font().pixelSize();
+
+        auto enlargeTooltipFont = []() {
+            QFont tooltipFont = QToolTip::font();
+            int basePointSize = s_basePointSize;
+            int basePixelSize = s_basePixelSize;
+
+            if (basePointSize > 0) {
+                // 字体使用 pointSize，放大 1.5 倍
+                tooltipFont.setPointSize(qRound(basePointSize * 1.5));
+            } else if (basePixelSize > 0) {
+                // DDE 主题使用 pixelSize，放大 1.5 倍
+                tooltipFont.setPixelSize(qRound(basePixelSize * 1.5));
+            } else {
+                // 回退到应用默认字体
+                int appPointSize = qApp->font().pointSize();
+                int appPixelSize = qApp->font().pixelSize();
+                if (appPointSize > 0) {
+                    tooltipFont.setPointSize(qRound(appPointSize * 1.5));
+                } else if (appPixelSize > 0) {
+                    tooltipFont.setPixelSize(qRound(appPixelSize * 1.5));
+                } else {
+                    // 最终回退：设置固定像素大小
+                    tooltipFont.setPixelSize(18);
+                }
+            }
+            QToolTip::setFont(tooltipFont);
+
+            qDebug() << "[ToolTipFont] QToolTip basePointSize=" << basePointSize
+                     << "basePixelSize=" << basePixelSize
+                     << "newPointSize=" << tooltipFont.pointSize()
+                     << "newPixelSize=" << tooltipFont.pixelSize();
+        };
+
+        // 立即应用
+        enlargeTooltipFont();
+
+        // 在事件循环启动后重新应用（防止 DDE 主题/样式在运行时覆盖 setFont）
+        // 使用存储的初始大小计算，避免叠加放大
+        QTimer::singleShot(0, qApp, enlargeTooltipFont);
+    }
     QDir dirCheck;
     QString LogPath = QString("%1/%2/%3/Log/")
                            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
