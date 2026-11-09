@@ -44,6 +44,7 @@
 #include <QMimeDatabase>
 #include <QDesktopWidget>
 #include <QFont>
+#include <QScrollBar>
 #include "btinfodialog.h"
 #include "messagebox.h"
 #include "btinfotableview.h"
@@ -54,6 +55,42 @@
 #include "../database/dbinstance.h"
 #include "aria2rpcinterface.h"
 #include "taskModel.h"
+
+namespace {
+// 与 mainframe.cpp 中 TransientScrollBarHoverFilter 行为一致：
+// 鼠标进入 QScrollBar 时设置 _d_dtk_slider_always_show = true 强制显示滑块；
+// 鼠标离开时设置 false，交由 chameleon style 的 hideScrollBarByAnimation
+// 动画逻辑实现渐进式淡出消失。
+class TransientScrollBarHoverFilter : public QObject
+{
+public:
+    using QObject::QObject;
+
+    bool eventFilter(QObject *obj, QEvent *e) override
+    {
+        auto *sb = qobject_cast<QScrollBar *>(obj);
+        if (!sb)
+            return false;
+
+        switch (e->type()) {
+        case QEvent::Enter:
+        case QEvent::HoverEnter:
+        case QEvent::HoverMove:
+            sb->setProperty("_d_dtk_slider_always_show", true);
+            sb->update();
+            break;
+        case QEvent::Leave:
+        case QEvent::HoverLeave:
+            sb->setProperty("_d_dtk_slider_always_show", false);
+            sb->update();
+            break;
+        default:
+            break;
+        }
+        return false;
+    }
+};
+}
 
 CreateTaskWidget::CreateTaskWidget(QWidget *parent)
     : DDialog(parent)
@@ -98,22 +135,14 @@ void CreateTaskWidget::initUi()
     QIcon tryIcon(QIcon::fromTheme(":/icons/icon/downloader2.svg"));
     setIcon(tryIcon);
     setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
-    //setTitle(tr("New Task"));
+    setTitle(tr("New Task"));
 
     QFont font;
     font.setFamily("Source Han Sans");
 
-    DLabel *msgTitle = new DLabel(this);
-    QString titleMsg = tr("New Task");
-
-    msgTitle->setText(titleMsg);
-    msgTitle->setAccessibleName("newTask");
-    msgTitle->setFont(font);
-    addContent(msgTitle, Qt::AlignHCenter);
-    QString msg = tr("Please enter one URL per line");
     addSpacing(10);
     DLabel *msgLab = new DLabel(this);
-    msgLab->setText(msg);
+    msgLab->setText(tr("Please enter one URL per line"));
     msgLab->setFont(font);
     addContent(msgLab, Qt::AlignHCenter);
     addSpacing(10);
@@ -135,8 +164,11 @@ void CreateTaskWidget::initUi()
     // m_texturl->document()->setMaximumBlockCount(60);
     connect(m_texturl, &DTextEdit::textChanged, this, &CreateTaskWidget::onTextChanged);
    // connect(m_texturl, &D, this, &CreateTaskWidget::onTextChanged);
-    QPalette pal;
-    pal.setColor(QPalette::Base, QColor(0, 0, 0, 20));
+    // Set QPalette::Base to transparent so the DTK Chameleon style's
+    // drawBorder() does not render the inner white line inside the blue
+    // focus border (only the outer blue focus border should be visible).
+    QPalette pal = m_texturl->palette();
+    pal.setColor(QPalette::Base, Qt::transparent);
     m_texturl->setPalette(pal);
     addContent(m_texturl);
     addSpacing(10);
@@ -196,6 +228,14 @@ void CreateTaskWidget::initUi()
     DFontSizeManager::instance()->bind(m_tableView, DFontSizeManager::SizeType::T6, 0);
     connect(m_tableView, &BtInfoTableView::hoverChanged, m_delegate, &TaskDelegate::onhoverChanged);
     addContent(m_tableView);
+
+    // 使用 TransientScrollBarHoverFilter 实现滚动条滑块的悬停显示与渐进式淡出，
+    // 与 mainframe.cpp 中的行为保持一致。
+    auto *hoverFilter = new TransientScrollBarHoverFilter(this);
+    m_texturl->verticalScrollBar()->installEventFilter(hoverFilter);
+    m_texturl->horizontalScrollBar()->installEventFilter(hoverFilter);
+    m_tableView->verticalScrollBar()->installEventFilter(hoverFilter);
+    m_tableView->horizontalScrollBar()->installEventFilter(hoverFilter);
 
     QWidget *labelWidget = new QWidget(this);
     QHBoxLayout *hllyt = new QHBoxLayout(labelWidget);
