@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -56,6 +56,11 @@ protected:
      * @brief 更新位置
      */
     void updateGeometries();
+
+    /**
+     * @brief 拦截第 0 列（勾选框列）的鼠标点击，阻止排序信号
+     */
+    void mousePressEvent(QMouseEvent *e) override;
 
 private:
     DCheckBox *m_headerCbx;

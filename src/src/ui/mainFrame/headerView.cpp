@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -31,6 +31,7 @@
 
 #include "headerView.h"
 #include <QDebug>
+#include <QMouseEvent>
 
 DownloadHeaderView::DownloadHeaderView(Qt::Orientation orientation, QWidget *parent)
     : QHeaderView(orientation, parent)
@@ -75,6 +76,14 @@ void DownloadHeaderView::updateGeometries()
     m_headerCbx->resize(this->height()-2, this->height()-2);
     m_headerCbx->move(sectionPosition(0) + 5, 1);
     QHeaderView::updateGeometries();
+}
+
+void DownloadHeaderView::mousePressEvent(QMouseEvent *e)
+{
+    if (logicalIndexAt(e->pos()) == 0) {
+        return;
+    }
+    QHeaderView::mousePressEvent(e);
 }
 
 void DownloadHeaderView::onHeaderChecked(bool checked)
