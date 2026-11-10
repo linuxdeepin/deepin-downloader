@@ -702,7 +702,6 @@ function onHeadersReceived(details) {
         }
 
         if(isSupportMediaExt(c)) {
-            console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
             isSelfCreate = false
             chrome.downloads.download({
@@ -713,7 +712,6 @@ function onHeadersReceived(details) {
 
         var h = o.headers["content-type"];
         if (isSupportContentType(h)) {
-            console.log("SupportMediaExt : " + c)
             chrome.downloads.setShelfEnabled(true);
             isSelfCreate = false
             chrome.downloads.download({
