@@ -42,6 +42,7 @@
 #include <QPaintEvent>
 #include <QPainterPath>
 #include <QScrollArea>
+#include <QSvgRenderer>
 #include "global.h"
 #include "func.h"
 #include "aria2rpcinterface.h"
@@ -367,9 +368,48 @@ void DiagnosticDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     switch (index.column()) {
     case 0: {
-        QPixmap pic = index.data(Qt::DisplayRole).toString();
-        QRect rect = QRect(option.rect.x() + 10, option.rect.y() + 2 + (option.rect.height() - pic.height())/2.f, pic.width(), pic.height());
-        painter->drawPixmap(rect, pic);
+        // Supersampling anti-aliasing: render the SVG at 4x its default
+        // size with antialiasing enabled, then downscale to the target
+        // display size with SmoothTransformation (bilinear filtering).
+        //
+        // The previous fix only multiplied the render size by
+        // devicePixelRatioF(), which is a no-op when DPR is 1.0 (the
+        // common case on standard displays) — the SVG was rasterized at
+        // the same 24x24 / 26x23 resolution as the original QPixmap
+        // constructor, so edges were equally jagged before and after.
+        //
+        // Supersampling works at any DPR: the 4x render gives curved and
+        // diagonal edges far more pixels to work with, and bilinear
+        // downscaling averages them into smooth anti-aliased edges.
+        QString iconPath = index.data(Qt::DisplayRole).toString();
+        QSvgRenderer renderer(iconPath);
+        if (!renderer.isValid())
+            break;
+        const QSize svgSize = renderer.defaultSize();
+        const qreal dpr = painter->device()->devicePixelRatioF();
+
+        // Render at 4x resolution for supersampling
+        const int ssFactor = 4;
+        QPixmap hiRes(svgSize.width() * ssFactor, svgSize.height() * ssFactor);
+        hiRes.fill(Qt::transparent);
+        QPainter svgPainter(&hiRes);
+        svgPainter.setRenderHint(QPainter::Antialiasing, true);
+        svgPainter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+        renderer.render(&svgPainter);
+        svgPainter.end();
+
+        // Downscale to target physical size with smooth transformation
+        const int physW = static_cast<int>(svgSize.width() * dpr);
+        const int physH = static_cast<int>(svgSize.height() * dpr);
+        QPixmap pix = hiRes.scaled(physW, physH,
+                                   Qt::KeepAspectRatio,
+                                   Qt::SmoothTransformation);
+        pix.setDevicePixelRatio(dpr);
+
+        int x = option.rect.x() + 10;
+        int y = option.rect.y() + 2 + (option.rect.height() - svgSize.height()) / 2;
+        painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
+        painter->drawPixmap(x, y, pix);
     } break;
     case 1: {
         QRect rect = option.rect;

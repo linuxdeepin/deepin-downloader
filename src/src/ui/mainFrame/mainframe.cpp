@@ -979,7 +979,6 @@ void MainFrame::onListClicked(const QModelIndex &index)
         return;
     }
     m_CurrentTab = static_cast<CurrentTab>(index.row());
-    clearTableItemCheckStatus();
     emit saveNameBeforChangeList();
     m_ToolBar->enablePauseBtn(false);
     m_ToolBar->enableStartBtn(false);
@@ -1008,6 +1007,9 @@ void MainFrame::onListClicked(const QModelIndex &index)
         m_RecycleTableView->getTableHeader()->setSortIndicator(4, Qt::AscendingOrder);
         m_RightStackwidget->setCurrentIndex(1);
     }
+    // Clear check status after refreshTableView() so the clear operation
+    // acts on the target tab's correct renderList
+    clearTableItemCheckStatus();
     emit tableChanged(index.row());
 }
 
@@ -1304,6 +1306,17 @@ void MainFrame::continueDownload(DownloadDataItem *pItem)
 
 void MainFrame::onContextMenu(const QPoint &pos)
 {
+    // Right-click on blank area (no item under cursor): do not show context menu.
+    // This preserves the current selection instead of popping up the menu when
+    // items are already selected (PMS 196727).
+    if (m_CurrentTab == recycleTab) {
+        if (!m_RecycleTableView->indexAt(pos).isValid())
+            return;
+    } else {
+        if (!m_DownLoadingTableView->indexAt(pos).isValid())
+            return;
+    }
+
     if (m_CurrentTab == recycleTab) {
         QModelIndex index = m_RecycleTableView->indexAt(pos);
         if (index.isValid()) {

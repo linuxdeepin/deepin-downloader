@@ -92,7 +92,11 @@ void TableView::initUI()
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-    setAlternatingRowColors(true);
+    // Alternating row backgrounds are handled entirely by ItemDelegate::paint()
+    // (odd/even overlays). Disabling Qt's built-in alternating colors ensures
+    // all rows share the same base() background, so column 0 (checkbox) can be
+    // made visually consistent by always applying the even-row overlay.
+    setAlternatingRowColors(false);
     setShowGrid(false);
 
     setSelectionMode(QAbstractItemView::SingleSelection);
@@ -165,16 +169,15 @@ DownloadHeaderView *TableView::getTableHeader()
 void TableView::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
+        QModelIndex index = indexAt(event->pos());
+        if (!index.isValid()) {
+            // Blank area click: preserve current selection, do not deselect (PMS 196727)
+            return;
+        }
         //setCurrentIndex(QModelIndex());
         QTableView::mousePressEvent(event);
-        QModelIndex index = indexAt(event->pos());
         this->reset();
-        if ((index.row() < 0) && (index.column() < 0)) {
-            currentChanged(m_PreviousIndex.sibling(m_PreviousIndex.row(), 0), m_PreviousIndex);
-            //return;
-        } else {
-            m_PreviousIndex = index;
-        }
+        m_PreviousIndex = index;
     }
 }
 
@@ -189,9 +192,10 @@ void TableView::mouseReleaseEvent(QMouseEvent *event)
     QModelIndex index = indexAt(event->pos());
 
     if ((index.row() < 0) && (index.column() < 0)) {
-        emit HeaderStatechanged(false);
-        emit isCheckHeader(false);
-        //return;
+        // Blank area release: do not emit HeaderStatechanged(false) or isCheckHeader(false),
+        // which would clear all item selections (PMS 196727)
+        QTableView::mouseReleaseEvent(event);
+        return;
     }
     //reset();
     QTableView::mouseReleaseEvent(event);

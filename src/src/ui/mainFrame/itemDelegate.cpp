@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -79,21 +79,26 @@ ItemDelegate::~ItemDelegate()
 
 void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    const int column(index.column());
     if (index.row() == m_hoverRow) {
         painter->fillRect(option.rect, Dtk::Gui::DGuiApplicationHelper::instance()->applicationPalette().frameBorder());
             // QColor(0,0,0,13)QColor(255,255,255,26)
     }
-    if (index.row() % 2 != 0) {
-        painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8)));
-    } else {
+    // Column 0 (checkbox column): always use the even-row background overlay
+    // so the first column is visually consistent across all rows.
+    // Columns 1~4: apply alternating odd/even row backgrounds.
+    // With setAlternatingRowColors(false) in TableView, all rows share the same
+    // base() background; the delegate's overlays create the alternating effect.
+    if (column == 0 || index.row() % 2 == 0) {
         if(DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType){
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 150)));
         } else {
             painter->fillRect(option.rect, QBrush(QColor(255, 255, 255, 10)));
         }
+    } else {
+        painter->fillRect(option.rect, QBrush(QColor(0, 0, 0, 8)));
     }
     const QRect rect(option.rect);
-    const int column(index.column());
     const bool isSelected = index.data(TableModel::Ischecked).toBool(); //option.state & QStyle::State_Selected;
 
     QFont font;
