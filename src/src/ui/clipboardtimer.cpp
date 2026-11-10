@@ -39,6 +39,7 @@
 #include <QJsonObject>
 #include <QProcess>
 #include "func.h"
+#include "config.h"
 
 ClipboardTimer::ClipboardTimer(QObject *parent)
     : QObject(parent)
@@ -200,9 +201,13 @@ QStringList ClipboardTimer::getTypeList()
                        .arg(qApp->organizationName())
                        .arg(qApp->applicationName());
     QFile file(configPath);
-    if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open failed!";
-        return QStringList();
+    if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "User config open failed, trying system fallback";
+        file.setFileName(CONTENT_HTTP_ADVANCED_PATH);
+        if(!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "System config open failed, returning empty list";
+            return QStringList();
+        }
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
@@ -231,9 +236,13 @@ QStringList ClipboardTimer::getWebList()
                        .arg(qApp->organizationName())
                        .arg(qApp->applicationName());
     QFile file(configPath);
-    if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open failed!";
-        return QStringList();
+    if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "User config open failed, trying system fallback";
+        file.setFileName(CONTENT_HTTP_ADVANCED_PATH);
+        if(!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "System config open failed, returning empty list";
+            return QStringList();
+        }
     }
     QJsonDocument jdc(QJsonDocument::fromJson(file.readAll()));
     QJsonObject obj = jdc.object();
