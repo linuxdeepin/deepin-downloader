@@ -57,6 +57,11 @@ protected:
      */
     void updateGeometries();
 
+    /**
+     * @brief 拦截第 0 列（勾选框列）的鼠标点击，阻止排序信号
+     */
+    void mousePressEvent(QMouseEvent *e) override;
+
 private:
     DCheckBox *m_headerCbx;
 signals:

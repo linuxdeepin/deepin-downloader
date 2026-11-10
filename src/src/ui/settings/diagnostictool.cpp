@@ -178,7 +178,6 @@ void DiagnosticTool::startDiagnostic()
 {
     Aria2RPCInterface::instance()->getGlobalOption();
     m_Button->setEnabled(false);
-    //m_Model->appendData(Func::isIpv6Connect());
     m_Tableview->update();
     m_dhtRowAdded = false;
     QTimer::singleShot(200, this, [=]() {

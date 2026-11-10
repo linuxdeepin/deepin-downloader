@@ -90,6 +90,7 @@ public:
     ~DiagnosticModel();
 
     void appendData(bool b);
+    void insertData(int row, bool value);
 
     void insertData(int row, bool value);
 

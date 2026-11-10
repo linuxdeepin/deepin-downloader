@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -142,6 +142,7 @@ bool Aria2RPCInterface::startUp()
     opt += " --save-session-interval=" + saveSessionInterval;
     opt += " --enable-dht=true"; //启动dht文件
     opt += " --enable-dht6=false"; //禁用dht6文件
+    opt += " --dht-file-path=" + QDir::homePath() + "/.config/uos/downloader/dht.dat"; //指定DHT路由表文件路径
     opt += " --follow-metalink=false";
     if(QSysInfo::currentCpuArchitecture() == "loongarch64"){
         opt += " --async-dns=false";
