@@ -2992,6 +2992,12 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
     onCheckChanged(0, 0);
     m_ToolBar->clearSearchText();
     pWidget->hide();
+
+    if (tab.contains("Downloading") || tab.contains("Completed")) {
+        m_DownLoadingTableView->setFocus();
+    } else if (tab.contains("Trash")) {
+        m_RecycleTableView->setFocus();
+    }
 }
 
 bool MainFrame::isAutoStart()
