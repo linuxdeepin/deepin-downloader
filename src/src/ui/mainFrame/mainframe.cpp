@@ -3290,11 +3290,12 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(0, 0));
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
         int position = m_DownLoadingTableView->getTableModel()->renderList().indexOf(pItem, 0);
-        if (pItem != nullptr) {
+        if (pItem != nullptr && position >= 0) {
             pItem->isChecked = true;
             QModelIndex index = m_DownLoadingTableView->getTableModel()->index(position, 0);
             m_DownLoadingTableView->setCurrentIndex(index);
             m_DownLoadingTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
+            m_DownLoadingTableView->setFocus();
         }
     } else if (tab.contains("Completed")) {
         qCDebug(downloaderLog) << "tab is Completed";
@@ -3302,11 +3303,12 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(1, 0));
         DownloadDataItem *pItem = m_DownLoadingTableView->getTableModel()->find(taskId);
         int position = m_DownLoadingTableView->getTableModel()->renderList().indexOf(pItem, 0);
-        if (pItem != nullptr) {
+        if (pItem != nullptr && position >= 0) {
             pItem->isChecked = true;
             QModelIndex index = m_DownLoadingTableView->getTableModel()->index(position, 0);
             m_DownLoadingTableView->setCurrentIndex(index);
             m_DownLoadingTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
+            m_DownLoadingTableView->setFocus();
         }
     } else if (tab.contains("Trash")) {
         qCDebug(downloaderLog) << "tab is Trash";
@@ -3314,11 +3316,12 @@ void MainFrame::onSearchItemClicked(QListWidgetItem *item)
         m_LeftList->setCurrentIndex(m_LeftList->model()->index(2, 0));
         DeleteDataItem *pItem = m_RecycleTableView->getTableModel()->find(taskId, 2);
         int position = m_RecycleTableView->getTableModel()->recyleList().indexOf(pItem, 0);
-        if (pItem != nullptr) {
+        if (pItem != nullptr && position >= 0) {
             pItem->isChecked = true;
             QModelIndex index = m_RecycleTableView->getTableModel()->index(position, 0);
             m_RecycleTableView->setCurrentIndex(index);
             m_RecycleTableView->scrollTo(index, QAbstractItemView::PositionAtTop);
+            m_RecycleTableView->setFocus();
             onCheckChanged(0, 0);
         }
     }
