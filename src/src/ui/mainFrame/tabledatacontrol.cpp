@@ -747,13 +747,22 @@ void TableDataControl::dealNotificaitonSettings(QString statusStr, QString fileN
         qCDebug(downloaderLog) << "downloadInfoNotify is false";
         return;
     }
-    QDBusInterface tInterNotify("com.deepin.dde.Notification",
-                                "/com/deepin/dde/Notification",
-                                "com.deepin.dde.Notification",
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    constexpr const char *notificationService = "org.deepin.dde.Notification1";
+    constexpr const char *notificationPath = "/org/deepin/dde/Notification1";
+    constexpr const char *notificationInterface = "org.deepin.dde.Notification1";
+    constexpr uint notificationReplacesId = 0;
+#else
+    constexpr const char *notificationService = "com.deepin.dde.Notification";
+    constexpr const char *notificationPath = "/com/deepin/dde/Notification";
+    constexpr const char *notificationInterface = "com.deepin.dde.Notification";
+    constexpr uint notificationReplacesId = 101;
+#endif
+    QDBusInterface tInterNotify(notificationService, notificationPath, notificationInterface,
                                 QDBusConnection::sessionBus());
     QList<QVariant> arg;
     QString in0("downloader"); //下载器
-    uint in1 = 101;
+    uint in1 = notificationReplacesId;
     QString in2 = "downloader";
     QString in3;
     QString in4;
