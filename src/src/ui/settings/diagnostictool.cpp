@@ -54,6 +54,8 @@ DiagnosticTool::DiagnosticTool(QWidget *parent)
     : DDialog(parent)
     , m_Tableview(new QTableView)
     , m_Model(new DiagnosticModel)
+    , m_IsHasTracks(false)
+    , m_IsHasDHT(false)
 {
     qCDebug(downloaderLog) << "DiagnosticTool created";
     initUI();
