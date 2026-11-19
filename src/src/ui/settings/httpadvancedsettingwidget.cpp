@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -80,19 +80,23 @@ void HttpAdvancedSettingWidget::initUI()
     list<<suffixBtn<< webBtn;
     m_btnBox->setButtonList(list,true);
     addContent(m_btnBox, Qt::AlignHCenter);
-    addSpacing(10);
+    addSpacing(13);
 
     m_textEdit = new DTextEdit(this);
     m_textEdit->setFont(font);
+    m_textEdit->setFrameShape(QFrame::NoFrame);
+    QPalette textEditPal = m_textEdit->palette();
+    textEditPal.setColor(QPalette::Base, Qt::transparent);
+    m_textEdit->setPalette(textEditPal);
     addContent(m_textEdit);
-    addSpacing(8);
+    addSpacing(5);
 
     m_defaultBtn = new DCommandLinkButton(tr("Restore"), this);
     m_defaultBtn->setAccessibleName("httpadvanceRestore");
     connect(m_defaultBtn,&DCommandLinkButton::clicked, this, &HttpAdvancedSettingWidget::onRstoreDefaultClicked);
     m_defaultBtn->setFont(font);
     addContent(m_defaultBtn,  Qt::AlignRight);
-    addSpacing(20);
+    addSpacing(5);
 
     QWidget *w = new QWidget(this);
     w->setAccessibleName("httpadvanceWidget");
@@ -109,7 +113,7 @@ void HttpAdvancedSettingWidget::initUI()
     sure->setFont(font);
 
     QHBoxLayout * hblyt = new QHBoxLayout(w);
-    hblyt->setContentsMargins(0,0,0,0);
+    hblyt->setContentsMargins(0,0,0,3);
     hblyt->addWidget(cancel);
     hblyt->addSpacing(20);
     hblyt->addWidget(sure);
